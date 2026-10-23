@@ -118,3 +118,93 @@ SPEC.update({
                     # ⚠️ qa_all の layout：off=(40, -120)・字 30 では右の端が 1894（上限 1848）＝左へ寄せて字を 28 に
                     tag=dict(t="水が押し出され、黒鉛が入る", at="lo", off=(-30, -130), cap=28, delay=2.0))]))),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-23）：図解＝`tools/mech24.py`（fig=("m24", …)・門番 check_mech の judge_m24）。🔴 色は報告の色・画面の字の数は全部 rel に
+#   🔴 段の数＝語りの行の数（聞き役の問いの行は dict()）。暦の相方 c911＝月の升目（c216 の5枚の暦と別の絵）・並べ c918＝演台（cc08 と別の絵）
+#   🔴 c922＝2本の物差しを縦と横に分ける（100倍は定格の・3.5〜80倍ははじめの出力の＝同じ目盛りに並べない＝映像方針 §2）・c926＝語りの4つのまま
+# ══════════════════════════════════════════════════════════
+from mech24 import rr  # noqa: E402
+
+SPEC.update({
+    # c902（2行）＝1行目：棒の本体＝中性子を吸う物／2行目：その下に黒鉛の押しのけ棒（S1 p14）
+    "c902": dict(
+        t="上と下で違う素材", s="本体と、その下",
+        fig=("m24", dict(view="rodparts", steps=[dict(state=dict(abs="on")), dict(state=dict(disp="on"))],
+                         rel=[], note="棒の形は模式（長さは比べない）", src=ss.src(["S1 p14"])))),
+    # c903（3行）＝1行目：押しのけ棒 4.5m／2行目：炉の高さ 7m・上と下に 1.25m ずつ／3行目：水だけの部分（S1 p14・p16・図1）
+    "c903": dict(
+        t="黒鉛は炉の真ん中に", s="上と下に残る水",
+        fig=("m24", dict(view="len7", steps=[dict(state=dict(disp="on")), dict(state=dict(core="on")), dict(state=dict(water="on"))],
+                         rel=[dict(t="4.5m", src="S1 p15（図1＝450cm）"), dict(t="炉の高さ 7m", src="S1 p16"), dict(t="1.25m", src="S1 p14")],
+                         note="模式（長さは原文の値に比例）", src=ss.src(["S1 p14", "S1 p15", "S1 p16"])))),
+    # c906（2行）＝1行目：炉の下の方が赤＝水が減って反応がかえって強まる／2行目：止めるための棒が入り始めに逆の働き（S1 p14・p53）
+    "c906": dict(
+        t="下の方だけ強まる", s="棒が入り始めたとき",
+        fig=("m24", dict(view="lowred", steps=[dict(state=dict(low="on")), dict(state=dict(rev="on"))],
+                         rel=[], note="色の分け方は模式", src=ss.src(["S1 p14", "S1 p53"])))),
+    # c908（2行）＝1行目：18秒の砂時計／2行目：事故のあと12秒に（とされる）（S1 p14・p37）
+    "c908": dict(
+        t="遅かった棒", s="事故のあとの改め",
+        fig=("m24", dict(view="sand", steps=[dict(state=dict(t18="on")), dict(state=dict(t12="on"))],
+                         rel=[dict(t="18秒", src="S1 p14"), dict(t="12秒", src="S1 p37")],
+                         note="砂時計は模式（高さは秒に比例）", src=ss.src(["S1 p14", "S1 p37"])))),
+    # c909（2行）＝1行目：30本ぶん・15本ぶん・1991年の委員会／2行目：7本ぶん＝最初の8秒は強まる（S1 p49）
+    "c909": dict(
+        t="残した棒と効き方", s="ボタンを押したあと",
+        fig=("m24", dict(view="lines3", steps=[dict(state=dict(two="on")), dict(state=dict(seven="on"))],
+                         rel=[dict(t="30本ぶん・15本ぶん・7本ぶん", src="S1 p49"), dict(t="最初の8秒", src="S1 p49")] + rr("c91"),
+                         note="線の形は模式（8秒の位置だけ時間に比例）", src=ss.src(["S1 p49"])))),
+    # c911（3行）＝1行目は聞き役（升目と 1986年4月）／2行目：1983年の11月と12月・1991年の委員会／3行目：起動の試験の中で見つかった（S1 p53）
+    "c911": dict(
+        t="事故の前から", s="欠陥が見つかった時期",
+        fig=("m24", dict(view="months", steps=[dict(), dict(state=dict(found="on")), dict(state=dict(test="on"))],
+                         rel=[dict(t="1983年11月・12月", src="S1 p53"), dict(t="1984年・1985年", src="暦（あいだの年）"),
+                              dict(t="1986年4月", src="S1 p63")] + rr("c91"),
+                         note="升目1つが1か月", src=ss.src(["S1 p53"])))),
+    # c913（2行）＝1行目：1992年の報告（本文）＝イグナリナだけ／2行目：1991年の委員会＝イグナリナとこの4号炉（S1 p23・p53）
+    "c913": dict(
+        t="名を挙げたのはどちらか", s="本文と付属書の書き方",
+        fig=("m24", dict(view="names2", steps=[dict(state=dict(r92="on")), dict(state=dict(c91="on"))],
+                         rel=[dict(t="チェルノブイリ4号機", src="S1 p53")] + rr("r92", "c91"),
+                         note="表の作り（✓＝その報告が挙げた）", src=ss.src(["S1 p23", "S1 p53"])))),
+    # c915（2行）＝1行目：棒の形を変える・抜き切る棒の数を限る・など＝1991年の委員会／2行目：どれも「実行されず」（S1 p54）
+    "c915": dict(
+        t="出ていた対策", s="手つかずのまま",
+        fig=("m24", dict(view="ideas", steps=[dict(state=dict(cards="on")), dict(state=dict(none="on"))],
+                         rel=rr("c91"), note="札の言葉は要約（模式）", src=ss.src(["S1 p54"])))),
+    # c917（2行）＝1行目：1983年11月 → 1986年4月の矢印に欠陥の印が残る・1992年の報告／2行目：取り除かれなかった＝責められるべきこと（S1 p26）
+    "c917": dict(
+        t="放っておかれた欠陥", s="見つかってから事故まで",
+        fig=("m24", dict(view="longarrow", steps=[dict(state=dict(long="on")), dict(state=dict(blame="on"))],
+                         rel=[dict(t="1983年11月", src="S1 p53"), dict(t="1986年4月", src="S1 p63")] + rr("r92"),
+                         note="模式（矢印の長さは月に比例）", src=ss.src(["S1 p26"])))),
+    # c918（2行）＝1行目：1987年のウィーンの会議＝ソ連の専門家が公に認めた／2行目：1986年8月のウィーンの会議＝同じウィーンの別の会議（S1 p23）
+    "c918": dict(
+        t="欠陥を認めた場", s="翌年の会議",
+        fig=("m24", dict(view="lecterns", steps=[dict(state=dict(y87="on")), dict(state=dict(y86="on"))],
+                         rel=[dict(t="1987年", src="S1 p23"), dict(t="1986年8月（ウィーンの会議）", src="S3 p2003")],
+                         note="演台は模式", src=ss.src(["S1 p23"])))),
+    # c920（1行）＝暴走の始まりが霧で見えない・1992年の報告「確かには分かっていない」（S1 p33）
+    "c920": dict(
+        t="始まりは見えない", s="同じ報告のもう一言",
+        fig=("m24", dict(view="fog", steps=[dict(state=dict(fog="on"))],
+                         rel=rr("r92"), note="線と霧は模式", src=ss.src(["S1 p33"])))),
+    # c922（3行）＝1行目：2本とも空／2行目：左の縦の物差し＝1986年の報告「4秒以内に最大の出力（定格）の100倍」／
+    #   3行目：右の横の物差し＝のちの計算「はじめの出力の3.5倍から、およそ80倍」・比べるもとが違う（S2 p1010・S1 p131）
+    "c922": dict(
+        t="出力の最高の値", s="計算ごとの答え",
+        fig=("m24", dict(view="rulers2", steps=[dict(state=dict(q="on")), dict(state=dict(r86="on")), dict(state=dict(later="on"))],
+                         rel=[dict(t="100倍・4秒以内", src="S2 p1010"), dict(t="3.5倍〜80倍", src="S1 p131")] + rr("r86"),
+                         note="模式（2本の物差しは別の目盛り＝並べて比べない）", src=ss.src(["S2 p1010", "S1 p131"])))),
+    # c924（2行）＝1行目：1983年12月・研究所の科学の責任者から・出力が半分に下がったときなどに／2行目：止める棒で反応が強まりうる・1991年の委員会（S1 p54・p100）
+    "c924": dict(
+        t="事故の前の警告", s="研究所からの手紙",
+        fig=("m24", dict(view="memo", steps=[dict(state=dict(send="on")), dict(state=dict(risk="on"))],
+                         rel=[dict(t="1983年12月", src="S1 p100"), dict(t="50%", src="S1 p54")] + rr("c91"), note="紙は模式（言葉は要約）", src=ss.src(["S1 p54", "S1 p100"])))),
+    # c926（3行）＝1行目：4つの札／2行目：事故の夜、この炉に重なっていた／3行目は聞き役（S1 p33）
+    "c926": dict(
+        t="そろってしまった条件", s="あの夜の炉",
+        fig=("m24", dict(view="four", steps=[dict(state=dict(cards="on")), dict(state=dict(join="on")), dict()],
+                         rel=[dict(t="4号炉", src="S2 p1008")], note="札の言葉は語りのまま（炉は模式）", src=ss.src(["S1 p33"])))),
+})

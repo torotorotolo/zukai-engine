@@ -34,6 +34,20 @@
   第6章  roof（c701 上から＝建屋の屋根と火）・dayband（c706 空の色の24時間の帯）・notice（c714 掲示の紙と絵の札）
   第7章  table6（c806 違反の表の列と行）・pile（c808 重なる6つの札）・carry（c810 職員 → 規則の外の状態）・sizes（c813 大小の札）・door（c815 扉と錠）・
          venn3（c816 重なる3つの輪）・shield（c817 発電所と盾）・table86（c820 会議の机の空いた所）・rod12（c822 横から＝1.2m）・rodq（c824 棒の影と「？」）
+  🆕 ⑤b-6（2026-10-23＝地図2と第8〜11章の40）
+  地図   ussr（c203 上から＝ソ連の全体とウクライナの北・1986年の境）・japan（c713 上から＝日本と関東の拡大）＝Natural Earth の形（make_map24）
+  第8章  rodparts（c902 横から＝棒の作り）・len7（c903 横から＝7m・4.5m・1.25m に比例）・lowred（c906 横から＝下が赤）・sand（c908 砂時計 18秒→12秒）・
+         lines3（c909 3つの線）・months（c911 月の升目＝暦の相方）・names2（c913 2つの列の表）・ideas（c915 札と「実行されず」）・
+         longarrow（c917 時間の矢印）・lecterns（c918 演台2つ＝並べ）・fog（c920 霧）・rulers2（c922 縦と横の2本の物差し）・memo（c924 書簡の紙）・
+         four（c926 4隅の札と炉）
+  第9章  volkov（ca03 2つの箱と矢印）・funnel（ca04 漏斗）・road（ca05 道と標識）・notstop（ca07 数の窓と押されないボタン）・
+         cheese（ca10 穴のあいた3枚の板）・precursor（ca12 切れた線）・puzzle（ca14 札と組み絵）・bins4（ca16 7つの札と4色の枠＝箱）・
+         twox（ca20 2つの札に×）・merge2（ca22 2つの矢印が1つの箱へ）
+  第10章 stairs（cb02 段＝年表の相方）・num31（cb04 数の札）・blocks30（cb06 30個の積み木＝棒の相方）・two31（cb08 2つの31）・
+         circles（cb09 面積が人数に比例する円＝箱の相方）・area60（cb12 面積が人数に比例する四角）・scope2（cb13 左右の札＝比べの相方）・
+         machine（cb15 計算の機械）・waffle（cb17 10×10 の升目と幅の帯）・tags3（cb21 札と糸）
+  第11章 gantt（cc04 号機ごとの月の帯＝帯の相方）・ines（cc06 0から7の段）・lvl7（cc08 いちばん上の段に2つ＝並べの相方）・
+         tiers（cc14 2つの段）・flip（cc15 札の表と裏）・tray（cc17 1つの皿に2つ）
   🔴 同じ型は全編で2回まで・続けない（台本 §7）：年表 c205↔cb02・札 c206↔c714・流れ c214↔c507・暦 c216↔c911・時計 c402↔c614・棒 c412↔cb06＝
      相方は ⑤b-5・⑤b-6 で別の絵に（⑤b-5：c507＝縦の絵の流れ・c614＝数字の時計とボタン・c714＝掲示の紙と絵の札）。この章の中の似た形（針の計器 c301＝丸・c401＝横／時間の帯 c311＝帯・c316＝輪／3つの欄 c312＝表・c416＝書類3つ／
      2つの札 c407＝虫めがねと針・c421＝天秤）は形を替えた
@@ -3027,6 +3041,1496 @@ def rodq_stage(prev, st):
 
 
 # ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-23）：地図2（c203・c713）＋第8〜11章の40
+#   地図＝Natural Earth（1:50m の国の形）を `ref/ep24/make_map24.py` で切り出した `ref/ep24/map24_ne50m.json`（関東だけ 20本目の 1:10m の陸
+#   `ref/ep20/coast_ne10m.json`）。点（町と発電所・都庁と県庁）は一般の座標（報告に座標は無い）＝注に断る。
+#   🔴 1986年の地図＝クリミア半島はウクライナ（共和国）の色・北方領土は日本の側の色（make_map24 の注）
+# ══════════════════════════════════════════════════════════
+import json  # noqa: E402
+from pathlib import Path  # noqa: E402
+
+_REF = Path(__file__).resolve().parent.parent / "ref"
+MAP24 = _REF / "ep24" / "map24_ne50m.json"
+KANTO10 = _REF / "ep20" / "coast_ne10m.json"
+MAP_SEA, MAP_SEA_EDGE = "#13202b", "#41505a"
+MAP_SU = "#2e5a50"          # ソ連（ウクライナのほかの14の共和国）＝青緑
+MAP_UKR = "#7a6a22"         # ウクライナ（1986年の共和国）＝からし色
+MAP_OTH = "#3a444c"         # ほかの国＝灰
+MAP_JP = "#3d6a46"          # 日本（北方領土を含む）＝緑
+_MAPD = {}
+
+
+def map24():
+    if not _MAPD:
+        _MAPD.update(json.loads(MAP24.read_text(encoding="utf-8")))
+        _MAPD["kanto"] = json.loads(KANTO10.read_text(encoding="utf-8"))["polys"]
+    return _MAPD
+
+
+class _Geo:
+    """正距円筒（真ん中の緯度で東西を縮める＝17本目 mech17.Geo と同じ式）。box＝(x0, y0, w, h)"""
+
+    def __init__(self, lon, lat, box):
+        self.lon, self.lat, self.box = lon, lat, box
+        self.latc, self.lonc = (lat[0] + lat[1]) / 2, (lon[0] + lon[1]) / 2
+        self.kx = 111.32 * math.cos(math.radians(self.latc))
+        self.ky = 110.57
+        x0, y0, w, h = box
+        self.s = min(w / ((lon[1] - lon[0]) * self.kx), h / ((lat[1] - lat[0]) * self.ky))
+        self.cx, self.cy = x0 + w / 2, y0 + h / 2
+
+    def px(self, lat, lon):
+        return (self.cx + (lon - self.lonc) * self.kx * self.s, self.cy - (lat - self.latc) * self.ky * self.s)
+
+
+def _mpolys(G, polys, fill, stroke=None, sw=None):
+    """多角形（経度・緯度）を枠の中に描く（枠の外の点は枠の縁へ寄せる＝17本目と同じ）。"""
+    x0, y0, w, h = G.box
+    g = []
+    for p in polys:
+        q = [G.px(la, lo) for lo, la in p]
+        if max(x for x, _ in q) < x0 or min(x for x, _ in q) > x0 + w or max(y for _, y in q) < y0 or min(y for _, y in q) > y0 + h:
+            continue
+        q = [(min(max(x, x0), x0 + w), min(max(y, y0), y0 + h)) for x, y in q]
+        g.append(F.poly(q, fill, stroke, sw, close=True))
+    return "".join(g)
+
+
+def _numunit(x, y, num, unit, cap=64, col=None, anchor="middle", ucap=None, ucol=None):
+    """数字（Dela）と単位（Noto）を並べて1つの語に見せる（Dela は漢字がつぶれる＝titan_fig.numfam）。"""
+    ucap = ucap or cap * 0.5
+    gap = 12.0                           # 🔧 geom_gap：6 だと数字と単位の箱のすき間が 5.2〜5.9px（6px 未満）
+    wn, wu = fm.width(str(num), cap, "Dela"), fm.width(str(unit), ucap, "Noto")
+    x0 = x - (wn + wu + gap) / 2 if anchor == "middle" else x - (wn + wu + gap) if anchor == "end" else x
+    return (F.txt(x0, y, str(num), cap, col or J.AMBER, "Dela", "start")
+            + (F.txt(x0 + wn + gap, y, str(unit), ucap, ucol or col or J.AMBER, "Noto", "start") if unit else ""))
+
+
+def _chip(cx, cy, t, col, cap=28, h=58, w=None, ink=None, dash=None):
+    w = w or _w(t, cap) + 56
+    return _card(cx, cy, w, h, col, sw=4, dash=dash) + _tline(cx, cy + cap * 0.36, t, cap, ink or col, "middle", w - 28)
+
+
+def _swatch(x, y, col, t, cap=26, frame=False, dash=None):
+    """凡例の1つ（色の四角と名）。y＝字の下の線。"""
+    sq = F.rect(x, y - 24, 30, 30, "none" if frame else col, col if frame else J.LINE_DIM, 4 if frame else 2, dash=dash)
+    return sq + _tline(x + 44, y, t, cap, INK, "start", 520)
+
+
+# ── ussr（c203）＝上から見たソ連とウクライナ（1986年）。左＝ソ連の全体（小さな地図）・右＝ウクライナの北の拡大（キエフ・チェルノブイリの町・
+#    プリピャチ・発電所）／1行目＝発電所に 176人（当直の職員と作業員）／2行目＝建設中の新しい号機の現場に 268人（夜の仕事）（S3 p2016）
+SU_OV = dict(lon=(19.0, 191.0), lat=(36.0, 82.0), box=(100.0, 300.0, 740.0, 384.0))
+SU_ZM = dict(lon=(29.4, 31.4), lat=(50.3, 51.7), box=(880.0, 262.0, 540.0, 586.0))
+SU_PTS = dict(plant=(51.3892, 30.0992), pripyat=(51.4045, 30.0542), town=(51.2763, 30.2219), kiev=(50.4501, 30.5234))   # 一般の座標
+SU_STAFF, SU_NIGHT = 176, 268
+SU_CARD = dict(x0=1450.0, w=380.0, c1=(330.0, 124.0), c2=(480.0, 150.0))
+# 🔧 geom_gap：国境（ベラルーシとの境）は発電所の約35px 北・チェルノブイリの町のすぐ東を通る＝点の横の札は国境の線に触れた
+#    ＝札は南西の空き（ウクライナの内側）へ引き出し線で（dx・dy＝点からの札の位置）。発電所の札は凡例と右の札（「発電所に」）で示す
+SU_LAB = dict(pripyat=("プリピャチ", -28.0, 84.0, "end"), town=("チェルノブイリの町", -40.0, 92.0, "middle"), kiev=("キエフ", 16.0, 10.0, "start"))
+
+
+def _su_geos():
+    return _Geo(SU_OV["lon"], SU_OV["lat"], SU_OV["box"]), _Geo(SU_ZM["lon"], SU_ZM["lat"], SU_ZM["box"])
+
+
+def su_zrect():
+    """左の地図の中の拡大の範囲（右の地図の経度・緯度の範囲）。"""
+    O, _Z = _su_geos()
+    (a, b), (c, e) = O.px(SU_ZM["lat"][1], SU_ZM["lon"][0]), O.px(SU_ZM["lat"][0], SU_ZM["lon"][1])
+    return (a, b, c, e)
+
+
+def ussr_base(st0):
+    d = map24()["polys"]
+    O, Z = _su_geos()
+    g = []
+    for G, k in ((O, "o"), (Z, "z")):
+        x0, y0, w, h = G.box
+        g.append(F.rect(x0, y0, w, h, MAP_SEA, MAP_SEA_EDGE, 3))
+        g.append(_mpolys(G, d.get(f"{k}_oth", []) + d.get(f"{k}_jp", []), MAP_OTH))
+        g.append(_mpolys(G, d.get(f"{k}_su", []), MAP_SU))
+        g.append(_mpolys(G, d.get(f"{k}_ukr", []), MAP_UKR))
+    a, b, c, e = su_zrect()
+    g.append(F.rect(a - 5, b - 5, c - a + 10, e - b + 10, "none", J.AMBER, 3))
+    x0, y0, w, h = Z.box
+    g.append(F.rect(x0, y0, w, h, "none", J.AMBER, 3))
+    g.append(_tline(x0, y0 - 14, "拡大：ウクライナの北", 26, J.AMBER, "start", 400))
+    lx, ly = O.px(64.0, 100.0)
+    g.append(_tline(lx, ly + 14, "ソ連", 40, INK, "middle", 200, ol=6))
+    g.append(_tline(*Z.px(51.62, 29.75), "ベラルーシ", 28, INK, "middle", 260, ol=6))     # 🔧 geom_gap：東寄りだと国境の線が字を通った
+    g.append(_tline(*Z.px(50.85, 30.95), "ウクライナ", 34, INK, "middle", 300, ol=6))
+    # 凡例（左の地図の下）
+    ox, oy = SU_OV["box"][0] + 10, SU_OV["box"][1] + SU_OV["box"][3] + 52
+    g += [_swatch(ox, oy, MAP_SU, "ソ連"), _swatch(ox + 150, oy, MAP_UKR, "うちウクライナ（共和国）"), _swatch(ox + 520, oy, MAP_OTH, "ほかの国"),
+          _swatch(ox, oy + 50, J.AMBER, "右の地図の範囲", frame=True),
+          F.circ(ox + 316, oy + 41, 10, J.ALERT, J.BG, 3), _tline(ox + 340, oy + 50, "発電所", 26, INK, "start", 200)]
+    px_, py_ = Z.px(*SU_PTS["plant"])
+    g.append(F.circ(px_, py_, 9, J.ALERT, J.BG, 3))
+    for k, (t, dx, dy, an) in SU_LAB.items():
+        x, y = Z.px(*SU_PTS[k])
+        g.append(F.circ(x, y, 6 if k == "kiev" else 5, INK, J.BG, 2))
+        if k != "kiev":
+            g.append(F.line(x - 4, y + 6, x + dx + (6 if an == "end" else 0), y + dy - 30, INK, 2))
+        g.append(_tline(x + dx, y + dy, t, 26, INK, an, 300, ol=6))
+    return g
+
+
+def ussr_stage(prev, st):
+    _O, Z = _su_geos()
+    s = []
+    px, py = Z.px(*SU_PTS["plant"])
+    x0, w = SU_CARD["x0"], SU_CARD["w"]
+    cx = x0 + w / 2
+    if _on(prev, st, "staff"):
+        y0, h = SU_CARD["c1"]
+        s.append(F.line(x0, py, px + 14, py, J.AMBER, 3))
+        s.append(F.rect(x0, y0, w, h, J.BG2, J.AMBER, 4, rx=10))
+        s.append(_tline(x0 + 16, y0 + 34, "発電所に", 22, J.TICK, "start", 120))
+        s.append(_numunit(cx + 36, y0 + 70, SU_STAFF, "人", 60, J.AMBER))     # 🔧 geom_gap：「発電所に」と 2px 重なった＝右へ
+        s.append(_tline(cx, y0 + 108, "当直の職員と作業員", 26, INK, "middle", w - 30))
+    if _on(prev, st, "night"):
+        y0, h = SU_CARD["c2"]
+        s.append(F.rect(x0, y0, w, h, J.BG2, J.LINE, 4, rx=10))
+        # 🔧 門番 layout：「＋」は Dela に無い字（豆腐）＝「さらに」を別の字で／門番 echo：「建設中の新しい号機の現場」は語りの写し＝原文の言い方（S3 p2016 third construction stage）
+        s.append(_tline(x0 + 16, y0 + 34, "さらに", 22, J.TICK, "start", 120))
+        s.append(_numunit(cx, y0 + 66, SU_NIGHT, "人", 56, J.AMBER))
+        s.append(_tline(cx, y0 + 104, "第3期の工事の現場", 24, INK, "middle", w - 30))
+        s.append(_tline(cx, y0 + 136, "夜の仕事", 24, J.TICK, "middle", w - 30))
+    return s
+
+
+# ── japan（c713）＝上から見た日本（左＝全体・右＝関東の拡大＝20本目の 1:10m の陸）。1行目は聞き役／2行目＝5月3日・東京と千葉と神奈川に印・
+#    ヨウ素131（K1 19860507）／3行目＝5月14日の時点・29の都道府県（札だけ＝都道府県は塗らない・K1 19860515）
+JP_MAP = dict(lon=(128.5, 146.5), lat=(30.5, 45.8), box=(180.0, 270.0, 560.0, 580.0))
+JP_IN = dict(lon=(138.9, 140.9), lat=(34.85, 36.05), box=(960.0, 300.0, 560.0, 440.0))
+JP_PTS = (("東京", (35.6895, 139.6917), "end"), ("千葉", (35.6047, 140.1233), "start"), ("神奈川", (35.4478, 139.6425), "end"))   # 都庁・県庁（一般の座標）
+JP_D1, JP_D2, JP_N = (5, 3), (5, 14), 29
+JP_CARD = (1550.0, 420.0, 280.0, 210.0)
+
+
+def _jp_geos():
+    return _Geo(JP_MAP["lon"], JP_MAP["lat"], JP_MAP["box"]), _Geo(JP_IN["lon"], JP_IN["lat"], JP_IN["box"])
+
+
+def jp_irect():
+    M_, _I = _jp_geos()
+    (a, b), (c, e) = M_.px(JP_IN["lat"][1], JP_IN["lon"][0]), M_.px(JP_IN["lat"][0], JP_IN["lon"][1])
+    return (a, b, c, e)
+
+
+def japan_base(st0):
+    d = map24()
+    M_, I_ = _jp_geos()
+    g = []
+    x0, y0, w, h = M_.box
+    g.append(F.rect(x0, y0, w, h, MAP_SEA, MAP_SEA_EDGE, 3))
+    g.append(_mpolys(M_, d["polys"].get("j_oth", []) + d["polys"].get("j_su", []), MAP_OTH))
+    g.append(_mpolys(M_, d["polys"].get("j_jp", []), MAP_JP))
+    x0, y0, w, h = I_.box
+    g.append(F.rect(x0, y0, w, h, MAP_SEA, J.AMBER, 3))
+    g.append(_mpolys(I_, d["kanto"], MAP_JP))
+    a, b, c, e = jp_irect()
+    g.append(F.rect(a - 4, b - 4, c - a + 8, e - b + 8, "none", J.AMBER, 3))
+    g.append(F.line(c + 4, b - 4, x0, y0, J.AMBER, 2, dash="8 8"))
+    g.append(F.line(c + 4, e + 4, x0, y0 + h, J.AMBER, 2, dash="8 8"))
+    g.append(_tline(x0, y0 - 14, "拡大：関東", 26, J.AMBER, "start", 300))
+    return g
+
+
+def japan_stage(prev, st):
+    _M, I_ = _jp_geos()
+    s = []
+    if _on(prev, st, "may3"):
+        for t, (la, lo), an in JP_PTS:
+            x, y = I_.px(la, lo)
+            s.append(F.circ(x, y, 10, J.AMBER, J.BG, 3))
+            s.append(_tline(x + (16 if an == "start" else -16), y + 10, t, 30, INK, an, 200, ol=6))
+        x0, y0, w, h = JP_IN["box"]
+        s.append(_chip(x0 + w / 2, y0 + h + 52, "5月3日：ヨウ素131 を検出", J.AMBER, 28, ink=INK))     # 🔧 門番 echo：語りの写し 75%
+    if _on(prev, st, "may14"):
+        x, y, w, h = JP_CARD
+        s.append(F.rect(x, y, w, h, J.BG2, J.AMBER, 4, rx=10))
+        s.append(_tline(x + w / 2, y + 48, "5月14日の時点", 28, INK, "middle", w - 30))
+        s.append(_numunit(x + w / 2, y + 128, JP_N, "の都道府県", 72, J.AMBER, ucap=30))
+        s.append(_tline(x + w / 2, y + 180, "で見つかっていた", 24, J.TICK, "middle", w - 30))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  第8章（c9 の14）
+# ══════════════════════════════════════════════════════════
+def _cyl(x, y0, y1, w, fill, edge, sw=4):
+    """縦の円柱（立体の模式＝上の楕円・胴・下の手前の弧）。"""
+    ry = w * 0.18
+    return (F.rect(x - w / 2, y0, w, y1 - y0, fill, edge, sw) + F.poly(_arcpts(x, y1, w / 2, ry, 0, 180, 16), fill, edge, sw)
+            + F.poly(_arcpts(x, y0, w / 2, ry, 0, 360, 32), fill, edge, sw, close=True))
+
+
+# ── rodparts（c902）＝横から見た止める棒の作り（立体の模式）：1行目＝棒の本体＝中性子を吸う物／2行目＝その下に黒鉛の押しのけ棒（S1 p14）
+RP = dict(x=760.0, w=120.0, abs=(300.0, 530.0), disp=(600.0, 800.0), lx=900.0)
+GRAPHITE = "#2a2f33"
+
+
+def rodparts_base(st0):
+    x = RP["x"]
+    return [F.line(x, 230.0, x, RP["abs"][0], J.LINE_DIM, 6), F.rect(x - 40, 252.0, 80, 22, J.BG2, J.LINE_DIM, 3, rx=4)]
+
+
+def rodparts_stage(prev, st):
+    s = []
+    x, w, lx = RP["x"], RP["w"], RP["lx"]
+    if _on(prev, st, "abs"):
+        a0, a1 = RP["abs"]
+        s.append(_cyl(x, a0, a1, w, "#3a4650", STEEL))
+        s.append(F.line(x + w / 2 + 14, (a0 + a1) / 2, lx - 14, (a0 + a1) / 2, J.LINE, 3))
+        s.append(_tline(lx, (a0 + a1) / 2 - 10, "棒の本体", 32, INK, "start", 500))
+        s.append(_tline(lx, (a0 + a1) / 2 + 36, "中性子を吸う物", 30, J.AMBER, "start", 500))
+    if _on(prev, st, "disp"):
+        d0, d1 = RP["disp"]
+        s.append(F.line(x, RP["abs"][1] + 22, x, d0, STEEL, 8))
+        s.append(_cyl(x, d0, d1, w, GRAPHITE, GRAPH))
+        s.append(F.line(x + w / 2 + 14, (d0 + d1) / 2, lx - 14, (d0 + d1) / 2, J.LINE, 3))
+        s.append(_tline(lx, (d0 + d1) / 2 - 10, "押しのけ棒", 32, INK, "start", 500))
+        s.append(_tline(lx, (d0 + d1) / 2 + 36, "黒鉛の棒がつながる", 28, J.TICK, "start", 500))
+    return s
+
+
+# ── len7（c903）＝横から見た炉と押しのけ棒（棒を抜き切ったとき）。長さは原文の値に比例（炉 7m・押しのけ棒 4.5m・上と下の水 1.25m ずつ＝S1 p14・p16・図1）
+#    1行目＝押しのけ棒 4.5m／2行目＝炉の高さ 7m・真ん中・上と下に 1.25m ずつ／3行目＝水だけの部分
+L7_H, L7_D, L7_W = 7.0, 4.5, 1.25
+L7 = dict(x=760.0, cw=240.0, tw=96.0, y0=290.0, k=78.0, lx=980.0)
+
+
+def l7_y(m):
+    """炉の上の端から m メートル下の y。"""
+    return L7["y0"] + m * L7["k"]
+
+
+def len7_base(st0):
+    x, tw = L7["x"], L7["tw"]
+    return [F.rect(x - tw / 2, l7_y(0) - 20, tw, l7_y(L7_H) - l7_y(0) + 40, "none", J.LINE_DIM, 3, dash="10 8")]
+
+
+def _vbracket(x, ya, yb, col, t, side="left", cap=30):
+    tick = 14
+    g = [F.line(x, ya, x, yb, col, 4), F.line(x - tick, ya, x + tick, ya, col, 4), F.line(x - tick, yb, x + tick, yb, col, 4)]
+    if side == "left":
+        g.append(_tline(x - 24, (ya + yb) / 2 + cap * 0.36, t, cap, col, "end", 240))
+    else:
+        g.append(_tline(x + 24, (ya + yb) / 2 + cap * 0.36, t, cap, col, "start", 300))
+    return "".join(g)
+
+
+def len7_stage(prev, st):
+    s = []
+    x, cw, tw, lx = L7["x"], L7["cw"], L7["tw"], L7["lx"]
+    d0, d1 = l7_y(L7_W), l7_y(L7_W + L7_D)
+    if _on(prev, st, "disp"):
+        s.append(F.rect(x - tw / 2 + 6, d0, tw - 12, d1 - d0, GRAPHITE, GRAPH, 4, rx=4))
+        s.append(_vbracket(x - cw / 2 - 50, d0, d1, J.AMBER, f"{L7_D:g}m"))
+        s.append(F.line(x + tw / 2, (d0 + d1) / 2 - 60, lx - 14, (d0 + d1) / 2 - 60, J.LINE, 3))
+        s.append(_tline(lx, (d0 + d1) / 2 - 50, "押しのけ棒（黒鉛）", 30, INK, "start", 520))
+    if _on(prev, st, "core"):
+        s.append(F.rect(x - cw / 2, l7_y(0), cw, l7_y(L7_H) - l7_y(0), "none", J.LINE, 5, rx=6))
+        s.append(_vbracket(x + cw / 2 + 50, l7_y(0), l7_y(L7_H), J.LINE, f"炉の高さ {L7_H:g}m", side="right"))
+        s.append(_vbracket(x - cw / 2 - 50, l7_y(0), d0, J.AMBER, f"{L7_W:g}m", cap=26))
+        s.append(_vbracket(x - cw / 2 - 50, d1, l7_y(L7_H), J.AMBER, f"{L7_W:g}m", cap=26))
+    if _on(prev, st, "water"):
+        for ya, yb in ((l7_y(0), d0), (d1, l7_y(L7_H))):
+            s.append(F.rect(x - tw / 2 + 6, ya + 4, tw - 12, yb - ya - 8, WATER, None, None, rx=4, op=0.45))
+        s.append(F.line(x + tw / 2, l7_y(0.6), lx - 14, l7_y(0.6), WATER, 3))
+        s.append(_tline(lx, l7_y(0.6) + 10, "水だけの部分", 28, WATER, "start", 400))
+        s.append(F.line(x + tw / 2, l7_y(L7_H - 0.6), lx - 14, l7_y(L7_H - 0.6), WATER, 3))
+        s.append(_tline(lx, l7_y(L7_H - 0.6) + 10, "水だけの部分", 28, WATER, "start", 400))
+    return s
+
+
+# ── lowred（c906）＝横から見た炉の下の方（色の模式）：1行目＝下の方が赤＝水が減って反応がかえって強まる（上は青）／2行目＝止めるための棒が入り始めに逆の働き
+LR = dict(x0=700.0, x1=980.0, y0=330.0, y1=820.0, mid=600.0, lx=1040.0)
+COOL = "#4a7fb0"
+
+
+def lowred_base(st0):
+    x0, x1, y0, y1 = LR["x0"], LR["x1"], LR["y0"], LR["y1"]
+    xm = (x0 + x1) / 2
+    return [F.rect(x0, y0, x1 - x0, y1 - y0, "#1d2a33", J.LINE, 5, rx=8),
+            F.rect(xm - 26, 250.0, 52, y0 - 250.0 + 40, STEEL, J.BG, 3, rx=4), F.rect(xm - 26, y0 + 40, 52, 60, GRAPHITE, GRAPH, 3)]
+
+
+def lowred_stage(prev, st):
+    s = []
+    x0, x1, y0, y1, ym, lx = LR["x0"], LR["x1"], LR["y0"], LR["y1"], LR["mid"], LR["lx"]
+    if _on(prev, st, "low"):
+        s.append(F.rect(x0 + 6, y0 + 110, x1 - x0 - 12, ym - y0 - 110, COOL, None, None, op=0.35))
+        for i, op in enumerate((0.25, 0.4, 0.55)):
+            ya = ym + i * (y1 - ym) / 3
+            s.append(F.rect(x0 + 6, ya, x1 - x0 - 12, (y1 - ym) / 3 - 6 if i == 2 else (y1 - ym) / 3, J.ALERT, None, None, op=op))
+        for dx in (-60.0, 60.0):
+            s.append(_arrow((x0 + x1) / 2 + dx, y1 - 60, (x0 + x1) / 2 + dx * 2.2, y1 + 30, WATER, 4, 16))
+        s.append(_tline(lx, ym + 90, "下の方：反応がかえって強まる", 32, J.ALERT, "start", 760))
+        s.append(_tline(lx, ym + 140, "中性子を吸う水が減る", 28, WATER, "start", 600))
+        s.append(_tline(lx, y0 + 170, "上の方：止まる向き", 28, COOL, "start", 600))
+    if _on(prev, st, "rev"):
+        xm = (x0 + x1) / 2
+        s.append(_arrow(xm - 90, 240.0, xm - 90, y0 + 60, J.AMBER, 6, 22))
+        s.append(_tline(lx, 320.0, "入り始めは、止める向きと逆", 30, J.AMBER, "start", 760))     # 🔧 門番 echo：語りの写し
+    return s
+
+
+# ── sand（c908）＝棒が上から下まで入るのにかかった時間（砂時計の模式）：1行目＝18秒／2行目＝事故のあと12秒に（とされる）。砂時計の高さは秒に比例
+SD_T = (18, 12)
+SDG = dict(x=(620.0, 1240.0), base=800.0, k=24.0, lx=(780.0, 1350.0))
+
+
+def _hourglass(cx, by, h, col, fill_top=0.6):
+    w = h * 0.56
+    top = by - h
+    ym = by - h / 2
+    g = [F.rect(cx - w / 2 - 14, top - 12, w + 28, 12, col, None, None, rx=4), F.rect(cx - w / 2 - 14, by, w + 28, 12, col, None, None, rx=4),
+         F.poly([(cx - w / 2, top), (cx + w / 2, top), (cx + 10, ym), (cx + w / 2, by), (cx - w / 2, by), (cx - 10, ym)], "none", col, 5, close=True)]
+    sy = ym - (h / 2) * fill_top
+    g.append(F.poly([(cx - (w / 2) * fill_top, sy), (cx + (w / 2) * fill_top, sy), (cx + 8, ym - 4), (cx - 8, ym - 4)], J.AMBER, None, close=True, op=0.75))
+    g.append(F.poly([(cx - w / 2 + 6, by - 2), (cx + w / 2 - 6, by - 2), (cx, by - h * 0.18)], J.AMBER, None, close=True, op=0.75))
+    return "".join(g)
+
+
+def sand_h(t):
+    return SDG["k"] * t
+
+
+def sand_stage(prev, st):
+    s = []
+    if _on(prev, st, "t18"):
+        x, lx = SDG["x"][0], SDG["lx"][0]
+        s.append(_hourglass(x, SDG["base"], sand_h(SD_T[0]), J.LINE))
+        s.append(_numunit(lx, SDG["base"] - 180, SD_T[0], "秒", 80, J.AMBER, "start"))
+        s.append(_tline(lx, SDG["base"] - 120, "上から下まで入るのに", 26, INK, "start", 360))
+    if _on(prev, st, "t12"):
+        x, lx = SDG["x"][1], SDG["lx"][1]
+        s.append(_hourglass(x, SDG["base"], sand_h(SD_T[1]), J.OK))
+        s.append(_numunit(lx, SDG["base"] - 120, SD_T[1], "秒", 80, J.OK, "start"))
+        s.append(_tline(lx, SDG["base"] - 60, "事故のあと（とされる）", 26, INK, "start", 420))
+        s.append(_arrow(SDG["lx"][0] + 40, SDG["base"] - 330, x - 120, SDG["base"] - 330, J.OK, 5, 20, dash="12 8"))
+        s.append(_tline((SDG["lx"][0] + x) / 2 - 20, SDG["base"] - 350, "縮めた", 28, J.OK, "middle", 200))
+    return s
+
+
+# ── lines3（c909）＝残した棒の数とボタンのあとの効き方（3つの線の模式）：1行目＝30本ぶん・15本ぶん・1991年の委員会／2行目＝7本ぶん＝最初の8秒は強まる。
+#    横＝ボタンのあとの秒（10秒まで比例）・縦＝上が「強まる」・下が「止まる」（線の形は模式。8秒の線だけ時間に比例＝S1 p49）
+L3_RODS, L3_SEC = (30, 15, 7), 8
+L3G = dict(x0=440.0, x1=1460.0, y0=580.0, span=10.0, top=330.0, bot=830.0)
+
+
+def l3_x(t):
+    return L3G["x0"] + (L3G["x1"] - L3G["x0"]) * t / L3G["span"]
+
+
+def l3_curve(n):
+    pts = []
+    for i in range(41):
+        t = L3G["span"] * i / 40
+        if n == 30:
+            y = L3G["y0"] + 230 * (1 - math.exp(-t / 2.0))
+        elif n == 15:
+            y = L3G["y0"] + 110 * (t / L3G["span"]) ** 1.6
+        else:
+            y = (L3G["y0"] - 160 * math.sin(math.pi / 2 * min(t, L3_SEC) / L3_SEC) if t <= L3_SEC
+                 else L3G["y0"] - 160 + 230 * (t - L3_SEC) / (L3G["span"] - L3_SEC))
+        pts.append((l3_x(t), y))
+    return pts
+
+
+def lines3_base(st0):
+    x0, x1, y0 = L3G["x0"], L3G["x1"], L3G["y0"]
+    return [F.line(x0, y0, x1 + 30, y0, J.LINE, 4), F.line(x0, L3G["top"], x0, L3G["bot"], J.LINE, 4),
+            _tline(x0 - 20, L3G["top"] + 30, "強まる", 28, J.ALERT, "end", 200), _tline(x0 - 20, L3G["bot"] - 10, "止まる", 28, J.OK, "end", 200),
+            _tline(x1 + 40, y0 + 10, "ボタンのあと", 26, J.TICK, "start", 300)]     # 🔧 門番 layout：軸の上でも下でも 7本ぶん・30本ぶんの線が縦に貫いた＝軸の矢の先の右へ
+
+
+def lines3_stage(prev, st):
+    s = []
+    if _on(prev, st, "two"):
+        for n, col in ((30, J.OK), (15, J.LINE)):
+            p = l3_curve(n)
+            s.append(F.poly(p, "none", col, 6))
+            s.append(_tline(p[-1][0] + 20, p[-1][1] + 10, f"{n}本ぶん", 28, col, "start", 300))
+        s.append(_rep(1180.0, 300.0, "c91", None, cap=26))
+    if _on(prev, st, "seven"):
+        p = l3_curve(7)
+        xs = l3_x(L3_SEC)
+        s.append(F.line(xs, L3G["top"] + 60, xs, L3G["y0"] + 20, J.AMBER, 3, dash="10 8"))
+        s.append(_tline(xs, L3G["y0"] + 56, f"{L3_SEC}秒", 28, J.AMBER, "middle", 140))
+        s.append(F.poly(p, "none", J.ALERT, 7))
+        s.append(_tline(p[-1][0] + 20, p[-1][1] + 10, f"{L3_RODS[2]}本ぶん", 28, J.ALERT, "start", 300))
+        s.append(_tline(l3_x(3.0), L3G["y0"] - 200, "最初の8秒は強まる", 30, J.ALERT, "middle", 420))
+    return s
+
+
+# ── months（c911）＝1983年11月〜1986年4月の月の升目（暦の相方＝c216 の5枚の暦と別の絵）：1行目は聞き役（升目と 1986年4月＝事故）／
+#    2行目＝1983年の11月と12月を紫・1991年の委員会／3行目＝起動の試験の中で、実験で見つかった（S1 p53）
+MO_FOUND, MO_ACC = ((1983, 11), (1983, 12)), (1986, 4)
+MO = dict(x0=440.0, y0=330.0, cw=92.0, ch=64.0, px=100.0, py=82.0)
+MO_YEARS = (1983, 1984, 1985, 1986)
+
+
+def mo_cells():
+    out = []
+    for r, yr in enumerate(MO_YEARS):
+        for m in range(1, 13):
+            if (yr, m) < (1983, 11) or (yr, m) > MO_ACC:
+                continue
+            out.append(((yr, m), (MO["x0"] + (m - 1) * MO["px"], MO["y0"] + r * MO["py"])))
+    return out
+
+
+def months_base(st0):
+    g = []
+    for r, yr in enumerate(MO_YEARS):
+        g.append(_tline(MO["x0"] - 20, MO["y0"] + r * MO["py"] + 42, f"{yr}年", 28, INK, "end", 160))
+    for ym, (x, y) in mo_cells():
+        acc = ym == MO_ACC
+        g.append(F.rect(x, y, MO["cw"], MO["ch"], J.BG2, J.ALERT if acc else J.LINE_DIM, 5 if acc else 2, rx=6))
+    x, y = dict(mo_cells())[MO_ACC]
+    g.append(_tline(x + MO["cw"] / 2, y + 26, "4月", 22, INK, "middle", 80))      # 🔧 geom_gap：2つの字が 5.3px
+    g.append(_tline(x + MO["cw"] / 2, y + 58, "事故", 22, J.ALERT, "middle", 80))
+    return g
+
+
+def months_stage(prev, st):
+    s = []
+    cells = dict(mo_cells())
+    if _on(prev, st, "found"):
+        for ym in MO_FOUND:
+            x, y = cells[ym]
+            s.append(F.rect(x, y, MO["cw"], MO["ch"], rc("city"), None, None, rx=6, op=0.75))
+            s.append(_tline(x + MO["cw"] / 2, y + 42, f"{ym[1]}月", 26, INK, "middle", 80))
+        s.append(_rep(640.0, MO["y0"] + MO["ch"] / 2, "c91", None, cap=26))
+    if _on(prev, st, "test"):
+        s.append(_chip(1110.0, MO["y0"] + MO["ch"] / 2, "起動の試験で判明（実験）", rc("city"), 26, ink=INK))     # 🔧 門番 echo：語りの写し
+    return s
+
+
+# ── names2（c913）＝2つの報告が挙げた場所（2つの列の表）：1行目＝1992年の報告（本文）＝イグナリナだけ／2行目＝1991年の委員会＝イグナリナとこの4号炉（S1 p23・p53）
+NM_ROWS = ("イグナリナ（リトアニア）", "チェルノブイリ4号機")
+NM_MARK = dict(r92=(True, False), c91=(True, True))
+NM = dict(ys=(520.0, 660.0), xs=dict(r92=1000.0, c91=1460.0), lx=260.0, hy=380.0)
+
+
+def names2_base(st0):
+    g = []
+    for i, (t, y) in enumerate(zip(NM_ROWS, NM["ys"])):
+        g.append(_tline(NM["lx"], y + 12, t, 32, INK, "start", 520))
+        g.append(F.line(NM["lx"], y + 52, 1700.0, y + 52, J.LINE_DIM, 2))
+    g.append(F.line(NM["lx"], NM["ys"][0] - 60, 1700.0, NM["ys"][0] - 60, J.LINE_DIM, 2))
+    return g
+
+
+def names2_stage(prev, st):
+    s = []
+    for key in ("r92", "c91"):
+        if _on(prev, st, key):
+            x = NM["xs"][key]
+            s.append(_rep(x, NM["hy"], key, "本文" if key == "r92" else None, cap=26))
+            for on, y in zip(NM_MARK[key], NM["ys"]):
+                s.append(_check(x, y, 26, J.OK) if on else F.line(x - 26, y, x + 26, y, J.TICK, 6))
+    return s
+
+
+# ── ideas（c915）＝出された案（札）：1行目＝棒の形を変える・抜き切る棒の数を限る・など＝1991年の委員会／2行目＝どれも「実行されず」（S1 p54）
+ID_CARDS = ("棒の形を変える", "抜き切る棒の数を限る")
+ID = dict(xs=(560.0, 1110.0, 1560.0), y=500.0, h=120.0, sy=650.0)
+
+
+def ideas_stage(prev, st):
+    s = []
+    if _on(prev, st, "cards"):
+        s.append(_rep(960.0, 330.0, "c91", None, cap=26))
+        for x, t in zip(ID["xs"], ID_CARDS):
+            s.append(_chip(x, ID["y"], t, J.LINE, 32, h=ID["h"], ink=INK))
+        s.append(_chip(ID["xs"][2], ID["y"], "…など", J.LINE_DIM, 30, h=ID["h"], w=200, ink=J.TICK, dash="10 8"))
+    if _on(prev, st, "none"):
+        for x in ID["xs"]:
+            s.append(_chip(x, ID["sy"], "実行されず", J.ALERT, 28))
+        s.append(_tline(960.0, 790.0, "どれも、事故までに", 30, J.ALERT, "middle", 600))
+    return s
+
+
+# ── longarrow（c917）＝知られていた年月（時間の矢印・時間に比例）：1983年11月 見つかる → 1986年4月 事故。矢印の上に欠陥の印が残り続ける・
+#    1行目＝1992年の報告「これほど長く知られていながら」／2行目＝取り除かれず・責められるべき（S1 p26）
+LA_A, LA_B = (1983, 11), (1986, 4)
+LA = dict(x0=380.0, x1=1540.0, y=560.0)
+
+
+def la_x(ym):
+    n = (ym[0] - LA_A[0]) * 12 + ym[1] - LA_A[1]
+    span = (LA_B[0] - LA_A[0]) * 12 + LA_B[1] - LA_A[1]
+    return LA["x0"] + (LA["x1"] - LA["x0"]) * n / span
+
+
+def longarrow_base(st0):
+    y = LA["y"]
+    xa, xb = la_x(LA_A), la_x(LA_B)
+    return [_arrow(xa - 60, y, xb + 110, y, J.LINE, 6, 26), F.circ(xa, y, 12, J.BG, rc("city"), 5), F.circ(xb, y, 14, J.ALERT, J.BG, 3),
+            _tline(xa, y + 66, "1983年11月", 28, INK, "middle", 260), _tline(xa, y + 106, "見つかる", 26, J.TICK, "middle", 260),
+            _tline(xb, y + 66, "1986年4月", 28, INK, "middle", 260), _tline(xb, y + 106, "事故", 26, J.ALERT, "middle", 260)]
+
+
+def longarrow_stage(prev, st):
+    s = []
+    y = LA["y"]
+    if _on(prev, st, "long"):
+        for i in range(1, 7):
+            x = la_x(LA_A) + (la_x(LA_B) - la_x(LA_A)) * i / 7
+            s.append(F.rect(x - 9, y - 70, 18, 52, J.ALERT, None, None, rx=4, op=0.85))
+        s.append(_tline(960.0, y - 110, "欠陥は残ったまま", 28, J.ALERT, "middle", 400))
+        s.append(_rep(960.0, 320.0, "r92", "知られたまま何年も", cap=26))     # 🔧 門番 echo：語りの写し
+    if _on(prev, st, "blame"):
+        s.append(_chip(960.0, 770.0, "取り除かれなかった＝責められるべきこと", rep_col("r92"), 30, ink=INK))
+    return s
+
+
+# ── lecterns（c918）＝2つの会議（演台の模式）：1行目＝1987年のウィーンの会議＝ソ連の専門家が公に認めた／2行目＝1986年8月のウィーンの会議（左）＝同じウィーンの別の会議（S1 p23）
+LC_Y87, LC_Y86 = 1987, (1986, 8)
+LC = dict(xl=600.0, xr=1320.0, y=560.0)
+
+
+def _lectern(cx, cy, col, dim=False):
+    c = J.LINE_DIM if dim else col
+    return (F.poly([(cx - 150, cy - 60), (cx + 150, cy - 60), (cx + 120, cy), (cx - 120, cy)], J.BG2, c, 5, close=True)
+            + F.rect(cx - 26, cy, 52, 180, J.BG2, c, 4) + F.rect(cx - 110, cy + 180, 220, 24, c, None, None, rx=6))
+
+
+def lecterns_stage(prev, st):
+    s = []
+    if _on(prev, st, "y87"):
+        x = LC["xr"]
+        s.append(_lectern(x, LC["y"], J.AMBER))
+        s.append(_tline(x, LC["y"] - 200, f"{LC_Y87}年", 40, J.AMBER, "middle", 300))
+        s.append(_tline(x, LC["y"] - 150, "ウィーンの会議", 28, INK, "middle", 400))
+        s.append(_chip(x, LC["y"] + 270, "ソ連の専門家が公に認めた", J.AMBER, 26, ink=INK))
+    if _on(prev, st, "y86"):
+        x = LC["xl"]
+        s.append(_lectern(x, LC["y"], J.LINE, dim=True))
+        s.append(_tline(x, LC["y"] - 200, f"{LC_Y86[0]}年{LC_Y86[1]}月", 36, INK, "middle", 320))
+        s.append(_tline(x, LC["y"] - 150, "ウィーンの会議", 28, J.TICK, "middle", 400))
+        s.append(_tline(960.0, LC["y"] + 40, "同じウィーン・別の会議", 28, INK, "middle", 330))
+    return s
+
+
+# ── fog（c920）＝暴走の始まり（線の模式＝出力が急に上がる線の始まりの所が霧で見えない）・1992年の報告「確かには分かっていない」（S1 p33）
+FG = dict(x0=380.0, x1=1560.0, y0=800.0, top=320.0, start=1060.0)
+
+
+def fg_curve():
+    pts = []
+    for i in range(61):
+        x = FG["x0"] + (FG["x1"] - FG["x0"]) * i / 60
+        u = max(0.0, (x - FG["start"]) / (FG["x1"] - FG["start"]))
+        pts.append((x, FG["y0"] - 60 - 380 * u ** 2.2))
+    return pts
+
+
+def fog_base(st0):
+    return [F.line(FG["x0"], FG["y0"], FG["x1"] + 30, FG["y0"], J.LINE, 4), F.line(FG["x0"], FG["top"], FG["x0"], FG["y0"], J.LINE, 4),
+            _tline(FG["x0"] - 16, FG["top"] + 24, "出力", 26, J.TICK, "end", 120), _tline(FG["x1"] + 30, FG["y0"] + 40, "時間 →", 26, J.TICK, "end", 200),
+            F.poly(fg_curve(), "none", J.ALERT, 6)]
+
+
+def fog_stage(prev, st):
+    s = []
+    if _on(prev, st, "fog"):
+        for dx, dy, r in ((-120, 0, 120), (0, -40, 140), (130, -10, 120), (40, 60, 110), (-60, 70, 100)):
+            s.append(F.circ(FG["start"] + dx, FG["y0"] - 140 + dy, r, "#c9d1d7", None, op=0.32))
+        s.append(_qmark(FG["start"], FG["y0"] - 420, 96, J.AMBER))     # 🔧 geom_gap：霧の円の中だと円の箱に重なった＝霧の上へ
+        s.append(_rep(700.0, 340.0, "r92", "確かには分かっていない", cap=26))
+        s.append(_tline(700.0, 440.0, "何が暴走を始めたのか", 28, INK, "middle", 480))
+    return s
+
+
+# ── rulers2（c922）＝2本の物差し（同じ目盛りに並べない）：1行目＝計算で割れる（2本とも空・「？」）／2行目＝左の縦の物差し＝1986年の報告
+#    「4秒以内に最大の出力（定格）の100倍」／3行目＝右の横の物差し＝のちの計算「はじめの出力の3.5倍から、およそ80倍」・比べるもとが違う（S2 p1010・S1 p131）
+RU_86, RU_SEC, RU_LO, RU_HI = 100, 4, 3.5, 80
+RU = dict(lx=500.0, ly0=780.0, lk=4.4, rx0=980.0, ry=600.0, rk=8.6)
+
+
+def ru_ly(v):
+    return RU["ly0"] - RU["lk"] * v
+
+
+def ru_rx(v):
+    return RU["rx0"] + RU["rk"] * v
+
+
+def rulers2_base(st0):
+    lx, rx0, ry = RU["lx"], RU["rx0"], RU["ry"]
+    g = [F.rect(lx - 22, ru_ly(RU_86) - 20, 44, RU["ly0"] - ru_ly(RU_86) + 20, J.BG2, J.LINE, 4, rx=6),
+         F.rect(rx0, ry - 22, ru_rx(RU_HI) - rx0 + 40, 44, J.BG2, J.LINE, 4, rx=6)]
+    for v in (0, 50, 100):
+        g.append(F.line(lx - 22, ru_ly(v), lx, ru_ly(v), J.TICK, 3))
+    for v in (0, 40, 80):
+        g.append(F.line(ru_rx(v), ry + 22, ru_rx(v), ry, J.TICK, 3))
+    return g
+
+
+def rulers2_stage(prev, st):
+    s = []
+    lx, rx0, ry = RU["lx"], RU["rx0"], RU["ry"]
+    if _on(prev, st, "q"):
+        # 🔧 門番 layout：物差しの上の「？」をあとの段の塗りが覆った＝「？」をやめて上の札に
+        s.append(_chip(1340.0, 300.0, "答えが割れる", J.AMBER, 30, ink=INK))
+    if _on(prev, st, "r86"):
+        y = ru_ly(RU_86)
+        s.append(F.rect(lx - 14, y, 28, RU["ly0"] - y, rep_col("r86"), None, None, rx=4, op=0.85))
+        s.append(_numunit(lx + 50, y + 26, RU_86, "倍", 56, rep_col("r86"), "start", ucap=30))
+        s.append(_tline(lx + 50, y + 74, f"{RU_SEC}秒以内", 28, INK, "start", 260))
+        s.append(_tline(lx + 50, RU["ly0"] - 150, "比べるもと：", 24, J.TICK, "start", 300))
+        s.append(_tline(lx + 50, RU["ly0"] - 116, "最大の出力（定格）", 26, INK, "start", 300))
+        s.append(_rep(lx + 200, 520.0, "r86", "ソ連の専門家の計算", cap=24))     # 🔧 門番 layout：上だと「100」と重なった
+    if _on(prev, st, "later"):
+        a, b = ru_rx(RU_LO), ru_rx(RU_HI)
+        s.append(F.rect(a, ry - 14, b - a, 28, J.DOC, None, None, rx=4, op=0.85))
+        s.append(_numunit(a, ry - 54, RU_LO, "倍から", 44, J.DOC, "start", ucap=26))
+        s.append(_tline(b, ry + 74, "およそ80倍", 30, J.DOC, "end", 300))
+        s.append(_tline(rx0, ry + 128, "比べるもと：はじめの出力", 26, INK, "start", 420))
+        s.append(_chip(1600.0, 390.0, "のちの計算", J.DOC, 26, ink=INK))
+        s.append(_chip(1340.0, 790.0, "比べるもとが違う", J.AMBER, 28, ink=INK))
+    return s
+
+
+# ── memo（c924）＝1983年12月の書簡（紙の模式＝封筒 c408 と別の絵）：1行目＝研究所の科学の責任者から・出力が半分に下がったときなどに／
+#    2行目＝止める棒で反応が強まりうる・1991年の委員会（S1 p54・p100）
+MM_DATE = (1983, 12)
+MM = dict(x0=470.0, y0=290.0, w=560.0, h=540.0)
+
+
+def memo_base(st0):
+    x0, y0, w, h = MM["x0"], MM["y0"], MM["w"], MM["h"]
+    g = [F.rect(x0, y0, w, h, J.BG2, J.DOC, 5, rx=8)]
+    for yy in (y0 + 400, y0 + 440, y0 + 480):
+        g.append(F.line(x0 + 40, yy, x0 + w - 40 - 120 * (yy == y0 + 480), yy, J.LINE_DIM, 8))
+    return g
+
+
+def memo_stage(prev, st):
+    s = []
+    x0, y0, w = MM["x0"], MM["y0"], MM["w"]
+    if _on(prev, st, "send"):
+        s.append(_tline(x0 + 40, y0 + 64, f"{MM_DATE[0]}年{MM_DATE[1]}月", 34, J.AMBER, "start", 400))
+        # 🔧 門番 echo：語りの写し（「研究所の科学の責任者から」「出力が半分に下がったときなどに」「止める棒で反応が強まりうる」）＝書簡の中身の言い方に
+        s.append(_tline(x0 + 40, y0 + 112, "差出人：クルチャトフ研究所", 26, INK, "start", w - 80))
+        s.append(F.rect(x0 + 30, y0 + 150, w - 60, 200, "none", J.ALERT, 4, rx=8))
+        s.append(_tline(x0 + w / 2, y0 + 210, "出力が50%に下がると", 28, INK, "middle", w - 100))
+    if _on(prev, st, "risk"):
+        s.append(_tline(x0 + w / 2, y0 + 290, "緊急停止で、反応が強まるおそれ", 28, J.ALERT, "middle", w - 100))
+        s.append(_arrow(x0 + w + 20, y0 + 250, 1260.0, y0 + 250, J.DOC, 5, 22))
+        s.append(_tline(1140.0, y0 + 222, "書き送っていた", 26, J.DOC, "middle", 260))
+        s.append(_rep(1470.0, y0 + 250, "c91", None, cap=26))
+    return s
+
+
+# ── four（c926）＝4つの条件が1つの炉に（4隅の札と炉）：1行目＝低い出力・少ない残りの棒・炉の性質・棒の欠陥／2行目＝事故の夜、この炉に重なっていた／3行目は聞き役（S1 p33）
+FO_ITEMS = ("低い出力", "少ない残りの棒", "炉の性質", "棒の欠陥")
+FO = dict(core=(810.0, 460.0, 1110.0, 660.0), xy=((470.0, 370.0), (1450.0, 370.0), (470.0, 760.0), (1450.0, 760.0)))
+
+
+def four_base(st0):
+    x0, y0, x1, y1 = FO["core"]
+    return [F.rect(x0, y0, x1 - x0, y1 - y0, "#2b3a44", GRAPH, 5, rx=10), _tline((x0 + x1) / 2, (y0 + y1) / 2 + 12, "4号炉", 32, INK, "middle", 260)]
+
+
+def four_stage(prev, st):
+    s = []
+    if _on(prev, st, "cards"):
+        for (x, y), t in zip(FO["xy"], FO_ITEMS):
+            s.append(_chip(x, y, t, J.AMBER, 32, h=84, ink=INK))
+    if _on(prev, st, "join"):
+        x0, y0, x1, y1 = FO["core"]
+        for (x, y) in FO["xy"]:
+            tx, ty = (x0 if x < CX else x1), (y0 if y < 560 else y1)
+            s.append(_arrow(x + (150 if x < CX else -150), y + (40 if y < 560 else -40), tx + (-6 if x < CX else 6), ty + (-6 if y < 560 else 6), J.AMBER, 5, 22))
+        s.append(F.rect(x0 - 12, y0 - 12, x1 - x0 + 24, y1 - y0 + 24, "none", J.ALERT, 5, rx=14))
+        s.append(_tline(960.0, y1 + 70, "事故の夜、重なっていた", 30, J.ALERT, "middle", 500))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  第9章（ca の10）
+# ══════════════════════════════════════════════════════════
+# ── volkov（ca03）＝5月1日の見方（矢印の模式）：1行目は聞き役（下に「運転員」「炉の設計」の2つの箱）／2行目＝5月1日・研究所の研究グループの長／
+#    3行目＝原因は運転員ではなく炉の設計（✓）・1991年の委員会（S1 p70）。人の名前は出さない（役だけ）
+VK_DATE, VK_PICK = (5, 1), "design"
+VK = dict(card=(960.0, 400.0), op=(560.0, 700.0), de=(1360.0, 700.0))
+
+
+def volkov_base(st0):
+    return [_chip(*VK["op"], "運転員", J.LINE_DIM, 32, h=90, w=300, ink=J.TICK), _chip(*VK["de"], "炉の設計", J.LINE_DIM, 32, h=90, w=300, ink=J.TICK)]
+
+
+def volkov_stage(prev, st):
+    s = []
+    cx, cy = VK["card"]
+    if _on(prev, st, "may1"):
+        s.append(_chip(cx, cy, "研究グループの長", J.LINE, 30, h=96, ink=INK))     # 🔧 門番 echo：語りの写し
+        s.append(_chip(cx - 380, cy - 90, f"{VK_DATE[0]}月{VK_DATE[1]}日", J.AMBER, 30, ink=J.AMBER))
+    if _on(prev, st, "design"):
+        (ox, oy), (dx, dy) = VK["op"], VK["de"]
+        s.append(_arrow(cx - 120, cy + 56, ox + 60, oy - 56, J.LINE_DIM, 4, 20, dash="10 8"))
+        s.append(_xmark(ox + 170, oy - 70, 22, J.ALERT, 7))
+        s.append(_arrow(cx + 120, cy + 56, dx - 60, dy - 56, J.AMBER, 6, 24))
+        s.append(F.rect(dx - 162, dy - 57, 324, 114, "none", J.AMBER, 6, rx=14))     # 🔧 門番 layout：同じ字の札を重ねて描いた＝字を持たない枠だけ
+        s.append(_check(dx + 190, dy - 70, 22, J.OK))
+        s.append(_tline(960.0, 830.0 - 40, "原因は、運転員ではなく", 28, INK, "middle", 500))
+        s.append(_rep(1560.0, 400.0, "c91", None, cap=26))
+    return s
+
+
+# ── funnel（ca04）＝原因の札の絞り込み（漏斗の模式）：上に3つの札（炉の設計・止める棒の作り・職員の誤り）→ 1行目＝6月の2回の会議で
+#    「職員の誤り」だけが下に出る・ほかの札に×／2行目＝省庁をまたぐ科学技術の会議（S1 p70）
+FN_CARDS = ("炉の設計", "止める棒の作り", "職員の誤り")
+FN_OUT, FN_N, FN_M = "職員の誤り", 2, 6
+FN = dict(xs=(700.0, 960.0, 1220.0), cy=330.0, top=430.0, neck=640.0, out=760.0)
+
+
+def funnel_base(st0):
+    g = [F.poly([(660.0, FN["top"]), (1260.0, FN["top"]), (1000.0, FN["neck"]), (1000.0, FN["neck"] + 40), (920.0, FN["neck"] + 40),
+                 (920.0, FN["neck"]), (660.0, FN["top"])], J.BG2, J.LINE, 5, close=True)]
+    for x, t in zip(FN["xs"], FN_CARDS):
+        g.append(_chip(x, FN["cy"], t, J.LINE_DIM, 26, h=64, w=240, ink=INK))
+    return g
+
+
+def funnel_stage(prev, st):
+    s = []
+    if _on(prev, st, "narrow"):
+        for x, t in zip(FN["xs"], FN_CARDS):
+            if t != FN_OUT:
+                s.append(_xmark(x + 142, FN["cy"], 20, J.ALERT, 7))     # 🔧 geom_gap：札の字の上の×＝札の右の外へ
+        s.append(_chip(960.0, FN["out"], FN_OUT, J.ALERT, 32, h=84, w=320, ink=INK))
+        s.append(_chip(400.0, 540.0, f"{FN_M}月・{FN_N}回の会議", J.AMBER, 28, ink=INK))
+        s.append(_tline(1360.0, FN["out"] + 12, "すべて、これだけに", 28, J.ALERT, "start", 420))
+        s.append(_rep(1560.0, 540.0, "c91", None, cap=26))
+    if _on(prev, st, "council"):
+        s.append(_tline(400.0, 620.0, "省庁をまたぐ", 26, J.TICK, "middle", 300))
+        s.append(_tline(400.0, 660.0, "科学技術の会議", 26, J.TICK, "middle", 300))
+    return s
+
+
+# ── road（ca05）＝道を開いた決定（道の模式）：会議の決定（手前）→ 奥へ伸びる道 → ウィーンなどでの説明・一方通行の標識「一方的」・1991年の委員会（S1 p70）
+RO = dict(near=((420.0, 840.0), (900.0, 840.0)), far=((1380.0, 420.0), (1460.0, 420.0)), sign=(1060.0, 520.0))
+
+
+def road_base(st0):
+    (a, b), (c, d) = RO["near"], RO["far"]
+    g = [F.poly([a, b, d, c], "#28333b", J.LINE_DIM, 3, close=True)]
+    for i in range(6):
+        t0, t1 = i / 6 + 0.03, i / 6 + 0.10
+        p0 = ((a[0] + b[0]) / 2 * (1 - t0) + (c[0] + d[0]) / 2 * t0, a[1] * (1 - t0) + c[1] * t0)
+        p1 = ((a[0] + b[0]) / 2 * (1 - t1) + (c[0] + d[0]) / 2 * t1, a[1] * (1 - t1) + c[1] * t1)
+        g.append(F.line(*p0, *p1, J.TICK, 5))
+    return g
+
+
+def road_stage(prev, st):
+    s = []
+    if _on(prev, st, "open"):
+        s.append(_chip(400.0, 720.0, "6月の会議の決定", J.LINE, 28, h=72, ink=INK))
+        s.append(_chip(1520.0, 340.0, "ウィーンなどでの説明", J.AMBER, 28, h=72, ink=INK))
+        x, y = RO["sign"]
+        s.append(F.line(x, y, x, y + 170, J.LINE, 6))
+        s.append(F.rect(x - 90, y - 50, 180, 70, COOL, None, None, rx=8))         # 🔴 標識の青は報告の青（1992年の報告）と別の値
+        s.append(_arrow(x - 60, y - 15, x + 62, y - 15, INK, 8, 26))
+        s.append(_tline(x - 104, y - 4, "一方的", 30, J.AMBER, "end", 200))     # 🔧 geom_gap：標識の右だと道の上に乗った
+        s.append(_rep(560.0, 360.0, "c91", "道を開いた", cap=26))
+    return s
+
+
+# ── notstop（ca07）＝委員会が認めた違反（札の模式）：1行目＝1991年の委員会・職員の違反を認める／2行目＝25日の朝・残した棒 15本・止めなかった・
+#    わざと（委員会の見方）／3行目＝事故の原因ではない（S1 p81）。時刻（7時ごろ）は言わない（台本 §1-5）
+NS_RODS, NS_DAY = 15, 25
+NS = dict(panel=(780.0, 470.0, 400.0, 220.0), btn=(1340.0, 580.0))
+
+
+def notstop_stage(prev, st):
+    s = []
+    if _on(prev, st, "viol"):
+        s.append(_rep(560.0, 340.0, "c91", "職員の違反は認める", cap=26))
+    if _on(prev, st, "rods"):
+        x, y, w, h = NS["panel"]
+        s.append(F.rect(x, y, w, h, J.BG2, J.LINE, 5, rx=12))
+        s.append(_tline(x + w / 2, y + 44, "残した棒", 28, J.TICK, "middle", w - 40))
+        s.append(_numunit(x + w / 2, y + 150, NS_RODS, "本", 88, J.AMBER))
+        s.append(_chip(x + w / 2, y - 60, f"{NS_DAY}日の朝", J.LINE, 26, ink=INK))
+        bx, by = NS["btn"]
+        s.append(F.circ(bx, by, 70, J.BG2, J.LINE_DIM, 6) + F.circ(bx, by, 50, J.ALERT_DIM, None))
+        s.append(_tline(bx, by + 8, "止める", 26, J.TICK, "middle", 100))
+        s.append(_tline(bx, by + 116, "止めなかった", 28, J.ALERT, "middle", 300))
+        s.append(_chip(1340.0, 360.0, "わざと（委員会の見方）", J.ALERT, 26, ink=INK))
+    if _on(prev, st, "notcause"):
+        s.append(_chip(980.0, 800.0, "事故の原因ではない", J.OK, 28, ink=INK))     # 🔧 門番 echo：語りの写し
+    return s
+
+
+# ── cheese（ca10）＝3つの重なり（穴のあいた3枚の板の模式＝穴がそろうと事故＝c816 の重なる輪と別の絵）：1行目＝炉の物理の性質・止める棒の設計／
+#    2行目＝手順に定めがなく調べてもいない状態へ・穴を通る矢印 → 事故・1992年の報告（S1 p33）
+CH_ITEMS = ("炉の物理の性質", "止める棒の設計", "定めのない状態へ")
+CH = dict(xs=(560.0, 900.0, 1240.0), y0=380.0, y1=700.0, w=150.0, sk=50.0, hole=((-10.0, 560.0), (0.0, 548.0), (10.0, 536.0)))
+
+
+def _slice(cx, y0, y1, w, sk, col, hole):
+    pts = [(cx - w / 2 + sk, y0), (cx + w / 2 + sk, y0), (cx + w / 2 - sk, y1), (cx - w / 2 - sk, y1)]
+    hx, hy = cx + hole[0], hole[1]
+    return F.poly(pts, col, J.BG, 3, close=True, op=0.92) + F.circ(hx, hy, 34, J.BG, None)
+
+
+def ch_holes():
+    return [(x + h[0], h[1]) for x, h in zip(CH["xs"], CH["hole"])]
+
+
+def cheese_stage(prev, st):
+    s = []
+    cols = (J.AMBER, J.OK, J.DOC)          # 🔴 報告の色（桃・橙・紫・青）は使わない＝板は報告でない
+    if _on(prev, st, "two"):
+        for i in range(2):
+            s.append(_slice(CH["xs"][i], CH["y0"], CH["y1"], CH["w"], CH["sk"], cols[i], CH["hole"][i]))
+            s.append(_tline(CH["xs"][i], CH["y1"] + 56, CH_ITEMS[i], 26, INK, "middle", 300))
+    if _on(prev, st, "three"):
+        s.append(_slice(CH["xs"][2], CH["y0"], CH["y1"], CH["w"], CH["sk"], cols[2], CH["hole"][2]))
+        s.append(_tline(CH["xs"][2], CH["y1"] + 56, CH_ITEMS[2], 26, INK, "middle", 300))
+        s.append(_tline(CH["xs"][2], CH["y1"] + 92, "（調べてもいない）", 22, J.TICK, "middle", 300))
+        (ax, ay), (bx, by) = ch_holes()[0], ch_holes()[2]
+        k = (by - ay) / (bx - ax)
+        s.append(_arrow(ax - 260, ay - 260 * k, bx + 200, by + 200 * k, J.ALERT, 7, 28))
+        s.append(F.poly(_burst(bx + 300, by + 300 * k, 40, 70), J.ALERT, None, close=True))
+        s.append(_tline(bx + 300, by + 300 * k + 110, "事故", 32, J.ALERT, "middle", 140))
+        s.append(_rep(960.0, 300.0, "r92", "3つが重なって起きた", cap=26))
+    return s
+
+
+# ── precursor（ca12）＝前触れの事故（2つの札と切れた線）：1行目＝1975年 レニングラード1号機・前触れと見る人もいる／2行目＝伝わらない（切れた線に×）・
+#    中身と原因を、チェルノブイリの職員は知らなかった・1992年の報告（S1 p33）
+PC_Y1, PC_Y2 = 1975, 1986
+PC = dict(xl=500.0, xr=1420.0, y=540.0)
+
+
+def precursor_base(st0):
+    x = PC["xr"]
+    return [F.rect(x - 200, PC["y"] - 80, 400, 160, J.BG2, J.LINE_DIM, 4, rx=10), _tline(x, PC["y"] - 14, f"{PC_Y2}年", 36, J.TICK, "middle", 300),
+            _tline(x, PC["y"] + 40, "チェルノブイリ", 30, J.TICK, "middle", 360)]
+
+
+def precursor_stage(prev, st):
+    s = []
+    if _on(prev, st, "pre"):
+        x = PC["xl"]
+        s.append(F.rect(x - 220, PC["y"] - 80, 440, 160, J.BG2, J.AMBER, 5, rx=10))
+        s.append(_tline(x, PC["y"] - 14, f"{PC_Y1}年", 36, J.AMBER, "middle", 300))
+        s.append(_tline(x, PC["y"] + 40, "レニングラード1号機", 30, INK, "middle", 400))
+        s.append(_tline(x, PC["y"] - 120, "前触れと見る人もいる", 28, J.AMBER, "middle", 440))
+    if _on(prev, st, "cut"):
+        y = PC["y"]
+        s.append(F.line(PC["xl"] + 230, y, 900.0, y, J.LINE, 5, dash="14 10"))
+        s.append(F.line(1020.0, y, PC["xr"] - 210, y, J.LINE, 5, dash="14 10"))
+        s.append(_xmark(960.0, y, 26, J.ALERT, 8))
+        s.append(_tline(960.0, y + 150, "中身と原因を、職員は知らなかった", 28, INK, "middle", 640))
+        s.append(_rep(960.0, 320.0, "r92", None, cap=26))
+    return s
+
+
+# ── puzzle（ca14）＝1992年の報告の続き（札と組み絵の模式）：1行目＝運転員の決定的な操作＝きわめて判断を誤っていた／2行目＝組み絵の大きな1片「人の要素」
+#    ＝いまも大きな要素（S1 p34）
+PZ = dict(y=640.0, h=200.0, l=(520.0, 860.0), r=(900.0, 1340.0))
+
+
+def _piece(x0, x1, y, h, col, fill, knob=None):
+    g = F.rect(x0, y - h / 2, x1 - x0, h, fill, col, 5, rx=8)
+    if knob == "left":
+        g += F.circ(x0, y, 34, fill, col, 5) + F.rect(x0 + 2, y - 30, 30, 60, fill, None, None)
+    return g
+
+
+def puzzle_stage(prev, st):
+    s = []
+    if _on(prev, st, "ill"):
+        s.append(_chip(640.0, 380.0, "運転員の決定的な操作", J.LINE, 30, h=80, ink=INK))
+        s.append(_chip(1260.0, 380.0, "大きな判断の誤り", rep_col("r92"), 30, h=80, ink=INK))     # 🔧 門番 echo：語りの写し
+        s.append(_arrow(900.0, 380.0, 990.0, 380.0, rep_col("r92"), 5, 20))
+        s.append(_rep(1580.0, 270.0, "r92", None, cap=24))
+    if _on(prev, st, "human"):
+        l0, l1 = PZ["l"]
+        r0, r1 = PZ["r"]
+        s.append(_piece(l0, l1, PZ["y"], PZ["h"], J.LINE_DIM, J.BG2))
+        s.append(_tline((l0 + l1) / 2, PZ["y"] + 12, "設計の特徴", 28, J.TICK, "middle", 300))
+        s.append(_piece(r0, r1, PZ["y"], PZ["h"] + 40, J.AMBER, "#3a3320", knob="left"))
+        s.append(_tline((r0 + r1) / 2 + 20, PZ["y"] + 14, "人の要素", 40, J.AMBER, "middle", 360))
+        s.append(_tline(r1 + 40, PZ["y"] + 12, "いまも大きな要素", 30, INK, "start", 420))
+    return s
+
+
+# ── bins4（ca16）＝7つの「違反」の1992年の評価（箱と色の枠＝この1枚だけ・字は少なく）：1行目は聞き役（7つの札）／2行目＝色の枠と凡例の4色
+#    （違反ではない＝緑・誤りとは言えないようだ＝水色の破線〈留保〉・形の上の違反＝黄・違反＝赤）（S1 p20〜22・p34）
+BN_EVAL = ("違反", "違反ではない", "誤りとは言えないようだ", "違反ではない", "形の上の違反", "違反ではない", "違反")
+BN_COL = {"違反ではない": "OK", "誤りとは言えないようだ": "ship", "形の上の違反": "AMBER", "違反": "ALERT"}
+BN = dict(x0=110.0, pitch=242.8, y=440.0, w=222.0, h=150.0, ly=(690.0, 770.0), lx=(240.0, 1000.0))
+
+
+def bn_x(i):
+    return BN["x0"] + BN["pitch"] * (i + 0.5)
+
+
+def bins4_base(st0):
+    g = []
+    for i, t in enumerate(VIOL):
+        x = bn_x(i)
+        g.append(F.rect(x - BN["w"] / 2, BN["y"] - BN["h"] / 2, BN["w"], BN["h"], J.BG2, J.LINE_DIM, 3, rx=10))
+        g.append(_tline(x, BN["y"] - 14, CIRC[i], 44, INK, "middle", 80))
+        g.append(_tline(x, BN["y"] + 46, t, 24, INK, "middle", BN["w"] - 24))
+    return g
+
+
+def bins4_stage(prev, st):
+    s = []
+    if _on(prev, st, "sort"):
+        for i, ev in enumerate(BN_EVAL):
+            x = bn_x(i)
+            s.append(F.rect(x - BN["w"] / 2 - 8, BN["y"] - BN["h"] / 2 - 8, BN["w"] + 16, BN["h"] + 16, "none", rc(BN_COL[ev]), 8, rx=14,
+                            dash="14 10" if ev == "誤りとは言えないようだ" else None))
+        for k, ev in enumerate(("違反ではない", "誤りとは言えないようだ", "形の上の違反", "違反")):
+            x, y = BN["lx"][k % 2], BN["ly"][k // 2]
+            s.append(_swatch(x, y, rc(BN_COL[ev]), ev, cap=30, frame=True, dash="8 6" if ev == "誤りとは言えないようだ" else None))
+        s.append(_rep(1560.0, 300.0, "r92", "の評価", cap=26))
+    return s
+
+
+# ── twoX（ca20）＝2つの札に×（言い過ぎの2つ）：1行目は聞き役／2行目＝「運転員の責めは消えた」に×／3行目＝「1986年の報告は取り消し」に×（S1 p34）
+#    🔴 出さない言葉（無実・嘘）を使わない
+TX_CARDS = ("運転員の責めは消えた", "1986年の報告は取り消し")
+TX = dict(xs=(580.0, 1340.0), y=560.0, w=600.0, h=200.0)
+
+
+def twox_stage(prev, st):
+    s = []
+    for i, key in enumerate(("c1", "c2")):
+        if _on(prev, st, key):
+            x = TX["xs"][i]
+            s.append(F.rect(x - TX["w"] / 2, TX["y"] - TX["h"] / 2, TX["w"], TX["h"], J.BG2, J.LINE, 5, rx=12))
+            s.append(_tline(x, TX["y"] + 12, TX_CARDS[i], 34, INK, "middle", TX["w"] - 60))
+            s.append(_xmark(x, TX["y"] + 160, 40, J.ALERT, 11))
+            if i == 0:
+                s.append(_rep(960.0, 330.0, "r92", "の立場", cap=26))
+    return s
+
+
+# ── merge2（ca22）＝2つの矢印が1つの箱へ（設計の欠点・運転の仕方 → 炉の不安定）：1行目＝1989年の国際会議・設計の欠点／2行目＝運転の仕方・おおむね合意（S1 p120）
+MG_YEAR = 1989
+MG = dict(dst=(1380.0, 560.0), a=(560.0, 420.0), b=(560.0, 720.0))
+
+
+def merge2_base(st0):
+    x, y = MG["dst"]
+    return [_chip(x, y, "炉の不安定", J.ALERT, 34, h=110, w=360, ink=INK)]
+
+
+def merge2_stage(prev, st):
+    s = []
+    dx, dy = MG["dst"]
+    if _on(prev, st, "design"):
+        x, y = MG["a"]
+        s.append(_chip(x, y, "設計の欠点", J.LINE, 32, h=90, w=320, ink=INK))
+        s.append(_arrow(x + 170, y + 20, dx - 190, dy - 30, J.AMBER, 6, 24))
+        s.append(_chip(960.0, 300.0, f"{MG_YEAR}年の国際会議", J.DOC, 28, ink=INK))
+    if _on(prev, st, "oper"):
+        x, y = MG["b"]
+        s.append(_chip(x, y, "運転の仕方", J.LINE, 32, h=90, w=320, ink=INK))
+        s.append(_arrow(x + 170, y - 20, dx - 190, dy + 30, J.AMBER, 6, 24))
+        s.append(_chip(dx, dy + 150, "おおむね合意", J.OK, 30, ink=INK))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  第10章（cb の10）＝🔴 人の形は使わない（数の札・積み木・面積）
+# ══════════════════════════════════════════════════════════
+# ── stairs（cb02）＝亡くなった人の数の移り変わりの入口（段の模式＝年表の相方＝c205 の横の線と別の絵）：1行目＝1986年5月の半ば・日本の国会の答弁＝9人／
+#    2行目＝そのあと増えていく（先の段は破線と「？」＝数は次のカットから）（K1 19860515）
+ST_N, ST_M = 9, 5
+STS = dict(x0=360.0, w=250.0, base=800.0, h0=110.0, dh=90.0, n=5)
+
+
+def st_box(i):
+    x = STS["x0"] + i * STS["w"]
+    h = STS["h0"] + i * STS["dh"]
+    return (x, STS["base"] - h, STS["w"] - 16, h)
+
+
+def stairs_stage(prev, st):
+    s = []
+    if _on(prev, st, "may"):
+        x, y, w, h = st_box(0)
+        s.append(F.rect(x, y, w, h, J.DOC_DIM, J.DOC, 5, rx=6))
+        s.append(_numunit(x + w / 2, y + 74, ST_N, "人", 64, J.AMBER))
+        s.append(_tline(x + w / 2, y - 70, f"1986年{ST_M}月の半ば", 26, INK, "middle", 360))
+        s.append(_tline(x + w / 2, y - 30, "日本の国会の答弁", 26, J.DOC, "middle", 360))
+    if _on(prev, st, "more"):
+        for i in range(1, STS["n"]):
+            x, y, w, h = st_box(i)
+            s.append(F.rect(x, y, w, h, "none", J.LINE_DIM, 4, rx=6, dash="12 10"))
+            s.append(_qmark(x + w / 2, y + 60, 48, J.TICK))
+        x0, y0, w0, _h = st_box(0)
+        x4, y4, w4, _h4 = st_box(STS["n"] - 1)
+        s.append(_arrow(x0 + w0, y0 - 130, x4 - 20, y4 - 40, J.AMBER, 6, 26))
+        s.append(_tline(1000.0, 330.0, "そのあと、数は増えていく", 30, J.AMBER, "middle", 520))
+    return s
+
+
+# ── num31（cb04）＝9月の報告の数（数の札）：1行目＝1986年の報告・これまでに31人（病院に運ばれた300人のうち）／2行目＝ソ連が発表した数（S2 p1118）
+N31, N31_OF = 31, 300
+N3 = dict(x=960.0, y=560.0, w=560.0, h=280.0)
+
+
+def num31_stage(prev, st):
+    s = []
+    x, y, w, h = N3["x"], N3["y"], N3["w"], N3["h"]
+    if _on(prev, st, "n31"):
+        s.append(F.rect(x - w / 2, y - h / 2, w, h, J.BG2, rep_col("r86"), 6, rx=14))
+        s.append(_numunit(x, y + 40, N31, "人", 150, rep_col("r86"), ucap=60))
+        s.append(_tline(x, y - h / 2 + 50, "これまでに亡くなった", 28, INK, "middle", w - 60))
+        s.append(_tline(x, y + h / 2 + 50, f"病院に運ばれた{N31_OF}人のうち", 26, J.TICK, "middle", 600))
+        s.append(_rep(x, 320.0 - 10, "r86", "9月", cap=26))
+    if _on(prev, st, "sov"):
+        s.append(_chip(1480.0, y, "ソ連が発表した数", J.LINE, 30, h=80, ink=INK))
+        s.append(_arrow(1330.0, y, x + w / 2 + 16, y, J.LINE, 4, 20))
+    return s
+
+
+# ── blocks30（cb06）＝2000年の国連の科学委員会の数（積み木の棒＝棒の相方＝c412 の横の棒と別の絵・1つの積み木＝1人）：1行目＝30人／
+#    2行目＝そのうち放射線による28人を色で（色は字を持たない積み木だけ）（L2 p3005）
+BK_T, BK_R = 30, 28
+BK = dict(x0=760.0, base=800.0, cw=56.0, ch=40.0, gap=6.0, cols=3)
+
+
+def bk_cells():
+    out = []
+    for i in range(BK_T):
+        r, c = divmod(i, BK["cols"])
+        out.append((BK["x0"] + c * (BK["cw"] + BK["gap"]), BK["base"] - (r + 1) * (BK["ch"] + BK["gap"])))
+    return out
+
+
+def blocks30_stage(prev, st):
+    s = []
+    cells = bk_cells()
+    xr = BK["x0"] + BK["cols"] * (BK["cw"] + BK["gap"])
+    if _on(prev, st, "all"):
+        for x, y in cells:
+            s.append(F.rect(x, y, BK["cw"], BK["ch"], J.BG2, J.LINE, 3, rx=4))
+        s.append(_numunit(xr + 60, cells[-1][1] + 30, BK_T, "人", 72, INK, "start"))
+        s.append(_chip(480.0, 300.0, "国連の科学委員会（2000年）", J.DOC, 28, ink=INK))     # 🔧 geom_gap：積み木に 2.8px 食い込んだ
+    if _on(prev, st, "rad"):
+        for x, y in cells[:BK_R]:
+            s.append(F.rect(x + 3, y + 3, BK["cw"] - 6, BK["ch"] - 6, J.AMBER, None, None, rx=3, op=0.9))
+        ytop = cells[BK_R - 1][1]
+        s.append(F.line(xr + 40, ytop, xr + 40, BK["base"] - BK["gap"], J.AMBER, 4))
+        s.append(_tline(xr + 60, (ytop + BK["base"]) / 2 + 10, "そのうち放射線による", 28, INK, "start", 400))
+        s.append(_numunit(xr + 60, (ytop + BK["base"]) / 2 + 80, BK_R, "人", 56, J.AMBER, "start"))
+    return s
+
+
+# ── two31（cb08）＝同じ31でも中身が違う（2つの数の札）：1行目は聞き役（左＝ソ連の発表の31・右＝フォーラムの31＝放射線28＋けが2＋心臓1）／
+#    2行目＝左を「この動画の31人」に／3行目＝1986年の報告が書いた数（S2 p1118・L1 p4012）。「うち29」の札は出さない（映像方針 §2）
+TW31 = dict(xs=(600.0, 1320.0), y=560.0, w=560.0, h=320.0)
+TW_FORUM = ((28, "放射線", "AMBER"), (2, "けが", "LINE"), (1, "心臓", "DOC"))
+
+
+def two31_base(st0):
+    g = []
+    for i, x in enumerate(TW31["xs"]):
+        y, w, h = TW31["y"], TW31["w"], TW31["h"]
+        g.append(F.rect(x - w / 2, y - h / 2, w, h, J.BG2, J.LINE, 4, rx=12))
+        g.append(_tline(x, y - h / 2 + 48, ("ソ連の発表" if i == 0 else "フォーラム（2006年）"), 30, INK if i == 0 else J.DOC, "middle", w - 60))
+        g.append(_numunit(x, y + 40, 31, "人", 120, INK, ucap=48))
+    x = TW31["xs"][0]
+    g.append(_tline(x, TW31["y"] + TW31["h"] / 2 - 30, "内訳は出されていない", 24, J.TICK, "middle", TW31["w"] - 60))
+    x = TW31["xs"][1]
+    bx0, bw = x - 230, 460
+    y = TW31["y"] + TW31["h"] / 2 - 80          # 🔧 机上：帯と下の字が 6px
+    acc = 0
+    for n, t, col in TW_FORUM:
+        w = bw * n / 31
+        g.append(F.rect(bx0 + bw * acc / 31, y, w - 3, 22, rc(col), None, None))
+        acc += n
+    g.append(_tline(x, y + 52, "放射線28＋けが2＋心臓1", 24, J.TICK, "middle", TW31["w"] - 60))
+    return g
+
+
+def two31_stage(prev, st):
+    s = []
+    x, y, w, h = TW31["xs"][0], TW31["y"], TW31["w"], TW31["h"]
+    if _on(prev, st, "ours"):
+        s.append(F.rect(x - w / 2 - 12, y - h / 2 - 12, w + 24, h + 24, "none", J.AMBER, 6, rx=16))
+        s.append(_tline(x, y - h / 2 - 34, "この動画の「31人」", 30, J.AMBER, "middle", 500))
+    if _on(prev, st, "r86"):
+        s.append(_rep(x, y + h / 2 + 70, "r86", "が書いた数", cap=26))
+    return s
+
+
+# ── circles（cb09）＝急性放射線障害の数（面積が人数に比例する2つの円）：1行目＝病気の説明（大きな円は破線だけ）／2行目＝237人を調べ・134人と確かめられた
+#    ・国連の科学委員会（L2 p3040）。28人は次の写真のカット（cb10）＝ここでは出さない
+CI_N = (237, 134)
+CI = dict(cx=720.0, by=820.0, r=250.0)
+
+
+def ci_r(n):
+    return CI["r"] * math.sqrt(n / CI_N[0])
+
+
+def circles_stage(prev, st):
+    s = []
+    R = CI["r"]
+    cy = CI["by"] - R
+    if _on(prev, st, "def"):
+        s.append(F.circ(CI["cx"], cy, R, "none", J.LINE_DIM, 4))
+        s.append(_tline(1380.0, 380.0, "急性放射線障害", 40, J.AMBER, "middle", 640))
+        s.append(_tline(1380.0, 440.0, "短い時間に", 28, INK, "middle", 640))      # 🔧 門番 echo：語りの写し＝2つの短い札に
+        s.append(_tline(1380.0, 482.0, "大量に浴びると起きる", 28, INK, "middle", 640))
+    if _on(prev, st, "n"):
+        r2 = ci_r(CI_N[1])
+        s.append(F.circ(CI["cx"], cy, R, J.LINE, None, op=0.18) + F.circ(CI["cx"], cy, R, "none", J.LINE, 5))
+        c2y = CI["by"] - r2
+        s.append(F.circ(CI["cx"], c2y, r2, J.AMBER, None, op=0.35) + F.circ(CI["cx"], c2y, r2, "none", J.AMBER, 5))
+        s.append(_numunit(CI["cx"], cy - R + 100, CI_N[0], "人を調べた", 48, INK, ucap=26))     # 🔧 geom_gap：大きな円の縁に 0.1px
+        s.append(_numunit(CI["cx"], c2y + 10, CI_N[1], "人", 64, J.AMBER))
+        s.append(_tline(CI["cx"], c2y + 56, "この病気と確かめられた", 24, INK, "middle", 2 * r2 - 40))
+        s.append(_chip(1380.0, 640.0, "国連の科学委員会", J.DOC, 28, ink=INK))
+    return s
+
+
+# ── area60（cb12）＝フォーラムの推計の作り（面積が人数に比例する四角）：1行目＝多く放射線を浴びた60万人／2行目＝ほかの原因のがん およそ10万人／
+#    3行目＝加えて、放射線で最大4,000人（推計）（L1 p4014・p4012）
+A6_POP, A6_BASE, A6_ADD = 600000, 100000, 4000
+A6 = dict(x0=260.0, y0=300.0, w=900.0, h=500.0, lx=1230.0)
+
+
+def a6_base_w():
+    return A6["w"] * A6_BASE / A6_POP
+
+
+def a6_add_side():
+    return math.sqrt(A6["w"] * A6["h"] * A6_ADD / A6_POP)
+
+
+def area60_stage(prev, st):
+    s = []
+    x0, y0, w, h, lx = A6["x0"], A6["y0"], A6["w"], A6["h"], A6["lx"]
+    if _on(prev, st, "pop"):
+        s.append(F.rect(x0, y0, w, h, "#24323c", J.LINE, 4))
+        s.append(_tline(x0 + 30, y0 + 60, "多く放射線を浴びた", 28, INK, "start", 500))
+        s.append(_numunit(x0 + 30, y0 + 140, 60, "万人", 72, INK, "start", ucap=36))
+        s.append(_chip(lx + 260, 330.0, "2006年のフォーラム", J.DOC, 28, ink=INK))
+    if _on(prev, st, "base"):
+        bw = a6_base_w()
+        s.append(F.rect(x0 + w - bw, y0, bw, h, J.LINE_DIM, None, None, op=0.9))
+        s.append(F.line(x0 + w - bw / 2, y0 + h * 0.7, lx - 10, y0 + h * 0.7, J.LINE, 3))
+        s.append(_tline(lx, y0 + h * 0.7 - 16, "ほかの原因のがんで亡くなる人", 26, INK, "start", 600))
+        s.append(_tline(lx, y0 + h * 0.7 + 26, "およそ10万人", 30, J.TICK, "start", 600))
+    if _on(prev, st, "add"):
+        a = a6_add_side()
+        bw = a6_base_w()
+        ax = x0 + w - bw - a
+        s.append(F.rect(ax, y0, a, a, J.ALERT, None, None))
+        s.append(F.line(ax + a / 2, y0 + a, ax + a / 2, y0 + 130, J.ALERT, 3))
+        s.append(F.line(ax + a / 2, y0 + 130, lx - 10, y0 + 130, J.ALERT, 3))
+        s.append(_tline(lx, y0 + 116, "加えて、放射線のために", 26, INK, "start", 600))
+        s.append(_tline(lx, y0 + 160, "最大4,000人（推計）", 30, J.ALERT, "start", 600))     # 🔧 門番 echo：語りの写し
+    return s
+
+
+# ── scope2（cb13）＝2つの推計の範囲（左右の札＝比べの相方＝c603 の棒の2列と別の絵）：左＝フォーラム（前のカットの続き・薄い）／
+#    1行目＝国際がん研究機関・ヨーロッパの40か国・2065年までに／2行目＝およそ1万6,000人（L8 pdf2・pdf5）。札は語りの言い方
+SC_IARC = (16000, 40, 2065)
+SC = dict(xl=560.0, xr=1360.0, y0=300.0, y1=800.0, w=640.0)
+
+
+def scope2_base(st0):
+    x, w = SC["xl"], SC["w"]
+    return [F.rect(x - w / 2, SC["y0"], w, SC["y1"] - SC["y0"], J.BG2, J.LINE_DIM, 4, rx=12),
+            _tline(x, SC["y0"] + 60, "2006年のフォーラム", 28, J.DOC, "middle", w - 60),
+            _tline(x, SC["y0"] + 160, "多く浴びた60万人について", 26, J.TICK, "middle", w - 60),
+            _tline(x, SC["y0"] + 300, "最大4,000人", 44, J.TICK, "middle", w - 60)]
+
+
+def scope2_stage(prev, st):
+    s = []
+    x, w = SC["xr"], SC["w"]
+    if _on(prev, st, "who"):
+        s.append(F.rect(x - w / 2, SC["y0"], w, SC["y1"] - SC["y0"], J.BG2, J.AMBER, 5, rx=12))
+        s.append(_tline(x, SC["y0"] + 60, "国際がん研究機関", 30, J.AMBER, "middle", w - 60))
+        s.append(_tline(x, SC["y0"] + 160, "ヨーロッパの40か国で", 28, INK, "middle", w - 60))
+        s.append(_tline(x, SC["y0"] + 204, "2065年までに", 28, INK, "middle", w - 60))
+    if _on(prev, st, "n"):
+        s.append(_tline(x, SC["y0"] + 330, "およそ1万6,000人", 52, J.AMBER, "middle", w - 60))
+        s.append(_tline(x, SC["y0"] + 400, "放射線によるがんで（推計）", 26, INK, "middle", w - 60))
+    return s
+
+
+# ── machine（cb15）＝推計の作り（計算の機械の模式＝流れ図 c214・c507 と別の絵）：1行目は聞き役（機械だけ）／2行目＝広島と長崎の被爆者など・ほかで浴びた人たちの経験／
+#    3行目＝推計の数＝実際に数えた人数ではない（L1 p4013）
+MC = dict(box=(780.0, 450.0, 360.0, 240.0), inx=380.0, outx=1540.0, y=570.0)
+
+
+def machine_base(st0):
+    x, y, w, h = MC["box"]
+    return [F.rect(x, y, w, h, J.BG2, J.LINE, 5, rx=14), _gear(x + 120, y + 130, 54), _gear(x + 236, y + 100, 40),
+            _tline(x + w / 2, y - 24, "計算", 30, INK, "middle", 200)]
+
+
+def machine_stage(prev, st):
+    s = []
+    x, y, w, h = MC["box"]
+    if _on(prev, st, "in"):
+        s.append(_chip(MC["inx"], MC["y"] - 30, "広島と長崎の被爆者など", J.LINE, 26, h=72, w=420, ink=INK))
+        s.append(_tline(MC["inx"], MC["y"] + 44, "ほかで浴びた人たちの経験", 26, J.TICK, "middle", 420))
+        s.append(_arrow(MC["inx"] + 220, MC["y"], x - 12, MC["y"], J.LINE, 5, 22))
+    if _on(prev, st, "out"):
+        s.append(_arrow(x + w + 12, MC["y"], MC["outx"] - 170, MC["y"], J.LINE, 5, 22))
+        s.append(_chip(MC["outx"], MC["y"], "推計の数", J.AMBER, 34, h=96, w=300, ink=INK))
+        s.append(_chip(MC["outx"] - 90, MC["y"] + 150, "数えた数ではない", J.ALERT, 26, ink=INK))     # 🔧 門番 echo：語りの写し
+    return s
+
+
+# ── waffle（cb17）＝甲状腺がん およそ2万例（10×10の升目＝1升 およそ200例）：1行目＝1991年から2015年・事故のとき18歳未満・およそ2万例／
+#    2行目＝放射線による分（避難しなかった人）およそ4分の1＝25升／3行目＝幅は少なくとも7%から50%（帯の比例）・国連の科学委員会（L4 pdf7・pdf20）
+WF_N, WF_Q, WF_LO, WF_HI = 20000, 25, 7, 50
+WF = dict(x0=300.0, y0=300.0, c=44.0, g=6.0, bx0=900.0, bx1=1700.0, by=760.0)
+
+
+def wf_cells():
+    return [(WF["x0"] + (i % 10) * (WF["c"] + WF["g"]), WF["y0"] + (i // 10) * (WF["c"] + WF["g"])) for i in range(100)]
+
+
+def wf_bx(p):
+    return WF["bx0"] + (WF["bx1"] - WF["bx0"]) * p / 100.0
+
+
+def waffle_stage(prev, st):
+    s = []
+    cells = wf_cells()
+    if _on(prev, st, "all"):
+        for x, y in cells:
+            s.append(F.rect(x, y, WF["c"], WF["c"], J.BG2, J.LINE_DIM, 2, rx=4))
+        s.append(_tline(900.0, 340.0, "事故のとき18歳未満", 28, INK, "start", 760))     # 🔧 門番 echo：語りの写し
+        s.append(_tline(900.0, 386.0, "1991〜2015年", 28, INK, "start", 760))
+        s.append(_tline(900.0, 452.0, "およそ2万例", 44, J.AMBER, "start", 760))
+    if _on(prev, st, "quarter"):
+        for x, y in cells[:WF_Q]:
+            s.append(F.rect(x + 3, y + 3, WF["c"] - 6, WF["c"] - 6, J.ALERT, None, None, rx=3, op=0.85))
+        s.append(_tline(900.0, 540.0, "放射線による分（避難しなかった人）", 26, INK, "start", 760))
+        s.append(_tline(900.0, 586.0, "およそ4分の1", 34, J.ALERT, "start", 760))
+    if _on(prev, st, "range"):
+        y = WF["by"]
+        s.append(F.line(wf_bx(0), y, wf_bx(100), y, J.LINE, 4))
+        s.append(F.rect(wf_bx(WF_LO), y - 16, wf_bx(WF_HI) - wf_bx(WF_LO), 32, J.ALERT, None, None, op=0.4))
+        s.append(F.line(wf_bx(WF_Q), y - 26, wf_bx(WF_Q), y + 26, J.ALERT, 5))
+        for p in (WF_LO, WF_HI):
+            s.append(_tline(wf_bx(p), y + 58, f"{p}%", 26, INK, "middle", 100))
+        s.append(_tline(wf_bx(0), y - 40, "幅は大きい：少なくとも", 26, J.TICK, "start", 400))
+        s.append(_chip(1480.0, 660.0, "国連の科学委員会", J.DOC, 24, ink=INK))
+    return s
+
+
+# ── tags3（cb21）＝数に付ける3つの札（札と糸の模式）：1行目は聞き役（「数」の札だけ）／2行目＝誰が・いつ・何を数えたか（札は語りの言い方）
+TG3 = ("誰が", "いつ", "何を数えたか")
+TGS = dict(card=(640.0, 560.0, 300.0, 220.0), x=1320.0, ys=(380.0, 560.0, 740.0))
+
+
+def tags3_base(st0):
+    x, y, w, h = TGS["card"]
+    return [F.rect(x - w / 2, y - h / 2, w, h, J.BG2, J.AMBER, 6, rx=16), _tline(x, y + 36, "数", 100, J.AMBER, "middle", 200)]
+
+
+def tags3_stage(prev, st):
+    s = []
+    if _on(prev, st, "tags"):
+        x, y, w, h = TGS["card"]
+        for t, ty in zip(TG3, TGS["ys"]):
+            s.append(F.line(x + w / 2, y, TGS["x"] - 150, ty, J.LINE, 3))
+            s.append(F.circ(TGS["x"] - 150, ty, 8, J.LINE, None))
+            s.append(_chip(TGS["x"] + 40, ty, t, J.LINE, 34, h=86, w=380, ink=INK))
+        s.append(_tline(x, y + h / 2 + 70, "一緒に言う", 30, J.AMBER, "middle", 300))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  第11章（cc の6）
+# ══════════════════════════════════════════════════════════
+# ── gantt（cc04）＝その後の運転（月の帯＝帯の相方＝c706 の24時間の空の帯と別の絵）：1行目＝1号機 1986年10月・2号機 11月・3号機 1987年12月に動き出す
+#    （始まりの位置は月に比例）／2行目＝4号炉のすぐ隣で発電は続いた（事業者の年表＝WEB）
+GT_STARTS = ((1, (1986, 10)), (2, (1986, 11)), (3, (1987, 12)))
+GT = dict(a=(1986, 9), b=(1988, 2), x0=520.0, x1=1560.0, ys=(380.0, 500.0, 620.0, 740.0), h=56.0, bx=1640.0)   # 🔧 机上：札が右の端 1848 を越えた・月の札と上の帯が 8px
+
+
+def gt_x(ym):
+    n = (ym[0] - GT["a"][0]) * 12 + ym[1] - GT["a"][1]
+    span = (GT["b"][0] - GT["a"][0]) * 12 + GT["b"][1] - GT["a"][1]
+    return GT["x0"] + (GT["x1"] - GT["x0"]) * n / span
+
+
+def gantt_base(st0):
+    g = [F.line(GT["x0"], 790.0, GT["x1"] + 40, 790.0, J.LINE, 3), F.line(gt_x((1987, 1)), 780.0, gt_x((1987, 1)), 800.0, J.TICK, 3),
+         _tline(gt_x((1987, 1)), 840.0, "1987年", 24, J.TICK, "middle", 140)]
+    for i, y in enumerate(GT["ys"]):
+        g.append(_tline(GT["x0"] - 30, y + 10, f"{i + 1}号機" if i < 3 else "4号炉", 28, INK if i < 3 else J.TICK, "end", 200))
+    y = GT["ys"][3]
+    g.append(F.rect(GT["x0"], y - GT["h"] / 2, GT["x1"] - GT["x0"], GT["h"], "#2a2f33", J.LINE_DIM, 3, rx=6))
+    return g
+
+
+def gantt_stage(prev, st):
+    s = []
+    if _on(prev, st, "run"):
+        for (u, ym), y in zip(GT_STARTS, GT["ys"]):
+            x = gt_x(ym)
+            s.append(F.rect(x, y - GT["h"] / 2, GT["x1"] - x, GT["h"], J.OK, None, None, rx=6, op=0.8))
+            s.append(_arrow(GT["x1"] - 4, y, GT["x1"] + 50, y, J.OK, 6, 22))
+            lab = f"{ym[0]}年{ym[1]}月" if u != 2 else f"{ym[1]}月"
+            s.append(_tline(x + 14, y - GT["h"] / 2 - 12, lab, 26, J.AMBER, "start", 300))
+    if _on(prev, st, "next"):
+        y3, y4, bx = GT["ys"][2], GT["ys"][3], GT["bx"]
+        s.append(F.line(bx, y3, bx, y4, J.AMBER, 4))
+        s.append(_tline(bx + 16, (y3 + y4) / 2 - 10, "すぐ隣で", 26, J.AMBER, "start", 190))
+        s.append(_tline(bx + 16, (y3 + y4) / 2 + 28, "発電は続いた", 26, J.AMBER, "start", 190))
+    return s
+
+
+# ── ines（cc06）＝原子力の出来事の物差し（0から7の段＝高さが段の数に比例）：1行目＝0から7の段／2行目＝INES・1990年にできた（L10 pdf12）。
+#    チェルノブイリの印は次の写真のカット（cc07）＝ここでは付けない
+IN_LV, IN_YEAR = 8, 1990
+INS = dict(x0=420.0, w=150.0, base=820.0, h0=50.0, dh=60.0)
+IN_COLS = ("#5f7f8f", "#5f8f80", J.OK, "#b5c45a", J.AMBER, "#e8903c", "#e06a3c", J.ALERT)
+
+
+def in_box(lv):
+    h = INS["h0"] + INS["dh"] * lv
+    return (INS["x0"] + lv * INS["w"], INS["base"] - h, INS["w"] - 10, h)
+
+
+def ines_stage(prev, st):
+    s = []
+    if _on(prev, st, "steps"):
+        for lv in range(IN_LV):
+            x, y, w, h = in_box(lv)
+            s.append(F.rect(x, y, w, h, IN_COLS[lv], None, None, rx=6, op=0.85))
+            s.append(_tline(x + w / 2, y - 16, str(lv), 40, INK, "middle", 80, fam="Dela"))
+        s.append(_arrow(INS["x0"] - 40, INS["base"], INS["x0"] - 40, 340.0, J.LINE, 5, 22))
+        s.append(_tline(INS["x0"] - 60, 360.0, "重い", 26, J.TICK, "end", 120))
+    if _on(prev, st, "name"):
+        s.append(_chip(700.0, 360.0, "INES", J.AMBER, 44, h=90, w=260, ink=INK))
+        s.append(_tline(700.0, 450.0, f"{IN_YEAR}年にできた", 30, INK, "middle", 300))
+    return s
+
+
+# ── lvl7（cc08）＝レベル7の2つの事故（いちばん上の段に2つの札＝並べの相方＝c918 の演台と別の絵）：基図＝レベル7の段とチェルノブイリ（1986年）／
+#    1行目＝福島第一（2011年）／2行目＝4月12日にレベル7へ引き上げ（下からの矢印）（内閣府 防災白書 平成23年版＝WEB）
+L7Y, L7D = 2011, (4, 12)
+LV = dict(top=(560.0, 480.0, 1080.0, 90.0), lo=(560.0, 570.0, 760.0, 250.0))     # 🔧 机上：下の段の右の縁（x 1480）が「4月12日」の字を横切った
+
+
+def lvl7_base(st0):
+    x, y, w, h = LV["top"]
+    a, b, c, d = LV["lo"]
+    return [F.rect(a, b, c, d, "#2a333b", J.LINE_DIM, 3), F.rect(x, y, w, h, J.ALERT, None, None, rx=6, op=0.85),
+            _tline(x + 30, y + 62, "レベル7", 40, INK, "start", 300),
+            _chip(x + 460, y - 70, "チェルノブイリ（1986年）", J.LINE, 28, h=80, w=400, ink=INK)]
+
+
+def lvl7_stage(prev, st):
+    s = []
+    x, y, w, h = LV["top"]
+    if _on(prev, st, "fk"):
+        s.append(_chip(x + 880, y - 70, f"福島第一（{L7Y}年）", J.AMBER, 28, h=80, w=360, ink=INK))
+        s.append(_tline(x + 880, y - 140, "東京電力の原子力発電所", 24, J.TICK, "middle", 400))
+    if _on(prev, st, "up"):
+        s.append(_arrow(x + 880, 840.0, x + 880, y + h + 16, J.AMBER, 7, 28))
+        s.append(_tline(x + 900, 720.0, f"{L7D[0]}月{L7D[1]}日", 34, J.AMBER, "start", 300))
+        s.append(_tline(x + 900, 770.0, "レベル7へ引き上げ", 28, INK, "start", 300))
+    return s
+
+
+# ── tiers（cc14）＝安全文化の欠け（2つの段）：1行目は聞き役（段だけ）／2行目＝国の段階（設計・運転・規制の組織）に「欠けていた」・1992年の報告／
+#    3行目＝現場（この発電所）にも（S1 p35・p33）
+TR = dict(top=((760.0, 330.0), (1160.0, 330.0), (1320.0, 540.0), (600.0, 540.0)), bot=((580.0, 560.0), (1340.0, 560.0), (1480.0, 780.0), (440.0, 780.0)))
+
+
+def tiers_base(st0):
+    return [F.poly(list(TR["top"]), J.BG2, J.LINE, 5, close=True), F.poly(list(TR["bot"]), J.BG2, J.LINE, 5, close=True),
+            _tline(960.0, 420.0, "国の段階", 34, INK, "middle", 400), _tline(960.0, 470.0, "設計・運転・規制の組織", 24, J.TICK, "middle", 520),
+            _tline(960.0, 680.0, "現場（この発電所）", 34, INK, "middle", 520)]
+
+
+def tiers_stage(prev, st):
+    s = []
+    if _on(prev, st, "nat"):
+        s.append(_chip(1560.0, 430.0, "欠けていた", J.ALERT, 30, ink=INK))
+        s.append(F.line(1320.0 - 20, 430.0, 1460.0, 430.0, J.ALERT, 3))
+        s.append(_rep(400.0, 330.0, "r92", "安全文化", cap=26))
+    if _on(prev, st, "loc"):
+        s.append(_chip(1640.0, 680.0, "欠けていた", J.ALERT, 30, ink=INK))
+        s.append(F.line(1450.0, 680.0, 1540.0, 680.0, J.ALERT, 3))
+    return s
+
+
+# ── flip（cc15）＝時刻の札の表と裏：1行目＝0:28 と 1:23:40＝時刻そのものは変わらない／2行目＝札の裏（意味）が見え、1986年の報告の色 → 1992年の報告の色へ
+#    （意味の中身は次のカット cc16 の語り＝ここでは書かない）
+FL_T = ("0:28", "1:23:40")
+FLP = dict(xs=(620.0, 1300.0), y=540.0, w=440.0, h=200.0)
+
+
+def flip_base(st0):
+    g = []
+    for x, t in zip(FLP["xs"], FL_T):
+        g.append(F.rect(x - FLP["w"] / 2, FLP["y"] - FLP["h"] / 2, FLP["w"], FLP["h"], J.BG2, J.LINE, 5, rx=14))
+        g.append(_bigtime(x, FLP["y"] + 34, t, 90, INK))
+    return g
+
+
+def flip_stage(prev, st):
+    s = []
+    if _on(prev, st, "same"):
+        s.append(_tline(960.0, 340.0, "時刻は同じ", 34, INK, "middle", 600))     # 🔧 門番 echo：語りの写し
+    if _on(prev, st, "mean"):
+        for x in FLP["xs"]:
+            y = FLP["y"] + FLP["h"] / 2 + 40
+            s.append(F.rect(x - 150, y, 300, 80, J.BG2, rep_col("r92"), 5, rx=10))
+            s.append(_tline(x, y + 52, "意味", 30, rep_col("r92"), "middle", 200))
+            s.append(_arc_arrow(x - 260, y + 40, 40, 40, 200, 90, rep_col("r86"), 5, 18))     # 🔧 机上：札の左下の角に重なった
+        s.append(_tline(960.0, 830.0, "変わったのは意味", 30, J.AMBER, "middle", 760))
+    return s
+
+
+# ── tray（cc17）＝1つの皿に2つ（人の側と設計の側）：1行目は聞き役（空の皿）／2行目＝承認なしに計画をわざと変えた・1992年の報告／
+#    3行目＝棒の欠陥を長く残した・どちらも責められるべき（S1 p34・p26）
+TY = dict(cx=960.0, cy=640.0, rx=520.0, ry=70.0, a=(560.0, 940.0), b=(980.0, 1360.0), top=380.0)   # 🔧 geom_gap：top 470 だと札の字に皿の縁が通った
+
+
+def tray_base(st0):
+    cx, cy, rx, ry = TY["cx"], TY["cy"], TY["rx"], TY["ry"]
+    return [F.poly(_arcpts(cx, cy, rx, ry, 0, 360, 48), J.BG2, J.LINE, 5, close=True), F.rect(cx - 20, cy + ry, 40, 110, J.LINE_DIM, None, None),
+            F.rect(cx - 160, cy + ry + 110, 320, 24, J.LINE_DIM, None, None, rx=8)]
+
+
+def tray_stage(prev, st):
+    s = []
+    for key, (x0, x1), t1, t2 in (("human", TY["a"], "承認なしに", "計画をわざと変えた"), ("design", TY["b"], "棒の欠陥を", "長く残した")):
+        if _on(prev, st, key):
+            s.append(F.rect(x0, TY["top"], x1 - x0, TY["cy"] - TY["top"] - 10, J.BG2, J.AMBER if key == "human" else J.LINE, 5, rx=10))
+            s.append(_tline((x0 + x1) / 2, TY["top"] + 62, t1, 30, INK, "middle", x1 - x0 - 40))
+            s.append(_tline((x0 + x1) / 2, TY["top"] + 108, t2, 30, INK, "middle", x1 - x0 - 40))
+            if key == "human":
+                s.append(_rep(1560.0, 320.0, "r92", None, cap=26))
+            else:
+                s.append(_tline(960.0, 330.0, "どちらも、責められるべき", 30, rep_col("r92"), "middle", 600))   # 🔧 机上：y 850 は出典の行（y 862〜）に近い
+    return s
+
+
+# ══════════════════════════════════════════════════════════
 #  見え方の表（mech17 と同じ作り）
 # ══════════════════════════════════════════════════════════
 def _v(lab, fields, base, stage, parts=None):
@@ -3115,12 +4619,57 @@ VIEWS = dict(
     table86=_v("会議の机", ("cards", "r92"), table86_base, table86_stage),
     rod12=_v("横から見た制御棒", ("ins", "why"), rod12_base, rod12_stage, rod12_parts),
     rodq=_v("棒の影", ("next",), rodq_base, rodq_stage),
+    # 🆕 ⑤b-6：地図2・第8〜11章の40
+    ussr=_v("上から見たソ連とウクライナ（1986年）", ("staff", "night"), ussr_base, ussr_stage),
+    japan=_v("上から見た日本と関東", ("may3", "may14"), japan_base, japan_stage),
+    rodparts=_v("横から見た止める棒の作り", ("abs", "disp"), rodparts_base, rodparts_stage),
+    len7=_v("横から見た炉と押しのけ棒（抜き切ったとき）", ("disp", "core", "water"), len7_base, len7_stage),
+    lowred=_v("横から見た炉の下の方", ("low", "rev"), lowred_base, lowred_stage),
+    sand=_v("棒が入りきるまでの時間", ("t18", "t12"), lambda st0: [], sand_stage),
+    lines3=_v("残した棒の数と効き方", ("two", "seven"), lines3_base, lines3_stage),
+    months=_v("1983年から1986年の月", ("found", "test"), months_base, months_stage),
+    names2=_v("2つの報告が挙げた場所", ("r92", "c91"), names2_base, names2_stage),
+    ideas=_v("出された案", ("cards", "none"), lambda st0: [], ideas_stage),
+    longarrow=_v("知られていた年月", ("long", "blame"), longarrow_base, longarrow_stage),
+    lecterns=_v("ウィーンでの2つの会議", ("y87", "y86"), lambda st0: [], lecterns_stage),
+    fog=_v("暴走の始まり", ("fog",), fog_base, fog_stage),
+    rulers2=_v("2本の物差し", ("q", "r86", "later"), rulers2_base, rulers2_stage),
+    memo=_v("1983年12月の書簡", ("send", "risk"), memo_base, memo_stage),
+    four=_v("4つの条件と炉", ("cards", "join"), four_base, four_stage),
+    volkov=_v("5月1日の見方", ("may1", "design"), volkov_base, volkov_stage),
+    funnel=_v("原因の札の絞り込み", ("narrow", "council"), funnel_base, funnel_stage),
+    road=_v("道を開いた決定", ("open",), road_base, road_stage),
+    notstop=_v("委員会が認めた違反", ("viol", "rods", "notcause"), lambda st0: [], notstop_stage),
+    cheese=_v("穴のあいた3枚の板", ("two", "three"), lambda st0: [], cheese_stage),
+    precursor=_v("前触れの事故", ("pre", "cut"), precursor_base, precursor_stage),
+    puzzle=_v("1992年の報告の続き", ("ill", "human"), lambda st0: [], puzzle_stage),
+    bins4=_v("7つの札と1992年の評価", ("sort",), bins4_base, bins4_stage),
+    twox=_v("言い過ぎの2つ", ("c1", "c2"), lambda st0: [], twox_stage),
+    merge2=_v("炉の不安定の見方", ("design", "oper"), merge2_base, merge2_stage),
+    stairs=_v("亡くなった人の数（答弁）", ("may", "more"), lambda st0: [], stairs_stage),
+    num31=_v("9月の報告の数", ("n31", "sov"), lambda st0: [], num31_stage),
+    blocks30=_v("積み木1つが1人", ("all", "rad"), lambda st0: [], blocks30_stage),
+    two31=_v("2つの31", ("ours", "r86"), two31_base, two31_stage),
+    circles=_v("面積が人数に比例する円", ("def", "n"), lambda st0: [], circles_stage),
+    area60=_v("面積が人数に比例する四角（推計）", ("pop", "base", "add"), lambda st0: [], area60_stage),
+    scope2=_v("2つの推計の範囲", ("who", "n"), scope2_base, scope2_stage),
+    machine=_v("推計の作り", ("in", "out"), machine_base, machine_stage),
+    waffle=_v("1升がおよそ200例の升目", ("all", "quarter", "range"), lambda st0: [], waffle_stage),
+    tags3=_v("数に付ける3つの札", ("tags",), tags3_base, tags3_stage),
+    gantt=_v("号機ごとの帯（月に比例）", ("run", "next"), gantt_base, gantt_stage),
+    ines=_v("0から7の段", ("steps", "name"), lambda st0: [], ines_stage),
+    lvl7=_v("いちばん上の段", ("fk", "up"), lvl7_base, lvl7_stage),
+    tiers=_v("2つの段", ("nat", "loc"), tiers_base, tiers_stage),
+    flip=_v("時刻の札の表と裏", ("same", "mean"), flip_base, flip_stage),
+    tray=_v("1つの皿に2つ", ("human", "design"), tray_base, tray_stage),
 )
 START = {v: {f: d["fields"][f][0] for f in d["fields"]} for v, d in VIEWS.items()}
 # 原文の値・欄・項目の写し（左上に「模式」を付けない）
 NOT_SCHEMATIC = ("years", "cards7", "cal", "orm", "off11", "grid3", "ring", "meter", "clock", "hold", "swap", "two91", "say3", "bars",
                  "pillars", "balance",
-                 "marks5", "shift", "seesaw", "test200", "rods15", "table6")
+                 "marks5", "shift", "seesaw", "test200", "rods15", "table6",
+                 # 🆕 ⑤b-6：地図（Natural Earth の形と一般の座標）・升目と表・数に比例する絵
+                 "ussr", "japan", "months", "names2", "bins4", "blocks30", "circles", "area60", "waffle", "gantt", "ines")
 VIEW_DIR = ("横から", "上から", "斜めから", "正面")
 
 
@@ -3382,4 +4931,105 @@ def geo_of(view, start, states):
         out.update(m=RZ_M, h=RZ_H, depth=fin, core_h=RZ["core"][3] - RZ["core"][1])
     elif view == "rodq":
         out.update(ch=RQ_CH)
+    # 🆕 ⑤b-6
+    elif view in ("ussr", "japan"):
+        d = map24()
+
+        def cen(p):
+            return (sum(x for x, _ in p) / len(p), sum(y for _, y in p) / len(p))
+
+        def inside(p, b):
+            x, y = cen(p)
+            return b[0] <= x <= b[2] and b[1] <= y <= b[3]
+        P_ = d["polys"]
+        k = "o" if view == "ussr" else "j"
+        out.update(north4_jp=sum(inside(p, d["north4"]) for p in P_.get(f"{k}_jp", [])),
+                   north4_su=sum(inside(p, d["north4"]) for p in P_.get(f"{k}_su", []) + P_.get(f"{k}_oth", [])))
+        if view == "ussr":
+            _O, Z = _su_geos()
+            out.update(staff=SU_STAFF, night=SU_NIGHT, pts=dict(SU_PTS), px={k_: Z.px(*v) for k_, v in SU_PTS.items()},
+                       crimea_ukr=sum(inside(p, d["crimea"]) for p in P_.get("o_ukr", [])),
+                       crimea_su=sum(inside(p, d["crimea"]) for p in P_.get("o_su", [])), zrect=su_zrect(), ov=dict(SU_OV), zm=dict(SU_ZM))
+        else:
+            M_, I_ = _jp_geos()
+            out.update(d1=JP_D1, d2=JP_D2, n=JP_N, places=tuple(t for t, *_r in JP_PTS), ll=tuple(v for _t, v, _a in JP_PTS),
+                       px=tuple(I_.px(*v) for _t, v, _a in JP_PTS), ibox=JP_IN["box"], irect=jp_irect(), mp=dict(JP_MAP), ins=dict(JP_IN))
+    elif view == "rodparts":
+        out.update(abs=RP["abs"], disp=RP["disp"])
+    elif view == "len7":
+        out.update(h=L7_H, d=L7_D, w=L7_W, k=L7["k"], core=(l7_y(0), l7_y(L7_H)), disp=(l7_y(L7_W), l7_y(L7_W + L7_D)))
+    elif view == "lowred":
+        out.update(red=(LR["mid"], LR["y1"]), blue=(LR["y0"] + 110, LR["mid"]))
+    elif view == "sand":
+        out.update(t=SD_T, h=(sand_h(SD_T[0]), sand_h(SD_T[1])))
+    elif view == "lines3":
+        c7 = l3_curve(7)
+        peak = min(c7, key=lambda p: p[1])
+        out.update(rods=L3_RODS, sec=L3_SEC, xs=l3_x(L3_SEC), x0=L3G["x0"], x1=L3G["x1"], span=L3G["span"], y0=L3G["y0"], peak=peak,
+                   end7=c7[-1][1])
+    elif view == "months":
+        out.update(cells=tuple(ym for ym, _p in mo_cells()), xy=tuple(p for _ym, p in mo_cells()), found=MO_FOUND, acc=MO_ACC)
+    elif view == "names2":
+        out.update(rows=NM_ROWS, mark={k_: tuple(v) for k_, v in NM_MARK.items()}, xs=(NM["xs"]["r92"], NM["xs"]["c91"]))
+    elif view == "ideas":
+        out.update(cards=ID_CARDS)
+    elif view == "longarrow":
+        out.update(a=LA_A, b=LA_B, xa=la_x(LA_A), xb=la_x(LA_B), x0=LA["x0"], x1=LA["x1"])
+    elif view == "lecterns":
+        out.update(y87=LC_Y87, y86=LC_Y86, xl=LC["xl"], xr=LC["xr"])
+    elif view == "fog":
+        out.update(start=FG["start"])
+    elif view == "rulers2":
+        out.update(r86=RU_86, sec=RU_SEC, lo=RU_LO, hi=RU_HI, ly=ru_ly(RU_86), ly0=RU["ly0"], lk=RU["lk"], ra=ru_rx(RU_LO), rb=ru_rx(RU_HI),
+                   rx0=RU["rx0"], rk=RU["rk"])
+    elif view == "memo":
+        out.update(date=MM_DATE)
+    elif view == "four":
+        out.update(items=FO_ITEMS)
+    elif view == "volkov":
+        out.update(date=VK_DATE, pick=VK_PICK, op=VK["op"][0], de=VK["de"][0])
+    elif view == "funnel":
+        out.update(cards=FN_CARDS, out=FN_OUT, n=FN_N, m=FN_M)
+    elif view == "road":
+        out.update(near=RO["near"][0][0], far=RO["far"][0][0])
+    elif view == "notstop":
+        out.update(rods=NS_RODS, day=NS_DAY)
+    elif view == "cheese":
+        out.update(items=CH_ITEMS, holes=tuple(ch_holes()))
+    elif view == "precursor":
+        out.update(y1=PC_Y1, y2=PC_Y2, xl=PC["xl"], xr=PC["xr"])
+    elif view == "bins4":
+        out.update(ev=BN_EVAL, cols={k_: rc(v).lower() for k_, v in BN_COL.items()}, viol=tuple(VIOL))
+    elif view == "twox":
+        out.update(cards=TX_CARDS)
+    elif view == "merge2":
+        out.update(year=MG_YEAR)
+    elif view == "stairs":
+        out.update(n=ST_N, m=ST_M)
+    elif view == "num31":
+        out.update(n=N31, of=N31_OF)
+    elif view == "blocks30":
+        out.update(total=len(bk_cells()), t=BK_T, rad=BK_R)
+    elif view == "two31":
+        out.update(forum=tuple((n, t) for n, t, _c in TW_FORUM))
+    elif view == "circles":
+        out.update(n=CI_N, ratio=ci_r(CI_N[1]) / CI["r"])
+    elif view == "area60":
+        out.update(pop=A6_POP, base=A6_BASE, add=A6_ADD, a_all=A6["w"] * A6["h"], a_base=a6_base_w() * A6["h"], a_add=a6_add_side() ** 2)
+    elif view == "scope2":
+        out.update(iarc=SC_IARC)
+    elif view == "machine":
+        out.update(order=(MC["inx"], MC["box"][0], MC["outx"]))
+    elif view == "waffle":
+        out.update(n=WF_N, cells=len(wf_cells()), q=WF_Q, lo=WF_LO, hi=WF_HI, blo=wf_bx(WF_LO), bhi=wf_bx(WF_HI), bx0=WF["bx0"], bx1=WF["bx1"])
+    elif view == "tags3":
+        out.update(tags=TG3)
+    elif view == "gantt":
+        out.update(starts=GT_STARTS, xs=tuple(gt_x(ym) for _u, ym in GT_STARTS), a=GT["a"], b=GT["b"], x0=GT["x0"], x1=GT["x1"])
+    elif view == "ines":
+        out.update(lv=IN_LV, year=IN_YEAR, hs=tuple(in_box(lv)[3] for lv in range(IN_LV)))
+    elif view == "lvl7":
+        out.update(year=L7Y, date=L7D)
+    elif view == "flip":
+        out.update(t=FL_T)
     return out

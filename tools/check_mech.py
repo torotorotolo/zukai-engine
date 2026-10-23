@@ -4961,8 +4961,101 @@ REC_M24 = dict(
                                     ("S3 p2028", "a continuing increase in the multiplying characteristics of the core in its lower part"),
                                     ("S1 p16", "height 7 m"))),
     rodq=dict(ch=8),
+    # 🆕 ⑤b-6（2026-10-23）：地図2と第8〜11章の40。句は台本 §4 の出典の欄と同じ頁（scratchpad の pg で引き直した）。
+    #   🆕 国会会議録の 1986-05-15（K1 19860515＝検索の JSON の発言）・UNSCEAR 白書 2018（L4 pdfN）・IARC 2006（L8 pdfN）・INES の手引き（L10 pdfN）は
+    #   `_m24_page` が git の外の pages.tsv から引く。WEB（事業者の年表・防災白書）は保存なし＝句を持たない（値だけ）
+    ussr=dict(staff=176, night=268,
+              pts=dict(plant=(51.3892, 30.0992), pripyat=(51.4045, 30.0542), town=(51.2763, 30.2219), kiev=(50.4501, 30.5234)),   # 一般の座標（地図の値）
+              quote=(("S3 p2016", "On the night of 25-26 April 1986 there were 176 duty operational staff"),
+                     ("S3 p2016", "there were 268 builders and assemblers working on the night shift on the site of the third construction stage"))),
+    japan=dict(d1=(5, 3), d2=(5, 14), n=29, places=("東京", "千葉", "神奈川"),
+               quote=(("K1 19860507", "五月三日に至り、東京都、千葉県、神奈川県におきまして"), ("K1 19860507", "沃素131が検出されました"),
+                      ("K1 19860515", "五月三日以降十四日時点で、二十九都道府県にわたり"))),
+    rodparts=dict(quote=(("S1 p14", "A graphite rod termed a 'displaced is attached to each end of the length of absorber"),)),
+    len7=dict(h=7.0, d=4.5, w=1.25, quote=(("S1 p14", "with 1.25 m of water at either end"), ("S1 p16", "height 7 m"))),
+    lowred=dict(quote=(("S1 p53", "local introduction of positive reactivity in the lower part of the core occurs"),
+                       ("S1 p14", "depended on the spatial distribution of the power density and the operating regime"))),
+    sand=dict(t=(18, 12), quote=(("S1 p14", "when starting from the upper limit stop switches, was 18 s"), ("S1 p37", "reduced from 18 s to 12 s"))),
+    lines3=dict(rods=(30, 15, 7), sec=8, quote=(("S1 p49", "When the ORM is about 30 effective manual control rods"), ("S1 p49", "When the ORM is about 15 control rods"),
+                                                  ("S1 p49", "In the case of a non-regulation ORM of 7 control rods, during the first eight seconds"),
+                                                  ("S1 p49", "the chain reaction is being accelerated rather than terminated"))),
+    months=dict(found=((1983, 11), (1983, 12)), acc=(1986, 4), n=30,
+                quote=(("S1 p53", "discovered experimentally in November/December 1983 during the physical startup of Ignalina Unit 1"),)),
+    names2=dict(rows=("イグナリナ（リトアニア）", "チェルノブイリ4号機"), mark=dict(r92=(True, False), c91=(True, True)),
+                quote=(("S1 p23", "first been identified at the Ignalina RBMK plant in the Lithuanian Republic in 1983"),
+                       ("S1 p53", "physical startup of Ignalina Unit 1 and that of Chernobyl Unit 4"))),
+    ideas=dict(cards=("棒の形を変える", "抜き切る棒の数を限る"), quote=(("S1 p54", "but none of them were implemented before the accident"),
+                                                              ("S1 p54", "limitations on the withdrawal of the manual control rods"))),
+    longarrow=dict(a=(1983, 11), b=(1986, 4), quote=(("S1 p26", "It is reprehensible that such a deficiency had been known of for so long"),)),
+    lecterns=dict(y87=1987, y86=(1986, 8),
+                  quote=(("S1 p23", "first acknowledged by Soviet experts at the Conference on Nuclear Power Performance and Safety in Vienna in 1987"),)),
+    fog=dict(quote=(("S1 p33", "It is not known for certain what started the power excursion"),)),
+    rulers2=dict(r86=100, sec=4, lo=3.5, hi=80, quote=(("S2 p1010", "the first power peak reached 100 times the nominal power within four seconds"),
+                                                       ("S1 p131", "ranging from 3.5 times the initial value in Model 2 to approximately 80 times"))),
+    memo=dict(date=(1983, 12), quote=(("S1 p54", "Triggering of the EPS in this case may lead to the introduction of positive reactivity."),
+                                      ("S1 p54", "When the reactor power decreases to 50%"), ("S1 p100", "Letter No. 33-08/67 of 23 December 1983"),
+                                      ("S1 p100", "KURCHATOV INSTITUTE OF ATOMIC ENERGY, Moscow, Letter No. 33-08/67"))),
+    four=dict(items=("低い出力", "少ない残りの棒", "炉の性質", "棒の欠陥"), quote=(("S1 p33", "the concurrence of the following major factors"),)),
+    volkov=dict(date=(5, 1), pick="design", quote=(("S1 p70", "Somewhat earlier, on 1 May 1986"),
+                                                   ("S1 p70", "not to the actions of the operating personnel, but to the design of the reactor"))),
+    funnel=dict(out="職員の誤り", n=2, m=6, quote=(("S1 p70", "all the causes of the accident were reduced exclusively to personnel errors"),
+                                                 ("S1 p70", "(2 June 1986 and 17 June 1986)"))),
+    road=dict(quote=(("S1 p70", "paved the way for the one-sided presentation of information"),)),
+    notstop=dict(rods=15, day=25, quote=(("S1 p81", "The Commis-sion assumes that the personnel deliberately violated this requirement."),
+                                         ("S1 p81", "this violation was not die cause of the accident"), ("S1 p81", "on 25 April"))),
+    cheese=dict(items=("炉の物理の性質", "止める棒の設計", "定めのない状態へ"),
+                quote=(("S1 p33", "specific physical characteristics of the reactor"), ("S1 p33", "specific design features of the reactor control elements"),
+                       ("S1 p33", "not specified by procedures or investigated by an independent safety body"))),
+    precursor=dict(y1=1975, y2=1986, quote=(("S1 p33", "is even considered by some to have been a precursor to the Chernobyl accident"),
+                                            ("S1 p33", "were not aware of the nature and causes of the accident at Leningrad Unit 1"))),
+    puzzle=dict(quote=(("S1 p34", "critical actions of the operators were most ill judged"),
+                       ("S1 p34", "the human factor has still to be considered as a major element"))),
+    bins4=dict(ev=("違反", "違反ではない", "誤りとは言えないようだ", "違反ではない", "形の上の違反", "違反ではない", "違反"),
+               quote=(("S1 p20", "blocking of the ECCS was in fact permissible at Chernobyl if authorized by the Chief Engineer"),
+                      ("S1 p21", "Recent reports suggest that there was no operator error as such"),
+                      ("S1 p28", "There should have been such a proscription, but there was none at the time."),
+                      ("S1 p21", "This trip was blocked in accordance with operational procedures and test procedures"),
+                      ("S1 p22", "the ORM is much greater than was indicated in the INSAG-1 report"),
+                      ("S1 p34", "unapproved changes in the test procedure were deliberately made on the spot"))),
+    twox=dict(cards=("運転員の責めは消えた", "1986年の報告は取り消し"),
+              quote=(("S1 p34", "operating rules were violated"), ("S1 p34", "does not retract INSAG-1"))),
+    merge2=dict(year=1989, quote=(("S1 p120", "In October and November 1989"),
+                                  ("S1 p120", "reactor instability caused both by design faults and the operating regime"))),
+    stairs=dict(n=9, m=5, quote=(("K1 19860515", "合計九名が死亡していると聞いております"),)),
+    num31=dict(n=31, of=300, quote=(("S2 p1118", "300 power plant and fire-fighting personnel admitted to hospitals, of whom 31 have so far died"),)),
+    blocks30=dict(t=30, rad=28, quote=(("L2 p3005", "30 power plant employees and firemen (including 28 deaths that were due to radiation exposure)"),)),
+    two31=dict(forum=((28, "放射線"), (2, "けが"), (1, "心臓")), n=31,
+               quote=(("S2 p1118", "of whom 31 have so far died"), ("L1 p4012", "Among these workers, 28 persons died in 1986 due to ARS"),
+                      ("L1 p4012", "Two more persons had died at Unit 4 from injuries unrelated to radiation"),
+                      ("L1 p4012", "one additional death was thought to have been due to a coronary thrombosis"))),
+    circles=dict(n=(237, 134), quote=(("L2 p3040", "a total of 237 were initially examined for signs and symptoms of acute radiation sickness"),
+                                      ("L2 p3040", "This diagnosis was later confirmed in 134 patients"))),
+    area60=dict(pop=600000, base=100000, add=4000, quote=(("L1 p4013", "among the 600 000 persons receiving more"),
+                                                          ("L1 p4014", "This might eventually represent up to four thousand fatal cancers"),
+                                                          ("L1 p4014", "in addition to the approximately 100 000 fatal cancers"),
+                                                          ("L1 p4014", "to be expected due to all other causes"))),
+    scope2=dict(iarc=(16000, 40, 2065), quote=(("L8 pdf5", "about 16,000 deaths"), ("L8 pdf2", "The present analysis focused on 40 European"),
+                                               ("L8 pdf2", "(up to 2065)"))),
+    machine=dict(quote=(("L1 p4013", "These predictions were based on the experience of other populations exposed to radiation"),
+                        ("L1 p4013", "such as the survivors of the atomic bombing in Hiroshima and Nagasaki"))),
+    waffle=dict(n=20000, cells=100, q=25, lo=7, hi=50,
+                quote=(("L4 pdf7", "registered in the period 1991−2015 in males and females, who were under 18 in 1986"),
+                       ("L4 pdf7", "approached 20,000"), ("L4 pdf7", "is of the order of 0.25"),
+                       ("L4 pdf7", "The uncertainty range of the estimated attributable fraction extends at least from 0.07 to 0.5"))),
+    tags3=dict(tags=("誰が", "いつ", "何を数えたか")),
+    gantt=dict(starts=((1, (1986, 10)), (2, (1986, 11)), (3, (1987, 12)))),        # WEB（事業者の年表）＝句は照らせない（台本の決定記録 decisions.md §3 の19）
+    ines=dict(lv=8, year=1990, quote=(("L10 pdf12", "The scale was developed in 1990 by international experts convened by the IAEA"),
+                                      ("L10 pdf13", "accident at the Chernobyl nuclear power plant is rated at Level 7 on INES."))),
+    lvl7=dict(year=2011, date=(4, 12)),                                               # WEB（防災白書 平成23年版）＝句は照らせない
+    tiers=dict(quote=(("S1 p35", "A general lack of safety culture in nuclear matters, at the national level as well as locally"),
+                      ("S1 p33", "throughout the Soviet design, operating and regula"))),
+    flip=dict(t=("0:28", "1:23:40"), quote=(("S1 p63", "00:28"), ("S1 p65", "01:23:40"))),
+    tray=dict(quote=(("S1 p34", "Most reprehensibly, unapproved changes in the test procedure were deliberately made"),
+                     ("S1 p26", "It is reprehensible that such a deficiency had been known of for so long"))),
 )
 _M24_PAGES = {}
+# 🆕 ⑤b-6：pages.tsv の資料（PDF の頁＝「L4 pdf7」の書き方）
+_M24_TSV = dict(L3="unscear2008_annexD_corr", L4="unscear_wp2018_thyroid", L8="iarc2006_briefing", L10="ines_manual2008")
 
 
 def _m24_page(rec):
@@ -4972,9 +5065,8 @@ def _m24_page(rec):
     k_ = re.fullmatch(r"K1 (\d{8})", rec)          # 🆕 ⑤b-5：国会会議録（会議ごとの JSON＝git の外）
     if k_:
         import json
-        t = Path(__file__).resolve().parent.parent / "ref" / "ep24" / "src" / f"kokkai_meeting_{k_.group(1)}.json"
-        if not t.exists():
-            return None
+        src_dir = Path(__file__).resolve().parent.parent / "ref" / "ep24" / "src"
+        t = src_dir / f"kokkai_meeting_{k_.group(1)}.json"
 
         def walk(o):
             if isinstance(o, dict):
@@ -4985,7 +5077,29 @@ def _m24_page(rec):
                     yield from walk(v)
             elif isinstance(o, str):
                 yield o
+        if not t.exists():
+            # 🆕 ⑤b-6：会議ごとの JSON が無い日（1986-05-15）は、検索の JSON（kokkai_*.json）の発言のうち、その日の発言だけを集める
+            d8 = k_.group(1)
+            day = f"{d8[:4]}-{d8[4:6]}-{d8[6:]}"
+            got = []
+            for f in sorted(src_dir.glob("kokkai_*.json")):
+                o = json.loads(f.read_text(encoding="utf-8"))
+                recs = o if isinstance(o, list) else (o.get("speechRecord") or [])
+                got += [r.get("speech", "") for r in recs if isinstance(r, dict) and r.get("date") == day]
+            if not got:
+                return None
+            return re.sub(r"\s+", "", unicodedata.normalize("NFKC", "".join(got)))
         return re.sub(r"\s+", "", unicodedata.normalize("NFKC", "".join(walk(json.loads(t.read_text(encoding="utf-8"))))))
+    p_ = re.fullmatch(r"(L3|L4|L8|L10) pdf(\d+)", rec)   # 🆕 ⑤b-6：pages.tsv の資料（PDF の頁）
+    if p_:
+        t = Path(__file__).resolve().parent.parent / "ref" / "ep24" / "src" / f"{_M24_TSV[p_.group(1)]}.pages.tsv"
+        if not t.exists():
+            return None
+        for line in t.read_text(encoding="utf-8").splitlines():
+            parts = line.split("\t", 2)
+            if len(parts) == 3 and parts[0] == p_.group(2):
+                return re.sub(r"\s+", "", unicodedata.normalize("NFKC", parts[2]))
+        return ""
     m_ = re.fullmatch(r"(?:S1|S2|S3|L1|L2) p(\d+)", rec)
     if not m_:
         return None
@@ -5211,6 +5325,129 @@ def judge_m24(f):
     if view == "rod12":
         need((g["m"], g["h"]) == (Rv["m"], Rv["h"]), f"② 差しておく深さか炉の高さ {g['m']}・{g['h']}（記録 1.2m・7m）")
         need(prop(g["depth"], g["core_h"] * Rv["m"] / Rv["h"]), "② 差しておく深さの画素が炉の高さに比例していない")
+    # 🆕 ⑤b-6（地図2と第8〜11章の40）
+    def eqc(v):
+        """門番の側の正距円筒（描く側 mech24._Geo と同じ式を別に持つ）。"""
+        lon, lat, (x0, y0, w, h) = v["lon"], v["lat"], v["box"]
+        latc, lonc = (lat[0] + lat[1]) / 2, (lon[0] + lon[1]) / 2
+        kx, ky = 111.32 * math.cos(math.radians(latc)), 110.57
+        s = min(w / ((lon[1] - lon[0]) * kx), h / ((lat[1] - lat[0]) * ky))
+        return lambda la, lo: (x0 + w / 2 + (lo - lonc) * kx * s, y0 + h / 2 - (la - latc) * ky * s)
+
+    def near(p, q):
+        return all(abs(a - b) < 0.5 for a, b in zip(p, q))
+    if view == "ussr":
+        need((g["staff"], g["night"]) == (Rv["staff"], Rv["night"]), f"② 発電所にいた人の数 {g['staff']}・{g['night']}（記録 176・268＝S3 p2016）")
+        need(g["pts"] == Rv["pts"], "② 地図の点（発電所・プリピャチ・チェルノブイリの町・キエフ）の座標が記録と違う")
+        px, Z = g["px"], eqc(g["zm"])
+        need(all(near(px[k], Z(*v)) for k, v in Rv["pts"].items()), "② 地図の点の画素が座標と合わない")
+        need(px["kiev"][1] > px["plant"][1] and px["town"][0] > px["plant"][0] and px["town"][1] > px["plant"][1]
+             and px["pripyat"][0] < px["plant"][0] and px["pripyat"][1] < px["plant"][1], "② 地図の点の向き（キエフは南・町は南東・プリピャチは北西）が違う")
+        O = eqc(g["ov"])
+        need(near(g["zrect"], O(g["zm"]["lat"][1], g["zm"]["lon"][0]) + O(g["zm"]["lat"][0], g["zm"]["lon"][1])), "② 左の地図の拡大の枠が右の地図の範囲と合わない")
+        need(g["crimea_ukr"] >= 1 and g["crimea_su"] == 0, "② クリミア半島が1986年のウクライナ（共和国）の色でない")
+        need(g["north4_jp"] >= 3 and g["north4_su"] == 0, "② 北方領土が日本の側の色でない")
+    if view == "japan":
+        need((tuple(g["d1"]), tuple(g["d2"]), g["n"]) == (Rv["d1"], Rv["d2"], Rv["n"]), f"② 日付か数 {g['d1']}・{g['d2']}・{g['n']}（記録 5月3日・5月14日・29＝国会会議録）")
+        need(tuple(g["places"]) == Rv["places"], f"② 印の場所 {g['places']}（記録 東京・千葉・神奈川）")
+        P_ = eqc(g["ins"])
+        need(all(near(p, P_(*ll)) for p, ll in zip(g["px"], g["ll"])), "② 関東の印の画素が座標と合わない")
+        x0, y0, w, h = g["ibox"]
+        need(all(x0 < x < x0 + w and y0 < y < y0 + h for x, y in g["px"]), "② 印が関東の拡大の枠の外")
+        M_ = eqc(g["mp"])
+        need(near(g["irect"], M_(g["ins"]["lat"][1], g["ins"]["lon"][0]) + M_(g["ins"]["lat"][0], g["ins"]["lon"][1])), "② 日本の地図の中の拡大の枠が関東の範囲と合わない")
+        need(g["north4_jp"] >= 3 and g["north4_su"] == 0, "② 北方領土が日本の側の色でない")
+    if view == "rodparts":
+        need(g["abs"][1] < g["disp"][0], "② 押しのけ棒が棒の本体の下にない")
+    if view == "len7":
+        need((g["h"], g["d"], g["w"]) == (Rv["h"], Rv["d"], Rv["w"]), f"② 炉の高さと押しのけ棒と水の長さ {g['h']}・{g['d']}・{g['w']}（記録 7m・4.5m・1.25m）")
+        (c0, c1), (d0, d1) = g["core"], g["disp"]
+        need(prop(c1 - c0, g["k"] * Rv["h"]) and prop(d1 - d0, g["k"] * Rv["d"]) and prop(d0 - c0, g["k"] * Rv["w"]) and prop(c1 - d1, g["k"] * Rv["w"]),
+             "② 炉・押しのけ棒・水の長さの画素が原文の値に比例していない")
+    if view == "lowred":
+        need(g["red"][0] >= g["blue"][1] - 0.5, "② 赤（強まる）が炉の下の方にない")
+    if view == "sand":
+        need(tuple(g["t"]) == Rv["t"], f"② 入りきる時間 {g['t']}（記録 18秒・12秒＝S1 p14・p37）")
+        need(prop(g["h"][1] * Rv["t"][0], g["h"][0] * Rv["t"][1]), "② 砂時計の高さが秒に比例していない")
+    if view == "lines3":
+        need(tuple(g["rods"]) == Rv["rods"] and g["sec"] == Rv["sec"], f"② 残した棒の数か秒 {g['rods']}・{g['sec']}（記録 30・15・7・8秒＝S1 p49）")
+        need(prop(g["xs"], g["x0"] + (g["x1"] - g["x0"]) * Rv["sec"] / g["span"]), "② 8秒の線の画素が時間に比例していない")
+        need(g["peak"][1] < g["y0"] and abs(g["peak"][0] - g["xs"]) < 30 and g["end7"] > g["peak"][1], "② 7本ぶんの線が最初の8秒に上がっていない（強まる）")
+    if view == "months":
+        need(tuple(g["found"]) == Rv["found"] and tuple(g["acc"]) == Rv["acc"] and len(g["cells"]) == Rv["n"],
+             f"② 升目 {len(g['cells'])}か月・見つかった月 {g['found']}・事故 {g['acc']}（記録 30か月・1983年11〜12月・1986年4月）")
+        need(list(g["cells"]) == sorted(g["cells"]) and all((a[1], a[0]) < (b[1], b[0]) for a, b in zip(g["xy"], g["xy"][1:])),
+             "② 升目が月の順（上の段から・左から右）に並んでいない")
+    if view == "names2":
+        need(tuple(g["rows"]) == Rv["rows"] and g["mark"] == Rv["mark"] and g["xs"][0] < g["xs"][1], f"② 2つの報告が挙げた場所 {g['mark']} が記録と違う")
+    if view in ("ideas", "four", "twox", "tags3"):
+        k = dict(ideas="cards", four="items", twox="cards", tags3="tags")[view]
+        need(tuple(g[k]) == Rv[k], f"② 札 {g[k]} が記録（語りの言葉と順）と違う")
+    if view == "longarrow":
+        need((tuple(g["a"]), tuple(g["b"])) == (Rv["a"], Rv["b"]), f"② 知られていた年月 {g['a']}→{g['b']}（記録 1983年11月→1986年4月）")
+    if view == "lecterns":
+        need(g["y87"] == Rv["y87"] and tuple(g["y86"]) == Rv["y86"] and g["xl"] < g["xr"], f"② 会議の年 {g['y86']}・{g['y87']}（記録 1986年8月が左・1987年が右）")
+    if view == "rulers2":
+        need((g["r86"], g["sec"], g["lo"], g["hi"]) == (Rv["r86"], Rv["sec"], Rv["lo"], Rv["hi"]),
+             f"② 2本の物差しの値 {g['r86']}・{g['sec']}・{g['lo']}〜{g['hi']}（記録 100倍・4秒・3.5〜80倍）")
+        need(prop(g["ly"], g["ly0"] - g["lk"] * Rv["r86"]) and prop(g["ra"], g["rx0"] + g["rk"] * Rv["lo"]) and prop(g["rb"], g["rx0"] + g["rk"] * Rv["hi"]),
+             "② 物差しの目盛りの画素が値に比例していない")
+    if view == "memo":
+        need(tuple(g["date"]) == Rv["date"], f"② 書簡の日 {g['date']}（記録 1983年12月＝S1 p100）")
+    if view == "volkov":
+        need(tuple(g["date"]) == Rv["date"] and g["pick"] == Rv["pick"] and g["op"] < g["de"], f"② 5月1日の見方 {g['date']}・{g['pick']}（記録 5月1日・炉の設計）")
+    if view == "funnel":
+        need((g["out"], g["n"], g["m"]) == (Rv["out"], Rv["n"], Rv["m"]) and g["out"] in g["cards"], f"② 絞られた原因 {g['out']}・{g['m']}月・{g['n']}回（記録 職員の誤り・6月・2回）")
+    if view == "road":
+        need(g["near"] < g["far"], "② 道の向き（会議の決定 → ウィーンなどでの説明）が違う")
+    if view == "notstop":
+        need((g["rods"], g["day"]) == (Rv["rods"], Rv["day"]), f"② 残した棒の数か日 {g['rods']}・{g['day']}日（記録 15本・25日＝S1 p81）")
+    if view == "cheese":
+        need(tuple(g["items"]) == Rv["items"], f"② 3枚の板の札 {g['items']} が記録と違う")
+        (ax, ay), (bx, by), (cx_, cy_) = g["holes"]
+        need(abs((by - ay) * (cx_ - ax) - (cy_ - ay) * (bx - ax)) / math.hypot(cx_ - ax, cy_ - ay) < 2.0, "② 3枚の板の穴が1本の線にそろっていない")
+    if view == "precursor":
+        need((g["y1"], g["y2"]) == (Rv["y1"], Rv["y2"]) and g["xl"] < g["xr"], f"② 前触れの年 {g['y1']}・{g['y2']}（記録 1975年が左・1986年が右）")
+    if view == "bins4":
+        need(tuple(g["ev"]) == Rv["ev"] and tuple(g["viol"]) == R["viol"], f"② 7つの評価 {g['ev']} が記録（1992年の報告）と違う")
+        need(len(set(g["cols"].values())) == 4, "② 評価の4つの色が分かれていない")
+    if view == "merge2":
+        need(g["year"] == Rv["year"], f"② 国際会議の年 {g['year']}（記録 1989年＝S1 p120）")
+    if view == "stairs":
+        need((g["n"], g["m"]) == (Rv["n"], Rv["m"]), f"② 答弁の数 {g['n']}人・{g['m']}月（記録 9人・5月＝国会会議録）")
+    if view == "num31":
+        need((g["n"], g["of"]) == (Rv["n"], Rv["of"]), f"② 9月の報告の数 {g['n']}・{g['of']}（記録 31・300＝S2 p1118）")
+    if view == "blocks30":
+        need(g["total"] == g["t"] == Rv["t"] and g["rad"] == Rv["rad"], f"② 積み木 {g['total']}個・色 {g['rad']}個（記録 30人・28人＝L2 p3005）")
+    if view == "two31":
+        need(tuple(g["forum"]) == Rv["forum"] and sum(n_ for n_, _t in g["forum"]) == Rv["n"], f"② フォーラムの31の内わけ {g['forum']}（記録 28＋2＋1）")
+    if view == "circles":
+        need(tuple(g["n"]) == Rv["n"] and abs(g["ratio"] - math.sqrt(Rv["n"][1] / Rv["n"][0])) < 1e-6, f"② 急性放射線障害の数 {g['n']} か円の面積の比が違う（記録 237・134）")
+    if view == "area60":
+        need((g["pop"], g["base"], g["add"]) == (Rv["pop"], Rv["base"], Rv["add"]) and abs(g["a_base"] / g["a_all"] - Rv["base"] / Rv["pop"]) < 1e-6
+             and abs(g["a_add"] / g["a_all"] - Rv["add"] / Rv["pop"]) < 1e-6, "② 60万人の内わけ（10万人・4,000人）の数か面積の比が違う")
+    if view == "scope2":
+        need(tuple(g["iarc"]) == Rv["iarc"], f"② 国際がん研究機関の推計 {g['iarc']}（記録 およそ1万6,000人・40か国・2065年）")
+    if view == "machine":
+        need(g["order"][0] < g["order"][1] < g["order"][2], "② 経験 → 計算 → 推計の順（左から右）になっていない")
+    if view == "waffle":
+        need((g["n"], g["cells"], g["q"], g["lo"], g["hi"]) == (Rv["n"], Rv["cells"], Rv["q"], Rv["lo"], Rv["hi"]),
+             f"② 甲状腺がんの升目 {g['cells']}・{g['q']}・{g['lo']}〜{g['hi']}%（記録 100升・25・7〜50%）")
+        need(prop(g["blo"], g["bx0"] + (g["bx1"] - g["bx0"]) * Rv["lo"] / 100) and prop(g["bhi"], g["bx0"] + (g["bx1"] - g["bx0"]) * Rv["hi"] / 100),
+             "② 幅の帯の画素が割合に比例していない")
+    if view == "gantt":
+        need(tuple((u, tuple(ym)) for u, ym in g["starts"]) == Rv["starts"], f"② 号機の始まり {g['starts']}（記録 1986年10月・11月・1987年12月）")
+        span = (g["b"][0] - g["a"][0]) * 12 + g["b"][1] - g["a"][1]
+        need(all(prop(x, g["x0"] + (g["x1"] - g["x0"]) * ((ym[0] - g["a"][0]) * 12 + ym[1] - g["a"][1]) / span)
+                 for x, (_u, ym) in zip(g["xs"], Rv["starts"])), "② 帯の始まりの画素が月に比例していない")
+    if view == "ines":
+        hs = g["hs"]
+        need(g["lv"] == Rv["lv"] and g["year"] == Rv["year"], f"② 段の数か年 {g['lv']}・{g['year']}（記録 0〜7の8段・1990年）")
+        need(hs[1] > hs[0] and all(prop(b - a, hs[1] - hs[0]) for a, b in zip(hs, hs[1:])), "② 段の高さが段の数に比例していない")
+    if view == "lvl7":
+        need((g["year"], tuple(g["date"])) == (Rv["year"], Rv["date"]), f"② 引き上げの年と日 {g['year']}・{g['date']}（記録 2011年・4月12日）")
+    if view == "flip":
+        need(tuple(g["t"]) == Rv["t"], f"② 時刻の札 {g['t']}（記録 0:28・1:23:40）")
     ngs = [(t, w) for t in m["texts_all"] for w in R.get("ng", ()) if w in t]
     need(not ngs, f"③ 画面の字「{ngs[0][0]}」に出さない言葉「{ngs[0][1]}」がある（台本 §1-5）" if ngs else "")
     for p, q in Rv.get("quote", ()):
@@ -5288,7 +5525,46 @@ def _selftest_m24(ok):
              ("注意の日を5月5日に", "notice", "NT_DATE", (5, 5), "② 注意の日"),
              ("表の印を3行目に", "table6", "TB6_MARK", (3, 2), "② 違反の表"),
              ("札を5枚に", "pile", "PL6", 5, "② 重なる札"),
-             ("差しておく深さを 2m に", "rod12", "RZ_M", 2.0, "② 差しておく深さか炉の高さ"))
+             ("差しておく深さを 2m に", "rod12", "RZ_M", 2.0, "② 差しておく深さか炉の高さ"),
+             # 🆕 ⑤b-6（地図2と第8〜11章）
+             ("268人を286人に", "ussr", "SU_NIGHT", 286, "② 発電所にいた人の数"),
+             ("キエフの点を北へ", "ussr", "SU_PTS", dict(M.SU_PTS, kiev=(51.6, 30.5234)), "② 地図の点（発電所"),
+             ("29を30に", "japan", "JP_N", 30, "② 日付か数"),
+             ("千葉の印を枠の外に", "japan", "JP_PTS", M.JP_PTS[:1] + (("千葉", (35.6047, 141.2), "start"),) + M.JP_PTS[2:], "② 印が関東の拡大の枠の外"),
+             ("押しのけ棒を 4.0m に", "len7", "L7_D", 4.0, "② 炉の高さと押しのけ棒と水の長さ"),
+             ("12秒を10秒に", "sand", "SD_T", (18, 10), "② 入りきる時間"),
+             ("8秒の線を6秒に", "lines3", "L3_SEC", 6, "② 残した棒の数か秒"),
+             ("事故の月を5月に", "months", "MO_ACC", (1986, 5), "② 升目"),
+             ("1992年の報告にも4号機の印", "names2", "NM_MARK", dict(r92=(True, True), c91=(True, True)), "② 2つの報告が挙げた場所"),
+             ("案の札を入れ替える", "ideas", "ID_CARDS", tuple(reversed(M.ID_CARDS)), "② 札"),
+             ("見つかった月を1983年12月に", "longarrow", "LA_A", (1983, 12), "② 知られていた年月"),
+             ("会議の年を1988年に", "lecterns", "LC_Y87", 1988, "② 会議の年"),
+             ("100倍を80倍に", "rulers2", "RU_86", 80, "② 2本の物差しの値"),
+             ("右の物差しの縮尺を描く側だけ変える", "rulers2", "ru_rx", lambda v: M.RU["rx0"] + 9.0 * v, "② 物差しの目盛りの画素"),
+             ("書簡の日を11月に", "memo", "MM_DATE", (1983, 11), "② 書簡の日"),
+             ("4つの札を3つに", "four", "FO_ITEMS", M.FO_ITEMS[:3] + ("炉の設計",), "② 札"),
+             ("見方を運転員に", "volkov", "VK_PICK", "op", "② 5月1日の見方"),
+             ("絞られた原因を炉の設計に", "funnel", "FN_OUT", "炉の設計", "② 絞られた原因"),
+             ("残した棒を13本に", "notstop", "NS_RODS", 13, "② 残した棒の数か日"),
+             ("穴を1つずらす", "cheese", "CH", dict(M.CH, hole=((-10.0, 560.0), (0.0, 610.0), (10.0, 536.0))), "② 3枚の板の穴"),
+             ("前触れの年を1976年に", "precursor", "PC_Y1", 1976, "② 前触れの年"),
+             ("③を違反に", "bins4", "BN_EVAL", M.BN_EVAL[:2] + ("違反",) + M.BN_EVAL[3:], "② 7つの評価"),
+             ("違反ではないと違反を同じ色に", "bins4", "BN_COL", dict(M.BN_COL, 違反="OK"), "② 評価の4つの色"),
+             ("国際会議を1990年に", "merge2", "MG_YEAR", 1990, "② 国際会議の年"),
+             ("答弁の数を7人に", "stairs", "ST_N", 7, "② 答弁の数"),
+             ("31を30に", "num31", "N31", 30, "② 9月の報告の数"),
+             ("色の積み木を29に", "blocks30", "BK_R", 29, "② 積み木"),
+             ("積み木を31個に", "blocks30", "BK_T", 31, "② 積み木"),
+             ("けがを3人に", "two31", "TW_FORUM", ((28, "放射線", "AMBER"), (3, "けが", "LINE"), (1, "心臓", "DOC")), "② フォーラムの31の内わけ"),
+             ("確かめられた人を143人に", "circles", "CI_N", (237, 143), "② 急性放射線障害の数"),
+             ("増える分を4万人に", "area60", "A6_ADD", 40000, "② 60万人の内わけ"),
+             ("2065年を2056年に", "scope2", "SC_IARC", (16000, 40, 2056), "② 国際がん研究機関の推計"),
+             ("4分の1を20升に", "waffle", "WF_Q", 20, "② 甲状腺がんの升目"),
+             ("2号機を12月に", "gantt", "GT_STARTS", ((1, (1986, 10)), (2, (1986, 12)), (3, (1987, 12))), "② 号機の始まり"),
+             ("段を7つに", "ines", "IN_LV", 7, "② 段の数か年"),
+             ("引き上げを4月11日に", "lvl7", "L7D", (4, 11), "② 引き上げの年と日"),
+             ("言えない時刻 1:23:44 を札に", "flip", "FL_T", ("0:28", "1:23:44"), "③ 画面の字「1:23:44」に出さない言葉"),
+             ("札の言葉を入れ替える", "tags3", "TG3", ("いつ", "誰が", "何を数えたか"), "② 札"))
     for name, view, attr, val, why in cases:
         if view not in by_view:
             print(f"  ⚠️ 24本目 陽性対照「{name}」：{view} のカットが無い（飛ばした）")
@@ -5322,6 +5598,28 @@ def _selftest_m24(ok):
     g_ = any(b.startswith("③") and "13:50" in b for b in bad)
     ok &= g_
     print(f"  {'OK' if g_ else '🔴 NG'} 🔴 24本目 ⑤b-4 陽性対照：記録に無い時刻 13:50: {'不合格' if bad else '合格'}（不合格のはず・理由「③ 時刻」）")
+    # 🆕 ⑤b-6：地図の国の色（クリミア半島をソ連の側へ戻す・北方領土をロシアの側へ戻す）＝切り出した表 map24 の組を入れ替えて鳴るか（終わったら戻す）
+    d = M.map24()["polys"]
+    for name, view, (src_k, dst_k), box_k, why in (("クリミア半島をソ連の色に", "ussr", ("o_ukr", "o_su"), "crimea", "② クリミア半島"),
+                                                   ("北方領土をロシアの色に", "japan", ("j_jp", "j_su"), "north4", "② 北方領土")):
+        if view not in by_view:
+            continue
+        keep = {k: list(d.get(k, [])) for k in (src_k, dst_k)}
+        b_ = M.map24()[box_k]
+
+        def _in(p):
+            x = sum(q[0] for q in p) / len(p)
+            y = sum(q[1] for q in p) / len(p)
+            return b_[0] <= x <= b_[2] and b_[1] <= y <= b_[3]
+        d[src_k] = [p for p in keep[src_k] if not _in(p)]
+        d[dst_k] = keep[dst_k] + [p for p in keep[src_k] if _in(p)]
+        try:
+            bad, _ = judge("m24", by_view[view])
+        finally:
+            d.update(keep)
+        g_ = any(b.startswith(why) for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 24本目 ⑤b-6 陽性対照：{name}: {'不合格' if bad else '合格'}（不合格のはず・理由「{why}」）" + (f"  ← {bad[0]}" if bad else ""))
     return ok
 
 

@@ -97,7 +97,23 @@ def main():
         print("  🔴 " + b)
     if not bad:
         print(f"  ✓ {n} カット・部品 {ne}：額の書き方・md5・場所の表・墨の位置（額の内側・ロゴと帰属の行の外）・断りと出典の行")
+    # 🆕 2026-10-23（24本目 ⑤b-6）：この回は衛星写真の地図なし（ss.SAT_NONE＝理由の文）＝地図0を通す。地図が1つでもあれば言い分と食い違う＝鳴る
+    rc0 = none_check(n, getattr(ss, "SAT_NONE", None))
+    if rc0 is not None:
+        return 1 if bad else rc0
     return 1 if bad else (1 if n == 0 else 0)
+
+
+def none_check(n, why):
+    """「この回は衛星写真の地図なし」の言い分（ss.SAT_NONE）。言い分が無ければ None（いつもどおり＝地図0は落ちる）。
+    言い分があって地図0＝0（通す）・言い分があるのに地図がある＝1（食い違い）。"""
+    if not why:
+        return None
+    if n == 0:
+        print(f"  ✓ この回は衛星写真の地図なし（ss.SAT_NONE：{why}）")
+        return 0
+    print(f"  🔴 ss.SAT_NONE（衛星写真の地図なし）なのに地図のカットが {n} ある＝言い分と食い違う（§0b で戻し忘れ？）")
+    return 1
 
 
 def selftest():
@@ -109,6 +125,11 @@ def selftest():
     #    ⑤b-5 の qa_all でも sat は「落ちてよい3」だった＝22本目の c101 の CC BY-SA の決まり。17本目の対照がその陰で回らないのを防ぐ）
     #    （🔴 2026-10-22〜：17本目も見本 fixture_ep17 の表と章ファイルを差して回す＝`_selftest_ep17` が差し込んで・終わったら戻す）
     rc17 = _selftest_ep17()
+    # 🆕 24本目 ⑤b-6：「衛星写真の地図なし」の言い分の陽性対照（言い分なし＝None・言い分あり地図0＝0・言い分ありで地図あり＝1）
+    nc = [none_check(0, None), none_check(0, "見本の言い分"), none_check(3, "見本の言い分")]
+    print(f"  {'✓' if nc == [None, 0, 1] else '🔴'} 陽性対照：衛星写真の地図なしの言い分 → {nc}（[None, 0, 1] のはず）")
+    if nc != [None, 0, 1]:
+        rc17 = rc17 or 1
     import fixture_ep22
     fixture_ep22.apply()
     fixture_ep22.apply_cuts()

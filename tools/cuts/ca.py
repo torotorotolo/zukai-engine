@@ -89,3 +89,67 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-23）：図解＝`tools/mech24.py`（fig=("m24", …)・門番 check_mech の judge_m24）。🔴 色は報告の色・画面の字の数は全部 rel に
+#   🔴 ca10＝穴のあいた3枚の板（c816 の重なる輪と別の絵）・ca16＝この1枚だけの評価の一覧（4色＝③は水色の破線で「ようだ」の留保）・
+#   ca20＝出さない言葉（無実・嘘）を札に使わない。人の名前は出さない（ca03 は役だけ）
+# ══════════════════════════════════════════════════════════
+import cuts.ss as ss  # noqa: E402
+from mech24 import rr  # noqa: E402
+
+SPEC.update({
+    # ca03（3行）＝1行目は聞き役（運転員・炉の設計の2つの箱）／2行目：5月1日・研究所の研究グループの長／3行目：原因は炉の設計（✓）・1991年の委員会（S1 p70）
+    "ca03": dict(
+        t="早くからあった別の見方", s="事故の5日後",
+        fig=("m24", dict(view="volkov", steps=[dict(), dict(state=dict(may1="on")), dict(state=dict(design="on"))],
+                         rel=[dict(t="5月1日", src="S1 p70")] + rr("c91"), note="矢印と箱は模式", src=ss.src(["S1 p70"])))),
+    # ca04（2行）＝1行目：6月の2回の会議で「職員の誤り」だけに絞られた／2行目：省庁をまたぐ科学技術の会議（S1 p70）
+    "ca04": dict(
+        t="1つに絞られた原因", s="6月の会議",
+        fig=("m24", dict(view="funnel", steps=[dict(state=dict(narrow="on")), dict(state=dict(council="on"))],
+                         rel=[dict(t="6月・2回の会議", src="S1 p70")] + rr("c91"), note="漏斗と札は模式", src=ss.src(["S1 p70"])))),
+    # ca05（1行）＝会議の決定 → 道 → ウィーンなどでの説明・一方的・1991年の委員会（S1 p70）
+    "ca05": dict(
+        t="説明の向き", s="会議のあとに",
+        fig=("m24", dict(view="road", steps=[dict(state=dict(open="on"))],
+                         rel=[dict(t="6月の会議の決定", src="S1 p70")] + rr("c91"), note="道と標識は模式", src=ss.src(["S1 p70"])))),
+    # ca07（3行）＝1行目：1991年の委員会も職員の違反を認める／2行目：25日の朝・残した棒 15本・止めなかった・わざと／3行目：事故の原因ではない（S1 p81）
+    "ca07": dict(
+        t="委員会も認めたこと", s="減っても続けた運転",
+        fig=("m24", dict(view="notstop", steps=[dict(state=dict(viol="on")), dict(state=dict(rods="on")), dict(state=dict(notcause="on"))],
+                         rel=[dict(t="15本", src="S1 p81"), dict(t="25日の朝", src="S1 p81")] + rr("c91"),
+                         note="数の窓とボタンは模式", src=ss.src(["S1 p81"])))),
+    # ca10（2行）＝1行目：炉の物理の性質・止める棒の設計（2枚）／2行目：手順に定めがなく調べてもいない状態へ（3枚目）・穴を通る矢印 → 事故・1992年の報告（S1 p33）
+    "ca10": dict(
+        t="重なりが事故に", s="事故の起き方",
+        fig=("m24", dict(view="cheese", steps=[dict(state=dict(two="on")), dict(state=dict(three="on"))],
+                         rel=[dict(t="3つが重なって起きた", src="S1 p33")] + rr("r92"), note="板と穴は模式（札の言葉は要約）", src=ss.src(["S1 p33"])))),
+    # ca12（2行）＝1行目：1975年 レニングラード1号機・前触れと見る人もいる／2行目：切れた線・職員は知らなかった・1992年の報告（S1 p33）
+    "ca12": dict(
+        t="伝わらなかった前触れ", s="11年前の別の発電所",
+        fig=("m24", dict(view="precursor", steps=[dict(state=dict(pre="on")), dict(state=dict(cut="on"))],
+                         rel=[dict(t="1号機（レニングラード）・1975年", src="S1 p33"), dict(t="1986年（チェルノブイリ）", src="S1 p63")] + rr("r92"),
+                         note="札と線は模式", src=ss.src(["S1 p33"])))),
+    # ca14（2行）＝1行目：運転員の決定的な操作＝きわめて判断を誤っていた・1992年の報告／2行目：人の要素＝いまも大きな要素（S1 p34）
+    "ca14": dict(
+        t="それでも残る人の側", s="もう1つの見方",
+        fig=("m24", dict(view="puzzle", steps=[dict(state=dict(ill="on")), dict(state=dict(human="on"))],
+                         rel=rr("r92"), note="組み絵は模式（大きさは比べない）", src=ss.src(["S1 p34"])))),
+    # ca16（2行）＝1行目は聞き役（7つの札）／2行目：1992年の評価の4色の枠と凡例（S1 p20〜22・p28・p34）
+    "ca16": dict(
+        t="最初の7つは、どうなったか", s="評価の一覧",
+        fig=("m24", dict(view="bins4", steps=[dict(), dict(state=dict(sort="on"))],
+                         rel=[dict(t="0時28分の急落", src="S1 p63"), dict(t="700メガワット", src="S2 p1025")] + rr("r92"),
+                         note="評価の言葉は要約（③は「ようだ」のまま）", src=ss.src(["S1 p20", "S1 p21", "S1 p22", "S1 p28", "S1 p34"])))),
+    # ca20（3行）＝1行目は聞き役／2行目：「運転員の責めは消えた」に×・1992年の報告／3行目：「1986年の報告は取り消し」に×（S1 p34）
+    "ca20": dict(
+        t="どちらでもない", s="言い過ぎに注意",
+        fig=("m24", dict(view="twox", steps=[dict(), dict(state=dict(c1="on")), dict(state=dict(c2="on"))],
+                         rel=rr("r86", "r92"), note="札の言葉は要約（模式）", src=ss.src(["S1 p34"])))),
+    # ca22（2行）＝1行目：1989年の国際会議・設計の欠点 → 炉の不安定／2行目：運転の仕方 → 炉の不安定・おおむね合意（S1 p120）
+    "ca22": dict(
+        t="両方が原因", s="国際会議での合意",
+        fig=("m24", dict(view="merge2", steps=[dict(state=dict(design="on")), dict(state=dict(oper="on"))],
+                         rel=[dict(t="1989年の国際会議", src="S1 p120")], note="箱と矢印は模式", src=ss.src(["S1 p120"])))),
+})
