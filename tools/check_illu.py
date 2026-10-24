@@ -71,7 +71,7 @@
   ㊵ N3 出力の時刻表：札の時刻の線の位置を目盛りの字から逆算（±1.5画素）・札の値は表I-I・ソ連の報告の値・決まりの札の数（26・30・15）・
      色分け（15本を下回る＝赤）は決まりの札のあと・200MW の割れは同じ形の目盛り2本に出典の名だけ（時刻の字を出さない）
   ㊶ N4 避難のバス：バスの列は画面の両端の外まで（数は描かない）・夜のうちに着く（昼より前の段）・群れは知らせと昼のあと・
-     札は「約1,200台」と避難の時刻（14:00〜17:00）だけ
+     札は「約1,200台」と知らせだけ（🔧 ⑤c'：避難の時刻 14:00〜17:00 は次の c708 の語り＝先回り＝札に書かない）
   ㊳〜㊶ 共通：爆発・火・煙・壊れた物・タービンの部品なし・人は N4 の住民の群れだけ・絵の字（部品の <text>）の時刻も表の値だけ
   ⑥ 陽性対照（わざと壊した場面で鳴るか）＝`--selftest`（本番の前に必ず回る）
 
@@ -2874,10 +2874,11 @@ def _judge_n4(sc, where, geo, tags, G):
             bad.append(f"㊶{where}：群れが知らせ（段 {cst}）・昼（段 {don and don[0]}）より前に出る（段 {con and con[0]}）")
         if crowd.get("role") != "residents":
             bad.append(f"㊶{where}：群れの役割 {crowd.get('role')}（24本目は住民 residents の顔の無い群れだけ）")
-        tstage = [i for i, t in tags if all(x in t for x in REC_N4["times"])]
+        # 🔧 ⑤c'：避難の時刻は次の c708 の聞き役の問いの答え＝札に書くと先回り（決まり「次のカットの語りにある事は書かない」）
+        tstage = [i for i, t in tags if any(x in t for x in REC_N4["times"])]
         n += 1
-        if not tstage or (con and min(tstage) != con[0]):
-            bad.append(f"㊶{where}：避難の時刻の札（{'〜'.join(REC_N4['times'])}）が群れの出る段に無い")
+        if tstage:
+            bad.append(f"㊶{where}：札に避難の時刻（{'〜'.join(REC_N4['times'])}）がある＝次の c708 の語りの先回り")
     for i, t in tags:
         for tok in _toks24(t):
             n += 1
@@ -3012,9 +3013,9 @@ def selftest_ep24():
         bad_case("バスの札を 約1,000台に", step("c707", 0, tag=dict(t="バス 約1,000台（夜のうちに）", at="bus")), "㊶", "記録の数")
         bad_case("群れを1行目（夜）から", step("c707", 0, state=dict(n4bus="on", n4crowd="on")), "㊶", "群れが知らせ")
         bad_case("昼になってからバスが着く", tweak("c707", steps=[dict(state=dict(n4day="on"), rec="L2 p3024（Around noon on 27 April）"),
-                                                       dict(state=dict(n4bus="on", n4call="on", n4crowd="on"), rec="L2 p3024（nearly 1,200 buses）",
-                                                            tag=dict(t="避難 14:00〜17:00", at="crowd"))]), "㊶", "夜のうちに")
-        bad_case("避難の時刻の札を 14:00〜18:00 に", step("c707", 1, tag=dict(t="避難 14:00〜18:00", at="crowd")), "㊶")
+                                                       dict(state=dict(n4bus="on", n4call="on", n4crowd="on"), rec="L2 p3024（nearly 1,200 buses）")]),
+                 "㊶", "夜のうちに")
+        bad_case("避難の時刻の札を足す（次の c708 の語り）", step("c707", 1, tag=dict(t="避難 14:00〜17:00", at="crowd")), "㊶", "先回り")
     finally:
         for obj, name, val in saved:
             setattr(obj, name, val)

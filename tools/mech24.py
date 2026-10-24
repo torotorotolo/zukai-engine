@@ -1723,8 +1723,8 @@ def guard_base(st0):
     return [F.rect(sx - 110, sy - 90, 220, 180, J.BG2, J.LINE, 4, rx=12), F.circ(sx, sy - 20, 36, J.BG, J.LINE_DIM, 5),
             _tline(sx, sy + 62, "計器", 28, INK, "middle", 180),
             F.line(sx + 110, sy, x0 - 30, sy, J.LINE_DIM, 5), _arrow(x0 - 60, sy, x0 - 6, sy, J.LINE_DIM, 5, 18),
-            F.rect(x0, y0, x1 - x0, y1 - y0, "#2b3a44", GRAPH, 4, rx=8), _tline(x1 + 24, (y0 + y1) / 2 + 10, "炉", 30, INK, "start", 120),
-            F.line(GD["rods"][0] - 40, GD["rtop"], GD["rods"][-1] + 40, GD["rtop"], STEEL, 6)]
+            F.rect(x0, y0, x1 - x0, y1 - y0, "#2b3a44", GRAPH, 4, rx=8), _tline(x1 + 24, (y0 + y1) / 2 + 10, "炉", 30, INK, "start", 120)]
+    # 🔧 ⑤c'：棒を吊る横棒（y=rtop・x 1120〜1520）は描かない＝棒が下りたあと札⑤⑥と同じ高さに灰の横線が1本だけ残り、何の線か分からなかった
 
 
 def guard_parts(st):
@@ -3205,7 +3205,7 @@ JP_MAP = dict(lon=(128.5, 146.5), lat=(30.5, 45.8), box=(180.0, 270.0, 560.0, 58
 JP_IN = dict(lon=(138.9, 140.9), lat=(34.85, 36.05), box=(960.0, 300.0, 560.0, 440.0))
 JP_PTS = (("東京", (35.6895, 139.6917), "end"), ("千葉", (35.6047, 140.1233), "start"), ("神奈川", (35.4478, 139.6425), "end"))   # 都庁・県庁（一般の座標）
 JP_D1, JP_D2, JP_N = (5, 3), (5, 14), 29
-JP_CARD = (1550.0, 420.0, 280.0, 210.0)
+JP_CARD = (1536.0, 420.0, 312.0, 210.0)   # 🔧 ⑤c'：幅 280 だと「29の都道府県」（字 284px）が枠の左右へ 2px はみ出した＝312 に（右の端 1848）
 
 
 def _jp_geos():
@@ -4381,6 +4381,7 @@ def gantt_base(st0):
         g.append(_tline(GT["x0"] - 30, y + 10, f"{i + 1}号機" if i < 3 else "4号炉", 28, INK if i < 3 else J.TICK, "end", 200))
     y = GT["ys"][3]
     g.append(F.rect(GT["x0"], y - GT["h"] / 2, GT["x1"] - GT["x0"], GT["h"], "#2a2f33", J.LINE_DIM, 3, rx=6))
+    g.append(_tline((GT["x0"] + GT["x1"]) / 2, y + 9, "壊れたまま", 26, J.TICK, "middle", 300))   # 🔧 ⑤c'：札の無い灰の帯は「動いていた帯」と読まれうる
     return g
 
 
@@ -4401,7 +4402,7 @@ def gantt_stage(prev, st):
     return s
 
 
-# ── ines（cc06）＝原子力の出来事の物差し（0から7の段＝高さが段の数に比例）：1行目＝0から7の段／2行目＝INES・1990年にできた（L10 pdf12）。
+# ── ines（cc06）＝原子力の出来事の物差し（0から7の段＝同じ幅ずつ高くなる・0 の段にも高さ＝比例ではない）：1行目＝0から7の段／2行目＝INES・1990年にできた（L10 pdf12）。
 #    チェルノブイリの印は次の写真のカット（cc07）＝ここでは付けない
 IN_LV, IN_YEAR = 8, 1990
 INS = dict(x0=420.0, w=150.0, base=820.0, h0=50.0, dh=60.0)

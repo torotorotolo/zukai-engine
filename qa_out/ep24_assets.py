@@ -454,6 +454,8 @@ def screen_credit(code, s, priv, frame, crop, mask):
     r = s["rights"]
     lic = LIC[r]
     who = who_screen(code, s, priv)
+    if code == "CIA":
+        return f"出典：{who}（{lic}）"     # 🔧 ⑤c'：地図＝写真ではない（図の頁の出典の行と同じ「出典：」）
     if r in NO_NAME:
         return f"写真：{who}（{lic}）" + ("・改変：切出" if crop else "")
     if frame:
