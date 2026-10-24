@@ -2834,8 +2834,12 @@ def render_all(force=False, only=None, jobs_workers=4):
         k = f"sub_{cid}"
         if k not in subjobs and (OUT / f"{k}.png").exists() and not (only and not cid.startswith(only)):
             subjobs[k] = (k, sub_strip(rows), OUT / f"{k}.png", W, SUB_H * len(rows))
+    # 🆕 2026-10-24（24本目 ⑥）：出るはずの行の位置（wrap2 で折った数 → sub_ys）も渡す＝**行がまるごと抜けた層**も描き直す
+    #    （本編 r01 の c207 の2行目が Modal で抜けた・中の欠けしか測らない網を素通り＝sub_layer_check の 3）
+    want = {f"sub_{cid}": [sub_ys(len(wrap2(r["text"] if isinstance(r, dict) else r))) for r in rows]
+            for cid, rows in SUBS.items()}
     for attempt in range(SUB_RETRY + 1):
-        bad = {k: SLC.defects(t[2], SUB_H) for k, t in subjobs.items() if t[2].exists()}
+        bad = {k: SLC.defects(t[2], SUB_H, want.get(k)) for k, t in subjobs.items() if t[2].exists()}
         bad = {k: d for k, d in bad.items() if d}
         if not bad:
             print(f"✓ 字幕の層 {len(subjobs)} 枚に書き出しの欠けなし（tools/sub_layer_check.py）", flush=True)
