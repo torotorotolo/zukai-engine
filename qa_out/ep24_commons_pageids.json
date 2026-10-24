@@ -1,0 +1,454 @@
+{
+ "pages": {
+  "az5": {
+   "code": "AZ5",
+   "url": "https://commons.wikimedia.org/?curid=188998130",
+   "license": "CC BY-SA 4.0"
+  },
+  "c0": {
+   "code": "C0",
+   "url": "https://commons.wikimedia.org/?curid=12263546",
+   "license": "CC BY 3.0"
+  },
+  "c1": {
+   "code": "C1",
+   "url": "https://commons.wikimedia.org/?curid=12263553",
+   "license": "CC BY 3.0"
+  },
+  "c2": {
+   "code": "C2",
+   "url": "https://commons.wikimedia.org/?curid=2910865",
+   "license": "パブリックドメイン"
+  },
+  "c27": {
+   "code": "C27",
+   "url": "https://commons.wikimedia.org/?curid=164915359",
+   "license": "CC BY 2.0"
+  },
+  "c3": {
+   "code": "C3",
+   "url": "https://commons.wikimedia.org/?curid=28667961",
+   "license": "CC BY 2.0"
+  },
+  "c3290": {
+   "code": "C3290",
+   "url": "https://commons.wikimedia.org/?curid=78754738",
+   "license": "CC0"
+  },
+  "c3305": {
+   "code": "C3305",
+   "url": "https://commons.wikimedia.org/?curid=144959979",
+   "license": "CC0"
+  },
+  "c3309": {
+   "code": "C3309",
+   "url": "https://commons.wikimedia.org/?curid=37065931",
+   "license": "CC BY 2.0"
+  },
+  "c3313": {
+   "code": "C3313",
+   "url": "https://commons.wikimedia.org/?curid=74167199",
+   "license": "パブリックドメイン"
+  },
+  "c3319": {
+   "code": "C3319",
+   "url": "https://commons.wikimedia.org/?curid=78800764",
+   "license": "CC BY 2.0"
+  },
+  "c475": {
+   "code": "C475",
+   "url": "https://commons.wikimedia.org/?curid=47571362",
+   "license": "CC BY 2.0"
+  },
+  "c486": {
+   "code": "C486",
+   "url": "https://commons.wikimedia.org/?curid=65966041",
+   "license": "CC BY 2.0"
+  },
+  "c488": {
+   "code": "C488",
+   "url": "https://commons.wikimedia.org/?curid=7519059",
+   "license": "CC BY 2.0"
+  },
+  "c496": {
+   "code": "C496",
+   "url": "https://commons.wikimedia.org/?curid=87408611",
+   "license": "CC BY 2.0"
+  },
+  "cia": {
+   "code": "CIA",
+   "url": "https://commons.wikimedia.org/?curid=477926",
+   "license": "パブリックドメイン"
+  },
+  "cr1": {
+   "code": "CR1",
+   "url": "https://commons.wikimedia.org/?curid=23280262",
+   "license": "CC BY-SA 3.0"
+  },
+  "cr3a": {
+   "code": "CR3A",
+   "url": "https://commons.wikimedia.org/?curid=39378509",
+   "license": "CC BY-SA 2.0"
+  },
+  "cr3b": {
+   "code": "CR3B",
+   "url": "https://commons.wikimedia.org/?curid=114929850",
+   "license": "CC BY-SA 4.0"
+  },
+  "cr4": {
+   "code": "CR4",
+   "url": "https://commons.wikimedia.org/?curid=114929851",
+   "license": "CC BY-SA 4.0"
+  },
+  "cr4b": {
+   "code": "CR4B",
+   "url": "https://commons.wikimedia.org/?curid=179189667",
+   "license": "CC0"
+  },
+  "cr4b2": {
+   "code": "CR4B",
+   "url": "https://commons.wikimedia.org/?curid=179189667",
+   "license": "CC0"
+  },
+  "h01": {
+   "code": "H01",
+   "url": "https://commons.wikimedia.org/?curid=71364047",
+   "license": "CC BY-SA 4.0"
+  },
+  "h06": {
+   "code": "H06",
+   "url": "https://commons.wikimedia.org/?curid=71364051",
+   "license": "CC BY-SA 4.0"
+  },
+  "h11": {
+   "code": "H11",
+   "url": "https://commons.wikimedia.org/?curid=71364057",
+   "license": "CC BY-SA 4.0"
+  },
+  "i11": {
+   "code": "I11",
+   "url": "https://commons.wikimedia.org/?curid=63251707",
+   "license": "CC BY-SA 2.0"
+  },
+  "i13": {
+   "code": "I13",
+   "url": "https://commons.wikimedia.org/?curid=63251710",
+   "license": "CC BY-SA 2.0"
+  },
+  "i14": {
+   "code": "I14",
+   "url": "https://commons.wikimedia.org/?curid=63251613",
+   "license": "CC BY-SA 2.0"
+  },
+  "i15": {
+   "code": "I15",
+   "url": "https://commons.wikimedia.org/?curid=63251598",
+   "license": "CC BY-SA 2.0"
+  },
+  "i18": {
+   "code": "I18",
+   "url": "https://commons.wikimedia.org/?curid=63251600",
+   "license": "CC BY-SA 2.0"
+  },
+  "i19": {
+   "code": "I19",
+   "url": "https://commons.wikimedia.org/?curid=63251601",
+   "license": "CC BY-SA 2.0"
+  },
+  "i22": {
+   "code": "I22",
+   "url": "https://commons.wikimedia.org/?curid=63251615",
+   "license": "CC BY-SA 2.0"
+  },
+  "i23": {
+   "code": "I23",
+   "url": "https://commons.wikimedia.org/?curid=63251608",
+   "license": "CC BY-SA 2.0"
+  },
+  "i24": {
+   "code": "I24",
+   "url": "https://commons.wikimedia.org/?curid=63251603",
+   "license": "CC BY-SA 2.0"
+  },
+  "i25": {
+   "code": "I25",
+   "url": "https://commons.wikimedia.org/?curid=63251632",
+   "license": "CC BY-SA 2.0"
+  },
+  "i26": {
+   "code": "I26",
+   "url": "https://commons.wikimedia.org/?curid=63251609",
+   "license": "CC BY-SA 2.0"
+  },
+  "i27": {
+   "code": "I27",
+   "url": "https://commons.wikimedia.org/?curid=63251629",
+   "license": "CC BY-SA 2.0"
+  },
+  "i28": {
+   "code": "I28",
+   "url": "https://commons.wikimedia.org/?curid=63251610",
+   "license": "CC BY-SA 2.0"
+  },
+  "i30": {
+   "code": "I30",
+   "url": "https://commons.wikimedia.org/?curid=63251616",
+   "license": "CC BY-SA 2.0"
+  },
+  "i32": {
+   "code": "I32",
+   "url": "https://commons.wikimedia.org/?curid=63251627",
+   "license": "CC BY-SA 2.0"
+  },
+  "i34": {
+   "code": "I34",
+   "url": "https://commons.wikimedia.org/?curid=63251619",
+   "license": "CC BY-SA 2.0"
+  },
+  "i35": {
+   "code": "I35",
+   "url": "https://commons.wikimedia.org/?curid=63251635",
+   "license": "CC BY-SA 2.0"
+  },
+  "i36": {
+   "code": "I36",
+   "url": "https://commons.wikimedia.org/?curid=63251665",
+   "license": "CC BY-SA 2.0"
+  },
+  "i40": {
+   "code": "I40",
+   "url": "https://commons.wikimedia.org/?curid=63251647",
+   "license": "CC BY-SA 2.0"
+  },
+  "i42": {
+   "code": "I42",
+   "url": "https://commons.wikimedia.org/?curid=63251641",
+   "license": "CC BY-SA 2.0"
+  },
+  "i44": {
+   "code": "I44",
+   "url": "https://commons.wikimedia.org/?curid=63251672",
+   "license": "CC BY-SA 2.0"
+  },
+  "i45": {
+   "code": "I45",
+   "url": "https://commons.wikimedia.org/?curid=63251638",
+   "license": "CC BY-SA 2.0"
+  },
+  "i48": {
+   "code": "I48",
+   "url": "https://commons.wikimedia.org/?curid=63251649",
+   "license": "CC BY-SA 2.0"
+  },
+  "i49": {
+   "code": "I49",
+   "url": "https://commons.wikimedia.org/?curid=63251673",
+   "license": "CC BY-SA 2.0"
+  },
+  "i50": {
+   "code": "I50",
+   "url": "https://commons.wikimedia.org/?curid=63251644",
+   "license": "CC BY-SA 2.0"
+  },
+  "i55": {
+   "code": "I55",
+   "url": "https://commons.wikimedia.org/?curid=63251656",
+   "license": "CC BY-SA 2.0"
+  },
+  "i56": {
+   "code": "I56",
+   "url": "https://commons.wikimedia.org/?curid=63251661",
+   "license": "CC BY-SA 2.0"
+  },
+  "i57": {
+   "code": "I57",
+   "url": "https://commons.wikimedia.org/?curid=63251651",
+   "license": "CC BY-SA 2.0"
+  },
+  "i58": {
+   "code": "I58",
+   "url": "https://commons.wikimedia.org/?curid=63251678",
+   "license": "CC BY-SA 2.0"
+  },
+  "i59": {
+   "code": "I59",
+   "url": "https://commons.wikimedia.org/?curid=63251675",
+   "license": "CC BY-SA 2.0"
+  },
+  "i60": {
+   "code": "I60",
+   "url": "https://commons.wikimedia.org/?curid=63251662",
+   "license": "CC BY-SA 2.0"
+  },
+  "i61": {
+   "code": "I61",
+   "url": "https://commons.wikimedia.org/?curid=63251679",
+   "license": "CC BY-SA 2.0"
+  },
+  "i62": {
+   "code": "I62",
+   "url": "https://commons.wikimedia.org/?curid=63251667",
+   "license": "CC BY-SA 2.0"
+  },
+  "iga": {
+   "code": "IGA",
+   "url": "https://commons.wikimedia.org/?curid=146591286",
+   "license": "CC BY-SA 4.0"
+  },
+  "igb": {
+   "code": "IGB",
+   "url": "https://commons.wikimedia.org/?curid=15184569",
+   "license": "CC0"
+  },
+  "lenn": {
+   "code": "LENN",
+   "url": "https://commons.wikimedia.org/?curid=10998175",
+   "license": "パブリックドメイン"
+  },
+  "lenw": {
+   "code": "LENW",
+   "url": "https://commons.wikimedia.org/?curid=10998199",
+   "license": "パブリックドメイン"
+  },
+  "memf": {
+   "code": "MEMF",
+   "url": "https://commons.wikimedia.org/?curid=188570442",
+   "license": "CC BY-SA 4.0"
+  },
+  "mit": {
+   "code": "MIT",
+   "url": "https://commons.wikimedia.org/?curid=180080295",
+   "license": "CC BY-SA 3.0"
+  },
+  "mx7": {
+   "code": "MX7",
+   "url": "https://commons.wikimedia.org/?curid=48422956",
+   "license": "CC BY 2.0"
+  },
+  "nsc17": {
+   "code": "NSC17",
+   "url": "https://commons.wikimedia.org/?curid=63469363",
+   "license": "CC BY-SA 4.0"
+  },
+  "p84_plant": {
+   "code": "P84",
+   "url": "https://commons.wikimedia.org/?curid=141353990",
+   "license": "パブリックドメイン"
+  },
+  "p84_town": {
+   "code": "P84",
+   "url": "https://commons.wikimedia.org/?curid=141353990",
+   "license": "パブリックドメイン"
+  },
+  "r09": {
+   "code": "R09",
+   "url": "https://commons.wikimedia.org/?curid=16786676",
+   "license": "CC BY-SA 3.0"
+  },
+  "r1": {
+   "code": "R1",
+   "url": "https://commons.wikimedia.org/?curid=66551738",
+   "license": "CC0"
+  },
+  "r11": {
+   "code": "R11",
+   "url": "https://commons.wikimedia.org/?curid=16786828",
+   "license": "CC BY-SA 3.0"
+  },
+  "r15": {
+   "code": "R15",
+   "url": "https://commons.wikimedia.org/?curid=16786858",
+   "license": "CC BY-SA 3.0"
+  },
+  "r94": {
+   "code": "R94",
+   "url": "https://commons.wikimedia.org/?curid=16786792",
+   "license": "CC BY-SA 3.0"
+  },
+  "r96": {
+   "code": "R96",
+   "url": "https://commons.wikimedia.org/?curid=16786934",
+   "license": "CC BY-SA 3.0"
+  },
+  "sel": {
+   "code": "SEL",
+   "url": "https://commons.wikimedia.org/?curid=188999474",
+   "license": "CC BY-SA 4.0"
+  },
+  "t138": {
+   "code": "T138",
+   "url": "https://commons.wikimedia.org/?curid=56375667",
+   "license": "CC BY-SA 2.0"
+  },
+  "t143": {
+   "code": "T143",
+   "url": "https://commons.wikimedia.org/?curid=56375674",
+   "license": "CC BY-SA 2.0"
+  },
+  "t155": {
+   "code": "T155",
+   "url": "https://commons.wikimedia.org/?curid=56375682",
+   "license": "CC BY-SA 2.0"
+  },
+  "t157": {
+   "code": "T157",
+   "url": "https://commons.wikimedia.org/?curid=56375739",
+   "license": "CC BY-SA 2.0"
+  },
+  "t158": {
+   "code": "T158",
+   "url": "https://commons.wikimedia.org/?curid=56375736",
+   "license": "CC BY-SA 2.0"
+  },
+  "wbg": {
+   "code": "WBG",
+   "url": "https://commons.wikimedia.org/?curid=45204099",
+   "license": "CC BY-SA 4.0"
+  }
+ },
+ "iaea_common_categories": [
+  "Category:CC-BY-SA-2.0",
+  "Category:Files from IAEA Flickr stream"
+ ],
+ "iaea": [
+  "cr3a",
+  "i11",
+  "i13",
+  "i14",
+  "i15",
+  "i18",
+  "i19",
+  "i22",
+  "i23",
+  "i24",
+  "i25",
+  "i26",
+  "i27",
+  "i28",
+  "i30",
+  "i32",
+  "i34",
+  "i35",
+  "i36",
+  "i40",
+  "i42",
+  "i44",
+  "i45",
+  "i48",
+  "i49",
+  "i50",
+  "i55",
+  "i56",
+  "i57",
+  "i58",
+  "i59",
+  "i60",
+  "i61",
+  "i62",
+  "t138",
+  "t143",
+  "t155",
+  "t157",
+  "t158"
+ ]
+}

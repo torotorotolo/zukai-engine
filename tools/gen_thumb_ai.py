@@ -671,6 +671,72 @@ SCENES.update({
 })
 
 
+# ── 🆕 24本目 チェルノブイリ原発事故（2026-10-24・⑥）＝カズヤくん「写真の候補＋生成AIの案文」（地の写真8枚は今の昼の石棺・覆い＝迫力が弱い）。
+#    🔴 札は新規（ほかの回の札を流用しない＝ルール 6-55④）。禁止は文字だけ（10-21 の決め＝§6-55b）。
+#    事実の芯（台本 第2版）：1986-04-26 1時24分ごろ・4号炉の建屋の上が壊れ、屋根の上に火（INSAG-1＝30か所あまり・5時までに消えた）・
+#    隣の赤白の排気筒。数日後から軍のヘリが砂・鉛などを炉へ落とした（INSAG-1）。🔴 言い伝えの「青い光の柱」は描かせない（台本で扱わない）。
+#    🔴 1986年の有名な空撮（第三者の写真）の構図をまねない＝地上から遠くに見る形。本番は H 型の反転版（字の外がカラー）＝夜の地は焼くときに明るく
+LOOK_CHN = (
+    "A real PHOTOGRAPH taken with a professional camera and a long telephoto lens: sharp, clear and high-resolution, "
+    "with true depth of field and natural colours. The shapes of the buildings read clearly against the sky. "
+)
+FRAME_CHN = (
+    "COMPOSITION, critical: 16:9 frame. Very large lettering will later cover the top 15% and the bottom 20% of the "
+    "frame, and one huge word will run across the whole middle, so the picture will mostly be seen through the gaps "
+    "between its letters. So the subject described above must be LARGE and fill most of the width of the frame, "
+    "readable at a glance even when the picture is tiny. Keep the top of the frame as sky with the rising smoke and "
+    "the bottom as dark ground. "
+)
+BAN_CHN = (
+    "No text, letters, numbers, words, logos, flags, emblems, signs or watermarks of any kind, in any language. "
+)
+TAIL_CHN = (
+    "The result must look like a genuine, dramatic news photograph of a real moment. It must NOT look like a render, a "
+    "video game, a movie poster, a 3D visualisation or an illustration. No lens flare, no dramatic colour grading."
+)
+CHN_PLANT = (
+    "the huge rectangular concrete reactor building of Unit 4 of the Chernobyl nuclear power plant, its roof and the "
+    "top of its walls blown open: jagged broken concrete and twisted steel beams stick up against the sky. Right beside "
+    "the building stands the tall red-and-white striped ventilation stack with its steel lattice. "
+)
+SCENES.update({
+    "chn_a": {
+        "ep": "ep24",
+        "name": "事故の夜の4号炉（1時24分すぎ・壊れた建屋から湯気と煙・屋根の上の火・赤白の排気筒）",
+        "hypothesis": "この事故でいちばん知られた「壊れた4号炉」を夜の火の色で。反転版の字のすき間に橙の火と排気筒が出る。"
+                      "上の赤「書き直された」（報告の書き直し）とは別の入口＝事故そのものの絵",
+        "look": LOOK_CHN.replace("natural colours.", "natural colours, at night, lit by the orange glow of fires."),
+        "frame": FRAME_CHN, "ban": BAN_CHN, "tail": TAIL_CHN,
+        "scene": (
+            "The early hours of April 26, 1986, minutes after the explosion, a dark spring night in the Soviet Union. "
+            + CHN_PLANT[0].upper() + CHN_PLANT[1:] +
+            "A thick column of white steam and grey smoke rises from the open, ruined top of the building into the deep "
+            "navy-blue night sky. Several orange fires burn on the flat roofs of the reactor building and of the long, "
+            "lower turbine hall in front of it, and glowing fragments lie scattered on the roofs. Seen from about one "
+            "kilometre away at a low angle across dark flat ground, so that the whole damaged building and the stack are "
+            "large in the frame. "
+        ),
+    },
+    "chn_b": {
+        "ep": "ep24",
+        "name": "数日後の昼、煙を上げる4号炉の上を砂の袋を吊った軍のヘリが飛ぶ",
+        "hypothesis": "事故の大きさ（炉を空から埋める）が昼の明るい色で伝わる。反転版の字のすき間に機体と排気筒が出る。"
+                      "ヘリの細部（型・印）は描かせない",
+        "look": LOOK_CHN.replace("natural colours.", "natural colours, in hazy daylight."),
+        "frame": FRAME_CHN, "ban": BAN_CHN, "tail": TAIL_CHN,
+        "scene": (
+            "Early May 1986, a few days after the explosion, daytime under a hazy sky. "
+            + CHN_PLANT[0].upper() + CHN_PLANT[1:] +
+            "A thin plume of grey smoke still rises from the ruined top of the building. Two large military transport "
+            "helicopters in plain olive-green paint fly low over the ruined building, each carrying a big sack in a net "
+            "hanging under it on a long cable, about to drop sand into the open reactor. Seen from a distance at a "
+            "slightly low angle, so that the building, the stack and the helicopters are large across the middle of the "
+            "frame. "
+        ),
+    },
+})
+
+
 def build(v):
     """🔴 質感（look）と締め（tail）は**場面ごとに差し替えられる**（2026-09-22 追加）。
 
