@@ -8,6 +8,9 @@ Vault の hx.py・hx3.py（14〜16本目の反転版の横展開の道具）の 
     python hx24.py ai       … 生成 AI の地（gen_thumb_ai chn_a・chn_b）＝夜は字の外の明るさ 1.00／1.30／1.60・昼は 1.15／1.30
 ✅ 10-24 カズヤくん「案A明るさ1.6をA、案B明るさ1.3をBサムネとして設定します。サムネBの設定は私が手動でやる」＝
    A＝`ep24_Hinv_ai_a_b160.png`（→ out/thumb/ep24-ab/ep24_A_Hinv_ai_a_b160.png・md5 f93f733f…）／B＝`ep24_Hinv_ai_b_b130.png`（→ …_B_Hinv_ai_b_b130.png・md5 b3194d29…）
+✅ 10-24 公開のあと カズヤくん「Bサムネを、もっと背景の建物が大きく見えるように拡大してください。建物が少し見切れる程度でも良いです」→
+   `bzoom` で 1.35／1.6／1.9倍を並べ →「1.35倍」＝**B は `ep24_Hinv_ai_b_b130_z135.png`**（→ out/thumb/ep24-ab/ep24_B_Hinv_ai_b_b130_z135.png・md5 c93a5164…）
+    python hx24.py bzoom    … B の地を建物へ寄せる3段（生成の原寸 1792×1008 から・下の端に寄せる cy=1.0）
 ⚠️ 記録の写し（⑥ の scratchpad の hx24.py）。リポで回すと qa_out/out/ に焼く＝本番の2枚は out/thumb/ep24-ab/ に写してある"""
 import sys
 from pathlib import Path
@@ -88,3 +91,15 @@ if __name__ == "__main__":
                 print(f"  {name}: 字の中 {i:.0f}・字の外 {o:.0f}・差 {df:+.0f}")
                 rows.append((OUT / f"{name}.png", f"{tag}\n字の外の明るさ\n{b:.2f}"))
             compare(rows, f"cmp24_{tag}.png")
+    if "bzoom" in sys.argv:
+        # 10-24 カズヤくん「Bサムネを、もっと背景の建物が大きく見えるように拡大してください。建物が少し見切れる程度でも良いです」
+        #   建物（4号炉の建屋と排気筒）は絵の下＝cy=1.0（下の端に寄せる）・横は建屋の真ん中へ。寄せても粗くならないよう生成の原寸から切る
+        #   ✅ カズヤくん「1.35倍」（ヘリ2機が上に残る）
+        ex, tfs = extra()
+        rows = [(OUT / "ep24_Hinv_ai_b_b130.png", "いまの B\n（寄せなし）")]
+        for tag, z, cx in (("z135", 1.35, 0.72), ("z160", 1.60, 0.66), ("z190", 1.90, 0.63)):
+            d, c = hx3.inv_pair("ep24/ai/ep24_chn_b_orig.png", ADJ, dict(zoom=z, cx=cx, cy=1.0), out_bright=1.30)
+            name = f"ep24_Hinv_ai_b_b130_{tag}"
+            bake2(name, hx2(d, c, gl, ex))
+            rows.append((OUT / f"{name}.png", f"B {z:.2f}倍\n（建物に寄せる）"))
+        compare(rows, "cmp24_bzoom.png")
