@@ -1,0 +1,37 @@
+=== python -m py_compile tools/upload_jiko.py qa_out/ep21_reup_verify_upload.py qa_out/ep24_r01_verify_upload.py
+exit=0
+=== python tools/upload_jiko.py thumbcheck --selftest
+メタ: meta_titan.json
+✓ 1280x720 → 1280x720：平均の差 3.96・鮮明さの比 1.15 → 通す（狙い 通す）
+✓ 960x540 → 1280x720：平均の差 4.30・鮮明さの比 0.92 → 止める（狙い 止める）
+✓ 854x480 → 1280x720：平均の差 4.38・鮮明さの比 0.88 → 止める（狙い 止める）
+✓ 640x360 → 1280x720：平均の差 4.59・鮮明さの比 0.80 → 止める（狙い 止める）
+✓ 480x270 → 1280x720：平均の差 5.11・鮮明さの比 0.76 → 止める（狙い 止める）
+✓ 物差しは低解像度を止め、正しい版を通す
+exit=0
+=== python tools/upload_jiko.py --meta config/meta_ep21.json thumbcheck GLppqima2ts
+メタ: meta_ep21.json
+手元: out/thumb/ep21-ab/ep21_1_H_inv.png
+✓ maxres 1280x720：平均の差 2.40（8 未満）・鮮明さの比 1.08（0.95 以上）
+✓ 高解像度で貼れている
+exit=0
+=== python tools/upload_jiko.py --meta config/meta_ep24.json thumbcheck _cIWKWX6zIc
+メタ: meta_ep24.json
+手元: out/thumb/ep24-ab/ep24_A_Hinv_ai_a_b160.png
+✓ maxres 1280x720：平均の差 3.13（8 未満）・鮮明さの比 1.07（0.95 以上）
+✓ hq720.jpg 1280x720：平均の差 3.13（8 未満）・鮮明さの比 1.07（0.95 以上）
+✓ maxres.webp 1280x720：平均の差 3.60（8 未満）・鮮明さの比 0.93（0.85 以上）
+✓ hq720.webp 1280x720：平均の差 3.60（8 未満）・鮮明さの比 0.93（0.85 以上）
+✓ 高解像度で貼れている
+exit=0
+=== python tools/upload_jiko.py --meta config/meta_ep21.json thumbcheck GLppqima2ts --local out/thumb/ep21-ab/ep21_1_H.png
+メタ: meta_ep21.json
+手元: out/thumb/ep21-ab/ep21_1_H.png
+🔴 maxres 1280x720：平均の差 47.22（8 未満）・鮮明さの比 1.11（0.95 以上）
+🔴 高解像度で貼れていない（または手元と違う絵）
+exit=1
+=== python -c import sys; sys.path.insert(0,'tools'); import upload_jiko as U; from pathlib import Path; U.META=Path('config/meta_ep21.json').resolve(); U.thumb_gate(U.api(),'GLppqima2ts'); print('gate passed')
+サムネの門番:
+  ✓ maxres 1280x720：平均の差 2.40（8 未満）・鮮明さの比 1.08（0.95 以上）
+gate passed
+exit=0

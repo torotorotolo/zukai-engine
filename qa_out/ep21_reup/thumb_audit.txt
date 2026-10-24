@@ -1,0 +1,18 @@
+手元の絵 316 枚（16:9 で 640 以上 235 枚・5秒）
+チャンネルの動画 25 本
+GLppqima2ts private 予約 2026-10-25T01:00:00Z maxres 1280x720  手本なしの比 1.71  手元 out/thumb/ep21-ab/ep21_1_H_inv.png  差 2.40  鮮明さの比 1.08  ツインタワー激突まで、軍に残された時
+_cIWKWX6zIc public  maxres 1280x720  手本なしの比 2.03  手元 out/thumb/ep24-ab/ep24_A_Hinv_ai_a_b160.png  差 3.13  鮮明さの比 1.07  「原因は運転員」とした報告書は、6年
+f9YJXjCxZsk public  maxres 1280x720  手本なしの比 1.82  手元 out/thumb/ep17-ab/ep17_Hinv_t1_v2.png  差 2.96  鮮明さの比 1.07  名古屋空港へ降りようとする機体で、自
+TazAMx63sVU public  maxres 1280x720  手本なしの比 2.15  手元 out/thumb/ep23-ab/ep23_Hinv_ai10c_b2.png  差 3.01  鮮明さの比 1.07  崩壊した日の15時10分、現場に着い
+mDdNGLlPpVs public  maxres 1280x720  手本なしの比 2.45  手元 out/thumb/ep22-ab/ep22_Hinv_ai_t.png  差 3.26  鮮明さの比 1.10  【映像あり】船体が壊れる音を全員が聞
+87-AJdfgvok public  maxres 1280x720  手本なしの比 2.29  手元 out/thumb/ep20-ab/ep20_H_p124_inv.png  差 2.66  鮮明さの比 1.06  生き残った4人は全員が最後尾にいた。
+z1zcfzvh7Ic public  maxres 1280x720  手本なしの比 1.64  手元 out/thumb/ep19-ab/ep19_H_name_inv_z1.png  差 2.57  鮮明さの比 1.09  【映像あり】12階が数秒で倒壊。サー
+kyEmeO6EVus public  maxres 1280x720  手本なしの比 1.74  手元 out/thumb/ep18-ab/ep18_H_name_inv.png  差 3.05  鮮明さの比 1.09  海底で129名が圧壊。スレッシャー号
+y3v7q6YKBpk public  maxres 1280x720  手本なしの比 2.12  手元 out/thumb/ep16-ab/ep16_H_name_inv.png  差 2.61  鮮明さの比 1.11  模型の実験は「水位700メートルなら
+hsDtzoHIvE0 public  maxres 1280x720  手本なしの比 1.97  手元 out/thumb/ep15-ab/ep15_H_name_inv.png  差 2.89  鮮明さの比 1.07  4日前の検査で「ねじが短すぎる」と指
+WqhSTqWvqAc public  maxres 1280x720  手本なしの比 1.80  手元 out/thumb/ep14-ab/ep14_H_name_inv.png  差 2.50  鮮明さの比 1.10  9時50分、最後の放送も船内で待つよ
+== 手本なしの比の陽性対照（24本目の手元の A を落として戻した物・JPEG 85）
+   1280→1280  手本なしの比 2.07
+   960→1280  手本なしの比 1.52
+   854→1280  手本なしの比 1.43
+   640→1280  手本なしの比 1.27

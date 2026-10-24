@@ -1,0 +1,131 @@
+== GLppqima2ts private 手元 out/thumb/ep21-ab/ep21_1_H_inv.png（1280x720）API の版 ['default', 'high', 'maxres', 'medium', 'standard'] 題 ツインタワー激突まで、軍に残された時間はわずか9
+   maxres       1280x720  差  2.40  鮮明さの比 1.08
+   standard     640x360  差  4.37  鮮明さの比 1.13
+   high         480x270  差  7.89  鮮明さの比 1.09
+   medium       320x180  差  9.03  鮮明さの比 1.12
+== rxIz2f3gqmA private 手元 out/thumb/ep21-ab/ep21_1_H_inv.png（1280x720）API の版 ['default', 'high', 'maxres', 'medium', 'standard'] 題 ツインタワー激突まで、軍に残された時間はわずか9
+   maxres       1280x720  差  2.40  鮮明さの比 1.08
+   standard     640x360  差  4.37  鮮明さの比 1.13
+   high         480x270  差  7.89  鮮明さの比 1.09
+   medium       320x180  差  9.03  鮮明さの比 1.12
+== _cIWKWX6zIc public 手元 out/thumb/ep24-ab/ep24_A_Hinv_ai_a_b160.png（1280x720）API の版 ['default', 'high', 'maxres', 'medium', 'standard'] 題 「原因は運転員」とした報告書は、6年後に書き直さ
+   maxres       1280x720  差  3.13  鮮明さの比 1.07
+   standard     640x360  差  5.31  鮮明さの比 1.19
+   high         480x270  差  9.25  鮮明さの比 1.09
+   medium       320x180  差 10.48  鮮明さの比 1.15
+   hq720.jpg    1280x720  差  3.13  鮮明さの比 1.07
+   maxres.webp  1280x720  差  3.60  鮮明さの比 0.93
+   hq720.webp   1280x720  差  3.60  鮮明さの比 0.93
+== f9YJXjCxZsk public 手元 out/thumb/ep17-ab/ep17_Hinv_ai_a526c_over_b160.png（1280x720）API の版 ['default', 'high', 'maxres', 'medium', 'standard'] 題 名古屋空港へ降りようとする機体で、自動操縦は「着
+   maxres       1280x720  差 80.15  鮮明さの比 1.34
+   standard     640x360  差 80.98  鮮明さの比 1.51
+   high         480x270  差 82.22  鮮明さの比 1.45
+   medium       320x180  差 82.58  鮮明さの比 1.54
+   hq720.jpg    1280x720  差 80.15  鮮明さの比 1.34
+   maxres.webp  1280x720  差 80.14  鮮明さの比 1.23
+   hq720.webp   1280x720  差 80.14  鮮明さの比 1.23
+== TazAMx63sVU public 手元 out/thumb/ep23-ab/ep23_Hinv_ai10c_b2.png（1280x720）API の版 ['default', 'high', 'maxres', 'medium', 'standard'] 題 崩壊した日の15時10分、現場に着いた技術者は「
+   maxres       1280x720  差  3.01  鮮明さの比 1.07
+   standard     640x360  差  5.48  鮮明さの比 1.24
+   high         480x270  差  9.51  鮮明さの比 1.11
+   medium       320x180  差 10.76  鮮明さの比 1.18
+   hq720.jpg    1280x720  差  3.01  鮮明さの比 1.07
+   maxres.webp  1280x720  差  3.47  鮮明さの比 0.98
+   hq720.webp   1280x720  差  3.47  鮮明さの比 0.98
+== mDdNGLlPpVs public 手元 out/thumb/ep22-ab/ep22_Hinv_ai_t.png（1280x720）API の版 ['default', 'high', 'maxres', 'medium', 'standard'] 題 【映像あり】船体が壊れる音を全員が聞いていた。タ
+   maxres       1280x720  差  3.26  鮮明さの比 1.10
+   standard     640x360  差  5.85  鮮明さの比 1.27
+   high         480x270  差  9.98  鮮明さの比 1.07
+   medium       320x180  差 10.80  鮮明さの比 1.18
+   hq720.jpg    1280x720  差  3.26  鮮明さの比 1.10
+   maxres.webp  1280x720  差  3.76  鮮明さの比 0.96
+   hq720.webp   1280x720  差  3.76  鮮明さの比 0.96
+== 87-AJdfgvok public 手元 out/thumb/ep20-ab/ep20_B_ai_v3.png（1280x720）API の版 ['default', 'high', 'maxres', 'medium', 'standard'] 題 生き残った4人は全員が最後尾にいた。約160点を
+   maxres       1280x720  差 89.21  鮮明さの比 1.66
+   standard     640x360  差 87.91  鮮明さの比 1.63
+   high         480x270  差 86.13  鮮明さの比 1.08
+   medium       320x180  差 84.55  鮮明さの比 1.07
+   hq720.jpg    1280x720  差 89.21  鮮明さの比 1.66
+   maxres.webp  1280x720  差 89.25  鮮明さの比 1.59
+   hq720.webp   1280x720  差 89.25  鮮明さの比 1.59
+== z1zcfzvh7Ic public 手元 out/thumb/ep19-ab/ep19_A_rival.png（1280x720）API の版 ['default', 'high', 'maxres', 'medium', 'standard'] 題 【映像あり】12階が数秒で倒壊。サーフサイドのマ
+   maxres       1280x720  差 89.93  鮮明さの比 0.72
+   standard     640x360  差 89.03  鮮明さの比 0.84
+   high         480x270  差 87.99  鮮明さの比 0.75
+   medium       320x180  差 86.65  鮮明さの比 0.78
+   hq720.jpg    1280x720  差 89.93  鮮明さの比 0.72
+   maxres.webp  1280x720  差 89.93  鮮明さの比 0.68
+   hq720.webp   1280x720  差 89.93  鮮明さの比 0.68
+== kyEmeO6EVus public 手元 out/thumb/ep18-ab/ep18_A_rival.png（1280x720）API の版 ['default', 'high', 'maxres', 'medium', 'standard'] 題 海底で129名が圧壊。スレッシャー号事故の真相【
+   maxres       1280x720  差 75.66  鮮明さの比 0.64
+   standard     640x360  差 74.96  鮮明さの比 0.69
+   high         480x270  差 74.74  鮮明さの比 0.64
+   medium       320x180  差 73.46  鮮明さの比 0.66
+   hq720.jpg    1280x720  差 75.66  鮮明さの比 0.64
+   maxres.webp  1280x720  差 75.74  鮮明さの比 0.60
+   hq720.webp   1280x720  差 75.74  鮮明さの比 0.60
+== y3v7q6YKBpk public 手元 out/thumb/ep16-t3/ep16_k_tsunami_AI.png（1280x720）API の版 ['default', 'high', 'maxres', 'medium', 'standard'] 題 模型の実験は「水位700メートルなら絶対に安全」
+   maxres       1280x720  差 71.24  鮮明さの比 0.74
+   standard     640x360  差 70.69  鮮明さの比 0.78
+   high         480x270  差 70.18  鮮明さの比 0.67
+   medium       320x180  差 69.56  鮮明さの比 0.72
+   hq720.jpg    1280x720  差 71.24  鮮明さの比 0.74
+   maxres.webp  1280x720  差 71.22  鮮明さの比 0.57
+   hq720.webp   1280x720  差 71.22  鮮明さの比 0.57
+== hsDtzoHIvE0 public 手元 out/thumb/ep15-t1/ep15_c_kaizou_pit.png（1280x720）API の版 ['default', 'high', 'maxres', 'medium', 'standard'] 題 4日前の検査で「ねじが短すぎる」と指摘されていた
+   maxres       1280x720  差 83.12  鮮明さの比 0.62
+   standard     640x360  差 81.74  鮮明さの比 0.87
+   high         480x270  差 80.60  鮮明さの比 0.79
+   medium       320x180  差 79.33  鮮明さの比 0.82
+   hq720.jpg    1280x720  差 83.12  鮮明さの比 0.62
+   maxres.webp  1280x720  差 83.12  鮮明さの比 0.57
+   hq720.webp   1280x720  差 83.12  鮮明さの比 0.57
+== WqhSTqWvqAc public 手元 out/thumb/ep14-ai2/ep14ai_a_meirei.png（1280x720）API の版 ['default', 'high', 'maxres', 'medium', 'standard'] 題 9時50分、最後の放送も船内で待つよう告げた。船
+   maxres       1280x720  差 72.10  鮮明さの比 0.63
+   standard     640x360  差 71.10  鮮明さの比 0.66
+   high         480x270  差 70.38  鮮明さの比 0.60
+   medium       320x180  差 68.94  鮮明さの比 0.63
+   hq720.jpg    1280x720  差 72.10  鮮明さの比 0.63
+   maxres.webp  1280x720  差 72.21  鮮明さの比 0.54
+   hq720.webp   1280x720  差 72.21  鮮明さの比 0.54
+== SdsBceFC4Vs private 手元 out/thumb/ep13-t1/ep13_b_handoa_thy.png（1280x720）API の版 ['default', 'high', 'maxres', 'medium', 'standard'] 題 2年近く前にも、同じ型のドアが空中で外れていた。
+   maxres       1280x720  差  2.71  鮮明さの比 1.07
+   standard     640x360  差  4.90  鮮明さの比 1.17
+   high         480x270  差  8.54  鮮明さの比 1.11
+   medium       320x180  差  9.30  鮮明さの比 1.16
+== A66X0O6Pc4Y private 手元 out/thumb/ep12-t1/ep12_d_iryoku_close.png（1280x720）API の版 ['default', 'high', 'maxres', 'medium', 'standard'] 題 【映像あり】撃つ前の夜、高さ6キロの風は人の住む
+   maxres       1280x720  差  2.48  鮮明さの比 1.04
+   standard     640x360  差  4.22  鮮明さの比 1.15
+   high         480x270  差  7.61  鮮明さの比 1.12
+   medium       320x180  差  8.33  鮮明さの比 1.15
+== 6VbCx5Q6IYo private 手元 out/thumb/ep11-t4/ep11_p_jugyou.png（1280x720）API の版 ['default', 'high', 'maxres', 'medium', 'standard'] 題 打ち上げの前夜、技術者はひとりも賛成しなかった。
+   maxres       1280x720  差 88.01  鮮明さの比 0.85
+   standard     640x360  差 87.35  鮮明さの比 1.03
+   high         480x270  差 86.58  鮮明さの比 1.07
+   medium       320x180  差 85.80  鮮明さの比 1.12
+== ADKlWg63fvY private 手元 out/thumb/ep10-t2/ep10_g_split.png（1280x720）API の版 ['default', 'high', 'maxres', 'medium', 'standard'] 題 その日の朝、5階の食堂の床はもう盛り上がっていた
+   maxres       1280x720  差 34.99  鮮明さの比 0.88
+   standard     640x360  差 35.32  鮮明さの比 0.90
+   high         480x270  差 36.77  鮮明さの比 0.84
+   medium       320x180  差 36.62  鮮明さの比 0.95
+== xirUjTRTUbw private 手元 out/thumb/ep9-t1/ep9_a_matte.png（1280x720）API の版 ['default', 'high', 'maxres', 'medium', 'standard'] 題 二機とも、来るはずのない空港にいた。「離陸は待て
+   maxres       1280x720  差  2.51  鮮明さの比 1.09
+   standard     640x360  差  5.05  鮮明さの比 1.23
+   high         480x270  差  8.89  鮮明さの比 1.12
+   medium       320x180  差  9.79  鮮明さの比 1.21
+== jejBzMgypeM private 手元 out/thumb/ep8-t2/ep8t2_b_pad.png（1280x720）API の版 ['default', 'high', 'maxres', 'medium', 'standard'] 題 壊れたのは再突入の日ではない。16日前の打ち上げ
+   maxres       1280x720  差  2.68  鮮明さの比 1.06
+   standard     640x360  差  5.32  鮮明さの比 1.24
+   high         480x270  差  9.02  鮮明さの比 1.14
+   medium       320x180  差  9.80  鮮明さの比 1.21
+== mYCgJdEFGt8 private 手元 out/thumb/ep7-t2/ep7_a_toll_911.png（1280x720）API の版 ['default', 'high', 'maxres', 'medium', 'standard'] 題 軍が1機目の乗っ取りを知らされたのは衝突9分前。
+   maxres       1280x720  差  2.29  鮮明さの比 1.08
+   standard     640x360  差  4.07  鮮明さの比 1.17
+   high         480x270  差  7.42  鮮明さの比 1.12
+   medium       320x180  差  8.07  鮮明さの比 1.17
+== 陽性対照（手元の H_inv をわざと小さくして 1280x720 へ戻した物）
+   1280x720→1280x720（JPEG 85）  差  2.39  鮮明さの比 1.13
+   960x540→1280x720（JPEG 85）  差  3.12  鮮明さの比 0.85
+   854x480→1280x720（JPEG 85）  差  3.36  鮮明さの比 0.79
+   640x360→1280x720（JPEG 85）  差  4.06  鮮明さの比 0.66
+   480x270→1280x720（JPEG 85）  差  5.15  鮮明さの比 0.54
