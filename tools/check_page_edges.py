@@ -97,11 +97,18 @@ def cut_rows(cid, spec, ocr, photo_of, box_of, sides=False, rects=None):
     for k, r in (rects or rects_of)(X1 - X0, Y1 - Y0, box_of[cid], spec).items():
         L, T, R, B = r["left"], r["top"], r["left"] + r["cw"], r["top"] + r["ch"]
         sy = r["h"] / r["ch"]
+        # 🆕 2026-10-25（25本目 ⑤b-2）：**全面の絵は字幕の帯（y SUB_Y〜1080・真っ黒）が下を覆う＝帯の上の辺も画面に出る辺**。
+        #    窓の下の辺だけ測っていたので、c107（付図24 の頁を全面で下へ流す）の「速度制限（曲線半径304m）」の行が帯の上の辺で半分に
+        #    切れていても鳴らなかった（試し焼き 40182234709 を原寸で見て分かった）。額装（箱の下が帯より上）は帯がかからない＝測らない
+        oy = r["box"][1]
+        eb = T + (S.SUB_Y - oy) / sy if oy + r["h"] > S.SUB_Y else None
         for li, (ln, b) in enumerate(moved):
             if b[2] <= L or b[0] >= R or b[3] <= T or b[1] >= B:
                 continue
             edges = [("窓上", frac_in(b[1], b[3], T, True)),
                      ("窓下", frac_in(b[1], b[3], B, False))]
+            if eb is not None and T < eb < B:
+                edges.append(("帯上", frac_in(b[1], b[3], eb, False)))
             if sides:
                 edges += [("窓左", frac_in(b[0], b[2], L, True)),
                           ("窓右", frac_in(b[0], b[2], R, False))]
@@ -174,7 +181,23 @@ def selftest(spec_map, ocr, photo_of, box_of, skip):
         seen = f"{hit[0][2]:.0%} で出た" if hit else "出ない"
         print(f"  {'✓' if good else '🔴'} {name} → {seen}（{'出るはず' if want else '出ないはず'}）")
         ok &= good
-    return ok and sweep_control()
+    return ok and sweep_control() and band_control()
+
+
+def band_control():
+    """陽性④・陰性（合成・2026-10-25 25本目 ⑤b-2）：全面の絵（箱 1920×1080）で、字幕の帯の上の辺（y SUB_Y）が行を横切ると「帯上」で出る・
+    帯より上の行は出ない・額装（箱の下が帯より上）は帯を測らない"""
+    size = [1920, 1080]
+    mid = S.SUB_Y
+    lines = [dict(box=[100, mid - 15, 1000, mid + 15], text="SYNTH ACROSS"), dict(box=[100, mid - 60, 1000, mid - 30], text="SYNTH ABOVE")]
+    ocr = {"synth_full.png": dict(size=size, lines=lines)}
+    full = cut_rows("cF", dict(bias=0.5), ocr, {"cF": "x/synth_full.png"}, {"cF": (0, 0, 1920, 1080)})
+    band = {r[3] for r in full if r[1].startswith("帯上")}
+    panel = cut_rows("cF", dict(bias=0.5, panel=True), ocr, {"cF": "x/synth_full.png"}, {"cF": (384, 216, 1152, 648)})
+    good = band == {"SYNTH ACROSS"} and not [r for r in panel if r[1].startswith("帯上")]
+    print(f"  {'✓' if good else '🔴'} 陽性④ 全面の絵で帯の上の辺が行を横切る → 帯上で {sorted(band) or '出ない'}"
+          f"（ACROSS だけ出て ABOVE は出ないはず）・額装は帯を測らない")
+    return good
 
 
 def sweep_control():
@@ -238,7 +261,7 @@ def main():
     for r in tall:
         print(f"  ・ 参考（箱が縦長 {r[5][2] - r[5][0]}×{r[5][3] - r[5][1]}px＝横書きの行ではない・測らない）{r[0]}「{r[3][:30]}」{r[1]}")
     rows = [r for r in rows if r not in tall]
-    hard = [r for r in rows if r[1][:2] in ("窓上", "窓下")]
+    hard = [r for r in rows if r[1][:2] in ("窓上", "窓下", "帯上")]      # 🆕 25本目 ⑤b-2：帯の上の辺も止める（左右は参考のまま）
     cuts = sorted({r[0] for r in rows}, key=CS.keys_of(photo_of).index)
     print(f"■ 画面に出る辺が字の行を切っている（見えている {LO:.0%}〜{HI:.0%}）… {len(rows)} 行 ／ {len(cuts)} カット"
           f"{'（左右の辺も）' if sides else ''}")
