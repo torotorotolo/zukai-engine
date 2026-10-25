@@ -553,7 +553,8 @@ def selftest():
         media_len = lambda p: cont['c210'] * 1.5
         checks.append(('（陰性）長い映像は通る', not any(e.startswith('c210 映像') for e in run(a9, s8))))
         # 区間の長さで測る対照（陽性）：c210 の区間を 3秒にすると止め絵の線の下で鳴る（素材まるごとの長さは測らない）
-        a11 = [r.replace('|映像（10.18〜17.87秒）|', '|映像（10.18〜13.18秒）|', 1) if r.startswith('c210|') else r for r in rows]
+        #   ⚠️ 区間の文字を名指しで置き換えると、区間を替えた日に黙って効かなくなる（⑤b-3 で踏んだ）＝動きの欄をまるごと差し替える
+        a11 = ['|'.join(f[:5] + ['映像（0.30〜3.30秒）'] + f[6:]) if r.startswith('c210|') else r for r in rows for f in [r.split('|')]]
         checks.append(('区間が短い（3秒）', any(e.startswith('c210 映像') and '止め絵' in e for e in run(a11, s8))))
     finally:
         media_len = keep

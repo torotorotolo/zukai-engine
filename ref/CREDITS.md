@@ -2941,7 +2941,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 
 | 記号 | 使うカット | 画面の出典 | ライセンス | 頁 |
 |---|---|---|---|---|
-| `X-depart` | c210 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/30423319/ |
+| `X-depart` | c210 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/37420614/ |
 | `X-desk` | c526 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/7685212/ |
 | `X-training` | c532 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/6935499/ |
 | `X-train` | c707 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/31065547/ |
