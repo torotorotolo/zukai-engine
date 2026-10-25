@@ -214,7 +214,8 @@ def f1_marks_svg(view):
             g.append(_text(x, F1_Y + 140, F1_NAME[nm], 30, C25["dim"]))
         else:
             g.append(_path([(x, F1_Y - 30), (x + 14, F1_Y - 16), (x, F1_Y - 2), (x - 14, F1_Y - 16)], C25["amber"], C25["ol"], 2.0))
-            g.append(_text(x - 20, F1_Y - 52, F1_NAME[nm], 32, C25["amber"], anchor="end"))
+            # 🔧 ⑤b-4 の試し焼き 40201002894：線の上では c317 の「約118km/h」の札が字の真上に接した＝駅の名と同じく線の下（入口の手前へ寄せる）
+            g.append(_text(x - 10, F1_Y + 72, F1_NAME[nm], 32, C25["amber"], anchor="end"))
     return "".join(g)
 
 
@@ -224,7 +225,7 @@ def f1_curve_svg(view):
     cv = _sub(pts, ppm, 0, 0.0, m3, 0)
     xm, ym = cv[len(cv) // 2]
     return (_path(cv, "none", C25["ol"], 24.0, op=0.6, close=False) + _path(cv, "none", C25["red"], 14.0, close=False)
-            + _text(xm - 60, ym + 70, "半径304m", 38, C25["red"], anchor="end", extra=' data-k="r"'))
+            + _text(xm + 34, ym - 40, "半径304m", 38, C25["red"], anchor="start", extra=' data-k="r"'))   # 曲線の外側（右上）＝下の「曲線の入口」と重ねない
 
 
 def f1_train_svg(view):
@@ -378,7 +379,8 @@ def f2_seg_svg(nm, x0, x1, t, row):
     if thin:
         g.append(_text(x0 + (x1 - x0) / 2, b["y"] - 34, t, 28, C25["seg_thin"], extra=' data-k="segt"'))
     else:
-        g.append(_text(x0 + 6, b["y"] + b["h"] + 48 + 44 * row, t, 34, C25["ink"], anchor="start", extra=' data-k="segt"'))
+        # 🔧 geom_gap：+48 では字の上の端が帯の箱（下の端 y+h+20）に 0.9px 食い込んだ
+        g.append(_text(x0 + 6, b["y"] + b["h"] + 62 + 44 * row, t, 34, C25["ink"], anchor="start", extra=' data-k="segt"'))
     return "".join(g)
 
 
@@ -418,8 +420,8 @@ def _f2_note(st0, states):
 #  F3 交信の流れ（c306 start・c314 later）
 # ══════════════════════════════════════════════════════════
 F3_COL = dict(disp=(420.0, "総合指令所の指令員"), cond=(960.0, "7両目の車掌"), drv=(1500.0, "1両目の運転士"))
-F3_HEAD_Y = 196.0
-F3_LIFE = (262.0, 700.0)
+F3_HEAD_Y = 236.0                                   # 🔧 geom_gap：196 では右の欄の箱が右上の章の札（y 149 まで）に接した
+F3_LIFE = (302.0, 700.0)
 F3_AX = dict(x0=300.0, x1=1620.0, y=790.0, t0=(9, 17, 50), t1=(9, 19, 0))
 F3_DOT = dict(start=(9, 17, 57), ans=(9, 18, 40))
 # 吹き出し＝(言う側, 聞く側, 字, 出典)。🔧 ⑤b-4 の qa_all：交信記録の字句をそのまま出すと語り（同じ言葉を読む）の複写（門番 echo）
@@ -824,7 +826,7 @@ def f6_base_svg():
     # ATS の地上子・「40」の標識・分岐器の名
     xc, xs = f6_x(F6_KM["coil"]), f6_x(F6_KM["sign40"])
     g += [_rect(xc - 12, ym - 12, 24, 24, C25["coil"], C25["ol"], 2.0, extra=' data-k="coil"'),
-          _text(xc, ym + 66, "ATS の地上子", 30, C25["ink"]),
+          _text(xc, ym + 98, "ATS の地上子", 30, C25["ink"]),     # 🔧 geom_gap：ym+66 では輪（半径60）が字にかかった
           _line(xs, ym - 26, xs, ym - 96, C25["sig_pole"], 5.0),
           _rect(xs - 34, ym - 160, 68, 64, C25["sign"], C25["ol"], 3.0, rx=6, extra=' data-k="sign"'),
           _text(xs, ym - 114, "40", 40, C25["ol"], ol=False, extra=' data-k="sign40"'),

@@ -138,7 +138,7 @@ SPEC.update({
                dict(state=dict(f1at="inadera"), dur=2.0, rec="R1 p12（猪名寺駅(駅中心)を9時17分38秒ごろに通過した）",
                     tag=dict(t="9:17:38ごろ", at="inadera", keep=True)),
                dict(state=dict(), rec="S3 p8007（同17分39秒ころ速度約111km/hで猪名寺駅を通過した）",
-                    tag=dict(t="約111km/h（神戸地裁の判決）", at="inadera", off=(60, -160)))]))),
+                    tag=dict(t="約111km/h（神戸地裁の判決）", at="inadera", off=(-40, -160), anchor="end"))]))),
     # c304（1行・4.3秒）＝「このとき運転士は加速をやめ、いちばん弱いB1を約2秒使った。」＝取っ手が B1 → ユルメ（惰行）・帯は B1 約2.0秒とその先の惰行
     "c304": dict(fig=("illu", dict(
         place="F2", start=dict(view="early", switch="on"),
