@@ -1,14 +1,14 @@
 {
  "X-depart": {
-  "src": "https://www.pexels.com/video/37420614/",
+  "src": "https://www.pexels.com/video/38837176/",
   "scan": "ref/ep25/src/eizou/X-depart.mp4",
-  "dur": 8.0,
-  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）・🔧 1ショットに直した（4秒の境目＝最大 11.0・中央値の 1.3倍＝近づく電車の動きの続き（第2候補 37420614＝⑤b-3 の試し焼きで第1候補を落とした））",
+  "dur": 20.0,
+  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）",
   "shots": [
    {
     "start": 0.0,
-    "until": 8.0,
-    "motion": 40.99
+    "until": 20.0,
+    "motion": 2.03
    }
   ]
  },

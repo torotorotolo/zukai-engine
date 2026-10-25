@@ -200,7 +200,7 @@ tags: [project/jiko-kensho, ep25]
 | c207 | 115.9（12.4） | 案C-F | — | — | — | — | 上から・案C-F（宝塚駅の分岐器） | — | 図 案C-F（宝塚駅の分岐器＝制限40の札・約65km/hの札・ATSの印・8:54:43ごろ）｜形のもと＝付図75 の写真・付図28 |
 | c208 🔧 | 128.3（11.7） | 頁 | P-S1k-2 | 頁 | ATS のしくみの図〈検証報告書の付録の解説〉 | 寄る（図-2 へ） | 図の頁（解説の色の図） | PDL1.0・文書・なし | 🔧 模式（ATS のしくみ）→ 解説の図-2「ATS-Sの施設配置イメージ」｜⑤b で頁を原寸で見て寄る所を決める（本文の字は外す） |
 | c209 | 140.0（8.6） | 頁 | P-F28 | 頁 | 宝塚駅略図〈報告書の付図28〉 | 寄る | 図の頁（駅の略図） | PDL1.0・文書・なし | 台本どおり｜ |
-| c210 | 148.6（7.6） | イメージ | X-depart | 全面 | イメージ：駅を出る電車（Pexels） | 映像（0.30〜7.34秒・0.92倍） | — | Pexels License・イメージ・未見 | 台本どおり（⑤b で選ぶ）｜ |
+| c210 | 148.6（7.6） | イメージ | X-depart | 全面 | イメージ：駅を出る電車（Pexels） | 映像（6.00〜13.69秒） | — | Pexels License・イメージ・未見 | 台本どおり（⑤b で選ぶ）｜ |
 | c211 | 156.3（11.4） | 棒 | — | — | — | — | 棒（駅ごとの遅れ） | — | 図 棒（駅ごとの遅れ＝宝塚発 15秒程度・中山寺 25秒程度・川西池田 35秒程度・北伊丹 約34秒・伊丹着 約1分08秒・伊丹発 約1分2… |
 | c212 | 167.7（11.2） | 模式 | — | — | — | — | 速度計の針と記録の札 | — | 図 模式（運転台の速度計の針「120」と、記録の約122km/h を並べる） |
 | c213 🔧 | 178.9（8.4） | 頁 | P-F22-1 | 頁 | 運行の経過（伊丹駅付近・時刻軸）〈報告書の付図22〉 | 寄る（P停車ボイスと P停車警報の印へ） | 図の頁（運行の経過） | PDL1.0・文書・なし | 🔧 模式（伊丹駅の手前の声）→ 付図22 の1/2（声の位置・ブレーキを使用開始するべき位置）＝模式の続き c212→c213 を切る｜ |
@@ -581,7 +581,7 @@ tags: [project/jiko-kensho, ep25]
 | GS-kashima | c517 | google:⑤b-1 | `（git の外・⑤b-1）` | 撮る | Google の地図の利用（帰属の行）（Google Geo Guidelines） | 画面の Google の帰属の行をそのまま絵の近くに | 今・なし | Google マップの衛星写真（JR東西線 御幣島駅〜加島駅のあたり）＋描き足し（線路・駅・左曲線 半径250m） |
 | GS-curve | ca23 | google:⑤b-1 | `（git の外・⑤b-1）` | 撮る | Google の地図の利用（帰属の行）（Google Geo Guidelines） | 画面の Google の帰属の行をそのまま絵の近くに | 今・なし | Google マップの衛星写真（事故の曲線に寄る） |
 | GS-inori | cb03 | google:⑤b-1 | `（git の外・⑤b-1）` | 撮る | Google の地図の利用（帰属の行）（Google Geo Guidelines） | 画面の Google の帰属の行をそのまま絵の近くに | 今・なし | Google マップの衛星写真（祈りの杜の印に寄る） |
-| X-depart | c210 | stock:https://videos.pexels.com/video-files/37420614/15848489_1920_1080_25fps.mp4 | `ref/ep25/src/eizou/X-depart.mp4` | 1920x1080 | Pexels License（無料・表示は不要・手直し可（24本目で YouTube 可を確認）） | イメージ（Pexels） | イメージ・未見 | イメージ：駅を出る電車（Pexels 37420614「都心の駅に近づく電車」） |
+| X-depart | c210 | stock:https://videos.pexels.com/video-files/38837176/16509215_1920_1080_25fps.mp4 | `ref/ep25/src/eizou/X-depart.mp4` | 1920x1080 | Pexels License（無料・表示は不要・手直し可（24本目で YouTube 可を確認）） | イメージ（Pexels） | イメージ・未見 | イメージ：駅を出る電車（Pexels 38837176「屋根のある駅から昼に出ていく電車」） |
 | X-desk | c526 | stock:https://videos.pexels.com/video-files/7685212/7685212-hd_1920_1080_24fps.mp4 | `ref/ep25/src/eizou/X-desk.mp4` | 1920x1080 | Pexels License（無料・表示は不要・手直し可） | イメージ（Pexels） | イメージ・未見 | イメージ：机の上の書類（Pexels 7685212「書類に署名する手」） |
 | X-training | c532 | stock:https://videos.pexels.com/video-files/6935499/6935499-hd_1920_1080_30fps.mp4 | `ref/ep25/src/eizou/X-training.mp4` | 1920x1080 | Pexels License（無料・表示は不要・手直し可） | イメージ（Pexels） | イメージ・未見 | イメージ：研修の部屋（Pexels 6935499「空の教室（青い椅子と机）」） |
 | X-train | c707 | stock:https://videos.pexels.com/video-files/31065547/13276593_1920_1080_30fps.mp4 | `ref/ep25/src/eizou/X-train.mp4` | 1920x1080 | Pexels License（無料・表示は不要・手直し可） | イメージ（Pexels） | イメージ・未見 | イメージ：走る電車（Pexels 31065547「街を走る郊外電車」） |
