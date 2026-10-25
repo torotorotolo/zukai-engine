@@ -175,3 +175,58 @@ SPEC.update({
         steps=[dict(state=dict(), rec="R1 p13（9時18分50秒ごろB1続いてB3又はB4が合わせて0.0~約0.2秒間）"),
                dict(state=dict(), rec="R1 p13（B5が約0.8秒間、B6が0.0~約0.2秒間、B7が約2.4秒間それぞれ使用され）")]))),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5（2026-10-26）：図解＝`tools/mech25.py`（fig=("m25", …)・門番 check_mech の judge_m25）。色は出どころの色・画面の字の数は全部 rel に
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c302（2行）＝1行目：1両目の記録 124〜125km/h・9:18:09ごろ・速度計の表示「121」か「122」／2行目：最高速度 120km/h の線と超えた所
+    "c302": dict(
+        t="9時18分すぎの速さ", s="記録と表示",
+        fig=("m25", dict(view="hscale", steps=[dict(state=dict(rec="on")), dict(state=dict(limit="on"))],
+                         rel=[dict(t="100・110・120・130", src="R1 p91"), dict(t="124〜125km/h", src="R1 p91"), dict(t="9:18:09ごろ", src="R1 p13"),
+                              dict(t="「121」か「122」", src="R1 p13"), dict(t="最高速度 120km/h", src="R1 p222")],
+                         note="目盛りは比例", src=ss.src(["R1 p13", "R1 p91", "R1 p222"])))),
+    # c308（2行）＝1行目：呼び出しの音と指令員の応答／2行目：車掌が名乗る（帯の位置＝付図24 の読み取り・秒の字は目盛りだけ）
+    "c308": dict(
+        t="無線のつながる秒", s="つながるまで",
+        fig=("m25", dict(view="tt_band", steps=[dict(state=dict(e1="on")), dict(state=dict(e2="on"))],
+                         rel=[dict(t="9:18", src="付図24 p5023"), dict(t="＋5秒・＋10秒", src="付図24 p5023")],
+                         note="帯の位置は付図24 の読み取り（秒の字は目盛り）", src=ss.src(["付図24 p5023", "R1 p77"])))),
+    # c311（3行）＝1行目は聞き役の問い（塚口駅の先の区間の帯と列車の印）／2行目：ブレーキを始める位置の区間／3行目：指令員の復唱の帯と「5秒ほど後」
+    "c311": dict(
+        t="復唱と場所の重なり", s="塚口駅を過ぎた先",
+        fig=("m25", dict(view="zone", steps=[dict(), dict(state=dict(zone="on")), dict(state=dict(time="on"))],
+                         rel=[dict(t="5秒", src="R1 p13")],
+                         note="時間（上）と場所（下）のつなぎは模式", src=ss.src(["R1 p13"])))),
+    # c312（2行）＝1行目：指令員の復唱の扇（27秒〜31秒）／2行目：秒針が27秒から31秒へ・9:18:27〜31ごろ
+    "c312": dict(
+        t="復唱が流れた秒", s="秒の時計で見る",
+        fig=("m25", dict(view="clockfan", steps=[dict(state=dict(fan="on")), dict(state=dict(sweep="on"))],
+                         rel=[dict(t="9時18分", src="付図24 p5023"), dict(t="9:18:27〜31ごろ", src="付図24 p5023"), dict(t="付図24", src="付図24 p5023")],
+                         note="秒の位置は付図24 の帯の読み取り", src=ss.src(["付図24 p5023", "R1 p77"])))),
+    # c316（3行）＝1行目は聞き役の問い／2行目：踏切があるのでは（指令員）／3行目：位置を聞こうとした・実際は踏切は無い
+    "c316": dict(
+        t="運転士を呼んだわけ", s="指令員の口述（報告書）",
+        fig=("m25", dict(view="crossing", steps=[dict(), dict(state=dict(doubt="on")), dict(state=dict(ask="on"))],
+                         rel=[], note="線路と道の形は模式", src=ss.src(["R1 p241"])))),
+    # c325（2行）＝1行目：約16秒（毎秒2.8km/h）／2行目：約22秒（毎秒2.0km/h）＝右の端でそろう2本の帯
+    "c325": dict(
+        t="遅れの見積もり", s="減速の速さで変わる",
+        fig=("m25", dict(view="two_ribbons", steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))],
+                         rel=[dict(t="約16秒", src="R1 p221"), dict(t="約22秒", src="R1 p221"), dict(t="毎秒2.8km/h", src="R1 p221"),
+                              dict(t="毎秒2.0km/h", src="R1 p221")],
+                         note="帯の長さは秒に比例", src=ss.src(["R1 p221"])))),
+    # c326（2行）＝1行目は聞き役の問い（升の枠だけ）／2行目：B1 約2秒・惰性 約39秒（列車の印が升の上を進む）
+    "c326": dict(
+        t="惰性で走った時間", s="B1 を使ったあと",
+        fig=("m25", dict(view="tiles", steps=[dict(), dict(state=dict(fill="on"))],
+                         rel=[dict(t="B1 約2秒", src="R1 p221"), dict(t="惰性 約39秒", src="R1 p221"), dict(t="1マス＝約1秒", src="R1 p221")],
+                         note="1マス＝約1秒", src=ss.src(["R1 p221"])))),
+    # c329（2行）＝1行目：真ん中の「？」とブレーキの遅れ 約16〜22秒（推算）／2行目：2つの手がかり（無線のやり取り・車内電話）
+    "c329": dict(
+        t="注意のありか", s="報告書の見方",
+        fig=("m25", dict(view="clues", steps=[dict(state=dict(q="on")), dict(state=dict(two="on"))],
+                         rel=[dict(t="約16〜22秒", src="R1 p221")],
+                         note="図の形は模式", src=ss.src(["R1 p221"])))),
+})

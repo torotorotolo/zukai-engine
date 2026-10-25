@@ -144,3 +144,110 @@ SPEC.update({
             note="点は一般の座標（Wikidata）・" + ss.SAT_LINE_NOTE),
         t="事故の前の回", s="JR東西線と尼崎のあたり（現在の衛星写真）"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5（2026-10-26）：図解＝`tools/mech25.py`（fig=("m25", …)・門番 check_mech の judge_m25）。色は出どころの色・画面の字の数は全部 rel に。
+#   🔴 言い方の強さは4つの升（認められる 4・推定される 3・考えられる 2・可能性が／も考えられる 1）。
+#   🔴 R1 p.222 の「低いものと考えられる」は「この曲線を、わざと110km/hほどで通ろうとした可能性」だけ（c510）。日勤教育の理由の中身は出さない（c528）
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c502（2行）＝頭は前の頁 c501 の2段（認められる・推定される）／1行目：考えられる（可能性が高い）／2行目：可能性が考えられる（可能性がある）と強い→弱い
+    "c502": dict(
+        t="強さの書き分け", s="言葉の決まり",
+        fig=("m25", dict(view="stairs4", start=dict(s12="on"), steps=[dict(state=dict(s3="on")), dict(state=dict(s4="on"))],
+                         rel=[], note="言葉は報告書の最後の頁のまま", src=ss.src(["R1 p264"])))),
+    # c503（2行）＝1行目：原因の文1・運転士のブレーキが遅れ／2行目：制限70km/h の曲線に約116km/h・「推定される」
+    "c503": dict(
+        t="1つ目の文", s="ほぼ間違いない、の段",
+        fig=("m25", dict(view="persp", steps=[dict(state=dict(brake="on")), dict(state=dict(curve="on"))],
+                         rel=[dict(t="原因の文1", src="R1 p243"), dict(t="70・制限 70km/h", src="R1 p243"), dict(t="約116km/h", src="R1 p243")],
+                         note="曲線の見え方は模式", src=ss.src(["R1 p243"])))),
+    # c505（3行）＝1行目：2つの札の枠と「など」／2行目：電話を切られたと思う／3行目：車掌と指令の交信に注意（2つ目は次のカットの語り）
+    "c505": dict(
+        t="注意がそれた理由", s="2つと「など」",
+        fig=("m25", dict(view="two_cards", steps=[dict(state=dict(frame="on")), dict(state=dict(a="on")), dict(state=dict(b="on"))],
+                         rel=[dict(t="（文2）", src="R1 p243"), dict(t="1つ目・2つ目", src="R1 p243")],
+                         note="札の言葉は要約（模式）", src=ss.src(["R1 p243"])))),
+    # c507（3行）＝頭は文2・文1の箱（c503・c504）／1行目：上に空の枠「3つ目：背景」／2行目：会社の運転士の管理の中身／3行目：可能性が考えられる・関与の矢印
+    "c507": dict(
+        t="3つ目の文", s="その背景",
+        fig=("m25", dict(view="flow3", start=dict(bc="on"), steps=[dict(state=dict(slot="on")), dict(state=dict(body="on")), dict(state=dict(link="on"))],
+                         rel=[dict(t="3つ目", src="R1 p243")],
+                         note="つながりの形は模式", src=ss.src(["R1 p243"])))),
+    # c510（2行）＝頭は「この曲線を、わざと110km/hほどで通ろうとした可能性」（c509 の語り）／1行目：低いものと考えられる／2行目：5つの理由の見出し
+    "c510": dict(
+        t="報告書の判断", s="理由は5つ",
+        fig=("m25", dict(view="fan5", steps=[dict(state=dict(low="on")), dict(state=dict(tabs="on"))],
+                         rel=[dict(t="110km/h", src="R1 p222")],
+                         note="札の言葉は要約", src=ss.src(["R1 p222"])))),
+    # c511（3行）＝1行目：わざとなら＝運転によく注意しているはず／2行目：直ちに強いブレーキ（非常・B8）／3行目：実際＝B5 を約0.8秒・可能性は低い
+    "c511": dict(
+        t="強いブレーキのはず", s="1つ目の理由",
+        fig=("m25", dict(view="two_brakes", steps=[dict(state=dict(care="on")), dict(state=dict(strong="on")), dict(state=dict(real="on"))],
+                         rel=[dict(t="B1・B2・B3・B4・B5・B6・B7・B8", src="国交省 p1"), dict(t="約0.8秒", src="R1 p222")],
+                         note="段の並びは模式（国交省のハンドル位置図の順）", src=ss.src(["R1 p222", "国交省 p1"])))),
+    # c512（3行）＝1行目：9:18:09ごろ B1／2行目：最高速度 120km/h をある程度厳しく守る（考えられる）／3行目：9:18:35ごろ 始めるべき位置・約25秒前までは
+    "c512": dict(
+        t="直前まで守っていた速さ", s="2つ目の理由",
+        fig=("m25", dict(view="band25", steps=[dict(state=dict(a="on")), dict(state=dict(keep="on")), dict(state=dict(b="on"))],
+                         rel=[dict(t="9:18:09ごろ", src="R1 p222"), dict(t="B1", src="R1 p222"), dict(t="最高速度 120km/h", src="R1 p222"),
+                              dict(t="9:18:35ごろ", src="R1 p222"), dict(t="約25秒", src="R1 p222")],
+                         note="時の線は比例", src=ss.src(["R1 p222"])))),
+    # c514（3行）＝1行目は聞き役の問い（アンケートの板）／2行目：多くの運転士の答え（チェック）／3行目：わざと数十km/h高く？＝あり得ない
+    "c514": dict(
+        t="運転士たちの見方", s="4つ目の理由",
+        fig=("m25", dict(view="survey", steps=[dict(), dict(state=dict(many="on")), dict(state=dict(ans="on"))],
+                         rel=[], note="アンケートの板は模式", src=ss.src(["R1 p222"])))),
+    # c516（2行）＝1行目：付箋「アンケートに添えた一文」／2行目：どのように急いでいても・わざとは、あり得ない・添えた運転士：多数
+    "c516": dict(
+        t="添えられた言葉", s="アンケートの答えから",
+        fig=("m25", dict(view="cab_note", steps=[dict(state=dict(note="on")), dict(state=dict(text="on"))],
+                         rel=[], note="運転台の線画は模式", src=ss.src(["R1 p194"])))),
+    # c518（3行）＝1行目は聞き役の問い「焦っていた」？／2行目：伊丹駅を出た直後／3行目：車掌が放送をしかける → すぐ運転士がブザーの合図
+    "c518": dict(
+        t="報告書の「焦り」", s="向きが違う",
+        fig=("m25", dict(view="two_signals", steps=[dict(state=dict(q="on")), dict(state=dict(line="on")), dict(state=dict(two="on"))],
+                         rel=[], note="時の線は模式", src=ss.src(["R1 p220"])))),
+    # c521（3行）＝1行目は聞き役の問い／2行目：伊丹駅を出てからの加速のコマ／3行目：曲線の手前のブレーキの遅れのコマ
+    "c521": dict(
+        t="注意がそれた時", s="分けて調べた2つ",
+        fig=("m25", dict(view="two_scenes", steps=[dict(state=dict(q="on")), dict(state=dict(a="on")), dict(state=dict(b="on"))],
+                         rel=[], note="コマの絵は模式", src=ss.src(["R1 p220", "R1 p221"])))),
+    # c523（2行）＝1行目：注意がそれた＝考えられる → さらに弱い／2行目：日勤教育を心配・言い訳などを考えていた＝可能性も考えられる
+    "c523": dict(
+        t="理由の書き方", s="いちばん弱い段",
+        fig=("m25", dict(view="weaker", steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))],
+                         rel=[], note="目盛りの段は報告書の言葉の決まり（模式）", src=ss.src(["R1 p220", "R1 p264"])))),
+    # c525（2行）＝1行目：赤鉛筆（運転室に落ちていた）・右手の手袋（着けていない＝見られる）／2行目：交信をメモしようとした？＝可能性も考えられる
+    "c525": dict(
+        t="運転室に残っていた物", s="もう1つの手がかり",
+        fig=("m25", dict(view="objects", steps=[dict(state=dict(things="on")), dict(state=dict(memo="on"))],
+                         rel=[], note="物の形は模式（手は描かない）", src=ss.src(["R1 p221", "R1 p222"])))),
+    # c527（2行）＝1行目：日数・中身を決めた規定は無し／2行目：輪の流れ（乗務から外す → 書く → 乗務へ戻る）・期間と中身は職場の長が決める（会社の説明）
+    "c527": dict(
+        t="決まりの無い再教育", s="規定の無いやり方",
+        fig=("m25", dict(view="cycle", steps=[dict(state=dict(rule="on")), dict(state=dict(loop="on"))],
+                         rel=[], note="流れの形は模式", src=ss.src(["R1 p63"])))),
+    # c528（1行）＝3枚の暦（2002年5月 4日間・2003年8月 1日間・2004年6月 13日間）と「3回・あわせて18日間」。理由の中身は書かない
+    "c528": dict(
+        t="受けた回数と日数", s="報告書の記録",
+        fig=("m25", dict(view="cal18", steps=[dict(state=dict(all="on"))],
+                         rel=[dict(t="2002年5月・2003年8月・2004年6月", src="R1 p49"), dict(t="4日間・1日間・13日間", src="R1 p49"),
+                              dict(t="3回・あわせて18日間", src="R1 p220")],
+                         note="升は日数だけ（日の位置は模式）", src=ss.src(["R1 p49", "R1 p220"])))),
+    # c529（2行）＝1行目：日勤教育の箱と「一部の運転士にとって」／2行目：虫めがね（受け取り方）→「効果のないペナルティ」・考えられる
+    "c529": dict(
+        t="再教育の受け止められ方", s="報告書の見方",
+        fig=("m25", dict(view="lens", steps=[dict(state=dict(box="on")), dict(state=dict(seen="on"))],
+                         rel=[], note="絵は模式", src=ss.src(["R1 p204"])))),
+    # c530（2行）＝1行目：「見せしめのようだった」／2行目：「自分のためになった」
+    "c530": dict(
+        t="2つの受け止め方", s="別の運転士たち",
+        fig=("m25", dict(view="qcards", steps=[dict(state=dict(l="on")), dict(state=dict(r="on"))],
+                         rel=[], note="口述の言葉は要約", src=ss.src(["R1 p68"])))),
+    # c531（3行）＝1行目は聞き役の問い（空の吹き出しと結びの札）／2行目：本人の言葉＝無い／3行目：ほかの運転士たちの話 → 推し量る
+    "c531": dict(
+        t="言い訳の根拠", s="報告書の推し量り方",
+        fig=("m25", dict(view="evidence", steps=[dict(state=dict(q="on")), dict(state=dict(none="on")), dict(state=dict(others="on"))],
+                         rel=[], note="根拠の線は模式", src=ss.src(["R1 p69", "R1 p178"])))),
+})

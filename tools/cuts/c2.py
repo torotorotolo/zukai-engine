@@ -129,3 +129,87 @@ SPEC.update({
                     tag=[dict(t="制限 40km/h（分かれる側）", at="sign40", off=(60, -10)),
                          dict(t="約65km/h で進入", at="turn", off=(-40, 120), anchor="end")])]))),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5（2026-10-26）：図解＝`tools/mech25.py`（fig=("m25", …)・門番 check_mech の judge_m25）
+#   🔴 色は出どころの色（報告書＝青・建議＝桃・車掌＝橙・指令員＝緑・国会＝紫・消防庁／兵庫県＝水色・JR西日本＝茶）。画面の字の数は全部 rel に。
+#   🔴 段の数＝語りの行の数（聞き役の問いの行は dict()＝何も足さない・足すなら前の続きだけ）
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c201（3行）＝1行目は聞き役の問い（路線と事故の曲線だけ）／2行目：JR東西線へ・上りの快速／3行目：列車番号 5418M
+    "c201": dict(
+        t="どこへ向かう電車か", s="宝塚から尼崎を通って",
+        fig=("m25", dict(view="route", steps=[dict(), dict(state=dict(dir="on")), dict(state=dict(num="on"))],
+                         rel=[dict(t="5418M", src="R1 p5")],
+                         note="駅の間隔は模式（並びと曲線の位置は報告書）", src=ss.src(["R1 p5", "付図27 p5029"])))),
+    # c205（3行）＝1行目は聞き役の問い／2行目：8つの時刻（報告書の「ごろ」「前後」）／3行目：宝塚の着に赤い枠
+    "c205": dict(
+        t="その朝の電車の動き", s="駅ごとの時刻",
+        fig=("m25", dict(view="tt_col", steps=[dict(), dict(state=dict(rows="on")), dict(state=dict(late="on"))],
+                         rel=[dict(t="8:56:14ごろ", src="R1 p10"), dict(t="9:04:00前後", src="R1 p11"), dict(t="9:13:39ごろ", src="R1 p11"),
+                              dict(t="9:15:43ごろ", src="R1 p12"), dict(t="9:16:10ごろ", src="R1 p12"), dict(t="9:17:38ごろ", src="R1 p12"),
+                              dict(t="9:18:22ごろ", src="R1 p13"), dict(t="9:18:54ごろ", src="R1 p13")],
+                         note="時刻は報告書の「ごろ」「前後」のまま", src=ss.src(["R1 p10", "R1 p11", "R1 p12", "R1 p13"])))),
+    # c211（2行）＝頭は宝塚の発（c210 の語り）／1行目：中山寺・川西池田／2行目：北伊丹（通過）と 9:13:39ごろ
+    "c211": dict(
+        t="増えていく遅れ", s="宝塚から北伊丹まで",
+        fig=("m25", dict(view="delay_bars", start=dict(b0="on"), steps=[dict(state=dict(b12="on")), dict(state=dict(b3="on"))],
+                         rel=[dict(t="15秒程度", src="R1 p11"), dict(t="25秒程度", src="R1 p11"), dict(t="35秒程度", src="R1 p11"),
+                              dict(t="約34秒", src="R1 p11"), dict(t="9:13:39ごろ", src="R1 p11")],
+                         note="棒の高さは秒に比例（報告書の「程度」「約」のまま）", src=ss.src(["R1 p11"])))),
+    # c212（3行）＝1行目：北伊丹を約120km/h で加速／2行目：約122km/h で惰性へ／3行目：速度計の表示「120」と「少し低い」
+    "c212": dict(
+        t="表示と実際の速さ", s="北伊丹駅を過ぎて",
+        fig=("m25", dict(view="speedo", steps=[dict(state=dict(rec1="on")), dict(state=dict(rec2="on")), dict(state=dict(show="on"))],
+                         rel=[dict(t="約120km/h", src="R1 p11"), dict(t="約122km/h", src="R1 p11"), dict(t="120", src="R1 p11"),
+                              dict(t="0・150", src="R1 p86")],
+                         note="速度計の形は模式（円弧の帯と数字の表示＝報告書の記述）", src=ss.src(["R1 p11", "R1 p86"])))),
+    # c215（2行）＝1行目：止まるべき位置から約72m／2行目：後ろへ戻す・約3m 戻り過ぎ・9:15:43ごろ着（約1分08秒遅れ）
+    "c215": dict(
+        t="伊丹駅で止まりきれず", s="止まってから着くまで",
+        fig=("m25", dict(view="overrun", steps=[dict(state=dict(over="on")), dict(state=dict(back="on"))],
+                         rel=[dict(t="約72m", src="R1 p12"), dict(t="約3m", src="R1 p12"), dict(t="9:15:43ごろ", src="R1 p12"),
+                              dict(t="約1分08秒", src="R1 p12")],
+                         note="長さは比例・列車とホームの形は模式", src=ss.src(["R1 p12"])))),
+    # c218（2行）＝1行目：7両目の車掌の放送「次は尼崎」／2行目：1両目の運転士からブザーの合図
+    "c218": dict(
+        t="放送のすぐあと", s="先頭と最後尾",
+        fig=("m25", dict(view="two_cabs", steps=[dict(state=dict(call="on")), dict(state=dict(buzz="on"))],
+                         rel=[dict(t="7両目・1両目", src="R1 p5")],
+                         note="列車の形は模式", src=ss.src(["R1 p17", "R1 p220"])))),
+    # c220（3行）＝1行目は聞き役の問い／2行目：「だいぶと行ってるよ」／3行目：客室の側から叩く・受話器を戻す（動く部品）
+    "c220": dict(
+        t="車掌の答え", s="車掌の口述（報告書）",
+        fig=("m25", dict(view="glass", steps=[dict(), dict(state=dict(say="on")), dict(state=dict(hang="on"))],
+                         rel=[dict(t="7両目", src="R1 p17")],
+                         note="運転室の形は模式（人は描かない）", src=ss.src(["R1 p17"])))),
+    # c223（3行）＝1行目は聞き役の問い／2行目：無線で報告 8m・見立て 30〜40m／3行目：5m の線（聞いた話）
+    "c223": dict(
+        t="報告した長さ", s="車掌の口述（報告書）",
+        fig=("m25", dict(view="ruler_v", steps=[dict(), dict(state=dict(say="on")), dict(state=dict(heard="on"))],
+                         rel=[dict(t="0m・10m・20m・30m・40m", src="R1 p18"), dict(t="30〜40m", src="R1 p18"), dict(t="8m", src="R1 p18"),
+                              dict(t="5m", src="R1 p18")],
+                         note="物差しの長さは比例", src=ss.src(["R1 p18"])))),
+    # c225（2行）＝1行目：「1分半」（車掌・時計を見ずに）＝外の橙の弧／2行目：約1分20秒（記録）＝内の青の弧
+    "c225": dict(
+        t="遅れを表す2つの数", s="言った数と記録",
+        fig=("m25", dict(view="ring2", steps=[dict(state=dict(say="on")), dict(state=dict(rec="on"))],
+                         rel=[dict(t="「1分半」", src="R1 p18"), dict(t="約1分20秒", src="R1 p12"), dict(t="0・30秒・1分・1分30秒", src="R1 p12")],
+                         note="ひと回りは2分（弧の角度は秒に比例）", src=ss.src(["R1 p18", "R1 p12"])))),
+    # c226（3行）＝頭は 8m（車掌の無線＝c223・c224 の語り）／1行目：国会の社長（当時）約40m／2行目：建議 約70m／3行目：報告書 約72m
+    "c226": dict(
+        t="4つの資料、4つの数", s="事故の朝から2007年まで",
+        fig=("m25", dict(view="tags4", start=dict(t1="on"), steps=[dict(state=dict(t2="on")), dict(state=dict(t3="on")), dict(state=dict(t4="on"))],
+                         rel=[dict(t="8m", src="R1 p18"), dict(t="約40m", src="国会 p16002"), dict(t="2005年5月", src="国会 p16002"),
+                              dict(t="約70m", src="K05 p12002"), dict(t="2005年9月", src="K05 p12001"), dict(t="約72m", src="R1 p12"),
+                              dict(t="2007年6月", src="R1 表紙")],
+                         note="札は数が出た順", src=ss.src(["R1 p18", "国会 p16002", "K05 p12002", "R1 p12"])))),
+    # c227（2行）＝頭は行き過ぎの行（c226 の続き）／1行目は聞き役の問い＝遅れの行／2行目：見出しの列に黄の枠「数には、どの記録かを添える」
+    "c227": dict(
+        t="数ごとに記録を確かめる", s="表で見比べる",
+        fig=("m25", dict(view="matrix", start=dict(r1="on"), steps=[dict(state=dict(r2="on")), dict(state=dict(head="on"))],
+                         rel=[dict(t="8m", src="R1 p18"), dict(t="約40m", src="国会 p16002"), dict(t="約70m", src="K05 p12002"),
+                              dict(t="約72m", src="R1 p12"), dict(t="「1分半」", src="R1 p18"), dict(t="約1分08秒（着）", src="R1 p12"),
+                              dict(t="約1分20秒（発）", src="R1 p12")],
+                         note="表の値は各資料のまま", src=ss.src(["R1 p12", "R1 p18", "国会 p16002", "K05 p12002"])))),
+})

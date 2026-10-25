@@ -5375,8 +5375,359 @@ def _selftest_m24(ok):
     return ok
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 25本目 ⑤b-5（2026-10-26）：図解 m25（`tools/mech25.py`・第1〜4章の42カット）の記録＝門番の側（§5b-88）。
+#    ①出どころの名と色（同じ画面で色が重ならない）②形・表・画素（駅の順・時刻・値・比例・強さの言葉と段）③画面の全部の字の数を rel で・
+#    時刻は記録の時刻だけ・出さない言葉・「低いものと考えられる」は c510 の主語だけ ④原文の句を頁で（`ref/ep25/src/ep25_pages.txt`＝git の外・Actions では飛ばす）
+#    🔴 §0b（題材を替えるとき）：次の回の ⑤b-1 で見本 fixture_ep25 へ移す（REC_M24 と同じ形）
+# ══════════════════════════════════════════════════════════
+REC_M25 = dict(
+    src=dict(rep=("報告書", "state"), ken=("建議", "bldg_a"), sha=("車掌", "company"), shi=("指令員", "ward"), kok=("国会", "city"),
+             fd=("消防庁", "ship"), hy=("兵庫県", "ship"), jr=("JR西日本", "DOC")),
+    lv={"認められる": 4, "推定される": 3, "考えられる": 2, "可能性が考えられる": 1, "可能性も考えられる": 1, "低いものと考えられる": 2},
+    # 画面に出してよい時刻（R1 p.10〜13・p.222・付図24 の帯＝台本 §1-5）
+    times=("8:56:14", "9:04:00", "9:13:39", "9:15:43", "9:16:10", "9:17:38", "9:18:22", "9:18:54", "9:18:09", "9:18:35", "9:18", "9:18:27"),
+    ng=("死亡", "眠", "わざと速度を出した", "わざと速く入"),
+    route=dict(st=("宝塚", "中山寺", "川西池田", "北伊丹", "伊丹", "猪名寺", "塚口", "尼崎"), no="5418M"),
+    tt_col=dict(rows=(("宝塚", "着", "8:56:14ごろ"), ("宝塚", "発", "9:04:00前後"), ("北伊丹", "通過", "9:13:39ごろ"), ("伊丹", "着", "9:15:43ごろ"),
+                      ("伊丹", "発", "9:16:10ごろ"), ("猪名寺", "通過", "9:17:38ごろ"), ("塚口", "通過", "9:18:22ごろ"), ("脱線", "", "9:18:54ごろ"))),
+    delay_bars=dict(rows=(("宝塚", "発", 15, "15秒程度"), ("中山寺", "発", 25, "25秒程度"), ("川西池田", "発", 35, "35秒程度"), ("北伊丹", "通過", 34, "約34秒")),
+                    t="9:13:39ごろ"),
+    speedo=dict(show=120, rec=(("北伊丹駅を 約120km/h", "加速しながら通る"), ("約122km/h", "ここで加速をやめ、惰性へ")), vmax=150.0),
+    overrun=dict(over=72.0, back=3.0, t="9:15:43ごろ"),
+    ruler_v=dict(say=8.0, think=(30.0, 40.0), heard=5.0),
+    ring2=dict(say=90, rec=80, full=120.0),
+    tags4=dict(tags=(("sha", "8m", ("事故の朝の無線",)), ("kok", "約40m", ("2005年5月", "車掌の申告として")), ("ken", "約70m", ("2005年9月",)),
+                     ("rep", "約72m", ("2007年6月",)))),
+    matrix=dict(cols=("sha", "kok", "ken", "rep"),
+                rows=(("行き過ぎ", ("8m", "約40m", "約70m", "約72m")), ("遅れ", ("「1分半」", "—", "—", ("約1分08秒（着）", "約1分20秒（発）"))))),
+    hscale=dict(mx=120, rec=(124, 125), show=(121, 122), t="9:18:09ごろ"),
+    tt_band=dict(ev=(("bell", 0.9, 1.9), ("shi", 5.9, 6.8), ("sha", 7.6, 10.7))),
+    zone=dict(sec=5),
+    clockfan=dict(a=27, b=31, hm=(9, 18)),
+    two_ribbons=dict(a=(16, "2.8"), b=(22, "2.0")),
+    tiles=dict(b1=2, coast=39),
+    section=dict(max_ratio=0.05),
+    plaques=dict(items=(("rep", "562人"), ("fd", "549人"))),
+    split_box=dict(rows=(("亡くなった人", ("お客様", "106人"), ("運転士", "1人")), ("けがをした人", ("お客様", "562人"), ("付近を通行中の方", "1人")))),
+    chapters3=dict(boxes=("救助", "医療", "地域の動き")),
+    doors3=dict(doors=("推定される", "考えられる", "可能性が考えられる")),
+    stairs4=dict(steps=(("認められる", "言い切れる"), ("推定される", "ほぼ間違いない"), ("考えられる", "可能性が高い"), ("可能性が考えられる", "可能性がある"))),
+    persp=dict(limit=70, v=116, word="推定される"),
+    fan5=dict(must=("この曲線", "わざと", "110km/h", "可能性"), word="低いものと考えられる",
+              tabs=("ブレーキの使い方", "最高速度を守る", "危なさを知っていた", "アンケート", "目の高さ")),
+    flow3=dict(flow=(("会社の運転士の管理", "可能性が考えられる"), ("電話・注意のそれ", "考えられる"), ("ブレーキの遅れ・脱線", "推定される"))),
+    two_brakes=dict(steps=("B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "非常"), real="B5", sec="約0.8秒"),
+    band25=dict(a=9, b=35, gap=25),
+    weaker=dict(rungs=("認められる", "推定される", "考えられる", "可能性が考えられる"), a="考えられる", b="可能性も考えられる"),
+    cal18=dict(items=(((2002, 5), 4), ((2003, 8), 1), ((2004, 6), 13)), total=18, n=3),
+    qcards=dict(items=("見せしめのようだった", "自分のためになった")),
+    # 原文の句（頁＝ep25_pages.txt の通し番号）
+    quote=dict(
+        route=(("R1 p5", "5418M"),),
+        tt_col=(("R1 p10", "8時56分14秒ごろ宝塚駅に到着"), ("R1 p11", "9時04分00秒前後に出発"), ("R1 p11", "9時13分39秒ごろ"),
+                ("R1 p12", "9時15分43秒ごろ伊丹駅に到着"), ("R1 p12", "9時16分10秒ごろ出発"), ("R1 p12", "9時17分38秒ごろに通過"),
+                ("R1 p13", "9時18分22秒ごろ通過"), ("R1 p13", "9時18分54秒ごろ")),
+        delay_bars=(("R1 p11", "15秒程度遅れて"), ("R1 p11", "25秒程度遅れて"), ("R1 p11", "35秒程度遅れて"), ("R1 p11", "約34秒遅れて")),
+        speedo=(("R1 p11", "速度約122km/hのとき"), ("R1 p11", "「120」km/h"), ("R1 p86", "最大150km/hまで表示可能")),
+        overrun=(("R1 p12", "約72m行き過ぎて停止"), ("R1 p12", "約3m後退し過ぎ"), ("R1 p12", "約1分08秒遅れて9時15分43秒ごろ")),
+        two_cabs=(("R1 p17", "電話機にかかれ"),),
+        glass=(("R1 p17", "だいぶと行ってるよ"),),
+        ruler_v=(("R1 p18", "30~40mと思っていた"), ("R1 p18", "5m程度であれば"), ("R1 p18", "「8m」と")),
+        ring2=(("R1 p18", "時計を見ずに「1分半」と報告した"), ("R1 p12", "約1分20秒遅れて")),
+        tags4=(("K05 p12002", "約70m行き過ぎた"), ("国会 p16002", "車掌の申告によりますと"), ("国会 p16002", "約四十メートル"),
+               ("R1 p12", "約72m行き過ぎて停止")),
+        hscale=(("R1 p91", "124~125km/hであった"), ("R1 p13", "「121」又は「122」km/h")),
+        zone=(("R1 p13", "その5秒程度後までの間"),),
+        crossing=(("R1 p241", "伊丹駅の前方に踏切道がないということを知らなかった"),),
+        two_ribbons=(("R1 p221", "ブレーキ使用開始の遅れ時間は約16秒"), ("R1 p221", "約22秒)と推算される")),
+        tiles=(("R1 p221", "約39秒間惰行させ続け"),),
+        section=(("R1 p233", "車体断面が菱形に変形して押しつぶされた"),),
+        plaques=(("R1 p1", "負傷者数は562名"), ("F1 p13001", "負傷者549人")),
+        split_box=(("J1 p15001", "106名のお客様がお亡くなりになり、運転士1名が"), ("J1 p15001", "562名のお客様と付近をご通行中の方1名")),
+        chapters3=(("HY1 p14004", "県の応急対策等を中心として総合的に検証し"),),
+        doors3=(("R1 p243", "推定される"), ("R1 p243", "可能性が考えられる")),
+        stairs4=(("R1 p264", "可能性が高い場合"), ("R1 p264", "可能性がある場合")),
+        persp=(("R1 p243", "脱線したことによるものと推定される"),),
+        two_cards=(("R1 p243", "虚偽報告を求める車内電話を切られたと思い本件車掌と輸送指令員との交信に特段の注意を払っていたこと"),),
+        flow3=(("R1 p243", "同社の運転士管理方法が関与した可能性が考えられる"),),
+        fan5=(("R1 p222", "意識的に速度110km/h程度で運転しようとした可能性については"), ("R1 p222", "低いものと考えられる")),
+        two_brakes=(("R1 p222", "B5を約0.8秒間使用するような可能性は低いと考えられる"),),
+        band25=(("R1 p222", "9時18分09秒ごろB1が使用開始"), ("R1 p222", "9時18分35秒ごろ"), ("R1 p222", "その約25秒前まで")),
+        survey=(("R1 p222", "あり得ないとした"),),
+        cab_note=(("R1 p194", "どのように急いでいても"), ("R1 p194", "申し添えた運転士が多数いた")),
+        two_signals=(("R1 p220", "焦っていた"),),
+        weaker=(("R1 p220", "言い訳等を考えていた可能性も考えられる"),),
+        objects=(("R1 p221", "赤鉛筆が落ちていた"), ("R1 p222", "右手の手袋を着用していなかったと見られる")),
+        cycle=(("R1 p63", "箇所長がその必要と認める期間、内容で行っていた"),),
+        cal18=(("R1 p49", "13日間の日勤教育"), ("R1 p49", "4日間の日勤教育"), ("R1 p49", "1日間の日勤教育"), ("R1 p220", "日勤教育を3回18日間")),
+        lens=(("R1 p204", "効果のないペナルティであると受け取るものであった"),),
+        qcards=(("R1 p68", "見せしめのようなことが多く"), ("R1 p68", "自分のためになったと思う")),
+        evidence=(("R1 p69", "言い訳を考えながら運転したことがある"),),
+    ),
+)
+_M25_PAGES = {}
+
+
+def _m25_page(rec):
+    """「R1 p13」「K05 p12002」「国会 p16002」…の頁の文字（NFKC・空白なし）。原文が手元に無い（Actions）は None。頁は通し番号（ss.REC_DOCS）。"""
+    import unicodedata
+    from pathlib import Path
+    m_ = re.fullmatch(r"\S+ p(-?\d+)", rec)
+    if not m_:
+        return None
+    if not _M25_PAGES:
+        t = Path(__file__).resolve().parent.parent / "ref" / "ep25" / "src" / "ep25_pages.txt"
+        if not t.exists():
+            _M25_PAGES[None] = True
+            return None
+        for mm in re.finditer(r"^=== p(-?\d+) ===\n(.*?)(?=^=== p|\Z)", t.read_text(encoding="utf-8"), re.M | re.S):
+            _M25_PAGES[int(mm.group(1))] = re.sub(r"\s+", "", unicodedata.normalize("NFKC", mm.group(2)))
+    if None in _M25_PAGES:
+        return None
+    return _M25_PAGES.get(int(m_.group(1)), "")
+
+
+def _hms_sec(t):
+    a = [int(x) for x in re.findall(r"\d+", t)]
+    return a[0] * 3600 + a[1] * 60 + (a[2] if len(a) > 2 else 0)
+
+
+def judge_m25(f):
+    """25本目 図解：①出どころの名と色 ②形・表・画素・強さの段を記録（REC_M25）で ③全部の字の数を rel で・時刻は記録の時刻だけ・出さない言葉 ④句を原文の頁で。"""
+    import jiko_style as J
+    bad, n = [], 0
+    m = f.mech
+    g, view = m["geo"], m["view"]
+    R = REC_M25
+    if not R:
+        return ["記録の表 REC_M25 が空（その回の値を入れるまで、m25 のカットは止まる）"], 1
+
+    def need(cond, msg):
+        nonlocal n
+        n += 1
+        if not cond:
+            bad.append(msg)
+
+    def col(name):
+        return (J.ROLE.get(name) or getattr(J, name)).lower()
+
+    def prop(a, b):
+        return abs(a - b) < 0.5
+
+    Rv = R.get(view) or {}
+    need({k: (t, col(r)) for k, (t, r) in g["src"].items()} == {k: (t, col(r)) for k, (t, r) in R["src"].items()},
+         "① 出どころの色か名が記録（報告書＝青・建議＝桃・車掌＝橙・指令員＝緑・国会＝紫・消防庁／兵庫県＝水色・JR西日本＝茶）と違う")
+    cs = [col(R["src"][k][1]) for k in g["vsrc"]]
+    need(len(set(cs)) == len(cs), f"① 同じ画面の出どころ {g['vsrc']} の色が重なる")
+    need(dict(g["lv"]) == R["lv"], "② 言い方の強さの段（升の数）が記録（R1 p.264＝認められる 4・推定される 3・考えられる 2・可能性が考えられる 1）と違う")
+    for w in g["words"]:
+        need(w in R["lv"], f"② 強さの言葉「{w}」が記録の言葉の決まりに無い")
+    if view == "route":
+        xs = g["xs"]
+        need(tuple(g["st"]) == Rv["st"] and g["no"] == Rv["no"], f"② 駅の並びか列車番号 {g['st']}・{g['no']} が記録（R1 p.5・付図27）と違う")
+        need(all(a < b for a, b in zip(xs, xs[1:])) and xs[6] < g["curve"] < xs[7], "② 事故の曲線の印が塚口と尼崎のあいだにない（駅の順が左から右でない）")
+    if view == "tt_col":
+        need(tuple(g["rows"]) == Rv["rows"], f"② 時刻表の行 {g['rows']} が記録（R1 p.10〜13）と違う")
+        secs = [_hms_sec(t) for _n, _k, t in g["rows"]]
+        need(all(a < b for a, b in zip(secs, secs[1:])) and all(a < b for a, b in zip(g["ys"], g["ys"][1:])), "② 時刻表が時の順（上から下）に並んでいない")
+    if view == "delay_bars":
+        need(tuple(g["rows"]) == Rv["rows"] and g["t"] == Rv["t"], f"② 遅れの棒の値 {g['rows']} が記録（R1 p.11）と違う")
+        need(all(prop(top, g["y0"] - v * g["k"]) for top, (_n, _k, v, _l) in zip(g["tops"], Rv["rows"])), "② 棒の高さが秒に比例していない")
+    if view == "speedo":
+        need(g["show"] == Rv["show"] and tuple(g["rec"]) == Rv["rec"] and g["vmax"] == Rv["vmax"], f"② 速度計の表示か記録の札 {g['show']}・{g['rec']} が記録（R1 p.11・p.86）と違う")
+        need(g["lit"] == round(Rv["show"] / Rv["vmax"] * g["n"]), "② 速度計の点いた升が表示の値に比例していない")
+    if view == "overrun":
+        need((g["over"], g["back"], g["t"]) == (Rv["over"], Rv["back"], Rv["t"]), f"② 行き過ぎか戻り過ぎ {g['over']}・{g['back']}（記録 約72m・約3m・9:15:43ごろ＝R1 p.12）")
+        need(prop(g["dx_over"], g["stop"] + Rv["over"] * g["k"] - g["x_in"]) and prop(g["dx_back"], g["stop"] - Rv["back"] * g["k"] - g["x_in"]),
+             "② 列車の印の止まる位置が長さに比例していない")
+    if view == "ruler_v":
+        need((g["say"], tuple(g["think"]), g["heard"]) == (Rv["say"], Rv["think"], Rv["heard"]), f"② 物差しの値 {g['say']}・{g['think']}・{g['heard']}（記録 8m・30〜40m・5m＝R1 p.18）")
+        need(all(prop(y, g["y0"] - v * g["k"]) for y, v in zip(g["ys"], (Rv["say"],) + tuple(Rv["think"]) + (Rv["heard"],))), "② 物差しの目盛りの画素が値に比例していない")
+    if view == "ring2":
+        need((g["say"], g["rec"], g["full"]) == (Rv["say"], Rv["rec"], Rv["full"]), f"② 2つの遅れ {g['say']}・{g['rec']}秒（記録「1分半」・約1分20秒）")
+        need(all(abs(a - 360.0 * s / Rv["full"]) < 1e-6 for a, s in zip(g["angs"], (Rv["say"], Rv["rec"]))), "② 2つの遅れの弧の角度が秒に比例していない")
+    if view == "tags4":
+        need(tuple(g["tags"]) == Rv["tags"], f"② 値札 {g['tags']} が記録（数と出どころと年月）と違う")
+        need(all(a < b for a, b in zip(g["xs"], g["xs"][1:])), "② 値札が数の出た順（左から右）に並んでいない")
+    if view == "matrix":
+        need(tuple(g["cols"]) == Rv["cols"] and tuple(g["rows"]) == Rv["rows"], "② 出どころの表の列か値が記録と違う")
+    if view == "hscale":
+        need((g["mx"], tuple(g["rec"]), tuple(g["show"]), g["t"]) == (Rv["mx"], Rv["rec"], Rv["show"], Rv["t"]),
+             f"② 速度の目盛りの値 {g['mx']}・{g['rec']}・{g['show']}（記録 120・124〜125・「121」か「122」・9:18:09ごろ）")
+        need(prop(g["xmax"], g["x0"] + (Rv["mx"] - g["v0"]) * g["k"]) and all(prop(x, g["x0"] + (v - g["v0"]) * g["k"]) for x, v in zip(g["xrec"], Rv["rec"])),
+             "② 速度の目盛りの画素が値に比例していない")
+    if view == "tt_band":
+        need(tuple(g["ev"]) == Rv["ev"], f"② 交信の帯の秒 {g['ev']} が記録（付図24 の読み取り＝sources.md §4）と違う")
+        need(all(prop(xa, g["x0"] + a * g["k"]) and prop(xb, g["x0"] + b * g["k"]) for (xa, xb), (_k, a, b) in zip(g["xs"], Rv["ev"])),
+             "② 交信の帯の画素が秒に比例していない")
+    if view == "zone":
+        need(g["sec"] == Rv["sec"] and g["zone"][1] < g["curve"], f"② 区間と復唱の秒 {g['sec']}（記録 5秒程度＝R1 p.13）か区間が曲線の手前にない")
+    if view == "clockfan":
+        need((g["a"], g["b"], tuple(g["hm"])) == (Rv["a"], Rv["b"], Rv["hm"]), f"② 秒の扇 {g['a']}〜{g['b']}秒（記録 27〜31秒・9時18分）")
+        need(g["rots"] and abs(g["rots"][0] - 6.0 * Rv["a"]) < 1e-6 and abs(g["rots"][-1] - 6.0 * Rv["b"]) < 1e-6, "② 秒針の角度が27秒→31秒になっていない")
+    if view == "two_ribbons":
+        need((tuple(g["a"]), tuple(g["b"])) == (Rv["a"], Rv["b"]), f"② 2本の帯の推算 {g['a']}・{g['b']}（記録 約16秒・毎秒2.8／約22秒・毎秒2.0＝R1 p.221）")
+        need(prop(g["xa"], g["xe"] - Rv["a"][0] * g["k"]) and prop(g["xb"], g["xe"] - Rv["b"][0] * g["k"]), "② 2本の帯の長さが秒に比例していない（右の端でそろわない）")
+    if view == "tiles":
+        need((g["b1"], g["coast"]) == (Rv["b1"], Rv["coast"]), f"② 升の数 {g['b1']}＋{g['coast']}（記録 B1 約2秒・惰性 約39秒）")
+    if view == "section":
+        need(g["ratio"] < Rv["max_ratio"], f"② 断面の客室の空間が縮みきっていない（面の比 {g['ratio']:.2f}・記録「ほぼ無くなる」）")
+    if view == "plaques":
+        need(tuple(g["items"]) == Rv["items"], f"② 数の板 {g['items']} が記録（562人＝報告書・549人＝消防庁）と違う")
+    if view == "split_box":
+        need(tuple(g["rows"]) == Rv["rows"], f"② 分けた箱 {g['rows']} が記録（JR西日本の頁）と違う")
+    if view == "chapters3":
+        need(tuple(g["boxes"]) == Rv["boxes"], f"② 兵庫県の検証の箱 {g['boxes']} が記録（語りの3つ）と違う")
+    if view == "doors3":
+        need(tuple(g["doors"]) == Rv["doors"], f"② 3つの入口の言葉 {g['doors']} が記録（R1 p.243 の文の順）と違う")
+    if view == "stairs4":
+        need(tuple(g["steps"]) == Rv["steps"] and all(a < b for a, b in zip(g["tops"], g["tops"][1:])), f"② 4段の言葉か段の向き {g['steps']}（記録 R1 p.264）")
+    if view == "persp":
+        need((g["limit"], g["v"], g["word"]) == (Rv["limit"], Rv["v"], Rv["word"]), f"② 曲線の入口 {g['limit']}・{g['v']}・{g['word']}（記録 制限70・約116km/h・推定される）")
+    if view == "fan5":
+        need(all(w in g["subj"] for w in Rv["must"]) and g["word"] == Rv["word"] and tuple(g["tabs"]) == Rv["tabs"],
+             f"② 「低いものと考えられる」の主語か札 {g['subj']}（記録＝この曲線を、わざと110km/hほどで通ろうとした可能性＝R1 p.222）")
+    if view == "flow3":
+        need(tuple(g["flow"]) == Rv["flow"] and all(a[0] < b[0] for a, b in zip(g["ys"], g["ys"][1:])), f"② 3つの文のつながり {g['flow']}（記録 R1 p.243）")
+    if view == "two_brakes":
+        need(tuple(g["steps"]) == Rv["steps"] and (g["real"], g["sec"]) == (Rv["real"], Rv["sec"]), f"② はしごの段か実際 {g['real']}・{g['sec']}（記録 B5・約0.8秒）")
+    if view == "band25":
+        need((g["a"], g["b"], g["gap"]) == (Rv["a"], Rv["b"], Rv["gap"]) and g["xa"] < g["xb"] and abs((g["b"] - g["a"]) - Rv["gap"]) <= 1,
+             f"② ピンの秒 {g['a']}・{g['b']}・約{g['gap']}秒（記録 9:18:09・9:18:35・約25秒前＝R1 p.222）")
+    if view == "weaker":
+        need(tuple(g["rungs"]) == Rv["rungs"] and (g["a"], g["b"]) == (Rv["a"], Rv["b"]), f"② 強さの目盛りの段か指す言葉 {g['a']}・{g['b']}（記録 考えられる → 可能性も考えられる）")
+    if view == "cal18":
+        items = tuple((tuple(ym), k) for ym, k, _c in g["items"])
+        need(items == Rv["items"] and sum(k for _ym, k in items) == g["total"] == Rv["total"] and len(items) == g["n"] == Rv["n"],
+             f"② 暦の年月か日数 {items}（記録 2002年5月 4日・2003年8月 1日・2004年6月 13日＝計18日・3回）")
+    if view == "qcards":
+        need(tuple(g["items"]) == Rv["items"], f"② 2つの口述 {g['items']} が記録（R1 p.68）と違う")
+    texts = list(m["texts_all"])
+    ngs = [(t, w) for t in texts for w in R["ng"] if w in t]
+    need(not ngs, f"③ 画面の字「{ngs[0][0]}」に出さない言葉「{ngs[0][1]}」がある（台本 §1-4・§5）" if ngs else "")
+    lows = [t for t in texts if "低いもの" in t]
+    need(not lows or view == "fan5", f"③ 「低いものと考えられる」を c510（この曲線を、わざと110km/hほどで）の外に出した：「{lows[0] if lows else ''}」")
+    for p, q in Rv.get("quote", R["quote"].get(view, ())):
+        src_ = _m25_page(p)
+        if src_ is not None:
+            need(_m17_q(q) in src_, f"④ 句「{q[:20]}…」が {p} に無い")
+    said = [r.get("t", "") for r in m["rel"]]
+    for t in texts:
+        for mm in NUM_M17.finditer(t):
+            tok = mm.group(0)
+            need(any(tok in s for s in said), f"③ 画面の字「{t}」の数「{tok}」が rel（記録の値の宣言）に無い")
+        for hm in re.finditer(r"\d{1,2}[:：]\d{2}(?:[:：]\d{2})?", t):
+            full = hm.group(0).replace("：", ":")
+            need(full in R["times"], f"③ 画面の字「{t}」の時刻「{full}」が記録の時刻に無い")
+    for r in m["rel"]:
+        need(bool(r.get("src")), f"③ rel「{r.get('t')}」に出どころ（src）が無い")
+    return bad, n
+
+
+def _selftest_m25(ok):
+    """🆕 25本目 ⑤b-5：本番の m25 が全部通り、描く側の定数を壊すと**狙った理由で**鳴るか（陽性対照）。型の例外で止まった対照は鳴ったと数えない。"""
+    import mech25 as M
+    import cuts
+    good = {c: s["fig"][1] for c, s in cuts.SPEC.items() if s.get("fig") and s["fig"][0] == "m25"}
+    if not good:
+        print("  🔴 NG 25本目 m25 のカットが SPEC に無い＝検算できない")
+        return False
+    for cid, kw in sorted(good.items()):
+        bad, _ = judge("m25", kw)
+        ok &= not bad
+        if bad:
+            print(f"  🔴 NG 25本目 m25 の本番 {cid} が落ちた: {bad[0]}")
+    by_view = {}
+    for cid, kw in sorted(good.items()):
+        by_view.setdefault(kw["view"], kw)
+    cases = (("伊丹と猪名寺を入れ替える", "route", "RT_ST", M.RT_ST[:4] + ("猪名寺", "伊丹") + M.RT_ST[6:], "② 駅の並び"),
+             ("曲線の印を尼崎の先へ", "route", "RT", dict(M.RT, curve=1.3), "② 事故の曲線の印"),
+             ("伊丹の着を 9:15:34 に", "tt_col", "TT_ROWS", M.TT_ROWS[:3] + (("伊丹", "着", "9:15:34ごろ"),) + M.TT_ROWS[4:], "② 時刻表の行"),
+             ("中山寺の遅れを 27 に", "delay_bars", "DB_ROWS", (M.DB_ROWS[0], ("中山寺", "発", 27, "25秒程度", "company")) + M.DB_ROWS[2:], "② 遅れの棒の値"),
+             ("棒の高さを描く側だけ変える", "delay_bars", "db_top", lambda v: M.DB["y0"] - v * 9.0, "② 棒の高さ"),
+             ("速度計の表示を 122 に", "speedo", "SP_SHOW", 122, "② 速度計の表示"),
+             ("行き過ぎを 70m に", "overrun", "OV_OVER", 70.0, "② 行き過ぎか戻り過ぎ"),
+             ("無線の報告を 5m に", "ruler_v", "RV_SAY", 5.0, "② 物差しの値"),
+             ("記録の遅れを 90秒に", "ring2", "RG_REC", 90, "② 2つの遅れ"),
+             ("建議と国会の札を入れ替える", "tags4", "TG4", (M.TG4[0], M.TG4[2], M.TG4[1], M.TG4[3]), "② 値札"),
+             ("建議の列を約72m に", "matrix", "MX_ROWS", (("行き過ぎ", ("8m", "約40m", "約72m", "約72m")), M.MX_ROWS[1]), "② 出どころの表"),
+             ("記録の帯を 123〜125 に", "hscale", "HS_REC", (123, 125), "② 速度の目盛りの値"),
+             ("指令員の帯を 6.9秒から", "tt_band", "TB_EV", (M.TB_EV[0], ("shi", "応答", 6.9, 7.2), M.TB_EV[2]), "② 交信の帯の秒"),
+             ("復唱のあとを 3秒に", "zone", "ZN_SEC", 3, "② 区間と復唱の秒"),
+             ("扇の終わりを 33秒に", "clockfan", "CF_B", 33, "② 秒の扇"),
+             ("16秒を15秒に", "two_ribbons", "TRB_A", (15, "2.8"), "② 2本の帯の推算"),
+             ("惰性の升を40に", "tiles", "TL_COAST", 40, "② 升の数"),
+             ("客室の空間を半分残す", "section", "SC_K2", 0.6, "② 断面の客室の空間"),
+             ("562と549を入れ替える", "plaques", "PQ", (("rep", "549人", M.PQ[0][2]), ("fd", "562人", M.PQ[1][2])), "② 数の板"),
+             ("106人を107人に", "split_box", "SB_ROWS", (("亡くなった人", ("お客様", "107人"), ("運転士", "1人")), M.SB_ROWS[1]), "② 分けた箱"),
+             ("箱に原因を足す", "chapters3", "CH3", M.CH3 + (("原因", "LINE"),), "② 兵庫県の検証の箱"),
+             ("扉の言葉を入れ替える", "doors3", "DR3", ("考えられる", "推定される", "可能性が考えられる"), "② 3つの入口の言葉"),
+             ("4段の意味を入れ替える", "stairs4", "ST4", (M.ST4[0], ("推定される", "可能性が高い"), ("考えられる", "ほぼ間違いない"), M.ST4[3]), "② 4段の言葉"),
+             ("曲線の速さを 115 に", "persp", "PS_V", 115, "② 曲線の入口"),
+             ("「低い」の主語を広げる", "fan5", "F5_SUBJ", "わざと遅れを取り戻そうとした可能性", "② 「低いものと考えられる」の主語"),
+             ("文1と文2の強さを入れ替える", "flow3", "FL3", (M.FL3[0], M.FL3[1][:2] + ("推定される",) + M.FL3[1][3:], M.FL3[2][:2] + ("考えられる",) + M.FL3[2][3:]),
+              "② 3つの文のつながり"),
+             ("実際の段を B6 に", "two_brakes", "BK_REAL", "B6", "② はしごの段か実際"),
+             ("2本目のピンを 9:18:40 に", "band25", "B25_B", 40, "② ピンの秒"),
+             ("理由の段を考えられるに", "weaker", "WK_B", "考えられる", "② 強さの目盛りの段か指す言葉"),
+             ("13日を12日に", "cal18", "C18", M.C18[:2] + (((2004, 6), 12, "company"),), "② 暦の年月か日数"),
+             ("推定されるを2段に", "stairs4", "LV", dict(M.LV, 推定される=2), "② 言い方の強さの段"),
+             ("車掌の色を報告書の青に", "tags4", "SRC", dict(M.SRC, sha=("車掌", "state")), "① 出どころの色か名"),
+             ("消防庁の色を報告書の青に", "plaques", "SRC", dict(M.SRC, fd=("消防庁", "state")), "① 出どころの色か名"),
+             ("言わない語を札に", "fan5", "F5_TABS", ("居眠り",) + M.F5_TABS[1:], "③ 画面の字「居眠り」に出さない言葉"),
+             ("「低いもの」を別の画面に", "two_brakes", "BK_SEC", "低いもの 約0.8秒", "③ 「低いものと考えられる」を c510"))
+    for name, view, attr, val, why in cases:
+        if view not in by_view:
+            print(f"  ⚠️ 25本目 陽性対照「{name}」：{view} のカットが無い（飛ばした）")
+            continue
+        keep = getattr(M, attr)
+        setattr(M, attr, val)
+        try:
+            bad, _ = judge("m25", by_view[view])
+            how = ""
+        except Exception as e:      # 型の例外で止まった対照は鳴ったと数えない（24本目 ⑤b-3 §6）
+            bad, how = [], f"（型の例外：{e}）"
+        finally:
+            setattr(M, attr, keep)
+        g_ = any(b.startswith(why) for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 25本目 ⑤b-5 陽性対照：{name}: {'不合格' if bad else '合格'}（不合格のはず・理由「{why}」）{how}"
+              + (f"  ← {bad[0]}" if bad else ""))
+    # rel から数を抜く（③）・記録の時刻に無い時刻（③）
+    kw = dict(by_view["delay_bars"], rel=[r for r in by_view["delay_bars"]["rel"] if "34" not in r.get("t", "")])
+    bad, _ = judge("m25", kw)
+    g_ = any(b.startswith("③") and "34" in b for b in bad)
+    ok &= g_
+    print(f"  {'OK' if g_ else '🔴 NG'} 🔴 25本目 ⑤b-5 陽性対照：rel から 約34秒 を抜く: {'不合格' if bad else '合格'}（不合格のはず・理由「③」）")
+    keep = M.HS_T
+    M.HS_T = "9:18:19ごろ"
+    try:
+        kw = dict(by_view["hscale"], rel=list(by_view["hscale"]["rel"]) + [dict(t="9:18:19ごろ", src="R1 p13")])
+        bad, _ = judge("m25", kw)
+    finally:
+        M.HS_T = keep
+    g_ = any(b.startswith("③") and "9:18:19" in b for b in bad)
+    ok &= g_
+    print(f"  {'OK' if g_ else '🔴 NG'} 🔴 25本目 ⑤b-5 陽性対照：記録に無い時刻 9:18:19: {'不合格' if bad else '合格'}（不合格のはず・理由「③ 時刻」）")
+    # 原文の句（④）＝手元に原文があるときだけ（Actions では飛ばす）
+    if _m25_page("R1 p13") is not None:
+        keepq = REC_M25["quote"]["cal18"]
+        REC_M25["quote"]["cal18"] = keepq + (("R1 p49", "14日間の日勤教育"),)
+        try:
+            bad, _ = judge("m25", by_view["cal18"])
+        finally:
+            REC_M25["quote"]["cal18"] = keepq
+        g_ = any(b.startswith("④") for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 25本目 ⑤b-5 陽性対照：原文に無い句「14日間の日勤教育」: {'不合格' if bad else '合格'}（不合格のはず・理由「④」）")
+    return ok
+
+
 def judge(kind, kw):
     f = getattr(F, kind)(**kw)
+    if kind == "m25":
+        return judge_m25(f)
     if kind == "m24":
         return judge_m24(f)
     if kind == "m17":
@@ -5799,12 +6150,17 @@ def main():
         print("selftest（m24）: 🔴 落ちた")
         return 2
     print("selftest（m24）: 通った")
+    # 🆕 25本目 ⑤b-5：m25 の検算＝本番の章ファイル（25本目）のまま（見本の差し込みは上で全部戻したあと）
+    if not _selftest_m25(True):
+        print("selftest（m25）: 🔴 落ちた")
+        return 2
+    print("selftest（m25）: 通った")
     if "--selftest" in sys.argv:
         return 0
     import cuts
     targets = {c: s["fig"] for c, s in sorted(cuts.SPEC.items())
                if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash", "tail", "mod", "bolt", "vsec", "lv", "m18",
-                                                   "m19", "m20", "m21", "m22", "m23", "m17", "m24")}
+                                                   "m19", "m20", "m21", "m22", "m23", "m17", "m24", "m25")}
     if not targets:
         print("⚠️ latch・section・hull・lash・tail・mod・bolt のカットが0件（この回に仕組みの模式図が無いなら正しい。"
               "**0件を調べて合格**にしていないか確かめる）")
@@ -5820,9 +6176,9 @@ def main():
             n += 1
             vb = view_dir_check17(cuts.PLAN.get(cid, {}).get("plan", ""), F.m17(**kw).mech["lab"])
             bad = list(bad) + ([f"② {vb}"] if vb else [])
-        if kind == "m24":         # 🆕 24本目 ⑤b-4：見る向きの合図（PLAN の「見る向き：」× 左上の札）
+        if kind in ("m24", "m25"):         # 🆕 24本目 ⑤b-4・25本目 ⑤b-5：見る向きの合図（PLAN の「見る向き：」× 左上の札）
             n += 1
-            vb = view_dir_check17(cuts.PLAN.get(cid, {}).get("plan", ""), F.m24(**kw).mech["lab"])
+            vb = view_dir_check17(cuts.PLAN.get(cid, {}).get("plan", ""), getattr(F, kind)(**kw).mech["lab"])
             bad = list(bad) + ([f"② {vb}"] if vb else [])
         n_all += n
         if bad:

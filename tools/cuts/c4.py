@@ -79,3 +79,40 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5（2026-10-26）：図解＝`tools/mech25.py`（fig=("m25", …)・門番 check_mech の judge_m25）。色は出どころの色・画面の字の数は全部 rel に
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c407（2行）＝1行目：四角 → ひし形（動く部品）・1つ目〜3つ目の乗降口／2行目：客室の空間がほぼ無くなる（内の面が縮む）
+    "c407": dict(
+        t="2両目の客室", s="押しつぶされた形",
+        fig=("m25", dict(view="section", steps=[dict(state=dict(crush="on")), dict(state=dict(gone="on"))],
+                         rel=[dict(t="2両目", src="R1 p233"), dict(t="1つ目〜3つ目の乗降口", src="R1 p233")],
+                         note="断面の形の移りは模式（乗降口の位置も）", src=ss.src(["R1 p233"])))),
+    # c412（2行）＝1行目：562人（報告書・警察の情報）／2行目：549人（消防庁・2005年5月24日の時点）。起訴の 493人は次の c413 の語り
+    "c412": dict(
+        t="けがをした人の数", s="資料ごとに",
+        fig=("m25", dict(view="plaques", steps=[dict(state=dict(p1="on")), dict(state=dict(p2="on"))],
+                         rel=[dict(t="562人", src="R1 p1"), dict(t="2007年", src="R1 表紙"), dict(t="549人", src="F1 p13001"),
+                              dict(t="第32報（2005年5月24日）", src="F1 p13001")],
+                         note="数は各資料の書いたまま", src=ss.src(["R1 p1", "F1 p13001"])))),
+    # c415（2行）＝1行目：亡くなった人＝お客様 106人｜運転士 1人／2行目：けがをした人＝お客様 562人｜付近を通行中の方 1人
+    "c415": dict(
+        t="お客様と運転士", s="会社による事故の説明",
+        fig=("m25", dict(view="split_box", steps=[dict(state=dict(r1="on")), dict(state=dict(r2="on"))],
+                         rel=[dict(t="106人・1人・562人・1人", src="J1 p15001")],
+                         note="数は同社の頁のまま", src=ss.src(["J1 p15001"])))),
+    # c418（2行）＝1行目：兵庫県の検証報告書と3つの箱（救助・医療・地域の動き）／2行目：原因の調べは外
+    "c418": dict(
+        t="県による別の検証", s="2006年にまとめた報告書",
+        fig=("m25", dict(view="chapters3", steps=[dict(state=dict(three="on")), dict(state=dict(out="on"))],
+                         rel=[dict(t="2006年1月", src="HY1 p14001")],
+                         note="箱は検証の分野のうち語りの3つ（模式）", src=ss.src(["HY1 p14004"])))),
+    # c420（2行）＝1行目：「なぜ遅れた？」と3つの入口（文1〜文3）／2行目：扉の札に言い方の強さと目盛り
+    "c420": dict(
+        t="原因の3つの文", s="強い順に3つ",
+        fig=("m25", dict(view="doors3", steps=[dict(state=dict(q="on")), dict(state=dict(words="on"))],
+                         rel=[dict(t="文1・文2・文3", src="R1 p243")],
+                         note="扉の形は模式", src=ss.src(["R1 p243"])))),
+})
