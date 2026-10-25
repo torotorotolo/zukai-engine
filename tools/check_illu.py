@@ -73,6 +73,18 @@
   ㊶ N4 避難のバス：バスの列は画面の両端の外まで（数は描かない）・夜のうちに着く（昼より前の段）・群れは知らせと昼のあと・
      札は「約1,200台」と知らせだけ（🔧 ⑤c'：避難の時刻 14:00〜17:00 は次の c708 の語り＝先回り＝札に書かない）
   ㊳〜㊶ 共通：爆発・火・煙・壊れた物・タービンの部品なし・人は N4 の住民の群れだけ・絵の字（部品の <text>）の時刻も表の値だけ
+  🆕 25本目 ⑤b-4（F1〜F6＝`tools/illu25.py`・記録は門番の側の REC_F1〜REC_F6）：
+  ㊷ F1 曲線と速度：駅・信号・曲線の入口の位置＝付図27 のキロ程の比（±1.5画素）・曲線の形＝付図73（半径304m・長さ308m・入口60m）・
+     速さの札は指し先ごとの記録の値（約111km/h は判決の帰属つき）・時刻は 9:17:38・列車の印は進む向きにだけ
+  ㊸ F2 ブレーキの段：段の並び＝位置図（ユルメ・1〜8・非常）・取っ手の動きの順（c304＝B1 → 惰行／c318＝B7 まで）・帯の幅＝記録の秒
+     （B1 2.0・B5 0.8・B7 2.4・0.0〜約0.2秒は細い帯で字なし）・帯の頭の時刻（9:18:09・9:18:50）
+  ㊹ F3 交信の流れ：欄は役職だけ・吹き出しの「」の中は R1 p.77 の字句どおり・要の語（遅れ・1分半）・話し手・運転士の欄は空白・
+     秒の帯の点の時刻と位置（9:17:57・9:18:40）
+  ㊺ F4 ATS の照査：照らす速度の線は曲線の入口で制限の高さ・ブレーキは2行目から曲線の手前で下がり切る・数を描かない・
+     もしもの絵（if）は想定の札と「推定」の結び・実際の線は曲線の入口で止める
+  ㊻ F5 付け替えの前後：半径＝600m・304m（±2%）・いまの曲線の長さ 308m と入口 60m・前の曲線は手前で分かれる・字の数は記録の値だけ
+  ㊼ F6 宝塚の分岐器：地上子・「40」の標識・ホームの端＝付図28 のキロ程の比・並びの順・時刻 8:54:43・速さの札（40km/h・約65km/h）
+  ㊷〜㊼ 共通：人を描かない・時刻は秒まで記録の値だけ・速さの数は F1・F6 だけ
   ⑥ 陽性対照（わざと壊した場面で鳴るか）＝`--selftest`（本番の前に必ず回る）
 
 ■ 使い方
@@ -2897,6 +2909,445 @@ def _judge_n4(sc, where, geo, tags, G):
     return bad, n
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 25本目 ⑤b-4（2026-10-25）：㊷ F1 曲線と速度・㊸ F2 ブレーキの段・㊹ F3 交信の流れ・㊺ F4 ATS の照査・㊻ F5 付け替えの前後・
+#     ㊼ F6 宝塚の分岐器＝`tools/illu25.py`。🔴 記録の値は門番の側（REC_F1〜REC_F6＝描く側の定数を読まない・§5b-88）。
+#     頁は cuts.ss.REC_DOCS の通し番号（R1＝報告書の印刷の頁・付図＝R5 の 5000＋・S3＝8000＋・S1k＝10000＋）
+#  🔴 §0b（題材を替えるとき）：次の回の ⑤b-1 で REC_F1〜REC_F6 を見本 `fixture_ep25` へ移し、ここは空にする（空のあいだ F1〜F6 の場面は止める）
+# ══════════════════════════════════════════════════════════
+F25_PLACES = ("F1", "F2", "F3", "F4", "F5", "F6")
+F25_MARK = dict(F1="㊷", F2="㊸", F3="㊹", F4="㊺", F5="㊻", F6="㊼")
+REC_F1 = dict(
+    # 付図27（尼崎駅起点の実測キロ程）＝伊丹駅 p5032・猪名寺駅 p5031・塚口駅と2つの信号 p5030／曲線の入口＝R1 p.13（曲線入口上り1k949m）
+    km=dict(itami=6.200, inadera=4.312, tsukaguchi=2.872, sig6l=2.690, sig4=2.207, curve=1.949),
+    shape=(60.0, 304.0, 188.0, 60.0),        # 付図73 p7005（緩和曲線長さ60m・円曲線半径304m長さ188m・緩和曲線長さ60m）＝曲線長308m（R1 p.72）
+    speed={"inadera": "約111km/h", "sig6l": "約122km/h", "sig4": "約118km/h", "curve": "約116km/h"},   # S3 p.7・R1 p.13
+    time={"inadera": "9:17:38"},             # R1 p.12（判決は 9:17:39＝台本 §1-5 は報告書の秒）
+    attrib={"inadera": "判決"},              # 約111km/h は判決の値＝札に帰属
+)
+REC_F2 = dict(
+    order=("ユルメ", "1", "2", "3", "4", "5", "6", "7", "8", "非常"),   # 国交省の位置図
+    secs={"B1": 2.0, "B5": 0.8, "B7": 2.4}, thin=("B1・B3かB4", "B6"), thin_max=0.2,   # R1 p.13（0.0~約0.2秒＝細い帯）
+    t0={"early": "9:18:09", "late": "9:18:50"},                       # R1 p.13
+    seq={"early": ("1", "ユルメ"), "late": ("1", "3か4", "5", "6", "7")},   # c304＝B1 のあと惰行／c318＝B7 まで（B8 は c319）
+)
+REC_F3 = dict(
+    times={"start": (9, 17, 57), "ans": (9, 18, 40)},   # R1 p.13・p.77（ファイル名 204T091757a）／付図24（台本 §1-5）
+    tag={"t_start": "9:17:57", "t_ans": "9:18:40"},
+    say={"ask": "disp", "ans": "cond"}, say_page=77,    # 交信記録の書き起こし＝R1 p.77（指令員の問い・車掌の答え）
+    say_kw={"ask": "遅れ", "ans": "1分半"},              # 吹き出しの要の語（R1 p.77 の記録の語）＝「」の無い短い言い方でも、この語は記録どおり
+    roles=("総合指令所の指令員", "7両目の車掌", "1両目の運転士"),
+)
+REC_F4 = dict(assume_word="もし", conclude="推定")      # R1 p.230（回避できたものと推定される）
+REC_F5 = dict(r_old=600.0, r_new=304.0, len=308.0, trans=60.0, nums=("600m", "304m", "308m", "60m"))   # R1 p.72・付図73
+REC_F6 = dict(km=dict(coil=17.981, sign40=18.008, home=18.149),   # 付図28 その1（地上子 5・6RQ1・「40」の標識・ホーム端位置）
+              time="8:54:43", vals={"sign40": "40km/h", "turn": "約65km/h"})   # R1 p.9
+F25_SECS = dict(F1=REC_F1["time"].values(), F2=REC_F2["t0"].values(), F3=REC_F3["tag"].values(), F6=(REC_F6["time"],))
+HMS25 = re.compile(r"(\d{1,2}):(\d{2}):(\d{2})")
+KMH25 = re.compile(r"(約)?\s*(\d+(?:\.\d+)?)\s*km/h")
+
+
+@lru_cache(maxsize=4)
+def _page_text(n):
+    """原文の頁の字（REC_PAGES・NFKC・空白なし）＝吹き出しの字句の照合"""
+    import unicodedata
+    p = getattr(_ss(), "REC_PAGES", None)
+    if not p or not Path(p).exists():
+        return None
+    m = re.search(rf"^=== p{int(n)} ===\n(.*)$", Path(p).read_text(encoding="utf-8"), re.M)
+    return "".join(unicodedata.normalize("NFKC", m.group(1)).split()) if m else None
+
+
+def _texts25(sc):
+    """場面の字＝(字, 出どころ, 札の指し先)。部品の <text>・札（段ごと）"""
+    out = [(t, p["id"], None) for p in sc["parts"] for _a, t in _SVGTXT.findall(p.get("svg") or "")]
+    for tg in sc["tags"]:
+        for t, at in zip(tg.get("texts") or [], tg.get("ats") or [None] * len(tg.get("texts") or [])):
+            out.append((t, "tag", at))
+    return out
+
+
+def judge_f25(sc, where):
+    """㊷〜㊼（25本目 F1〜F6）。共通＝人を描かない・時刻は秒まで記録の値だけ・速さ（km/h）の札は置き場ごとの記録の値だけ"""
+    if sc["place"] not in F25_PLACES:
+        return [], 0
+    pl = sc["place"]
+    mk = F25_MARK[pl]
+    if not (REC_F1 and REC_F2 and REC_F3 and REC_F4 and REC_F5 and REC_F6):
+        return [f"{mk}{where}：記録の表 REC_F1〜REC_F6 が空（25本目の値は見本へ移した＝本番で置き場 {pl} は使えない）"], 1
+    bad, n = [], 1
+    if _no_people(sc):
+        bad.append(f"{mk}{where}：人の部品を置いた（25本目の案C は人を描かない＝役職の欄だけ・手も描かない）")
+    texts = _texts25(sc)
+    ok_sec = set(F25_SECS.get(pl, ()))
+    for t, src, _at in texts:
+        for m in HMS25.finditer(t):
+            n += 1
+            hms = f"{int(m.group(1))}:{m.group(2)}:{m.group(3)}"
+            if hms not in ok_sec:
+                bad.append(f"{mk}{where}：字「{t}」（{src}）の時刻 {hms} は記録の秒でない（{sorted(ok_sec) or 'この置き場は時刻を出さない'}）")
+        if pl not in ("F1", "F6") and KMH25.search(t):
+            bad.append(f"{mk}{where}：字「{t}」（{src}）に速さの数（この置き場は速さの数を描かない）")
+    geo = {}
+    for p in sc["parts"]:
+        k = (p.get("geo") or {}).get("kind")
+        if k:
+            geo.setdefault(k, []).append(p)
+    b, m = dict(F1=_judge_f1, F2=_judge_f2, F3=_judge_f3, F4=_judge_f4, F5=_judge_f5, F6=_judge_f6)[pl](sc, where, geo, texts)
+    return bad + b, n + m
+
+
+def _g(geo, kind):
+    return ((geo.get(kind) or [{}])[0].get("geo")) or {}
+
+
+def _shape_bad(mk, where, shp, ppm, rec, what):
+    """描いた曲線の幾何（画素）を記録の形（m）と比べる＝(入口の緩和曲線, 半径, 円曲線, 出口の緩和曲線)"""
+    bad = []
+    l1, r, lc, l2 = rec
+    for nm, got, want, tol in (("半径", shp.get("radius", 0) / ppm, r, 0.02), ("曲線の長さ", shp.get("len", 0) / ppm, l1 + lc + l2, 0.02),
+                               ("入口の緩和曲線", shp.get("trans", 0) / ppm, l1, 0.04)):
+        if abs(got / want - 1.0) > tol:
+            bad.append(f"{mk}{where}：{what}の{nm} {got:.1f}m（記録は {want:g}m＝付図73・R1 p.72）")
+    return bad
+
+
+def _judge_f1(sc, where, geo, texts):
+    bad, n = [], 0
+    R = REC_F1
+    tr, mk_ = _g(geo, "f1track"), _g(geo, "f1marks")
+    n += 1
+    if not tr or not mk_:
+        return [f"㊷{where}：線路（f1track）か駅と信号の印（f1marks）が無い"], n
+    ppk, xc = tr["ppk"], tr["x_curve"]
+    for nm, x in mk_["xs"].items():
+        n += 1
+        want = xc + (R["km"]["curve"] - R["km"][nm]) * ppk
+        if abs(x - want) > 1.5:
+            bad.append(f"㊷{where}：{nm} の位置 x={x:.1f} がキロ程から読んだ位置 {want:.1f}（付図27 の {R['km'][nm]:.3f}km）と違う")
+    n += 1
+    bad += _shape_bad("㊷", where, tr["shape"], ppk / 1000.0, R["shape"], "曲線")
+    for t, src, at in texts:
+        for m in KMH25.finditer(t):
+            n += 1
+            v = f"{m.group(1) or ''}{m.group(2)}km/h"
+            if src != "tag" or R["speed"].get(at) != v:
+                bad.append(f"㊷{where}：速さの札「{t}」（{at or src}）が記録（{R['speed'].get(at, '指し先に速さの記録なし')}）と違う")
+            elif at in R["attrib"] and R["attrib"][at] not in t:
+                bad.append(f"㊷{where}：速さの札「{t}」に帰属「{R['attrib'][at]}」が無い（判決の値）")
+        for m in HMS25.finditer(t):
+            hms = f"{int(m.group(1))}:{m.group(2)}:{m.group(3)}"
+            if src == "tag" and R["time"].get(at) != hms:
+                bad.append(f"㊷{where}：時刻の札「{t}」の指し先 {at} の記録は {R['time'].get(at, 'なし')}")
+    ats = _g(geo, "f1train").get("at") or []
+    n += 1
+    kms = [R["km"][a] for a in ats]
+    if any(b2 > a2 + 1e-9 for a2, b2 in zip(kms, kms[1:])):
+        bad.append(f"㊷{where}：列車の印が戻る（{ats}＝上りはキロ程が減る向きにだけ進む）")
+    for p in geo.get("f1curve") or []:
+        for _a, t in _SVGTXT.findall(p.get("svg") or ""):
+            if "m" in t and f"{R['shape'][1]:g}m" not in t:
+                bad.append(f"㊷{where}：曲線の札「{t}」の半径が記録（{R['shape'][1]:g}m）でない")
+    return bad, n
+
+
+def _judge_f2(sc, where, geo, texts):
+    bad, n = [], 0
+    R = REC_F2
+    view = sc["start"]["view"]
+    dial = _g(geo, "f2dial")
+    n += 1
+    ang = dial.get("ang") or {}
+    if list(ang) != list(R["order"]) or any(ang[b2] <= ang[a2] for a2, b2 in zip(R["order"], R["order"][1:])):
+        bad.append(f"㊸{where}：段の並び {list(ang)} が位置図の順（{'・'.join(R['order'])}）でない")
+    seq = [s[2] for s in (_g(geo, "f2handle").get("seq") or [])]
+    n += 1
+    if tuple(seq) != R["seq"][view]:
+        bad.append(f"㊸{where}：取っ手の動き {seq} が記録の順 {list(R['seq'][view])} と違う（{view}）")
+    for p in geo.get("f2seg") or []:
+        g = p["geo"]
+        n += 1
+        w = (g["x1"] - g["x0"]) / g["pps"]
+        if g["n"] in R["secs"]:
+            sec = R["secs"][g["n"]]
+            if abs(w / sec - 1.0) > 0.02:
+                bad.append(f"㊸{where}：{g['n']} の帯の幅 {w:.2f}秒（記録は 約{sec}秒＝R1 p.13）")
+            if f"約{sec}秒" not in g["t"]:
+                bad.append(f"㊸{where}：{g['n']} の帯の字「{g['t']}」に記録の秒（約{sec}秒）が無い")
+        elif g["n"] in R["thin"]:
+            if w > R["thin_max"] + 1e-6:
+                bad.append(f"㊸{where}：{g['n']} の帯の幅 {w:.2f}秒（記録は 0.0〜約{R['thin_max']}秒＝細い帯）")
+            if "秒" in g["t"]:
+                bad.append(f"㊸{where}：{g['n']} の帯に秒の字「{g['t']}」（0.0〜約0.2秒＝字を出さない）")
+        elif g["n"] != "惰行":
+            bad.append(f"㊸{where}：帯の段 {g['n']} は記録に無い")
+    t0 = [t for p in geo.get("f2band") or [] for a, t in _SVGTXT.findall(p.get("svg") or "") if _attr(a, "data-k") == "t0"]
+    n += 1
+    if [HMS25.search(t).group(0) if HMS25.search(t) else t for t in t0] != [R["t0"][view]]:
+        bad.append(f"㊸{where}：帯の頭の時刻 {t0} が記録（{R['t0'][view]}ごろ）でない")
+    return bad, n
+
+
+def _judge_f3(sc, where, geo, texts):
+    bad, n = [], 0
+    R = REC_F3
+    roles = [t for p in geo.get("f3cols") or [] for a, t in _SVGTXT.findall(p.get("svg") or "") if _attr(a, "data-k") == "role"]
+    n += 1
+    if sorted(roles) != sorted(R["roles"]):
+        bad.append(f"㊹{where}：欄の名 {roles} が役職だけ（{list(R['roles'])}）でない")
+    page = _page_text(R["say_page"])
+    import unicodedata
+    for p in geo.get("f3say") or []:
+        g = p["geo"]
+        n += 1
+        if R["say"].get(g["key"]) != g["who"]:
+            bad.append(f"㊹{where}：吹き出し {g['key']} の話し手 {g['who']}（記録は {R['say'].get(g['key'])}）")
+        # 🔧 ⑤b-4 の qa_all：字句をそのまま出すと語りの複写（echo）＝吹き出しは短い言い方。「」の中は原文どおり・要の語は記録の語
+        for q in re.findall(r"「([^」]*)」", g["t"]):
+            s = "".join(unicodedata.normalize("NFKC", q).split())
+            if page is None or s not in page:
+                bad.append(f"㊹{where}：吹き出しの引用「{q}」が R1 p{R['say_page']} の交信記録に無い（「」の中は字句どおり）")
+        kw = R["say_kw"].get(g["key"])
+        if not kw or kw not in g["t"] or page is None or kw not in page:
+            bad.append(f"㊹{where}：吹き出し {g['key']} の字「{g['t']}」に記録の要の語（{kw}＝R1 p{R['say_page']}）が無い")
+    for p in sc["parts"]:
+        if 'data-w="drv"' in (p.get("svg") or "") and "bubble" in (p.get("svg") or ""):
+            bad.append(f"㊹{where}：運転士の欄に吹き出し（運転士は応答していない＝欄は空白）")
+    ax = _g(geo, "f3axis")
+    for p in geo.get("f3dot") or []:
+        g = p["geo"]
+        n += 1
+        want_t = R["times"].get(g["d"])
+        if tuple(g["t"]) != tuple(want_t or ()):
+            bad.append(f"㊹{where}：秒の帯の点 {g['d']} の時刻 {g['t']}（記録は {want_t}）")
+            continue
+        sec = lambda h: h[0] * 3600 + h[1] * 60 + h[2]        # noqa: E731
+        want_x = ax["x0"] + (sec(want_t) - sec(ax["t0"])) / (sec(ax["t1"]) - sec(ax["t0"])) * (ax["x1"] - ax["x0"])
+        if abs(g["x"] - want_x) > 1.5:
+            bad.append(f"㊹{where}：秒の帯の点 {g['d']} の位置 x={g['x']:.1f} が時刻の比の位置 {want_x:.1f} と違う")
+    for t, src, at in texts:
+        for m in HMS25.finditer(t):
+            hms = f"{int(m.group(1))}:{m.group(2)}:{m.group(3)}"
+            if src == "tag" and R["tag"].get(at) != hms:
+                bad.append(f"㊹{where}：時刻の札「{t}」の指し先 {at} の記録は {R['tag'].get(at, 'なし')}")
+    return bad, n
+
+
+def _judge_f4(sc, where, geo, texts):
+    bad, n = [], 0
+    R = REC_F4
+    view = sc["start"]["view"]
+    ax, pat = _g(geo, "f4axes"), _g(geo, "f4pat")
+    n += 1
+    if not ax or not pat or abs(pat["y_at_curve"] - pat["limit_y"]) > 1.0:
+        bad.append(f"㊺{where}：照らす速度の線が曲線の入口で制限速度の高さに来ていない（図-5 の形）")
+    for t, src, _at in texts:
+        if re.search(r"\d", t) and src != "switch":
+            bad.append(f"㊺{where}：字「{t}」（{src}）に数（模式＝速さの数は描かない）")
+    for p in geo.get("f4brake") or []:
+        g = p["geo"]
+        n += 1
+        if g["x_end"] > ax.get("curve_x", 0) + 0.5 or abs(g["y_end"] - pat.get("limit_y", -1)) > 1.0 or g["x0"] >= g["x_end"]:
+            bad.append(f"㊺{where}：ブレーキの線が曲線の手前で制限速度まで下がり切らない（終わり x={g['x_end']:.0f}・曲線の入口 {ax.get('curve_x')}）")
+        fo = _first_on(p.get("keys"))
+        if not fo or fo[0] < 1:
+            bad.append(f"㊺{where}：ブレーキが最初の行から出る（照らして超えそうになってから＝2行目から）")
+    n += 1
+    if view == "if":
+        if R["assume_word"] not in (sc.get("assume") or ""):
+            bad.append(f"㊺{where}：もしもの絵に想定の札（「{R['assume_word']}」）が無い")
+        for p in geo.get("f4real") or []:
+            if p["geo"]["end"] > ax.get("curve_x", 0) + 100:
+                bad.append(f"㊺{where}：実際の速さの線が曲線の奥まで続く（脱線は描かない＝曲線の入口で止める）")
+        says = [t for p in geo.get("f4say") or [] for _a, t in _SVGTXT.findall(p.get("svg") or "")]
+        if not says or not all(R["conclude"] in t for t in says):
+            bad.append(f"㊺{where}：結びの札 {says} に報告書の言い方「{R['conclude']}」が無い")
+    elif sc.get("assume") or geo.get("f4real") or geo.get("f4say"):
+        bad.append(f"㊺{where}：照らしの説明（basic）に、もしもの札・実際の線・結びの札（if の部品）")
+    return bad, n
+
+
+def _judge_f5(sc, where, geo, texts):
+    bad, n = [], 0
+    R = REC_F5
+    old, new = _g(geo, "f5old"), _g(geo, "f5new")
+    n += 1
+    if not old or not new:
+        return [f"㊻{where}：前の曲線（f5old）かいまの曲線（f5new）が無い"], n
+    ppm = new["ppm"]
+    if abs(old["radius"] / ppm / R["r_old"] - 1.0) > 0.02:
+        bad.append(f"㊻{where}：前の曲線の半径 {old['radius'] / ppm:.0f}m（記録は {R['r_old']:g}m＝R1 p.72）")
+    n += 1
+    bad += _shape_bad("㊻", where, new, ppm, (R["trans"], R["r_new"], R["len"] - 2 * R["trans"], R["trans"]), "いまの曲線")
+    n += 1
+    if not old["x_in"] < new["x_in"]:
+        bad.append(f"㊻{where}：前の曲線が手前で分かれていない（空中写真＝前は手前で分かれて緩い）")
+    for t, src, _at in texts:
+        for m in re.finditer(r"(\d+(?:\.\d+)?)\s*m(?![a-zA-Z/])", t):
+            if f"{m.group(1)}m" not in R["nums"]:
+                bad.append(f"㊻{where}：字「{t}」（{src}）の {m.group(0)} は記録の値（{'・'.join(R['nums'])}）でない")
+    return bad, n
+
+
+def _judge_f6(sc, where, geo, texts):
+    bad, n = [], 0
+    R = REC_F6
+    base = _g(geo, "f6base")
+    n += 1
+    if not base:
+        return [f"㊼{where}：駅の略図（f6base）が無い"], n
+    for nm, km in R["km"].items():
+        n += 1
+        want = base["x0"] + (km - base["km0"]) * 1000.0 * base["ppm"]
+        if abs(base["xs"].get(nm, -1e9) - want) > 1.5:
+            bad.append(f"㊼{where}：{nm} の位置 x={base['xs'].get(nm, float('nan')):.1f} がキロ程から読んだ位置 {want:.1f}（付図28 の下り{km:.3f}km）と違う")
+    xs = base["xs"]
+    n += 1
+    if not (xs.get("coil", 1e9) < xs.get("sign40", -1) < base["turn"][0] < base["turn"][1] < xs.get("home", -1)):
+        bad.append(f"㊼{where}：並びが付図28 の順（地上子 → 「40」の標識 → 分岐器 → ホームの端）でない")
+    times = [t for p in geo.get("f6time") or [] for _a, t in _SVGTXT.findall(p.get("svg") or "")]
+    n += 1
+    if times and [HMS25.search(t).group(0) if HMS25.search(t) else t for t in times] != [R["time"]]:
+        bad.append(f"㊼{where}：時刻の札 {times} が記録（{R['time']}ごろ＝R1 p.9）でない")
+    for t, src, at in texts:
+        for m in KMH25.finditer(t):
+            n += 1
+            v = f"{m.group(1) or ''}{m.group(2)}km/h"
+            if src != "tag" or R["vals"].get(at) != v:
+                bad.append(f"㊼{where}：速さの札「{t}」（{at or src}）が記録（{R['vals'].get(at, '指し先に速さの記録なし')}）と違う")
+    signs = [t for p in sc["parts"] for a, t in _SVGTXT.findall(p.get("svg") or "") if _attr(a, "data-k") == "sign40"]
+    if signs != ["40"]:
+        bad.append(f"㊼{where}：標識の字 {signs} が「40」でない（付図28＝分岐側を2番線に走行する場合 40km/h）")
+    return bad, n
+
+
+def selftest_ep25():
+    """🆕 25本目 ⑤b-4（2026-10-25）：㊷〜㊼ の検算。正しい場面（25本目の SPEC＝本番の表のまま）が通り、わざと壊した場面（陽性対照）が
+    ㊷〜㊼で「狙った理由で」落ちること。描く側の定数を壊す対照は、終わったら必ず戻す（try/finally）。型の例外で止まった対照は鳴ったと数えない"""
+    import copy
+    import cuts
+    import illu25 as I25
+    ok = True
+    good = {c: cuts.SPEC[c]["fig"][1] for c in ("c207", "c301", "c304", "c306", "c314", "c317", "c318", "c603", "c703", "c719")
+            if c in cuts.SPEC}
+    if len(good) < 10:
+        print("  🔴 NG 25本目：正しい場面の SPEC が揃っていない（selftest の前提）")
+        return False
+
+    def run(spec, post=None):
+        sc = IL.scene(**spec)
+        if post:
+            post(sc)
+        return judge_f25(sc, "selftest")[0] + judge_scene(sc, "selftest")[0]
+    for cid, spec in good.items():
+        b = run(spec)
+        ok &= not b
+        print(f"  {'OK' if not b else '🔴 NG'} 25本目 正しい {cid}: {'合格' if not b else b[0]}")
+
+    def bad_case(name, spec, head, why, post=None):
+        nonlocal ok
+        try:
+            b = [x for x in run(spec, post) if x.startswith(head) and why in x]
+        except Exception as e:          # noqa: BLE001
+            b = []
+            print(f"     （型の例外＝狙った理由で鳴っていない：{e}）")
+        ok &= bool(b)
+        print(f"  {'OK' if b else '🔴 NG'} 🔴 25本目 陽性対照{head}：{name}: {'不合格' if b else '合格'}（不合格のはず）" + (f"  ← {b[0]}" if b else ""))
+
+    def tweak(cid, **kw):
+        s = copy.deepcopy(good[cid])
+        s.update(kw)
+        return s
+
+    def step(cid, i, **kw):
+        s = copy.deepcopy(good[cid])
+        s["steps"][i].update(kw)
+        return s
+
+    def keep(name):
+        return name, copy.deepcopy(getattr(I25, name))
+    saved = dict(keep(x) for x in ("F1_KM", "F1_SHAPE", "F2_SEG", "F2_SEQ", "F2_T0", "F2_POS", "F3_SAY", "F3_DOT", "F4_REAL",
+                                   "F5_OLD_R", "F5_NEW", "F6_KM", "F6_TIME", "F5_X_OLD"))
+    try:
+        # ㊷ F1
+        bad_case("塚口駅の先の信号の速さを 約120km/h に", step("c317", 0, tag=dict(t="約120km/h", at="sig6l")), "㊷", "記録")
+        bad_case("猪名寺の時刻を判決の 9:17:39 に", step("c301", 1, tag=dict(t="9:17:39ごろ", at="inadera")), "㊷", "記録の秒")
+        bad_case("約111km/h の帰属を落とす", step("c301", 2, tag=dict(t="約111km/h", at="inadera")), "㊷", "帰属")
+        bad_case("約116km/h を次の信号に付ける", step("c317", 1, tag=dict(t="約116km/h", at="sig4")), "㊷", "記録")
+        bad_case("列車の印が伊丹駅へ戻る", tweak("c301", steps=good["c301"]["steps"][:2] + [dict(state=dict(f1at="itami"), rec="R1 p12")]),
+                 "㊷", "戻る")
+        I25.F1_KM = dict(saved["F1_KM"], inadera=4.5)
+        bad_case("描く側の猪名寺駅を 4.5km に（型の定数）", good["c301"], "㊷", "キロ程から読んだ位置")
+        I25.F1_KM = saved["F1_KM"]
+        I25.F1_SHAPE = (60.0, 250.0, 188.0, 60.0)
+        bad_case("描く側の曲線の半径を 250m に（型の定数）", good["c317"], "㊷", "半径")
+        I25.F1_SHAPE = saved["F1_SHAPE"]
+        # ㊸ F2
+        I25.F2_SEG = dict(saved["F2_SEG"], late=tuple((s[0], 1.0) + s[2:] if s[0] == "B5" else s for s in saved["F2_SEG"]["late"]))
+        bad_case("描く側で B5 の帯を 1.0秒の幅に（型の定数）", good["c318"], "㊸", "帯の幅")
+        I25.F2_SEG = dict(saved["F2_SEG"], late=tuple((s[0], 0.4) + s[2:] if s[0] == "B6" else s for s in saved["F2_SEG"]["late"]))
+        bad_case("描く側で B6 の細い帯を 0.4秒に（型の定数）", good["c318"], "㊸", "細い帯")
+        I25.F2_SEG = saved["F2_SEG"]
+        I25.F2_SEQ = dict(saved["F2_SEQ"], late=saved["F2_SEQ"]["late"] + ((1, 2.4, "8"),))
+        bad_case("描く側で取っ手を B8 まで上げる（次の c319 の先回り）", good["c318"], "㊸", "記録の順")
+        I25.F2_SEQ = dict(saved["F2_SEQ"], early=((0, 0.35, "1"),))
+        bad_case("描く側で B1 のあと惰行（ユルメ）に戻さない", good["c304"], "㊸", "記録の順")
+        I25.F2_SEQ = saved["F2_SEQ"]
+        I25.F2_T0 = dict(saved["F2_T0"], late="9:18:49ごろ")
+        bad_case("描く側で帯の頭の時刻を 9:18:49 に（型の定数）", good["c318"], "㊸", "記録の秒")
+        I25.F2_T0 = saved["F2_T0"]
+        I25.F2_POS = ("ユルメ", "1", "2", "4", "3", "5", "6", "7", "8", "非常")
+        bad_case("描く側で段の並びを入れ替える（型の定数）", good["c304"], "㊸", "段の並び")
+        I25.F2_POS = saved["F2_POS"]
+        # ㊹ F3
+        I25.F3_SAY = dict(saved["F3_SAY"], ans=("drv",) + saved["F3_SAY"]["ans"][1:])
+        bad_case("描く側で答えを運転士の欄に（型の定数）", good["c314"], "㊹", "運転士の欄")
+        I25.F3_SAY = dict(saved["F3_SAY"], ask=saved["F3_SAY"]["ask"][:2] + ("「遅れは何分ですか」",) + saved["F3_SAY"]["ask"][3:])
+        bad_case("描く側で問いを言い換えた引用にする（型の定数）", good["c314"], "㊹", "交信記録に無い")
+        I25.F3_SAY = dict(saved["F3_SAY"], ans=saved["F3_SAY"]["ans"][:2] + ("2分と答える",) + saved["F3_SAY"]["ans"][3:])
+        bad_case("描く側で答えの要の語を 2分 に（型の定数）", good["c314"], "㊹", "要の語")
+        I25.F3_SAY = saved["F3_SAY"]
+        I25.F3_DOT = dict(saved["F3_DOT"], ans=(9, 18, 45))
+        bad_case("描く側で答えの点を 9:18:45 に（型の定数）", good["c314"], "㊹", "秒の帯の点")
+        I25.F3_DOT = saved["F3_DOT"]
+        bad_case("答えの時刻の札を 9:18:41 に", step("c314", 1, tag=dict(t="9:18:41ごろ", at="t_ans")), "㊹", "記録の秒")
+        # ㊺ F4
+        bad_case("もしもの絵から想定の札を落とす", tweak("c719", assume=None), "㊺", "想定の札")
+        I25.F4_REAL = dict(saved["F4_REAL"], end=1680.0)
+        bad_case("描く側で実際の速さの線を曲線の奥まで（型の定数）", good["c719"], "㊺", "曲線の奥")
+        I25.F4_REAL = saved["F4_REAL"]
+        bad_case("ブレーキを1行目から", step("c703", 0, state=dict(f4brake="on")), "㊺", "最初の行")
+        bad_case("ブレーキの終わりを曲線の中に", good["c703"], "㊺", "下がり切らない",
+                 post=lambda sc: [p["geo"].update(x_end=1400.0) for p in sc["parts"] if p["id"] == "brake"])
+        bad_case("速さの数の札を足す", step("c719", 0, tag=dict(t="約116km/h", at="curve")), "㊺", "数")
+        # ㊻ F5
+        I25.F5_OLD_R = 500.0
+        bad_case("描く側で前の曲線を半径 500m に（型の定数）", good["c603"], "㊻", "前の曲線の半径")
+        I25.F5_OLD_R = saved["F5_OLD_R"]
+        I25.F5_NEW = (60.0, 304.0, 150.0, 60.0)
+        bad_case("描く側でいまの曲線を短く（円曲線 150m＝型の定数）", good["c603"], "㊻", "曲線の長さ")
+        I25.F5_NEW = saved["F5_NEW"]
+        I25.F5_X_OLD = 900.0
+        bad_case("描く側で前の曲線をいまの曲線の先で分ける（型の定数）", good["c603"], "㊻", "手前で分かれて")
+        I25.F5_X_OLD = saved["F5_X_OLD"]
+        bad_case("前の制限速度の札を足す（次の c604 の先回り）", step("c603", 0, tag=dict(t="前の制限 95km/h", at="old_in")), "㊻", "速さの数")
+        # ㊼ F6
+        I25.F6_KM = dict(saved["F6_KM"], coil=18.030)
+        bad_case("描く側で地上子を「40」の標識の先に（型の定数）", good["c207"], "㊼", "並び")
+        I25.F6_KM = saved["F6_KM"]
+        I25.F6_TIME = "8:54:44ごろ"
+        bad_case("描く側で時刻の札を 8:54:44 に（型の定数）", good["c207"], "㊼", "記録の秒")
+        I25.F6_TIME = saved["F6_TIME"]
+        bad_case("分岐器の速さを 約60km/h に", step("c207", 2, tag=[dict(t="制限 40km/h（分かれる側）", at="sign40"),
+                                                                  dict(t="約60km/h で進入", at="turn")]), "㊼", "記録")
+        bad_case("分岐器に人の影", good["c207"], "㊼", "人の部品",
+                 post=lambda sc: sc["parts"].append(dict(sc["parts"][0], id="op", role="driver")))
+    finally:
+        for name, val in saved.items():
+            setattr(I25, name, val)
+    return ok
+
+
 def selftest_ep24():
     """🆕 24本目 ⑤b-3（2026-10-22）：㊳ N1・㊴ N2・㊵ N3・㊶ N4 の検算。正しい場面（24本目の SPEC）が通り、
     わざと壊した場面（陽性対照）が㊳〜㊶で落ちること。描く側の定数を壊す対照は、終わったら必ず戻す（try/finally）
@@ -3060,7 +3511,8 @@ def judge_fig(kind, kw, where):
         n += m
         for jf in (judge_s1, judge_s2, judge_s3, judge_s4, judge_s5, judge_s6, judge_s7,  # 🆕 20本目 ⑤b-3：㉔㉕㉖・⑤b-4：㉗㉘㉙㉚
                    judge_c17,                                                         # 🆕 17本目 ⑤b-3：㉛㉜㉝
-                   judge_n24):                                                        # 🆕 24本目 ⑤b-3：㊳㊴㊵㊶
+                   judge_n24,                                                         # 🆕 24本目 ⑤b-3：㊳㊴㊵㊶
+                   judge_f25):                                                        # 🆕 25本目 ⑤b-4：㊷〜㊼
             b, m = jf(sc, f"{where}#{k + 1}")
             bad += b
             n += m
@@ -4660,7 +5112,8 @@ def _selftest_ep17():
 
 def selftest():
     """物差しの検算。正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。"""
-    ok24 = selftest_ep24()        # 🆕 24本目 ⑤b-3（2026-10-22）。2026-10-25〜：24本目も見本 fixture_ep24 の表＝selftest_ep24 が差し込んで・終わったら戻す
+    ok25 = selftest_ep25()        # 🆕 25本目 ⑤b-4（2026-10-25）＝本番の表のまま（見本の差し込みより先）
+    ok24 = selftest_ep24() and ok25   # 🆕 24本目 ⑤b-3（2026-10-22）。2026-10-25〜：24本目も見本 fixture_ep24 の表＝selftest_ep24 が差し込んで・終わったら戻す
     ok17 = selftest_ep17() and ok24   # 🆕 17本目 ⑤b-3（2026-10-20）。2026-10-22〜：17本目も見本 fixture_ep17 の表＝selftest_ep17 が差し込んで・終わったら戻す
     ok20 = selftest_ep20() and ok17   # 🆕 20本目 ⑤b-3（2026-10-08）。2026-10-12〜：20本目も見本 fixture_ep20 の表＝selftest_ep20 が差し込んで・終わったら戻す
     ok19 = selftest_a1() and ok20  # 🆕 19本目 ⑤b-2（2026-10-08〜：見本 fixture_ep19 の表＝selftest_a1 が差し込んで・終わったら戻す）
