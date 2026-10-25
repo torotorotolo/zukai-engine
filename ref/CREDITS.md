@@ -2930,3 +2930,127 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `u2` | c710 | 1986 | パブリックドメイン（この事故） | USGS | ref/ep24/src/usgs/0_4-29-1986_Chernobyl_Intro-label.png |
 | `u4f12` | c711 | 1987 | パブリックドメイン（頁） | USGS | ref/ep24/src/usgs/1986_USGS_Image_Data_of_the_Nuclear_Accident_Near_Chernobyl_Report1.pdf#19 |
 | `wbg` | cb14 | 1986 | CC BY-SA 4.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Autoradiography,_grass_sample_after_Chernobyl_disaster_in_1986.jpg |
+
+## JR福知山線脱線事故（2005-04-25・25本目）
+
+※2026-10-25（⑤b-2）。`qa_out/ep25_assets.py credits --write` が書く（手で直さない）。写真と頁は映像方針の一覧 `ref/ep25/eizou_list25.md`（了承② 2026-10-25）。
+
+### 0. 映像（フリー素材＝音はすべて使わない＝`-an`）
+- フリー素材（Pexels・生成AI は使わない）＝画面の左上に「イメージ」・出典の行は「イメージ（Pexels）」だけ（クレジットは任意＝投稿者の名前は書かない・概要欄にも書かない）。20% に数えない。🔴 映像そのものもひかえの静止画も git に入れない（19本目 決め⑨）
+- 25本目は18カット＝⑤b-3 で取る（取ったら下の表に入る）
+
+| 記号 | 使うカット | 画面の出典 | ライセンス | 頁 |
+|---|---|---|---|---|
+
+### 1. 写真・頁（運輸安全委員会の報告書・国土交通省の頁・国土地理院・裁判所・Commons）
+- 報告書 RA2007-3・検証報告書・建議・国交省の発表＝公共データ利用規約（PDL1.0）＝出典の行「出典：…（運輸安全委員会の頁）を加工して作成」／「出典：国土交通省ウェブサイト（URL）」（了承② 決め4）。報告書の小さい写真も全面（原画＝PDF の上の注記は入らない）
+- 会社の資料の写し（付図35・47・48）＝報告書に載った第三者の資料＝**頁ごと引用**（無加工・額装＝`frame`）
+- 判決・決定＝著作権法13条（権利の目的とならない）。地理院の空中写真＝国土地理院コンテンツ利用規約（PDL1.0 準拠）
+- 🔴 **人は役職だけ（①の承認）**＝名前の載る頁（建議 p.1・報告書の表紙の裏・最高裁の決定 p.1・検証報告書 p.50・p.53）は束の段で名前の外を切り出した（検証報告書 p.53 だけ姓の字に升目＝役職は残す）＝門番 `qa_out/ep25_assets.py names`（絵の OCR × git の外の名前の表）
+- 🔴 **CC BY 3.0 の点は画面の出典の行に作者欄の名前**。名前はこのリポに書かない＝`ref/ep25/credits.json` は印 `{作者}` だけ・焼くときに git の外の表から足す（`tools/scene_jiko.ep25_credit`）。CC0 は表示が任意＝名前を出さない
+- 撮影年＝Commons の撮影日・国交省の発表の日・資料の日。報告書の付図の写真は撮影の日の記載が無い＝「不明」（副題に年を書かない）
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `c10` | cb04 | 2025 | CC0（この事故・顔に升目） | Commons の投稿者（CC0＝表示は任意） | https://commons.wikimedia.org/wiki/File:Inori_no_mori,_the_scene_of_the_derailment_Accident_on_the_Fukuchiyama_Line.jpg |
+| `c12` | cb05 | 2025 | CC0（この事故） | Commons の投稿者（CC0＝表示は任意） | https://commons.wikimedia.org/wiki/File:The_information_signboard_about_the_detour_on_25th_April_2025.jpg |
+| `c13` | c802 cb11 | 2012 | CC0（この事故） | Commons の投稿者（CC0＝表示は任意） | https://commons.wikimedia.org/wiki/File:The_spot_where_Amagasaki_rail_crash_occurred.JPG |
+| `c3` | c913 cb01 | 2016 | CC BY 3.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep25/src/credits_private.tsv` の commons の行） | https://commons.wikimedia.org/wiki/File:Amagasaki-fukuchiyama_line.JPG |
+| `c9` | cb02 cb12 | 2025 | CC0（この事故） | Commons の投稿者（CC0＝表示は任意） | https://commons.wikimedia.org/wiki/File:Inori_no_mori,_the_scene_of_the_Amagasaki_derailment.jpg |
+| `f05_70` | c105 c509 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-2.pdf |
+| `f05_7r` | c204 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-2.pdf |
+| `f05_am` | c533 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-2.pdf |
+| `f05_ar` | c615 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-2.pdf |
+| `f07_f` | c320 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-2.pdf |
+| `f07_s` | c414 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-2.pdf |
+| `f11_p` | c402 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-3.pdf |
+| `f11_w` | c417 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-3.pdf |
+| `f12` | c103 c401 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-3.pdf |
+| `f13_1b` | c520 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-3.pdf |
+| `f13_1f` | c405 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-3.pdf |
+| `f13_1m` | c620 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-3.pdf |
+| `f13_1r` | c613 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-3.pdf |
+| `f13_2d` | c406 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-3.pdf |
+| `f13_2e` | c408 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-3.pdf |
+| `f13_2f` | c403 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-3.pdf |
+| `f13_3b` | cb07 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-3.pdf |
+| `f13_3c` | c411 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-3.pdf |
+| `f13_45` | c413 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-3.pdf |
+| `f13_67` | c323 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-3.pdf |
+| `f16_1d` | c504 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-4.pdf |
+| `f16_1l` | c506 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-4.pdf |
+| `f16_1m` | c222 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-4.pdf |
+| `f16_1s` | c522 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-4.pdf |
+| `f16_2a` | c322 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-4.pdf |
+| `f16_2k` | c216 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-4.pdf |
+| `f16_2r` | c224 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-4.pdf |
+| `f16_2t` | c228 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-4.pdf |
+| `f16_2u` | c309 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-4.pdf |
+| `f16_3c` | c221 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-4.pdf |
+| `f16_3p` | c704 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-4.pdf |
+| `f16_3t` | c219 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-4.pdf |
+| `f26_1` | c102 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `f26_2` | c319 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `f26_3` | c515 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `f26_4` | c622 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `f26_5` | c721 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `f26_6` | ca02 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `f75` | c206 | 不明 | PDL1.0（この事故） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-7.pdf |
+| `g1974` | c602 | 不明 | PDL1.0（この事故） | 国土地理院 | https://maps.gsi.go.jp/development/ichiran.html |
+| `g1984` | c604 | 不明 | PDL1.0（この事故） | 国土地理院 | https://maps.gsi.go.jp/development/ichiran.html |
+| `gnew` | c605 | 不明 | PDL1.0（この事故） | 国土地理院 | https://maps.gsi.go.jp/development/ichiran.html |
+| `m050429` | c104 | 2005 | PDL1.0（この事故） | 国土交通省（航空・鉄道事故調査委員会の発表） | https://www.mlit.go.jp/fukuchiyama/index.html |
+| `m050430` | c229 c808 | 2005 | PDL1.0（この事故） | 国土交通省（航空・鉄道事故調査委員会の発表） | https://www.mlit.go.jp/fukuchiyama/index.html |
+| `m050501_2` | c303 | 2005 | PDL1.0（頁） | 国土交通省（航空・鉄道事故調査委員会の発表） | https://www.mlit.go.jp/fukuchiyama/index.html |
+| `m050501_3` | c202 | 2005 | PDL1.0（頁） | 国土交通省（航空・鉄道事故調査委員会の発表） | https://www.mlit.go.jp/fukuchiyama/index.html |
+| `m050502` | c907 | 2005 | PDL1.0（この事故） | 国土交通省（航空・鉄道事故調査委員会の発表） | https://www.mlit.go.jp/fukuchiyama/index.html |
+| `m050506_3` | c203 | 2005 | PDL1.0（この事故） | 国土交通省（航空・鉄道事故調査委員会の発表） | https://www.mlit.go.jp/fukuchiyama/index.html |
+| `m050517` | c330 | 2005 | PDL1.0（この事故） | 国土交通省（航空・鉄道事故調査委員会の発表） | https://www.mlit.go.jp/fukuchiyama/index.html |
+| `m050524_2` | c409 ca17 | 2005 | PDL1.0（この事故） | 国土交通省（航空・鉄道事故調査委員会の発表） | https://www.mlit.go.jp/fukuchiyama/index.html |
+| `m050804` | c416 c921 | 2005 | PDL1.0（この事故） | 国土交通省（航空・鉄道事故調査委員会の発表） | https://www.mlit.go.jp/fukuchiyama/index.html |
+| `m050811` | c419 | 2005 | PDL1.0（頁） | 国土交通省（航空・鉄道事故調査委員会の発表） | https://www.mlit.go.jp/fukuchiyama/index.html |
+| `m050818` | c404 | 2005 | PDL1.0（頁） | 国土交通省（航空・鉄道事故調査委員会の発表） | https://www.mlit.go.jp/fukuchiyama/index.html |
+| `msikensoukou` | c804 ca21 | 不明 | PDL1.0（この事故） | 国土交通省（航空・鉄道事故調査委員会の発表） | https://www.mlit.go.jp/fukuchiyama/index.html |
+| `p_f05` | c601 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-2.pdf |
+| `p_f16_1b` | c806 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-4.pdf |
+| `p_f16_1h` | c324 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-4.pdf |
+| `p_f19_11` | c305 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `p_f22_1` | c213 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `p_f22_2` | c327 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `p_f24_1` | c307 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `p_f24_2` | c107 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `p_f24_3` | c321 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `p_f25_1` | c313 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `p_f25_2` | c315 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `p_f25_3` | c524 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `p_f27_2` | c607 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `p_f27_4` | c217 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `p_f28` | c209 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `p_f29` | c214 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `p_f35` | c513 | 2007 | 引用（第三者の資料）（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `p_f47` | c709 | 2003 | 引用（第三者の資料）（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-6.pdf |
+| `p_f48` | c706 | 2003 | 引用（第三者の資料）（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-6.pdf |
+| `p_f52` | c723 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-6.pdf |
+| `p_f73` | c618 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-7.pdf |
+| `p_f74` | c621 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-7.pdf |
+| `p_i01` | c923 | 2006 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/ikenrail/shiryou/20070201-an01-honbun.pdf |
+| `p_k05_1` | c805 | 2005 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/kyukengi/170906k.pdf |
+| `p_r0` | ca18 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/rep-acci/RA2007-3-1.pdf |
+| `p_r1_002` | c919 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-1.pdf |
+| `p_r1_030` | c410 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-1.pdf |
+| `p_r1_078` | c310 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-1.pdf |
+| `p_r1_220` | c519 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-1.pdf |
+| `p_r1_222` | c106 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-1.pdf |
+| `p_r1_230` | c711 ca01 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-1.pdf |
+| `p_r1_243` | c508 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-1.pdf |
+| `p_r1_264` | c501 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-1.pdf |
+| `p_s1_50` | ca14 | 2011 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/fukuchiyama/kensyou/fu04-finalreport.pdf |
+| `p_s1_53` | ca19 | 2011 | PDL1.0（頁・姓に升目） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/fukuchiyama/kensyou/fu04-finalreport.pdf |
+| `p_s1k_2` | c208 | 2011 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/fukuchiyama/kensyou/fu04-finalreport-annex-2-2.pdf |
+| `p_s1k_34` | c702 c716 | 2011 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/fukuchiyama/kensyou/fu04-finalreport-annex-2-2.pdf |
+| `p_s2_1` | c910 | 2017 | 著作権法13条（頁） | 裁判所 | https://www.courts.go.jp/assets/hanrei/hanrei-pdf-86834.pdf |
+| `p_s2_5` | c912 | 2017 | 著作権法13条（頁） | 裁判所 | https://www.courts.go.jp/assets/hanrei/hanrei-pdf-86834.pdf |
+| `p_s3_62` | c905 | 2012 | 著作権法13条（頁） | 裁判所 | https://www.courts.go.jp/assets/hanrei/hanrei-pdf-82178.pdf |
+
+### 2. 地図の衛星写真（Google マップ）
+- c101・c328・c517・ca23・cb03＝Google マップの衛星写真（束の外＝`cuts/ss.SAT`）。出典は画面の地図の右下の帰属の行（Google の地図の利用）＋出典の行「地図：Google マップの衛星写真（帰属は地図の右下）」。🔴 PNG は公開リポに置かない（git の外・md5 と出どころは `cuts/ss.SAT`・`GEO`）

@@ -914,6 +914,11 @@ def ep25_credit(name):
     """`ref/ep25/` の名前から出典表記を作る。当てはまらなければ None。"""
     if not name.startswith("ep25/"):
         return None
+    if name.startswith("ep25/photo/gmap_"):
+        # 🆕 ⑤b-2（2026-10-25）：衛星写真（地図のカット c101 ほか）＝出典の行は表 `cuts/ss.SAT` の credit（17・22・23本目の枝と同じ＝⑤b-1 で24本目から
+        #    写したとき枝が無く、c101 を書いたら門番 layout・echo・dup が KeyError で止まった）。帰属の行そのものは地図の右下に残す（Google の決まり）
+        import cuts.ss as _ss
+        return next((v["credit"] for v in getattr(_ss, "SAT", {}).values() if v["file"] == name), None)
     m = re.fullmatch(r"ep25/(?:stock/)?fb_(c[0-9a-f]{3}(?:~t)?)\.jpg", name)     # 映像のひかえの静止画＝出典は映像と同じ（19本目 ⑤b-2 の型）
     if m:
         import footage as _FO
