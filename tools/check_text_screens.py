@@ -157,12 +157,15 @@ def pic_kinds(s, stock=False, assets=None):
         # 🆕 2026-10-11（20本目 ⑤b-7）：報告書の付図（F4・別添1 の A1F1）と解説の図（K-kz018）も資料の図＝写真（20%の数）に数えない。
         #   台帳 assets.json の code（`qa_out/ep20_assets.py` の記号＝映像方針の一覧の素材の欄）で見分ける（名前の字面でなく記録）。
         #   写真（P・A1P）は今までどおり写真
-        if re.fullmatch(r"(A1)?F\d+|K-k[zh]\d+", code):
+        #   🔴 2026-10-25（25本目 ⑤b-1）：この記号の網は**20本目の束の記号**＝25本目の報告書の付図の**写真**（F12＝付図12 の現場の空撮・F75＝付図75 の分岐器の写真＝
+        #   映像方針の種類「実写」）にも当たって「頁」に数えてしまう＝20本目の束の名（`ep20/`）だけに絞った（回ごとの資料の図の記号＝§0b）。
+        #   25本目の頁は束の台帳の `page: true`（上）で見分ける
+        if str(photo).startswith("ep20/") and re.fullmatch(r"(A1)?F\d+|K-k[zh]\d+", code):
             return {"図・写真の頁"}
         # 🆕 2026-10-14（22本目 ⑤b-2）：NTSB の報告書のグラフ（図21＝潜航ごとのひずみ・ca17〜ca18／図19＝深さの記録）も資料の図＝写真に数えない。
         #   束にするなら記号は N19・N21（`qa_out/ep22_assets.py`＝sources22 の記号の形）。NTSB の写真（N08〜N18＝回収片・台）は写真のまま。
         #   頁（`pg` の名）で作るなら上の `/pg` で図・写真の頁になる
-        if re.fullmatch(r"N(19|21)", code):
+        if str(photo).startswith("ep22/") and re.fullmatch(r"N(19|21)", code):     # 🔴 25本目 ⑤b-1：22本目の束の名だけに絞った（上と同じ理由）
             return {"図・写真の頁"}
         return {"写真"}
     return None

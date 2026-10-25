@@ -148,20 +148,24 @@ CSS = ""
 #    （c1〜c9・ca・cb・cc＝242カット）＝`cuts/__init__.CHAPTER_FILES` に cc を足し、`NCH` は 11 のまま。つかみ（c1＝c101〜c107）は章の札なし。
 #    扉は c201〜cc01 の11枚（音の側と同じ＝check_script.door_key・24本目は INNER_CARDS なし）。
 #    ⚠️ 長い章名（第7章「1986年8月、ウィーン」・第9章「書き直された結論」）は右上の章の札の幅を焼いた絵で見る
+# 🔴 2026-10-25（25本目 ⑤b-1）：JR福知山線脱線事故へ差し替え。24本目の章名は git の `7ae693a1`。
+#    正本＝repo `ref/ep25/daihon_v2.md` §4 の `### 第N章　…`（`（` の手前まで）＝映像方針の一覧 `list25.tsv` の chap。**25本目は つかみ＋10章**
+#    （c1〜c9・ca・cb＝242カット）＝`cuts/__init__.CHAPTER_FILES` から cc を外し、`NCH` を 10 に。つかみ（c1＝c101〜c107）は章の札なし。
+#    扉は c201〜cb01 の10枚（音の側と同じ＝check_script.door_key・25本目は INNER_CARDS なし）。
+#    ⚠️ 長い章名（第6章「間に合わなかったATS」・第8章「有罪になった人はいない」・第9章「「優先的に」の一語」）は右上の章の札の幅を焼いた絵で見る
 CHAPTERS = {
-    "c2": (1, "4号炉の試験"),
-    "c3": (2, "延期された試験"),
-    "c4": (3, "0時28分"),
-    "c5": (4, "外された保護"),
-    "c6": (5, "1時23分"),
-    "c7": (6, "3キロ先の町"),
-    "c8": (7, "1986年8月、ウィーン"),
-    "c9": (8, "止める棒の先"),
-    "ca": (9, "書き直された結論"),
-    "cb": (10, "31人と30人"),
-    "cc": (11, "石棺のその後"),
+    "c2": (1, "伊丹駅の72メートル"),
+    "c3": (2, "脱線までの2分44秒"),
+    "c4": (3, "5両の脱線と107人"),
+    "c5": (4, "報告書の答え"),
+    "c6": (5, "半径304メートル"),
+    "c7": (6, "間に合わなかったATS"),
+    "c8": (7, "変わった決まり"),
+    "c9": (8, "有罪になった人はいない"),
+    "ca": (9, "「優先的に」の一語"),
+    "cb": (10, "祈りの杜"),
 }
-NCH = 11
+NCH = 10
 
 
 def chapter_of(cid):
@@ -260,18 +264,25 @@ def chapter_of(cid):
 #    セピア＝4月25日とその夜の記録の章（延期された試験・外された保護）・赤銅＝壊れる・失う章（1時23分・31人と30人）・
 #    白黒＝報告書の章（1986年8月、ウィーン・書き直された結論）・紺＝仕組みと記録の図解（4号炉の試験・0時28分・3キロ先の町・止める棒の先・石棺のその後）。
 #    ⚠️ 写真の色味は原本のまま（`build_jiko.PHOTO_KEEP_EP` の ep24＝1.0）＝章の色は図の層だけに効く。
+# 🔴 2026-10-25（25本目 ⑤b-1）：24本目の11件（git の `7ae693a1`）から差し替えた＝10章（つかみ c101〜c107 は章が無い＝navy）。
+#    Claude の推奨（カズヤくんに見せて変えてよい）。選び方は14〜24本目と同じ＝章の中身で色を選び、`check_palette.de` で隣の章の差が
+#    DE_MIN 13 以上になる並び（4色の差の実測＝紺とセピア 20.9・紺と赤銅 26.5・紺と白黒 14.5・セピアと赤銅 17.6・赤銅と白黒 17.6・🔴 セピアと白黒 6.5＝隣に置けない）。
+#    25本目の役の色は映像方針で決めていない＝17・22〜24本目と同じく青緑（teal）と夜の藍（night）は使わない＝紺・白黒・赤銅・セピアの4色。
+#    セピア＝その朝と経過の記録の章（脱線までの2分44秒・間に合わなかったATS＝設置の遅れの経過）・赤銅＝壊れる・失う章（5両の脱線と107人・
+#    「優先的に」の一語＝調べる側から漏れて信頼を失った）・白黒＝書類の章（報告書の答え・有罪になった人はいない＝判決）・
+#    紺＝線路と仕組みの図解（伊丹駅の72メートル・半径304メートル・変わった決まり・祈りの杜＝今の現場）。
+#    ⚠️ 写真の色味は原本のまま（`build_jiko.PHOTO_KEEP_EP` の ep25＝1.0）＝章の色は図の層だけに効く。
 CHAPTER_PALETTE = {
-    "4号炉の試験": "navy",                     # RBMK の炉と試験の計画＝仕組みの図
-    "延期された試験": "sepia",                 # 4月25日の延期と出力の記録
-    "0時28分": "navy",                         # 出力が落ちた＝出力と棒の図解
-    "外された保護": "sepia",                   # 外した保護と違反＝その夜の記録
-    "1時23分": "copper",                       # 爆発＝破壊
-    "3キロ先の町": "navy",                     # プリピャチの避難＝地図と時刻の図解
-    "1986年8月、ウィーン": "mono",             # 1986年8月のソ連の報告と INSAG-1＝書類
-    "止める棒の先": "navy",                    # 止める棒の押しのけ棒と正のスクラム＝仕組みの図
-    "書き直された結論": "mono",                # 1991年の委員会と1992年の INSAG-7＝書類
-    "31人と30人": "copper",                    # 亡くなった人の数＝失う
-    "石棺のその後": "navy",                    # 石棺と新しい覆い＝その後の図解
+    "伊丹駅の72メートル": "navy",              # 伊丹駅の行き過ぎ＝距離と位置の図解
+    "脱線までの2分44秒": "sepia",              # その朝の経過＝秒の記録
+    "5両の脱線と107人": "copper",              # 脱線と犠牲＝壊れる・失う
+    "報告書の答え": "mono",                    # 報告書の結論＝書類
+    "半径304メートル": "navy",                 # 曲線の付け替え＝線路の図解
+    "間に合わなかったATS": "sepia",            # ATS の設置の遅れ＝経過の記録
+    "変わった決まり": "navy",                  # 国の決まりと仕組み＝図解
+    "有罪になった人はいない": "mono",          # 裁判＝判決の書類
+    "「優先的に」の一語": "copper",            # 漏れた報告書の案＝信頼を失う
+    "祈りの杜": "navy",                        # 今の現場＝その後の図解
 }
 
 
@@ -854,6 +865,67 @@ def ep19_credit(name):
 
 
 # ══════════════════════════════════════════════════════════
+#  25本目（JR福知山線脱線事故）── `ref/ep25/`（2026-10-25 ⑤b-1）
+# ══════════════════════════════════════════════════════════
+#   ep25/<欄の名>.jpg … 写真（報告書 RA2007-3 の付図の写真〈運輸安全委員会〉・国交省の頁の写真〈PDL1.0〉・Commons 5〈CC BY 3.0・CC0〉・
+#                        Google の衛星写真・国土地理院の空中写真・報告書／発表／判決の頁）＝映像方針の一覧 `ref/ep25/eizou_list25.md`（了承②）
+#   ep25/stock/…      … イメージ（この事故の物でないフリー素材＝Pexels・20% に数えない・概要欄にクレジットを書かない）
+# 🔴 表はファイルから読む（ルール 0b-34①）。`ref/ep25/credits.json` は写真の束のチャット（⑤b-2 以降）で書く（無いあいだは空＝当たらない）。
+#    ⚠️ 名前が当たらないときは None → 最後の `PHOTO_CREDIT[...]` で KeyError（fail closed）。人は役職だけ（①の承認）。
+#    🔴 作者の名前は git の外の表 `ref/ep25/src/credits_private.tsv`（映像方針＝列 source・no・title・license・author・credit_or_source_url・
+#       Commons の記号 `C<no>` が行 `commons <no>` に当たる＝CC BY 3.0 の C3 だけが作者を出す）＝画面の出典の行に作者の名前を出す点は
+#       credits.json に印 `{作者}` だけを書き、焼くときにここで足す（17・23・24本目の型・公開リポに名前を積まない）。
+#    ⚠️ 表の作者欄はタグを外した字＝名乗りの短い形（24字まで）へ整えてから使う（24本目 `_ep24_short` と同じ決まり）
+_EP25_CREDITS = HERE / "ref" / "ep25" / "credits.json"
+EP25_CREDIT = (json.loads(_EP25_CREDITS.read_text(encoding="utf-8"))
+               if _EP25_CREDITS.exists() else {})
+_EP25_AUTHOR = "{作者}"
+_EP25_PRIVATE = HERE / "ref" / "ep25" / "src" / "credits_private.tsv"
+
+
+def _ep25_author(name):
+    import csv
+    import html as _html
+    import os
+    if not _EP25_PRIVATE.exists():
+        if os.environ.get("GITHUB_ACTIONS") == "true":
+            return EP23_AUTHOR_STANDIN                  # 検品の試し焼きだけ（本編は Modal＝表を保管庫から取る）
+        raise RuntimeError(f"{name}: 出典の行に作者の名前が要るのに git の外の表 ref/ep25/src/credits_private.tsv が無い"
+                           "（Modal は保管庫 jiko-assets の ref/ep25/src/ に置く）＝印のまま焼かない")
+    code = json.loads((HERE / "ref" / "ep25" / "assets.json").read_text(encoding="utf-8"))[name[len("ep25/"):-len(".jpg")]]["code"]
+    m = re.fullmatch(r"C(\d+)", code)
+    if not m:
+        raise RuntimeError(f"{name}（{code}）: 作者の名前を出す点は Commons の記号（C<番号>）だけ＝表の行に当てられない")
+    rows = [r for r in csv.reader(_EP25_PRIVATE.open(encoding="utf-8"), delimiter="\t") if r]
+    head = rows[0]
+    row = {(r[0], r[1]): dict(zip(head, r)) for r in rows[1:] if len(r) >= 2}.get(("commons", m.group(1))) or {}
+    who = " ".join(_html.unescape(re.sub(r"<[^>]+>", "", row.get("author", ""))).split())     # 17本目 ⑥ の落とし穴（タグが残ると行が切れる）
+    if not who:
+        raise RuntimeError(f"{name}（{code}）: git の外の表に作者欄が無い")
+    if re.search(r"[<>&]", who):
+        raise RuntimeError(f"{name}（{code}）: 作者欄に SVG にそのまま書けない字が残る（{len(who)}字）＝焼かない")
+    s = re.sub(r"\s*\([^()]*\)\s*$", "", who.split(" / ")[0]).strip()
+    if not s or len(s) > 24:
+        raise RuntimeError(f"{name}（{code}）: 作者の名乗りが短い形にならない（{len(s)}字）＝表の作者欄を確かめる")
+    return s
+
+
+def ep25_credit(name):
+    """`ref/ep25/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if not name.startswith("ep25/"):
+        return None
+    m = re.fullmatch(r"ep25/(?:stock/)?fb_(c[0-9a-f]{3}(?:~t)?)\.jpg", name)     # 映像のひかえの静止画＝出典は映像と同じ（19本目 ⑤b-2 の型）
+    if m:
+        import footage as _FO
+        u = _FO.USE.get(m.group(1))
+        return _FO.CLIPS[u["clip"]]["credit"] if u else None
+    v = EP25_CREDIT.get(name)
+    if v and _EP25_AUTHOR in v:
+        v = v.replace(_EP25_AUTHOR, _ep25_author(name))
+    return v
+
+
+# ══════════════════════════════════════════════════════════
 #  24本目（チェルノブイリ原発事故）── `ref/ep24/`（2026-10-22 ⑤b-1）
 # ══════════════════════════════════════════════════════════
 #   ep24/<欄の名>.jpg … 写真（IAEA 0279〈CC BY-SA 2.0＝額装〉・Commons〈PD・CC0・CC BY・BY-SA〉・USGS の衛星写真〈PD〉・報告書と会議録の頁）
@@ -1371,7 +1443,7 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep24_credit(spec["photo"]) or ep17_credit(spec["photo"]) or ep23_credit(spec["photo"]) or ep22_credit(spec["photo"]) or ep21_credit(spec["photo"]) or ep20_credit(spec["photo"]) or ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
+    cr = (ep25_credit(spec["photo"]) or ep24_credit(spec["photo"]) or ep17_credit(spec["photo"]) or ep23_credit(spec["photo"]) or ep22_credit(spec["photo"]) or ep21_credit(spec["photo"]) or ep20_credit(spec["photo"]) or ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
           or ep14_credit(spec["photo"])
           or ep13_credit(spec["photo"])
           or ep12_credit(spec["photo"])
