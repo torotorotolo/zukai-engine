@@ -2516,16 +2516,14 @@ def judge_s7(sc, where):
 # ══════════════════════════════════════════════════════════
 # 🔴 記録の値は門番の側に持つ（§5b-88＝illu24 の定数を読まない）。幾何は描く側の部品の geo と SVG（描いた値）から読む。
 #    頁は cuts.ss.REC_DOCS の通し番号（S1＝INSAG-7 の PDF の頁・S3＝2000＋・L2＝3000＋）
-REC_N1 = dict(count=("1,660", "S1 p113（There were 1660 fuel channels）"), hd=(7.0, 11.8, "S1 p16（height 7 m, diameter 11.8 m）"))
-REC_N2 = dict(core=(700.0, "S1 p16（height 7 m）"), water=(125.0, "S1 p14（1.25 m of water at either end）・S1 p15（図1 (a)＝125）"),
-              disp=(450.0, "S1 p15（図1 (a)＝450）"), gap=(20.0, "S1 p15（図1 (a)＝20）"),
-              speed=(40.0, "S1 p113（at a speed of 0.4 m/s）"), sec=(3.0, "S1 p65（01:23:40 → 01:23:43）"))   # 速さは cm／秒
-REC_N3 = dict(am={"1:06": {"31本"}, "3:47": {"1,600MW"}, "7:10": {"13.2本"}, "14:00": set(), "23:10": {"26本"}},   # 表I-I p63
-              night={"0:05": {"720MW"}, "0:28": {"500MW", "30MW"}},                                          # 表I-I p63・S3 p2020
-              split={"1:00": "ソ連の報告", "1:03": "INSAG-7"},          # 200MW で止まった時刻＝S3 p2020「1:00」⇔ 表I-I p64「01.03」
-              split_val="200MW", rule={"26", "30", "15"}, below=15.0,    # 付属書I p89「not less than 26-30 rods」「falls to 15 rods」
-              plan={"700", "1,000", "20", "1"})                         # S3 p2020「700-1000 MW(th)」・台本 §9（30÷700）
-REC_N4 = dict(bus="約1,200台", times=("14:00", "17:00"))                  # L2 p3024「nearly 1,200 buses」「began at 14:00 and finished at 17:00」
+# 🔴 2026-10-25（25本目 ⑤b-1・§0b）：24本目の値（N1〜N4 の記録＝管の数・炉の寸法・棒の速さ・出力の時刻表・バスの数と避難の時刻）は selftest の見本
+#    `tools/fixture_ep24.py` の REC_N1〜REC_N4 へ移した（値は1つも変えていない＝git の `7ae693a1`）。selftest `selftest_ep24` は見本の表と24本目の章ファイル
+#    （`fixture_ep24.apply_cuts()`）を差し込んで回す。空のあいだ置き場 N1〜N4 の場面は `judge_n24` が「記録の表が空」で止める（fail closed）。
+#    型（N24_PLACES・N24_MARK・judge_n24・illu24.py）は残した＝25本目の案C の置き場は N1〜N4 と別の名で（illu24 が N1〜N4 を登録している）
+REC_N1 = {}
+REC_N2 = {}
+REC_N3 = {}
+REC_N4 = {}
 N24_PLACES = ("N1", "N2", "N3", "N4")
 N24_MARK = dict(N1="㊳", N2="㊴", N3="㊵", N4="㊶")
 N24_BAD_IDS = ("fire", "flame", "smoke", "blast", "explo", "debris", "turbine")
@@ -2573,6 +2571,9 @@ def judge_n24(sc, where):
     """㊳ N1・㊴ N2・㊵ N3・㊶ N4（24本目）。共通＝爆発・火・煙・壊れた物・タービンの部品なし・人は N4 の群れだけ・絵の字の時刻も表の値だけ"""
     if sc["place"] not in N24_PLACES:
         return [], 0
+    if not (REC_N1 and REC_N2 and REC_N3 and REC_N4):
+        # 🆕 2026-10-25（25本目 ⑤b-1・§0b）：表は見本 fixture_ep24 へ移した＝空のまま N1〜N4 の場面を測らない（KeyError で落ちる前に理由を出す）
+        return [f"{N24_MARK[sc['place']]}{where}：記録の表 REC_N1〜REC_N4 が空（24本目の値は見本 fixture_ep24＝本番で置き場 {sc['place']} は使えない）"], 1
     bad, n = [], 1
     pl = sc["place"]
     mk = N24_MARK[pl]
@@ -2897,8 +2898,24 @@ def _judge_n4(sc, where, geo, tags, G):
 
 
 def selftest_ep24():
-    """🆕 24本目 ⑤b-3（2026-10-22）：㊳ N1・㊴ N2・㊵ N3・㊶ N4 の検算＝本番の表（24本目の値）のまま。正しい場面（24本目の SPEC）が通り、
-    わざと壊した場面（陽性対照）が㊳〜㊶で落ちること。描く側の定数を壊す対照は、終わったら必ず戻す（try/finally）"""
+    """🆕 24本目 ⑤b-3（2026-10-22）：㊳ N1・㊴ N2・㊵ N3・㊶ N4 の検算。正しい場面（24本目の SPEC）が通り、
+    わざと壊した場面（陽性対照）が㊳〜㊶で落ちること。描く側の定数を壊す対照は、終わったら必ず戻す（try/finally）
+    ✅ 2026-10-25（25本目 ⑤b-1・§0b）：本番の表（cuts.ss の REC_DOCS・ILLU_* ／この門番の REC_N1〜REC_N4）は25本目の空の器にした＝24本目の値は
+       見本 `fixture_ep24`（17本目の selftest_ep17 と同じ作り）。差し込んだら原文の頁の読み込み `_pages()`（lru_cache）を捨てて24本目の原文を読み直し、戻したらまた捨てる。
+       正しい場面の SPEC は24本目の章ファイル（`apply_cuts()`＝git の `7ae693a1`）から読む＝落ちても終わっても `restore()` で本番の値（と25本目の PLAN・SPEC）へ戻す。本体は `_selftest_ep24`"""
+    import fixture_ep24
+    fixture_ep24.apply(sys.modules[__name__])
+    _pages.cache_clear()          # 🔴 原文の頁の読み込みは覚えている（lru_cache）＝本番の（空の）原文を捨てて24本目を読み直す
+    try:
+        fixture_ep24.apply_cuts()
+        return _selftest_ep24()
+    finally:
+        fixture_ep24.restore()
+        _pages.cache_clear()
+
+
+def _selftest_ep24():
+    """24本目 N1〜N4（㊳〜㊶）の検算の本体（`fixture_ep24` の `apply(gate)`＋`apply_cuts()` を差し込んだ中で呼ぶ）。"""
     import copy
     import cuts
     import illu24 as I24
@@ -4643,7 +4660,7 @@ def _selftest_ep17():
 
 def selftest():
     """物差しの検算。正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。"""
-    ok24 = selftest_ep24()        # 🆕 24本目 ⑤b-3（2026-10-22）：本番の表（24本目の値）のまま＝見本の差し込みより前に回す
+    ok24 = selftest_ep24()        # 🆕 24本目 ⑤b-3（2026-10-22）。2026-10-25〜：24本目も見本 fixture_ep24 の表＝selftest_ep24 が差し込んで・終わったら戻す
     ok17 = selftest_ep17() and ok24   # 🆕 17本目 ⑤b-3（2026-10-20）。2026-10-22〜：17本目も見本 fixture_ep17 の表＝selftest_ep17 が差し込んで・終わったら戻す
     ok20 = selftest_ep20() and ok17   # 🆕 20本目 ⑤b-3（2026-10-08）。2026-10-12〜：20本目も見本 fixture_ep20 の表＝selftest_ep20 が差し込んで・終わったら戻す
     ok19 = selftest_a1() and ok20  # 🆕 19本目 ⑤b-2（2026-10-08〜：見本 fixture_ep19 の表＝selftest_a1 が差し込んで・終わったら戻す）

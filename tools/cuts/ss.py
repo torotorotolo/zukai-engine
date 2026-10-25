@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-"""24本目（チェルノブイリ原発事故）の章ファイルが共通で使う小道具。
+"""25本目（JR福知山線脱線事故）の章ファイルが共通で使う小道具。
 
+**24本目（チェルノブイリ原発事故・1986-04-26）の中身は git の `7ae693a1`（この ss.py・門番・章ファイルの最後の版）にある**
+（`git show 7ae693a1:tools/cuts/ss.py`）。
 **17本目（中華航空140便墜落事故・1994-04-26）の中身は git の `2cc5e5ab`（この ss.py・門番・章ファイルの最後の版）にある**
 （`git show 2cc5e5ab:tools/cuts/ss.py`）。
 **23本目（三豊百貨店崩壊事故のリメイク・1995-06-29）の中身は git の `b800dbdb`（この ss.py・門番・章ファイルの最後の版）にある**
@@ -19,7 +21,13 @@
 12本目（キャッスル・ブラボー）は `3832147`、11本目（チャレンジャー号）は `61039d2`、10本目（三豊百貨店）は `46f11b3`、
 9本目（テネリフェ）は `e18b8f1`、8本目は `4c71bf0`、7本目は `ae30d49`。
 
-🔴 **⑤b-1（2026-10-22・24本目）で空にした**＝§0b（その2）。17本目の型の値（案C の出典の表 REC_DOCS〈報告書・付図29・付図4・付図5・判決の5資料〉・
+🔴 **⑤b-1（2026-10-25・25本目）で空にした**＝§0b（その2）。24本目の型の値（案C の出典の表 REC_DOCS〈S1・S2・S3・L2・L1 の5資料〉・原文の道 REC_PAGES〈ep24_pages.txt＝手元にある〈git の外〉〉・
+割れる時刻 ILLU_SPLIT_TIMES〈1:00・1:03〉・群れの時刻の上限 ILLU_CROWD_UNTIL〈17:00〉・置いてよい役割 ILLU_ROLES〈住民の群れ〉・時計の時刻 ILLU_CLOCK_OK〈8〉・
+「衛星写真の地図なし」の言い分 SAT_NONE・台紙の縁でない暗い帯の名簿 SLIDE_NOT_MOUNT〈10点〉）は、門番の selftest の見本 `tools/fixture_ep24.py` へ移した
+（値は1つも変えていない＝git の `7ae693a1` と同じ）。本番の ss は25本目の空の器（REF／EP＝ep25・REC_PAGES＝ep25_pages.txt＝まだ無い・SAT_NONE＝None＝🔴 25本目の地図は衛星写真）。
+型の道具と、束ごとに取り直す定数 `PANEL_AR`（24本目の値 1.08 のまま＝25本目の束で取り直す）・`SAT_CREDIT`・`MIN_FULL_W` は残した。
+
+（以下は ⑤b-1〈2026-10-22・24本目〉のとき）17本目の型の値（案C の出典の表 REC_DOCS〈報告書・付図29・付図4・付図5・判決の5資料〉・
 原文の道 REC_PAGES〈ep17_pages.txt＝手元にある〈git の外〉〉・割れる時刻 ILLU_SPLIT_TIMES〈20:16〉・札に出してよい秒 ILLU_SEC_OK〈4〉・時計の時刻 ILLU_CLOCK_OK〈3〉・描いてよい数 ILLU_COUNTS〈5〉・
 想定の札 ILLU_ASSUME〈ca11〉・軸の型〈AX_Y17・AX_M17・AX_S17・AX_F17・AX_J17・AXI の項目 23＝c314・c420・c809・cb15 ほか〉・
 地図の表〈SAT＝国土地理院の空中写真 A87 と Google の衛星写真 G1・G2・G3・G5・G6 の6点・GEO＝場所9点〉・顔だけモザイクの名簿 NEEDS_MASK〈1点＝arf〉・
@@ -115,8 +123,8 @@ from functools import lru_cache
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parents[2]
-REF = HERE / "ref" / "ep24"
-EP = "ep24/"
+REF = HERE / "ref" / "ep25"        # 🔴 §0b：回の名に結んだ束の置き場（2026-10-25 25本目 ⑤b-1 で ep24 → ep25）
+EP = "ep25/"
 W, H = 1920, 1080
 
 # 画面の縦横比。これより縦長／横長の図は額装パネルに回す。
@@ -640,19 +648,12 @@ SLIDE_MOUNT: dict[str, str] = {}
 #       SLIDE_MOUNT を、無ければ暗い帯のある点を SLIDE_NOT_MOUNT に理由つきで書く（鍵は `P("名")` で書けば EP が追う＝回の名に化けない）
 #    🆕 2026-10-22（24本目 ⑤b-2）：束の全85点を `python qa_out/ep24_assets.py edges` で測り、MIN_EDGE 以上の9点を並べて見た（scratchpad `edges9.jpg`・1点 600 幅）
 #       ＝どれも写真の中身（スライドの台紙の縁は0点＝SLIDE_MOUNT は空のまま）。BY-SA の8点は額装だけ（門番は額装を見ない）・igb は CC0 で全画面になりうる
-SLIDE_NOT_MOUNT: dict[str, str] = {
-    P("cr3b"): "右 2.2%＝3号機の制御室の右の暗がりと椅子（写真の中身・BY-SA＝額装）",
-    P("i18"): "下 1.4%＝ヘリの乗員の黒い服と草の陰（写真の中身・BY-SA＝額装）",
-    P("i24"): "下 3.1%＝壊れた4号機の手前の壁の下の陰（写真の中身・BY-SA＝額装）",
-    P("i25"): "右 4.8%＝標識の右の森の暗がり（写真の中身・BY-SA＝額装）",
-    P("i36"): "下 4.9%＝発電所の手前の森（写真の中身・BY-SA＝額装）",
-    P("i40"): "右・下 5.0%＝溶接の暗い作業場（写真の中身・BY-SA＝額装）",
-    P("i45"): "下 5.0%＝視察の一行の黒い背広（写真の中身・BY-SA＝額装）",
-    P("i56"): "上 5.0%＝記者会見の会場の暗い天井（写真の中身・BY-SA＝額装）",
-    P("igb"): "下 5.0%＝夕暮れのイグナリナ原発の前の暗い舗装（写真の中身・CC0）",
-    # 🆕 ⑤b-7（10-23）：頁＝c619 の切り口（y 0.743〜0.912）の外の帯＝画面に出ない（引用＝額装）
-    P("s1p65"): "上 4.3%＝INSAG-7 p.65 の頁の上の端の暗い帯（c619 の切り口 y 0.743〜0.912 の外・額装）",
-}
+#    🔴 2026-10-25（25本目 ⑤b-1・§0b）：24本目の10点（BY-SA の写真8点の写真の中身の暗がり・igb の夕暮れの舗装・s1p65 の頁の上の端＝どれも写真か頁の中身で
+#       台紙の縁は0点）は見本 `tools/fixture_ep24.py` の SLIDE_NOT_MOUNT へ移した（`ep24/` の名を文字で書いた・説明は1字も変えていない＝git の `7ae693a1`。
+#       束の全85点を `python qa_out/ep24_assets.py edges` で測った結果）。⚠️ SLIDE_MOUNT も SLIDE_NOT_MOUNT も空のあいだ、門番 check_photo_edge は「SLIDE_MOUNT が空」で
+#       止まる（fail closed）＝25本目の束のチャットで、台紙の縁のある写真があれば SLIDE_MOUNT を、無ければ暗い帯のある点を SLIDE_NOT_MOUNT に理由つきで書く
+#       （鍵は `P("名")` で書けば EP が追う＝回の名に化けない）
+SLIDE_NOT_MOUNT: dict[str, str] = {}
 
 # 🆕 2026-10-13（21本目 ⑤b-7）：**原寸で見て字でないと決めた OCR の範囲**（OCR の読み置きのファイル名 → [((x0, y0, x1, y1)＝束の画素, 何か)]）。
 #    `check_slide.load_ocr` がこの中に真ん中のある行を外す（外した行は「文字行と見なさなかった」の表に理由つきで出る）。
@@ -852,7 +853,9 @@ GEO = {}
 #    （国の形＝Natural Earth の切り出し `ref/ep24/make_map24.py`＝国の境・1986年の色・北方領土を描き分けるため。衛星写真には国の境が写らない）。
 #    門番 check_sat は、この文があるときだけ「地図のカット0」を通す（地図のカットが1つでもあれば、言い分と食い違う＝鳴る）。
 #    🔴 §0b：次の回で None に戻す（衛星写真の地図を作る回で残ると、地図の入れ忘れを素通りさせる）
-SAT_NONE = "24本目：地図2つ（c203・c713）は Natural Earth の国の形で描く（mech24 の ussr・japan）＝衛星写真の地図は使わない"
+# 🔴 2026-10-25（25本目 ⑤b-1・§0b）：None に戻した（24本目の文は見本 `tools/fixture_ep24.py` の SAT_NONE）。25本目は衛星写真の地図の回
+#    （記憶 feedback-jiko-maps-use-satellite＝25本目から衛星写真が既定・映像方針＝c101・c328・c517・ca23・cb03 の5カット）＝SAT・GEO は ⑤b で撮って足す
+SAT_NONE = None
 
 
 def sat(code, steps, note="", **kw):
@@ -881,24 +884,20 @@ def sat(code, steps, note="", **kw):
 #   通し頁＝`ref/ep24/make_pages24.py` の `ref/ep24/src/ep24_pages.txt`（git の外）：S1＝INSAG-7 の PDF の頁（印刷＝PDF−10）・S2＝1000＋PDF の頁（GC(SPL.I)/3＝INSAG-1・
 #   印刷の頁は「~N」の目安＝画面は PDF の頁）・S3＝2000＋PDF の頁（ソ連の報告・印刷＝PDF−4）・L2＝3000＋PDF の頁（UNSCEAR 2000 付属書J・印刷＝PDF＋448）・
 #   L1＝4000＋PDF の頁（フォーラム 2006・印刷＝PDF＋2）。台本の「S1 p.113／103」→ rec は「S1 p113」・画面は印刷の頁「103頁」
-REC_PAGES = REF / "src" / "ep24_pages.txt"      # 部品の出典（`rec=`）を当てる原文（git の外＝手元だけ）
-REC_DOCS = {                                # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
-    "S1": dict(range=(1, 148), name="INSAG-7（IAEA・1992年）", page="print", base=10),
-    "S2": dict(range=(1001, 1147), name="INSAG-1（IAEA・1986年）", page="pdf", base=1000),
-    "S3": dict(range=(2001, 2060), name="ソ連の報告（1986年8月）", page="print", base=2004),
-    "L2": dict(range=(3001, 3117), name="UNSCEAR 2000年報告 付属書J", page="print", base=2552),
-    "L1": dict(range=(4001, 4055), name="チェルノブイリ・フォーラム（2006年）", page="print", base=3998),
-}
-# 割れる時刻＝台本 §1-5：200MW で止まった時刻（S3 p.20「Only at 1:00 on 26 April」⇔ 表I-I p.64「01.03 … increased to 200 MW and stabilized」）・
-#   出力を下げ始めた時刻のソ連の報告の 1:00（S3 p.20「at exactly 1:00 hours」⇔ 表I-I p.63「01:06」＝台本は 1:06 に決め、1:00 は帰属つきで語りだけ）
-ILLU_SPLIT_TIMES = ("1:00", "1:03")
-ILLU_CROWD_UNTIL = "17:00"                  # 群れ（プリピャチの住民）を描いてよい場面の時刻の上限＝L2 p.24「the evacuation began at 14:00 and finished at 17:00」
-ILLU_ROLES = dict(sprite=(), crowd=("residents",))   # 置いてよい役割（門番 check_illu ②）＝24本目は住民の顔の無い群れだけ（案C4＝台本 §1-4）・型紙の影0
-ILLU_SEC_OK = {}                            # 札に出してよい秒＝{秒: 出典}（門番 check_illu ⑤）＝24本目の案C は秒の札を出さない
-# 札に出してよい時計の時刻（「時:分」まで）＝台本 §1-5 で1つに決めた値だけ：25日 1:06・3:47・7:10・14:00・23:10（表I-I p.63）／26日 0:05・0:28（表I-I p.63）／
-#   27日 14:00・17:00（L2 p.24 の避難の始めと終わり）
-ILLU_CLOCK_OK = ("1:06", "3:47", "7:10", "14:00", "23:10", "0:05", "0:28", "17:00")
-ILLU_COUNTS = {}                            # 描いてよい数＝{部品の obj の名: (数, 出典)}（門番 check_illu ③）＝24本目は数を名乗る物を描かない（管・棒・バスは数えられない形か模式）
+# 🔴 2026-10-25（25本目 ⑤b-1・§0b）：24本目の値（出典の表 REC_DOCS＝S1 INSAG-7・S2 INSAG-1・S3 ソ連の報告・L2 UNSCEAR 2000 付属書J・L1 チェルノブイリ・フォーラムの5資料・
+#    原文の道 REC_PAGES＝`ref/ep24/src/ep24_pages.txt`〈手元にある・git の外〉・割れる時刻 ILLU_SPLIT_TIMES〈1:00・1:03〉・群れの時刻の上限 ILLU_CROWD_UNTIL〈17:00〉・
+#    置いてよい役割 ILLU_ROLES〈住民 residents の群れ〉・時計の時刻 ILLU_CLOCK_OK〈8〉）は selftest の見本 `tools/fixture_ep24.py` へ移した（値は1つも変えていない＝git の `7ae693a1`）。
+#    25本目の値は、その型（案C-A〜F＝再現イラスト10カット）を初めて使う ⑤b のチャットで入れる（空のあいだ、その型を使うカットは門番・型が止まる＝fail closed）。
+#    頁の番号の書き方（PDF の頁・印刷の頁・資料をまたぐ通し番号 1000＋・2000＋）と資料の名の決め方は見本の REC_DOCS の注（24本目 ⑤b-3）。
+#    🔴 25本目の案C の置き場は N1〜N4（illu24）・C1〜C7（illu17）と別の名で。REC_PAGES の道は25本目（`ref/ep25/src/ep25_pages.txt`＝まだ無い）
+REC_PAGES = REF / "src" / "ep25_pages.txt"      # 部品の出典（`rec=`）を当てる原文（git の外＝手元だけ）
+REC_DOCS = {}                               # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
+ILLU_SPLIT_TIMES = ()                       # 割れる時刻（2つの資料で時刻が割れる所＝札は秒で見る）
+ILLU_CROWD_UNTIL = None                     # 群れを描いてよい場面の時刻の上限（None＝群れを描かない）
+ILLU_ROLES = dict(sprite=(), crowd=())      # 置いてよい役割（門番 check_illu ②）＝空の組なら、どの役割も置けない（fail closed）
+ILLU_SEC_OK = {}                            # 札に出してよい秒＝{秒: 出典}（門番 check_illu ⑤）
+ILLU_CLOCK_OK = ()                          # 札に出してよい時計の時刻（「時:分」まで）＝空なら時計の札を出せない
+ILLU_COUNTS = {}                            # 描いてよい数＝{部品の obj の名: (数, 出典)}（門番 check_illu ③）
 ILLU_ASSUME = {}                            # 想定の札を出すカット＝{カットID: 札の言葉}（門番 check_illu ④）
 ILLU_DESTROY_CUTS = ()                      # 壊れる物の部品を描いてよいカット（門番 check_illu ⑫＝空なら全部止める）
 ILLU_TOP_NOSCALE = {}                       # 縮尺を持たない模式の上から見た絵の置き場＝{置き場: 理由}（門番 check_illu ⑧ は縮尺の代わりに「人が0・模式の断り」を測る）
