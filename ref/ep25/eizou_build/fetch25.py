@@ -3,13 +3,16 @@
 
   python ref/ep25/eizou_build/fetch25.py public      公的な機関の素材（報告書の PDF から原画・頁・切り出し／国交省の写真）＝許可不要（10-25）
   python ref/ep25/eizou_build/fetch25.py commons     Commons（了承②のあと）＝標準の縮小版（1920）か原本（幅1920以下）・間をあける
+  python ref/ep25/eizou_build/fetch25.py stock [記号…]  🆕 ⑤b-3（10-25）：Pexels の映像（get＝stock:<置き場の直リンク>・カズヤくんの了承のあと）＝幅1920の版・間をあける
+                                                       記号を名指しするとその点だけ（第2候補に替えた点の取り直し）
   python ref/ep25/eizou_build/fetch25.py check       取った物の md5 を取り直して記録と比べる（落としかけを測らない＝2回目）
   python ref/ep25/eizou_build/fetch25.py --selftest
 
 get の書き方：raw:<PDF名>:<PDF頁>:<番号>（figcap25.tsv の頁の上の並びの番号の原画＝PDF の上の注記は入らない）／raw:mlit2005/<名>.pdf:<頁>:<大きさの順>
              crop:<PDF名>:<PDF頁>:<番号>（頁を描いて写真の矩形で切る＝注記こみ）／clip:<PDF名>:<PDF頁>:<x0,y0,x1,y1 pt＝見たままの向き>
              page:<PDF名>:<PDF頁>（頁を 200dpi で）／file:<src からの道>（手元の物を写す）／http:<URL>（HEAD→GET→大きさ→md5×2）
-             commons:1920｜commons:orig（了承②のあと）／tiles:・google:・stock:＝ここでは取らない（手元にある・⑤b-1・⑤b）
+             commons:1920｜commons:orig（了承②のあと）／stock:<URL>（Pexels の置き場の直リンク＝videos.pexels.com・HEAD→GET→大きさ→md5×2）／
+             tiles:・google:・stock:⑤b＝ここでは取らない（手元にある・⑤b-1・まだ選んでいない）
 出力＝ref/ep25/src/eizou/（写真）・src/eizou/pages/（頁）＝git の外。記録＝eizou_build/fetch25.tsv（code・how・file・px・bytes・md5・source）。
 原画の向き＝頁を描いた絵と4つの向きで比べて差の小さい向き（頁が90度回った付図・国交省の PDF）。名乗り（User-Agent）にメールや @ を入れない。
 """
@@ -166,7 +169,19 @@ def commons_url(page_url, how):
     return 'https://upload.wikimedia.org/wikipedia/commons/thumb/%s/%s/%s/1920px-%s' % (h[0], h[:2], q, q)
 
 
+def probe(p):
+    """映像の幅×高さ（ffprobe）＝px の欄"""
+    r = subprocess.run(['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=width,height', '-of', 'csv=p=0', p],
+                       capture_output=True, text=True)
+    w, h = (r.stdout.strip().split(',') + ['0', '0'])[:2]
+    if r.returncode or not w.isdigit():
+        raise SystemExit('ffprobe が読めない %s（%s）' % (p, r.stderr[-160:]))
+    return '%sx%s' % (w, h)
+
+
 def target(s):
+    if s['get'].startswith('stock:'):
+        return os.path.join(OUT, s['code'] + '.mp4')
     ext = '.jpg' if s['get'].startswith(('http:', 'commons:')) or s['file'].endswith('.jpg') else '.png'
     base = os.path.join(PAGES if '/pages/' in s['file'] else OUT, s['code'] + ext)
     return base
@@ -181,14 +196,18 @@ def log(rows):
             f.write('\t'.join(r) + '\n')
 
 
-def run(kind):
+def run(kind, only=None):
     os.makedirs(PAGES, exist_ok=True)
     rows, ng, want = [], 0, 0
     for s in read_sources():
         g = s['get']
+        if only and s['code'] not in only:          # 🆕 ⑤b-3：記号の名指し（第2候補に替えた点だけ取り直す）
+            continue
         if kind == 'public' and not g.startswith(('raw:', 'crop:', 'clip:', 'page:', 'file:', 'http:')):
             continue
         if kind == 'commons' and not g.startswith('commons:'):
+            continue
+        if kind == 'stock' and not g.startswith('stock:http'):
             continue
         want += 1
         out = target(s)
@@ -207,6 +226,9 @@ def run(kind):
             elif g.startswith('http:'):
                 how = do_http(g[5:], out)
                 time.sleep(2)
+            elif g.startswith('stock:'):
+                how = do_http(g[6:], out)
+                time.sleep(3)
             else:
                 url = commons_url(s['page'], g)
                 how = do_http(url, out)
@@ -215,11 +237,11 @@ def run(kind):
             print('NG', s['code'], e)
             ng += 1
             continue
-        im = Image.open(out)
+        px = probe(out) if g.startswith('stock:') else '%dx%d' % Image.open(out).size
         m1 = md5(out)
-        rows.append([time.strftime('%Y-%m-%d %H:%M:%S'), s['code'], how, os.path.relpath(out, EP).replace('\\', '/'), '%dx%d' % im.size,
+        rows.append([time.strftime('%Y-%m-%d %H:%M:%S'), s['code'], how, os.path.relpath(out, EP).replace('\\', '/'), px,
                      str(os.path.getsize(out)), m1, g])
-        print('OK', s['code'], how, '%dx%d' % im.size)
+        print('OK', s['code'], how, px)
     log(rows)
     print('取る物 %d・取れた %d・NG %d' % (want, len(rows), ng))
     return 1 if ng or len(rows) != want else 0
@@ -267,4 +289,4 @@ if __name__ == '__main__':
         sys.exit(selftest())
     if a[0] == 'check':
         sys.exit(check())
-    sys.exit(run(a[0]))
+    sys.exit(run(a[0], set(a[1:]) or None))

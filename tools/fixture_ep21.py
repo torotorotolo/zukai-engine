@@ -510,10 +510,38 @@ CUTS_SHA = "35fab37"       # 21本目の章ファイルが最後に live だっ�
 _CUTS21 = []               # 読んだ (PLAN, SPEC) を1回だけ覚える
 
 
+def _footage21():
+    """21本目の映像の台帳 `CLIPS`（`ref/ep21/clips.json`）と使う区間 `USE`・器の黒帯の割合 `PILLAR`（git の CUTS_SHA の `tools/footage.py` の `USE = {…}`・`PILLAR = {…}`）を返す。
+    🆕 2026-10-25（25本目 ⑤b-3）：21本目の章ファイルは `ss.vid`・`ss.head`・`ss.tailv` で `footage.CLIPS`・`footage.USE` を引く（台帳の `"stock": true` なら
+    「フリー素材に見出しは書かない」で止める）。本番の footage は25本目の表＝25本目のフリー素材 c713（X-blueprint）が USE に入ると、21本目の c713
+    （W606 の記録映像に見出しと副題）が読み込みで落ちる＝c7.py がまるごと BROKEN（PLAN は200を超えるので `cuts_ep21` は止まらない＝黙って欠ける）。
+    → 章ファイルを読む間だけ、この表を footage に差す（`cuts_ep21` が戻す＝17本目の `_footage17`・24本目の `_footage24` と同じ）。
+    footage.py の `USE`・`PILLAR` は値だけの代入＝その2文だけを取り出して評価する（footage.py 全体は import しない）。
+    ⚠️ 21本目の PILLAR は空（黒帯の器なし）＝空でも止めない。USE（11カット）と台帳が読めなければ止める"""
+    import ast
+    import json
+    import subprocess
+    p = subprocess.run(["git", "-C", str(ROOT), "show", f"{CUTS_SHA}:tools/footage.py"], capture_output=True)
+    if p.returncode != 0 or not p.stdout:
+        raise RuntimeError(f"🔴 21本目の映像の使う区間を git の {CUTS_SHA} の tools/footage.py から取り出せない（{p.stderr.decode('utf-8', 'replace')[:200]}）")
+    ns = {}
+    for node in ast.parse(p.stdout.decode("utf-8")).body:
+        if isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id in ("USE", "PILLAR") for t in node.targets):
+            exec(compile(ast.Module([node], []), f"footage_{CUTS_SHA}", "exec"), ns)
+    use, pillar = ns.get("USE"), ns.get("PILLAR")
+    clips_file = REF / "clips.json"
+    if not use or pillar is None or not clips_file.exists():
+        raise RuntimeError(f"🔴 21本目の映像の表が読めていない（USE {len(use or {})}・PILLAR {'無い' if pillar is None else len(pillar)}・"
+                           f"{clips_file} {'ある' if clips_file.exists() else '無い'}）")
+    return json.loads(clips_file.read_text(encoding="utf-8")), use, pillar
+
+
 def cuts_ep21():
     """21本目の章ファイル（git の CUTS_SHA の `tools/cuts/`）を読み、(PLAN, SPEC) を返す。
     作業場所の外（一時フォルダ）に取り出し、`cuts` の名で一度だけ読んでから、本番の `cuts` の読み込みへ戻す
-    （sys.modules と sys.path を元どおりにし、一時フォルダから読んだ module はすべて捨てる）。"""
+    （sys.modules と sys.path を元どおりにし、一時フォルダから読んだ module はすべて捨てる）。
+    読む間だけ `footage.CLIPS`・`footage.USE`・`footage.PILLAR` を21本目の表にする（`_footage21`＝本番の footage は25本目の表）。読み終えたら戻す。
+    🆕 2026-10-25（25本目 ⑤b-3）：読めなかった章ファイル（`cuts.BROKEN`）があれば止める（黙って欠けた SPEC を見本にしない＝fail closed）"""
     if _CUTS21:
         return _CUTS21[0]
     import importlib
@@ -524,6 +552,8 @@ def cuts_ep21():
     import sys
     import tarfile
     import tempfile
+    import footage as _FO
+    clips21, use21, pillar21 = _footage21()
     p = subprocess.run(["git", "-C", str(ROOT), "archive", CUTS_SHA, "tools/cuts"], capture_output=True)
     if p.returncode != 0 or not p.stdout:
         raise RuntimeError(f"🔴 21本目の章ファイルを git の {CUTS_SHA} から取り出せない（{p.stderr.decode('utf-8', 'replace')[:200]}）")
@@ -544,10 +574,14 @@ def cuts_ep21():
         for k in live:
             del sys.modules[k]
         sys.path.insert(0, str(tmp / "tools"))
+        keep_fo = (_FO.CLIPS, _FO.USE, _FO.PILLAR)
+        _FO.CLIPS, _FO.USE, _FO.PILLAR = clips21, use21, pillar21          # 章ファイルを読む間だけ（finally で戻す）
         try:
             old = importlib.import_module("cuts")
             got = (dict(old.PLAN), dict(old.SPEC))
+            broken = dict(getattr(old, "BROKEN", {}) or {})
         finally:
+            _FO.CLIPS, _FO.USE, _FO.PILLAR = keep_fo
             sys.path.remove(str(tmp / "tools"))
             for k in set(sys.modules) - before:
                 del sys.modules[k]
@@ -562,6 +596,8 @@ def cuts_ep21():
         shutil.rmtree(tmp, ignore_errors=True)
     if len(got[0]) < 200 or "c101" not in got[1]:
         raise RuntimeError(f"🔴 21本目の章ファイルが読めていない（PLAN {len(got[0])}・SPEC {len(got[1])}）")
+    if broken:
+        raise RuntimeError("🔴 21本目の章ファイルに読めないものがある＝" + "・".join(f"{k}（{type(e).__name__}: {str(e)[:120]}）" for k, e in broken.items()))
     _CUTS21.append(got)
     return got
 

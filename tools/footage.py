@@ -587,6 +587,24 @@ USE = {
     #   （narration.json の実測の秒・扉を除く＝⑤b-1）。取ったら `make_list25.py` を回し直して倍率の門番を通してから、欄は束のチャットで道具から書き出す
     #   （手で書かない）＝下の印のあいだ
     # EP25_USE>>> ここから（手で書かない）
+    "c210": dict(clip="X-depart", start=10.18, until=17.87, rate=1.0, zoom=1.2, xbias=0.0),   # ショット 4〜24秒・使える 7.69秒／要る 7.64秒
+    "c526": dict(clip="X-desk", start=12.91, until=22.14, rate=1.0),   # ショット 10〜25秒・使える 9.23秒／要る 9.18秒
+    "c532": dict(clip="X-training", start=8.40, until=15.71, rate=1.0),   # ショット 0〜19秒・使える 7.31秒／要る 7.26秒・壁の英語の貼り紙が入らない区間（0〜8秒は上の端に貼り紙の字）
+    "c707": dict(clip="X-train", start=0.30, until=8.53, rate=1.0, zoom=1.15, bias=0.0),   # ショット 0〜14秒・使える 8.23秒／要る 8.18秒・看板の少ない前半（後半は駐車場と店の看板が増える）
+    "c713": dict(clip="X-blueprint", start=1.09, until=8.96, rate=1.0),   # ショット 0〜10秒・使える 7.87秒／要る 7.82秒
+    "c715": dict(clip="X-signalwork", start=4.07, until=15.97, rate=1.0),   # ショット 0〜20秒・使える 11.90秒／要る 11.85秒
+    "c724": dict(clip="X-platform", start=4.30, until=12.93, rate=1.0),   # ショット 0〜34秒・使える 8.63秒／要る 8.58秒・JR西日本の電車が入らない区間（0.3秒の頭と16秒・21秒に JR西日本の電車）
+    "c726": dict(clip="X-clock", start=0.30, until=9.70, rate=0.75, zoom=1.2, bias=0.0),   # ショット 0〜10秒・使える 9.40秒／要る 12.52秒
+    "c810": dict(clip="X-signal", start=0.58, until=8.47, rate=1.0),   # ショット 0〜9秒・使える 7.89秒／要る 7.84秒
+    "c813": dict(clip="X-train2", start=1.84, until=8.21, rate=1.0),   # ショット 0〜10秒・使える 6.37秒／要る 6.32秒
+    "c902": dict(clip="X-court", start=3.02, until=11.04, rate=1.0, zoom=1.25, bias=1.0),   # ショット 0〜14秒・使える 8.02秒／要る 7.97秒
+    "c920": dict(clip="X-papers", start=3.05, until=11.00, rate=1.0),   # ショット 0〜14秒・使える 7.95秒／要る 7.90秒
+    "ca05": dict(clip="X-table", start=6.07, until=14.97, rate=1.0),   # ショット 0〜21秒・使える 8.90秒／要る 8.85秒
+    "ca10": dict(clip="X-phone", start=0.30, until=8.70, rate=0.93),   # ショット 0〜9秒・使える 8.40秒／要る 8.96秒
+    "ca11": dict(clip="X-meeting", start=1.37, until=8.68, rate=1.0),   # ショット 0〜10秒・使える 7.31秒／要る 7.26秒
+    "ca13": dict(clip="X-janken", start=6.30, until=12.70, rate=0.77),   # ショット 6〜13秒・使える 6.40秒／要る 8.22秒
+    "cb13": dict(clip="X-dusk", start=10.64, until=17.41, rate=1.0),   # ショット 0〜28秒・使える 6.77秒／要る 6.72秒
+    "cb14": dict(clip="X-arrive", start=3.25, until=9.79, rate=1.0),   # ショット 0〜13秒・使える 6.54秒／要る 6.49秒
     # EP25_USE>>> ここまで
 }
 # ⚠️ 2026-09-23（12本目 ⑤c' 直しE）：ここにあった前の回の注（9.11 の c621・c712／6本目キー橋の「まだ決まっていない

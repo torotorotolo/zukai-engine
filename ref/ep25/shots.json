@@ -1,0 +1,271 @@
+{
+ "X-depart": {
+  "src": "https://www.pexels.com/video/30423319/",
+  "scan": "ref/ep25/src/eizou/X-depart.mp4",
+  "dur": 34.0,
+  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.0,
+    "motion": 2.77
+   },
+   {
+    "start": 4.0,
+    "until": 24.0,
+    "motion": 4.32
+   },
+   {
+    "start": 24.0,
+    "until": 29.0,
+    "motion": 12.93
+   },
+   {
+    "start": 29.0,
+    "until": 32.0,
+    "motion": 13.67
+   },
+   {
+    "start": 32.0,
+    "until": 34.0,
+    "motion": 9.47
+   }
+  ]
+ },
+ "X-desk": {
+  "src": "https://www.pexels.com/video/7685212/",
+  "scan": "ref/ep25/src/eizou/X-desk.mp4",
+  "dur": 25.0,
+  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 27.47
+   },
+   {
+    "start": 10.0,
+    "until": 25.0,
+    "motion": 25.67
+   }
+  ]
+ },
+ "X-training": {
+  "src": "https://www.pexels.com/video/6935499/",
+  "scan": "ref/ep25/src/eizou/X-training.mp4",
+  "dur": 19.0,
+  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）・🔧 1ショットに直した（2・12秒の境目＝最大 1.6・中央値の 1.2倍＝ゆっくり動くカメラの続き）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 19.0,
+    "motion": 18.78
+   }
+  ]
+ },
+ "X-train": {
+  "src": "https://www.pexels.com/video/31065547/",
+  "scan": "ref/ep25/src/eizou/X-train.mp4",
+  "dur": 14.0,
+  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）・🔧 1ショットに直した（7秒の境目＝最大 9.3・中央値の 1.6倍＝走る電車の動きの続き）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 14.0,
+    "motion": 29.9
+   }
+  ]
+ },
+ "X-blueprint": {
+  "src": "https://www.pexels.com/video/6615523/",
+  "scan": "ref/ep25/src/eizou/X-blueprint.mp4",
+  "dur": 10.0,
+  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 9.7
+   }
+  ]
+ },
+ "X-signalwork": {
+  "src": "https://www.pexels.com/video/16222740/",
+  "scan": "ref/ep25/src/eizou/X-signalwork.mp4",
+  "dur": 20.0,
+  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 20.0,
+    "motion": 1.71
+   }
+  ]
+ },
+ "X-platform": {
+  "src": "https://www.pexels.com/video/10677882/",
+  "scan": "ref/ep25/src/eizou/X-platform.mp4",
+  "dur": 34.0,
+  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 34.0,
+    "motion": 3.36
+   }
+  ]
+ },
+ "X-clock": {
+  "src": "https://www.pexels.com/video/5220707/",
+  "scan": "ref/ep25/src/eizou/X-clock.mp4",
+  "dur": 10.0,
+  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 6.05
+   }
+  ]
+ },
+ "X-signal": {
+  "src": "https://www.pexels.com/video/20312787/",
+  "scan": "ref/ep25/src/eizou/X-signal.mp4",
+  "dur": 9.0,
+  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 9.0,
+    "motion": 5.81
+   }
+  ]
+ },
+ "X-train2": {
+  "src": "https://www.pexels.com/video/37514850/",
+  "scan": "ref/ep25/src/eizou/X-train2.mp4",
+  "dur": 10.0,
+  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 2.04
+   }
+  ]
+ },
+ "X-court": {
+  "src": "https://www.pexels.com/video/39072934/",
+  "scan": "ref/ep25/src/eizou/X-court.mp4",
+  "dur": 14.0,
+  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）・🔧 1ショットに直した（6秒の境目＝最大 2.7・中央値の 1.9倍＝カメラの動きの続き）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 14.0,
+    "motion": 5.96
+   }
+  ]
+ },
+ "X-papers": {
+  "src": "https://www.pexels.com/video/9490310/",
+  "scan": "ref/ep25/src/eizou/X-papers.mp4",
+  "dur": 14.0,
+  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）・🔧 1ショットに直した（2・7・9・12秒の境目＝最大 7.2・中央値の 1.2〜3.2倍＝ページをめくる手の動きの続き）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 14.0,
+    "motion": 28.45
+   }
+  ]
+ },
+ "X-table": {
+  "src": "https://www.pexels.com/video/5716999/",
+  "scan": "ref/ep25/src/eizou/X-table.mp4",
+  "dur": 21.0,
+  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）・🔧 1ショットに直した（1・4・11・13・16秒の境目＝最大 4.5・中央値の 2.7〜5.6倍（山の高さは 3〜4.5 で小さい）＝カメラの動きの続き）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 21.0,
+    "motion": 14.26
+   }
+  ]
+ },
+ "X-phone": {
+  "src": "https://www.pexels.com/video/7661525/",
+  "scan": "ref/ep25/src/eizou/X-phone.mp4",
+  "dur": 9.0,
+  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）・🔧 1ショットに直した（4秒の境目＝最大 4.3・中央値の 1.2倍＝カメラの動きの続き）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 9.0,
+    "motion": 24.93
+   }
+  ]
+ },
+ "X-meeting": {
+  "src": "https://www.pexels.com/video/5519767/",
+  "scan": "ref/ep25/src/eizou/X-meeting.mp4",
+  "dur": 19.0,
+  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 16.38
+   },
+   {
+    "start": 10.0,
+    "until": 19.0,
+    "motion": 18.58
+   }
+  ]
+ },
+ "X-janken": {
+  "src": "https://www.pexels.com/video/8684433/",
+  "scan": "ref/ep25/src/eizou/X-janken.mp4",
+  "dur": 13.0,
+  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 6.0,
+    "motion": 23.36
+   },
+   {
+    "start": 6.0,
+    "until": 13.0,
+    "motion": 18.03
+   }
+  ]
+ },
+ "X-dusk": {
+  "src": "https://www.pexels.com/video/16992918/",
+  "scan": "ref/ep25/src/eizou/X-dusk.mp4",
+  "dur": 28.0,
+  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 28.0,
+    "motion": 1.41
+   }
+  ]
+ },
+ "X-arrive": {
+  "src": "https://www.pexels.com/video/33810511/",
+  "scan": "ref/ep25/src/eizou/X-arrive.mp4",
+  "dur": 13.0,
+  "how": "1秒1コマで tools/shots.shots_of（25本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 13.0,
+    "motion": 0.6
+   }
+  ]
+ }
+}

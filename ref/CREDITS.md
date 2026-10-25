@@ -2937,10 +2937,28 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 
 ### 0. 映像（フリー素材＝音はすべて使わない＝`-an`）
 - フリー素材（Pexels・生成AI は使わない）＝画面の左上に「イメージ」・出典の行は「イメージ（Pexels）」だけ（クレジットは任意＝投稿者の名前は書かない・概要欄にも書かない）。20% に数えない。🔴 映像そのものもひかえの静止画も git に入れない（19本目 決め⑨）
-- 25本目は18カット＝⑤b-3 で取る（取ったら下の表に入る）
+- 25本目は18カット＝⑤b-3 で取った（2026-10-25・カズヤくんの了承＝候補の名前・出どころ・大きさを示して先に聞いた・幅1920の版）。使う区間と寄せ（人の顔・字・ロゴ・会社の塗装を画面の外へ）は `qa_out/ep25_assets.py` の STOCK_WINDOW・STOCK_GEOM
 
 | 記号 | 使うカット | 画面の出典 | ライセンス | 頁 |
 |---|---|---|---|---|
+| `X-depart` | c210 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/30423319/ |
+| `X-desk` | c526 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/7685212/ |
+| `X-training` | c532 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/6935499/ |
+| `X-train` | c707 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/31065547/ |
+| `X-blueprint` | c713 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/6615523/ |
+| `X-signalwork` | c715 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/16222740/ |
+| `X-platform` | c724 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/10677882/ |
+| `X-clock` | c726 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/5220707/ |
+| `X-signal` | c810 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/20312787/ |
+| `X-train2` | c813 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/37514850/ |
+| `X-court` | c902 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/39072934/ |
+| `X-papers` | c920 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/9490310/ |
+| `X-table` | ca05 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/5716999/ |
+| `X-phone` | ca10 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/7661525/ |
+| `X-meeting` | ca11 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/5519767/ |
+| `X-janken` | ca13 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/8684433/ |
+| `X-dusk` | cb13 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/16992918/ |
+| `X-arrive` | cb14 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/33810511/ |
 
 ### 1. 写真・頁（運輸安全委員会の報告書・国土交通省の頁・国土地理院・裁判所・Commons）
 - 報告書 RA2007-3・検証報告書・建議・国交省の発表＝公共データ利用規約（PDL1.0）＝出典の行「出典：…（運輸安全委員会の頁）を加工して作成」／「出典：国土交通省ウェブサイト（URL）」（了承② 決め4）。報告書の小さい写真も全面（原画＝PDF の上の注記は入らない）
@@ -3054,3 +3072,4 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 
 ### 2. 地図の衛星写真（Google マップ）
 - c101・c328・c517・ca23・cb03＝Google マップの衛星写真（束の外＝`cuts/ss.SAT`）。出典は画面の地図の右下の帰属の行（Google の地図の利用）＋出典の行「地図：Google マップの衛星写真（帰属は地図の右下）」。🔴 PNG は公開リポに置かない（git の外・md5 と出どころは `cuts/ss.SAT`・`GEO`）
+- 🆕 ⑤b-3：描き足した線路の位置（c328・c517・ca23）＝国土地理院「地理院地図Vector」（experimental_bvmap・鉄道の中心線）を加工して作成（国土地理院コンテンツ利用規約＝出典の明示）＝額の下の断りに「線路の位置：地理院地図Vector（国土地理院）」・線の点は `cuts/ss.SAT_LINES`。駅と事故の現場の点＝Wikidata の座標（一般の座標＝断りに「一般の座標」）

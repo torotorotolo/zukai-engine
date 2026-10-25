@@ -540,15 +540,21 @@ def selftest():
     keep = media_len
     cont = {c['cid']: c['cont'] for c in build()['cuts']}
     s8 = [r.replace('|（⑤b）|', '|ref/ep25/stock/x_depart.mp4|', 1) if r.startswith('X-depart|') else r for r in srcs]
-    a10 = [r.replace('|映像|', '|映像（0.79倍）|', 1) if r.startswith('c210|') else r for r in rows]
+    # 🆕 ⑤b-3（10-25）：動きの欄に区間（「映像（a〜b秒）」）を書いたら長さは区間で測る＝素材まるごとの長さ（media_len）の対照は
+    #    c210 の動きの欄を「映像」に戻した入力で回す（戻さないと区間の長さで測って陽性が鳴らない＝⑤b-3 で踏んだ）
+    a9 = ['|'.join(f[:5] + ['映像'] + f[6:]) if r.startswith('c210|') else r for r in rows for f in [r.split('|')]]
+    a10 = [r.replace('|映像|', '|映像（0.79倍）|', 1) if r.startswith('c210|') else r for r in a9]
     try:
         media_len = lambda p: cont['c210'] * 0.5
-        checks.append(('映像が0.6倍に足りない', any(e.startswith('c210 映像') and '止め絵' in e for e in run(rows, s8))))
+        checks.append(('映像が0.6倍に足りない', any(e.startswith('c210 映像') and '止め絵' in e for e in run(a9, s8))))
         media_len = lambda p: cont['c210'] * 0.8
-        checks.append(('映像が1倍に足りず倍率の書き置きなし', any(e.startswith('c210 映像') and '足りない' in e for e in run(rows, s8))))
+        checks.append(('映像が1倍に足りず倍率の書き置きなし', any(e.startswith('c210 映像') and '足りない' in e for e in run(a9, s8))))
         checks.append(('（陰性）倍率の書き置き 0.79 なら通る', not any(e.startswith('c210 映像') for e in run(a10, s8))))
         media_len = lambda p: cont['c210'] * 1.5
-        checks.append(('（陰性）長い映像は通る', not any(e.startswith('c210 映像') for e in run(rows, s8))))
+        checks.append(('（陰性）長い映像は通る', not any(e.startswith('c210 映像') for e in run(a9, s8))))
+        # 区間の長さで測る対照（陽性）：c210 の区間を 3秒にすると止め絵の線の下で鳴る（素材まるごとの長さは測らない）
+        a11 = [r.replace('|映像（10.18〜17.87秒）|', '|映像（10.18〜13.18秒）|', 1) if r.startswith('c210|') else r for r in rows]
+        checks.append(('区間が短い（3秒）', any(e.startswith('c210 映像') and '止め絵' in e for e in run(a11, s8))))
     finally:
         media_len = keep
     # 陰性＝今の入力

@@ -156,7 +156,7 @@ def write(plan, title):
         was = (f"■ 🔴 2026-10-25（⑤b-1）：24本目（チェルノブイリ原発事故）の中身を空にした＝git の `{FROM_SHA}`"
                f"（`git show {FROM_SHA}:tools/cuts/{name}.py`）。") if (old and MARK not in old) else \
               "■ 🆕 2026-10-25（⑤b-1）：新しいファイル。"
-        if keep:
+        if MARK in old:          # 🆕 ⑤b-3（10-25）：SPEC がまだ空の章ファイルも元の行を残す（`if keep:` だと c3・c4・c6 の行が「新しいファイル」に化けた）
             m = re.search(r"\n(■ (?:🔴|🆕) 2026-10-25（⑤b-1）：.*?。)\n", old)
             was = m.group(1) if m else was
         body = [

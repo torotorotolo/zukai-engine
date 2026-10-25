@@ -832,7 +832,8 @@ def cmd_credits(write=False):
         "### 0. 映像（フリー素材＝音はすべて使わない＝`-an`）",
         "- フリー素材（Pexels・生成AI は使わない）＝画面の左上に「イメージ」・出典の行は「イメージ（Pexels）」だけ"
         "（クレジットは任意＝投稿者の名前は書かない・概要欄にも書かない）。20% に数えない。🔴 映像そのものもひかえの静止画も git に入れない（19本目 決め⑨）",
-        "- 25本目は18カット＝⑤b-3 で取る（取ったら下の表に入る）",
+        "- 25本目は18カット＝⑤b-3 で取った（2026-10-25・カズヤくんの了承＝候補の名前・出どころ・大きさを示して先に聞いた・幅1920の版）。"
+        "使う区間と寄せ（人の顔・字・ロゴ・会社の塗装を画面の外へ）は `qa_out/ep25_assets.py` の STOCK_WINDOW・STOCK_GEOM",
         "",
         "| 記号 | 使うカット | 画面の出典 | ライセンス | 頁 |",
         "|---|---|---|---|---|", *film_rows, "",
@@ -852,6 +853,9 @@ def cmd_credits(write=False):
         "### 2. 地図の衛星写真（Google マップ）",
         "- c101・c328・c517・ca23・cb03＝Google マップの衛星写真（束の外＝`cuts/ss.SAT`）。出典は画面の地図の右下の帰属の行（Google の地図の利用）＋"
         "出典の行「地図：Google マップの衛星写真（帰属は地図の右下）」。🔴 PNG は公開リポに置かない（git の外・md5 と出どころは `cuts/ss.SAT`・`GEO`）",
+        "- 🆕 ⑤b-3：描き足した線路の位置（c328・c517・ca23）＝国土地理院「地理院地図Vector」（experimental_bvmap・鉄道の中心線）を加工して作成"
+        "（国土地理院コンテンツ利用規約＝出典の明示）＝額の下の断りに「線路の位置：地理院地図Vector（国土地理院）」・線の点は `cuts/ss.SAT_LINES`。"
+        "駅と事故の現場の点＝Wikidata の座標（一般の座標＝断りに「一般の座標」）",
         ""])
     if CREDITS_HEAD in md:
         pre, rest = md.split(CREDITS_HEAD, 1)
@@ -889,8 +893,24 @@ def _probe(p):
                 sar=st.get("sample_aspect_ratio") or "1:1", sec=float(j["format"]["duration"]))
 
 
-def _media_url(pid, loc, size):
-    """Pexels の置き場の直リンクを HEAD で当て、大きさが手元と同じ版を返す（違えば止める）"""
+def _head(u):
+    req = urllib.request.Request(u, method="HEAD", headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return r.status, int(r.headers.get("Content-Length") or 0), r.headers.get("Content-Type") or ""
+
+
+def _media_url(pid, loc, size, rec=None):
+    """Pexels の置き場の直リンクを HEAD で当て、大きさが手元と同じ版を返す（違えば止める）。
+    🆕 ⑤b-3（10-25）：2024年ごろからの素材は直リンクの名の形が `<番号>/<ファイルの番号>_1920_1080_<fps>fps.mp4`（番号から組めない）
+    ＝取得の記録（fetch25.tsv の source＝`stock:<直リンク>`）の URL を HEAD で照らす。記録が無いときだけ古い名の形を組む"""
+    if rec:
+        try:
+            st, n, ct = _head(rec)
+        except Exception as e:                               # noqa: BLE001
+            raise SystemExit(f"🔴 {pid}: 記録の直リンクを引けない（{rec}・{e}）")
+        if st != 200 or n != size or not ct.startswith("video/"):
+            raise SystemExit(f"🔴 {pid}: 記録の直リンクが手元と違う（http {st}・{n} B／手元 {size} B・{ct}）")
+        return rec
     label = {1920: "hd_1920_1080", 2560: "uhd_2560_1440", 3840: "uhd_3840_2160"}.get(loc["w"])
     if not label:
         raise SystemExit(f"🔴 {pid}: 幅 {loc['w']} の版の名の形が分からない")
@@ -920,7 +940,8 @@ def cmd_clips():
         loc = _probe(p)
         size = p.stat().st_size
         pid = re.search(r"(\d{5,})", s["page"]).group(1)
-        media = _media_url(pid, loc, size)
+        rec = next((r["source"][6:] for r in reversed(rows) if r["md5"] == md5(p) and r["source"].startswith("stock:http")), None)
+        media = _media_url(pid, loc, size, rec)
         e = dict(url=s["page"], media=media, stock=True, file=s["file"].removeprefix("ref/"), credit="イメージ（Pexels）", src="stock",
                  at=0.0, what=s["note"][:60], w=loc["w"], h=loc["h"], fps=loc["fps"], sar=loc["sar"], sec=round(loc["sec"], 3),
                  size=size, md5=md5(p), dispw=loc["w"], decoded=[loc["w"], loc["h"]], license="Pexels License",
@@ -932,6 +953,20 @@ def cmd_clips():
     return 0
 
 
+# 🔴 動きの速い素材は、隣の1秒の差がしきい値を超えて「境目」が出る（18本目 0b-45⑥・23・24本目の SHOT_ONE）＝根拠つきで1ショットに直す
+#   🆕 ⑤b-3（10-25）：境目の前後±1.2秒の全コマ（160×90 の灰色）の隣のコマとの差＝跳ねる1コマが無い（切り替わりなら1コマに集まって
+#      中央値の何倍にもなる）＝手・カメラ・電車の動きの続き（scratchpad の cutspike.py）。⚠️ 絵は見取り図と試し焼きのコマで目で確かめる
+#   ⚠️ 記号は素材を替えても同じ（X-desk は第1候補 6781564 → 第2候補 7685212）＝替えたら境目を測り直して書き直す（前の素材の根拠を残さない）
+SHOT_ONE = {
+    "X-training": "2・12秒の境目＝最大 1.6・中央値の 1.2倍＝ゆっくり動くカメラの続き",
+    "X-court": "6秒の境目＝最大 2.7・中央値の 1.9倍＝カメラの動きの続き",
+    "X-papers": "2・7・9・12秒の境目＝最大 7.2・中央値の 1.2〜3.2倍＝ページをめくる手の動きの続き",
+    "X-phone": "4秒の境目＝最大 4.3・中央値の 1.2倍＝カメラの動きの続き",
+    "X-table": "1・4・11・13・16秒の境目＝最大 4.5・中央値の 2.7〜5.6倍（山の高さは 3〜4.5 で小さい）＝カメラの動きの続き",
+    "X-train": "7秒の境目＝最大 9.3・中央値の 1.6倍＝走る電車の動きの続き",
+}
+
+
 def cmd_shots():
     """shots.json＝フリー素材は tools/shots.shots_of（1秒1コマ）"""
     sys.path.insert(0, str(HERE / "tools"))
@@ -941,8 +976,11 @@ def cmd_shots():
     for code in _film_codes():
         s = src[code]
         sh, dur = SH.shots_of(HERE / s["file"])
-        out[code] = dict(src=s["page"], scan=s["file"], dur=round(dur, 1),
-                         how="1秒1コマで tools/shots.shots_of（25本目・フリー素材）", shots=sh)
+        how = "1秒1コマで tools/shots.shots_of（25本目・フリー素材）"
+        if code in SHOT_ONE:
+            sh = [dict(start=0.0, until=float(sh[-1]["until"]), motion=max(x["motion"] for x in sh))]
+            how += f"・🔧 1ショットに直した（{SHOT_ONE[code]}）"
+        out[code] = dict(src=s["page"], scan=s["file"], dur=round(dur, 1), how=how, shots=sh)
         print(f"  {code:12} {dur:6.1f}秒  ショット {len(sh)}：" + " ".join(f"{x['start']:g}〜{x['until']:g}" for x in sh))
     SHOTS.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"→ ref/ep25/shots.json（{len(out)}本）")
@@ -984,8 +1022,21 @@ def _write_block(tag, lines):
 
 
 # フリー素材の映像の区間 {cid: (始め, 終わり, 理由)}＝⑤b-3 で見取り図（frames）と shots.json の境目を見て決める
-STOCK_WINDOW = {}
-STOCK_GEOM = {}
+#   🆕 ⑤b-3（10-25）：区間の 640px のシート（頭・真ん中・尻）と原寸の切り出しで決めた（scratchpad の stocksheet.py・pairsheet.py）
+STOCK_WINDOW = {
+    "c532": (8.40, 15.71, "壁の英語の貼り紙が入らない区間（0〜8秒は上の端に貼り紙の字）"),
+    "c707": (0.30, 8.53, "看板の少ない前半（後半は駐車場と店の看板が増える）"),
+    "c724": (4.30, 12.93, "JR西日本の電車が入らない区間（0.3秒の頭と16秒・21秒に JR西日本の電車）"),
+}
+# 寄せ（footage.USE の zoom・bias・xbias＝build_jiko が映像のカットに使う〈fzm・fbias・fxb〉・ひかえの静止画は cmd_fb が同じ式）
+#   c210＝右端のホームの人（横顔 約40px）を画面の外へ／c707＝下の駐車場と店の看板を外へ／c726＝下の「Information」の字と交通局のロゴを外へ
+#   c902＝正面の上の建物の名の字（PALÁCIO DA JUSTIÇA）を外へ（字の帯は高さの 0.15〜0.17＝bias 1.0 で見える範囲は 0.2〜1.0）
+STOCK_GEOM = {
+    "c210": dict(zoom=1.2, xbias=0.0),
+    "c707": dict(zoom=1.15, bias=0.0),
+    "c726": dict(zoom=1.2, bias=0.0),
+    "c902": dict(zoom=1.25, bias=1.0),
+}
 STOCK_EDGE = 0.3                # ショットの境目から離す秒（フリー素材＝1秒1コマで測った境目＝23・17・24本目と同じ）
 
 
