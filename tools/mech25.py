@@ -2203,7 +2203,8 @@ CA_BODY = ((760.0, 664.0), (760.0, 402.0), (800.0, 362.0), (1140.0, 362.0), (118
 def cant_parts(st):
     r = CA_ANG if st.get("tilt") == "on" else 0.0
     piv = dict(pivot=[CA["px"], CA["py"]], rot=r)
-    return [_P("sleeper", "poly", [(600.0, 712.0), (1320.0, 712.0), (1320.0, 736.0), (600.0, 736.0)], fill=J.LINE_DIM, stroke=J.BG, w=2, **piv),
+    # 🔧 試し焼き（40257662340）：傾いた枕木の左の端が札「97mm」と括弧に重なった（動く部品＝geom_gap は測らない）＝左の端を 650 へ
+    return [_P("sleeper", "poly", [(650.0, 712.0), (1320.0, 712.0), (1320.0, 736.0), (650.0, 736.0)], fill=J.LINE_DIM, stroke=J.BG, w=2, **piv),
             _P("railL", "poly", [(680.0, 676.0), (726.0, 676.0), (726.0, 712.0), (680.0, 712.0)], fill=J.LINE, stroke=J.BG, w=2, **piv),
             _P("railR", "poly", [(1197.0, 676.0), (1243.0, 676.0), (1243.0, 712.0), (1197.0, 712.0)], fill=J.LINE, stroke=J.BG, w=2, **piv),
             _P("body", "poly", list(CA_BODY), fill=TRAIN, stroke=J.BG, w=3, **piv)]
@@ -2218,8 +2219,8 @@ def cant_stage(prev, st):
     if _on(prev, st, "tilt"):
         top = CA["py"] - 6 - CA["dy"]
         s.append(F.line(560.0, CA["py"] - 6, 1180.0, CA["py"] - 6, J.LINE_DIM, 3, dash="10 8"))
-        s.append(F.poly([(626.0, top), (640.0, top), (640.0, CA["py"] - 6), (626.0, CA["py"] - 6)], "none", J.AMBER, 4))
-        s.append(_tline(612.0, top + 40, f"{CA_MM}mm", 34, J.AMBER, "end", 200))
+        s.append(F.poly([(586.0, top), (600.0, top), (600.0, CA["py"] - 6), (586.0, CA["py"] - 6)], "none", J.AMBER, 4))
+        s.append(_tline(572.0, top + 40, f"{CA_MM}mm", 34, J.AMBER, "end", 200))
         s.append(_tline(1264.0, 430.0, "車体を内へ傾ける", 26, INK, "start", 360))
     if _on(prev, st, "name"):
         s.append(_ctr(1560.0, 560.0, "カント", 72, J.AMBER, 360))
@@ -2347,7 +2348,7 @@ def dots_co_stage(prev, st):
         s.append(_tline(1716.0, 408.0, f"{DC_TOTAL}社のうち{len(DC_LIT)}社", 30, J.AMBER, "end", 420))
         s.append("".join(F.circ(300.0 + i * 120.0, 590.0, 30.0, J.AMBER, J.BG, 4) for i in range(DC_JR)))
         s.append(_ctr(420.0, 680.0, f"{DC_JR}社（JR西日本を含む）", 28, J.AMBER, 520))
-        s.append(_stag(430.0, 772.0, "ct", "最高裁（2017年の決定）", 22))
+        s.append(_stag(1300.0, 318.0, "ct", "最高裁（2017年の決定）", 22))   # 🔧 試し焼き：JR の枠の中に置くと JR だけの話に見える＝枠の外の上へ
     return s
 
 
@@ -2916,9 +2917,10 @@ def book_seat_stage(prev, st):
         s.append(_ctr(920.0, 740.0, "安全管理規程", 30, INK, 320) + _ctr(920.0, 784.0, "安全の決まり", 24, J.TICK, 300))
         s.append(_arrow(670.0, 600.0, 786.0, 600.0, J.LINE, 4, 16))
     if _on(prev, st, "seat"):
-        s.append(F.rect(1330.0, 420.0, 24.0, 200.0, J.LINE, None, None, rx=6) + F.rect(1330.0, 600.0, 170.0, 28.0, J.LINE, None, None, rx=6)
-                 + F.line(1346.0, 628.0, 1346.0, 690.0, J.LINE, 6) + F.line(1484.0, 628.0, 1484.0, 690.0, J.LINE, 6)
-                 + F.circ(1342.0, 404.0, 22.0, J.AMBER, J.BG, 3))
+        # 🔧 試し焼き（40257662340）：細い背もたれの上の丸い印が人の形（頭と体）に見えた＝背もたれを板にし、四角の名札を板の中へ
+        s.append(F.rect(1330.0, 430.0, 150.0, 170.0, J.BG2, J.LINE, 6, rx=10) + F.rect(1320.0, 600.0, 190.0, 28.0, J.LINE, None, None, rx=6)
+                 + F.line(1340.0, 628.0, 1340.0, 690.0, J.LINE, 6) + F.line(1490.0, 628.0, 1490.0, 690.0, J.LINE, 6)
+                 + F.rect(1370.0, 470.0, 70.0, 40.0, J.AMBER, None, None, rx=6))
         s.append(_ctr(1420.0, 740.0, "安全統括管理者", 30, INK, 360) + _ctr(1420.0, 784.0, "安全の責任者", 24, J.TICK, 300))
         s.append(_arrow(1060.0, 600.0, 1310.0, 600.0, J.LINE, 4, 16))
     return s
