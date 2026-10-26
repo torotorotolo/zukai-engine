@@ -2941,7 +2941,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 
 | 記号 | 使うカット | 画面の出典 | ライセンス | 頁 |
 |---|---|---|---|---|
-| `X-depart` | c210 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/37420614/ |
+| `X-depart` | c210 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/38837176/ |
 | `X-desk` | c526 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/7685212/ |
 | `X-training` | c532 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/6935499/ |
 | `X-train` | c707 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/31065547/ |
@@ -3056,7 +3056,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `p_r0` | ca18 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/rep-acci/RA2007-3-1.pdf |
 | `p_r1_002` | c919 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-1.pdf |
 | `p_r1_030` | c410 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-1.pdf |
-| `p_r1_078` | c310 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-1.pdf |
+| `p_r1_077` | c310 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-1.pdf |
 | `p_r1_220` | c519 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-1.pdf |
 | `p_r1_222` | c106 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-1.pdf |
 | `p_r1_230` | c711 ca01 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-1.pdf |

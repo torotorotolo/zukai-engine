@@ -1467,6 +1467,10 @@ def credit_of(cid, spec):
     # 🆕 2026-10-20（17本目 ⑤b-2）：額装の地に敷いた別の写真（`ground=`・build_jiko.ground_photo＝暗くぼかす）の出典も同じ行に出す
     #    （地の写真も画面に見えている＝CC BY は帰属と改変の旨が要る）。「改変：切出」→「改変：切出・ぼかし」
     gr = (spec.get("ground") or {}).get("photo")
+    # 🆕 2026-10-26（25本目 ⑤b-7）：縦長の額装の地に**同じ写真**のぼかし（了承② 決め3「高さいっぱいの額・左右は写真のぼかし」）＝出どころは同じ
+    #    ＝PDL の「を加工して作成」が地のぼかしまで含む（同じ出典を2回つなぐと行が長くなって画面の左の外へ出る）。CC BY などは下の型のまま
+    if gr and gr == spec.get("photo") and cr.endswith("を加工して作成"):
+        gr = None
     if gr:
         gcr = credit_of(cid + "~g", dict(photo=gr))
         gcr = re.sub(r"^(写真|出典)：", "", gcr)
