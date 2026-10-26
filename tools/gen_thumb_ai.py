@@ -736,6 +736,81 @@ SCENES.update({
     },
 })
 
+# 🆕 25本目（2026-10-26・⑥）：JR福知山線脱線事故＝カズヤくん「T2（付図12 の空撮）の拡大が最有力。T2 をより派手に再現した AI イラストを生成」
+#    🔴 札は新規（ほかの回の札を流用しない＝ルール 6-55④）。禁止は文字だけ（10-21 の決め＝§6-55b）＋この回の約束で、亡くなった人・
+#    けがをした人・血は描かせない（乗客106人と運転士が亡くなった実在の事故＝人は救助の人が小さく写る程度）。
+#    事実の芯（報告書 p.1・付図12）：2005-04-25 9時18分ごろ・晴れた朝・尼崎市の右の曲線・7両編成のうち前の5両が脱線・前の2両は線路の脇の
+#    マンションにぶつかった（1両目はマンションの1階の駐車場に入り込み、2両目は建物の角に巻き付くように）・隣に平らな駐車場・救助のクレーン。
+#    電車＝ステンレスの銀色の車体に青い帯（207系）＝会社の印・字は描かせない。本番は H 型の反転版（字の外がカラー・大きな語「JR福知山線」）
+LOOK_FUK = (
+    "A real aerial PHOTOGRAPH taken from a helicopter with a professional camera: sharp, clear and high-resolution, "
+    "bright late-April morning sunlight, natural and vivid colours, strong contrast, true depth of field. "
+)
+FRAME_FUK = (
+    "COMPOSITION, critical: 16:9 frame, seen obliquely from above at about 35 degrees, closer than a usual news "
+    "aerial. A wide white line of lettering will later cover the top 18% of the frame, a yellow line the bottom 22%, "
+    "and one huge word will run across the whole middle. So the crushed front cars and the building must be LARGE, "
+    "spread across most of the width of the frame through the middle, and readable at a glance even when the "
+    "picture is tiny. "
+)
+BAN_FUK = (
+    "No text, letters, numbers, words, logos, emblems, signs, number plates or watermarks of any kind, in any language. "
+    "No injured people, no bodies, no blood. "
+)
+TAIL_FUK = (
+    "The result must look like a genuine, dramatic news photograph of a real moment, full of urgent detail. It must "
+    "NOT look like a render, a video game, a movie poster, a 3D visualisation, a model or an illustration."
+)
+SCENES.update({
+    "fuk_a": {
+        "ep": "ep25",
+        "name": "脱線の直後の朝の空撮（前の2両がマンションに突っ込み・後ろの車両が曲線に折れ曲がる・救助のクレーンと車）",
+        "hypothesis": "カズヤくんの選んだ T2（付図12 の空撮）の構図を近く・明るく・細部を多く。原寸 653px の引き伸ばしのぼけを避ける。"
+                      "反転版の字の外に銀の車体と建物とクレーンが出る",
+        "look": LOOK_FUK, "frame": FRAME_FUK, "ban": BAN_FUK, "tail": TAIL_FUK,
+        "scene": (
+            "A spring day in 2005 in a dense residential district of a Japanese city, during the rescue operation on "
+            "the same day a commuter train derailed on a sharp right-hand curve of a double-track railway line. The train "
+            "is made of silver stainless-steel commuter cars with a blue stripe along the sides. The first car has "
+            "been crushed flat into the open ground-floor parking garage of a tall, light-beige nine-storey apartment "
+            "building right beside the track; the second car is bent around the corner of the building like a "
+            "folded sheet of metal, its silver body torn open and dented; the third, fourth and fifth cars have "
+            "jumped off the rails and lie crooked and tilted across the tracks and the gravel, zig-zagging back "
+            "along the curve, while the last two cars still stand on the rails. Bright orange and red mobile cranes "
+            "with long extended booms stand beside the wreck, and many red fire engines, white ambulances and rescue "
+            "vehicles with flashing lights crowd the narrow streets and a big flat car park full of parked cars next "
+            "to the building. Blue tarpaulins lie on the ground. Rescue workers in helmets are visible only as tiny "
+            "figures. Bright morning sunlight glints on the twisted steel. "
+        ),
+    },
+    # 🆕 10-26 カズヤくん（fuk_a を H 型の反転版に当てた並べを見て）「もっと車両に寄せて、横転した車両で画面がいっぱいになるようなイラストを生成」
+    #    ＝寄りの空撮。横倒しの銀の車体（青い帯）が画面の横いっぱい・建物の角とクレーンは端だけ。人は救助の人が小さく（顔・けが・血は描かない）
+    "fuk_b": {
+        "ep": "ep25",
+        "name": "寄りの空撮：横倒しになった銀と青の車両が画面いっぱい（線路の砂利・ねじれた鋼・端に建物の角）",
+        "hypothesis": "反転版は字の外がカラー＝字のすき間がどこでも横倒しの車体の銀と青になる。fuk_a は車両が小さく字の後ろに隠れた",
+        "look": LOOK_FUK, "ban": BAN_FUK, "tail": TAIL_FUK,
+        "frame": (
+            "COMPOSITION, critical: 16:9 frame, a CLOSE aerial view from a low-flying helicopter, looking down at about "
+            "50 degrees. The overturned train cars must FILL THE WHOLE FRAME from the left edge to the right edge and "
+            "from top to bottom, so that any small part of the picture shows silver steel, the blue stripe, broken "
+            "windows or twisted metal. A wide line of lettering will later cover the top 18% and the bottom 22%, and "
+            "one huge word will run across the whole middle, so there must be no empty sky and no plain ground. "
+        ),
+        "scene": (
+            "A spring day in 2005 in a Japanese city, during the rescue operation on the same day a commuter train "
+            "derailed on a sharp right-hand curve. Seen from close above: two silver stainless-steel commuter train "
+            "cars with a blue stripe along their sides lie overturned on their sides across the double track and the "
+            "grey gravel, one behind the other, their roofs and sides crumpled, dented and torn open, rows of broken "
+            "windows, bent window frames and twisted steel panels, a bogie with its wheels lying beside them, the "
+            "rails bent out of shape under the cars. At one edge of the frame, the corner of a light-beige apartment "
+            "building is smashed where the front of the train hit it, with concrete rubble and dust. A bright orange "
+            "mobile crane boom reaches across one corner. Tiny rescue workers in orange and dark blue uniforms and "
+            "white helmets stand on and around the cars. Bright morning sunlight glints on the twisted steel. "
+        ),
+    },
+})
+
 
 def build(v):
     """🔴 質感（look）と締め（tail）は**場面ごとに差し替えられる**（2026-09-22 追加）。
