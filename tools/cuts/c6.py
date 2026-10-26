@@ -101,3 +101,79 @@ SPEC.update({
         steps=[dict(state=dict(f5old="on", f5new="on"), rec="R1 p72（それまで半径600mの右曲線であった区間が・半径304m）"),
                dict(state=dict(f5len="on"), rec="R1 p72（半径304m、曲線長308mの右曲線・60mが緩和曲線）")]))),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-26）：図解 第5章 11カット＝`tools/mech25.py`（fig=("m25", …)・門番 check_mech の judge_m25）。
+#   色は出どころの色（報告書＝青・神戸地裁＝線の色・JR西日本＝茶）。画面の字の数は全部 rel に。段の数＝語りの行の数
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c606（2行）＝基図に付け替え（1996年12月20日）と事故（2005年4月25日）／1行目：1991年3月の印／2行目：100→120km/h の段（会社の説明）
+    "c606": dict(
+        t="付け替えより前", s="1991年の変更",
+        fig=("m25", dict(view="speed_step", steps=[dict(state=dict(y91="on")), dict(state=dict(step="on"))],
+                         rel=[dict(t="1991年3月", src="R1 p96"), dict(t="100km/h・120km/h", src="R1 p96"),
+                              dict(t="1996年12月20日", src="R1 p72"), dict(t="2005年4月25日", src="R1 p1")],
+                         note="横は年・縦は速さに比例（模式の線）", src=ss.src(["R1 p96", "R1 p72"])))),
+    # c608（3行）＝1行目：外へ押し出す力の矢印／2行目：速さ2倍 → 力4倍（升1つ → 4つ）／3行目（聞き役）：矢印が4倍の長さへ
+    "c608": dict(
+        t="曲線で働く力", s="速さの2乗",
+        fig=("m25", dict(view="push_out", steps=[dict(state=dict(force="on")), dict(state=dict(sq="on")), dict(state=dict(grow="on"))],
+                         rel=[dict(t="2倍・4倍", src="一般の物理の説明")],
+                         # 🔧 門番 cuts：出典の行が空＝外へ押す力は判決の説明（S3 p.25）・2乗は一般の物理（注で断る）
+                         note="2乗は一般の物理（模式）", src=ss.src(["S3 p8025"])))),
+    # c609（2行）＝1行目：6本の灰の棒（転覆限界速度）／2行目：出どころの色と条件・値
+    "c609": dict(
+        t="転覆の限界", s="条件と資料で割れる",
+        fig=("m25", dict(view="hbars6", steps=[dict(state=dict(bars="on")), dict(state=dict(cols="on"))],
+                         rel=[dict(t="104・定員150名", src="R1 p188"), dict(t="106・93名", src="R1 p188"), dict(t="122・123", src="R1 p188"),
+                              dict(t="108前後", src="S3 p8011"), dict(t="133", src="R1 p194")],
+                         note="棒は0から値どおり（km/h）", src=ss.src(["R1 p188", "R1 p194", "S3 p8011"])))),
+    # c610（2行）＝1行目：会社の公表 133（事故の日）／2行目：報告書の試算 106・122（123 は小さく）
+    "c610": dict(
+        t="2つの物差し", s="同じ1両目",
+        fig=("m25", dict(view="strip43", steps=[dict(state=dict(co="on")), dict(state=dict(rep="on"))],
+                         rel=[dict(t="表43", src="R1 p188"), dict(t="133", src="R1 p194"), dict(t="93名・106・122・123", src="R1 p188")],
+                         note="表の値は報告書のまま", src=ss.src(["R1 p188", "R1 p194"])))),
+    # c611（2行）＝1行目：ばねで車体が傾く分（点線の傾いた車体）／2行目：入れた高さ（報告書）と入れない高さ（会社の133km/h）
+    "c611": dict(
+        t="会社の計算", s="ばねの分を入れない",
+        fig=("m25", dict(view="cog2", steps=[dict(state=dict(spring="on")), dict(state=dict(two="on"))],
+                         rel=[dict(t="133km/h", src="R1 p194"), dict(t="表43", src="R1 p188")],
+                         note="重心の位置は模式", src=ss.src(["R1 p188"])))),
+    # c612（2行）＝1行目：神戸地裁の幅 105〜110km/h・108前後（可能性が高い）／2行目：会社の133km/h・相当異なる
+    "c612": dict(
+        t="判決の見積もり", s="幅のある値",
+        fig=("m25", dict(view="ramp", steps=[dict(state=dict(band="on")), dict(state=dict(co="on"))],
+                         rel=[dict(t="105〜110km/h", src="S3 p8011"), dict(t="108前後", src="S3 p8011"), dict(t="2012年1月", src="S3 p8066"),
+                              dict(t="133km/h", src="S3 p8056")],
+                         note="目盛りの位置は速さに比例（坂の形は模式）", src=ss.src(["S3 p8011", "S3 p8056"])))),
+    # c614（1行）＝基図に天井の線（104km/h）／1行目：120km/h の矢印が突き抜ける
+    "c614": dict(
+        t="曲線の手前", s="限界より上",
+        fig=("m25", dict(view="ceiling", steps=[dict(state=dict(up="on"))],
+                         rel=[dict(t="104km/h・定員150名", src="R1 p230"), dict(t="120km/h", src="R1 p230")],
+                         note="縦は速さに比例（模式）", src=ss.src(["R1 p230"])))),
+    # c616（2行）＝1行目：原因の3つの文の箱（出てこない ✕）／2行目：「優先」の根拠の箱へ
+    "c616": dict(
+        t="付け替えの置き場所", s="原因か、根拠か",
+        fig=("m25", dict(view="sort2", steps=[dict(state=dict(no="on")), dict(state=dict(yes="on"))],
+                         rel=[dict(t="1996年12月", src="R1 p230"), dict(t="3つ・文1・文2・文3", src="R1 p243"), dict(t="230頁", src="R1 p230")],
+                         note="仕分けの形は模式", src=ss.src(["R1 p230", "R1 p243"])))),
+    # c617（2行）＝1行目：枕木とレールが傾く（外側が 97mm 高い）・車体が内へ／2行目：カント
+    "c617": dict(
+        t="外側を高く", s="レールの傾き",
+        fig=("m25", dict(view="cant", steps=[dict(state=dict(tilt="on")), dict(state=dict(name="on"))],
+                         rel=[dict(t="97mm", src="R1 p73")],
+                         note="高さの差は強めて描いた（模式）", src=ss.src(["R1 p73"])))),
+    # c619（2行）＝1行目：2両目は 110km/h でもそれだけでは脱線しない（計算）／2行目：外への力＋連結器を通した左向きの力・推定される
+    "c619": dict(
+        t="2両目の脱線", s="引かれた力",
+        fig=("m25", dict(view="coupler", steps=[dict(state=dict(c2="on")), dict(state=dict(pull="on"))],
+                         rel=[dict(t="110km/h", src="R1 p226"), dict(t="1両目・2両目", src="R1 p226")],
+                         note="力の向きは模式", src=ss.src(["R1 p226"])))),
+    # c623（2行）＝1行目（問い）：曲線の手前の空の箱に「？」・ほかの鉄道は？／2行目：間に合わなかった工事の柵・次の章
+    "c623": dict(
+        t="曲線のATS", s="次の章の話",
+        fig=("m25", dict(view="empty_slot", steps=[dict(state=dict(q="on")), dict(state=dict(next="on"))],
+                         rel=[], note="装置の位置は模式", src=ss.src(["R1 p230"])))),   # 🔧 門番 cuts：出典の行が空
+})

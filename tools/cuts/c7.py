@@ -130,3 +130,86 @@ SPEC.update({
                dict(state=dict(f4brake="on"), rec="R1 p230（本件曲線の手前で最大Bが作動し）"),
                dict(state=dict(f4say="on"), rec="R1 p230（本事故の発生は回避できたものと推定される）")]))),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-26）：図解 第6章 12カット＝`tools/mech25.py`（fig=("m25", …)・門番 check_mech の judge_m25）。
+#   色は出どころの色（報告書＝青・JR西日本＝茶・最高裁と神戸地裁＝線の色・国会＝紫）。年表 c710（横）の相方は ca07（縦）
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c701（2行）＝1行目：JR と私鉄の枠・私鉄113の灰の点／2行目：13の点・JR の3社（JR西日本を含む）・最高裁
+    "c701": dict(
+        t="付けていた会社", s="自主的な整備",
+        fig=("m25", dict(view="dots_co", steps=[dict(state=dict(q="on")), dict(state=dict(n="on"))],
+                         rel=[dict(t="113社のうち13社", src="S2 p11003"), dict(t="3社", src="S2 p11003"), dict(t="2017年", src="S2 p11001")],
+                         note="点の並びは模式（数は最高裁の決定のまま）", src=ss.src(["S2 p11003"])))),
+    # c705（2行）＝1行目：105か所の輪と内わけ／2行目：ATS-P と一緒に付ける（会社のやり方）
+    "c705": dict(
+        t="曲線の照らしの数", s="事故のとき",
+        fig=("m25", dict(view="donut", steps=[dict(state=dict(all="on")), dict(state=dict(way="on"))],
+                         rel=[dict(t="105・88・11・6", src="R1 p134")],
+                         note="輪の角度は数に比例", src=ss.src(["R1 p134"])))),
+    # c708（3行）＝基図に3つの働きの順／1行目：危険の認識はあった（可能性が考えられる）／2行目：急ぐべきと認識は容易でなかった（考えられる）／
+    #   3行目：曲線の照らしは後回しに（考えられる）
+    "c708": dict(
+        t="後回しの理由", s="3つの言い方",
+        fig=("m25", dict(view="order3", steps=[dict(state=dict(r1="on")), dict(state=dict(r2="on")), dict(state=dict(r3="on"))],
+                         rel=[], note="順の矢印は模式・言い方は報告書のまま", src=ss.src(["R1 p229"])))),
+    # c710（3行）＝基図に事故の線／1行目：2003年9月29日 経営会議／2行目：工期 2003年10月〜2005年5月／3行目：使い始め 2005年2月以降・順に
+    "c710": dict(
+        t="投資を決めた日", s="資料の工期",
+        fig=("m25", dict(view="tl_plan", steps=[dict(state=dict(meet="on")), dict(state=dict(work="on")), dict(state=dict(use="on"))],
+                         rel=[dict(t="2003年9月29日", src="R1 p135"), dict(t="2003年10月〜2005年5月", src="R1 p135"), dict(t="2005年2月", src="R1 p135"),
+                              dict(t="2004年・2005年", src="暦の目盛り"), dict(t="2005年4月25日", src="R1 p1")],
+                         note="横は月に比例", src=ss.src(["R1 p135"])))),
+    # c712（3行）＝基図に年度の境の壁と事故の線／1行目（聞き役）：中長期計画 2003年度・2004年度／2行目：担当者の口述・止まれの信号の照らし／
+    #   3行目：分岐・曲線などの照らしが 2005年度に少し入り込む
+    "c712": dict(
+        t="予定のずれ", s="見込みの年度",
+        fig=("m25", dict(view="spill", steps=[dict(state=dict(plan="on")), dict(state=dict(staff="on")), dict(state=dict(poke="on"))],
+                         rel=[dict(t="2003年度・2004年度・2005年度", src="R1 p136"), dict(t="2005年4月25日", src="R1 p1")],
+                         note="帯の長さは模式（年度の境と事故の日は月に比例）", src=ss.src(["R1 p136"])))),
+    # c714（3行）＝1行目：区長（当時）の口述・工期が短い／2行目：2005年2月 → 2005年6月・2004年10月ごろ伝えた／3行目：止まれの信号の手前・曲線の話ではない
+    "c714": dict(
+        t="工程の見直し", s="2月から6月へ",
+        fig=("m25", dict(view="signal_date", steps=[dict(state=dict(short="on")), dict(state=dict(move="on")), dict(state=dict(which="on"))],
+                         rel=[dict(t="2005年2月・2005年6月", src="R1 p138"), dict(t="2004年10月", src="R1 p138")],
+                         note="信号と曲線の印は模式", src=ss.src(["R1 p138"])))),
+    # c717（2行）＝基図に事故（2005年4月25日）／1行目：この区間の ATS-P の使い始め／2行目：2005年6月19日・約2か月
+    "c717": dict(
+        t="事故のあと", s="2か月の差",
+        fig=("m25", dict(view="drop2", steps=[dict(state=dict(line="on")), dict(state=dict(date="on"))],
+                         rel=[dict(t="2005年4月25日", src="R1 p1"), dict(t="2005年6月19日", src="R1 p140"), dict(t="約2か月", src="S2 p11004")],
+                         note="日付の間の長さは模式（比例でない）", src=ss.src(["R1 p140", "S2 p11004"])))),
+    # c718（3行）＝1行目（聞き役）：事故 → 翌月の国会の日付／2行目：会議録の頁・国土交通大臣（当時）・ATS-P の整備の真っ最中／3行目：6月にはでき上がる状況で、事故
+    "c718": dict(
+        t="翌月の国会", s="大臣の答弁",
+        fig=("m25", dict(view="kk_page", steps=[dict(state=dict(date="on")), dict(state=dict(page="on")), dict(state=dict(june="on"))],
+                         rel=[dict(t="2005年4月25日", src="R1 p1"), dict(t="2005年5月12日", src="国会A p16001"), dict(t="6月", src="国会A p16001")],
+                         note="言葉は会議録の発言から短く", src=ss.src(["国会A p16001"])))),
+    # c720（2行）＝1行目：神戸地裁・ATS-P か ATS-SW の照らしで事故を回避できた／2行目：工事の費用の伝票（この曲線だけ）
+    "c720": dict(
+        t="判決の見方", s="費用はいくら",
+        fig=("m25", dict(view="receipt", steps=[dict(state=dict(court="on")), dict(state=dict(cost="on"))],
+                         rel=[dict(t="2012年1月", src="S3 p8066"), dict(t="80万円程度", src="S3 p8012"), dict(t="80万〜120万円程度", src="S3 p8012")],
+                         note="伝票の形は模式", src=ss.src(["S3 p8012"])))),
+    # c722（3行）＝基図に運転時間の帯／1行目（問い）：余裕は？／2行目：中山寺駅に止まる延長 45秒（除く）／3行目：3回の切れ端が落ちる（20秒・20秒・10秒）
+    "c722": dict(
+        t="縮んだ決まり", s="2002〜2004年",
+        fig=("m25", dict(view="trim3", steps=[dict(state=dict(q="on")), dict(state=dict(ext="on")), dict(state=dict(cut="on"))],
+                         rel=[dict(t="45秒", src="R1 p141"), dict(t="2002年3月・2003年3月・2004年10月", src="R1 p141"), dict(t="20秒・10秒", src="R1 p141"),
+                              dict(t="3回で50秒", src="R1 p141")],
+                         note="切れ端の幅は秒に比例（帯の残りは模式）", src=ss.src(["R1 p141"])))),
+    # c725（2行）＝基図に天びんと右の皿（会社の運行計画＝65日の半数以上の日に1分以上遅れて着く）／1行目：社員の扱いの誤りで1分以上の遅れ／
+    #   2行目：日勤教育・懲戒・報告書
+    "c725": dict(
+        t="その一方で", s="遅れの扱い",
+        fig=("m25", dict(view="scale2", steps=[dict(state=dict(l="on")), dict(state=dict(r="on"))],
+                         rel=[dict(t="1分以上", src="R1 p199"), dict(t="65日", src="R1 p199")],
+                         note="天びんの形は模式", src=ss.src(["R1 p199"])))),
+    # c727（2行）＝1行目：冊子の頁1（速度照査付きのATSを整備できていませんでした）／2行目：頁2（懲罰的と受け止められる再教育などを行っていました）
+    "c727": dict(
+        t="会社が書いたこと", s="のちの冊子",
+        fig=("m25", dict(view="jr_words", steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))],
+                         rel=[dict(t="2021年3月", src="J5 p19004")],
+                         note="言葉は冊子の原文のまま（短く割った）", src=ss.src(["J5 p19005"])))),
+})

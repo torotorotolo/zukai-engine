@@ -13,6 +13,8 @@
   🆕 ⑤b-5（2026-10-26・図解）：K05＝建議（2005-09-06）＝**12000＋PDF の頁**／F1＝消防庁 第32報（2005-05-24）＝**13000＋PDF の頁**／
   HY1＝兵庫県の検証報告書（2006-01）＝**14000＋PDF の頁**（印刷＝PDF−2）／J1＝JR西日本「事故の概要」（`jrw/outline.html`・Shift_JIS）＝**p15001**／
   Kk＝国会会議録（`kokkai/kokkai_*.json` の発言を日ごとに1頁）＝2005-05-12＝**p16001**・2005-05-17＝**p16002**（日は KK_DAYS に足す）
+  🆕 ⑤b-6（2026-10-26）：K07＝建議（2007-06-28）＝**17000＋PDF の頁**／国会の日 2013-11-13＝p16003・2023-03-08＝p16004・2023-06-13＝p16005・2011-02-21＝p16006／
+  M1＝国交省の報道発表（2006-03-24・省令の改正）＝**p18001**／J5＝JR西日本「将来にわたる鉄道の安全の実現に向けて」＝**19000＋PDF の頁**
 ■ 使い方
     python ref/ep25/make_pages25.py      → ref/ep25/src/ep25_pages.txt（git の外＝手元だけ。Actions では門番を回さない）
 """
@@ -32,11 +34,16 @@ DOCS = (("R1", "RA07-3-1-1", -11),
         ("R5", "RA07-3-1-5", 5000), ("R6", "RA07-3-1-6", 6000), ("R7", "RA07-3-1-7", 7000),
         ("S3", "hanrei-pdf-82178", 8000), ("S1", "fu04-finalreport", 9000), ("S1k", "fu04-finalreport-annex-2-2", 10000),
         ("S2", "hanrei-pdf-86834", 11000),
-        ("K05", "kengi_170906k", 12000), ("F1", "fdma_post364", 13000), ("HY1", "hyogo_kensho_000007823", 14000))
+        ("K05", "kengi_170906k", 12000), ("F1", "fdma_post364", 13000), ("HY1", "hyogo_kensho_000007823", 14000),
+        ("K07", "kengi_190628k", 17000))
 # 🆕 ⑤b-5：頁の無い資料（HTML・国会会議録の JSON）＝1頁にまとめる
 J1_HTML = HERE / "src" / "jrw" / "outline.html"
 KK_DIR = HERE / "src" / "kokkai"
-KK_DAYS = {"2005-05-12": 16001, "2005-05-17": 16002}
+# 🆕 ⑤b-6（2026-10-26・図解 第5〜10章）：国会の日を足した（16003〜16006）
+KK_DAYS = {"2005-05-12": 16001, "2005-05-17": 16002, "2013-11-13": 16003, "2023-03-08": 16004, "2023-06-13": 16005, "2011-02-21": 16006}
+# 🆕 ⑤b-6：M1＝国交省の報道発表（2006-03-24・省令の改正・cp932 の HTML）＝p18001／J5＝JR西日本「将来にわたる鉄道の安全の実現に向けて」（PDF）＝19000＋PDF の頁
+M1_HTML = HERE / "src" / "gov" / "mlit_kisha_080324_.html"
+J5_PDF = HERE / "src" / "jrw" / "shourainiwataru.pdf"
 
 
 def _norm(s):
@@ -60,9 +67,18 @@ def _extra_pages():
             if key in seen:            # 同じ発言が複数の検索の JSON に入っている
                 continue
             seen.add(key)
-            by_day[r["date"]].append((int(r.get("speechOrder") or 0), _norm(r.get("speech"))))
+            # 🆕 ⑤b-6：発言者の役職（speakerPosition）を頭に【】で＝図の札の役職（鉄道局長など）を原文で照らす
+            pos = r.get("speakerPosition")
+            by_day[r["date"]].append((int(r.get("speechOrder") or 0), (_norm(f"【{pos}】") if pos else "") + _norm(r.get("speech"))))
     for d, n in KK_DAYS.items():
         out[n] = ("Kk", "".join(t for _o, t in sorted(by_day[d])))
+    h = M1_HTML.read_bytes().decode("cp932")
+    h = re.sub(r"<script.*?</script>|<style.*?</style>", "", h, flags=re.S)
+    out[18001] = ("M1", _norm(re.sub(r"<[^>]+>", "", h)))
+    import fitz
+    with fitz.open(J5_PDF) as doc:
+        for i, pg in enumerate(doc, 1):
+            out[19000 + i] = ("J5", _norm(pg.get_text()) or "（文字の層なし）")
     return out
 
 

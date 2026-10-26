@@ -28,6 +28,18 @@
          cab_note（c516 運転台の線画と付箋）・two_signals（c518 2つの合図）・two_scenes（c521 2つのコマ）・weaker（c523 強さの縦の目盛り）・
          objects（c525 赤鉛筆と手袋）・cycle（c527 輪の流れ）・cal18（c528 3枚の暦）・lens（c529 虫めがね）・qcards（c530 2つの口述）・
          evidence（c531 根拠の線）
+  🆕 ⑤b-6（2026-10-26）＝第5〜10章の図解 57カット（各カット1つの見え方＝名は前の42と重ねない）
+  第5章  speed_step（c606）・push_out（c608）・hbars6（c609）・strip43（c610）・cog2（c611）・ramp（c612）・ceiling（c614）・sort2（c616）・
+         cant（c617）・coupler（c619）・empty_slot（c623）
+  第6章  dots_co（c701）・donut（c705）・order3（c708）・tl_plan（c710 年表・横）・spill（c712）・signal_date（c714）・drop2（c717）・
+         kk_page（c718）・receipt（c720）・trim3（c722）・scale2（c725）・jr_words（c727）
+  第7章  tearoff（c801 暦）・stretch（c803）・flow_fan（c807 流れ）・hourglass（c809）・book_seat（c811）・kengi3（c812）
+  第8章  plates4（c901）・duty（c903）・verdict（c904）・word_swap（c906）・bypass（c908）・relay3（c909）・scatter（c911）・stamps4（c914）・
+         podium（c915）・stamps2（c916）・bench（c917）・nested（c918）・wall（c922）
+  第9章  role_lines（ca03）・ring12（ca04）・links6（ca06）・tl_leak（ca07 年表・縦）・handover（ca08）・bundle（ca09）・jyanken（ca12）・
+         meeting（ca15）・waveform（ca16）・open_book（ca20）・five_slips（ca22）
+  第10章 answer（cb06）・two_causes（cb08）・stones3（cb09）・batteries（cb10）
+  🔴 出どころの色に2つ（⑤b-6）：裁判所（神戸地裁・最高裁）＝LINE（章の線の色）・検証報告書（2011年）＝SUB（章に染まらない白）＝どちらも名の札と一緒に
   🔴 同じ型は全編で2回まで・続けない（台本 §7）：時刻表 c205（縦の列）↔c308（横の帯）・時計 c225（2つの弧）↔c312（秒針の扇）・
      札 c226（紐の値札）↔c510（見出しの札）・比べ c227（表）↔c530（2つの口述）・並べ c325（右でそろう帯）↔c412（2つの板）・
      箱 c415（分けた箱）↔c502（階段）。相方が ⑤b-6 の型（棒 c211↔c609・流れ c507↔c807・暦 c528↔c801）は ⑤b-6 で別の絵に。
@@ -64,6 +76,9 @@ SRC = dict(
     fd=("消防庁", "ship"),            # 消防庁 第32報（2005年5月24日）
     hy=("兵庫県", "ship"),            # 兵庫県 福知山線列車事故検証報告書（2006年1月）
     jr=("JR西日本", "DOC"),           # JR西日本（同社の頁・会社の説明）
+    # 🆕 ⑤b-6（2026-10-26・第8〜9章）：使っている7色と重ねない・新しい色の値は足さない＝名の札と一緒に出す
+    ct=("裁判所", "LINE"),            # 神戸地裁の判決（2012年1月・2013年9月）・最高裁の決定（2017年6月）＝章の線の色
+    kv=("検証報告書", "SUB"),         # 検証報告書（2011年・運輸安全委員会の検証メンバー・チーム）＝章の色に染まらない白
 )
 
 # 言い方の強さ（R1 p.264 の言葉の決まり＝4つの升の数）
@@ -1796,6 +1811,1984 @@ def evidence_stage(prev, st):
 
 
 # ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-26）：第5〜10章の図解 57カット（c6 11・c7 12・c8 6・c9 13・ca 11・cb 4）
+#  🔴 出どころの色に2つ足した（SRC の ct・kv＝新しい色の値は無し）：裁判所＝LINE（章の線の色）・検証報告書＝SUB（章に染まらない白）。
+#     国会（2023年の法務省・鉄道局長・国土交通大臣〈当時〉の答弁も）＝紫 city のまま。国（国土交通省の措置）は出どころの札を出さない（出典の行だけ）
+#  🔴 同じ型は全編で2回まで・続けない：棒 c211（縦・秒）↔c609（横・km/h）／暦 c528（3枚の月の暦）↔c801（日めくりと破った頁）／
+#     流れ c507（縦）↔c807（横の枝分かれ）／年表 c710（横・月）↔ca07（縦・月）。案C の F4・F5 と ⑤b-5 の42とも別の絵
+#  🔴 画面の字は語りの複写にしない（門番 echo＝12字以上で一続きの一致 0.72）＝引用は2つ以上の字に割る（「予見できた」＋「とは認められない」）
+# ══════════════════════════════════════════════════════════
+def _ym(y, m, d=1):
+    """暦の年月日 → 年（小数・月の頭＝m−1）。"""
+    return y + (m - 1 + (d - 1) / 31.0) / 12.0
+
+
+def _ctr(cx, cy, t, cap=28, col=None, mw=700, fam="Noto"):
+    """字の真ん中の高さを cy に。"""
+    return _tline(cx, cy + cap * 0.36, t, cap, col, "middle", mw, fam)
+
+
+def _stag(cx, cy, key, t=None, cap=24):
+    """出どころの名の札（縁と字は出どころの色）。"""
+    return _chip(cx, cy, t or SRC[key][0], sc(key), cap)
+
+
+def _apts(x0, y0, x1, y1, w=14.0, head=34.0, hw=24.0):
+    """矢印の形（7点＝動く部品の pts にも使う）。"""
+    a = math.atan2(y1 - y0, x1 - x0)
+    c, s = math.cos(a), math.sin(a)
+    L = math.hypot(x1 - x0, y1 - y0)
+
+    def p(u, v):
+        return (x0 + u * c - v * s, y0 + u * s + v * c)
+    return [p(0, -w / 2), p(L - head, -w / 2), p(L - head, -hw), p(L, 0), p(L - head, hw), p(L - head, w / 2), p(0, w / 2)]
+
+
+def _rot(pts, cx, cy, deg):
+    r = math.radians(deg)
+    c, s = math.cos(r), math.sin(r)
+    return [(cx + (x - cx) * c - (y - cy) * s, cy + (x - cx) * s + (y - cy) * c) for x, y in pts]
+
+
+def _bldg(x0, y0, x1, y1, col, nx=3, ny=3):
+    """建物の印（名とロゴは描かない）＝外形と窓の升。"""
+    g = [F.rect(x0, y0, x1 - x0, y1 - y0, J.BG2, col, 5, rx=6)]
+    ww, wh = (x1 - x0) / (nx * 2 + 1), (y1 - y0 - 40) / (ny * 2 + 1)
+    for i in range(nx):
+        for j in range(ny):
+            g.append(F.rect(x0 + ww * (2 * i + 1), y0 + 20 + wh * (2 * j + 1), ww, wh, "none", col, 3))
+    return "".join(g)
+
+
+def _doc(x0, y0, w, h, col, lines=3, sw=4):
+    """書類の印（紙と字の行の灰の線＝字は書かない）。"""
+    g = [F.rect(x0, y0, w, h, J.BG2, col, sw, rx=6)]
+    for i in range(lines):
+        yy = y0 + h * (i + 1) / (lines + 1)
+        g.append(F.line(x0 + 14, yy, x0 + w - 14 - (i % 2) * w * 0.25, yy, J.LINE_DIM, 5))
+    return "".join(g)
+
+
+# ══════════════════════════════════════════════════════════
+#  第5章
+#  speed_step（c606）＝時の線と最高速度の段（R1 p.96 の会社の説明＝1991年3月 100→120km/h）・付け替え（1996年12月20日）・事故（2005年4月25日）
+#  横は時に比例・縦は速さに比例（門番が見る）
+# ══════════════════════════════════════════════════════════
+SS = dict(x0=240.0, t0=1989.0, k=82.0, v0=90.0, kv=8.0, yb=760.0, ax=800.0, x1=1640.0)
+SS_EV = (("1991年3月", (1991, 3, 1)), ("1996年12月20日", (1996, 12, 20)), ("2005年4月25日", (2005, 4, 25)))
+SS_V = (100, 120)
+
+
+def ss_x(t):
+    return SS["x0"] + (t - SS["t0"]) * SS["k"]
+
+
+def ss_y(v):
+    return SS["yb"] - (v - SS["v0"]) * SS["kv"]
+
+
+def _ss_ex(i):
+    return ss_x(_ym(*SS_EV[i][1]))
+
+
+def speed_step_base(st0):
+    x96, x05 = _ss_ex(1), _ss_ex(2)
+    return [_arrow(SS["x0"], SS["ax"], SS["x1"], SS["ax"], J.LINE, 4, 18),
+            F.line(x96, 430.0, x96, SS["ax"], J.LINE, 4, dash="12 10"),
+            _ctr(x96, 362.0, "付け替え（今の形に）", 26, INK, 360), _ctr(x96, 400.0, SS_EV[1][0], 24, J.TICK, 300),
+            F.line(x05, 430.0, x05, SS["ax"], J.ALERT, 4),
+            _ctr(x05, 362.0, "事故", 28, J.ALERT, 200), _ctr(x05, 400.0, SS_EV[2][0], 24, J.TICK, 260)]
+
+
+def speed_step_stage(prev, st):
+    s = []
+    x91 = _ss_ex(0)
+    if _on(prev, st, "y91"):
+        s.append(F.line(x91, 470.0, x91, SS["ax"], J.AMBER, 4))
+        s.append(_ctr(x91, 446.0, SS_EV[0][0], 28, J.AMBER, 220))
+    if _on(prev, st, "step"):
+        y100, y120, x05 = ss_y(SS_V[0]), ss_y(SS_V[1]), _ss_ex(2)
+        s.append(F.poly([(SS["x0"], y100), (x91, y100), (x91, y120), (x05, y120)], "none", sc("jr"), 7))
+        s.append(_ctr((SS["x0"] + x91) / 2 - 6, y100 - 26, f"{SS_V[0]}km/h", 26, INK, 160))
+        s.append(_ctr(1240.0, y120 - 28, f"{SS_V[1]}km/h", 30, INK, 200))
+        s.append(_stag(660.0, 600.0, "jr", "会社の説明", 24))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  push_out（c608）＝上から見た曲線と外へ押す力（一般の物理の説明・人は描かない）：速さ2倍 → 力4倍（升1つ → 2×2の4つ）
+#  矢印は動く部品（聞き役の行で4倍の長さへ）
+# ══════════════════════════════════════════════════════════
+PO = dict(cx=-180.0, cy=580.0, r=600.0, a=24.0, car=(420.0, 580.0), ax0=458.0, short=130.0, long=520.0)
+PO_V, PO_F = 2, 4
+PO_SQ = 56.0
+
+
+def push_out_parts(st):
+    L = PO["long"] if st.get("grow") == "on" else PO["short"]
+    y = PO["car"][1]
+    return [_P("force", "poly", _apts(PO["ax0"], y, PO["ax0"] + L, y, 16.0, 38.0, 28.0), fill=J.ALERT, stroke=J.BG, w=2,
+               alpha=1.0 if st.get("force") == "on" else 0.0)]
+
+
+def push_out_base(st0):
+    g = []
+    cx, cy, r, a = PO["cx"], PO["cy"], PO["r"], PO["a"]
+    for k in range(-int(a), int(a) + 1, 4):
+        p0 = (cx + (r - 30) * math.cos(math.radians(k)), cy + (r - 30) * math.sin(math.radians(k)))
+        p1 = (cx + (r + 30) * math.cos(math.radians(k)), cy + (r + 30) * math.sin(math.radians(k)))
+        g.append(F.line(p0[0], p0[1], p1[0], p1[1], J.LINE_DIM, 5))
+    for rr in (r - 15, r + 15):
+        g.append(F.poly(_arcpts(cx, cy, rr, rr, -a, a, 24), "none", J.LINE, 5))
+    x, y = PO["car"]
+    g.append(F.rect(x - 30, y - 100, 60, 200, TRAIN, J.BG, 3, rx=10))
+    g.append(_ctr(250.0, 860.0 - 40, "曲線", 26, J.TICK, 160))
+    return g
+
+
+def push_out_stage(prev, st):
+    s = []
+    if _on(prev, st, "force"):
+        s.append(_ctr(600.0, 532.0, "外へ押し出す力", 28, J.ALERT, 260))
+    if _on(prev, st, "sq"):
+        q, gap = PO_SQ, 8.0
+        s.append(_arrow(1110.0, 440.0, 1230.0, 440.0, J.AMBER, 6, 22) + _ctr(1170.0, 486.0, "もとの速さ", 24, J.TICK, 200))
+        s.append(_arrow(1262.0, 440.0, 1410.0, 440.0, J.LINE, 4, 16))
+        s.append(F.rect(1440.0, 440.0 - q / 2, q, q, J.AMBER, None, None, rx=6) + _ctr(1468.0, 500.0, "もとの力", 24, J.TICK, 200))
+        s.append(_arrow(1110.0, 674.0, 1350.0, 674.0, J.AMBER, 6, 22) + _ctr(1230.0, 722.0, f"速さ {PO_V}倍", 28, J.AMBER, 220))
+        s.append(_arrow(1370.0, 674.0, 1424.0, 674.0, J.LINE, 4, 16))
+        for i in range(2):
+            for j in range(2):
+                s.append(F.rect(1440.0 + i * (q + gap), 614.0 + j * (q + gap), q, q, J.AMBER, None, None, rx=6))
+        s.append(_ctr(1500.0, 774.0, f"力 {PO_F}倍", 30, J.AMBER, 220))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  hbars6（c609）＝転覆限界速度の6本の横の棒（0から値どおり＝棒の長さは km/h に比例）。c211（縦の棒・秒）の相方＝向きと物差しを替えた
+#  104 報告書（定員150名・揺れあり＝p.230 の物差し）・106／122／123 報告書の表43・108前後 神戸地裁（可能性が高い）・133 会社の公表（事故の日）
+# ══════════════════════════════════════════════════════════
+HB6 = (("rep", "報告書", "定員150名・揺れあり", 104, "104"), ("rep", "報告書", "93名・揺れあり", 106, "106"),
+       ("ct", "神戸地裁", "判決・可能性が高い", 108, "108前後"), ("rep", "報告書", "93名・揺れなし", 122, "122"),
+       ("rep", "報告書", "空車・揺れなし", 123, "123"), ("jr", "JR西日本", "事故の日の公表", 133, "133"))
+HBX = dict(x0=640.0, k=8.0, y0=388.0, dy=74.0, h=44.0)
+
+
+def hb_y(i):
+    return HBX["y0"] + i * HBX["dy"]
+
+
+def hb_end(v):
+    return HBX["x0"] + v * HBX["k"]
+
+
+def hbars6_base(st0):
+    return [F.line(HBX["x0"], 350.0, HBX["x0"], hb_y(5) + 36, J.LINE, 4)]
+
+
+def hbars6_stage(prev, st):
+    s = []
+    h = HBX["h"]
+    if _on(prev, st, "bars"):
+        s.append(_tline(HBX["x0"] + 12, 336.0, "転覆限界速度（km/h）", 26, J.TICK, "start", 420))
+        for i, (_k, _n, _c, v, _l) in enumerate(HB6):
+            s.append(F.rect(HBX["x0"], hb_y(i) - h / 2, hb_end(v) - HBX["x0"], h, J.LINE_DIM, None, None, rx=6))
+    if _on(prev, st, "cols"):
+        for i, (k, name, cond, v, lab) in enumerate(HB6):
+            y = hb_y(i)
+            s.append(F.rect(HBX["x0"], y - h / 2, hb_end(v) - HBX["x0"], h, sc(k), None, None, rx=6))
+            s.append(_tline(130.0, y + 9, name, 24, sc(k), "start", 150))
+            s.append(_tline(290.0, y + 8, cond, 22, INK, "start", 330))
+            s.append(_tline(hb_end(v) + 14, y + 10, lab, 28, INK, "start", 140))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  strip43（c610）＝報告書の表43の最後の行の写し（1両目の列）：93名・揺れあり 106／93名・揺れなし 122／空車・揺れなし 123／
+#  会社の公表（空車）133＝表の中の会社の列（R1 p.188・p.194）。表（c227 matrix）とは別の見た目＝1本の帯の切れ端
+# ══════════════════════════════════════════════════════════
+T43 = (("93名・揺れあり", "106", "rep"), ("93名・揺れなし", "122", "rep"), ("空車・揺れなし", "123", "rep"), ("会社の公表（空車）", "133", "jr"))
+T43X = dict(x0=200.0, x1=1720.0, y0=410.0, y1=720.0, cw=380.0)
+
+
+def t43_cx(i):
+    return T43X["x0"] + T43X["cw"] * (i + 0.5)
+
+
+def strip43_base(st0):
+    g = [F.rect(T43X["x0"], T43X["y0"], T43X["x1"] - T43X["x0"], T43X["y1"] - T43X["y0"], J.BG2, J.LINE, 4, rx=4),
+         _tline(T43X["x0"] + 6, 388.0, "報告書の表43（1両目の列・最後の行）", 26, J.TICK, "start", 700),
+         F.line(T43X["x0"], 500.0, T43X["x1"], 500.0, J.LINE_DIM, 3)]
+    for i, (cond, _v, _c) in enumerate(T43):
+        if i:
+            g.append(F.line(T43X["x0"] + T43X["cw"] * i, T43X["y0"], T43X["x0"] + T43X["cw"] * i, T43X["y1"], J.LINE_DIM, 3))
+        g.append(_ctr(t43_cx(i), 456.0, cond, 24, J.TICK, T43X["cw"] - 30))
+    return g
+
+
+def _t43_cell(i, big=True):
+    cond, v, c = T43[i]
+    x0 = T43X["x0"] + T43X["cw"] * i
+    col = rc(c) if c not in SRC else sc(c)
+    g = [F.rect(x0 + 10, 512.0, T43X["cw"] - 20, T43X["y1"] - 522.0, "none", col, 6, rx=8)] if big else []
+    g.append(_ctr(t43_cx(i), 610.0, v, 84 if big else 54, col if big else J.TICK, 300, "Dela"))
+    return "".join(g)
+
+
+def strip43_stage(prev, st):
+    s = []
+    if _on(prev, st, "co"):
+        s.append(_t43_cell(3))
+        s.append(_ctr(t43_cx(3), 760.0, "事故の日に公表", 26, sc("jr"), 340))
+    if _on(prev, st, "rep"):
+        s += [_t43_cell(0), _t43_cell(1), _t43_cell(2, big=False)]
+        s.append(_ctr((t43_cx(0) + t43_cx(1)) / 2, 760.0, "報告書の試算", 26, sc("rep"), 340))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  cog2（c611）＝後ろから見た車体と重心の2つの高さ：ばねで傾く分を入れた高さ（報告書の物差し＝表43 の注3）・入れない高さ（会社の 133km/h＝注4）
+#  🔴 入れた高さ（青）が上・入れない高さ（茶）が下（門番が見る）。数は 133 だけ（m の値は出さない）
+# ══════════════════════════════════════════════════════════
+CG = dict(cx=960.0, hi=520.0, lo=606.0, tilt=5.0)
+CG_CO = 133
+CG_BODY = ((780.0, 700.0), (780.0, 420.0), (820.0, 372.0), (1100.0, 372.0), (1140.0, 420.0), (1140.0, 700.0))
+
+
+def _spring(x, y0, y1, w=22.0, n=6):
+    pts = [(x, y0)] + [(x + (w if i % 2 else -w), y0 + (y1 - y0) * (i + 0.5) / n) for i in range(n)] + [(x, y1)]
+    return F.poly(pts, "none", J.LINE, 5)
+
+
+def cog2_base(st0):
+    g = [F.poly(CG_BODY, TRAIN, J.BG, 3, close=True)]
+    g += [_spring(860.0, 702.0, 760.0), _spring(1060.0, 702.0, 760.0)]
+    g.append(F.rect(800.0, 760.0, 320.0, 30.0, J.BG2, J.LINE, 4, rx=6))
+    g += [F.circ(856.0, 812.0, 24.0, J.BG2, J.LINE, 5), F.circ(1064.0, 812.0, 24.0, J.BG2, J.LINE, 5)]
+    g.append(F.line(700.0, 842.0, 1220.0, 842.0, J.LINE, 6))
+    return g
+
+
+def cog2_stage(prev, st):
+    s = []
+    if _on(prev, st, "spring"):
+        s.append(F.poly(_rot(CG_BODY, CG["cx"], 700.0, CG["tilt"]), "none", J.AMBER, 4, close=True, dash="12 10"))
+        s.append(_tline(1200.0, 470.0, "ばねで車体が傾く分など", 28, J.AMBER, "start", 600))
+    if _on(prev, st, "two"):
+        s.append(F.line(742.0, CG["hi"], CG["cx"], CG["hi"], sc("rep"), 3) + F.circ(CG["cx"], CG["hi"], 18.0, sc("rep"), J.BG, 4))
+        s.append(F.line(742.0, CG["lo"], CG["cx"], CG["lo"], sc("jr"), 3) + F.circ(CG["cx"], CG["lo"], 18.0, sc("jr"), J.BG, 4))
+        s.append(_tline(730.0, CG["hi"] + 9, "入れた高さ（報告書の物差し）", 24, sc("rep"), "end", 600))
+        s.append(_tline(730.0, CG["lo"] + 9, "入れない高さ", 24, sc("jr"), "end", 400))
+        s.append(_tline(730.0, CG["lo"] + 46, f"→ {CG_CO}km/h（会社）", 24, sc("jr"), "end", 400))
+        s.append(_stag(1420.0, 640.0, "rep", "表43の注記", 24))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  ramp（c612）＝斜めの速さの目盛り（左下 → 右上＝速い）：神戸地裁の幅 105〜110km/h・108前後（可能性が高い）→ 会社の133km/h（相当異なる）
+#  位置は速さに比例（門番が見る）。c302（横の速度の目盛り）とは別の見た目＝斜めの坂
+# ══════════════════════════════════════════════════════════
+RP = dict(ax=300.0, ay=780.0, bx=1600.0, by=380.0, v0=100.0, v1=135.0)
+RP_BAND, RP_DOT, RP_CO = (105, 110), 108, 133
+
+
+def rp_pt(v):
+    t = (v - RP["v0"]) / (RP["v1"] - RP["v0"])
+    return RP["ax"] + t * (RP["bx"] - RP["ax"]), RP["ay"] + t * (RP["by"] - RP["ay"])
+
+
+def ramp_base(st0):
+    return [_arrow(RP["ax"], RP["ay"], RP["bx"], RP["by"], J.LINE_DIM, 6, 22), _tline(RP["bx"] + 18, RP["by"] + 40, "速さ", 24, J.TICK, "start", 100)]
+
+
+def ramp_stage(prev, st):
+    s = []
+    if _on(prev, st, "band"):
+        a, b = rp_pt(RP_BAND[0]), rp_pt(RP_BAND[1])
+        s.append(F.line(a[0], a[1], b[0], b[1], sc("ct"), 30))
+        d = rp_pt(RP_DOT)
+        s.append(F.circ(d[0], d[1], 15.0, J.AMBER, J.BG, 4))
+        m = rp_pt(sum(RP_BAND) / 2)
+        s.append(_ctr(m[0], m[1] - 104, f"{RP_BAND[0]}〜{RP_BAND[1]}km/h", 28, INK, 300))   # 🔧 geom_gap：2段目の弧と 4.7px
+        s.append(_ctr(d[0], d[1] + 56, f"{RP_DOT}前後", 26, J.AMBER, 200))
+        s.append(_stag(1000.0, 760.0, "ct", "神戸地裁（2012年1月の判決）", 24) + _ctr(1000.0, 812.0, "可能性が高い", 24, J.TICK, 300))
+    if _on(prev, st, "co"):
+        c = rp_pt(RP_CO)
+        s.append(F.circ(c[0], c[1], 18.0, sc("jr"), J.BG, 4))
+        # 🔧 geom_gap：札が弧の終わりと坂の矢印の頭に 4.2〜4.6px＝左上へ・弧は帯の上から
+        s.append(_ctr(c[0] - 110, c[1] - 72, f"{RP_CO}km/h（会社の公表）", 26, sc("jr"), 380))
+        d = rp_pt(RP_DOT)
+        p0, p2, cc = (d[0] + 30, d[1] - 40), (c[0] - 10, c[1] - 26), (1000.0, 470.0)
+        pts = [((1 - u) ** 2 * p0[0] + 2 * (1 - u) * u * cc[0] + u * u * p2[0], (1 - u) ** 2 * p0[1] + 2 * (1 - u) * u * cc[1] + u * u * p2[1])
+               for u in [i / 20 for i in range(21)]]
+        s.append(F.poly(pts, "none", J.ALERT, 4, dash="12 10"))
+        s.append(_ctr(960.0, 420.0, "現実の値と相当異なる", 28, J.ALERT, 360))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  ceiling（c614）＝天井の線（転覆限界速度 104km/h＝定員150名・報告書の物差し）を、手前の区間の最高速度 120km/h の矢印が突き抜ける（R1 p.230）
+#  縦は速さに比例・矢印は動く部品（門番が見る）
+# ══════════════════════════════════════════════════════════
+CE = dict(x=1000.0, y0=820.0, v0=80.0, k=10.0, x0=520.0, x1=1480.0, start=96)
+CE_LIM, CE_MAX = 104, 120
+
+
+def ce_y(v):
+    return CE["y0"] - (v - CE["v0"]) * CE["k"]
+
+
+def ceiling_parts(st):
+    v = CE_MAX if st.get("up") == "on" else CE["start"]
+    return [_P("speed", "poly", _apts(CE["x"], CE["y0"], CE["x"], ce_y(v), 30.0, 44.0, 40.0), fill=J.AMBER, stroke=J.BG, w=2, alpha=1.0)]
+
+
+def ceiling_base(st0):
+    y = ce_y(CE_LIM)
+    return [F.line(CE["x0"] - 60, CE["y0"], CE["x1"] + 60, CE["y0"], J.LINE, 5),
+            F.line(CE["x0"], y, CE["x1"], y, J.ALERT, 6, dash="16 10"),
+            _tline(CE["x0"] - 40, y - 20, f"転覆限界速度 {CE_LIM}km/h", 28, INK, "start", 460),
+            _tline(CE["x0"] - 40, y + 40, "定員150名・報告書の物差し", 22, J.TICK, "start", 400)]
+
+
+def ceiling_stage(prev, st):
+    s = []
+    if _on(prev, st, "up"):
+        top = ce_y(CE_MAX)
+        s.append(_tline(CE["x"] + 46, top + 12, "手前の区間の最高速度", 26, J.AMBER, "start", 420))
+        s.append(_tline(CE["x"] + 46, top + 52, f"{CE_MAX}km/h", 32, J.AMBER, "start", 200))
+        s.append(F.poly([(CE["x"] + 330, ce_y(CE_LIM)), (CE["x"] + 344, ce_y(CE_LIM)), (CE["x"] + 344, top + 70), (CE["x"] + 330, top + 70)],
+                        "none", J.ALERT, 4))
+        s.append(_tline(CE["x"] + 360, (ce_y(CE_LIM) + top + 70) / 2 + 10, "大きく超える", 26, J.ALERT, "start", 220))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  sort2（c616）＝曲線の付け替え（1996年12月）の札を2つの箱へ仕分ける：原因の3つの文（出てこない ✕）／「優先」の根拠（R1 p.230）
+# ══════════════════════════════════════════════════════════
+SO_CARD = "曲線の付け替え（1996年12月）"
+
+
+def sort2_base(st0):
+    return [F.rect(690.0, 330.0, 540.0, 80.0, J.BG2, INK, 4, rx=12), _ctr(CX, 370.0, SO_CARD, 28, INK, 500)]
+
+
+def sort2_stage(prev, st):
+    s = []
+    if _on(prev, st, "no"):
+        s.append(F.rect(200.0, 520.0, 660.0, 290.0, J.BG2, J.LINE, 4, rx=14) + _ctr(530.0, 566.0, "原因の3つの文", 28, INK, 600))
+        for i in range(3):
+            x0 = 252.0 + i * 195.0
+            s.append(F.rect(x0, 616.0, 170.0, 76.0, J.BG, J.LINE_DIM, 3, rx=8) + _ctr(x0 + 85, 654.0, f"文{i + 1}", 26, J.TICK, 150))
+        s.append(_arrow(760.0, 414.0, 640.0, 512.0, J.LINE_DIM, 4, 18, dash="10 8") + _xmark(668.0, 470.0, 22))
+        s.append(_ctr(530.0, 756.0, "付け替えは出てこない", 26, J.ALERT, 560))
+    if _on(prev, st, "yes"):
+        s.append(F.rect(1060.0, 520.0, 660.0, 290.0, J.BG2, sc("rep"), 5, rx=14) + _ctr(1390.0, 566.0, "「優先」の根拠", 28, sc("rep"), 600))
+        s.append(_ctr(1390.0, 602.0, "報告書 230頁", 22, J.TICK, 300))
+        s.append(F.rect(1110.0, 650.0, 560.0, 80.0, INK, None, None, rx=12) + _ctr(1390.0, 690.0, "曲線の付け替え", 28, J.BG, 500))
+        s.append(_arrow(1160.0, 414.0, 1300.0, 642.0, J.AMBER, 5, 20))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  cant（c617）＝後ろから見たレールの高さの差（カント＝外側のレールを 97mm 高くして車体を内へ傾ける＝R1 p.73）。
+#  高さの差は強めて描いた（模式）。枕木・レール・車体は動く部品＝内側のレールを軸に傾く
+# ══════════════════════════════════════════════════════════
+CA = dict(px=1220.0, py=700.0, dy=60.0)
+CA_MM = 97
+CA_ANG = math.degrees(math.asin(CA["dy"] / (CA["px"] - 703.0)))
+CA_BODY = ((760.0, 664.0), (760.0, 402.0), (800.0, 362.0), (1140.0, 362.0), (1180.0, 402.0), (1180.0, 664.0))
+
+
+def cant_parts(st):
+    r = CA_ANG if st.get("tilt") == "on" else 0.0
+    piv = dict(pivot=[CA["px"], CA["py"]], rot=r)
+    return [_P("sleeper", "poly", [(600.0, 712.0), (1320.0, 712.0), (1320.0, 736.0), (600.0, 736.0)], fill=J.LINE_DIM, stroke=J.BG, w=2, **piv),
+            _P("railL", "poly", [(680.0, 676.0), (726.0, 676.0), (726.0, 712.0), (680.0, 712.0)], fill=J.LINE, stroke=J.BG, w=2, **piv),
+            _P("railR", "poly", [(1197.0, 676.0), (1243.0, 676.0), (1243.0, 712.0), (1197.0, 712.0)], fill=J.LINE, stroke=J.BG, w=2, **piv),
+            _P("body", "poly", list(CA_BODY), fill=TRAIN, stroke=J.BG, w=3, **piv)]
+
+
+def cant_base(st0):
+    return [_ctr(703.0, 800.0, "外側のレール", 24, J.TICK, 240), _ctr(CA["px"], 800.0, "内側のレール", 24, J.TICK, 240)]
+
+
+def cant_stage(prev, st):
+    s = []
+    if _on(prev, st, "tilt"):
+        top = CA["py"] - 6 - CA["dy"]
+        s.append(F.line(560.0, CA["py"] - 6, 1180.0, CA["py"] - 6, J.LINE_DIM, 3, dash="10 8"))
+        s.append(F.poly([(626.0, top), (640.0, top), (640.0, CA["py"] - 6), (626.0, CA["py"] - 6)], "none", J.AMBER, 4))
+        s.append(_tline(612.0, top + 40, f"{CA_MM}mm", 34, J.AMBER, "end", 200))
+        s.append(_tline(1264.0, 430.0, "車体を内へ傾ける", 26, INK, "start", 360))
+    if _on(prev, st, "name"):
+        s.append(_ctr(1560.0, 560.0, "カント", 72, J.AMBER, 360))
+        s.append(_ctr(1560.0, 624.0, "外側のレールを高く", 24, J.TICK, 360))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  coupler（c619）＝上から見た1両目と2両目（右の曲線＝外は左）：2両目は 110km/h でもそれだけでは脱線しない（計算）→
+#  外への力に加え、1両目から連結器を通して左向きの力（推定される＝R1 p.226）。脱線の瞬間は描かない
+# ══════════════════════════════════════════════════════════
+CU = dict(cx=1560.0, cy=900.0, r=820.0, a0=188.0, a1=230.0, c2=198.0, c1=216.0, L=220.0, W=64.0)
+CU_V = 110
+CU_WORD = "推定される"
+
+
+def _cu_car(ang):
+    cx, cy, r = CU["cx"], CU["cy"], CU["r"]
+    a = math.radians(ang)
+    c = (cx + r * math.cos(a), cy + r * math.sin(a))
+    n = (math.cos(a), math.sin(a))
+    t = (-math.sin(a), math.cos(a))
+    hl, hw = CU["L"] / 2, CU["W"] / 2
+    pts = [(c[0] + u * hl * t[0] + v * hw * n[0], c[1] + u * hl * t[1] + v * hw * n[1]) for u, v in ((-1, -1), (1, -1), (1, 1), (-1, 1))]
+    return c, n, t, pts
+
+
+def coupler_base(st0):
+    g = []
+    for rr in (CU["r"] - 15, CU["r"] + 15):
+        g.append(F.poly(_arcpts(CU["cx"], CU["cy"], rr, rr, CU["a0"], CU["a1"], 24), "none", J.LINE, 5))
+    c2, _n2, t2, p2 = _cu_car(CU["c2"])
+    c1, _n1, t1, p1 = _cu_car(CU["c1"])
+    g += [F.poly(p2, TRAIN, J.BG, 3, close=True), F.poly(p1, TRAIN, J.BG, 3, close=True)]
+    a = (c2[0] + t2[0] * CU["L"] / 2, c2[1] + t2[1] * CU["L"] / 2)
+    b = (c1[0] - t1[0] * CU["L"] / 2, c1[1] - t1[1] * CU["L"] / 2)
+    g.append(F.line(a[0], a[1], b[0], b[1], INK, 8))
+    g.append(_chip(1100.0, 420.0, "1両目", J.TICK, 24))
+    g.append(_chip(960.0, 690.0, "2両目", J.TICK, 24))
+    return g
+
+
+def coupler_stage(prev, st):
+    s = []
+    c2, n2, _t2, p2 = _cu_car(CU["c2"])
+    if _on(prev, st, "c2"):
+        s.append(F.poly(p2, "none", J.AMBER, 6, close=True))
+        s.append(_tline(140.0, 712.0, f"{CU_V}km/h でも", 30, INK, "start", 460))
+        s.append(_tline(140.0, 758.0, "それだけでは脱線しない", 26, INK, "start", 460))
+        s.append(_tline(140.0, 800.0, "報告書の計算", 22, J.TICK, "start", 300))
+    if _on(prev, st, "pull"):
+        a = (c2[0] + n2[0] * 44, c2[1] + n2[1] * 44)
+        b = (c2[0] + n2[0] * 236, c2[1] + n2[1] * 236)
+        s.append(_arrow(a[0], a[1], b[0], b[1], J.ALERT, 7, 26))
+        s.append(_tline(b[0] - 10, b[1] - 18, "外への力", 26, J.ALERT, "end", 200))
+        c1, n1, t1, _p1 = _cu_car(CU["c1"])
+        m = ((c1[0] - t1[0] * CU["L"] / 2 + c2[0] + _t2[0] * CU["L"] / 2) / 2, (c1[1] - t1[1] * CU["L"] / 2 + c2[1] + _t2[1] * CU["L"] / 2) / 2)
+        ang = math.radians((CU["c1"] + CU["c2"]) / 2)
+        e = (m[0] + math.cos(ang) * 170, m[1] + math.sin(ang) * 170)
+        s.append(_arrow(m[0] + math.cos(ang) * 20, m[1] + math.sin(ang) * 20, e[0], e[1], J.AMBER, 7, 26))
+        # 🔧 門番 echo：「1両目から連結器を通して」（12字）が語りの丸写し＝3行に割る
+        s.append(_tline(e[0] - 18, e[1] - 80, "1両目から", 24, J.AMBER, "end", 300))
+        s.append(_tline(e[0] - 18, e[1] - 44, "連結器を通した", 24, J.AMBER, "end", 300))
+        s.append(_tline(e[0] - 18, e[1] - 8, "左向きの力", 26, J.AMBER, "end", 300))
+        s.append(_tline(1150.0, 770.0, CU_WORD, 30, sc("rep"), "start", 240) + _meter(1320.0, 760.0, CU_WORD))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  empty_slot（c623）＝上から見た線路：信号の手前には照らす装置・曲線の手前は何も無い（点線の空の箱）→ 次の章（仕組みと間に合わなかった工事）
+# ══════════════════════════════════════════════════════════
+def empty_slot_base(st0):
+    g = [_rails(140.0, 1180.0, 600.0)]
+    for rr in (386.0, 414.0):
+        g.append(F.poly(_arcpts(1180.0, 200.0, rr, rr, 90.0, 32.0, 20), "none", J.LINE, 5))
+    g.append(F.line(480.0, 560.0, 480.0, 430.0, J.LINE, 8) + F.rect(452.0, 350.0, 56.0, 90.0, J.BG2, J.LINE, 4, rx=8)
+             + F.circ(480.0, 374.0, 14.0, J.ALERT, None) + F.circ(480.0, 414.0, 14.0, J.LINE_DIM, None))
+    g.append(F.rect(355.0, 589.0, 50.0, 22.0, J.AMBER, None, None, rx=4) + _ctr(380.0, 664.0, "信号の手前：照らす装置", 22, J.TICK, 320))
+    g.append(F.rect(1055.0, 589.0, 50.0, 22.0, "none", J.LINE, 3, rx=4, dash="6 5") + _ctr(1080.0, 664.0, "曲線の手前：何も無い", 24, INK, 320))
+    return g
+
+
+def empty_slot_stage(prev, st):
+    s = []
+    if _on(prev, st, "q"):
+        s.append(_qmark(1080.0, 520.0, 64))
+        s.append(_chip(1560.0, 330.0, "ほかの鉄道は？", J.AMBER, 28))
+    if _on(prev, st, "next"):
+        x0, y0, w, h = 1000.0, 740.0, 160.0, 40.0
+        g = [F.rect(x0, y0, w, h, J.BG, J.AMBER, 3, rx=4)]
+        for i in range(6):
+            xx = x0 + 10 + i * 28
+            g.append(F.poly([(xx, y0 + h), (xx + 14, y0 + h), (xx + 28, y0), (xx + 14, y0)], J.AMBER, None, close=True))
+        s.append("".join(g) + F.line(1012.0, 780.0, 1012.0, 808.0, J.AMBER, 5) + F.line(1148.0, 780.0, 1148.0, 808.0, J.AMBER, 5))
+        s.append(_ctr(1080.0, 836.0, "間に合わなかった工事", 24, J.AMBER, 320))
+        s.append(_chip(1560.0, 760.0, "次の章：仕組みと工事", INK, 26))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  第6章
+#  dots_co（c701）＝会社の数の点：JR＝3社（JR西日本を含む・JR の全体の数は資料に無い＝点は3つだけ）／私鉄＝113社の点のうち13社（最高裁 S2 p.3）
+# ══════════════════════════════════════════════════════════
+DC_JR, DC_TOTAL = 3, 113
+DC_LIT = (3, 11, 20, 26, 38, 45, 57, 64, 71, 83, 90, 99, 108)
+DCX = dict(x0=876.0, y0=450.0, dx=58.0, dy=48.0, cols=15, r=13.0)
+
+
+def dc_pt(i):
+    return DCX["x0"] + (i % DCX["cols"]) * DCX["dx"], DCX["y0"] + (i // DCX["cols"]) * DCX["dy"]
+
+
+def dots_co_base(st0):
+    return [F.rect(140.0, 360.0, 580.0, 460.0, J.BG2, J.LINE_DIM, 3, rx=14), F.rect(800.0, 360.0, 940.0, 460.0, J.BG2, J.LINE_DIM, 3, rx=14),
+            _tline(170.0, 408.0, "JR", 34, INK, "start", 120), _tline(830.0, 408.0, "私鉄", 34, INK, "start", 160)]
+
+
+def dots_co_stage(prev, st):
+    s = []
+    if _on(prev, st, "q"):
+        s.append(_chip(CX, 318.0, "事故の前・自主的に", J.TICK, 26))
+        s.append("".join(F.circ(*dc_pt(i), DCX["r"], J.LINE_DIM, None) for i in range(DC_TOTAL)))
+    if _on(prev, st, "n"):
+        s.append("".join(F.circ(*dc_pt(i), DCX["r"] + 2, J.AMBER, J.BG, 3) for i in DC_LIT))
+        s.append(_tline(1716.0, 408.0, f"{DC_TOTAL}社のうち{len(DC_LIT)}社", 30, J.AMBER, "end", 420))
+        s.append("".join(F.circ(300.0 + i * 120.0, 590.0, 30.0, J.AMBER, J.BG, 4) for i in range(DC_JR)))
+        s.append(_ctr(420.0, 680.0, f"{DC_JR}社（JR西日本を含む）", 28, J.AMBER, 520))
+        s.append(_stag(430.0, 772.0, "ct", "最高裁（2017年の決定）", 22))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  donut（c705）＝曲線の照らしの105か所の内わけ（R1 p.134）：ATS-P だけ 88・ATS-SW だけ 11・両方 6（輪の角度は数に比例＝門番が見る）
+#  🔴 輪の真ん中に字を置かない（layout）＝計105か所は輪の上
+# ══════════════════════════════════════════════════════════
+DN = (("ATS-P だけ", 88, "AMBER"), ("ATS-SW だけ", 11, "LINE"), ("両方", 6, "INK_W"))
+DN_TOTAL = 105
+DNX = dict(cx=640.0, cy=610.0, ro=210.0, ri=118.0)
+
+
+def dn_angs():
+    out, a = [], -90.0
+    for _t, n, _c in DN:
+        b = a + 360.0 * n / DN_TOTAL
+        out.append((a, b))
+        a = b
+    return out
+
+
+def donut_base(st0):
+    return []
+
+
+def donut_stage(prev, st):
+    s = []
+    if _on(prev, st, "all"):
+        for (t, n, c), (a, b) in zip(DN, dn_angs()):
+            s.append(_sector(DNX["cx"], DNX["cy"], DNX["ri"], DNX["ro"], a, b, rc(c), J.BG, 4, n=max(4, int((b - a) / 6))))
+        s.append(_ctr(DNX["cx"], 340.0, f"計{DN_TOTAL}か所", 34, J.AMBER, 300))   # 🔧 geom_gap：2段目の外の弧と 0.9px
+        for i, (t, n, c) in enumerate(DN):
+            y = 470.0 + i * 90.0
+            s.append(F.rect(1010.0, y - 20, 40.0, 40.0, rc(c), None, None, rx=6))
+            s.append(_tline(1070.0, y + 10, t, 28, INK, "start", 300) + _tline(1640.0, y + 12, f"{n}か所", 32, J.AMBER, "end", 200))
+    if _on(prev, st, "way"):
+        a, b = dn_angs()[0]
+        s.append(F.poly(_arcpts(DNX["cx"], DNX["cy"], DNX["ro"] + 22, DNX["ro"] + 22, a, b, 40), "none", sc("jr"), 7))
+        s.append(_stag(1180.0, 760.0, "jr", "会社のやり方", 24))
+        s.append(_tline(1320.0, 770.0, "ATS-P と一緒に付ける", 28, INK, "start", 420))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  order3（c708）＝ATS-P の3つの働きの整備の順（止まれの信号の手前・分岐器が先＝曲線が後＝R1 p.229）と報告書の3つの言い方（強さの升）
+# ══════════════════════════════════════════════════════════
+OR3 = ("止まれの信号の手前", "分岐器", "曲線")
+OR3_ROWS = (("危険の認識", "あった", "可能性が考えられる"), ("急ぐべきと認識", "容易でなかった", "考えられる"), ("曲線の照らし", "後回しに", "考えられる"))
+OR3X = dict(xs=(400.0, 960.0, 1520.0), y=450.0, w=380.0, h=110.0, ys=(610.0, 700.0, 790.0))
+
+
+def order3_base(st0):
+    g = [_tline(210.0, 372.0, "ATS-P の働き：整備の順", 26, J.TICK, "start", 520)]
+    for i, (x, t) in enumerate(zip(OR3X["xs"], OR3)):
+        g.append(F.rect(x - OR3X["w"] / 2, OR3X["y"] - OR3X["h"] / 2, OR3X["w"], OR3X["h"], J.BG2, J.LINE, 4, rx=12))
+        g.append(_ctr(x - OR3X["w"] / 2 + 34, OR3X["y"], "①②③"[i], 32, J.AMBER, 60) + _ctr(x + 22, OR3X["y"], t, 28, INK, OR3X["w"] - 90))
+        if i:
+            g.append(_arrow(OR3X["xs"][i - 1] + OR3X["w"] / 2 + 8, OR3X["y"], x - OR3X["w"] / 2 - 8, OR3X["y"], J.LINE, 4, 16))
+    return g
+
+
+def _or3_row(i):
+    a, b, w = OR3_ROWS[i]
+    y = OR3X["ys"][i]
+    return (_tline(260.0, y + 10, a, 28, INK, "start", 300) + _arrow(580.0, y, 650.0, y, J.LINE_DIM, 4, 14)
+            + _tline(670.0, y + 10, b, 28, INK, "start", 300) + _tline(1150.0, y + 9, w, 26, J.AMBER, "start", 260)
+            + _meter(1420.0, y, w))
+
+
+def order3_stage(prev, st):
+    s = []
+    if _on(prev, st, "r1"):
+        s.append(_or3_row(0))
+    if _on(prev, st, "r2"):
+        s.append(_or3_row(1))
+    if _on(prev, st, "r3"):
+        s.append(_or3_row(2))
+        x = OR3X["xs"][2]
+        s.append(F.rect(x - OR3X["w"] / 2 - 10, OR3X["y"] - OR3X["h"] / 2 - 10, OR3X["w"] + 20, OR3X["h"] + 20, "none", J.ALERT, 5, rx=16, dash="14 10"))
+        s.append(_ctr(x, OR3X["y"] + 90, "後回し", 28, J.ALERT, 200))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  tl_plan（c710）＝年表（横・1か月＝58画素）：2003年9月29日 経営会議（会社）→ 工期 2003年10月〜2005年5月 → 使い始め 2005年2月以降・順に（R1 p.135）
+#  事故（2005年4月25日）の線は基図。相方 ca07（縦の年表）とは向きを替えた
+# ══════════════════════════════════════════════════════════
+TP = dict(x0=180.0, m0=6.0, k=58.0, y=600.0, x1=1660.0)
+TP_MEET = (2003, 9, 29)
+TP_WORK = ((2003, 10, 1), (2005, 5, 31))
+TP_USE = (2005, 2, 1)
+TP_ACC = (2005, 4, 25)
+
+
+def tp_x(y, m, d=1):
+    return TP["x0"] + ((y - 2003) * 12 + (m - 1) + (d - 1) / 31.0 - TP["m0"]) * TP["k"]
+
+
+def tl_plan_base(st0):
+    g = [_arrow(TP["x0"], TP["y"], TP["x1"], TP["y"], J.LINE, 4, 18)]
+    for mm in range(7, 32):
+        x = TP["x0"] + (mm - TP["m0"]) * TP["k"]
+        if x <= TP["x1"] - 30:
+            g.append(F.line(x, TP["y"] - 8, x, TP["y"] + 8, J.LINE_DIM, 3))
+    for yy in (2004, 2005):
+        x = tp_x(yy, 1)
+        g.append(F.line(x, TP["y"] - 18, x, TP["y"] + 18, J.LINE, 4) + _ctr(x, TP["y"] + 40, f"{yy}年", 26, J.TICK, 140))
+    xa = tp_x(*TP_ACC)
+    g.append(F.line(xa, 380.0, xa, 820.0, J.ALERT, 4) + _ctr(xa, 350.0, "事故", 28, J.ALERT, 120) + _ctr(xa + 4, 846.0, "2005年4月25日", 24, J.ALERT, 260))
+    return g
+
+
+def tl_plan_stage(prev, st):
+    s = []
+    if _on(prev, st, "meet"):
+        x = tp_x(*TP_MEET)
+        s.append(F.poly([(x, TP["y"] - 18), (x + 18, TP["y"]), (x, TP["y"] + 18), (x - 18, TP["y"])], sc("jr"), J.BG, 3, close=True))
+        s.append(_ctr(x + 40, 510.0, "経営会議で決める", 28, sc("jr"), 320) + _ctr(x + 40, 550.0, "2003年9月29日", 24, J.TICK, 260))
+    if _on(prev, st, "work"):
+        a, b = tp_x(*TP_WORK[0]), tp_x(*TP_WORK[1])
+        s.append(F.rect(a, 664.0, b - a, 38.0, J.AMBER, None, None, rx=8))
+        s.append(_ctr((a + b) / 2 - 80, 742.0, "工期：2003年10月〜2005年5月", 26, INK, 560))
+    if _on(prev, st, "use"):
+        x = tp_x(*TP_USE)
+        for i in range(4):
+            xx = x + i * 26
+            s.append(F.poly([(xx - 12, TP["y"] - 34), (xx + 12, TP["y"] - 34), (xx, TP["y"] - 12)], J.AMBER, None, close=True))
+        s.append(_ctr(x - 50, 470.0, "使い始め", 28, J.AMBER, 200) + _ctr(x - 50, 508.0, "2005年2月以降・順に", 24, J.AMBER, 300))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  spill（c712）＝年度の境の壁（2005年4月）を、曲線などの照らしの予定がほんの少し越える（担当者の口述＝R1 p.136）。
+#  中長期計画は 2003年度・2004年度・止まれの信号の照らしは 2004年度のうち。1か月＝60画素・事故の線（2005年4月25日）
+# ══════════════════════════════════════════════════════════
+SPL = dict(wall=1100.0, k=60.0, ys=(470.0, 600.0, 730.0), h=44.0)
+SPL_ACC = (2005, 4, 25)
+SPL_POKE = 2
+
+
+def spl_x(y, m, d=1):
+    return SPL["wall"] + (_ym(y, m, d) - _ym(2005, 4)) * 12 * SPL["k"]
+
+
+def spill_base(st0):
+    w = SPL["wall"]
+    xa = spl_x(*SPL_ACC)
+    return [F.line(w, 330.0, w, 800.0, INK, 8), _ctr(740.0, 352.0, "2004年度", 30, J.TICK, 260), _ctr(1460.0, 352.0, "2005年度", 30, J.TICK, 260),
+            F.line(xa, 400.0, xa, 800.0, J.ALERT, 4, dash="10 8"), _tline(xa + 12, 832.0, "事故 2005年4月25日", 24, J.ALERT, "start", 300)]
+
+
+def _spl_bar(y, x0, x1, t, col, ink, tx=None, head=False):
+    h = SPL["h"]
+    g = F.rect(x0, y - h / 2, x1 - x0 - (18 if head else 0), h, col, None, None, rx=8)
+    if head:
+        g += F.poly([(x1 - 22, y - h / 2 - 8), (x1, y), (x1 - 22, y + h / 2 + 8)], col, None, close=True)
+    return g + _ctr(tx or (x0 + x1) / 2, y, t, 22, ink, x1 - x0 - 30)
+
+
+def spill_stage(prev, st):
+    s = []
+    if _on(prev, st, "plan"):
+        s.append(_spl_bar(SPL["ys"][0], 140.0, SPL["wall"] - 6, "中長期計画：2003年度・2004年度", J.LINE_DIM, INK))
+    if _on(prev, st, "staff"):
+        s.append(_chip(380.0, 410.0, "担当者の口述（報告書）", J.TICK, 22))
+        s.append(_spl_bar(SPL["ys"][1], 500.0, 1040.0, "止まれの信号の照らし：2004年度のうち", J.LINE, J.BG))
+    if _on(prev, st, "poke"):
+        x1 = SPL["wall"] + SPL_POKE * SPL["k"]
+        s.append(_spl_bar(SPL["ys"][2], 700.0, x1, "分岐・曲線などの照らし", J.AMBER, J.BG, tx=900.0, head=True))
+        s.append(_tline(x1 + 18, SPL["ys"][2] + 10, "少し入り込む", 28, J.AMBER, "start", 260))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  signal_date（c714）＝止まれの信号の手前の照らしの使い始め：2005年2月 → 2005年6月（工期が短い＝区長〈当時〉の口述・2004年10月ごろ伝えた＝R1 p.138）
+#  曲線の照らしの話ではない（曲線の印は沈めて「この話ではない」）
+# ══════════════════════════════════════════════════════════
+SD_FROM, SD_TO, SD_TOLD = "2005年2月", "2005年6月", "2004年10月ごろ"
+
+
+def signal_date_base(st0):
+    return [_rails(140.0, 760.0, 800.0), F.line(360.0, 780.0, 360.0, 470.0, J.LINE, 8), F.rect(320.0, 360.0, 80.0, 112.0, J.BG2, J.LINE, 4, rx=10),
+            F.circ(360.0, 392.0, 18.0, J.ALERT, None), F.circ(360.0, 440.0, 18.0, J.LINE_DIM, None),
+            F.rect(232.0, 789.0, 64.0, 22.0, J.AMBER, None, None, rx=4)]
+
+
+def signal_date_stage(prev, st):
+    s = []
+    if _on(prev, st, "short"):
+        s.append(_stag(1000.0, 340.0, "jr", "区長（当時）の口述", 24))
+        s.append(_ctr(1000.0, 414.0, "工期が短い", 30, INK, 300))
+        s.append(F.line(950.0, 470.0, 1050.0, 470.0, J.AMBER, 8) + _arrow(860.0, 470.0, 936.0, 470.0, J.TICK, 4, 16)
+                 + _arrow(1140.0, 470.0, 1064.0, 470.0, J.TICK, 4, 16))
+    if _on(prev, st, "move"):
+        s.append(_ctr(690.0, 580.0, SD_FROM, 34, J.TICK, 260) + _ctr(690.0, 530.0, "前の予定", 22, J.TICK, 200))   # 🔧 geom_gap：取り消し線が字を貫く＝線をやめた
+        s.append(_arrow(810.0, 580.0, 920.0, 580.0, J.AMBER, 5, 20))
+        s.append(_ctr(1060.0, 580.0, SD_TO, 36, J.AMBER, 280))
+        s.append(_tline(870.0, 659.0, SD_TOLD, 24, J.TICK, "end", 260) + _tline(886.0, 659.0, "伝えた", 24, INK, "start", 120))   # 🔧 門番 echo＝2つの字に割る
+    if _on(prev, st, "which"):
+        s.append(F.rect(272.0, 340.0, 176.0, 488.0, "none", J.AMBER, 4, rx=14, dash="12 8"))
+        s.append(_ctr(360.0, 316.0, "止まれの信号の手前", 26, J.AMBER, 320))
+        s.append(F.poly(_arcpts(1340.0, 860.0, 260.0, 260.0, 230.0, 300.0, 16), "none", J.LINE_DIM, 8))
+        s.append(_ctr(1500.0, 690.0, "曲線の照らし", 26, J.TICK, 260) + _ctr(1500.0, 734.0, "この話ではない", 28, J.ALERT, 300))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  drop2（c717）＝縦の2つの日付：事故 2005年4月25日 → この区間の ATS-P の使い始め 2005年6月19日（約2か月＝R1 p.140・S2 p.4）。
+#  c512（横の時の線と2本のピン）とは別の見た目＝縦の点線と括弧
+# ══════════════════════════════════════════════════════════
+DR2 = dict(x=700.0, y0=400.0, y1=740.0)
+DR2_A, DR2_B, DR2_GAP = "2005年4月25日", "2005年6月19日", "約2か月"
+
+
+def drop2_base(st0):
+    return [F.circ(DR2["x"], DR2["y0"], 22.0, J.ALERT, J.BG, 4), _tline(DR2["x"] + 46, DR2["y0"] - 4, "事故", 30, J.ALERT, "start", 200),
+            _tline(DR2["x"] + 46, DR2["y0"] + 34, DR2_A, 26, J.TICK, "start", 300)]
+
+
+def drop2_stage(prev, st):
+    s = []
+    if _on(prev, st, "line"):
+        s.append(_arrow(DR2["x"], DR2["y0"] + 30, DR2["x"], DR2["y1"] - 30, J.LINE, 5, 20, dash="12 10"))
+        s.append(_tline(DR2["x"] + 46, DR2["y1"] + 8, "この区間の ATS-P の使い始め", 28, INK, "start", 560))
+    if _on(prev, st, "date"):
+        s.append(F.circ(DR2["x"], DR2["y1"], 22.0, J.AMBER, J.BG, 4))
+        s.append(_tline(DR2["x"] + 46, DR2["y1"] + 50, DR2_B, 30, J.AMBER, "start", 300))
+        s.append(F.poly([(DR2["x"] - 60, DR2["y0"]), (DR2["x"] - 76, DR2["y0"]), (DR2["x"] - 76, DR2["y1"]), (DR2["x"] - 60, DR2["y1"])], "none", J.AMBER, 4))
+        s.append(_tline(DR2["x"] - 96, (DR2["y0"] + DR2["y1"]) / 2 + 12, DR2_GAP, 34, J.AMBER, "end", 240))
+        s.append(F.rect(1300.0, 700.0, 120.0, 36.0, J.AMBER, None, None, rx=8) + _ctr(1360.0, 780.0, "ATS-P の地上子", 22, J.TICK, 260))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  kk_page（c718）＝国会会議録の頁の写し（2005年5月12日・参議院 国土交通委員会・国土交通大臣〈当時〉）：ATS-P の整備の真っ最中・
+#  6月にはでき上がる状況で事故（引用は2つの字に割る＝門番 echo）。c915（演台と吹き出し）・c918（答弁の中の答弁）とは別の見た目
+# ══════════════════════════════════════════════════════════
+KP_DAY = "2005年5月12日"
+
+
+def kk_page_base(st0):
+    return []
+
+
+def kk_page_stage(prev, st):
+    s = []
+    if _on(prev, st, "date"):
+        s.append(_chip(420.0, 350.0, "事故 2005年4月25日", J.ALERT, 24))
+        s.append(_arrow(600.0, 350.0, 760.0, 350.0, J.LINE, 4, 16) + _ctr(680.0, 318.0, "翌月", 22, J.TICK, 100))
+        s.append(_stag(960.0, 350.0, "kok", KP_DAY, 24))
+    if _on(prev, st, "page"):
+        s.append(F.rect(300.0, 430.0, 1320.0, 390.0, J.BG2, sc("kok"), 5, rx=10) + F.line(300.0, 506.0, 1620.0, 506.0, sc("kok"), 3))
+        s.append(_tline(336.0, 482.0, "国会会議録・参議院 国土交通委員会", 26, sc("kok"), "start", 760))
+        s.append(_tline(1584.0, 482.0, KP_DAY, 26, J.TICK, "end", 300))
+        s.append(_tline(336.0, 560.0, "国土交通大臣（当時）", 28, INK, "start", 500))
+        s.append(_tline(940.0, 650.0, "ATS-P：", 34, J.AMBER, "end", 260) + _tline(950.0, 650.0, "整備の真っ最中", 34, INK, "start", 500))
+    if _on(prev, st, "june"):
+        s.append(_tline(940.0, 750.0, "6月にはでき上がる", 34, INK, "end", 460) + _tline(950.0, 750.0, "状況で、事故", 34, INK, "start", 400))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  receipt（c720）＝神戸地裁（2012年1月の判決）：ATS-P か ATS-SW の照らしで事故を回避できた → 工事の費用の伝票（この曲線だけ＝S3 p.12）
+#  ATS-P 80万円程度・ATS-SW 80万〜120万円程度。値札（c226）とは別の見た目＝下の縁がぎざぎざの伝票
+# ══════════════════════════════════════════════════════════
+RC_ROWS = (("ATS-P", "80万円程度"), ("ATS-SW", "80万〜120万円程度"))
+
+
+def receipt_base(st0):
+    return []
+
+
+def receipt_stage(prev, st):
+    s = []
+    if _on(prev, st, "court"):
+        s.append(_stag(520.0, 380.0, "ct", "神戸地裁（2012年1月の判決）", 24))
+        # 🔧 門番 echo：「ATS-P か ATS-SW」（12字）が語りの丸写し＝3つの字に割る
+        s.append(_tline(470.0, 487.0, "ATS-P", 32, J.AMBER, "end", 200) + _ctr(500.0, 476.0, "か", 26, J.TICK, 60)
+                 + _tline(530.0, 487.0, "ATS-SW", 32, J.AMBER, "start", 220) + _ctr(520.0, 524.0, "の照らしで", 28, INK, 300))
+        s.append(_arrow(520.0, 560.0, 520.0, 620.0, J.LINE, 5, 18))
+        s.append(_ctr(500.0, 668.0, "事故を回避できた", 32, INK, 460) + _check(720.0, 664.0, 20, INK))
+    if _on(prev, st, "cost"):
+        x0, x1, y0, y1 = 1080.0, 1640.0, 340.0, 800.0
+        pts = [(x0, y0), (x1, y0), (x1, y1)]
+        n = 10
+        for i in range(n):
+            xa = x1 - (x1 - x0) * (i + 0.5) / n
+            xb = x1 - (x1 - x0) * (i + 1) / n
+            pts += [(xa, y1 - 22), (xb, y1)]
+        s.append(F.poly(pts, J.BG2, INK, 4, close=True))
+        s.append(_ctr(1360.0, 392.0, "工事の費用", 30, INK, 400) + _ctr(1360.0, 434.0, "この曲線だけ", 24, J.TICK, 300))
+        s.append(F.line(x0 + 30, 466.0, x1 - 30, 466.0, J.LINE_DIM, 3, dash="8 8"))
+        s.append(_tline(1120.0, 548.0, RC_ROWS[0][0], 30, INK, "start", 200) + _tline(1600.0, 550.0, RC_ROWS[0][1], 34, J.AMBER, "end", 300))
+        s.append(_tline(1120.0, 640.0, RC_ROWS[1][0], 26, J.TICK, "start", 200) + _tline(1600.0, 640.0, RC_ROWS[1][1], 26, J.TICK, "end", 320))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  trim3（c722）＝決まった運転時間の帯の右の端が3回切られて落ちる：2002年3月 20秒・2003年3月 20秒・2004年10月 10秒＝3回で50秒
+#  （中山寺駅に止まる延長 45秒は除く＝R1 p.141）。切れ端の幅は秒に比例（1秒＝8画素）・切れ端は動く部品
+# ══════════════════════════════════════════════════════════
+TR = dict(x0=200.0, main=980.0, k=8.0, y=470.0, h=60.0, drop=250.0)
+TR_CUT = (("2002年3月", 20), ("2003年3月", 20), ("2004年10月", 10))
+TR_ADD, TR_SUM = 45, 50
+
+
+def tr_edges():
+    xs = [TR["x0"] + TR["main"]]
+    for _d, sec in TR_CUT:
+        xs.append(xs[-1] + sec * TR["k"])
+    return xs
+
+
+def trim3_parts(st):
+    xs = tr_edges()
+    y, h = TR["y"], TR["h"]
+    dy = TR["drop"] if st.get("cut") == "on" else 0.0
+    return [_P(f"cut{i}", "poly", [(xs[i] + 2, y - h / 2), (xs[i + 1] - 2, y - h / 2), (xs[i + 1] - 2, y + h / 2), (xs[i] + 2, y + h / 2)],
+               fill=J.AMBER, stroke=J.BG, w=2, dy=dy, lag=0.25 * i, alpha=1.0) for i in range(3)]
+
+
+def trim3_base(st0):
+    y, h = TR["y"], TR["h"]
+    return [F.rect(TR["x0"], y - h / 2, TR["main"], h, J.LINE, None, None, rx=8), _ctr(TR["x0"] + TR["main"] / 2, y, "決まった運転時間（宝塚〜尼崎）", 26, J.BG, 800)]
+
+
+def trim3_stage(prev, st):
+    s = []
+    if _on(prev, st, "q"):
+        s.append(_tline(tr_edges()[-1] + 26, TR["y"] + 12, "余裕は？", 30, J.AMBER, "start", 200))
+    if _on(prev, st, "ext"):
+        w = TR_ADD * TR["k"]
+        s.append(F.rect(TR["x0"], 600.0, w, 60.0, "none", J.TICK, 3, rx=8, dash="10 8") + _ctr(TR["x0"] + w / 2, 630.0, f"中山寺駅に止まる延長 {TR_ADD}秒", 22, J.TICK, w - 20))
+        s.append(_tline(TR["x0"] + w + 20, 640.0, "除く", 28, J.ALERT, "start", 120))
+    if _on(prev, st, "cut"):
+        xs = tr_edges()
+        yb = TR["y"] + TR["drop"] + TR["h"] / 2
+        for i, (d, sec) in enumerate(TR_CUT):
+            cx = (xs[i] + xs[i + 1]) / 2
+            s.append(_ctr(cx, yb + 26, d, 20, J.TICK, 150) + _ctr(cx, yb + 58, f"{sec}秒", 24, J.AMBER, 120))
+        s.append(_tline(xs[-1] + 30, TR["y"] + TR["drop"] + 12, f"{len(TR_CUT)}回で{TR_SUM}秒", 30, J.AMBER, "start", 220))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  scale2（c725）＝2つの扱いの天びん（R1 p.199）：社員の扱いの誤りで1分以上の遅れ → 日勤教育・懲戒／会社の運行計画＝65日の半数以上の日に
+#  1分以上遅れて着く（右は前のカット c723・c724 の語り＝基図）。天びんは水平のまま（どちらにも傾けない）
+# ══════════════════════════════════════════════════════════
+def scale2_base(st0):
+    g = [F.line(360.0, 520.0, 1560.0, 520.0, J.LINE, 8), F.line(960.0, 520.0, 960.0, 760.0, J.LINE, 8),
+         F.poly([(960.0, 500.0), (930.0, 540.0), (990.0, 540.0)], J.LINE, None, close=True), F.rect(860.0, 760.0, 200.0, 30.0, J.BG2, J.LINE, 4, rx=6)]
+    for x in (1240.0, 1640.0):
+        g.append(F.line(x, 520.0, x, 580.0, J.LINE_DIM, 3))
+    g.append(F.rect(1160.0, 580.0, 560.0, 230.0, J.BG2, sc("jr"), 4, rx=12))
+    g.append(_ctr(1440.0, 622.0, "会社の運行計画", 26, sc("jr"), 500) + _ctr(1440.0, 686.0, "65日の半数以上の日に", 26, INK, 500)
+             + _ctr(1440.0, 750.0, "1分以上遅れて着く", 28, J.AMBER, 500))
+    return g
+
+
+def scale2_stage(prev, st):
+    s = []
+    if _on(prev, st, "l"):
+        for x in (280.0, 680.0):
+            s.append(F.line(x, 520.0, x, 580.0, J.LINE_DIM, 3))
+        s.append(F.rect(200.0, 580.0, 560.0, 230.0, J.BG2, INK, 4, rx=12))
+        s.append(_ctr(480.0, 622.0, "社員の扱いの誤りで", 26, INK, 500) + _ctr(480.0, 686.0, "1分以上の遅れ", 30, J.AMBER, 500))
+    if _on(prev, st, "r"):
+        s.append(_ctr(480.0, 752.0, "→ 日勤教育・懲戒", 28, J.ALERT, 500))
+        s.append(_stag(CX, 430.0, "rep", "報告書", 24))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  jr_words（c727）＝JR西日本の冊子（2021年3月「将来にわたる鉄道の安全の実現に向けて」）の2つの言葉＝冊子の頁の形（折った角）。
+#  原文の句を短い字に割る（門番 echo）。c530（2つの口述・大きな括弧）とは別の見た目
+# ══════════════════════════════════════════════════════════
+JW = (("当該曲線部に対する", "速度照査付きのATSを", "整備できていませんでした"), ("懲罰的と受け止められる", "再教育などを", "行っていました"))
+
+
+def _jw_page(x0, lines):
+    x1, y0, y1 = x0 + 700.0, 420.0, 780.0
+    col = sc("jr")
+    g = [F.poly([(x0, y0), (x1 - 50, y0), (x1, y0 + 50), (x1, y1), (x0, y1)], J.BG2, col, 5, close=True),
+         F.poly([(x1 - 50, y0), (x1 - 50, y0 + 50), (x1, y0 + 50)], "none", col, 4)]
+    for i, t in enumerate(lines):
+        g.append(_ctr(x0 + 350.0, 520.0 + i * 76.0, t, 30 if i else 28, INK if i else J.TICK, 620))
+    return "".join(g)
+
+
+def jr_words_base(st0):
+    return [_stag(CX, 344.0, "jr", "JR西日本の冊子（2021年3月）", 24)]
+
+
+def jr_words_stage(prev, st):
+    s = []
+    if _on(prev, st, "a"):
+        s.append(_jw_page(200.0, JW[0]))
+    if _on(prev, st, "b"):
+        s.append(_jw_page(1020.0, JW[1]))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  第7章
+#  tearoff（c801）＝日めくり（2005年4月25日 事故の日）と、破った頁の2枚（4月28日・5月27日＝国の措置＝R1 p.249）。c528（3枚の月の暦）とは別の見た目
+# ══════════════════════════════════════════════════════════
+TO_DAYS = (("4月", "28", "3日後", "国 → JR西日本", "安全性向上計画の指示"), ("5月", "27", "", "国 → 関係各社", "曲線の ATS：指導"))
+
+
+def _torn(x0, y0, w, h, col):
+    pts = [(x0, y0 + 10)]
+    n = 8
+    for i in range(n):
+        pts += [(x0 + w * (i + 0.5) / n, y0), (x0 + w * (i + 1) / n, y0 + 10)]
+    pts += [(x0 + w, y0 + h), (x0, y0 + h)]
+    return F.poly(pts, J.BG2, col, 4, close=True)
+
+
+def tearoff_base(st0):
+    return [F.rect(220.0, 330.0, 380.0, 480.0, J.BG2, J.LINE, 5, rx=12), F.rect(300.0, 316.0, 30.0, 40.0, J.LINE, None, None, rx=6),
+            F.rect(490.0, 316.0, 30.0, 40.0, J.LINE, None, None, rx=6), F.line(240.0, 450.0, 580.0, 450.0, J.LINE_DIM, 3),
+            _ctr(410.0, 384.0, "2005年", 28, J.TICK, 300), _ctr(410.0, 426.0, "4月", 34, INK, 200), _ctr(410.0, 610.0, "25", 170, INK, 340, "Dela"),
+            _ctr(410.0, 762.0, "事故の日", 28, J.ALERT, 300)]
+
+
+def _to_slip(i):
+    mon, day, after, who, what = TO_DAYS[i]
+    y0 = 380.0 + i * 220.0
+    g = [_torn(700.0, y0, 240.0, 180.0, J.AMBER), _ctr(820.0, y0 + 46, mon, 28, J.TICK, 200), _ctr(820.0, y0 + 122, day, 84, INK, 220, "Dela")]
+    if after:
+        g.append(_tline(990.0, y0 + 28, after, 28, J.AMBER, "start", 200))
+    g.append(_tline(990.0, y0 + 88, who, 28, INK, "start", 500) + _tline(990.0, y0 + 146, what, 32, INK, "start", 700))
+    return "".join(g)
+
+
+def tearoff_stage(prev, st):
+    s = []
+    if _on(prev, st, "q"):
+        s.append(_qmark(820.0, 330.0, 56) + _tline(870.0, 346.0, "事故のあと", 28, J.TICK, "start", 300))
+    if _on(prev, st, "d1"):
+        s.append(_to_slip(0))
+    if _on(prev, st, "d2"):
+        s.append(_to_slip(1))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  stretch（c803）＝決まった運転時間の3本の帯（15分00秒から＝その前は省く・1秒＝16画素）：前 15分35秒 → 運転の再開から 16分20秒（＋45秒）→
+#  2006年3月18日から 16分25秒（＋5秒＝R1 p.141・p.249）。帯の右の端は秒に比例（門番が見る）。c722（切られて落ちる帯）とは逆向きの絵
+# ══════════════════════════════════════════════════════════
+SR = dict(x0=200.0, k=16.0, t0=900, h=56.0, ys=(430.0, 590.0, 750.0))
+SR_T = (935, 980, 985)
+SR_LAB = ("15分35秒", "16分20秒", "16分25秒")
+SR_HEAD = ("事故の前", "運転の再開から（2005年6月19日）", "2006年3月18日から")
+
+
+def sr_x(t):
+    return SR["x0"] + (t - SR["t0"]) * SR["k"]
+
+
+def _sr_row(i):
+    y, h = SR["ys"][i], SR["h"]
+    g = [_tline(SR["x0"] + 20, y - h / 2 - 18, SR_HEAD[i], 22, J.TICK, "start", 520),   # 🔧 geom_gap：切れ目の印と 5.8px
+         F.rect(SR["x0"], y - h / 2, sr_x(SR_T[0]) - SR["x0"], h, J.LINE_DIM, None, None, rx=6),
+         F.line(SR["x0"] - 14, y + h / 2 + 6, SR["x0"] + 4, y - h / 2 - 6, J.LINE, 3) + F.line(SR["x0"] - 4, y + h / 2 + 6, SR["x0"] + 14, y - h / 2 - 6, J.LINE, 3)]
+    if i >= 1:
+        g.append(F.rect(sr_x(SR_T[0]), y - h / 2, sr_x(SR_T[1]) - sr_x(SR_T[0]), h, J.AMBER, None, None, rx=6))
+        g.append(_ctr((sr_x(SR_T[0]) + sr_x(SR_T[1])) / 2, y, f"＋{SR_T[1] - SR_T[0]}秒", 28, J.BG, 300))
+    if i >= 2:
+        g.append(F.rect(sr_x(SR_T[1]), y - h / 2, sr_x(SR_T[2]) - sr_x(SR_T[1]), h, INK, None, None, rx=4))
+        g.append(_ctr((sr_x(SR_T[1]) + sr_x(SR_T[2])) / 2, y - h / 2 - 22, f"＋{SR_T[2] - SR_T[1]}秒", 24, J.AMBER, 120))
+    g.append(_tline(sr_x(SR_T[i]) + 18, y + 11, SR_LAB[i], 30, INK, "start", 220))
+    return "".join(g)
+
+
+def stretch_base(st0):
+    return [_sr_row(0)]
+
+
+def stretch_stage(prev, st):
+    s = []
+    if _on(prev, st, "a"):
+        s.append(_sr_row(1))
+    if _on(prev, st, "b"):
+        s.append(_sr_row(2))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  flow_fan（c807）＝横の流れと枝分かれ：省令を改める（2006年3月24日）→ 施行（2006年7月1日）→ 曲線・分岐器・線路の終わり：速度を制限する装置
+#  ＋ほかに3つ（中身は次の c808 の語り＝先回りしない）。c507（縦の流れ＋強さの升）の相方
+# ══════════════════════════════════════════════════════════
+FF_DAYS = ("2006年3月24日", "2006年7月1日")
+FF_YS = (340.0, 470.0, 600.0, 730.0)
+
+
+def flow_fan_base(st0):
+    return []
+
+
+def flow_fan_stage(prev, st):
+    s = []
+    if _on(prev, st, "ab"):
+        s.append(F.rect(140.0, 480.0, 360.0, 140.0, J.BG2, INK, 4, rx=14) + _ctr(320.0, 530.0, "省令を改める", 30, INK, 330)
+                 + _ctr(320.0, 584.0, FF_DAYS[0], 24, J.TICK, 330))
+        s.append(_arrow(510.0, 550.0, 600.0, 550.0, J.LINE, 5, 18))
+        s.append(F.rect(610.0, 480.0, 270.0, 140.0, J.BG2, INK, 4, rx=14) + _ctr(745.0, 530.0, "施行", 30, INK, 240)
+                 + _ctr(745.0, 584.0, FF_DAYS[1], 24, J.TICK, 250))
+    if _on(prev, st, "fan"):
+        for i, y in enumerate(FF_YS):
+            s.append(_arrow(890.0, 550.0, 1050.0, y, J.AMBER if i == 0 else J.LINE_DIM, 4, 16))
+            if i == 0:
+                s.append(F.rect(1060.0, y - 50, 700.0, 100.0, J.BG2, J.AMBER, 5, rx=12) + _ctr(1410.0, y - 18, "曲線・分岐器・線路の終わり", 26, INK, 660)
+                         + _ctr(1410.0, y + 24, "速度を制限する装置", 28, J.AMBER, 660))
+            else:
+                s.append(F.rect(1060.0, y - 46, 700.0, 92.0, "none", J.LINE_DIM, 3, rx=12, dash="12 10"))
+        s.append(_ctr(1410.0, 822.0, "ほかに3つ", 24, J.TICK, 300))
+        s.append(_chip(745.0, 690.0, "義務になる", J.AMBER, 26))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  hourglass（c809）＝砂時計（猶予）：すでにある線（速い線・本数の多い線）は施行から10年か次の改築まで（M1）→ それでも 2006年度末までに
+#  47社の曲線 2,254か所（R1 p.250）
+# ══════════════════════════════════════════════════════════
+HG_YEARS, HG_CO, HG_N, HG_BY = 10, 47, "2,254", "2006年度末"
+
+
+def hourglass_base(st0):
+    return [F.rect(290.0, 362.0, 260.0, 16.0, J.LINE, None, None, rx=4), F.rect(290.0, 782.0, 260.0, 16.0, J.LINE, None, None, rx=4),
+            F.poly([(310.0, 380.0), (530.0, 380.0), (440.0, 572.0), (440.0, 588.0), (530.0, 780.0), (310.0, 780.0), (400.0, 588.0), (400.0, 572.0)],
+                   "none", J.LINE, 5, close=True)]
+
+
+def hourglass_stage(prev, st):
+    s = []
+    if _on(prev, st, "has"):
+        s.append(_tline(640.0, 424.0, "すでにある線", 30, INK, "start", 400) + _tline(640.0, 474.0, "猶予があった", 28, J.AMBER, "start", 400))
+    if _on(prev, st, "term"):
+        s.append(F.poly([(334.0, 420.0), (506.0, 420.0), (430.0, 560.0), (410.0, 560.0)], J.AMBER, None, close=True, op=0.85))
+        s.append(F.poly([(410.0, 700.0), (430.0, 700.0), (500.0, 770.0), (340.0, 770.0)], J.AMBER, None, close=True, op=0.85))
+        s.append(_tline(640.0, 556.0, "速い線・本数の多い線", 26, J.TICK, "start", 460))
+        s.append(_tline(640.0, 616.0, f"施行から{HG_YEARS}年", 32, INK, "start", 400) + _tline(640.0, 668.0, "または次の改築まで", 28, INK, "start", 400))
+    if _on(prev, st, "done"):
+        s.append(_ctr(1500.0, 430.0, f"{HG_BY}までに", 26, J.TICK, 400))
+        s.append(_ctr(1500.0, 560.0, f"{HG_N}か所", 84, J.AMBER, 520, "Dela") + _ctr(1500.0, 664.0, f"{HG_CO}社の曲線", 30, INK, 400))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  book_seat（c811）＝会社（建物の印）に、決まりの本（安全管理規程）と責任者の席（安全統括管理者）＝2006年の鉄道事業法の改正（R1 p.250）
+# ══════════════════════════════════════════════════════════
+BS_YEAR = 2006
+
+
+def book_seat_base(st0):
+    return [_bldg(200.0, 400.0, 660.0, 800.0, J.LINE), _ctr(430.0, 372.0, "会社ごとに", 26, J.TICK, 300)]
+
+
+def book_seat_stage(prev, st):
+    s = []
+    if _on(prev, st, "rule"):
+        s.append(_chip(1200.0, 340.0, f"{BS_YEAR}年・鉄道事業法の改正", INK, 24))
+        s.append(F.poly([(800.0, 540.0), (920.0, 520.0), (1040.0, 540.0), (1040.0, 690.0), (920.0, 670.0), (800.0, 690.0)], J.BG2, J.AMBER, 5, close=True)
+                 + F.line(920.0, 520.0, 920.0, 670.0, J.AMBER, 4))
+        s.append(_ctr(920.0, 740.0, "安全管理規程", 30, INK, 320) + _ctr(920.0, 784.0, "安全の決まり", 24, J.TICK, 300))
+        s.append(_arrow(670.0, 600.0, 786.0, 600.0, J.LINE, 4, 16))
+    if _on(prev, st, "seat"):
+        s.append(F.rect(1330.0, 420.0, 24.0, 200.0, J.LINE, None, None, rx=6) + F.rect(1330.0, 600.0, 170.0, 28.0, J.LINE, None, None, rx=6)
+                 + F.line(1346.0, 628.0, 1346.0, 690.0, J.LINE, 6) + F.line(1484.0, 628.0, 1484.0, 690.0, J.LINE, 6)
+                 + F.circ(1342.0, 404.0, 22.0, J.AMBER, J.BG, 3))
+        s.append(_ctr(1420.0, 740.0, "安全統括管理者", 30, INK, 360) + _ctr(1420.0, 784.0, "安全の責任者", 24, J.TICK, 300))
+        s.append(_arrow(1060.0, 600.0, 1310.0, 600.0, J.LINE, 4, 16))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  kengi3（c812）＝2007年の建議（2007年6月28日）の書類と3つの印：① 罰しない報告の仕組み ② 走行中の無線のメモは禁止 ③ 機器の作り手まで行き渡らせる
+#  （K07 p.1〜2）。c418（3つの箱）とは別の見た目＝印と短い字
+# ══════════════════════════════════════════════════════════
+KG3 = (("罰しない", "報告の仕組み"), ("走行中の無線", "メモは禁止"), ("機器の作り手", "まで行き渡らせる"))
+KG3_XS = (450.0, 960.0, 1470.0)
+
+
+def _kg_icon(i, x):
+    col = sc("ken")
+    if i == 0:
+        return (_doc(x - 70, 500.0, 120.0, 150.0, J.LINE, 3)
+                + F.poly([(x + 60, 520.0), (x + 110, 536.0), (x + 110, 590.0), (x + 60, 630.0), (x + 10, 590.0), (x + 10, 536.0)], J.BG2, col, 5, close=True))
+    if i == 1:
+        return (_radio(x - 50, 590.0, 1.4, J.LINE) + F.line(x + 30, 640.0, x + 100, 520.0, J.LINE, 8) + _xmark(x + 64, 580.0, 30))
+    g = [F.circ(x - 50, 575.0, 50.0, J.BG2, J.LINE, 6)]
+    for k in range(8):
+        a = math.radians(k * 45)
+        g.append(F.line(x - 50 + 50 * math.cos(a), 575 + 50 * math.sin(a), x - 50 + 70 * math.cos(a), 575 + 70 * math.sin(a), J.LINE, 10))
+    g.append(_arrow(x + 30, 575.0, x + 110, 575.0, col, 5, 18))
+    return "".join(g)
+
+
+def kengi3_base(st0):
+    return [F.rect(160.0, 330.0, 1600.0, 500.0, J.BG2, sc("ken"), 5, rx=14),
+            _tline(200.0, 384.0, "建議（2007年6月28日・事故調査委員会）", 26, sc("ken"), "start", 900), F.line(180.0, 410.0, 1740.0, 410.0, sc("ken"), 3)]
+
+
+def _kg(i):
+    x = KG3_XS[i]
+    a, b = KG3[i]
+    return _ctr(x - 150, 460.0, "①②③"[i], 34, sc("ken"), 60) + _kg_icon(i, x) + _ctr(x, 720.0, a, 30, INK, 420) + _ctr(x, 770.0, b, 28, INK, 420)
+
+
+def kengi3_stage(prev, st):
+    s = []
+    if _on(prev, st, "a"):
+        s.append(_kg(0))
+    if _on(prev, st, "bc"):
+        s += [_kg(1), _kg(2)]
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  第8章
+#  plates4（c901）＝裁判所の印（神戸地裁・最高裁＝白黒の章の線の色）と、起訴された4人の机の名札（役職だけ・顔は描かない）：
+#  元幹部（のちに社長）1人・歴代の社長 3人（国会 2023年3月8日 の法務省の答弁＝4名）
+# ══════════════════════════════════════════════════════════
+PL4 = (("元幹部", "のちに社長"), ("歴代の社長", ""), ("歴代の社長", ""), ("歴代の社長", ""))
+PL4_XS = (330.0, 830.0, 1160.0, 1490.0)
+PL4_N = (4, 1, 3)
+
+
+def _court(cx, cy, s=1.0, col=None):
+    c = col or sc("ct")
+    g = [F.poly([(cx - 110 * s, cy - 40 * s), (cx + 110 * s, cy - 40 * s), (cx, cy - 90 * s)], J.BG2, c, 4, close=True),
+         F.rect(cx - 104 * s, cy + 70 * s, 208 * s, 18 * s, c, None, None)]
+    for k in range(4):
+        g.append(F.rect(cx - 86 * s + k * 52 * s, cy - 30 * s, 16 * s, 96 * s, c, None, None))
+    return "".join(g)
+
+
+def _plate(x, t1, t2, col):
+    return (F.poly([(x - 120, 640.0), (x + 120, 640.0), (x + 140, 770.0), (x - 140, 770.0)], J.BG2, col, 5, close=True)
+            + _ctr(x, 690.0, t1, 30, INK, 240) + (_ctr(x, 738.0, t2, 24, J.TICK, 240) if t2 else ""))
+
+
+def plates4_base(st0):
+    return []
+
+
+def plates4_stage(prev, st):
+    s = []
+    if _on(prev, st, "q"):
+        s.append(_court(CX, 420.0) + _qmark(1130.0, 410.0, 60) + _ctr(CX, 540.0, "刑事裁判", 26, J.TICK, 300))
+    if _on(prev, st, "one"):
+        s.append(_chip(560.0, 360.0, f"起訴 {PL4_N[0]}人", J.AMBER, 30))
+        s.append(_plate(PL4_XS[0], *PL4[0], sc("jr")) + _ctr(PL4_XS[0], 612.0, f"{PL4_N[1]}人", 26, J.AMBER, 120))
+    if _on(prev, st, "three"):
+        for x, (a, b) in zip(PL4_XS[1:], PL4[1:]):
+            s.append(_plate(x, a, b, sc("jr")))
+        s.append(_ctr(PL4_XS[2], 612.0, f"{PL4_N[2]}人", 26, J.AMBER, 120))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  duty（c903）＝元幹部の歩み（事故 2005年4月 → 社長に → 起訴のあとに退く＝S3 p.6）と、問われた義務の矢印（指示すべき義務＝S3 p.4）：
+#  元幹部（鉄道本部長などのころ）→ 担当の部署 → この曲線に ATS（点線＝付いていない）
+# ══════════════════════════════════════════════════════════
+def duty_base(st0):
+    return []
+
+
+def duty_stage(prev, st):
+    s = []
+    if _on(prev, st, "career"):
+        s.append(_chip(400.0, 400.0, "事故（2005年4月）", J.ALERT, 26) + _arrow(570.0, 400.0, 720.0, 400.0, J.LINE, 4, 16))
+        s.append(_chip(860.0, 400.0, "社長に", sc("jr"), 28) + _arrow(980.0, 400.0, 1130.0, 400.0, J.LINE, 4, 16))
+        s.append(_chip(1380.0, 400.0, "起訴のあとに退く", J.TICK, 26))
+    if _on(prev, st, "duty"):
+        s.append(F.rect(180.0, 590.0, 360.0, 120.0, J.BG2, sc("jr"), 5, rx=14) + _ctr(360.0, 632.0, "元幹部", 30, INK, 300)
+                 + _ctr(360.0, 676.0, "鉄道本部長などのころ", 22, J.TICK, 330))
+        s.append(_arrow(550.0, 650.0, 760.0, 650.0, J.AMBER, 6, 22) + _ctr(655.0, 610.0, "指示すべき義務", 28, J.AMBER, 300))
+        s.append(F.rect(770.0, 600.0, 320.0, 100.0, J.BG2, J.LINE, 4, rx=14) + _ctr(930.0, 650.0, "担当の部署", 28, INK, 280))
+        s.append(_arrow(1100.0, 650.0, 1320.0, 650.0, J.LINE, 5, 20))
+        s.append(F.rect(1330.0, 590.0, 400.0, 120.0, J.BG2, J.ALERT, 5, rx=14, dash="14 10") + _ctr(1530.0, 650.0, "この曲線に ATS", 30, INK, 360))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  verdict（c904）＝判決の表紙の形（神戸地裁・2012年1月）：無罪・検察の求刑 禁錮3年（S3 p.66）。判決の日は2つの日付が割れる＝月まで
+# ══════════════════════════════════════════════════════════
+VD_DAY, VD_ASK = "2012年1月", "禁錮3年"
+
+
+def verdict_base(st0):
+    return [F.rect(560.0, 320.0, 800.0, 500.0, J.BG2, sc("ct"), 6, rx=12), _ctr(CX, 382.0, "神戸地裁の判決", 30, sc("ct"), 600),
+            _ctr(CX, 428.0, VD_DAY, 28, J.TICK, 400), F.line(600.0, 458.0, 1320.0, 458.0, sc("ct"), 3)]
+
+
+def verdict_stage(prev, st):
+    s = []
+    if _on(prev, st, "v"):
+        s.append(_ctr(CX, 610.0, "無罪", 140, INK, 600))
+        s.append(_chip(CX, 750.0, f"検察の求刑：{VD_ASK}", J.TICK, 26))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  word_swap（c906）＝言い方の札の入れ替え：「予見でき｜なかった？」（認めたのではない）→「予見できた｜とは認められない」（義務を課すほど）→
+#  犯罪の証明がない（判決の結び＝S3 p.66）。引用は2つの札に割る（門番 echo）。c916（判子の ✕ と ○）とは別の見た目
+# ══════════════════════════════════════════════════════════
+def word_swap_base(st0):
+    return []
+
+
+def word_swap_stage(prev, st):
+    s = []
+    if _on(prev, st, "q"):
+        s.append(F.rect(560.0, 380.0, 300.0, 84.0, J.BG2, INK, 4, rx=10) + _ctr(710.0, 422.0, "予見でき", 36, INK, 280))
+        s.append(F.rect(872.0, 380.0, 280.0, 84.0, J.BG2, J.TICK, 4, rx=10, dash="12 8") + _ctr(1012.0, 422.0, "なかった", 36, J.TICK, 260))
+        s.append(_qmark(1200.0, 422.0, 56))
+    if _on(prev, st, "swap"):
+        # 🔧 geom_gap：取り消し線が字を貫く＝線をやめて札の下に ✕
+        s.append(_xmark(1012.0, 500.0, 18) + _ctr(1012.0, 352.0, "と認めたのではない", 22, J.ALERT, 300))
+        s.append(_tline(400.0, 548.0, "義務を課すほど", 26, J.TICK, "start", 400))
+        s.append(F.rect(400.0, 570.0, 320.0, 84.0, J.BG2, INK, 4, rx=10) + _ctr(560.0, 612.0, "予見できた", 36, INK, 300))
+        s.append(F.rect(732.0, 570.0, 500.0, 84.0, J.BG2, sc("ct"), 6, rx=10) + _ctr(982.0, 612.0, "とは認められない", 36, INK, 470))
+    if _on(prev, st, "end"):
+        s.append(_arrow(816.0, 664.0, 816.0, 724.0, J.LINE, 5, 18))
+        s.append(_chip(CX, 772.0, "犯罪の証明がない（判決の結び）", sc("ct"), 30))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  bypass（c908）＝強制起訴の回り道：事件 → 検察：起訴しない（遮断）→ 市民の検察審査会の議決（回り道）→ 起訴（指定弁護士＝S2 p.1）
+#  （国会 2011年2月21日・2013年11月13日・最高裁）。c807（横の流れの枝分かれ）とは別の見た目＝遮断と回り道
+# ══════════════════════════════════════════════════════════
+def bypass_base(st0):
+    return [F.rect(160.0, 600.0, 170.0, 80.0, J.BG2, J.LINE, 4, rx=14), _ctr(245.0, 640.0, "事件", 30, INK, 150),
+            F.rect(1510.0, 596.0, 220.0, 88.0, J.BG2, INK, 5, rx=14), _ctr(1620.0, 640.0, "起訴", 34, INK, 200),
+            F.line(340.0, 640.0, 1500.0, 640.0, J.LINE_DIM, 5, dash="14 10")]
+
+
+def bypass_stage(prev, st):
+    s = []
+    if _on(prev, st, "q"):
+        s.append(_qmark(1620.0, 552.0, 56))
+    if _on(prev, st, "stop"):
+        s.append(F.rect(744.0, 580.0, 32.0, 120.0, J.ALERT, None, None, rx=6) + _xmark(760.0, 640.0, 34))
+        s.append(_ctr(760.0, 744.0, "検察：起訴しない", 28, J.ALERT, 360))
+        s.append(_chip(1620.0, 744.0, "強制起訴", J.AMBER, 30))
+    if _on(prev, st, "detour"):
+        # 🔧 geom_gap：回り道の線が箱の字を貫く＝箱の手前と先で線を切る
+        s.append(F.poly([(600.0, 630.0), (600.0, 430.0), (826.0, 430.0)], "none", J.AMBER, 7) + F.line(1234.0, 430.0, 1450.0, 430.0, J.AMBER, 7)
+                 + _arrow(1450.0, 430.0, 1560.0, 590.0, J.AMBER, 7, 26))
+        s.append(F.rect(830.0, 390.0, 400.0, 80.0, J.BG2, J.AMBER, 5, rx=14) + _ctr(1030.0, 430.0, "検察審査会（市民）", 28, INK, 380))
+        s.append(_ctr(1030.0, 510.0, "議決", 28, J.AMBER, 200))
+        s.append(_ctr(1620.0, 820.0, "指定弁護士が起訴", 24, J.TICK, 300))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  relay3（c909）＝3人の社長の時期の階段の帯（横は年に比例＝1年＝100画素）：1992年6月〜1997年3月・1997年4月〜2003年4月・2003年4月〜2006年2月（S2 p.1）
+#  → 付け替え（1996年12月）と事故（2005年4月）の線（役職だけ）
+# ══════════════════════════════════════════════════════════
+RL = dict(x0=200.0, y0=1992.0, k=100.0, ys=(430.0, 530.0, 630.0), h=64.0)
+RL_T = (((1992, 6), (1997, 3)), ((1997, 4), (2003, 4)), ((2003, 4), (2006, 2)))
+RL_MK = (("付け替え（1996年12月）", (1996, 12, 20), "LINE"), ("事故（2005年4月）", (2005, 4, 25), "ALERT"))
+
+
+def rl_x(t):
+    return RL["x0"] + (t - RL["y0"]) * RL["k"]
+
+
+def rl_span(i):
+    (ya, ma), (yb, mb) = RL_T[i]
+    return rl_x(_ym(ya, ma)), rl_x(_ym(yb, mb) + 1 / 12.0)
+
+
+def relay3_base(st0):
+    return [_tline(RL["x0"], 360.0, "歴代の社長（3人）", 26, sc("jr"), "start", 400)]
+
+
+def relay3_stage(prev, st):
+    s = []
+    if _on(prev, st, "bars"):
+        for i in range(3):
+            a, b = rl_span(i)
+            y = RL["ys"][i]
+            (ya, _ma), (yb, _mb) = RL_T[i]
+            s.append(F.rect(a, y - RL["h"] / 2, b - a, RL["h"], J.BG2, sc("jr"), 5, rx=10))
+            s.append(_tline(a + 10, y + 9, f"{ya}年〜{yb}年", 23, INK, "start", b - a - 24))   # 🔧 geom_gap：事故の線が3本目の字を貫く＝字を小さく
+    if _on(prev, st, "mark"):
+        for t, (y_, m_, d_), c in RL_MK:
+            x = rl_x(_ym(y_, m_, d_))
+            s.append(F.line(x, 386.0, x, 760.0, rc(c), 4, dash="12 8" if c == "LINE" else None))
+            s.append(_ctr(x, 798.0, t, 24, rc(c) if c != "LINE" else J.TICK, 340))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  scatter（c911）＝管内の同じような曲線（2000か所以上＝点の数は模式・数えない）の中の1つ（この曲線）：特に危ないと認識できた
+#  とは認められない（最高裁 2017年＝S2 p.5）。c701（数えた点の升目）とは別の見た目＝散らばった曲線の印
+# ══════════════════════════════════════════════════════════
+SCT_N = 230
+SCT_HI = (980.0, 600.0)
+SCT_OUT = ((1260.0, 310.0, 1790.0, 450.0), (820.0, 540.0, 1160.0, 730.0), (150.0, 680.0, 820.0, 830.0), (150.0, 320.0, 520.0, 400.0))
+
+
+def sct_pts():
+    out, x = [], 12345
+    while len(out) < SCT_N:
+        x = (x * 1103515245 + 12345) % 2147483648
+        px = 170.0 + (x % 15900) / 10.0
+        x = (x * 1103515245 + 12345) % 2147483648
+        py = 340.0 + (x % 4700) / 10.0
+        x = (x * 1103515245 + 12345) % 2147483648
+        rot = float(x % 360)
+        if any(a <= px <= c and b <= py <= d for a, b, c, d in SCT_OUT):
+            continue
+        if any((px - qx) ** 2 + (py - qy) ** 2 < 34 ** 2 for qx, qy, _r in out):
+            continue
+        out.append((px, py, rot))
+    return out
+
+
+def scatter_base(st0):
+    return ["".join(F.poly(_arcpts(x, y, 13.0, 13.0, r, r + 100.0, 6), "none", J.LINE_DIM, 4) for x, y, r in sct_pts())]
+
+
+def scatter_stage(prev, st):
+    s = []
+    if _on(prev, st, "many"):
+        s.append(_ctr(1520.0, 352.0, "2000か所以上", 34, J.AMBER, 420) + _ctr(1520.0, 404.0, "同じような曲線", 26, J.TICK, 360))
+        s.append(_stag(335.0, 360.0, "ct", "最高裁（2017年）", 24))
+    if _on(prev, st, "one"):
+        x, y = SCT_HI
+        s.append(F.poly(_arcpts(x, y, 30.0, 30.0, 200.0, 340.0, 10), "none", J.AMBER, 10))
+        s.append(_ctr(x, y + 74, "この曲線", 30, J.AMBER, 240))
+        s.append(_tline(200.0, 730.0, "特に危ないと", 28, INK, "start", 400))
+        s.append(_tline(200.0, 782.0, "認識できた", 28, INK, "start", 160) + _tline(350.0, 782.0, "とは認められない", 28, sc("ct"), "start", 300))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  stamps4（c914）＝4枚の書類と「無罪」の判（四角＝輪の真ん中に字を置かない）：元幹部 神戸地裁 2012年1月／歴代の社長 神戸地裁 2013年9月・最高裁 2017年6月
+#  （国会 2023年3月8日 の法務省の答弁＝いずれも無罪＝高裁の日付は言わない＝台本 §1-5）
+# ══════════════════════════════════════════════════════════
+SP4 = (("元幹部", ("神戸地裁", "2012年1月")), ("歴代の社長", ("神戸地裁 2013年9月", "最高裁 2017年6月")),
+       ("歴代の社長", ("神戸地裁 2013年9月", "最高裁 2017年6月")), ("歴代の社長", ("神戸地裁 2013年9月", "最高裁 2017年6月")))
+SP4_XS = (330.0, 760.0, 1190.0, 1620.0)
+
+
+def stamps4_base(st0):
+    return []
+
+
+def stamps4_stage(prev, st):
+    s = []
+    if _on(prev, st, "who"):
+        s.append(_stag(CX, 332.0, "kok", "2023年の国会：法務省の答弁", 24))
+        for x, (t, _c) in zip(SP4_XS, SP4):
+            s.append(F.rect(x - 180, 400.0, 360.0, 400.0, J.BG2, J.LINE, 4, rx=10) + _ctr(x, 448.0, t, 28, INK, 320))
+    if _on(prev, st, "done"):
+        for x, (_t, (a, b)) in zip(SP4_XS, SP4):
+            s.append(F.rect(x - 100, 500.0, 200.0, 110.0, "none", INK, 6, rx=14) + _ctr(x, 555.0, "無罪", 60, INK, 180))
+            s.append(_ctr(x, 680.0, a, 22, J.TICK, 330) + _ctr(x, 720.0, b, 22, J.TICK, 330))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  podium（c915）＝演台と吹き出し（2023年3月8日・参議院 予算委員会・国土交通省 鉄道局長）：事業許可の取り消しなど 行政処分は行っていない
+#  （人は描かない＝演台とマイクだけ）
+# ══════════════════════════════════════════════════════════
+PD_DAY = "2023年3月8日"
+
+
+def podium_base(st0):
+    return []
+
+
+def podium_stage(prev, st):
+    s = []
+    col = sc("kok")
+    if _on(prev, st, "who"):
+        s.append(_stag(CX, 336.0, "kok", f"{PD_DAY}・参議院 予算委員会", 24))
+        s.append(F.poly([(340.0, 560.0), (580.0, 560.0), (560.0, 780.0), (360.0, 780.0)], J.BG2, col, 5, close=True)
+                 + F.line(500.0, 556.0, 540.0, 470.0, J.LINE, 5) + F.circ(544.0, 460.0, 12.0, J.LINE, None))
+        s.append(_ctr(460.0, 818.0, "国土交通省 鉄道局長", 26, col, 400))
+    if _on(prev, st, "say"):
+        s.append(F.rect(760.0, 430.0, 940.0, 330.0, J.BG2, col, 5, rx=24) + F.poly([(760.0, 590.0), (640.0, 620.0), (760.0, 640.0)], J.BG2, col, 5))
+        s.append(_ctr(1230.0, 520.0, "事業許可の取り消しなど", 32, INK, 860) + _ctr(1230.0, 590.0, "行政処分は", 32, INK, 600)
+                 + _ctr(1230.0, 672.0, "行っていない", 42, J.AMBER, 600))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  stamps2（c916）＝2つの言い方の判：「誰も罪に問われなかった」✕（4人は起訴・裁判で問われた）→「有罪になった人はいない」○（台本 §1-4）
+# ══════════════════════════════════════════════════════════
+def stamps2_base(st0):
+    return []
+
+
+def stamps2_stage(prev, st):
+    s = []
+    if _on(prev, st, "a"):
+        s.append(F.rect(400.0, 360.0, 1120.0, 120.0, J.BG2, J.TICK, 4, rx=14) + _ctr(960.0, 420.0, "誰も罪に問われなかった", 40, INK, 1000))
+    if _on(prev, st, "no"):
+        s.append(_xmark(1610.0, 420.0, 44))
+        s.append(_tline(560.0, 562.0, "起訴：4人", 30, J.AMBER, "start", 300) + _tline(900.0, 562.0, "裁判で問われた", 30, INK, "start", 400))
+    if _on(prev, st, "yes"):
+        s.append(F.rect(400.0, 640.0, 1120.0, 120.0, J.BG2, J.AMBER, 6, rx=14) + _ctr(960.0, 700.0, "有罪になった人はいない", 40, INK, 1000))
+        s.append(F.circ(1610.0, 700.0, 40.0, "none", J.AMBER, 9))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  bench（c917）＝被告人の席（4つ・空の席）と、席の外の2つ：運転士（事故で亡くなった・被告人ではない）／会社そのもの（この裁判では裁かれていない）
+# ══════════════════════════════════════════════════════════
+BN_SEATS = 4
+
+
+def bench_base(st0):
+    return []
+
+
+def bench_stage(prev, st):
+    s = []
+    if _on(prev, st, "seats"):
+        s.append(_ctr(CX, 470.0, f"被告人の席：{BN_SEATS}人", 26, J.TICK, 400) + F.line(520.0, 510.0, 1400.0, 510.0, J.LINE, 6))
+        for i in range(BN_SEATS):
+            s.append(F.rect(550.0 + i * 220.0, 530.0, 160.0, 90.0, J.BG2, J.LINE, 4, rx=14))
+        s.append(F.rect(160.0, 676.0, 580.0, 150.0, J.BG2, J.LINE, 4, rx=14, dash="12 8"))
+        s.append(_ctr(450.0, 714.0, "運転士", 28, INK, 300) + _ctr(450.0, 754.0, "事故で亡くなった", 24, J.TICK, 400)
+                 + _ctr(450.0, 796.0, "被告人ではない", 26, J.AMBER, 400))
+    if _on(prev, st, "co"):
+        s.append(_bldg(1100.0, 670.0, 1290.0, 830.0, sc("jr"), 2, 2))
+        s.append(_tline(1330.0, 712.0, "会社そのもの", 28, sc("jr"), "start", 400) + _tline(1330.0, 760.0, "この裁判では", 26, INK, "start", 400)
+                 + _tline(1330.0, 806.0, "裁かれていない", 28, J.AMBER, "start", 400))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  nested（c918）＝答弁の中の答弁（2023年6月13日・参議院 国土交通委員会・国土交通大臣〈当時〉）：法務省が「慎重に検討する必要」と答えてきた
+#  ＝紹介の形（外の吹き出しの中に点線の吹き出し）。組織罰＝会社そのものを罰する。c718（会議録の頁）・c915（演台）とは別の見た目
+# ══════════════════════════════════════════════════════════
+NS_DAY = "2023年6月13日"
+
+
+def nested_base(st0):
+    return []
+
+
+def nested_stage(prev, st):
+    s = []
+    col = sc("kok")
+    if _on(prev, st, "word"):
+        s.append(_ctr(470.0, 450.0, "組織罰", 44, J.AMBER, 300) + _ctr(470.0, 516.0, "会社そのものを罰する", 26, INK, 400)
+                 + _ctr(470.0, 566.0, "国会でも問われた", 26, J.TICK, 400))
+    if _on(prev, st, "quote"):
+        s.append(_stag(1310.0, 340.0, "kok", f"{NS_DAY}・参議院 国土交通委員会", 22))
+        s.append(F.rect(860.0, 400.0, 900.0, 420.0, J.BG2, col, 5, rx=28) + F.poly([(860.0, 560.0), (760.0, 590.0), (860.0, 610.0)], J.BG2, col, 5))
+        s.append(_tline(900.0, 452.0, "国土交通大臣（当時）", 26, col, "start", 500))
+        s.append(F.rect(920.0, 486.0, 780.0, 290.0, J.BG, J.TICK, 3, rx=22, dash="12 8"))
+        s.append(_tline(960.0, 540.0, "法務省：", 28, J.TICK, "start", 300) + _tline(960.0, 604.0, "様々な課題があり", 26, INK, "start", 600)
+                 + _tline(960.0, 672.0, "慎重に検討する必要", 34, INK, "start", 640) + _tline(1660.0, 744.0, "と答えてきた", 24, J.TICK, "end", 300))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  wall（c922）＝調べる側（事故調査委員会・委員〈当時〉＝青）と調べられる側（会社＝茶）のあいだの壁の割れ目を、情報が漏れる（検証報告書＝白）
+#  日付は ca03 だけ（映像方針 §4-9）
+# ══════════════════════════════════════════════════════════
+def wall_base(st0):
+    return []
+
+
+def wall_stage(prev, st):
+    s = []
+    if _on(prev, st, "two"):
+        s.append(_bldg(160.0, 420.0, 700.0, 760.0, sc("rep"), 3, 2) + _ctr(430.0, 470.0, "調べる側", 30, sc("rep"), 400))
+        s.append(_ctr(430.0, 400.0, "事故調査委員会・委員（当時）", 22, INK, 520))
+        s.append(_bldg(1220.0, 420.0, 1760.0, 760.0, sc("jr"), 3, 2) + _ctr(1490.0, 470.0, "調べられる側", 30, sc("jr"), 400))
+        s.append(_ctr(1490.0, 400.0, "会社", 24, INK, 300))
+        for r in range(9):
+            for c in range(2):
+                x = 870.0 + c * 100.0 - (50.0 if r % 2 else 0.0)
+                x0, x1 = max(860.0, x), min(1060.0, x + 96.0)
+                s.append(F.rect(x0, 380.0 + r * 46.0, x1 - x0, 40.0, J.BG2, J.LINE_DIM, 3, rx=3))
+        s.append(_stag(430.0, 808.0, "kv", "検証報告書", 22))
+    if _on(prev, st, "leak"):
+        s.append(F.poly([(950.0, 520.0), (980.0, 570.0), (940.0, 620.0), (975.0, 670.0), (950.0, 720.0)], "none", J.ALERT, 6))
+        s.append(_arrow(710.0, 620.0, 1210.0, 620.0, J.ALERT, 6, 24, dash="14 10"))
+        s.append(_doc(760.0, 650.0, 70.0, 90.0, J.ALERT, 2, 3) + _doc(1110.0, 650.0, 70.0, 90.0, J.ALERT, 2, 3))
+        s.append(_ctr(CX, 340.0, "情報が漏れた", 30, J.ALERT, 360))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  第9章
+#  role_lines（ca03）＝日付の札（2009年9月25日 分かった）と役職の線：社長（当時）ら → 求め → 委員（当時）／委員（当時）→ 調べの情報 → 会社（S1 p.1）
+# ══════════════════════════════════════════════════════════
+RLN_DAY = "2009年9月25日"
+
+
+def role_lines_base(st0):
+    return []
+
+
+def role_lines_stage(prev, st):
+    s = []
+    if _on(prev, st, "a"):
+        s.append(_ctr(CX, 340.0, RLN_DAY, 32, J.AMBER, 400) + _ctr(CX, 388.0, "分かった", 24, J.TICK, 200))
+        s.append(F.rect(300.0, 500.0, 400.0, 130.0, J.BG2, sc("rep"), 5, rx=16) + _ctr(500.0, 540.0, "事故調査委員会", 22, J.TICK, 360)
+                 + _ctr(500.0, 590.0, "委員（当時）", 32, INK, 360))
+        s.append(_stag(CX, 790.0, "kv", "検証報告書", 22))
+    if _on(prev, st, "b"):
+        s.append(F.rect(1220.0, 500.0, 400.0, 130.0, J.BG2, sc("jr"), 5, rx=16) + _ctr(1420.0, 540.0, "JR西日本", 22, J.TICK, 360)
+                 + _ctr(1420.0, 590.0, "社長（当時）ら", 32, INK, 360))
+        s.append(_arrow(1212.0, 530.0, 708.0, 530.0, sc("jr"), 5, 22) + _ctr(CX, 500.0, "求め", 28, sc("jr"), 200))
+    if _on(prev, st, "c"):
+        s.append(_arrow(708.0, 604.0, 1212.0, 604.0, J.ALERT, 5, 22, dash="14 10") + _ctr(CX, 660.0, "調べの情報", 28, J.ALERT, 300))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  ring12（ca04）＝丸い机と12の席（人の形は描かない＝席の数＝検証のチーム12人＝S1 p.2）・2009年11月10日・遺族と負傷者も（家族を含む）
+#  🔴 輪の真ん中に字を置かない（layout）＝字は輪の右
+# ══════════════════════════════════════════════════════════
+RG12 = dict(cx=640.0, cy=580.0, r=160.0, rs=246.0, s=46.0)
+RG12_N = 12
+RG12_DAY = "2009年11月10日"
+
+
+def ring12_base(st0):
+    return []
+
+
+def ring12_stage(prev, st):
+    s = []
+    if _on(prev, st, "team"):
+        s.append(F.circ(RG12["cx"], RG12["cy"], RG12["r"], J.BG2, sc("kv"), 5))
+        for i in range(RG12_N):
+            a = math.radians(-90 + i * 360 / RG12_N)
+            x, y = RG12["cx"] + RG12["rs"] * math.cos(a), RG12["cy"] + RG12["rs"] * math.sin(a)
+            s.append(F.rect(x - RG12["s"] / 2, y - RG12["s"] / 2, RG12["s"], RG12["s"], J.BG2, sc("kv"), 4, rx=10))
+        s.append(_tline(1000.0, 430.0, "検証のチーム", 30, INK, "start", 400))
+        s.append(_tline(1000.0, 530.0, f"{RG12_N}人", 76, J.AMBER, "start", 300, "Dela"))
+        s.append(_tline(1000.0, 594.0, RG12_DAY, 26, J.TICK, "start", 400) + _tline(1000.0, 636.0, "運輸安全委員会が置いた", 24, J.TICK, "start", 500))
+    if _on(prev, st, "also"):
+        s.append(F.rect(990.0, 690.0, 640.0, 120.0, J.BG2, J.AMBER, 4, rx=14) + _ctr(1310.0, 732.0, "遺族と負傷者も", 30, INK, 600)
+                 + _ctr(1310.0, 778.0, "（家族を含む）", 24, J.TICK, 400))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  links6（ca06）＝4人の委員（当時）と会社の人の6本の線（接触の6件＝S1 p.31・名前は出さない＝役職だけ）。1人目から3本・ほかは1本ずつ
+# ══════════════════════════════════════════════════════════
+LK_YS = (400.0, 520.0, 640.0, 760.0)
+LK_TO = ((0, 430.0), (0, 490.0), (0, 550.0), (1, 610.0), (2, 670.0), (3, 740.0))
+
+
+def links6_base(st0):
+    g = [_ctr(460.0, 340.0, "委員（当時）4人", 26, sc("rep"), 400)]
+    for y in LK_YS:
+        g.append(F.rect(300.0, y - 36, 320.0, 72.0, J.BG2, sc("rep"), 4, rx=14) + _ctr(460.0, y, "委員（当時）", 26, INK, 290))
+    g.append(F.rect(1240.0, 380.0, 460.0, 420.0, J.BG2, sc("jr"), 5, rx=16) + _ctr(1490.0, 560.0, "会社の人", 32, sc("jr"), 300)
+             + _ctr(1490.0, 606.0, "JR西日本", 24, J.TICK, 300))
+    return g
+
+
+def links6_stage(prev, st):
+    s = []
+    if _on(prev, st, "all"):
+        for k, (i, y) in enumerate(LK_TO):
+            s.append(F.line(626.0, LK_YS[i], 1236.0, y, J.AMBER, 4))
+            s.append(_tline(1262.0, y + 9, "①②③④⑤⑥"[k], 26, J.AMBER, "start", 40))
+        s.append(_ctr(CX, 352.0, f"接触：{len(LK_TO)}件", 34, J.AMBER, 300))
+        s.append(_stag(1490.0, 740.0, "kv", "検証報告書", 22))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  tl_leak（ca07）＝縦の年表（1か月＝17画素）：事故（2005年4月25日）・建議（2005年9月）→ 意見を聞くための案の公表（2006年12月20日）→
+#  公表の2日前（2006年12月18日）→ 全文のコピー → 会社の担当部長（S1 p.24・p.32）。c710（横の年表）の相方
+# ══════════════════════════════════════════════════════════
+TLK = dict(x=560.0, y0=360.0, k=17.0, y1=820.0)
+TLK_EV = (("事故", (2005, 4, 25), "ALERT"), ("建議", (2005, 9, 6), "bldg_a"), ("意見を聞くための案：公表", (2006, 12, 20), "state"))
+TLK_LEAK = (2006, 12, 18)
+
+
+def tlk_y(y, m, d=1):
+    return TLK["y0"] + ((y - 2005) * 12 + (m - 4) + (d - 1) / 31.0) * TLK["k"]
+
+
+def tl_leak_base(st0):
+    g = [_arrow(TLK["x"], TLK["y0"] - 20, TLK["x"], TLK["y1"] + 20, J.LINE, 5, 18)]
+    for yy in (2006, 2007):
+        y = tlk_y(yy, 1)
+        g.append(F.line(TLK["x"] - 16, y, TLK["x"] + 16, y, J.LINE, 4) + _tline(TLK["x"] - 30, y + 9, f"{yy}年", 24, J.TICK, "end", 120))
+    for t, d, c in TLK_EV[:2]:
+        y = tlk_y(*d)
+        g.append(F.circ(TLK["x"], y, 12.0, rc(c), J.BG, 3))
+        g.append(_tline(TLK["x"] + 34, y + 9, f"{t}（{d[0]}年{d[1]}月" + (f"{d[2]}日）" if c == "ALERT" else "）"), 24, rc(c), "start", 500))
+    return g
+
+
+def tl_leak_stage(prev, st):
+    s = []
+    if _on(prev, st, "draft"):
+        t, d, c = TLK_EV[2]
+        y = tlk_y(*d)
+        s.append(F.poly([(TLK["x"], y - 16), (TLK["x"] + 16, y), (TLK["x"], y + 16), (TLK["x"] - 16, y)], rc(c), J.BG, 3, close=True))
+        s.append(_tline(TLK["x"] + 34, y + 10, t, 28, rc(c), "start", 520) + _tline(TLK["x"] + 34, y + 48, f"{d[0]}年{d[1]}月{d[2]}日", 24, J.TICK, "start", 300))
+    if _on(prev, st, "two"):
+        y = tlk_y(*TLK_LEAK)
+        s.append(F.line(TLK["x"] + 4, y, TLK["x"] + 60, 600.0, J.ALERT, 4))
+        s.append(_tline(TLK["x"] + 70, 594.0, f"{TLK_LEAK[0]}年{TLK_LEAK[1]}月{TLK_LEAK[2]}日", 28, J.ALERT, "start", 400)
+                 + _tline(TLK["x"] + 70, 630.0, "公表の2日前", 24, J.ALERT, "start", 300))
+    if _on(prev, st, "copy"):
+        s.append(_doc(1120.0, 520.0, 110.0, 140.0, J.ALERT, 3) + _arrow(980.0, 590.0, 1108.0, 590.0, J.ALERT, 5, 20))
+        s.append(_arrow(1242.0, 590.0, 1370.0, 590.0, J.ALERT, 5, 20) + _ctr(1176.0, 700.0, "全文のコピー", 26, J.ALERT, 300))
+        s.append(F.rect(1380.0, 540.0, 380.0, 110.0, J.BG2, sc("jr"), 5, rx=14) + _ctr(1570.0, 595.0, "会社の担当部長", 28, INK, 340))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  handover（ca08）＝最終の報告書（公表 2007年6月28日）の全文のコピーが、公表の3日前（2007年6月25日）に会社の手へ（コピーは動く部品＝S1 p.32）
+# ══════════════════════════════════════════════════════════
+HO = dict(x0=560.0, y0=470.0, w=120.0, h=150.0, dx=760.0)
+HO_DAY, HO_PUB = "2007年6月25日", "2007年6月28日"
+
+
+def handover_parts(st):
+    a = 1.0 if st.get("date") == "on" else 0.0
+    dx = HO["dx"] if st.get("move") == "on" else 0.0
+    x0, y0, w, h = HO["x0"], HO["y0"], HO["w"], HO["h"]
+    return [_P("copy", "poly", [(x0, y0), (x0 + w, y0), (x0 + w, y0 + h), (x0, y0 + h)], fill=J.BG2, stroke=J.ALERT, w=5, dx=dx, alpha=a)]
+
+
+def handover_base(st0):
+    g = []
+    for k in range(3):
+        g.append(_doc(220.0 + k * 14, 400.0 + k * 14, 280.0, 320.0, sc("rep"), 4))
+    g.append(_ctr(374.0, 778.0, "最終の報告書", 28, sc("rep"), 340) + _ctr(374.0, 820.0, f"公表：{HO_PUB}", 24, J.TICK, 340))
+    g.append(F.rect(1260.0, 420.0, 500.0, 290.0, J.BG2, sc("jr"), 5, rx=16) + _ctr(1620.0, 470.0, "会社", 34, sc("jr"), 200))
+    return g
+
+
+def handover_stage(prev, st):
+    s = []
+    if _on(prev, st, "date"):
+        s.append(_ctr(960.0, 360.0, HO_DAY, 32, J.AMBER, 400) + _ctr(960.0, 408.0, "公表の3日前", 26, INK, 300))
+    if _on(prev, st, "move"):
+        s.append(_ctr(960.0, 690.0, "全文のコピー", 28, J.ALERT, 300))
+    if _on(prev, st, "inside"):
+        s.append(_ctr(1590.0, 664.0, "そのまま会社の手に", 26, INK, 300))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  bundle（ca09）＝頁の束（第3章の一部・第4章以降）→ 社長（当時）（2007年6月17日）→ いちばん役に立った＝意見を聞く会の日程（S1 p.31・p.32）
+# ══════════════════════════════════════════════════════════
+BU_DAY = "2007年6月17日"
+
+
+def bundle_base(st0):
+    return []
+
+
+def bundle_stage(prev, st):
+    s = []
+    if _on(prev, st, "who"):
+        s.append(_ctr(520.0, 360.0, BU_DAY, 30, J.AMBER, 400))
+        s.append(F.rect(1300.0, 390.0, 400.0, 120.0, J.BG2, sc("jr"), 5, rx=16) + _ctr(1500.0, 450.0, "社長（当時）", 32, INK, 360))
+    if _on(prev, st, "pages"):
+        for k in range(3):
+            s.append(_doc(260.0 + k * 16, 440.0 + k * 16, 340.0, 300.0, J.LINE, 4))
+        s.append(F.rect(630.0, 520.0, 200.0, 50.0, J.BG2, J.AMBER, 4, rx=8) + _ctr(730.0, 545.0, "第3章（一部）", 22, INK, 190))
+        s.append(F.rect(630.0, 600.0, 200.0, 50.0, J.BG2, J.AMBER, 4, rx=8) + _ctr(730.0, 625.0, "第4章〜", 22, INK, 190))
+        s.append(_arrow(850.0, 560.0, 1290.0, 470.0, J.ALERT, 5, 22))
+    if _on(prev, st, "sched"):
+        s.append(F.rect(1100.0, 600.0, 600.0, 200.0, J.BG2, INK, 4, rx=12) + _ctr(1400.0, 640.0, "意見を聞く会の日程", 26, INK, 560))
+        for k in range(3):
+            s.append(F.line(1140.0, 690.0 + k * 34, 1560.0 - k * 60, 690.0 + k * 34, J.LINE_DIM, 6))
+        c = (1660.0, 600.0)
+        star = [(c[0] + (30 if k % 2 == 0 else 13) * math.cos(math.radians(-90 + k * 36)), c[1] + (30 if k % 2 == 0 else 13) * math.sin(math.radians(-90 + k * 36)))
+                for k in range(10)]
+        s.append(F.poly(star, J.AMBER, J.BG, 2, close=True))
+        s.append(_ctr(1400.0, 836.0, "いちばん役に立った", 26, J.AMBER, 400))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  jyanken（ca12）＝「優先的に」（報告書の案の字句＝青）→ 社長（当時）の吹き出し「後出しじゃんけん」（茶）＝と話している（検証報告書＝S1 p.14）
+#  手は描かない（台本 §1-4）
+# ══════════════════════════════════════════════════════════
+def jyanken_base(st0):
+    return []
+
+
+def jyanken_stage(prev, st):
+    s = []
+    if _on(prev, st, "say"):
+        s.append(F.rect(300.0, 460.0, 440.0, 120.0, J.BG2, sc("rep"), 5, rx=16) + _ctr(520.0, 520.0, "「優先的に」", 40, sc("rep"), 420))
+        s.append(_ctr(520.0, 616.0, "報告書の案の字句", 22, J.TICK, 400))
+        s.append(_arrow(760.0, 520.0, 1000.0, 520.0, J.LINE, 5, 20))
+        s.append(_tline(1060.0, 420.0, "社長（当時）", 26, sc("jr"), "start", 300))
+        s.append(F.rect(1060.0, 450.0, 680.0, 160.0, J.BG2, sc("jr"), 5, rx=28) + _ctr(1400.0, 530.0, "後出しじゃんけん", 44, INK, 640))
+    if _on(prev, st, "told"):
+        s.append(_stag(1400.0, 700.0, "kv", "検証報告書", 22) + _ctr(1400.0, 760.0, "と話している", 24, J.TICK, 300))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  meeting（ca15）＝上から見た机（席の数は描かない）と委員（当時）の席・発言の吹き出し（2007年6月11日の委員懇談会）・審議の録音（S1 p.51）
+#  ca04（丸い机と12の席）とは別の見た目＝長い机と録音機
+# ══════════════════════════════════════════════════════════
+MT_DAY = "2007年6月11日"
+
+
+def meeting_base(st0):
+    return []
+
+
+def meeting_stage(prev, st):
+    s = []
+    if _on(prev, st, "seat"):
+        s.append(_chip(1060.0, 340.0, f"{MT_DAY}・委員懇談会", J.TICK, 24))
+        s.append(F.rect(520.0, 470.0, 780.0, 180.0, J.BG2, J.LINE, 4, rx=14))
+        s.append(F.rect(670.0, 412.0, 60.0, 42.0, sc("rep"), None, None, rx=10) + _ctr(700.0, 384.0, "委員（当時）", 26, sc("rep"), 300))
+        s.append(F.rect(1080.0, 512.0, 150.0, 84.0, J.BG2, J.LINE, 4, rx=10) + F.circ(1120.0, 552.0, 18.0, "none", J.LINE, 4)
+                 + F.circ(1190.0, 552.0, 18.0, "none", J.LINE, 4))
+        s.append(_ctr(1155.0, 628.0, "審議の録音", 22, J.TICK, 200))
+    if _on(prev, st, "say"):
+        # 🔧 geom_gap：吹き出しが席の札「委員（当時）」に 8px 重なる＝幅を詰める
+        s.append(F.rect(150.0, 290.0, 450.0, 130.0, J.BG2, sc("rep"), 5, rx=24) + F.poly([(560.0, 418.0), (650.0, 434.0), (520.0, 418.0)], J.BG2, sc("rep"), 4))
+        s.append(_ctr(390.0, 330.0, "後出しじゃんけん", 32, INK, 440) + _ctr(390.0, 382.0, "的ですね", 32, INK, 300))
+        s.append(_ctr(1155.0, 702.0, "録音に残っている", 24, J.AMBER, 300))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  waveform（ca16）＝録音の波形（振れは小さい）と、届かない「強い語勢」の線：削ってほしい、とは、はっきり言っていない（検証報告書＝S1 p.51）
+# ══════════════════════════════════════════════════════════
+WV = dict(x0=260.0, n=64, dx=22.0, y=560.0, amp=58.0, top=150.0)
+
+
+def wv_amp(i):
+    return WV["amp"] * (0.35 + 0.65 * abs(math.sin(i * 0.61) * math.cos(i * 0.23)))
+
+
+def waveform_base(st0):
+    return ["".join(F.line(WV["x0"] + i * WV["dx"], WV["y"] - wv_amp(i), WV["x0"] + i * WV["dx"], WV["y"] + wv_amp(i), J.LINE, 8) for i in range(WV["n"]))]
+
+
+def waveform_stage(prev, st):
+    s = []
+    if _on(prev, st, "words"):
+        s.append(_chip(520.0, 360.0, "削ってほしい", INK, 28))
+        s.append(_tline(700.0, 370.0, "はっきりとは", 26, J.TICK, "start", 300) + _tline(870.0, 370.0, "言っていない", 28, INK, "start", 300))
+    if _on(prev, st, "tone"):
+        x1 = WV["x0"] + (WV["n"] - 1) * WV["dx"]
+        for d in (-1, 1):
+            s.append(F.line(WV["x0"] - 20, WV["y"] + d * WV["top"], x1 + 20, WV["y"] + d * WV["top"], J.ALERT, 4, dash="14 10"))
+        s.append(_tline(x1 + 20, WV["y"] - WV["top"] - 16, "強い語勢", 26, J.ALERT, "end", 260))
+        s.append(_ctr(CX - 120, 790.0, "感じられなかった", 30, INK, 400) + _stag(1360.0, 790.0, "kv", "検証報告書", 22))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  open_book（ca20）＝見開きの本（検証報告書＝白）：左の頁＝最終の報告書の内容への影響はなかった（前の ca19 の語り＝基図）／
+#  右の頁＝公正であるべき事故調査を歪めた・到底容認されない（S1 p.53）＝どちらにも寄せない
+# ══════════════════════════════════════════════════════════
+def open_book_base(st0):
+    col = sc("kv")
+    return [F.poly([(300.0, 360.0), (950.0, 380.0), (950.0, 800.0), (300.0, 780.0)], J.BG2, col, 5, close=True),
+            F.poly([(970.0, 380.0), (1620.0, 360.0), (1620.0, 780.0), (970.0, 800.0)], J.BG2, col, 5, close=True),
+            F.line(960.0, 370.0, 960.0, 812.0, col, 4),
+            _ctr(625.0, 520.0, "最終の報告書の内容への", 30, INK, 600), _ctr(625.0, 590.0, "影響はなかった", 38, INK, 600),
+            _ctr(625.0, 660.0, "と判断", 24, J.TICK, 300)]
+
+
+def open_book_stage(prev, st):
+    s = []
+    if _on(prev, st, "a"):
+        s.append(_ctr(1295.0, 480.0, "公正であるべき", 30, INK, 560) + _ctr(1295.0, 548.0, "事故調査を歪めた", 36, INK, 600))
+    if _on(prev, st, "b"):
+        s.append(_ctr(1295.0, 670.0, "到底容認されない", 40, J.ALERT, 600))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  five_slips（ca22）＝「優先的に」の一文の5枚の紙（検証報告書の中だけで少なくとも5通り＝字は灰の線で伏せる）→ 1枚を引き出す＝
+#  最終の報告書（2007年）の原文（R1 p.230）・考えられる
+# ══════════════════════════════════════════════════════════
+FS_N = 5
+FS_PICK = 2
+FS_WORD = "考えられる"
+
+
+def five_slips_base(st0):
+    return []
+
+
+def five_slips_stage(prev, st):
+    s = []
+    if _on(prev, st, "five"):
+        s.append(_stag(460.0, 340.0, "kv", "検証報告書の中", 24))
+        for i in range(FS_N):
+            x0, y0 = 220.0 + i * 16, 390.0 + i * 78
+            s.append(F.rect(x0, y0, 440.0, 66.0, J.BG2, J.LINE, 3, rx=8) + F.line(x0 + 20, y0 + 24, x0 + 400, y0 + 24, J.LINE_DIM, 6)
+                     + F.line(x0 + 20, y0 + 44, x0 + 300, y0 + 44, J.LINE_DIM, 6))
+        s.append(_ctr(460.0, 830.0, f"少なくとも{FS_N}通り", 30, J.AMBER, 400))
+    if _on(prev, st, "pick"):
+        x0, y0 = 220.0 + FS_PICK * 16, 390.0 + FS_PICK * 78
+        s.append(F.rect(x0 - 6, y0 - 6, 452.0, 78.0, "none", sc("rep"), 6, rx=10))
+        s.append(_arrow(x0 + 460, y0 + 33, 850.0, 560.0, sc("rep"), 5, 20))
+        s.append(F.rect(860.0, 420.0, 900.0, 300.0, J.BG2, sc("rep"), 5, rx=16))
+        s.append(_tline(900.0, 470.0, "最終の報告書（2007年）", 24, sc("rep"), "start", 500) + _tline(900.0, 540.0, "…曲線速照機能の整備は", 28, J.TICK, "start", 800))
+        s.append(_tline(900.0, 612.0, "優先的に行うべきであった", 36, INK, "start", 820))
+        s.append(_tline(900.0, 684.0, FS_WORD, 26, J.AMBER, "start", 200) + _meter(1060.0, 676.0, FS_WORD))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  第10章
+#  answer（cb06）＝この動画の答えの札：問い「急いでいたの？」→ 留めた紙（この曲線を、わざと110km/hほどで通ろうとした可能性＝R1 p.222 の主語）→
+#  判「低いものと考えられる」（青・升2つ）。🔴 c510 と同じ主語だけ（門番が主語の語を見る）。c510（5つの見出しの札）とは別の見た目
+# ══════════════════════════════════════════════════════════
+AN_SUBJ = F5_SUBJ
+AN_WORD = F5_WORD
+
+
+def answer_base(st0):
+    return []
+
+
+def answer_stage(prev, st):
+    s = []
+    if _on(prev, st, "q"):
+        s.append(_chip(CX, 344.0, "急いでいたの？", INK, 32))
+    if _on(prev, st, "subj"):
+        s.append(F.rect(300.0, 430.0, 1320.0, 116.0, J.BG2, INK, 4, rx=6) + F.circ(330.0, 444.0, 14.0, J.AMBER, J.BG, 3)
+                 + F.circ(1590.0, 444.0, 14.0, J.AMBER, J.BG, 3))
+        s.append(_ctr(CX, 494.0, AN_SUBJ, 32, INK, 1240))
+    if _on(prev, st, "stamp"):
+        s.append(F.rect(620.0, 600.0, 680.0, 180.0, J.BG2, sc("rep"), 8, rx=20))
+        s.append(_ctr(CX, 666.0, AN_WORD, 46, sc("rep"), 620) + _meter(CX - METER_W / 2, 740.0, AN_WORD))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  two_causes（cb08）＝左：会社（建物の印）＝運転士の管理のしかた・関与した・可能性が考えられる（R1 p.243）／右：曲線と空の装置の箱＝
+#  速度を照らす仕組み：無し（R1 p.230）
+# ══════════════════════════════════════════════════════════
+TCZ_WORD = "可能性が考えられる"
+
+
+def two_causes_base(st0):
+    return []
+
+
+def two_causes_stage(prev, st):
+    s = []
+    if _on(prev, st, "co"):
+        s.append(_bldg(180.0, 430.0, 440.0, 720.0, sc("jr"), 2, 3))
+        s.append(_tline(500.0, 500.0, "会社の運転士の管理", 30, sc("jr"), "start", 520) + _tline(500.0, 560.0, "関与した", 28, INK, "start", 300))
+        s.append(_tline(500.0, 626.0, TCZ_WORD, 26, J.AMBER, "start", 260) + _meter(770.0, 618.0, TCZ_WORD))
+    if _on(prev, st, "curve"):
+        for rr in (386.0, 414.0):
+            s.append(F.poly(_arcpts(1700.0, 840.0, rr, rr, 180.0, 262.0, 20), "none", J.LINE, 5))
+        s.append(F.rect(1180.0, 780.0, 50.0, 22.0, "none", J.LINE, 3, rx=4, dash="6 5") + _qmark(1205.0, 730.0, 44))   # 🔧 geom_gap：「？」がレールの上＝線路の脇へ
+        s.append(_ctr(1420.0, 380.0, "速度を照らす仕組み", 28, INK, 500) + _ctr(1420.0, 444.0, "無し", 44, J.ALERT, 200))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  stones3（cb09）＝3つの飛び石（左から右へ）：① 報告書＝優先的に付けるべきだった（考えられる）② 社長（当時）＝記述を考え直すよう頼んだ（検証報告書）
+#  ③ 有罪になった人はいない（国会 2023年）。字は石の上・出どころの札は石の下（輪の中に字を置かない）
+# ══════════════════════════════════════════════════════════
+ST3_XS = (380.0, 960.0, 1540.0)
+ST3_WORD = "考えられる"
+
+
+def stones3_base(st0):
+    pts = [(160.0 + i * 16, 700.0 + 14 * math.sin(i / 6.0)) for i in range(101)]
+    return [F.poly(pts, "none", J.LINE_DIM, 5, dash="14 10")]
+
+
+def _stone(x, col):
+    return F.poly(_arcpts(x, 700.0, 140.0, 44.0, 0, 360, 36), J.BG2, col, 6, close=True)
+
+
+def stones3_stage(prev, st):
+    s = []
+    if _on(prev, st, "a"):
+        s.append(_stone(ST3_XS[0], sc("rep")) + _ctr(ST3_XS[0], 520.0, "優先的に", 34, INK, 400) + _ctr(ST3_XS[0], 578.0, "付けるべきだった", 30, INK, 460))
+        s.append(_tline(ST3_XS[0] - 90, 640.0, ST3_WORD, 24, J.AMBER, "start", 160) + _meter(ST3_XS[0] + 40, 632.0, ST3_WORD))
+        s.append(_stag(ST3_XS[0], 790.0, "rep", "報告書", 22))
+        s.append(_stone(ST3_XS[1], sc("kv")) + _ctr(ST3_XS[1], 470.0, "社長（当時）", 28, sc("jr"), 300))
+    if _on(prev, st, "b"):
+        s.append(_ctr(ST3_XS[1], 540.0, "記述を考え直すよう", 30, INK, 460) + _ctr(ST3_XS[1], 600.0, "頼んだ", 30, INK, 300))
+        s.append(_stag(ST3_XS[1], 790.0, "kv", "検証報告書", 22))
+        s.append(_stone(ST3_XS[2], sc("kok")) + _ctr(ST3_XS[2], 540.0, "有罪になった人は", 30, INK, 460) + _ctr(ST3_XS[2], 600.0, "いない", 34, INK, 300))
+        s.append(_stag(ST3_XS[2], 790.0, "kok", "国会（2023年）", 22))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  batteries（cb10）＝原因の3つの文の言い方を電池の目盛りで（升の数＝表 LV）：文1 推定される（3）・文2 考えられる（2）・文3 可能性が考えられる（1）
+#  （R1 p.243・p.264）。c420（扉）・c502（階段）・c523（縦の目盛り）とは別の見た目
+# ══════════════════════════════════════════════════════════
+BT3 = ("推定される", "考えられる", "可能性が考えられる")
+BT_YS = (430.0, 590.0, 750.0)
+
+
+def _battery(y, lit):
+    g = [F.rect(320.0, y - 46, 280.0, 92.0, J.BG2, INK, 5, rx=10), F.rect(600.0, y - 20, 20.0, 40.0, INK, None, None, rx=4)]
+    for k in range(4):
+        g.append(F.rect(334.0 + k * 66, y - 34, 56.0, 68.0, J.AMBER if k < lit else J.BG, J.AMBER if k < lit else J.LINE_DIM, 3, rx=6))
+    return "".join(g)
+
+
+def batteries_base(st0):
+    return []
+
+
+def batteries_stage(prev, st):
+    s = []
+    if _on(prev, st, "q"):
+        s.append(_chip(1440.0, 340.0, "強さまで読む", J.AMBER, 28))
+        for i, y in enumerate(BT_YS):
+            s.append(_tline(200.0, y + 10, f"文{i + 1}", 28, J.TICK, "start", 100) + _battery(y, 0))
+    if _on(prev, st, "w"):
+        for w, y in zip(BT3, BT_YS):
+            s.append(_battery(y, LV[w]) + _tline(680.0, y + 12, w, 36, INK, "start", 560))
+    if _on(prev, st, "diff"):
+        s.append(F.poly([(1300.0, BT_YS[0] - 40), (1320.0, BT_YS[0] - 40), (1320.0, BT_YS[2] + 40), (1300.0, BT_YS[2] + 40)], "none", J.AMBER, 5))
+        s.append(_tline(1350.0, 580.0, "違いで", 34, J.AMBER, "start", 300) + _tline(1350.0, 634.0, "話が変わる", 34, J.AMBER, "start", 360))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
 #  見え方の表（mech24 と同じ作り）
 # ══════════════════════════════════════════════════════════
 def _v(lab, fields, base, stage, parts=None):
@@ -1848,11 +3841,76 @@ VIEWS = dict(
     lens=_v("日勤教育の受け取られ方", ("box", "seen"), lens_base, lens_stage),
     qcards=_v("2つの口述", ("l", "r"), qcards_base, qcards_stage),
     evidence=_v("根拠の線", ("q", "none", "others"), evidence_base, evidence_stage),
+    # 🆕 ⑤b-6 第5章
+    speed_step=_v("時の線と速さの段", ("y91", "step"), speed_step_base, speed_step_stage),
+    push_out=_v("上から見た曲線と外への力", ("force", "sq", "grow"), push_out_base, push_out_stage, push_out_parts),
+    hbars6=_v("6本の横の棒", ("bars", "cols"), hbars6_base, hbars6_stage),
+    strip43=_v("表の最後の行の写し", ("co", "rep"), strip43_base, strip43_stage),
+    cog2=_v("後ろから見た車体と重心", ("spring", "two"), cog2_base, cog2_stage),
+    ramp=_v("斜めの速さの目盛り", ("band", "co"), ramp_base, ramp_stage),
+    ceiling=_v("天井の線と上る矢印", ("up",), ceiling_base, ceiling_stage, ceiling_parts),
+    sort2=_v("2つの箱への仕分け", ("no", "yes"), sort2_base, sort2_stage),
+    cant=_v("後ろから見たレールの高さの差", ("tilt", "name"), cant_base, cant_stage, cant_parts),
+    coupler=_v("上から見た1両目と2両目", ("c2", "pull"), coupler_base, coupler_stage),
+    empty_slot=_v("上から見た線路の装置", ("q", "next"), empty_slot_base, empty_slot_stage),
+    # 🆕 ⑤b-6 第6章
+    dots_co=_v("会社の数の点", ("q", "n"), dots_co_base, dots_co_stage),
+    donut=_v("内わけの輪", ("all", "way"), donut_base, donut_stage),
+    order3=_v("3つの働きの順と言い方", ("r1", "r2", "r3"), order3_base, order3_stage),
+    tl_plan=_v("計画の年表（横）", ("meet", "work", "use"), tl_plan_base, tl_plan_stage),
+    spill=_v("年度の境の壁", ("plan", "staff", "poke"), spill_base, spill_stage),
+    signal_date=_v("止まれの信号と使い始めの月", ("short", "move", "which"), signal_date_base, signal_date_stage),
+    drop2=_v("縦の2つの日付", ("line", "date"), drop2_base, drop2_stage),
+    kk_page=_v("会議録の頁の写し", ("date", "page", "june"), kk_page_base, kk_page_stage),
+    receipt=_v("工事の費用の伝票", ("court", "cost"), receipt_base, receipt_stage),
+    trim3=_v("切られて落ちる帯", ("q", "ext", "cut"), trim3_base, trim3_stage, trim3_parts),
+    scale2=_v("2つの扱いの天びん", ("l", "r"), scale2_base, scale2_stage),
+    jr_words=_v("冊子の2つの頁", ("a", "b"), jr_words_base, jr_words_stage),
+    # 🆕 ⑤b-6 第7章
+    tearoff=_v("日めくりと破った頁", ("q", "d1", "d2"), tearoff_base, tearoff_stage),
+    stretch=_v("のびた3本の帯", ("a", "b"), stretch_base, stretch_stage),
+    flow_fan=_v("横の流れと枝分かれ", ("ab", "fan"), flow_fan_base, flow_fan_stage),
+    hourglass=_v("砂時計と数", ("has", "term", "done"), hourglass_base, hourglass_stage),
+    book_seat=_v("決まりの本と責任者の席", ("rule", "seat"), book_seat_base, book_seat_stage),
+    kengi3=_v("書類と3つの印", ("a", "bc"), kengi3_base, kengi3_stage),
+    # 🆕 ⑤b-6 第8章
+    plates4=_v("裁判所の印と4つの名札", ("q", "one", "three"), plates4_base, plates4_stage),
+    duty=_v("歩みと義務の矢印", ("career", "duty"), duty_base, duty_stage),
+    verdict=_v("判決の表紙の形", ("v",), verdict_base, verdict_stage),
+    word_swap=_v("言い方の札の入れ替え", ("q", "swap", "end"), word_swap_base, word_swap_stage),
+    bypass=_v("遮断と回り道", ("q", "stop", "detour"), bypass_base, bypass_stage),
+    relay3=_v("3本の時期の帯", ("bars", "mark"), relay3_base, relay3_stage),
+    scatter=_v("散らばった曲線の印", ("many", "one"), scatter_base, scatter_stage),
+    stamps4=_v("4枚の書類と判", ("who", "done"), stamps4_base, stamps4_stage),
+    podium=_v("演台と吹き出し", ("who", "say"), podium_base, podium_stage),
+    stamps2=_v("2つの言い方の判", ("a", "no", "yes"), stamps2_base, stamps2_stage),
+    bench=_v("被告人の席と外の2つ", ("seats", "co"), bench_base, bench_stage),
+    nested=_v("答弁の中の答弁", ("word", "quote"), nested_base, nested_stage),
+    wall=_v("2つの建物と壁", ("two", "leak"), wall_base, wall_stage),
+    # 🆕 ⑤b-6 第9章
+    role_lines=_v("日付の札と役職の線", ("a", "b", "c"), role_lines_base, role_lines_stage),
+    ring12=_v("丸い机と席", ("team", "also"), ring12_base, ring12_stage),
+    links6=_v("4つの箱と6本の線", ("all",), links6_base, links6_stage),
+    tl_leak=_v("漏えいの年表（縦）", ("draft", "two", "copy"), tl_leak_base, tl_leak_stage),
+    handover=_v("コピーの受け渡し", ("date", "move", "inside"), handover_base, handover_stage, handover_parts),
+    bundle=_v("頁の束と日程の紙", ("who", "pages", "sched"), bundle_base, bundle_stage),
+    jyanken=_v("字句と吹き出し", ("say", "told"), jyanken_base, jyanken_stage),
+    meeting=_v("上から見た机と録音機", ("seat", "say"), meeting_base, meeting_stage),
+    waveform=_v("録音の波形と線", ("words", "tone"), waveform_base, waveform_stage),
+    open_book=_v("見開きの本", ("a", "b"), open_book_base, open_book_stage),
+    five_slips=_v("5枚の紙と1枚", ("five", "pick"), five_slips_base, five_slips_stage),
+    # 🆕 ⑤b-6 第10章
+    answer=_v("留めた紙と判", ("q", "subj", "stamp"), answer_base, answer_stage),
+    two_causes=_v("会社の印と曲線の印", ("co", "curve"), two_causes_base, two_causes_stage),
+    stones3=_v("3つの飛び石", ("a", "b"), stones3_base, stones3_stage),
+    batteries=_v("電池の目盛り", ("q", "w", "diff"), batteries_base, batteries_stage),
 )
 START = {v: {f: d["fields"][f][0] for f in d["fields"]} for v, d in VIEWS.items()}
 # 原文の値・欄・項目の写し（左上に「模式」を付けない）
 NOT_SCHEMATIC = ("tt_col", "delay_bars", "ruler_v", "ring2", "tags4", "matrix", "hscale", "tt_band", "clockfan", "two_ribbons", "tiles",
-                 "plaques", "split_box", "stairs4", "fan5", "band25", "cal18", "qcards")
+                 "plaques", "split_box", "stairs4", "fan5", "band25", "cal18", "qcards",
+                 # 🆕 ⑤b-6：値に比例・原文の写し
+                 "hbars6", "strip43", "donut", "tl_plan", "kk_page", "jr_words", "stretch", "relay3", "tl_leak")
 VIEW_DIR = ("横から", "上から", "斜めから", "正面")
 
 
@@ -1979,10 +4037,133 @@ VIEW_SRC = dict(tags4=tuple(k for k, *_r in TG4), matrix=MX_COLS, plaques=tuple(
                 tt_band=("shi", "sha"), zone=("shi",), clockfan=("shi",), crossing=("shi",), speedo=("rep",), hscale=("rep",),
                 split_box=("jr",), chapters3=("hy",), two_cabs=("sha",), glass=("sha",), ruler_v=("sha",), two_cards=("sha", "shi"),
                 two_signals=("sha",), flow3=("jr",), cycle=("jr",), lens=("jr",), clues=("rep",), persp=("rep",), fan5=("rep",),
-                band25=("rep",), two_ribbons=("rep",))
+                band25=("rep",), two_ribbons=("rep",),
+                # 🆕 ⑤b-6
+                speed_step=("jr",), hbars6=("rep", "ct", "jr"), strip43=("rep", "jr"), cog2=("rep", "jr"), ramp=("ct", "jr"), sort2=("rep",),
+                coupler=("rep",), dots_co=("ct",), donut=("jr",), tl_plan=("jr",), signal_date=("jr",), kk_page=("kok",), receipt=("ct",),
+                scale2=("jr", "rep"), jr_words=("jr",), kengi3=("ken",), plates4=("ct", "jr"), duty=("jr",), verdict=("ct",), word_swap=("ct",),
+                relay3=("jr",), scatter=("ct",), stamps4=("kok",), podium=("kok",), bench=("jr",), nested=("kok",), wall=("rep", "jr", "kv"),
+                role_lines=("rep", "jr", "kv"), ring12=("kv",), links6=("rep", "jr", "kv"), tl_leak=("rep", "ken", "jr"), handover=("rep", "jr"),
+                bundle=("jr",), jyanken=("rep", "jr", "kv"), meeting=("rep",), waveform=("kv",), open_book=("kv",), five_slips=("kv", "rep"),
+                answer=("rep",), two_causes=("jr",), stones3=("rep", "kv", "kok", "jr"))
 VIEW_WORDS = dict(doors3=DR3, stairs4=tuple(w for w, _m in ST4), persp=(PS_WORD,), two_cards=(TW2_WORD,), flow3=tuple(w for *_x, w, _y, _c in FL3),
                   fan5=(F5_WORD,), two_brakes=(BK_WORD,), band25=(B25_WORD,), weaker=WK_RUNGS + (WK_A, WK_B), objects=(OB_WORD,),
-                  lens=(LN_WORD,), evidence=(EV_WORD,))
+                  lens=(LN_WORD,), evidence=(EV_WORD,),
+                  # 🆕 ⑤b-6
+                  coupler=(CU_WORD,), order3=tuple(w for *_x, w in OR3_ROWS), five_slips=(FS_WORD,), answer=(AN_WORD,), two_causes=(TCZ_WORD,),
+                  stones3=(ST3_WORD,), batteries=BT3)
+
+
+def _geo6(view, allst):
+    """🆕 ⑤b-6 の見え方の形（val＝記録と丸ごと比べる値・px と lins＝画素が値に比例するか＝p＝p0＋(v−v0)×k）。"""
+    if view == "speed_step":
+        return dict(val=(tuple(t for t, _d in SS_EV), SS_V), px=(_ss_ex(0), _ss_ex(1), _ss_ex(2), ss_y(SS_V[0]), ss_y(SS_V[1])),
+                    lins=((SS["x0"], SS["k"], SS["t0"]),) * 3 + ((SS["yb"], -SS["kv"], SS["v0"]),) * 2)
+    if view == "push_out":
+        return dict(val=(PO_V, PO_F), px=(PO["long"],), lins=((0.0, PO["short"], 0.0),))
+    if view == "hbars6":
+        return dict(val=tuple((k, n, c, v, lab) for k, n, c, v, lab in HB6), px=tuple(hb_end(v) for *_x, v, _l in HB6),
+                    lins=((HBX["x0"], HBX["k"], 0.0),) * len(HB6))
+    if view == "strip43":
+        return dict(val=T43)
+    if view == "cog2":
+        return dict(val=(CG_CO, CG["hi"] < CG["lo"]))
+    if view == "ramp":
+        k = (RP["bx"] - RP["ax"]) / (RP["v1"] - RP["v0"])
+        return dict(val=(RP_BAND, RP_DOT, RP_CO), px=tuple(rp_pt(v)[0] for v in RP_BAND + (RP_DOT, RP_CO)), lins=((RP["ax"], k, RP["v0"]),) * 4)
+    if view == "ceiling":
+        tip = parts_of("ceiling", allst[-1])[0]["pts"][3][1]
+        return dict(val=(CE_LIM, CE_MAX), px=(ce_y(CE_LIM), tip), lins=((CE["y0"], -CE["k"], CE["v0"]),) * 2)
+    if view == "sort2":
+        return dict(val=(SO_CARD,))
+    if view == "cant":
+        return dict(val=(CA_MM,))
+    if view == "coupler":
+        return dict(val=(CU_V, CU_WORD))
+    if view == "dots_co":
+        return dict(val=(DC_TOTAL, len(DC_LIT), DC_JR, len(set(DC_LIT)) == len(DC_LIT) and max(DC_LIT) < DC_TOTAL))
+    if view == "donut":
+        cum, a = [], 0
+        for _t, n, _c in DN:
+            a += n
+            cum.append(a)
+        return dict(val=tuple((t, n) for t, n, _c in DN) + (DN_TOTAL,), px=tuple(b for _a, b in dn_angs()),
+                    lins=((-90.0, 360.0 / DN_TOTAL, 0.0),) * len(DN))
+    if view == "order3":
+        return dict(val=(OR3, OR3_ROWS))
+    if view == "tl_plan":
+        ds = (TP_MEET, TP_WORK[0], TP_WORK[1], TP_USE, TP_ACC)
+        return dict(val=ds, px=tuple(tp_x(*d) for d in ds), lins=((TP["x0"] - TP["m0"] * TP["k"], 12 * TP["k"], 2003.0),) * len(ds))
+    if view == "spill":
+        return dict(val=(SPL_ACC, SPL_POKE), px=(spl_x(*SPL_ACC),), lins=((SPL["wall"], 12 * SPL["k"], _ym(2005, 4)),))
+    if view == "signal_date":
+        return dict(val=(SD_FROM, SD_TO, SD_TOLD))
+    if view == "drop2":
+        return dict(val=(DR2_A, DR2_B, DR2_GAP))
+    if view == "kk_page":
+        return dict(val=(KP_DAY,))
+    if view == "receipt":
+        return dict(val=RC_ROWS)
+    if view == "trim3":
+        xs = tr_edges()
+        return dict(val=(TR_CUT, TR_ADD, TR_SUM, sum(s for _d, s in TR_CUT)), px=tuple(b - a for a, b in zip(xs, xs[1:])),
+                    lins=((0.0, TR["k"], 0.0),) * len(TR_CUT))
+    if view == "jr_words":
+        return dict(val=JW)
+    if view == "tearoff":
+        return dict(val=TO_DAYS)
+    if view == "stretch":
+        return dict(val=(SR_T, SR_LAB, SR_HEAD), px=tuple(sr_x(t) for t in SR_T), lins=((SR["x0"], SR["k"], SR["t0"]),) * len(SR_T))
+    if view == "flow_fan":
+        return dict(val=FF_DAYS)
+    if view == "hourglass":
+        return dict(val=(HG_YEARS, HG_CO, HG_N, HG_BY))
+    if view == "book_seat":
+        return dict(val=(BS_YEAR,))
+    if view == "kengi3":
+        return dict(val=KG3)
+    if view == "plates4":
+        return dict(val=(PL4, PL4_N))
+    if view == "verdict":
+        return dict(val=(VD_DAY, VD_ASK))
+    if view == "relay3":
+        return dict(val=RL_T, px=tuple(rl_span(i)[0] for i in range(len(RL_T))), lins=((RL["x0"], RL["k"], RL["y0"]),) * len(RL_T))
+    if view == "scatter":
+        return dict(val=("2000か所以上", len(sct_pts()) < 2000))
+    if view == "stamps4":
+        return dict(val=SP4)
+    if view == "podium":
+        return dict(val=(PD_DAY,))
+    if view == "bench":
+        return dict(val=(BN_SEATS,))
+    if view == "nested":
+        return dict(val=(NS_DAY,))
+    if view == "role_lines":
+        return dict(val=(RLN_DAY,))
+    if view == "ring12":
+        return dict(val=(RG12_N, RG12_DAY))
+    if view == "links6":
+        return dict(val=(len(LK_YS), len(LK_TO)))
+    if view == "tl_leak":
+        ds = tuple(d for _t, d, _c in TLK_EV) + (TLK_LEAK,)
+        return dict(val=(TLK_EV, TLK_LEAK), px=tuple(tlk_y(*d) for d in ds), lins=((TLK["y0"], 12 * TLK["k"], _ym(2005, 4)),) * len(ds))
+    if view == "handover":
+        return dict(val=(HO_DAY, HO_PUB))
+    if view == "bundle":
+        return dict(val=(BU_DAY,))
+    if view == "meeting":
+        return dict(val=(MT_DAY,))
+    if view == "five_slips":
+        return dict(val=(FS_N, FS_WORD))
+    if view == "answer":
+        return dict(subj=AN_SUBJ, word=AN_WORD)
+    if view == "two_causes":
+        return dict(val=(TCZ_WORD,))
+    if view == "stones3":
+        return dict(val=(ST3_WORD,))
+    if view == "batteries":
+        return dict(val=BT3)
+    return {}
 
 
 def geo_of(view, start, states):
@@ -2058,4 +4239,6 @@ def geo_of(view, start, states):
         out.update(items=C18, total=C18_TOTAL, n=C18_N)
     elif view == "qcards":
         out.update(items=tuple(t for t, _c, _x in QC))
+    else:
+        out.update(_geo6(view, allst))
     return out

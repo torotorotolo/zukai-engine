@@ -95,3 +95,88 @@ SPEC.update({
     "c902": ss.vid("c902"),
     "c920": ss.vid("c920"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-26）：図解 第8章 13カット＝`tools/mech25.py`（fig=("m25", …)）。🔴 出どころの色＝裁判所（神戸地裁・最高裁）＝線の色・
+#   国会（2023年の法務省・鉄道局長・国土交通大臣〈当時〉）＝紫・JR西日本＝茶・検証報告書＝白。人は役職だけ（顔は描かない）。
+#   🔴 「誰も罪に問われなかった」「予見できなかった」は打ち消しの形だけ（台本 §1-4・§5）・大阪高裁の日付は出さない（§1-5）
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c901（3行）＝1行目（問い）：裁判所の印・刑事裁判？／2行目：起訴 4人・元幹部（のちに社長）1人／3行目：歴代の社長 3人
+    "c901": dict(
+        t="起訴された人", s="4人の起訴",
+        fig=("m25", dict(view="plates4", steps=[dict(state=dict(q="on")), dict(state=dict(one="on")), dict(state=dict(three="on"))],
+                         rel=[dict(t="4人", src="国会D p16004"), dict(t="1人", src="S3 p8006"), dict(t="3人", src="国会C p16003")],
+                         note="名札は役職だけ（模式）", src=ss.src(["国会D p16004"])))),
+    # c903（2行）＝1行目：事故（2005年4月）→ 社長に → 起訴のあとに退く／2行目：元幹部 → 指示すべき義務 → 担当の部署 → この曲線に ATS
+    "c903": dict(
+        t="元幹部の歩み", s="問われた義務",
+        fig=("m25", dict(view="duty", steps=[dict(state=dict(career="on")), dict(state=dict(duty="on"))],
+                         rel=[dict(t="2005年4月", src="R1 p1")],
+                         note="矢印は模式", src=ss.src(["S3 p8006", "S3 p8004"])))),
+    # c904（1行）＝基図に判決の表紙（神戸地裁・2012年1月）／1行目：無罪・検察の求刑 禁錮3年
+    "c904": dict(
+        t="1つ目の判決", s="求刑と結論",
+        fig=("m25", dict(view="verdict", steps=[dict(state=dict(v="on"))],
+                         rel=[dict(t="2012年1月", src="S3 p8066"), dict(t="禁錮3年", src="S3 p8066")],
+                         note="表紙の形は模式", src=ss.src(["S3 p8066"])))),
+    # c906（3行）＝1行目（問い）：予見でき｜なかった？／2行目：認めたのではない → 予見できた｜とは認められない（義務を課すほど）／3行目：犯罪の証明がない
+    "c906": dict(
+        t="判決の言い方", s="違いはどこか",
+        fig=("m25", dict(view="word_swap", steps=[dict(state=dict(q="on")), dict(state=dict(swap="on")), dict(state=dict(end="on"))],
+                         rel=[], note="札の言葉は要約（模式）", src=ss.src(["S3 p8048", "S3 p8066"])))),
+    # c908（3行）＝1行目（問い）：事件 → 起訴？／2行目：検察：起訴しない（遮断）・強制起訴／3行目：検察審査会（市民）の議決の回り道 → 指定弁護士が起訴
+    "c908": dict(
+        t="起訴の仕組み", s="市民の議決",
+        fig=("m25", dict(view="bypass", steps=[dict(state=dict(q="on")), dict(state=dict(stop="on")), dict(state=dict(detour="on"))],
+                         rel=[], note="道の形は模式", src=ss.src(["国会C p16003", "S2 p11001", "国会B p16006"])))),
+    # c909（2行）＝1行目：3本の時期の帯（1992年〜1997年・1997年〜2003年・2003年〜2006年）／2行目：付け替え（1996年12月）と事故（2005年4月）の線
+    "c909": dict(
+        t="社長だった時期", s="事故のあとまで",
+        fig=("m25", dict(view="relay3", steps=[dict(state=dict(bars="on")), dict(state=dict(mark="on"))],
+                         rel=[dict(t="1992年・1997年・2003年・2006年", src="S2 p11001"), dict(t="3人", src="S2 p11001"), dict(t="1996年12月", src="R1 p72"),
+                              dict(t="2005年4月", src="R1 p1")],
+                         note="横は年に比例", src=ss.src(["S2 p11001"])))),
+    # c911（2行）＝1行目：散らばった曲線の印・2000か所以上・最高裁／2行目：この曲線・特に危ないと認識できた｜とは認められない
+    "c911": dict(
+        t="最高裁の見方", s="見分けられたか",
+        fig=("m25", dict(view="scatter", steps=[dict(state=dict(many="on")), dict(state=dict(one="on"))],
+                         rel=[dict(t="2000か所以上", src="S2 p11005"), dict(t="2017年", src="S2 p11001")],
+                         note="印の数と位置は模式（数えない）", src=ss.src(["S2 p11005"])))),
+    # c914（2行）＝1行目：2023年の国会の法務省の答弁・4枚の書類（元幹部・歴代の社長）／2行目：無罪の判と裁判所・年月
+    "c914": dict(
+        t="4人の結果", s="国会の説明",
+        fig=("m25", dict(view="stamps4", steps=[dict(state=dict(who="on")), dict(state=dict(done="on"))],
+                         rel=[dict(t="2023年", src="国会D p16004"), dict(t="2012年1月", src="S3 p8066"), dict(t="2013年9月", src="国会C p16003"),
+                              dict(t="2017年6月", src="S2 p11001")],
+                         note="書類と判の形は模式", src=ss.src(["国会D p16004", "国会C p16003", "S2 p11001"])))),
+    # c915（2行）＝1行目：2023年3月8日・参議院 予算委員会・演台（国土交通省 鉄道局長）／2行目：事業許可の取り消しなど 行政処分は 行っていない
+    "c915": dict(
+        t="同じ日", s="国の処分",
+        fig=("m25", dict(view="podium", steps=[dict(state=dict(who="on")), dict(state=dict(say="on"))],
+                         rel=[dict(t="2023年3月8日", src="国会D p16004")],
+                         note="演台は模式（人は描かない）", src=ss.src(["国会D p16004"])))),
+    # c916（3行）＝1行目（問い）：誰も罪に問われなかった／2行目：✕・起訴：4人・裁判で問われた／3行目：有罪になった人はいない ○
+    "c916": dict(
+        t="正しい言い方", s="起訴と有罪",
+        fig=("m25", dict(view="stamps2", steps=[dict(state=dict(a="on")), dict(state=dict(no="on")), dict(state=dict(yes="on"))],
+                         rel=[dict(t="4人", src="国会D p16004")],
+                         note="判の形は模式", src=ss.src(["国会D p16004"])))),
+    # c917（2行）＝1行目：被告人の席（4つ）・運転士（事故で亡くなった・被告人ではない）／2行目：会社そのもの・この裁判では裁かれていない
+    "c917": dict(
+        t="裁判の外", s="運転士と会社",
+        fig=("m25", dict(view="bench", steps=[dict(state=dict(seats="on")), dict(state=dict(co="on"))],
+                         rel=[dict(t="4人", src="国会D p16004")],
+                         note="席の形は模式", src=ss.src(["R1 p1", "国会D p16004"])))),
+    # c918（2行）＝1行目：組織罰＝会社そのものを罰する・国会でも問われた／2行目：2023年6月13日・国土交通大臣（当時）の吹き出しの中の法務省
+    "c918": dict(
+        t="組織罰の議論", s="大臣の紹介",
+        fig=("m25", dict(view="nested", steps=[dict(state=dict(word="on")), dict(state=dict(quote="on"))],
+                         rel=[dict(t="2023年6月13日", src="国会E p16005")],
+                         note="吹き出しの形は模式・言葉は答弁の要約", src=ss.src(["国会E p16005"])))),
+    # c922（2行）＝1行目：調べる側（事故調査委員会・委員〈当時〉）と調べられる側（会社）と壁／2行目：壁の割れ目・情報が漏れた
+    "c922": dict(
+        t="調べそのもの", s="漏れていた",
+        fig=("m25", dict(view="wall", steps=[dict(state=dict(two="on")), dict(state=dict(leak="on"))],
+                         rel=[], note="建物と壁は模式", src=ss.src(["S1 p9009"])))),
+})

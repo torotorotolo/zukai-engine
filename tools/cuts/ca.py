@@ -109,3 +109,76 @@ SPEC.update({
             note=ss.SAT_LINE_NOTE),
         t="一語の行き先", s="JR福知山線 塚口〜尼崎（現在の衛星写真）"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-26）：図解 第9章 11カット＝`tools/mech25.py`（fig=("m25", …)）。🔴 出どころの色＝検証報告書（2011年）＝白・
+#   事故調査委員会（委員〈当時〉・報告書）＝青・JR西日本（社長〈当時〉ら）＝茶・建議＝桃。名前は出さない（役職だけ）。年表 ca07（縦）は c710（横）の相方
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # ca03（3行）＝1行目：2009年9月25日 分かった・委員（当時）／2行目：社長（当時）ら → 求め／3行目：委員（当時）→ 調べの情報（点線）
+    "ca03": dict(
+        t="分かったこと", s="求めに応じて",
+        fig=("m25", dict(view="role_lines", steps=[dict(state=dict(a="on")), dict(state=dict(b="on")), dict(state=dict(c="on"))],
+                         rel=[dict(t="2009年9月25日", src="S1 p9009")],
+                         note="線の形は模式（役職だけ）", src=ss.src(["S1 p9009"])))),
+    # ca04（2行）＝1行目：丸い机と12の席・2009年11月10日・運輸安全委員会が置いた／2行目：遺族と負傷者も（家族を含む）
+    "ca04": dict(
+        t="調べ直す人たち", s="遺族も加わる",
+        fig=("m25", dict(view="ring12", steps=[dict(state=dict(team="on")), dict(state=dict(also="on"))],
+                         rel=[dict(t="12人", src="S1 p9010"), dict(t="2009年11月10日", src="S1 p9010")],
+                         note="席の数＝チームの人数（人の形は描かない・机は模式）", src=ss.src(["S1 p9010"])))),
+    # ca06（1行）＝基図に4つの委員（当時）の箱と会社の人の箱／1行目：6本の線・接触 6件
+    "ca06": dict(
+        t="接触の数", s="4人の委員",
+        fig=("m25", dict(view="links6", steps=[dict(state=dict(all="on"))],
+                         rel=[dict(t="4人", src="S1 p9039"), dict(t="6件", src="S1 p9039")],
+                         note="線の形は模式（名前は出さない）", src=ss.src(["S1 p9039"])))),
+    # ca07（3行）＝基図に縦の年表（事故・建議）／1行目：意見を聞くための案の公表（2006年12月20日）／2行目：2006年12月18日 公表の2日前／
+    #   3行目：全文のコピー → 会社の担当部長
+    "ca07": dict(
+        t="案の公表の前", s="会社の手へ",
+        fig=("m25", dict(view="tl_leak", steps=[dict(state=dict(draft="on")), dict(state=dict(two="on")), dict(state=dict(copy="on"))],
+                         rel=[dict(t="2005年4月25日", src="R1 p1"), dict(t="2005年9月", src="K05 p12001"), dict(t="2006年12月20日", src="S1 p9032"),
+                              dict(t="2006年12月18日・2日前", src="S1 p9040"), dict(t="2006年・2007年", src="暦の目盛り")],
+                         note="縦は月に比例", src=ss.src(["S1 p9040", "S1 p9032"])))),
+    # ca08（3行）＝基図に最終の報告書（公表 2007年6月28日）と会社の箱／1行目：2007年6月25日 公表の3日前（コピーが出る）／2行目：コピーが会社へ動く／
+    #   3行目：そのまま会社の手に
+    "ca08": dict(
+        t="最終版も", s="3日前に渡る",
+        fig=("m25", dict(view="handover", steps=[dict(state=dict(date="on")), dict(state=dict(move="on")), dict(state=dict(inside="on"))],
+                         rel=[dict(t="2007年6月25日", src="S1 p9040"), dict(t="3日前", src="S1 p9040"), dict(t="2007年6月28日", src="S1 p9009")],
+                         note="受け渡しの形は模式", src=ss.src(["S1 p9040"])))),
+    # ca09（3行）＝1行目：2007年6月17日・社長（当時）／2行目：頁の束（第3章の一部・第4章〜）→ 社長／3行目：意見を聞く会の日程・いちばん役に立った
+    "ca09": dict(
+        t="社長にも", s="知りたかったこと",
+        fig=("m25", dict(view="bundle", steps=[dict(state=dict(who="on")), dict(state=dict(pages="on")), dict(state=dict(sched="on"))],
+                         rel=[dict(t="2007年6月17日", src="S1 p9040"), dict(t="第3章・第4章", src="S1 p9040")],
+                         note="束と紙の形は模式", src=ss.src(["S1 p9040", "S1 p9039"])))),
+    # ca12（2行）＝1行目：「優先的に」→ 社長（当時）の吹き出し「後出しじゃんけん」／2行目：検証報告書・と話している
+    "ca12": dict(
+        t="社長の言い方", s="ひとつの例え",
+        fig=("m25", dict(view="jyanken", steps=[dict(state=dict(say="on")), dict(state=dict(told="on"))],
+                         rel=[], note="吹き出しの形は模式（手は描かない）", src=ss.src(["S1 p9022"])))),
+    # ca15（2行）＝1行目：2007年6月11日・委員懇談会・机と委員（当時）の席・審議の録音／2行目：吹き出し「後出しじゃんけん｜的ですね」・録音に残っている
+    "ca15": dict(
+        t="委員の発言", s="懇談会の録音",
+        fig=("m25", dict(view="meeting", steps=[dict(state=dict(seat="on")), dict(state=dict(say="on"))],
+                         rel=[dict(t="2007年6月11日", src="S1 p9059")],
+                         note="机と席の形は模式", src=ss.src(["S1 p9059"])))),
+    # ca16（2行）＝基図に録音の波形／1行目：削ってほしい・はっきりとは言っていない／2行目：強い語勢の線（届かない）・感じられなかった
+    "ca16": dict(
+        t="録音の調子", s="強く求めたか",
+        fig=("m25", dict(view="waveform", steps=[dict(state=dict(words="on")), dict(state=dict(tone="on"))],
+                         rel=[], note="波形は模式", src=ss.src(["S1 p9059"])))),
+    # ca20（2行）＝基図に見開きの左（影響はなかった＝ca19 の語り）／1行目：公正であるべき事故調査を歪めた／2行目：到底容認されない
+    "ca20": dict(
+        t="同時に書いたこと", s="影響と行い",
+        fig=("m25", dict(view="open_book", steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))],
+                         rel=[], note="本の形は模式・言葉は検証報告書の要約", src=ss.src(["S1 p9061"])))),
+    # ca22（2行）＝1行目：5枚の紙（字は伏せる）・検証報告書の中・少なくとも5通り／2行目：1枚を引き出す＝最終の報告書の原文・考えられる
+    "ca22": dict(
+        t="一文の字句", s="原文を読む",
+        fig=("m25", dict(view="five_slips", steps=[dict(state=dict(five="on")), dict(state=dict(pick="on"))],
+                         rel=[dict(t="5通り", src="S1 p9021"), dict(t="2007年", src="R1 p230")],
+                         note="紙の字は伏せた（模式）・引き出した1枚は報告書の原文", src=ss.src(["S1 p9021", "R1 p230"])))),
+})
