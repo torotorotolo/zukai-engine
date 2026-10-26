@@ -3028,7 +3028,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `m050804` | c416 c921 | 2005 | PDL1.0（この事故） | 国土交通省（航空・鉄道事故調査委員会の発表） | https://www.mlit.go.jp/fukuchiyama/index.html |
 | `m050811` | c419 | 2005 | PDL1.0（頁） | 国土交通省（航空・鉄道事故調査委員会の発表） | https://www.mlit.go.jp/fukuchiyama/index.html |
 | `m050818` | c404 | 2005 | PDL1.0（頁） | 国土交通省（航空・鉄道事故調査委員会の発表） | https://www.mlit.go.jp/fukuchiyama/index.html |
-| `msikensoukou` | c804 ca21 | 不明 | PDL1.0（この事故） | 国土交通省（航空・鉄道事故調査委員会の発表） | https://www.mlit.go.jp/fukuchiyama/index.html |
+| `msikensoukou` | c804 ca21 | 2005 | PDL1.0（この事故） | 国土交通省（航空・鉄道事故調査委員会の発表） | https://www.mlit.go.jp/fukuchiyama/index.html |
 | `p_f05` | c601 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-2.pdf |
 | `p_f16_1b` | c806 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-4.pdf |
 | `p_f16_1h` | c324 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-4.pdf |
@@ -3038,9 +3038,9 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `p_f24_1` | c307 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
 | `p_f24_2` | c107 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
 | `p_f24_3` | c321 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
-| `p_f25_1` | c313 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
-| `p_f25_2` | c315 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
-| `p_f25_3` | c524 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `p_f25_1` | c524 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `p_f25_2` | c313 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
+| `p_f25_3` | c315 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
 | `p_f27_2` | c607 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
 | `p_f27_4` | c217 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |
 | `p_f28` | c209 | 2007 | PDL1.0（頁） | 運輸安全委員会（旧 航空・鉄道事故調査委員会） | https://jtsb.mlit.go.jp/railway/fukuchiyama/RA07-3-1-5.pdf |

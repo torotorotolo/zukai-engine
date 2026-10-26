@@ -597,10 +597,13 @@ USE = {
     "c726": dict(clip="X-clock", start=0.30, until=9.70, rate=0.75, zoom=1.2, bias=0.0),   # ショット 0〜10秒・使える 9.40秒／要る 12.52秒
     "c810": dict(clip="X-signal", start=0.58, until=8.47, rate=1.0),   # ショット 0〜9秒・使える 7.89秒／要る 7.84秒
     "c813": dict(clip="X-train2", start=1.84, until=8.21, rate=1.0),   # ショット 0〜10秒・使える 6.37秒／要る 6.32秒
-    "c902": dict(clip="X-court", start=3.02, until=11.04, rate=1.0, zoom=1.25, bias=1.0),   # ショット 0〜14秒・使える 8.02秒／要る 7.97秒
+    # 🔧 ⑤c'：寄り 1.25・下寄せ（横は真ん中）で外国の旗（x 約294〜403）と建物の字「PALÁCIO DA JUSTIÇA」（y 約248〜285）が残った
+    #   ＝寄り 1.45・右下寄せ（映る範囲 x 596〜1920・y 335〜1080）
+    "c902": dict(clip="X-court", start=3.02, until=11.04, rate=1.0, zoom=1.45, xbias=1.0, bias=1.0),   # ショット 0〜14秒・使える 8.02秒／要る 7.97秒
     "c920": dict(clip="X-papers", start=3.05, until=11.00, rate=1.0),   # ショット 0〜14秒・使える 7.95秒／要る 7.90秒
     "ca05": dict(clip="X-table", start=6.07, until=14.97, rate=1.0),   # ショット 0〜21秒・使える 8.90秒／要る 8.85秒
-    "ca10": dict(clip="X-phone", start=0.30, until=8.70, rate=0.93),   # ショット 0〜9秒・使える 8.40秒／要る 8.96秒
+    # 🔧 ⑤c'：右の端の使い捨てのマスク（x 約1623〜）を外す＝寄り 1.25・左寄せ（映る範囲 x 0〜1536・電話機は 〜約1492）
+    "ca10": dict(clip="X-phone", start=0.30, until=8.70, rate=0.93, zoom=1.25, xbias=0.0),   # ショット 0〜9秒・使える 8.40秒／要る 8.96秒
     "ca11": dict(clip="X-meeting", start=1.37, until=8.68, rate=1.0),   # ショット 0〜10秒・使える 7.31秒／要る 7.26秒
     "ca13": dict(clip="X-janken", start=6.30, until=12.70, rate=0.77),   # ショット 6〜13秒・使える 6.40秒／要る 8.22秒
     "cb13": dict(clip="X-dusk", start=10.64, until=17.41, rate=1.0),   # ショット 0〜28秒・使える 6.77秒／要る 6.72秒

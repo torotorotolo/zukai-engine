@@ -579,6 +579,10 @@ def check_card_mix(spec, heads, fo=None):
         if why and float(s.get("card_mix", 1.0)) > 0:
             bad.append(f"{cid}＝{ph}（{why}）: 扉の地に染めて拡大して混ぜる（card_mix={s.get('card_mix', '未記入＝既定 0.36')}）"
                        "＝額装の約束（無加工・丸ごと・色を変えない）を外れる → SPEC に card_mix=0")
+        # 🆕 2026-10-26（25本目 ⑤c'）：頭が白い頁（文字の頁・図・写真の頁）の扉は、既定 0.36 だと頁の大きな字が「第N章」の札と題に透けてぶつかる
+        #    （c500card・c600card・ca00card＝640px のシートで見つけた）。14本目 ⑤c' の決着＝白い頁の扉は 0.14（その値の書き忘れを止める）
+        elif ph and s.get("kind") in ("文字の頁", "図・写真の頁") and float(s.get("card_mix", 0.36)) > 0.14:
+            bad.append(f"{cid}＝{ph}（白い頁）: 扉の地に既定 {s.get('card_mix', 0.36)} で混ぜる＝頁の大きな字が章の札と題に透ける → SPEC に card_mix=0.14")
     return bad
 
 

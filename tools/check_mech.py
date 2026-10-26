@@ -5747,6 +5747,11 @@ def judge_m25(f):
         vals = [(_ym25(*v) if isinstance(v, tuple) else float(v)) for v in Rv["pv"]]
         need(len(px) == len(vals) == len(lins) and all(prop(p, p0 + (v - v0) * k) for p, (p0, k, v0), v in zip(px, lins, vals)),
              f"② {view} の画素が値に比例していない（記録の値 {Rv['pv']}）")
+        # 🆕 25本目 ⑤c'：量の軸（日付でない値）の起点が 0 でなければ、注で「省く」と断る。上の式は一次式かだけを見る＝起点 90・80 の
+        #    c606・c614 が「縦は速さに比例」のまま通り、100→120 の段が約2.3倍・104 と 120 が約1.7倍の高さに見えた（640px のシートで見つけた）
+        offs = [v0 for (_p0, _k, v0), v in zip(lins, Rv["pv"]) if not isinstance(v, tuple) and abs(v0) > 1e-9]
+        need(not offs or "省く" in m.get("note", ""),
+             f"② {view} の量の軸の起点が {offs[0] if offs else ''}（0 でない）のに、注で「省く」と断っていない（差が実際より大きく見える）")
     if view == "answer":
         need(all(w in g["subj"] for w in R["fan5"]["must"]) and g["word"] == R["fan5"]["word"],
              f"② 「低いものと考えられる」の主語か札 {g['subj']}（記録＝この曲線を、わざと110km/hほどで通ろうとした可能性＝R1 p.222）")
@@ -5833,6 +5838,7 @@ def _selftest_m25(ok):
              ("重心の高さを入れ替える", "cog2", "CG", dict(M.CG, hi=606.0, lo=520.0), "② cog2 の値"),
              ("判決の幅を 104〜110 に", "ramp", "RP_BAND", (104, 110), "② ramp の値"),
              ("天井を 106 に", "ceiling", "CE_LIM", 106, "② ceiling の値"),
+             ("天井の図の床を 80km/h に（注はそのまま）", "ceiling", "CE", dict(M.CE, v0=80.0, k=10.0), "② ceiling の量の軸の起点"),
              ("カントを 105mm に", "cant", "CA_MM", 105, "② cant の値"),
              ("2両目の速さを 115 に", "coupler", "CU_V", 115, "② coupler の値"),
              ("私鉄の点を 112 に", "dots_co", "DC_TOTAL", 112, "② dots_co の値"),

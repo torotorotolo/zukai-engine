@@ -398,6 +398,15 @@ def selftest():
         bool(ss.check_card_mix({"cb01": dict(photo="epX/sat_g06.png", sat=dict(code="G06"))}, {"cb01"}, fo)))
     chk("陰性対照：地図のカットに card_mix=0 は通る",
         not ss.check_card_mix({"cb01": dict(photo="epX/sat_g06.png", sat=dict(code="G06"), card_mix=0)}, {"cb01"}, fo))
+    # 🆕 2026-10-26（25本目 ⑤c'）：頭が白い頁の扉は card_mix=0.14 以下（c500card・c600card・ca00card）
+    chk("陽性対照：頭が文字の頁で card_mix を書かない（既定 0.36）は止まる",
+        bool(ss.check_card_mix({"c501": dict(photo="epX/pg14.png", kind="文字の頁")}, {"c501"}, fo)))
+    chk("陽性対照：頭が図・写真の頁で card_mix=0.2 は止まる",
+        bool(ss.check_card_mix({"c601": dict(photo="epX/pg15.png", kind="図・写真の頁", card_mix=0.2)}, {"c601"}, fo)))
+    chk("陰性対照：頭が文字の頁で card_mix=0.14 は通る",
+        not ss.check_card_mix({"c501": dict(photo="epX/pg14.png", kind="文字の頁", card_mix=0.14)}, {"c501"}, fo))
+    chk("陰性対照：頭が写真（頁でない）なら card_mix を書かなくても通る",
+        not ss.check_card_mix({"c401": dict(photo="epX/f12.jpg", kind="写真")}, {"c401"}, fo))
 
     chk("台本のカットIDが読める（本番の narration.json）", len(script_cuts()) > 0)
     good_all = all(ok)
