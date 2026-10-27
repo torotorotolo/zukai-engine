@@ -196,5 +196,5 @@ SPEC.update({
         people=dict(crew=(1, "G1 p58（about 1.10 a. m., Mr. Stone reported to the captain by voice pipe）")),
         steps=[dict(state=dict(), tag=dict(t="二等航海士", at="P", off=(-50, -50), anchor="end", keep=True)),
                dict(state=dict(), rings=2, rec="G2 p2021（Mr Stone should have gone down himself to the Master when there was no proper response from him）",
-                    tag=dict(t="伝声管", at="pipe", off=(-40, -70), anchor="end"))]))),
+                    tag=dict(t="伝声管", at="pipe", off=(40, -170)))]))),     # 🔧 試し焼き 40594842436：左上では「二等航海士」の札の線と交わった
 })

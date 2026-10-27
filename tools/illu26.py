@@ -204,7 +204,9 @@ BR_PIPE = (1478.0, 640.0)                              # 伝声管の口（操�
 BR_SHIP = dict(x=345.0, mast=(352.0, 522.0), red=(334.0, 588.0),
                deck=((356.0, 589.0), (368.0, 588.0), (379.0, 590.0)),
                glare=((388.0, 585.0), (396.0, 588.0), (404.0, 584.0), (411.0, 589.0), (419.0, 586.0), (426.0, 589.0), (401.0, 591.0)))
-BR_FLARES = ((318.0, 552.0), (350.0, 546.0), (382.0, 553.0))     # 低い信号弾3発（マストの灯より低い＝Q7921 の「半分ほどの高さ」の向き）
+# 低い信号弾3発（マストの灯より低い＝Q7921 の「半分ほどの高さ」の向き）。🔧 試し焼き 40594842436：32画素おきでは光が重なって
+#   灰色の固まりに見えた（c625 の終わり）＝56画素おき・飾りの点を外す・残す濃さを上げる
+BR_FLARES = ((300.0, 552.0), (356.0, 544.0), (412.0, 553.0))
 BR_ANG = dict(down=0.0, lamp=72.0, point=112.0)                   # 腕の上げ（度）
 BR_LAB = "横から見た図（カリフォルニアン号の船橋・夜）"
 BR_REC = dict(
@@ -290,11 +292,7 @@ def br_lights_svg(kind):
 
 def br_flare_svg(k):
     x, y = BR_FLARES[k]
-    g = [_circ(x, y, 26, C26["light_glow"], 0.35), _circ(x, y, 7, C26["flare"], extra=' data-k="flare"')]
-    for a in range(0, 360, 60):
-        t = math.radians(a)
-        g.append(_circ(x + 16 * math.cos(t), y + 16 * math.sin(t), 2.4, C26["flare"]))
-    return "".join(g)
+    return _circ(x, y, 16, C26["light_glow"], 0.40) + _circ(x, y, 7.5, C26["flare"], extra=' data-k="flare"')
 
 
 def _br_people(start, states, steps):
@@ -322,7 +320,8 @@ def _br_people(start, states, steps):
         if start[who] == "off" or start[who] == "binoc" or all(st[fld] == "down" for st in allst):
             continue
         svg, sh = arm26(h, (BR_SPOT["A"], fl), -1)
-        ks = IL._keys(start, states, steps, lambda st, f=fld: dict(rot=arm_rot(-1, BR_ANG[st[f]])))
+        # 🔧 ⑤b-4 の試し焼き 40594842436：下ろした腕の縁が体の横に細い棒のように残った（c614 の終わり）＝下ろしたら消す（体の影が腕を含む）
+        ks = IL._keys(start, states, steps, lambda st, f=fld: dict(rot=arm_rot(-1, BR_ANG[st[f]]), a=0.0 if st[f] == "down" else 1.0))
         rec = R["lamp"] if any(st[fld] == "lamp" for st in allst) else R["point"]
         parts.append(dict(_part(f"arm_{who}", svg, rec, sh, ks), geo=dict(kind="arm", who=who, ang=[BR_ANG[st[fld]] for st in allst])))
     return parts
@@ -371,7 +370,7 @@ def _scene_bridge(place):
                 d = float(steps[i0].get("delay", KEY_DELAY)) + 0.2 + 0.85 * k
                 parts.append(dict(_part(f"flare{k}", br_flare_svg(k), R["flare"],
                                         keys=[dict(stage=0, delay=0.0, a=0.0), dict(stage=i0, delay=d, dur=0.15, a=1.0),
-                                              dict(stage=i0, delay=d + 0.5, dur=0.6, a=0.55)]),
+                                              dict(stage=i0, delay=d + 0.5, dur=0.6, a=0.85)]),
                                   obj=dict(flare=1), geo=dict(kind="flare", xy=list(BR_FLARES[k]))))
         parts += IL._pulse_part("voice", IL.ring_svg((BR_SPOT["P"] + 70.0, 612.0), 0.0, r=46), R["pipe"],
                                 (BR_SPOT["P"] + 70.0, 612.0), states, steps, "rings", "out")
@@ -588,7 +587,7 @@ def _k3_note(st0, states):
 TD = dict(hz=600.0, floor=880.0, rail=800.0)
 TD_BOAT = (170.0, 700.0, 640.0, 712.0)              # 1号艇（左・右・上・下）＝横から（形は模式）
 TD_SOCKET = (792.0, 800.0)                           # 信号弾の筒（1号艇のそば＝G1 p54）
-TD_BURST = (930.0, 250.0)
+TD_BURST = (1180.0, 360.0)                           # 🔧 試し焼き 40594842436：(930, 250) は時計の札の真下＝右下へ
 TD_CROWD = (1060.0, 1920.0)                          # 群れの枠
 TD_SHELTER = (760.0, 1180.0, 600.0)                  # 船橋の端の屋根のある所（左・右・上）
 TD_LAMP = (930.0, 566.0)                             # 屋根の上のモールス灯（G1 p16 above the shelters at each end of the navigating bridge）
@@ -647,7 +646,8 @@ def td_front_svg():
 def td_crowd():
     x0, x1 = TD_CROWD
     lay = IL.crowd_layout(x0, x1, TD["floor"] - 4, 112.0, rows=3, row_dy=30.0)
-    svg = (f'<defs><clipPath id="k26cc"><rect x="{x0}" y="0" width="{x1 - x0}" height="{H}"/></clipPath></defs>'
+    # 切る枠は群れの高さだけ（空まで伸ばすと枠が上の札と重なる＝geom_gap が枠で測る）
+    svg = (f'<defs><clipPath id="k26cc"><rect x="{x0}" y="600" width="{x1 - x0}" height="{H - 600}"/></clipPath></defs>'
            f'<g clip-path="url(#k26cc)">{IL.crowd_svg(lay, (C26["crowd0"], C26["crowd1"], C26["crowd2"]))}</g>')
     return svg, lay
 
@@ -716,7 +716,8 @@ def _scene_K4(start, states, steps):
         parts.append(_part("front", td_front_svg(), R["lamp"]))
         parts.append(_sprite("off4", "stand", 300.0, TD_OFF4, R["lamp"]))
         svg, sh = arm26(300.0, TD_OFF4, -1)
-        parts.append(dict(_part("arm", svg, R["lamp"], sh, IL._keys(start, states, steps, lambda st: dict(rot=arm_rot(-1, 72.0 if st["k4lamp"] == "blink" else 0.0)))),
+        parts.append(dict(_part("arm", svg, R["lamp"], sh, IL._keys(start, states, steps, lambda st: dict(rot=arm_rot(-1, 72.0 if st["k4lamp"] == "blink" else 0.0),
+                                                                                                a=1.0 if st["k4lamp"] == "blink" else 0.0))),
                           geo=dict(kind="arm", who="off4")))
         parts.append(dict(_part("blink", td_blink_svg(), R["lamp"], keys=_blink_keys(start, states, steps, on("k4lamp", "blink"), n=8)),
                           geo=dict(kind="blink")))

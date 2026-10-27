@@ -233,7 +233,7 @@ SPEC.update({
         people=dict(crew=(2, "G1 p58（after watching the steamer for some 20 minutes more he sent Gibson down to the master）")),
         steps=[dict(state=dict(), tag=dict(t="船長", at="cap", off=(-60, -70), anchor="end", keep=True)),
                dict(state=dict(k2door="open"), rec="G1 p59（although he remembered Gibson opening and closing the chart-room door）",
-                    tag=dict(t="見習い", at="app", off=(-50, -50), anchor="end", delay=1.3, keep=True)),
+                    tag=dict(t="見習い", at="app", off=(-140, 0), anchor="end", delay=1.3, keep=True)),   # 🔧 geom_gap：戸の枠にかかった＝枠の左へ
                dict(state=dict(), rings=2, rec="G1 p58（altogether we had seen eight of these white lights like white rockets in the direction）・"
                                                 "G1 p59（that this steamer was disappearing in the southwest）")]))),
     # c631（3行・10.2秒）＝c630 の絵の続き。2行目「全部白かと聞かれ、時刻も聞かれた。」で船長の問いの印 → 3行目「2時5分。操舵室の時計だった、
@@ -243,7 +243,7 @@ SPEC.update({
         rec="G1 p59（Gibson states that he went down to the chart room and told the master）",
         people=dict(crew=(2, "G1 p59（Gibson states that he went down to the chart room and told the master）")),
         steps=[dict(state=dict(), tag=[dict(t="船長", at="cap", off=(-60, -70), anchor="end", keep=True),
-                                       dict(t="見習い", at="app", off=(-50, -50), anchor="end", keep=True)]),
+                                       dict(t="見習い", at="app", off=(-140, 0), anchor="end", keep=True)]),
                dict(state=dict(), asks=2, rec="G1 p59（the master asked him if all the rockets were white, and also asked him the time）"),
                dict(state=dict(), rec="T1 p7565（書き起こし Five minutes past two by the wheelhouse clock）・G1 p59（It was five minutes past two）",
                     tag=dict(t="2:05（見習いの話・操舵室の時計）", xy=(640, 210), keep=True))]))),
@@ -265,6 +265,7 @@ SPEC.update({
                     tag=[dict(t="2:40ごろ（カリフォルニアン号の時計）", xy=(640, 210), keep=True),
                          dict(t="二等航海士", at="P", off=(-50, -50), anchor="end", keep=True),
                          dict(t="見えなくなった方角：南西", at="sw", off=(40, -110), keep=True)]),
+               # 🔧 試し焼き 40594842436：左上の「伝声管」が「二等航海士」の札に接した＝右上（操舵室の屋根の下）へ
                dict(state=dict(), rec="G1 p59（the master again asked him if he was certain there was no color in the lights）",
-                    tag=dict(t="伝声管", at="pipe", off=(-40, -70), anchor="end"))]))),
+                    tag=dict(t="伝声管", at="pipe", off=(40, -170)))]))),
 })

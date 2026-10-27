@@ -92,5 +92,6 @@ SPEC.update({
     "c712": dict(fig=("illu", dict(
         place="K6", start=dict(ksw="side"), at="4:10",
         steps=[dict(state=dict(k6boat="along"), dur=2.4, rec="G1 p55（He sighted the first boat (No. 2) and picked her up at 4.10）",
-                    tag=[dict(t="4:10（カルパチア号の時計）", xy=(640, 210), keep=True), dict(t="2号艇", at="boat", off=(40, -80), delay=2.0)])]))),
+                    # 🔧 geom_gap：(640, 210) では時計の札が煙突の角に・「2号艇」が丸窓の列にかかった＝札は左上・ボートの札は水の上
+                    tag=[dict(t="4:10（カルパチア号の時計）", xy=(300, 230), keep=True), dict(t="2号艇", at="boat", off=(60, 90), delay=2.0)])]))),
 })

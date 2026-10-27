@@ -100,17 +100,21 @@ SPEC.update({
         people=dict(crew=(1, "G1 p54（she had only one Marconi operator on board and he was asleep）")),
         steps=[dict(state=dict()),
                dict(state=dict(), rec="G1 p54（The Californian heard none of the…she had only one Marconi operator on board and he was asleep）",
-                    tag=[dict(t="通信士", at="sleep", off=(60, -60)), dict(t="ヘッドホン", at="phones", off=(-60, -80), anchor="end")])]))),
+                    # 🔧 試し焼き 40594842436：左上へ出した「ヘッドホン」の字が機械の目盛りに重なった＝右上へ
+                    tag=[dict(t="通信士", at="sleep", off=(60, -60)), dict(t="ヘッドホン", at="phones", off=(60, -90))])]))),
     # c508（2行・8.1秒）＝1行目「無線のほかに、目で見える合図も使った。信号弾だ。」で時計の札 → 2行目「ボート甲板の筒から打ち上げると、
-    #   空で破裂して、白い星を散らす。」で筒から上がる筋（段3で空で破裂して白い星）。乗客は顔の無い群れ（数えられない形）
+    #   空で破裂して、白い星を散らす。」で筒から上がる筋と、空で破裂して白い星。乗客は顔の無い群れ（数えられない形）
+    #   🔧 試し焼き 40594842436：破裂を3つ目の段（行の途中に挟まる）にしたら終わりのコマでも小さく薄かった＝2行目の段で筋→破裂
     "c508": dict(fig=("illu", dict(
         place="K4", start=dict(view="deck", k4crowd="on", ksw="titanic"), at="0:45",
         rec="G1 p54（The firing of these signals began about the time that No. 7 boat was lowered (12.45 a. m.)）",
         steps=[dict(state=dict(), rec="G1 p54（The firing of these signals began about the time that No. 7 boat was lowered (12.45 a. m.)）",
                     tag=dict(t="0:45ごろ（タイタニック号の時計）", xy=(640, 210), keep=True)),
-               dict(state=dict(k4rocket="up"), rec="G1 p54（sent off at intervals from a socket by No. 1 emergency boat on the boat deck）",
-                    tag=[dict(t="1号艇", at="boat", off=(40, -70)), dict(t="信号弾の筒", at="socket", off=(40, -90))]),
-               dict(state=dict(k4rocket="burst"), rec="G1 p54（They were the ordinary distress signals, exploding in the air and throwing off white stars）")]))),
+               dict(state=dict(k4rocket="burst"),
+                    rec="G1 p54（sent off at intervals from a socket by No. 1 emergency boat on the boat deck. They were the ordinary distress signals, "
+                        "exploding in the air and throwing off white stars）",
+                    # 🔧 geom_gap：右上 (40, -90) では「信号弾の筒」の字を筋が横切った＝筋の下の右へ
+                    tag=[dict(t="1号艇", at="boat", off=(40, -70)), dict(t="信号弾の筒", at="socket", off=(40, -10))])]))),
     # c512（3行・11.9秒）＝1行目「四等航海士は、モールス灯も使った。光を点けたり消したりして、」で屋根の上の灯が点いたり消えたり →
     #   2行目「…前の左の方に、船の灯りが見えていた。」で遠くの白い点と赤い点 → 3行目「本人の見立てで、約9キロから11キロ（5か6マイル）先」で点線と札
     #   （モールス灯は船橋の端の屋根の上＝G1 p16・p54＝台本 §0-5。遠くの船は灯の点だけ＝名乗らない）
