@@ -1023,17 +1023,35 @@ def sat(code, steps, note="", **kw):
 #    26本目の値は、その型（案C-1〜9＝再現イラスト18カット＝台本 第2版の案C）を初めて使う ⑤b のチャットで入れる（空のあいだ、その型を使うカットは門番・型が止まる＝fail closed）。
 #    頁の番号の書き方（印刷の頁・資料をまたぐ通し番号 k000＋）と資料の名の決め方（🔴 名に数字を入れない＝門番 wording が裸の時刻と読む）は見本の REC_DOCS の注。
 #    🔴 26本目の案C の置き場は F1〜F6（illu25）・N1〜N4（illu24）・C1〜C7（illu17）ほかの回の名と別の名で。REC_PAGES の道は26本目（`ref/ep26/src/ep26_pages.txt`＝まだ無い）
-REC_PAGES = REF / "src" / "ep26_pages.txt"      # 部品の出典（`rec=`）を当てる原文（git の外＝手元だけ）
-REC_DOCS = {}                               # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
-ILLU_SPLIT_TIMES = ()                       # 割れる時刻（2つの資料で時刻が割れる所＝札は秒で見る）
-ILLU_CROWD_UNTIL = None                     # 群れを描いてよい場面の時刻の上限（None＝群れを描かない）
-ILLU_ROLES = dict(sprite=(), crowd=())      # 置いてよい役割（門番 check_illu ②）＝空の組なら、どの役割も置けない（fail closed）
-ILLU_SEC_OK = {}                            # 札に出してよい秒＝{秒: 出典}（門番 check_illu ⑤）
-ILLU_CLOCK_OK = ()                          # 札に出してよい時計の時刻（「時:分」まで）＝空なら時計の札を出せない
-ILLU_COUNTS = {}                            # 描いてよい数＝{部品の obj の名: (数, 出典)}（門番 check_illu ③）
+REC_PAGES = REF / "src" / "ep26_pages.txt"      # 部品の出典（`rec=`）を当てる原文（git の外＝手元だけ）＝`ref/ep26/make_pages26.py` が作る
+# 🆕 2026-10-27（26本目 ⑤b-4・案C 再現イラスト＝`tools/illu26.py` の置き場 K1〜K9）。頁の番号（`ref/ep26/make_pages26.py` の注と同じ）：
+#    G1＝英国の審問の報告の米国上院の刷り直し S. Doc. 933＝**印刷の頁**（PDF＝印刷＝台本の「G1 p.57」がそのまま p57）／
+#    G2＝MAIB 1992＝**2000＋PDF の頁**（画面は印刷の頁＝PDF−4＝台本の「G2 p.17」は p2021）／
+#    G7＝米国上院の公聴会 S. Doc. 726＝**20000＋PDF の頁**（画面は「PDF N頁」＝印刷の頁とは数頁ずれる）／
+#    T1＝英国の審問の証言の書き起こし（有志のサイト・保存していない）＝番号は**問の番号 Q**（`text=False`＝原文の頁の照合はしない・画面は名だけ）。
+#    T2（米国の公聴会の書き起こし）は G7 で照らした＝案C では G7 の頁で書く（T2 の名は置かない）
+REC_DOCS = {                                # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
+    "G1": dict(range=(1, 88), name="英国の審問の報告（1912年）", page="print", base=0),
+    "G2": dict(range=(2001, 2030), name="英国 海難調査局の再評価（1992年）", page="print", base=2004),
+    "G7": dict(range=(20001, 21170), name="米国上院の公聴会の記録（1912年）", page="pdf", base=20000),
+    "T1": dict(range=(1, 25700), name="英国の審問の証言（書き起こし・有志のサイト）", page=None, base=0, text=False),
+}
+# 割れる時刻＝二等航海士が伝声管で知らせた時刻（二等航海士 1:10／船長 1:15＝sources.md §4-2-6）と見習いが下りた時刻（二等航海士 2:00／見習い 2:05）。
+#   🔴 2:05 は台本 c631 が「見習いは言う」と言う＝札に出してよい（門番 check_illu ㊽ が「見習い」の断りを札に求める）＝割れる表には 2:00 だけ
+ILLU_SPLIT_TIMES = ("1:10", "1:15", "2:00")
+ILLU_CROWD_UNTIL = "2:20"                   # 群れ（タイタニック号の甲板の乗客）は沈没（2:20＝タイタニック号の時計）より前の場面だけ
+ILLU_ROLES = dict(sprite=("crew",), crowd=("passengers",))   # 型紙の影＝乗組員（役職だけ）・群れ＝乗客（数えられない形）
+ILLU_SEC_OK = {}                            # 札に出してよい秒＝{秒: 出典}（門番 check_illu ⑤）＝26本目は秒の札を出さない
+# 札に出してよい時計の時刻（sources.md §6 の時計の表と G1 p57〜59 の時刻・どの船の時計かは札に書く＝門番 ㊽）
+ILLU_CLOCK_OK = ("23:00", "0:00", "0:20", "0:45", "1:00", "1:40", "2:05", "2:40", "4:10")
+ILLU_COUNTS = {                             # 描いてよい数＝{部品の obj の名: (数, 出典)}（門番 check_illu ③）
+    "seat": (40, "G1 p52（this was an emergency boat with a carrying capacity of 40）"),
+    "filled": (12, "G1 p51（No. 1 certainly left with only 12）"),
+    "flare": (3, "G1 p58（He got no reply, but the vessel fired three more white rockets）"),
+}
 ILLU_ASSUME = {}                            # 想定の札を出すカット＝{カットID: 札の言葉}（門番 check_illu ④）
 ILLU_DESTROY_CUTS = ()                      # 壊れる物の部品を描いてよいカット（門番 check_illu ⑫＝空なら全部止める）
-ILLU_TOP_NOSCALE = {}                       # 縮尺を持たない模式の上から見た絵の置き場＝{置き場: 理由}（門番 check_illu ⑧ は縮尺の代わりに「人が0・模式の断り」を測る）
+ILLU_TOP_NOSCALE = {"K5": "人を描かない席の印の模式（1号艇）"}   # 縮尺を持たない模式の上から見た絵の置き場（門番 check_illu ⑧ は「人が0・模式の断り」を測る）
 ILLU_SUB_UNTIL = None                      # 潜水艦の時刻の上限（門番 ⑮＝無ければ潜水艦を描いたカットは止まる）
 ILLU_SUB_EXC = {}                           # 上の上限の例外＝{カットID: 時刻}
 ILLU_SUB_STOP = None                        # 艦の絵を止めたカット（これより後に潜水艦を置かない）

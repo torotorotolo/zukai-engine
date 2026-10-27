@@ -151,3 +151,120 @@ SPEC.update({
     "c610": ss.vid("c610"),
     "c638": ss.vid("c638"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-10-27）：案C-1・7・8・9 カリフォルニアン号の船橋＝K1／案C-2 海図室＝K2（`tools/illu26.py`・門番 check_illu ㊽）
+#  🔴 遠くの船は灯の点だけ（形を描かない・タイタニック号と名乗らない）・人は顔の無い影と役職の札だけ・心の中は描かない
+# ══════════════════════════════════════════════════════════
+_P58 = "G1 p58（Mr. Stone had with him during the middle watch an apprentice）"
+_PIPE58 = "G1 p58（Mr. Stone reported to the captain by voice pipe）"
+_PIPE59 = "G1 p59（At about 2.40 a. m. Mr. Stone again called up the master by voice pipe）"
+SPEC.update({
+    # c606（2行・6.7秒）＝1行目の問い → 2行目「夜11時ごろ、東の方から、近づいてくる船の灯りが見えた。」で遠くに灯（段3で近づく）と時計の札
+    "c606": dict(fig=("illu", dict(
+        place="K1", start=dict(kg="stand", ksw="side"), at="23:00",
+        rec="G1 p57（Mr. Groves, third officer of the Californian, who was the officer of the first watch）",
+        people=dict(crew=(1, "G1 p57（it would appear that the master was not actually on the bridge when the steamer was sighted）")),
+        steps=[dict(state=dict(), tag=dict(t="三等航海士", at="A", off=(50, -50), keep=True)),
+               dict(state=dict(kship="far"), rec="G1 p57（At about 11 p. m. a steamer's light was seen approaching from the eastward）",
+                    tag=dict(t="23:00ごろ（カリフォルニアン号の時計）", xy=(640, 210), keep=True)),
+               dict(state=dict(kship="near"), dur=2.2, rec="G1 p57（the steamer was changing her bearing slowly as she got closer）")]))),
+    # c614（2行・8.5秒）＝1行目「三等航海士のモールス灯に、答えは無かったようだ。」で腕を上げて灯が点いたり消えたり →
+    #   2行目「0時すぎ、当直は、…二等航海士…に替わった。」で腕を下ろし、二等航海士が階段から上がってくる・時計の札
+    "c614": dict(fig=("illu", dict(
+        place="K1", start=dict(kg="stand", kship="stop", ksw="side"), at="0:00",
+        rec="G1 p57（Her steaming lights were still visible and also her port side light）",
+        people=dict(crew=(2, "G1 p58（He remained on the bridge until relieved by Mr. Stone, the second officer, just after midnight）")),
+        steps=[dict(state=dict(kgarm="lamp", klamp="blink"), rec="G1 p58（Mr. Groves's Morse signaling appears to have been ineffectual）",
+                    tag=dict(t="三等航海士", at="A", off=(50, -50), keep=True)),
+               dict(state=dict(kgarm="down", klamp="off", ks="up"),
+                    rec="G1 p58（He remained on the bridge until relieved by Mr. Stone, the second officer, just after midnight）",
+                    tag=[dict(t="0:00すぎ（カリフォルニアン号の時計）", xy=(640, 210), keep=True),
+                         dict(t="二等航海士", at="B", off=(50, -50), delay=2.8, keep=True)])]))),
+    # c615（1行・4.4秒）＝c614 の絵の続き。「三等航海士は、引き継ぎで、止まっている客船だ、と伝えた。」で遠くの灯を指さす
+    "c615": dict(fig=("illu", dict(
+        place="K1", start=dict(kg="stand", ks="stand", kship="stop"), at="0:00",
+        rec="G1 p58（relieved by Mr. Stone, the second officer, just after midnight）",
+        people=dict(crew=(2, "G1 p58（In turning the Californian over to him, he pointed out the steamer）")),
+        steps=[dict(state=dict(kgarm="point"), rec="G1 p58（In turning the Californian over to him, he pointed out the steamer and said: she has been stopped since 11.40）",
+                    tag=[dict(t="三等航海士", at="A", off=(50, -50), keep=True), dict(t="二等航海士", at="B", off=(50, -50), keep=True)])]))),
+    # c618（2行・9.2秒）＝1行目「二等航海士と当直に立ったのは、見習い…」で2人の札 → 2行目「0時20分ごろ、その船のマストの灯と赤い舷灯、
+    #   後ろの甲板の白い灯りの群れを見た。」で時計の札と灯の3つの札（見習いは双眼鏡＝with glasses）
+    "c618": dict(fig=("illu", dict(
+        place="K1", start=dict(ks="stand", kj="binoc", kship="glare", ksw="side"), at="0:20",
+        rec="G1 p58（He could see a masthead light, her red light (with glasses), and a glare of white lights on her afterdeck）",
+        people=dict(crew=(2, _P58)),
+        steps=[dict(state=dict(), rec=_P58,
+                    tag=[dict(t="見習い", at="A", off=(50, -50), keep=True), dict(t="二等航海士", at="B", off=(50, -50), keep=True)]),
+               dict(state=dict(), rec="G1 p58（whose attention was first drawn to the steamer's lights at about 12.20 a. m.）",
+                    tag=[dict(t="0:20ごろ（カリフォルニアン号の時計）", xy=(640, 210), keep=True),
+                         dict(t="マストの灯", at="mast", off=(40, -90)), dict(t="赤い舷灯", at="red", off=(-30, 120), anchor="end"),
+                         dict(t="白い灯りの群れ", at="glare", off=(60, 110))])]))),
+    # c621（2行・7.5秒）＝1行目「伝声管って、何？」で管の札 → 2行目「管を通して、声を別の部屋に届ける道具だ。船長は、船橋の下の海図室にいた。」
+    #   で管の口から輪・船長の札・上の船橋への札。時計の札は出さない（1:10 は船長の話 1:15 と割れる＝ss.ILLU_SPLIT_TIMES）
+    "c621": dict(fig=("illu", dict(
+        place="K2", at="1:10",
+        people=dict(crew=(1, "T1 p7280（書き起こし I do not know; I was asleep）")),
+        steps=[dict(state=dict(), tag=dict(t="伝声管", at="pipe", off=(60, -40), keep=True)),
+               dict(state=dict(), rings_in=2, rec="G1 p58（Mr. Stone reported to the captain by voice pipe）・T1 p6784（書き起こし just below the upper bridge）",
+                    tag=[dict(t="船長", at="cap", off=(-60, -70), anchor="end"), dict(t="上の船橋へ", at="pipe_up", off=(60, 20))])]))),
+    # c625（2行・9.1秒）＝1行目「見習いはモールス灯で、もう一度呼んだ。答えは無い。だがその船から、」で腕を上げて灯が点いたり消えたり →
+    #   2行目「さらに3発、白い信号弾が上がった。二等航海士も見ている。」で低い白い信号弾が3発（数えられる形）
+    "c625": dict(fig=("illu", dict(
+        place="K1", start=dict(ks="binoc", kj="stand", kship="glare", ksw="side"), at="0:55",
+        rec="G1 p58（Both Mr. Stone and the apprentice kept the steamer under observation, looking at her from time to time with their glasses）",
+        people=dict(crew=(2, _P58)),
+        steps=[dict(state=dict(kjarm="lamp", klamp="blink"), rec="G1 p58（he at once proceeded again to call the steamer up by Morse）",
+                    tag=dict(t="見習い", at="A", off=(50, -50), keep=True)),
+               dict(state=dict(klamp="off", kflares="on"), rec="G1 p58（He got no reply, but the vessel fired three more white rockets; these rockets were also seen by Mr. Stone）",
+                    tag=[dict(t="白い信号弾 3発", at="flares", off=(60, -80), delay=2.4), dict(t="二等航海士", at="B", off=(50, -50))])]))),
+    # c627（3行・12.2秒）＝1行目「1時から1時40分のあいだ、2人は双眼鏡で見ながら話した。」で時計の札と2人の札（2行目・3行目の言葉は語りに任せる）
+    "c627": dict(fig=("illu", dict(
+        place="K1", start=dict(ks="binoc", kj="binoc", kship="glare"), at="1:00",
+        rec="G1 p58（Both Mr. Stone and the apprentice kept the steamer under observation, looking at her from time to time with their glasses）",
+        people=dict(crew=(2, _P58)),
+        steps=[dict(state=dict(), rec="G1 p58（Between 1 o'clock and 1.40 some conversation passed between them）",
+                    tag=[dict(t="1:00〜1:40（カリフォルニアン号の時計）", xy=(640, 210), keep=True),
+                         dict(t="見習い", at="A", off=(50, -50), keep=True), dict(t="二等航海士", at="B", off=(50, -50), keep=True)])]))),
+    # c630（3行・14.0秒）＝1行目「…最後の信号弾を見たのは、1時40分ごろ。」は海図室の船長 → 2行目「その20分ほどあと、見習いを船長のもとへ行かせた。」で
+    #   戸が開いて見習い → 3行目「全部で8発…南西へ消えていく、と。」で見習いから輪。時計の札は出さない（2:00 と 2:05 で割れる＝c631 で見習いの話として）
+    "c630": dict(fig=("illu", dict(
+        place="K2", at="2:05",
+        people=dict(crew=(2, "G1 p58（after watching the steamer for some 20 minutes more he sent Gibson down to the master）")),
+        steps=[dict(state=dict(), tag=dict(t="船長", at="cap", off=(-60, -70), anchor="end", keep=True)),
+               dict(state=dict(k2door="open"), rec="G1 p59（although he remembered Gibson opening and closing the chart-room door）",
+                    tag=dict(t="見習い", at="app", off=(-50, -50), anchor="end", delay=1.3, keep=True)),
+               dict(state=dict(), rings=2, rec="G1 p58（altogether we had seen eight of these white lights like white rockets in the direction）・"
+                                                "G1 p59（that this steamer was disappearing in the southwest）")]))),
+    # c631（3行・10.2秒）＝c630 の絵の続き。2行目「全部白かと聞かれ、時刻も聞かれた。」で船長の問いの印 → 3行目「2時5分。操舵室の時計だった、
+    #   と見習いは言う。」で札（見習いの話＝書き起こし Q7565）
+    "c631": dict(fig=("illu", dict(
+        place="K2", start=dict(k2door="open"), at="2:05",
+        rec="G1 p59（Gibson states that he went down to the chart room and told the master）",
+        people=dict(crew=(2, "G1 p59（Gibson states that he went down to the chart room and told the master）")),
+        steps=[dict(state=dict(), tag=[dict(t="船長", at="cap", off=(-60, -70), anchor="end", keep=True),
+                                       dict(t="見習い", at="app", off=(-50, -50), anchor="end", keep=True)]),
+               dict(state=dict(), asks=2, rec="G1 p59（the master asked him if all the rockets were white, and also asked him the time）"),
+               dict(state=dict(), rec="T1 p7565（書き起こし Five minutes past two by the wheelhouse clock）・G1 p59（It was five minutes past two）",
+                    tag=dict(t="2:05（見習いの話・操舵室の時計）", xy=(640, 210), keep=True))]))),
+    # c632（2行・8.6秒）＝海図室から船橋へ（切り替えの字「船橋では」）。1行目「2人は、その船が見えなくなるまで見ていた。…」から遠くの灯が
+    #   だんだん消えていく（2行目の終わりまで）
+    "c632": dict(fig=("illu", dict(
+        place="K1", start=dict(ks="binoc", kj="binoc", kship="glare", ksw="bridge"), at="2:05",
+        rec="G1 p59（They both continued to keep the ship under observation until she disappeared）",
+        people=dict(crew=(2, "G1 p59（Gibson returned to the bridge to Mr. Stone and reported）")),
+        steps=[dict(state=dict(kship="fade"), dur=6.5, rec="G1 p59（A gradual disappearing of all her lights, which would be perfectly natural with a ship steaming away from us）",
+                    tag=[dict(t="見習い", at="A", off=(50, -50), keep=True), dict(t="二等航海士", at="B", off=(50, -50), keep=True)])]))),
+    # c633（2行・11.9秒）＝1行目「二等航海士の話では、2時40分ごろ、また伝声管で伝えた。あの船は南西に消えた。」で時計の札・伝声管へ輪・
+    #   見えなくなった方角の札 → 2行目「船長は、灯りに色は無かったか、と聞いた。全部白でした。…」（言葉は語りに任せる）
+    "c633": dict(fig=("illu", dict(
+        place="K1", start=dict(ks="pipe", kship="gone"), at="2:40",
+        rec="G1 p59（had disappeared bearing SW.）",
+        people=dict(crew=(1, _PIPE59)),
+        steps=[dict(state=dict(), rings=2, rec=_PIPE59,
+                    tag=[dict(t="2:40ごろ（カリフォルニアン号の時計）", xy=(640, 210), keep=True),
+                         dict(t="二等航海士", at="P", off=(-50, -50), anchor="end", keep=True),
+                         dict(t="見えなくなった方角：南西", at="sw", off=(40, -110), keep=True)]),
+               dict(state=dict(), rec="G1 p59（the master again asked him if he was certain there was no color in the lights）",
+                    tag=dict(t="伝声管", at="pipe", off=(-40, -70), anchor="end"))]))),
+})

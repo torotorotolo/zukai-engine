@@ -75,3 +75,22 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-10-27）：案C-5 1号艇の40の席＝K5（c701）／案C-6 カルパチア号＝K6（c712）（`tools/illu26.py`・門番 check_illu ㊽）
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c701（3行・11.2秒）＝1行目の問いで1号艇と40の席の印 → 2行目「報告書によれば、40人乗りの1号艇は、12人だけで離れた。」で12の席が埋まる
+    #   （人の形で数を名乗らない＝席の印・埋まった席の場所は模式）。3行目の7号艇・6号艇は語りに任せる
+    "c701": dict(fig=("illu", dict(
+        place="K5", start=dict(ksw="top"),
+        steps=[dict(state=dict(), rec="G1 p52（this was an emergency boat with a carrying capacity of 40）",
+                    tag=dict(t="1号艇（40人乗り）", at="seats", off=(60, -70), keep=True)),
+               dict(state=dict(k5fill="on"), rec="G1 p51（No. 1 certainly left with only 12）",
+                    tag=dict(t="乗ったのは12人", at="fill", off=(40, 80), keep=True))]))),
+    # c712（1行・4.8秒）＝「4時5分に船を止め、4時10分、最初のボート、2号艇を引き上げた。」で2号艇が船の横へ・時計の札（カルパチア号の時計）
+    "c712": dict(fig=("illu", dict(
+        place="K6", start=dict(ksw="side"), at="4:10",
+        steps=[dict(state=dict(k6boat="along"), dur=2.4, rec="G1 p55（He sighted the first boat (No. 2) and picked her up at 4.10）",
+                    tag=[dict(t="4:10（カルパチア号の時計）", xy=(640, 210), keep=True), dict(t="2号艇", at="boat", off=(40, -80), delay=2.0)])]))),
+})

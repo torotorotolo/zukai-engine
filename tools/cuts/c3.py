@@ -107,3 +107,18 @@ SPEC.update({
             note="印は英国の審問の報告の緯度経度"),
         t="船からの無線", s="4月14日の氷の知らせの位置・北大西洋（現在の衛星写真）"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-10-27）：案C-3 カリフォルニアン号の無線室＝K3（`tools/illu26.py`・門番 check_illu ㊽）
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c320（2行・9.4秒）＝1行目「夜11時ごろ、カリフォルニアン号は氷原の手前で止まっていた。」で時計の札 → 2行目「この船の船長に言われ、
+    #   通信士はタイタニック号へ打った。…」で電鍵を打つ・空中線から輪（モールスの字は描かない）。船長は描かない（言った人＝語り）
+    "c320": dict(fig=("illu", dict(
+        place="K3", start=dict(ksw="side"), at="23:00",
+        people=dict(crew=(1, "G1 p57（This Evans did, calling up the Titanic and sending）")),
+        steps=[dict(state=dict(), rec="G1 p57（At about 11 p. m. a steamer's light was seen approaching from the eastward）",
+                    tag=dict(t="23:00ごろ（カリフォルニアン号の時計）", xy=(640, 210), keep=True)),
+               dict(state=dict(k3key="tap"), rings=3, rec="G1 p57（This Evans did, calling up the Titanic and sending: We are stopped and surrounded by ice）",
+                    tag=dict(t="通信士", at="op", off=(70, -40)))]))),
+})

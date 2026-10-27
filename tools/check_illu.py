@@ -3207,6 +3207,231 @@ def _judge_f6(sc, where, geo, texts):
     return bad, n
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 26本目 ⑤b-4（2026-10-27）：㊽ 案C K1〜K6（`tools/illu26.py`＝K1 カリフォルニアン号の船橋〈一覧の案C-1・7・8・9〉・K2 海図室・
+#     K3 無線室・K4 タイタニック号のボート甲板／船橋の端・K5 1号艇の席・K6 カルパチア号）。
+#     🔴 記録の値は門番の側（REC_K26＝描く側の定数を読まない・§5b-88）。頁は cuts.ss.REC_DOCS の通し番号
+#     （G1＝印刷の頁・G2＝2000＋PDF・G7＝20000＋PDF・T1＝問の番号で原文なし＝引用は照らさない）
+#  🔴 §0b（題材を替えるとき）：次の回の ⑤b-1 で REC_K26 と K26_CUTS を見本 `fixture_ep26` へ移し、ここは空にする（空のあいだ K1〜K6 の場面は止める）。
+#     ⚠️ `_pages26()` は原文を覚える（lru_cache）＝見本を差し込むときは `_pages26.cache_clear()` も
+# ══════════════════════════════════════════════════════════
+K26_PLACES = ("K1", "K2", "K3", "K4", "K5", "K6")
+K26_MARK = "㊽"
+K26_CUTS = ("c320", "c506", "c508", "c512", "c606", "c614", "c615", "c618", "c621", "c625", "c627", "c630", "c631", "c632", "c633",
+            "c701", "c712", "c936")
+REC_K26 = dict(
+    # 置き場ごとに描いてよい人の影の数の上限（記録の場面にいた役職だけ）と、札に書いてよい役職（名前は書かない）
+    people=dict(K1=2, K2=2, K3=1, K4=1, K5=0, K6=0),
+    roles=("三等航海士", "二等航海士", "見習い", "船長", "通信士", "四等航海士"),
+    # 時計の札＝置き場ごとの時刻（sources.md §6・G1 p54〜59）と「どの船の時計か」
+    clock=dict(K1=("23:00", "0:00", "0:20", "1:00", "1:40", "2:40"), K2=("2:05",), K3=("23:00",), K4=("0:45",), K6=("4:10",)),
+    ship=dict(K1=("カリフォルニアン号の時計",), K2=("操舵室の時計",), K3=("カリフォルニアン号の時計",), K4=("タイタニック号の時計",),
+              K6=("カルパチア号の時計",)),
+    who={"2:05": "見習い"},             # 証言で割れる時刻は誰の話かを札に（T1 Q7565＝見習い 2:05／二等航海士の話は 2:00 の向き＝sources.md §4-2）
+    flares=3,                            # G1 p58「the vessel fired three more white rockets」
+    miles=(5, 6),                        # G1 p54「about 5 or 6 miles」→ 札は km（1マイル＝1.852km・四捨五入）
+    bearing="南西",                      # G1 p59「disappeared bearing SW.」
+    seats=40, filled=12,                 # G1 p52「a carrying capacity of 40」・G1 p51「No. 1 certainly left with only 12」
+    boat=(25 + 2 / 12, 7 + 2 / 12),      # G1 p25「25 feet 2 inches long by 7 feet 2 inches broad」（emergency boat＝wood cutter）
+    no_name=dict(K1="タイタニック", K4="カリフォルニアン"),   # 見えた船を名乗らない（映像方針 26本目 案C の守りの線）
+)
+NUM_KM26 = re.compile(r"(\d+)\s*〜\s*(\d+)\s*キロ")
+CLOCK26 = re.compile(r"(\d{1,2}):(\d{2})")
+QUOTE26 = re.compile(r"(G1|G2|G7)\s*p(\d+)（([^）]*)）")
+ROLE26 = re.compile(r"(航海士|見習い|船長|通信士|操舵手|乗組員|機関士)$")
+
+
+def _nz26(s):
+    import unicodedata
+    return re.sub(r"[^a-z0-9]", "", unicodedata.normalize("NFKC", s or "").lower())
+
+
+@lru_cache(maxsize=1)
+def _pages26():
+    """原文の頁（英字と数字だけに揃える＝OCR の改行のハイフン・空白・引用符の揺れを吸う）"""
+    p = getattr(_ss(), "REC_PAGES", None)
+    if not p or not Path(p).exists():
+        return None
+    t = Path(p).read_text(encoding="utf-8")
+    return {int(a): _nz26(b) for a, b in re.findall(r"^=== p(\d+) ===\n(.*)$", t, re.M)}
+
+
+def judge_k26(sc, where):
+    """㊽（26本目 K1〜K6）。人の数・役職の札・見えた船を名乗らない・時計の札（置き場の時刻・どの船の時計か・割れる時刻は誰の話か）・
+    距離と方角と信号弾の数の札・遠くの船は灯の点だけ・モールス灯は屋根の上・1号艇の席の数と艇の比・出典の英文の引用は原文の頁に在る"""
+    if sc["place"] not in K26_PLACES:
+        return [], 0
+    pl, mk, R = sc["place"], K26_MARK, REC_K26
+    if not R:
+        return [f"{mk}{where}：記録の表 REC_K26 が空（26本目の値は見本へ移した＝本番で置き場 {pl} は使えない）"], 1
+    bad, n = [], 1
+    drawn = sum(len(p.get("inst") or []) for p in sc["parts"] if p.get("kind") == "sprite")
+    n += 1
+    if drawn > R["people"][pl]:
+        bad.append(f"{mk}{where}：人の影を {drawn} 人描いた（{pl} は {R['people'][pl]} 人まで＝記録の場面にいた役職だけ）")
+    nf = sum(int((p.get("obj") or {}).get("flare", 0)) for p in sc["parts"])
+    if nf:
+        n += 1
+        if nf != R["flares"]:
+            bad.append(f"{mk}{where}：信号弾を {nf} 発描いた（記録は {R['flares']} 発＝G1 p58）")
+    for t, src, _at in _texts25(sc):
+        tt = t.strip()
+        if ROLE26.search(tt):
+            n += 1
+            if tt not in R["roles"]:
+                bad.append(f"{mk}{where}：役職の札「{t}」は記録の役職（{'・'.join(R['roles'])}）でない")
+        nm = R["no_name"].get(pl)
+        if nm and nm in t:
+            bad.append(f"{mk}{where}：字「{t}」（{src}）に「{nm}」＝見えた船を名乗らない")
+        for m in CLOCK26.finditer(t):
+            n += 1
+            hm = f"{int(m.group(1))}:{m.group(2)}"
+            if hm not in R["clock"].get(pl, ()):
+                bad.append(f"{mk}{where}：時計の札「{t}」の {hm} は {pl} の記録の時刻（{R['clock'].get(pl) or 'この置き場は時計の札を出さない'}）でない")
+            if not any(s in t for s in R["ship"].get(pl, ())):
+                bad.append(f"{mk}{where}：時計の札「{t}」にどの船の時計か（{R['ship'].get(pl, ())}）が無い")
+            w = R["who"].get(hm)
+            if w and w not in t:
+                bad.append(f"{mk}{where}：時計の札「{t}」の {hm} は証言で割れる＝誰の話か（{w}）を札に書く")
+        for m in NUM_KM26.finditer(t):
+            n += 1
+            want = tuple(round(x * 1.852) for x in R["miles"])
+            if (int(m.group(1)), int(m.group(2))) != want:
+                bad.append(f"{mk}{where}：距離の札「{t}」が記録（{R['miles'][0]}か{R['miles'][1]}マイル＝約{want[0]}〜{want[1]}キロ）と違う")
+        if "方角" in t:
+            n += 1
+            if R["bearing"] not in t:
+                bad.append(f"{mk}{where}：方角の札「{t}」が記録（{R['bearing']}＝G1 p59 SW.）と違う")
+        m = re.search(r"(\d+)\s*発", t)
+        if m:
+            n += 1
+            if int(m.group(1)) != R["flares"] or nf != R["flares"]:
+                bad.append(f"{mk}{where}：信号弾の札「{t}」と描いた数 {nf} が記録（{R['flares']}発＝G1 p58）と違う")
+    for p in sc["parts"]:
+        g = p.get("geo") or {}
+        if g.get("kind") == "lights":
+            n += 1
+            extra = set(re.findall(r"<(\w+)", p.get("svg") or "")) - {"circle", "ellipse", "defs", "radialGradient", "stop", "g"}
+            if extra:
+                bad.append(f"{mk}{where}：遠くの船の部品 {p['id']} に点のほかの形（{sorted(extra)}）＝船の形を描かない（描き分けない）")
+        if g.get("kind") == "td_wing":
+            n += 1
+            if not (g["lamp_bottom"] <= g["roof_top"] and g["shelter"][0] <= g["lamp_x"] <= g["shelter"][1]):
+                bad.append(f"{mk}{where}：モールス灯が屋根の上でない（灯の下の端 y={g['lamp_bottom']:.0f}・屋根 y={g['roof_top']:.0f}＝"
+                           "G1 p16 above the shelters）")
+    if pl == "K5":
+        seats = [a for p in sc["parts"] for a in re.findall(r"<circle([^>]*)/>", p.get("svg") or "") if 'data-k="seat"' in a]
+        e, f = sum('data-f="0"' in a for a in seats), sum('data-f="1"' in a for a in seats)
+        n += 3
+        if e != R["seats"]:
+            bad.append(f"{mk}{where}：席の印 {e} が記録（{R['seats']}人乗り＝G1 p52）でない")
+        if f != R["filled"]:
+            bad.append(f"{mk}{where}：埋まった席 {f} が記録（{R['filled']}＝G1 p51）でない")
+        g = _g({p["geo"]["kind"]: [p] for p in sc["parts"] if p.get("geo")}, "seats")
+        want = R["boat"][0] / R["boat"][1]
+        got = float(g.get("len") or 0) / float(g.get("width") or 1)
+        if abs(got / want - 1) > 0.03:
+            bad.append(f"{mk}{where}：艇の長さと幅の比 {got:.2f} が記録（{want:.2f}＝G1 p25）から3%より外れる")
+    pages = _pages26()
+    recs = list(sc.get("recs") or []) + [v[1] for v in (sc.get("people") or {}).values() if isinstance(v, (tuple, list)) and len(v) > 1]
+    for r in recs:
+        for m in QUOTE26.finditer(r or ""):
+            n += 1
+            if pages is None:
+                bad.append(f"{mk}{where}：原文（REC_PAGES）が無い＝出典の引用を照らせない")
+                break
+            for part in m.group(3).split("…"):
+                q = _nz26(part)
+                if q and q not in pages.get(int(m.group(2)), ""):
+                    bad.append(f"{mk}{where}：引用「{part[:60]}」が {m.group(1)} p{m.group(2)} の原文に無い")
+    return bad, n
+
+
+def selftest_ep26():
+    """🆕 26本目 ⑤b-4（2026-10-27）：㊽ の検算。正しい場面（26本目の SPEC 18カット）が通り、わざと壊した場面（陽性対照）が狙った理由で落ちる。
+    いまは本番の表（ss・REC_K26・章ファイル）のまま回す（26本目が本番の回）＝次の回の ⑤b-1 で見本 `fixture_ep26` へ移す"""
+    import copy
+    import cuts
+    import illu26 as I26
+    print("■ selftest K1〜K6（26本目 ⑤b-4・㊽）")
+    ok = True
+    good = {c: cuts.SPEC[c]["fig"][1] for c in K26_CUTS if c in cuts.SPEC}
+    if len(good) != len(K26_CUTS):
+        print(f"  🔴 26本目の案C の SPEC が {len(good)}／{len(K26_CUTS)}")
+        return False
+
+    def judge(kw):
+        sc = F.illu(**kw).illu["scenes"][0]
+        return judge_k26(sc, "selftest")[0] + judge_scene(sc, "selftest")[0]
+
+    for c, kw in good.items():
+        b = judge(kw)
+        if b:
+            ok = False
+            print(f"  🔴 正しい {c} が落ちた：{b[:2]}")
+
+    def bad_case(name, kw, want, frag="", bad=None):
+        nonlocal ok
+        if bad is None:
+            try:
+                bad = judge(kw)
+            except Exception as e:      # noqa: BLE001
+                bad = [f"例外 {e!r}"]
+        if not [x for x in bad if x.startswith(want) and frag in x]:
+            ok = False
+            print(f"  🔴 陽性対照「{name}」が狙った理由で鳴らない（{want}・{frag}）：{bad[:3]}")
+
+    def tag(c, i, t):
+        kw = copy.deepcopy(good[c])
+        kw["steps"][i]["tag"] = t
+        return kw
+
+    bad_case("時計の札にどの船の時計か無い", tag("c606", 1, dict(t="23:00ごろ", xy=(640, 210))), "㊽", "どの船の時計か")
+    bad_case("置き場の記録の時刻でない", tag("c618", 1, dict(t="0:45ごろ（カリフォルニアン号の時計）", xy=(640, 210))), "㊽", "記録の時刻")
+    bad_case("割れる時刻 2:05 に誰の話か無い", tag("c631", 2, dict(t="2:05（操舵室の時計）", xy=(640, 210))), "㊽", "誰の話か")
+    bad_case("タイタニック号の甲板の札にカリフォルニアン号", tag("c508", 0, dict(t="0:45ごろ（カリフォルニアン号の時計）", xy=(640, 210))),
+             "㊽", "名乗らない")
+    bad_case("見えた船をタイタニック号と名乗る", tag("c606", 2, dict(t="タイタニック号の灯", at="ship")), "㊽", "名乗らない")
+    bad_case("記録に無い役職の札", tag("c618", 0, dict(t="操舵手", at="A")), "㊽", "役職")
+    bad_case("距離の札が記録と違う", tag("c512", 2, dict(t="約8〜11キロ（本人の見立て）", at="dist")), "㊽", "距離")
+    kw = copy.deepcopy(good["c633"])
+    kw["steps"][0]["tag"][2] = dict(t="見えなくなった方角：北西", at="sw", off=(40, -110))
+    bad_case("方角が記録と違う", kw, "㊽", "方角")
+    bad_case("信号弾の札が4発", tag("c625", 1, dict(t="白い信号弾 4発", at="flares")), "㊽", "信号弾")
+    bad_case("割れる時刻 1:10 の時計の札", tag("c936", 0, dict(t="1:10ごろ（カリフォルニアン号の時計）", xy=(640, 210))), "⑤", "割れる")
+    kw = copy.deepcopy(good["c606"])
+    kw["steps"][1]["rec"] = "G1 p57（At about 10 p. m. a steamer's light was seen）"
+    bad_case("出典の引用が原文に無い", kw, "㊽", "原文に無い")
+    kw = copy.deepcopy(good["c508"])
+    kw["at"] = "2:30"
+    bad_case("群れを沈没のあとの場面に", kw, "②", "群れを")
+    sc = F.illu(**good["c615"]).illu["scenes"][0]
+    extra = copy.deepcopy(next(p for p in sc["parts"] if p.get("kind") == "sprite"))
+    extra["inst"][0]["path"] = [[1600.0, 900.0]]
+    sc["parts"].append(extra)
+    bad_case("船橋に人の影を3人", None, "㊽", "人の影を 3", bad=judge_k26(sc, "selftest")[0])
+    for name, attr, val, cid, frag in (
+            ("遠くの船に形を描く", "br_lights_svg", lambda kind, f=I26.br_lights_svg: f(kind) + '<path d="M 300 590 L 420 590 L 410 600 Z" fill="#111"/>',
+             "c618", "点のほかの形"),
+            ("モールス灯が屋根の下", "TD_LAMP", (930.0, 700.0), "c512", "屋根の上でない"),
+            ("埋まった席が11", "BT_FILL", I26.BT_FILL[:11], "c701", "埋まった席 11"),
+            ("艇の幅が記録の比でない", "BT", dict(I26.BT, half=230.0), "c701", "長さと幅の比")):
+        keep = getattr(I26, attr)
+        try:
+            setattr(I26, attr, val)
+            bad_case(name, good[cid], "㊽", frag)
+        finally:
+            setattr(I26, attr, keep)
+    keep = dict(REC_K26)
+    try:
+        REC_K26.clear()
+        bad_case("記録の表が空（fail closed）", good["c606"], "㊽", "空")
+    finally:
+        REC_K26.update(keep)
+    print(f"  {'OK' if ok else '🔴 NG'} 26本目 ㊽ の検算（正しい {len(good)}・陽性対照 18）")
+    return ok
+
+
 def selftest_ep25():
     """🆕 25本目 ⑤b-4（2026-10-25）：㊷〜㊼ の検算。正しい場面（25本目の SPEC）が通り、わざと壊した場面（陽性対照）が
     ㊷〜㊼で「狙った理由で」落ちること。描く側の定数を壊す対照は、終わったら必ず戻す（try/finally）。型の例外で止まった対照は鳴ったと数えない
@@ -3517,7 +3742,8 @@ def judge_fig(kind, kw, where):
         for jf in (judge_s1, judge_s2, judge_s3, judge_s4, judge_s5, judge_s6, judge_s7,  # 🆕 20本目 ⑤b-3：㉔㉕㉖・⑤b-4：㉗㉘㉙㉚
                    judge_c17,                                                         # 🆕 17本目 ⑤b-3：㉛㉜㉝
                    judge_n24,                                                         # 🆕 24本目 ⑤b-3：㊳㊴㊵㊶
-                   judge_f25):                                                        # 🆕 25本目 ⑤b-4：㊷〜㊼
+                   judge_f25,                                                         # 🆕 25本目 ⑤b-4：㊷〜㊼
+                   judge_k26):                                                        # 🆕 26本目 ⑤b-4：㊽
             b, m = jf(sc, f"{where}#{k + 1}")
             bad += b
             n += m
@@ -5117,7 +5343,9 @@ def _selftest_ep17():
 
 def selftest():
     """物差しの検算。正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。"""
-    ok25 = selftest_ep25()        # 🆕 25本目 ⑤b-4（2026-10-25）。2026-10-27〜：25本目も見本 fixture_ep25 の表＝selftest_ep25 が差し込んで・終わったら戻す
+    # 🆕 26本目 ⑤b-4（2026-10-27）：先に26本目（本番の表のまま）を検算する＝見本の差し込み（25本目ほか）より前
+    ok26 = selftest_ep26()
+    ok25 = selftest_ep25() and ok26   # 🆕 25本目 ⑤b-4（2026-10-25）。2026-10-27〜：25本目も見本 fixture_ep25 の表＝selftest_ep25 が差し込んで・終わったら戻す
     ok24 = selftest_ep24() and ok25   # 🆕 24本目 ⑤b-3（2026-10-22）。2026-10-25〜：24本目も見本 fixture_ep24 の表＝selftest_ep24 が差し込んで・終わったら戻す
     ok17 = selftest_ep17() and ok24   # 🆕 17本目 ⑤b-3（2026-10-20）。2026-10-22〜：17本目も見本 fixture_ep17 の表＝selftest_ep17 が差し込んで・終わったら戻す
     ok20 = selftest_ep20() and ok17   # 🆕 20本目 ⑤b-3（2026-10-08）。2026-10-12〜：20本目も見本 fixture_ep20 の表＝selftest_ep20 が差し込んで・終わったら戻す

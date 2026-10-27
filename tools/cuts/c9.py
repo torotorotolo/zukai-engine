@@ -183,3 +183,18 @@ SPEC.update({
             note="位置は英国海難調査局の調べ直しの値・どちらも「あたり」"),
         t="カリフォルニアン号の位置", s="事故の海域・北大西洋（現在の衛星写真）"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-10-27）：案C-9 伝声管の前の二等航海士＝K1（c936・`tools/illu26.py`・門番 check_illu ㊽）
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c936（2行・8.8秒）＝1行目「人には、悪い知らせを打ち消したくなる心がある、と次長は書く。」は伝声管の前の二等航海士（心の中は描かない）→
+    #   2行目「二等航海士は、船長がちゃんと応えないなら、自分で行くべきだった、とも。」で伝声管へ輪。時計の札は出さない（1:10 は割れる）
+    "c936": dict(fig=("illu", dict(
+        place="K1", start=dict(ks="pipe", kship="glare"), at="1:10",
+        rec="G1 p58（about 1.10 a. m., Mr. Stone reported to the captain by voice pipe）",
+        people=dict(crew=(1, "G1 p58（about 1.10 a. m., Mr. Stone reported to the captain by voice pipe）")),
+        steps=[dict(state=dict(), tag=dict(t="二等航海士", at="P", off=(-50, -50), anchor="end", keep=True)),
+               dict(state=dict(), rings=2, rec="G2 p2021（Mr Stone should have gone down himself to the Master when there was no proper response from him）",
+                    tag=dict(t="伝声管", at="pipe", off=(-40, -70), anchor="end"))]))),
+})

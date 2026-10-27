@@ -87,3 +87,40 @@ SPEC = {}
 SPEC.update({
     "c517": ss.vid("c517"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-10-27）：案C-3 無線室＝K3（c506）／案C-4 タイタニック号のボート甲板＝K4（c508 deck・c512 wing）
+#  （`tools/illu26.py`・門番 check_illu ㊽）
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c506（2行・6.5秒）＝1行目の問い → 2行目「聞いていない。その船の通信士は1人だけで、眠っていた。」で寝台の通信士と机の上のヘッドホンに札
+    "c506": dict(fig=("illu", dict(
+        place="K3", start=dict(k3op="sleep", ksw="side"), at="23:30",
+        rec="G1 p57（Evans heard the Titanic continuing to communicate with Cape Race up to the time he turned in at 11.30 p. m.）",
+        people=dict(crew=(1, "G1 p54（she had only one Marconi operator on board and he was asleep）")),
+        steps=[dict(state=dict()),
+               dict(state=dict(), rec="G1 p54（The Californian heard none of the…she had only one Marconi operator on board and he was asleep）",
+                    tag=[dict(t="通信士", at="sleep", off=(60, -60)), dict(t="ヘッドホン", at="phones", off=(-60, -80), anchor="end")])]))),
+    # c508（2行・8.1秒）＝1行目「無線のほかに、目で見える合図も使った。信号弾だ。」で時計の札 → 2行目「ボート甲板の筒から打ち上げると、
+    #   空で破裂して、白い星を散らす。」で筒から上がる筋（段3で空で破裂して白い星）。乗客は顔の無い群れ（数えられない形）
+    "c508": dict(fig=("illu", dict(
+        place="K4", start=dict(view="deck", k4crowd="on", ksw="titanic"), at="0:45",
+        rec="G1 p54（The firing of these signals began about the time that No. 7 boat was lowered (12.45 a. m.)）",
+        steps=[dict(state=dict(), rec="G1 p54（The firing of these signals began about the time that No. 7 boat was lowered (12.45 a. m.)）",
+                    tag=dict(t="0:45ごろ（タイタニック号の時計）", xy=(640, 210), keep=True)),
+               dict(state=dict(k4rocket="up"), rec="G1 p54（sent off at intervals from a socket by No. 1 emergency boat on the boat deck）",
+                    tag=[dict(t="1号艇", at="boat", off=(40, -70)), dict(t="信号弾の筒", at="socket", off=(40, -90))]),
+               dict(state=dict(k4rocket="burst"), rec="G1 p54（They were the ordinary distress signals, exploding in the air and throwing off white stars）")]))),
+    # c512（3行・11.9秒）＝1行目「四等航海士は、モールス灯も使った。光を点けたり消したりして、」で屋根の上の灯が点いたり消えたり →
+    #   2行目「…前の左の方に、船の灯りが見えていた。」で遠くの白い点と赤い点 → 3行目「本人の見立てで、約9キロから11キロ（5か6マイル）先」で点線と札
+    #   （モールス灯は船橋の端の屋根の上＝G1 p16・p54＝台本 §0-5。遠くの船は灯の点だけ＝名乗らない）
+    "c512": dict(fig=("illu", dict(
+        place="K4", start=dict(view="wing", ksw="side"), at="0:45",
+        people=dict(crew=(1, "G1 p54（Mr. Boxall was also using a Morse light from the bridge）")),
+        steps=[dict(state=dict(k4lamp="blink"), rec="G1 p54（Mr. Boxall was also using a Morse light from the bridge）",
+                    tag=dict(t="四等航海士", at="off4", off=(60, -40))),
+               dict(state=dict(k4far="on"), rec="G1 p54（a ship whose lights he saw about half a point on the port bow of the Titanic）",
+                    tag=dict(t="船の灯り", at="far", off=(50, -80))),
+               dict(state=dict(k4dist="on"), rec="G1 p54（at a distance, as he thought, of about 5 or 6 miles）",
+                    tag=dict(t="約9〜11キロ（本人の見立て）", at="dist", off=(-40, -90)))]))),
+})
