@@ -173,7 +173,17 @@ VOICES = {
              "gap_cuts": {c: 0.35 for c in ("c101", "c102", "c103", "c104", "c105", "c106")}},
     # 26本目（2026-10-27 ⑤a-1・作業ツリー ep26a5）：25本目の声と本編の行間（143・0.49＝25本目は 10-27 17:00 に予約公開＝
     #    いちばん新しい「耳で OK」の声）を仮に置いた。25本目の gap_cuts（c101〜c106）は25本目の引き c106 に合わせた値＝写さなかった
-    #    （26本目の引きは c105＝÷365 で41.4秒）。⑤a-2 で全行を焼いて決め直す
+    #    （26本目の引きは c105＝÷365 で41.4秒）。
+    #    ✅ **⑤a-2 で確かめた値**（2026-10-27）：🔴 字/分は「声にする字」で数える（カズヤくん 10-27＝nopunct_chars が silent.tsv の
+    #    括弧の英単位 121字を数えない・台本の字 13,347 のままだと 373.1 と出る）。実測（全547行・声にする字 13,226字＝ed01 こみ・
+    #    行間の数 311）143・0.49＝**35分46.2秒（声 29分33.2秒＋構造 6分13.0秒）・369.8字/分**（幅の内・尺が約1.4秒縮むと上限 370 を
+    #    越える〈2,144.8秒〉・下限 360 までは約58秒延ばせる）・声だけ 447.5字/分（25本目 447.5＝同じ速さに聞こえる）・冒頭の引き
+    #    c105 の終わり **42.8秒**（46秒まで余白3.2秒・÷365 の見込み 41.4秒より +1.4秒）・c107 の終わり 63.3秒＝幅の内なので声も行間も
+    #    動かさない（21・22・23・25本目と同じ決め方）・gap_cuts は置かない。試写で「速い・間が短い」と言われたときの戻し先＝本編の
+    #    行間 0.55（計算 366.6字/分・c105 43.1秒）か 0.60（計算 364.0字/分・c105 43.4秒＝20〜23本目で試写 OK）。
+    #    門番 E0（check_aq_audio・check_subwrap・check_listener〈W1＝役割「質問」66%＝台本の割合・④' 承認ずみ〉・check_script〈W5＝
+    #    物差しの無い「度」・④' から〉）・4つの測り方（--rate・check_script ③・check_listener・出荷する wav をつないだ長さ
+    #    2,146.192秒）が秒まで一致
     "ep26": {"speed": 143, "gap": 0.49, "cand": "A"},
 }
 
@@ -294,8 +304,19 @@ def timeline(durs, script, quotes):
     return out, t
 
 
-def nopunct_chars(script):
-    return sum(len(PUNCT.sub("", speaker.bare(x))) for _, ls in script for x in ls)
+def nopunct_chars(script, silent=None):
+    """句読点なしの字数。🔴 2026-10-27（26本目⑤a-2・カズヤくん「声にする字で数える」）：aq_kana と同じ silent.tsv の型に
+    当たる括弧（声に出さない括弧の英単位）は括弧ごと数えない＝競合の文字起こし（声の字）と同じ数え方。
+    silent＝None は回の silent.tsv を読む・False は読まない括弧なし（ファイルが無い回は今までと同じ数）。"""
+    import aq_kana as AK
+    sil = AK.load_silent() if silent is None else (silent or None)
+
+    def spoken(x):
+        t = speaker.bare(x)
+        if sil is not None:
+            t = AK._PAREN_BODY.sub(lambda m: "" if sil.fullmatch(m.group(1)) else m.group(0), t)
+        return len(PUNCT.sub("", t))
+    return sum(spoken(x) for _, ls in script for x in ls)
 
 
 def fmt(s):
@@ -550,7 +571,12 @@ def selftest():
     ok(abs(tl["ed01"][0] - tl["ca01"][1]) < 1e-9, "ed01 は章でない＝扉なし")
     ok(abs(tot - (5 * per + CSC.TAIL_EXTRA_QUOTE + 2 * CSC.CARD_SEC)) < 1e-9, "全体の尺")
     ok(abs(tot - CSC.est_sec(0, 5, 5, 1, 1.0, 2) - 50.0) < 1e-9, "check_script の est_sec と同じ構造の尺")
-    ok(nopunct_chars([("c1", ["Q: 「あ」、い。（う）・え？！"])]) == 4, "句読点なしの字数（印も数えない）")
+    ok(nopunct_chars([("c1", ["Q: 「あ」、い。（う）・え？！"])], silent=False) == 4, "句読点なしの字数（印も数えない）")
+    # 🔴 2026-10-27（26本目⑤a-2）：silent.tsv の型に当たる括弧は数えない（陽性）／当たらない括弧・型なしは今までどおり（陰性）
+    sil = re.compile(r"[0-9]+(?:マイル|ノット)")
+    ok(nopunct_chars([("c1", ["約9キロ（5マイル）南。"])], silent=sil) == 5, "🔴型に当たる括弧は括弧ごと数えない")
+    ok(nopunct_chars([("c1", ["船橋（ブリッジ）から。"])], silent=sil) == 8, "型に当たらない括弧の中身は数える")
+    ok(nopunct_chars([("c1", ["約9キロ（5マイル）南。"])], silent=False) == 9, "型なし（ファイルの無い回）は中身も数える")
     d1 = voice_defs("ep14", "A", 150)
     d2 = voice_defs("ep14", "A", 151)
     ok(d1[None][0] == d2[None][0] and d1[None][1]["話速"] == 150 and d2[None][1]["話速"] == 151,
