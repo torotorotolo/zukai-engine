@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
-"""第8章　有罪になった人はいない c901–c923（23カット）。25本目（JR福知山線脱線事故・2005-04-25）。
+"""第8章　80年後の調べ直し c901–c944（44カット）。26本目（タイタニック号沈没事故・1912-04-14〜15）。
 
-■ 🔴 2026-10-25（⑤b-1）：24本目（チェルノブイリ原発事故）の中身を空にした＝git の `7ae693a1`（`git show 7ae693a1:tools/cuts/c9.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep25/make_plan25.py` で
-  映像方針の一覧 `ref/ep25/eizou_build/list25.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
-  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep25/eizou_list25.md`）。
+■ 🔴 2026-10-27（⑤b-1）：25本目（JR福知山線脱線事故）の中身を空にした＝git の `ef33e02c`（`git show ef33e02c:tools/cuts/c9.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep26/make_plan26.py` で
+  映像方針の一覧 `ref/ep26/eizou_build/list26.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
+  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep26/eizou_list26.md`）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
+  🔴 額装・帯の写真は静止（26本目から＝`build_jiko.FRAME_STILL`）＝`fmove`（額ごと動かす）・額の中の `cam` を書かない（門番 check_fmove が絵で測る）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット。
-  ⚠️ 人は役職だけ（①の承認）。名前の載る頁は注の「⚠️ …名前＝切り出しの外」のとおり寄る範囲から名前を外す
+  ⚠️ 人＝乗員・ほかの船の船長と航海士と通信士・審問の長は名前＋役職／会社の人とドンキーマンは役職だけ／乗客は名前なし（①・承認①）。
+     名前の載る紙面・頁は注の「…外」のとおり寄る範囲から名前を外す
 """
 import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
@@ -16,193 +18,138 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'c901': dict(kind='図解',
-               plan='一覧の種類：模式｜見た目の型：4人の役職の箱（顔なし）｜このカットの前に章の扉｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='Kk 2023-03-08 参院 予算委（`歴代幹部である四名が起訴されましたが、いずれも無罪となったものと承知しています`）'),
-    'c902': dict(kind='フリー素材',
-               plan='X-court｜映像の素材 8.02秒・倍率 1.01（素材の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ・1.0 未満は動きの欄の倍率で）｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：裁判所の建物（Pexels）｜動き：映像（3.02〜11.04秒）｜権利：Pexels License｜時期：イメージ｜人：未見｜出典の行：イメージ（Pexels）｜注：裁判所の頁の写真は使えない（10-25 原文「写真・イラスト…を除き」）｜新しい画（映像方針）：台本どおり（⑤b で選ぶ）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='S3 p.1（`被告人は無罪。`）・裁判所の頁（事件番号 平成21(わ)695）'),
-    'c903': dict(kind='図解',
-               plan='一覧の種類：模式｜見た目の型：問われた義務の矢印｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='S3 p.6（`本件起訴後,社長を退いた`）・S3 p.4（`被告人の注意義務は,自己が統括する安全対策室等の職員に対し`・`整備するよう指示すべき義務である`）'),
-    'c904': dict(kind='図解',
-               plan='一覧の種類：模式｜見た目の型：判決の日付と求刑の札｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='S3 p.66（`犯罪の証明がないから`・`求刑 禁錮3年`）'),
-    'c905': dict(kind='文字の頁',
-               plan='P-S3-62｜一覧の種類：頁｜見せ方：頁｜副題：神戸地裁の判決（2012年1月）p.62｜動き：寄る｜見た目の型：文字の頁｜権利：著作権法13条｜時期：文書｜人：なし｜出典の行：出典：神戸地方裁判所 判決（2012年1月）（裁判所ウェブサイト）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='S3 p.62（`結果回避義務を課すに足りる程度の予見可能性は認められず`）'),
-    'c906': dict(kind='図解',
-               plan='一覧の種類：模式｜見た目の型：2つの言い方の並べ｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='S3 p.66（`本件公訴事実については犯罪の証明がないから`）'),
+    'c901': dict(kind='写真',
+               plan='N04:E｜映像の素材 10.90秒・倍率 1.02（素材の区間の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ・1.0 未満は動きの欄の倍率で・音は使わない＝-an）｜一覧の種類：実写｜見せ方：映像（全面＝上下を少し切る）｜副題：海の底のタイタニック号〈2004年・NOAA ほか〉｜動き：映像（100.0〜110.9秒）｜権利：courtesy（NOAA・copyright の語なし）｜時期：海底｜人：なし｜出典の行：Video courtesy of the RMS Titanic Team Expedition 2004, ROI, IFE, NOAA-OE.｜新しい画（映像方針）：台本どおり（区間＝前甲板の巻き上げ機と錨の鎖）｜このカットの前に章の扉｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="G2 p.1（`in the mid-1950's the book`…`it was widely read and a successful film based upon it was made. The allegations against CALIFORNIAN were repeated`）"),
+    'c902': dict(kind='図解',
+               plan='一覧の種類：年表｜見る向き：時間の線｜見た目の型：1912年→1950年代→訴えと請願→1985年→1990年→1992年の年表｜新しい画（映像方針）：台本どおり（請願の年は書かない・船長の亡くなった年は入れない）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.1（`this led Captain Lord, by then over 80 years old, to renew his plea for the matter to be re-examined`…`the body representing British shipmasters. In particular, two petitions were made to the Board of Trade asking for the Inquiry to be re-opened; both were rejected`）'),
+    'c903': dict(kind='写真',
+               plan='S11-910:全体｜一覧の種類：実写｜見せ方：全面｜副題：海の底のタイタニック号の残骸〈2003年・NOAA ほか〉｜動き：下へ（垂れ下がる錆に沿って）｜権利：courtesy（NOAA・copyright の語なし）｜時期：海底｜人：なし｜出典の行：Image courtesy of ［撮影者］, RMS Titanic Expedition 2003, NOAA-OE.（撮影者の名は ⑤b で src/credits_private.tsv）｜新しい画（映像方針）：台本どおり（副題を写っている物に＝c826 と分ける）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.2（`In 1985 an expedition`…`discovered the wreck of TITANIC, in a position some 13 miles from that accepted by the 1912 Inquiry`）・N1（NOAA 2003 の頁＝深さ「3,800 m」・web）'),
+    'c904': dict(kind='文字の頁',
+               plan='🔧 P-G2-01｜一覧の種類：頁｜見せ方：頁（引用・額装）｜副題：海難調査局の報告書の表紙〈1992年〉｜動き：静止｜見た目の型：文字の頁｜権利：引用（OGL v3.0 か Crown copyright か未確定）｜時期：文書｜人：なし｜出典の行：出典：英国運輸省 海難調査局『RMS "TITANIC" Reappraisal of Evidence Relating to SS "CALIFORNIAN"』（1992年）より引用｜新しい画（映像方針）：🔧 引用の型＝無加工の額装・静止（MAIB の権利が未確定＝sources.md §1）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.2（`in 1990 the Secretary of State for Transport`…`determined that the Marine Accident Investigation Branch should make a reappraisal of the relevant evidence`）'),
+    'c905': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：正面｜見た目の型：調べ直しの4つの問いの札｜合図：🔁 時間の線→正面（前の図 c902）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.3（`To establish so far as is now possible the positions of TITANIC`…`To consider whether TITANIC was seen by CALIFORNIAN`…`To consider whether distress signals from TITANIC were seen by`…`To assess the action taken by Captain Stanley Lord`）'),
+    'c906': dict(kind='文字の頁',
+               plan='🔧 P-G2-03:同意の行｜一覧の種類：頁｜見せ方：頁（引用・額装）｜副題：海難調査局の報告書の送り状〈1992年〉｜動き：静止｜見た目の型：文字の頁｜権利：引用（OGL v3.0 か Crown copyright か未確定）｜時期：文書｜人：なし｜出典の行：出典：英国運輸省 海難調査局『RMS "TITANIC" Reappraisal of Evidence Relating to SS "CALIFORNIAN"』（1992年）より引用｜注：⚠️ 署名（首席の名前）は切り出しの外｜新しい画（映像方針）：🔧 寄る → 静止の切り出し（「I do not fully agree」と「I full endorse」の行・引用の型）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 送り状（`an Inspector from outside the Branch was appointed`…`had recently retired from a post as Principal Nautical Surveyor`…`is a very experienced Master Mariner`）'),
     'c907': dict(kind='写真',
-               plan='🔧 M050502｜一覧の種類：実写｜見せ方：全面｜副題：列車を移したあとの線路〈2005年5月2日の発表〉｜動き：寄る｜権利：PDL1.0｜時期：後・撤去後｜人：遠景｜出典の行：出典：国土交通省ウェブサイト（https://www.mlit.go.jp/fukuchiyama/index.html）を加工して作成｜注：奥にマンション（遠景）・作業の人（職務中）｜新しい画（映像方針）：🔧 Commons #3（2016年）→ 国交省の発表「列車移動後の軌道写真」＝語り「曲線の設計や…ATSの整備のあり方に問題」｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='S3 p.64（`本件曲線の設計やJR西日本の転覆のリスクの解析及びATS整備の在り方に問題が存在し`・`期待される水準に及ばないところがあったといわざるを得ない`）'),
+               plan='N04:D｜映像の素材 8.10秒・倍率 1.01（素材の区間の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ・1.0 未満は動きの欄の倍率で・音は使わない＝-an）｜一覧の種類：実写｜見せ方：映像（全面＝上下を少し切る）｜副題：海の底のタイタニック号〈2004年・NOAA ほか〉｜動き：映像（87.5〜95.6秒）｜権利：courtesy（NOAA・copyright の語なし）｜時期：海底｜人：なし｜出典の行：Video courtesy of the RMS Titanic Team Expedition 2004, ROI, IFE, NOAA-OE.｜新しい画（映像方針）：台本どおり（区間＝甲板の縁の手すり）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="G2 送り状（`I do not fully agree with all the Inspector's findings but this does not mean that I have any doubt`…`the thoroughness of his enquiries`…`I instructed the Deputy Chief Inspector of Marine Accidents to undertake this and report to me`）"),
     'c908': dict(kind='図解',
-               plan='一覧の種類：模式｜見た目の型：強制起訴の流れ｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='Kk 2013-11-13 衆院 法務委（`歴代の三社長が強制起訴された`）・S2 p.1（`検察官の職務を行う指定弁護士`）・Kk 2011-02-21 衆院 予算委（`福知山線のことでも、あれは嫌疑不十分になっていた`）'),
+               plan='一覧の種類：模式｜見る向き：正面｜見た目の型：1冊の中の調査官の結論と次長の結論・首席の「次長を支持」の札｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="G2 送り状（`His report, which follows, incorporates his conclusions and those of the appointed Inspector`…`full endorse the Deputy Chief Inspector's report and conclusions`）"),
     'c909': dict(kind='図解',
-               plan='一覧の種類：模式｜見た目の型：3つの時期の帯｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='S2 p.1（`被告人Aは平成4年6月から平成9年3月までの間`）'),
-    'c910': dict(kind='文字の頁',
-               plan='🔧 P-S2-1｜一覧の種類：頁｜見せ方：頁｜副題：最高裁の決定（2017年6月12日）p.1｜動き：寄る（主文「本件各上告を棄却する」へ）｜見た目の型：文字の頁｜権利：著作権法13条｜時期：文書｜人：なし｜出典の行：出典：最高裁判所 第二小法廷 決定（2017年6月12日）（裁判所ウェブサイト）｜注：⚠️ 指定弁護士の名前の行は切り出しの外｜新しい画（映像方針）：🔧 Commons #3（2回目）→ 最高裁の決定の主文｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='Kk 2013-11-13 衆院 法務委（`平成二十五年九月二十七日に、神戸地裁が`）・S2 p.1（`本件各上告を棄却する`）・S2 p.5（`被告人らに無罪を言い渡した第1審判決を是認した原判断は相当である`）'),
+               plan='🔧 GS-titanic｜一覧の種類：衛星｜見せ方：衛星（帰属の行）｜動き：寄る（広い図から事故の海域へ）｜見る向き：上から｜見た目の型：タイタニック号のぶつかった位置・沈んだ位置・1912年の無線の位置（衛星写真・外洋）｜合図：🔁 正面→上から（前の図 c908）｜権利：Google の地図の利用（帰属の行を出し続ける）｜時期：今｜人：なし｜出典の行：Google の地図（衛星写真）＋描き足し｜注：カリフォルニアン号の印はまだ置かない｜新しい画（映像方針）：🔧 図の地図 → 衛星写真＋描き足し（了承②の2択）・Annex 3 の配置にならう｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.3（`when she foundered`）・G2 p.9（`caused by the wrong distance being allowed along the course line from the last known position - a simple mistake to make under stress`）'),
+    'c910': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：上から｜見た目の型：北から来る冷たい海流が南へ張り出す矢印（時速約2.4キロ）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.9（`There is no doubt that in 1912 the Labrador current extended further south and east than is usual`…`the direction of set was about 196`…`and the rate about 1.3 knots`）'),
     'c911': dict(kind='図解',
-               plan='一覧の種類：模式｜見た目の型：点の群れの中の1つ（数えない形）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='S2 p.5（`管内に2000か所以上も存在する同種曲線の中から,特に本件曲線を脱線転覆事故発生の危険性が高い曲線として認識できたとは認められない`）'),
-    'c912': dict(kind='文字の頁',
-               plan='P-S2-5｜一覧の種類：頁｜見せ方：頁｜副題：最高裁の決定 p.5｜動き：寄る｜見た目の型：文字の頁｜権利：著作権法13条｜時期：文書｜人：なし｜出典の行：出典：最高裁判所 第二小法廷 決定（2017年6月12日）（裁判所ウェブサイト）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='S2 p.5'),
-    'c913': dict(kind='写真',
-               plan='🔧 C3:線路と電車｜一覧の種類：実写｜見せ方：全面｜副題：保存の工事が進む現場と曲線を通る電車〈2016年12月〉｜動き：左へ｜権利：CC BY 3.0｜時期：今｜人：背中｜出典の行：作者名（src/credits_private.tsv の commons 3 の行）／Wikimedia Commons（CC BY 3.0）｜注：cb01 と同じ写真・同じ副題（寄りを分ける）｜新しい画（映像方針）：🔧 付図13シ（3両目台車＝上下を返した台車・語りの対象でない）→ Commons #3（2016年＝決定の前年）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='S2 p.4（`実際に供用が開始されたのは本件事故の約2か月後の平成17年6月であった`）'),
+               plan='🔧 一覧の種類：続き｜見た目の型：（c910 の続き）｜新しい画（映像方針）：🔧 イメージ（氷山の写真）→ c910 の図の続き（聞き役の1行だけのカット＝台本 §0-5）・「2人とも同じ」の札を足す｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.9（`Labrador current extended further south and east than is usual`）'),
+    'c912': dict(kind='図解',
+               plan='一覧の種類：対照｜見る向き：正面｜見た目の型：調査官と次長の距離の2列（約9〜19キロ・約31〜37キロ）｜合図：🔁 上から→正面（前の図 c910）｜新しい画（映像方針）：台本どおり（どちらにも帰属の札）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.7（`the Inspector has found that the two ships were between 5 and 10 miles apart whilst they lay stopped, and probably nearer five; whereas in my opinion the distance was substantially greater, probably about 18 miles`）'),
+    'c913': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：上から｜見た目の型：14日の昼から南へ流された船の線（計算の位置より南）｜合図：🔁 正面→上から（前の図 c912）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.9（`He considers that the current had set southerly since noon on 14 April; no allowance for this current was made`）・G2 p.3（`but was probably further East and only 5 to 7 miles off`）'),
     'c914': dict(kind='図解',
-               plan='一覧の種類：模式｜見た目の型：4人の結果の表｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='Kk 2023-03-08 参院 予算委（`いずれも無罪となったものと承知しています`）'),
+               plan='🔧 一覧の種類：模式｜見る向き：横から｜見た目の型：北極星の高さの角度＝緯度（夜7時半の観測）｜合図：🔁 上から→横から（前の図 c913）｜新しい画（映像方針）：🔧 S8-630 の3回目 → 北極星の観測の模式（台本 §0-5 の候補）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.10（`The Pole Star sight taken by the Chief Officer at 1930 hrs (and confirmed by him in Court) gave the same latitude`…`as that observed at noon on the same day, showing a course made good of west`）'),
     'c915': dict(kind='図解',
-               plan='一覧の種類：模式｜見た目の型：国会の記録の札（2023年3月8日）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='Kk 2023-03-08 参院 予算委（`事業許可の取消し等の行政処分は行っておりません`）'),
-    'c916': dict(kind='図解',
-               plan='一覧の種類：模式｜見た目の型：言い方の違いの×と○｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='Kk 2023-03-08 参院 予算委'),
+               plan='一覧の種類：模式｜見る向き：上から｜見た目の型：アンティリアン号への電報（夜6時半の位置と大きな氷山3つ・西へ進む線）｜合図：🔁 横から→上から（前の図 c914）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="G2 p.10（`The one piece of evidence on CALIFORNIAN'S track which cannot have been fabricated is the signal sent to ANTILLIAN concerning the sighting of icebergs`…`it adds weight to the statement that CALIFORNIAN was steering westerly`）"),
+    'c916': dict(kind='写真',
+               plan='🔧 S3-753:顔｜一覧の種類：実写｜見せ方：額装（高さいっぱい）｜副題：カルパチア号の船長アーサー・ロストロン〈1912年〉｜動き：静止｜権利：PD｜時期：後・NY｜人：乗員（顔可）｜出典の行：Wikimedia Commons（パブリックドメイン）｜注：緑の灯の向きは c710 の模式で見せてある｜新しい画（映像方針）：🔧 3回目 → 2回目（c504 を船の写真に替えた）・額の中の寄りを替える（静止）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="G2 p.10（`the boat which it came from must have been to the north of CARPATHIA's course line and it follows that during the two hours the ship must have been set to the north`）"),
     'c917': dict(kind='図解',
-               plan='一覧の種類：模式｜見た目の型：被告人ではない2つの箱｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 p.1（`死亡者数は107名(乗客106名及び運転士)`）・Kk 2023-03-08 参院 予算委（`歴代幹部である四名が起訴されましたが`）・Kk 2023-06-13 参院 国土交通委（`刑法上の業務上過失致死傷罪における組織罰や両罰規定の導入に関しましては`）'),
-    'c918': dict(kind='図解',
-               plan='一覧の種類：模式｜見た目の型：国会の記録の札（2023年6月13日・紹介の形）｜注：c915 と見た目を分ける｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='Kk 2023-06-13 参院 国土交通委（`組織罰や両罰規定の導入`・`これまでにも国会の場において法務省から`・`慎重に検討する必要がある`）'),
-    'c919': dict(kind='文字の頁',
-               plan='🔧 P-R1-002｜一覧の種類：頁｜見せ方：頁｜副題：報告書の冒頭の断り書き｜動き：寄る（「事故の責任を問うために行われたものではない」へ）｜見た目の型：文字の頁｜権利：PDL1.0｜時期：文書｜人：なし｜出典の行：出典：鉄道事故調査報告書 RA2007-3（運輸安全委員会の頁）｜注：⚠️ 委員長の名前の行は切り出しの外｜新しい画（映像方針）：🔧 フリー素材（裁判所）→ 報告書の頭の頁＝語り「報告書は、罪を決めるためではなく、事故を防ぐために書かれる」｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 表紙の裏（`事故の防止に寄与することを目的として行われたものであり、事故の責任を問うために行われたものではない`）・S3 p.64（`過失犯は,個人に刑事法上課せられる注意義務を怠ったことを処罰の対象とするもの`）'),
-    'c920': dict(kind='フリー素材',
-               plan='X-papers｜映像の素材 7.95秒・倍率 1.01（素材の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ・1.0 未満は動きの欄の倍率で）｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：書類のページ（Pexels）｜動き：映像（3.05〜11.00秒）｜権利：Pexels License｜時期：イメージ｜人：未見｜出典の行：イメージ（Pexels）｜新しい画（映像方針）：台本どおり（⑤b で選ぶ）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='—'),
-    'c921': dict(kind='写真',
-               plan='🔧 M050804:引き｜一覧の種類：実写｜見せ方：全面｜副題：航空写真〈2005年8月4日の発表・車両を移したあと〉｜動き：引く｜見る向き：上から｜権利：PDL1.0｜時期：後・撤去後｜人：遠景｜出典の行：出典：国土交通省ウェブサイト（https://www.mlit.go.jp/fukuchiyama/index.html）を加工して作成｜新しい画（映像方針）：🔧 付図12（3回目）→ 国交省の8月4日の航空写真（c416 と同じ写真・同じ副題）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='S1 p.1（`平成21年9月25日`）'),
-    'c922': dict(kind='図解',
-               plan='🔧 一覧の種類：模式｜見た目の型：調べる側から調べられる側への矢印｜注：§0-5「c922 と ca03 の画」の答え｜新しい画（映像方針）：🔧 模式の中身を ca03 と分けた＝「2009年9月25日の札」→「調べる側（委員〈当時〉）から調べられる側（会社）へ情報が漏れた矢印」（日付は ca03 だけ）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='S1 p.1（`平成21年9月25日、福知山線事故の調査に携わっていた事故調の委員(当時)が`・`事故調査情報を漏えいする`）'),
-    'c923': dict(kind='文字の頁',
-               plan='🔧 P-I01｜一覧の種類：頁｜見せ方：頁｜副題：事実調査に関する報告書の案（意見聴取会用・2006年12月20日）の表紙｜動き：寄る｜見た目の型：文字の頁｜権利：PDL1.0｜時期：文書｜人：なし｜出典の行：出典：事実調査に関する報告書の案（運輸安全委員会の頁）｜新しい画（映像方針）：🔧 フリー素材（封筒と書類）→ 漏れた「報告書の案」そのものの表紙｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='S1 p.55（`「事実調査報告書の案」や最終の調査報告書案等のコピーを、正式公表以前にJR西日本側に提供した`）・S1 p.1（`同社長から再考を依頼され`）'),
+               plan='🔧 GS-californian｜一覧の種類：衛星｜見せ方：衛星（帰属の行）｜動き：寄る｜見る向き：上から｜見た目の型：カリフォルニアン号の位置の2つの見方（調査官・次長の別々の点・衛星写真・外洋）｜権利：Google の地図の利用（帰属の行を出し続ける）｜時期：今｜人：なし｜出典の行：Google の地図（衛星写真）＋描き足し｜注：どちらにも帰属の札・見えたかの線は描かない｜新しい画（映像方針）：🔧 図の地図 → 衛星写真＋描き足し（了承②の2択）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.11（`I do not believe that CALIFORNIAN will have been affected by the southerly set for more than at the most a few hours before she reached the ice field and stopped`…`I therefore consider that CALIFORNIAN was between 17 and 20 miles from TITANIC at the time of collision, bearing about NW by N from her`）・G2 p.3（`most likely about 18 miles`）'),
+    'c918': dict(kind='写真',
+               plan='N04:I1｜映像の素材 10.60秒・倍率 1.01（素材の区間の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ・1.0 未満は動きの欄の倍率で・音は使わない＝-an）｜一覧の種類：実写｜見せ方：映像（全面＝上下を少し切る）｜副題：海の底のタイタニック号〈2004年・NOAA ほか〉｜動き：映像（185.0〜195.6秒）｜権利：courtesy（NOAA・copyright の語なし）｜時期：海底｜人：なし｜出典の行：Video courtesy of the RMS Titanic Team Expedition 2004, ROI, IFE, NOAA-OE.｜新しい画（映像方針）：台本どおり（区間＝甲板の構造物）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="G2 p.13（`CALIFORNIAN'S lights`…`could certainly be seen on a night such as this at 5 miles or more range`）・G2 p.13（`she was well beyond the ordinary visible horizon`）"),
+    'c919': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：横から｜見た目の型：地球の丸みと水平線に隠れる遠い船の灯り・見張りの目の高さ｜合図：🔁 上から→横から（前の図 c917）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.13（`well beyond the ordinary visible horizon`）・G2 p.11（`our respective opinions on position are undoubtedly coloured by this difference`）'),
+    'c920': dict(kind='写真',
+               plan='🔧 S1-089:船体｜一覧の種類：実写｜見せ方：全面｜副題：試運転の日のタイタニック号〈1912年4月2日〉｜動き：右へ（船体に沿って）｜権利：PD｜時期：前｜人：なし｜出典の行：Wikimedia Commons（パブリックドメイン）｜注：S1-050（真横の全身）は 10-27 に原寸で見たが、1920px の版では A 甲板の前半の窓でオリンピック号と見分けきれず・出どころも弱い＝使わない（来歴で確かな試運転の日の写真に替えた）｜新しい画（映像方針）：🔧 S3-675 の6回目 → タイタニック号の全身（語り＝タイタニック号の姿が見えていたか）・c212 と別の寄り｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="G2 p.12（`The Inspector considers that TITANIC was seen by CALIFORNIAN and indeed kept under observation from 2300 hrs or soon after on 14 April until she sank`…`the extent of coincidence between what they saw and what is known of TITANIC'S movements`…`which does not coincide with`…`strongly in favour of TITANIC having been the ship seen`）"),
+    'c921': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：横から｜見た目の型：タイタニック号の船橋と見張り台・0時30分ごろまでほかの船の灯は見えない｜新しい画（映像方針）：台本どおり（札は「タイタニック号の時計」）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.12（`no ship was seen by TITANIC until well after the collision; the exact time is not recorded but seems to have been about 0030 hrs`…`watch was maintained with officers on the Bridge and seamen in the`…`which if review were to be confined to`…`I would not dissent from`）'),
+    'c922': dict(kind='写真',
+               plan='S2-033:見張り台｜一覧の種類：実写｜見せ方：全面｜副題：船橋と見張り台〈1912年4月10日〉｜動き：寄る（見張り台へ）｜権利：PD｜時期：前｜人：なし｜出典の行：Wikimedia Commons（パブリックドメイン）｜新しい画（映像方針）：台本どおり（2回目・c217 と別の寄り）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="G2 p.12（`It is in my view inconceivable that CALIFORNIAN or any other ship was within the visible horizon of TITANIC during that period; it equally follows that TITANIC cannot have been within CALIFORNIAN'S horizon`）"),
+    'c923': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：上から｜見た目の型：第三の船（東から来て氷原で止まり、すき間を探して去る・形は描き分けない）｜合図：🔁 横から→上から（前の図 c921）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.13（`a third ship was present which approached from the East, stopped on meeting the field ice, and then after a period steamed away to seek a break in the ice`）'),
+    'c924': dict(kind='写真',
+               plan='🔧 S8-N05:桟橋｜一覧の種類：実写｜見せ方：全面｜副題：ニューヨークのホワイト・スター・ラインの桟橋〈1905年ごろの絵はがき〉｜動き：右へ｜権利：PD｜時期：別の年｜人：小さい（⑤b で原寸）｜出典の行：Wikimedia Commons（パブリックドメイン）｜注：🆕 了承②。✅ 10-27 何の絵か確かめた＝着色の絵はがき（Detroit Publishing・1905年）・桟橋の大型客船と船・馬車。下の題と「COPYRIGHT, 1905」の字・台紙の余白は切り出しの外（色は絵はがきの原本のまま）｜新しい画（映像方針）：🔧 S10-905 の3回目 → 1905年ごろの桟橋の船（語り＝1912年の北大西洋は船の行き来が多かった）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.13（`This is very far from unlikely; the North Atlantic trade was busy in 1912 and a number of other ships are known to have been in the area`）'),
+    'c925': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：横から｜見た目の型：異常屈折（冷たい海の上の空気の層で光が曲がる）｜合図：🔁 上から→横から（前の図 c923）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.13（`is that CALIFORNIAN did actually see TITANIC but at a very much greater range than her horizon because of abnormal`）・G2 p.26（Annex 4＝異常屈折の説明の写し）'),
+    'c926': dict(kind='写真',
+               plan='N04:I2｜映像の素材 10.00秒・倍率 1.02（素材の区間の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ・1.0 未満は動きの欄の倍率で・音は使わない＝-an）｜一覧の種類：実写｜見せ方：映像（全面＝上下を少し切る）｜副題：海の底のタイタニック号〈2004年・NOAA ほか〉｜動き：映像（225.0〜235.0秒）｜権利：courtesy（NOAA・copyright の語なし）｜時期：海底｜人：なし｜出典の行：Video courtesy of the RMS Titanic Team Expedition 2004, ROI, IFE, NOAA-OE.｜新しい画（映像方針）：台本どおり（区間＝甲板の構造物の別の所）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.13（`the rockets seen by CALIFORNIAN were described as low-lying`…`this could be because they actually rose to a height above the refracting layer`…`it requires a long period during which CALIFORNIAN could see TITANIC but not vice versa`…`This is not`…`impossible`）'),
+    'c927': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：上から｜見た目の型：舷灯の色と向き（最初は緑・のちに赤＝止まってから向きを変えた船）｜合図：🔁 横から→上から（前の図 c925）｜新しい画（映像方針）：台本どおり（c607 の模式と別の絵＝向きの変わる船）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.13（`later her red (port) light came into view, arguing that after stopping she swung markedly to starboard`…`Her port sidelight would therefore not be seen`）'),
+    'c928': dict(kind='図解',
+               plan='一覧の種類：対照｜見る向き：正面｜見た目の型：「タイタニック号は見えたか」の2列（調査官・次長）｜合図：🔁 上から→正面（前の図 c927）｜新しい画（映像方針）：台本どおり（どちらにも帰属の札）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="G2 p.13（`I do not consider that a definite answer to the question 'was TITANIC seen' can be given`…`More probably, in my view, the ship seen by CALIFORNIAN was another, unidentified, vessel`）"),
+    'c929': dict(kind='写真',
+               plan='N04:J｜映像の素材 10.40秒・倍率 1.02（素材の区間の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ・1.0 未満は動きの欄の倍率で・音は使わない＝-an）｜一覧の種類：実写｜見せ方：映像（全面＝上下を少し切る）｜副題：海の底のタイタニック号〈2004年・NOAA ほか〉｜動き：映像（249.5〜259.9秒）｜権利：courtesy（NOAA・copyright の語なし）｜時期：海底｜人：なし｜出典の行：Video courtesy of the RMS Titanic Team Expedition 2004, ROI, IFE, NOAA-OE.｜新しい画（映像方針）：台本どおり（区間＝明るい甲板）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.14（`One possibility is that she was the Norwegian sealer SAMSON`…`There are fairly obvious weaknesses in this account`）'),
+    'c930': dict(kind='文字の頁',
+               plan='🔧 P-G2-18｜一覧の種類：頁｜見せ方：頁（引用・額装）｜副題：海難調査局の報告書 p.14〈1992年〉｜動き：静止｜見た目の型：文字の頁｜権利：引用（OGL v3.0 か Crown copyright か未確定）｜時期：文書｜人：なし｜出典の行：出典：英国運輸省 海難調査局『RMS "TITANIC" Reappraisal of Evidence Relating to SS "CALIFORNIAN"』（1992年）より引用｜新しい画（映像方針）：🔧 寄る → 静止の切り出し（「I entirely agree with him」の行・引用の型）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="G2 p.14（`The Inspector's answer is 'Yes', and I entirely agree with him`）"),
+    'c931': dict(kind='写真',
+               plan='🔧 S8-E03:船体｜一覧の種類：実写｜見せ方：全面｜副題：カルパチア号の乗客が撮ったとされるカリフォルニアン号〈1912年4月15日〉｜動き：右へ｜権利：PD｜時期：後・救助｜人：なし｜出典の行：Wikimedia Commons（パブリックドメイン）｜新しい画（映像方針）：🔧 S8-625 の7回目 → S8-E03 の3回目（寄りを替える）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.14（`it has been suggested that these were Company signals from the other ship seen by CALIFORNIAN, I think this possibility is quite unrealistic`…`it would explain their apparent low altitude`）'),
+    'c932': dict(kind='写真',
+               plan='N04:K1｜映像の素材 8.90秒・倍率 1.02（素材の区間の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ・1.0 未満は動きの欄の倍率で・音は使わない＝-an）｜一覧の種類：実写｜見せ方：映像（全面＝上下を少し切る）｜副題：海の底のタイタニック号〈2004年・NOAA ほか〉｜動き：映像（280.0〜288.9秒）｜権利：courtesy（NOAA・copyright の語なし）｜時期：海底｜人：なし｜出典の行：Video courtesy of the RMS Titanic Team Expedition 2004, ROI, IFE, NOAA-OE.｜新しい画（映像方針）：台本どおり（区間＝暗い構造物）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.3（`The Inspector considers that TITANIC`…`distress signals were seen, and that proper action was not taken. I agree on both counts`）・G2 p.15（`Merely attempting to call by morse lamp fell far short of what was needed`）'),
+    'c933': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：正面｜見た目の型：あるべきだった4つの手の順の矢印｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.15〜16（`The Master should have been called and if he did not immediately respond Mr`…`Stone should have reported to him in person`…`Stand By Engines`…`The Wireless Operator should have been called`…`got under way towards the apparent source of the rockets`）'),
+    'c934': dict(kind='写真',
+               plan='S3-749:引き｜一覧の種類：実写｜見せ方：額装（高さいっぱい）｜副題：スタンリー・ロード〈1908年・別の船の船長だったころ〉｜動き：静止｜権利：PD｜時期：別の年｜人：乗員（顔可）｜出典の行：Wikimedia Commons（パブリックドメイン）｜新しい画（映像方針）：台本どおり（3回目・額の中の寄りを替える＝静止）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="G2 p.16（`that Captain Lord lay drunk in his cabin, that he was entirely callous or that he was frightened to attempt to manoeuvre in the ice`…`Captain Lord was in fact almost tee-total`…`Captain Lord in fact took his ship through the ice twice once he learnt of TITANIC'S distress`）"),
+    'c935': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：横から｜見た目の型：深い眠りの中の呼びかけ（返事はするのに届かない・顔の無い影）｜合図：🔁 正面→横から（前の図 c933）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.17（`there is a state of somnambulism quite often experienced in which the subject appears to respond to a call but the message given does not break the barrier between sleep and`…`I think the message from the Bridge simply did not get through`）'),
+    'c936': dict(kind='再現イラスト',
+               plan='🔧 一覧の種類：案C-9｜見る向き：横から｜見た目の型：カリフォルニアン号の船橋・1時10分ごろ・伝声管の口の前に立つ二等航海士の影｜注：c633 と時刻の札を替える｜新しい画（映像方針）：🔧 S8-E03 の6回目 → 案C-9（記録＝G1 p.58「Mr. Stone reported to the captain by voice pipe」・心の中は描かない）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="G2 p.17（`There is a natural tendency to reject the signals of disaster and to hope that all is well despite the evidence of one's`…`Mr Stone should have gone down himself to the`…`Master when there was no proper response from him`）"),
+    'c937': dict(kind='文字の頁',
+               plan='🔧 P-G2-21｜一覧の種類：頁｜見せ方：頁（引用・額装）｜副題：海難調査局の報告書 p.17〈1992年〉｜動き：静止｜見た目の型：文字の頁｜権利：引用（OGL v3.0 か Crown copyright か未確定）｜時期：文書｜人：なし｜出典の行：出典：英国運輸省 海難調査局『RMS "TITANIC" Reappraisal of Evidence Relating to SS "CALIFORNIAN"』（1992年）より引用｜新しい画（映像方針）：🔧 寄る → 静止の切り出し（「I sympathise with Mr Stone」の行・引用の型）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.17（`he was in fact something of a martinet, and the young officer may have feared to leave the`…`I sympathise with Mr Stone, but it must be said that he was seriously at fault`）'),
+    'c938': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：上から｜見た目の型：最初の信号弾で動いていたら（0時45分ごろ・約31キロ・沈むころに着く）｜合図：🔁 横から→上から（前の図 c936）｜新しい画（映像方針）：台本どおり（札は「タイタニック号の時計」と「現実的でない」）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.18（`The first rocket appears to have been fired at about 0045 hrs (TITANIC time)`…`given my minimum distance off of 17 miles, have reached the scene at just about the time of sinking. This however is unrealistic`）'),
+    'c939': dict(kind='フリー素材',
+               plan='🔧 X-meteor｜映像の素材は未取得（⑤b で1本ずつ原寸で見てから取る・月の写らないもの・要る秒＝扉を除いた中身 6.99秒＝narration.json の実測）｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：夜空の流れ星｜動き：映像｜権利：Pexels License｜時期：イメージ｜人：なし｜出典の行：イメージ（Pexels）｜注：⑤b で1本ずつ（月なし・CG でないもの）｜新しい画（映像方針）：🔧 S5-359 の2回目 → イメージ（流れ星＝語りの言葉）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.18（`No officer would take such action on seeing a single distant flash which might be a shooting star or even a visual aberration`）'),
+    'c940': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：時間の線｜見た目の型：正しく動いた場合の流れ（時刻の札は置かない）｜合図：🔁 上から→時間の線（前の図 c938）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="G2 p.18（`Captain Lord would have been on the Bridge at perhaps 0055 hrs`…`would shortly receive TITANIC'S SOS with its incorrect position`…`CALIFORNIAN would arrive well after the sinking`）"),
+    'c941': dict(kind='文字の頁',
+               plan='🔧 P-G2-22｜一覧の種類：頁｜見せ方：頁（引用・額装）｜副題：海難調査局の報告書 p.18〈1992年〉｜動き：静止｜見た目の型：文字の頁｜権利：引用（OGL v3.0 か Crown copyright か未確定）｜時期：文書｜人：なし｜出典の行：出典：英国運輸省 海難調査局『RMS "TITANIC" Reappraisal of Evidence Relating to SS "CALIFORNIAN"』（1992年）より引用｜新しい画（映像方針）：🔧 寄る → 静止の切り出し（「if I am right as to the distance apart」から「should have been made」まで・引用の型）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.18（`if I am right as to the distance apart`…`I do not think any reasonably probable action by Captain Lord could have led to a different outcome of the tragedy. This of course does not alter the fact that the attempt should have been made`）'),
+    'c942': dict(kind='写真',
+               plan='🔧 S7-598:全体｜一覧の種類：実写｜見せ方：全面｜副題：ニューヨークに入るカルパチア号〈1912年4月・LOC〉｜動き：左へ｜権利：PD｜時期：後・NY｜人：なし｜出典の行：出典：米国議会図書館（LOC）｜新しい画（映像方針）：🔧 S6-480 の4回目 → カルパチア号（語り＝カルパチア号がした救助）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.18（`the effect of CALIFORNIAN taking proper action would have been no more than to place on her the task actually carried out by CARPATHIA, that is the rescue of those who escaped`）'),
+    'c943': dict(kind='写真',
+               plan='🔧 N04:H｜映像の素材 7.40秒・倍率 1.03（素材の区間の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ・1.0 未満は動きの欄の倍率で・音は使わない＝-an）｜一覧の種類：実写｜見せ方：映像（全面＝上下を少し切る）｜副題：海の底のタイタニック号〈2004年・NOAA ほか〉｜動き：映像（170.0〜177.4秒）｜権利：courtesy（NOAA・copyright の語なし）｜時期：海底｜人：なし｜出典の行：Video courtesy of the RMS Titanic Team Expedition 2004, ROI, IFE, NOAA-OE.｜新しい画（映像方針）：🔧 S11-716 の2回目 → NOAA の船室の窓の区間｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="G2 送り状（`incorporates his conclusions and those of the appointed Inspector`…`full endorse the Deputy Chief Inspector's report and conclusions`）"),
+    'c944': dict(kind='写真',
+               plan='N04:K2｜映像の素材 4.00秒・倍率 1.04（素材の区間の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ・1.0 未満は動きの欄の倍率で・音は使わない＝-an）｜一覧の種類：実写｜見せ方：映像（全面＝上下を少し切る）｜副題：海の底のタイタニック号〈2004年・NOAA ほか〉｜動き：映像（325.0〜329.0秒）｜権利：courtesy（NOAA・copyright の語なし）｜時期：海底｜人：なし｜出典の行：Video courtesy of the RMS Titanic Team Expedition 2004, ROI, IFE, NOAA-OE.｜新しい画（映像方針）：台本どおり（区間＝錆の構造物）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G2 p.18（`The TITANIC disaster led to a number of changes improving provisions for emergency at sea`）'),
 }
 
 SPEC = {}
-
-# 🆕 ⑤b-3（2026-10-25）：フリー素材（Pexels・イメージ）＝`ss.vid`（見出し・副題は書かない＝左上の「イメージ」と出典だけ）。
-#   区間と寄せは footage.USE（`qa_out/ep25_assets.py use`＝STOCK_WINDOW・STOCK_GEOM＝区間の 640px のシートと原寸の切り出しで決めた）
-SPEC.update({
-    "c902": ss.vid("c902"),
-    "c920": ss.vid("c920"),
-})
-
-# ══════════════════════════════════════════════════════════
-#  🆕 ⑤b-6（2026-10-26）：図解 第8章 13カット＝`tools/mech25.py`（fig=("m25", …)）。🔴 出どころの色＝裁判所（神戸地裁・最高裁）＝線の色・
-#   国会（2023年の法務省・鉄道局長・国土交通大臣〈当時〉）＝紫・JR西日本＝茶・検証報告書＝白。人は役職だけ（顔は描かない）。
-#   🔴 「誰も罪に問われなかった」「予見できなかった」は打ち消しの形だけ（台本 §1-4・§5）・大阪高裁の日付は出さない（§1-5）
-# ══════════════════════════════════════════════════════════
-SPEC.update({
-    # c901（3行）＝1行目（問い）：裁判所の印・刑事裁判？／2行目：起訴 4人・元幹部（のちに社長）1人／3行目：歴代の社長 3人
-    "c901": dict(
-        t="起訴された人", s="4人の起訴",
-        fig=("m25", dict(view="plates4", steps=[dict(state=dict(q="on")), dict(state=dict(one="on")), dict(state=dict(three="on"))],
-                         rel=[dict(t="4人", src="国会D p16004"), dict(t="1人", src="S3 p8006"), dict(t="3人", src="国会C p16003")],
-                         note="名札は役職だけ（模式）", src=ss.src(["国会D p16004"])))),
-    # c903（2行）＝1行目：事故（2005年4月）→ 社長に → 起訴のあとに退く／2行目：元幹部 → 指示すべき義務 → 担当の部署 → この曲線に ATS
-    "c903": dict(
-        t="元幹部の歩み", s="問われた義務",
-        fig=("m25", dict(view="duty", steps=[dict(state=dict(career="on")), dict(state=dict(duty="on"))],
-                         rel=[dict(t="2005年4月", src="R1 p1")],
-                         note="矢印は模式", src=ss.src(["S3 p8006", "S3 p8004"])))),
-    # c904（1行）＝基図に判決の表紙（神戸地裁・2012年1月）／1行目：無罪・検察の求刑 禁錮3年
-    "c904": dict(
-        t="1つ目の判決", s="求刑と結論",
-        fig=("m25", dict(view="verdict", steps=[dict(state=dict(v="on"))],
-                         rel=[dict(t="2012年1月", src="S3 p8066"), dict(t="禁錮3年", src="S3 p8066")],
-                         note="表紙の形は模式", src=ss.src(["S3 p8066"])))),
-    # c906（3行）＝1行目（問い）：予見でき｜なかった？／2行目：認めたのではない → 予見できた｜とは認められない（義務を課すほど）／3行目：犯罪の証明がない
-    "c906": dict(
-        t="判決の言い方", s="違いはどこか",
-        fig=("m25", dict(view="word_swap", steps=[dict(state=dict(q="on")), dict(state=dict(swap="on")), dict(state=dict(end="on"))],
-                         rel=[], note="札の言葉は要約（模式）", src=ss.src(["S3 p8048", "S3 p8066"])))),
-    # c908（3行）＝1行目（問い）：事件 → 起訴？／2行目：検察：起訴しない（遮断）・強制起訴／3行目：検察審査会（市民）の議決の回り道 → 指定弁護士が起訴
-    "c908": dict(
-        t="起訴の仕組み", s="市民の議決",
-        fig=("m25", dict(view="bypass", steps=[dict(state=dict(q="on")), dict(state=dict(stop="on")), dict(state=dict(detour="on"))],
-                         rel=[], note="道の形は模式", src=ss.src(["国会C p16003", "S2 p11001", "国会B p16006"])))),
-    # c909（2行）＝1行目：3本の時期の帯（1992年〜1997年・1997年〜2003年・2003年〜2006年）／2行目：付け替え（1996年12月）と事故（2005年4月）の線
-    "c909": dict(
-        t="社長だった時期", s="事故のあとまで",
-        fig=("m25", dict(view="relay3", steps=[dict(state=dict(bars="on")), dict(state=dict(mark="on"))],
-                         rel=[dict(t="1992年・1997年・2003年・2006年", src="S2 p11001"), dict(t="3人", src="S2 p11001"), dict(t="1996年12月", src="R1 p72"),
-                              dict(t="2005年4月", src="R1 p1")],
-                         note="横は年に比例", src=ss.src(["S2 p11001"])))),
-    # c911（2行）＝1行目：散らばった曲線の印・2000か所以上・最高裁／2行目：この曲線・特に危ないと認識できた｜とは認められない
-    "c911": dict(
-        t="最高裁の見方", s="見分けられたか",
-        fig=("m25", dict(view="scatter", steps=[dict(state=dict(many="on")), dict(state=dict(one="on"))],
-                         rel=[dict(t="2000か所以上", src="S2 p11005"), dict(t="2017年", src="S2 p11001")],
-                         note="印の数と位置は模式（数えない）", src=ss.src(["S2 p11005"])))),
-    # c914（2行）＝1行目：2023年の国会の法務省の答弁・4枚の書類（元幹部・歴代の社長）／2行目：無罪の判と裁判所・年月
-    "c914": dict(
-        t="4人の結果", s="国会の説明",
-        fig=("m25", dict(view="stamps4", steps=[dict(state=dict(who="on")), dict(state=dict(done="on"))],
-                         rel=[dict(t="2023年", src="国会D p16004"), dict(t="2012年1月", src="S3 p8066"), dict(t="2013年9月", src="国会C p16003"),
-                              dict(t="2017年6月", src="S2 p11001")],
-                         note="書類と判の形は模式", src=ss.src(["国会D p16004", "国会C p16003", "S2 p11001"])))),
-    # c915（2行）＝1行目：2023年3月8日・参議院 予算委員会・演台（国土交通省 鉄道局長）／2行目：事業許可の取り消しなど 行政処分は 行っていない
-    "c915": dict(
-        t="同じ日", s="国の処分",
-        fig=("m25", dict(view="podium", steps=[dict(state=dict(who="on")), dict(state=dict(say="on"))],
-                         rel=[dict(t="2023年3月8日", src="国会D p16004")],
-                         note="演台は模式（人は描かない）", src=ss.src(["国会D p16004"])))),
-    # c916（3行）＝1行目（問い）：誰も罪に問われなかった／2行目：✕・起訴：4人・裁判で問われた／3行目：有罪になった人はいない ○
-    "c916": dict(
-        t="正しい言い方", s="起訴と有罪",
-        fig=("m25", dict(view="stamps2", steps=[dict(state=dict(a="on")), dict(state=dict(no="on")), dict(state=dict(yes="on"))],
-                         rel=[dict(t="4人", src="国会D p16004")],
-                         note="判の形は模式", src=ss.src(["国会D p16004"])))),
-    # c917（2行）＝1行目：被告人の席（4つ）・運転士（事故で亡くなった・被告人ではない）／2行目：会社そのもの・この裁判では裁かれていない
-    "c917": dict(
-        t="裁判の外", s="運転士と会社",
-        fig=("m25", dict(view="bench", steps=[dict(state=dict(seats="on")), dict(state=dict(co="on"))],
-                         rel=[dict(t="4人", src="国会D p16004")],
-                         note="席の形は模式", src=ss.src(["R1 p1", "国会D p16004"])))),
-    # c918（2行）＝1行目：組織罰＝会社そのものを罰する・国会でも問われた／2行目：2023年6月13日・国土交通大臣（当時）の吹き出しの中の法務省
-    "c918": dict(
-        t="組織罰の議論", s="大臣の紹介",
-        fig=("m25", dict(view="nested", steps=[dict(state=dict(word="on")), dict(state=dict(quote="on"))],
-                         rel=[dict(t="2023年6月13日", src="国会E p16005")],
-                         note="吹き出しの形は模式・言葉は答弁の要約", src=ss.src(["国会E p16005"])))),
-    # c922（2行）＝1行目：調べる側（事故調査委員会・委員〈当時〉）と調べられる側（会社）と壁／2行目：壁の割れ目・情報が漏れた
-    "c922": dict(
-        t="調べそのもの", s="漏れていた",
-        fig=("m25", dict(view="wall", steps=[dict(state=dict(two="on")), dict(state=dict(leak="on"))],
-                         rel=[], note="建物と壁は模式", src=ss.src(["S1 p9009"])))),
-})
-
-# ══════════════════════════════════════════════════════════
-#  🆕 ⑤b-7（2026-10-26）：写真と頁（書き方は c2.py の ⑤b-7 の注と同じ）
-# ══════════════════════════════════════════════════════════
-SPEC.update({
-    # c905（2行）＝神戸地裁の判決 p.62 の「本件全証拠を総合しても、…予見可能性は認められず、…認められない。」（字の層 y0.623〜0.785）
-    "c905": dict(photo=P("p_s3_62"), trim=(0.002, 0.613, 0.991, 0.794), panel=True, pw=1640, color=1.0, fmove=ss.fm("in"),
-                 t="判決の結論", s="神戸地裁の判決（2012年1月）p.62"),
-    "c907": dict(photo=P("m050502"), **ss.mv(P("m050502"), "in"), side="none", color=1.0,
-                 t="判決の指摘", s="列車を移したあとの線路〈2005年5月2日の発表〉"),
-    # c910（2行）＝最高裁の決定 p.1（束の段で指定弁護士の名前の外を切り出した＝事件の番号〜主文）＝まるごと額装
-    "c910": dict(photo=P("p_s2_1"), panel=True, pw=1640, color=1.0, fmove=ss.fm("in"),
-                 t="上告の棄却", s="最高裁の決定（2017年6月12日）p.1"),
-    # c912（3行）＝最高裁の決定 p.5 の頭の段落（「…認識できたとは認め…」＝字の層 y0.008〜0.359）。⚠️ 頁の下に補足意見の裁判官の名前（y0.82〜0.88）＝切り口の外
-    "c912": dict(photo=P("p_s2_5"), trim=(0.003, 0.002, 0.997, 0.369), panel=True, pw=1640, color=1.0, fmove=ss.fm("in"),
-                 t="認識の書き方", s="最高裁の決定 p.5"),
-    "c913": dict(photo=P("c3"), **ss.mv(P("c3"), "l"), side="none", color=1.0,
-                 t="最高裁のまとめ", s="保存の工事が進む現場と曲線を通る電車〈2016年12月〉"),
-    # c919（2行）＝報告書の冒頭の断り書き（束の段で委員長の名前の外を切り出した4行）＝まるごと額装
-    "c919": dict(photo=P("p_r1_002"), panel=True, pw=1640, color=1.0, fmove=ss.fm("in"),
-                 t="報告書の目的", s="報告書の冒頭の断り書き"),
-    "c921": dict(photo=P("m050804"), **ss.mv(P("m050804"), "out"), side="none", color=1.0,
-                 t="4年あまりのち", s="航空写真〈2005年8月4日の発表・車両を移したあと〉"),
-    "c923": dict(photo=P("p_i01"), panel=True, color=1.0, fmove=ss.fm("in"),
-                 t="漏れた案", s="事実調査に関する報告書の案（意見聴取会用・2006年12月20日）の表紙"),
-})

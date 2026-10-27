@@ -2917,32 +2917,18 @@ def _judge_n4(sc, where, geo, tags, G):
 # ══════════════════════════════════════════════════════════
 F25_PLACES = ("F1", "F2", "F3", "F4", "F5", "F6")
 F25_MARK = dict(F1="㊷", F2="㊸", F3="㊹", F4="㊺", F5="㊻", F6="㊼")
-REC_F1 = dict(
-    # 付図27（尼崎駅起点の実測キロ程）＝伊丹駅 p5032・猪名寺駅 p5031・塚口駅と2つの信号 p5030／曲線の入口＝R1 p.13（曲線入口上り1k949m）
-    km=dict(itami=6.200, inadera=4.312, tsukaguchi=2.872, sig6l=2.690, sig4=2.207, curve=1.949),
-    shape=(60.0, 304.0, 188.0, 60.0),        # 付図73 p7005（緩和曲線長さ60m・円曲線半径304m長さ188m・緩和曲線長さ60m）＝曲線長308m（R1 p.72）
-    speed={"inadera": "約111km/h", "sig6l": "約122km/h", "sig4": "約118km/h", "curve": "約116km/h"},   # S3 p.7・R1 p.13
-    time={"inadera": "9:17:38"},             # R1 p.12（判決は 9:17:39＝台本 §1-5 は報告書の秒）
-    attrib={"inadera": "判決"},              # 約111km/h は判決の値＝札に帰属
-)
-REC_F2 = dict(
-    order=("ユルメ", "1", "2", "3", "4", "5", "6", "7", "8", "非常"),   # 国交省の位置図
-    secs={"B1": 2.0, "B5": 0.8, "B7": 2.4}, thin=("B1・B3かB4", "B6"), thin_max=0.2,   # R1 p.13（0.0~約0.2秒＝細い帯）
-    t0={"early": "9:18:09", "late": "9:18:50"},                       # R1 p.13
-    seq={"early": ("1", "ユルメ"), "late": ("1", "3か4", "5", "6", "7")},   # c304＝B1 のあと惰行／c318＝B7 まで（B8 は c319）
-)
-REC_F3 = dict(
-    times={"start": (9, 17, 57), "ans": (9, 18, 40)},   # R1 p.13・p.77（ファイル名 204T091757a）／付図24（台本 §1-5）
-    tag={"t_start": "9:17:57", "t_ans": "9:18:40"},
-    say={"ask": "disp", "ans": "cond"}, say_page=77,    # 交信記録の書き起こし＝R1 p.77（指令員の問い・車掌の答え）
-    say_kw={"ask": "遅れ", "ans": "1分半"},              # 吹き出しの要の語（R1 p.77 の記録の語）＝「」の無い短い言い方でも、この語は記録どおり
-    roles=("総合指令所の指令員", "7両目の車掌", "1両目の運転士"),
-)
-REC_F4 = dict(assume_word="もし", conclude="推定")      # R1 p.230（回避できたものと推定される）
-REC_F5 = dict(r_old=600.0, r_new=304.0, len=308.0, trans=60.0, nums=("600m", "304m", "308m", "60m"))   # R1 p.72・付図73
-REC_F6 = dict(km=dict(coil=17.981, sign40=18.008, home=18.149),   # 付図28 その1（地上子 5・6RQ1・「40」の標識・ホーム端位置）
-              time="8:54:43", vals={"sign40": "40km/h", "turn": "約65km/h"})   # R1 p.9
-F25_SECS = dict(F1=REC_F1["time"].values(), F2=REC_F2["t0"].values(), F3=REC_F3["tag"].values(), F6=(REC_F6["time"],))
+# 🔴 2026-10-27（26本目 ⑤b-1・§0b）：25本目の値（REC_F1〜REC_F6＝付図27 のキロ程・付図73 の曲線・ブレーキの段の秒・交信の時刻と字句・ATS の想定・
+#    付け替えの半径・宝塚の分岐器）と、その表から読み込みの瞬間に組んだ派生の表 F25_SECS は、selftest の見本 `tools/fixture_ep25.py` へ移した
+#    （値は1つも変えていない＝git の `5f692aab`。🔴 派生の表は元の表を差し替えても古いまま＝見本でも一緒に差す）。selftest `selftest_ep25` は見本の表と
+#    25本目の章ファイル（`fixture_ep25.apply_cuts()`）を差し込んで回す。空のあいだ置き場 F1〜F6 の場面は `judge_f25` が「記録の表が空」で止める（fail closed）。
+#    型（F25_PLACES・F25_MARK・HMS25・KMH25・_page_text・_texts25・judge_f25・_judge_f1〜_judge_f6・illu25.py）は残した
+REC_F1 = {}
+REC_F2 = {}
+REC_F3 = {}
+REC_F4 = {}
+REC_F5 = {}
+REC_F6 = {}
+F25_SECS = {}
 HMS25 = re.compile(r"(\d{1,2}):(\d{2}):(\d{2})")
 KMH25 = re.compile(r"(約)?\s*(\d+(?:\.\d+)?)\s*km/h")
 
@@ -3222,8 +3208,27 @@ def _judge_f6(sc, where, geo, texts):
 
 
 def selftest_ep25():
-    """🆕 25本目 ⑤b-4（2026-10-25）：㊷〜㊼ の検算。正しい場面（25本目の SPEC＝本番の表のまま）が通り、わざと壊した場面（陽性対照）が
-    ㊷〜㊼で「狙った理由で」落ちること。描く側の定数を壊す対照は、終わったら必ず戻す（try/finally）。型の例外で止まった対照は鳴ったと数えない"""
+    """🆕 25本目 ⑤b-4（2026-10-25）：㊷〜㊼ の検算。正しい場面（25本目の SPEC）が通り、わざと壊した場面（陽性対照）が
+    ㊷〜㊼で「狙った理由で」落ちること。描く側の定数を壊す対照は、終わったら必ず戻す（try/finally）。型の例外で止まった対照は鳴ったと数えない
+    ✅ 2026-10-27（26本目 ⑤b-1・§0b）：本番の表（cuts.ss の REC_DOCS・REC_PAGES・ILLU_* ／この門番の REC_F1〜REC_F6・F25_SECS）は26本目の空の器にした＝25本目の値は
+       見本 `fixture_ep25`（24本目の selftest_ep24 と同じ作り）。差し込んだら原文の頁の読み込み `_pages()`・`_page_text()`（lru_cache）を捨てて25本目の原文を読み直し、
+       戻したらまた捨てる。正しい場面の SPEC は25本目の章ファイル（`apply_cuts()`＝git の `5f692aab`）から読む＝落ちても終わっても `restore()` で本番の値
+       （と26本目の PLAN・SPEC）へ戻す。本体は `_selftest_ep25`"""
+    import fixture_ep25
+    fixture_ep25.apply(sys.modules[__name__])
+    _pages.cache_clear()          # 🔴 原文の頁の読み込みは覚えている（lru_cache）＝本番の（空の）原文を捨てて25本目を読み直す
+    _page_text.cache_clear()
+    try:
+        fixture_ep25.apply_cuts()
+        return _selftest_ep25()
+    finally:
+        fixture_ep25.restore()
+        _pages.cache_clear()
+        _page_text.cache_clear()
+
+
+def _selftest_ep25():
+    """25本目 F1〜F6（㊷〜㊼）の検算の本体（`fixture_ep25` の `apply(gate)`＋`apply_cuts()` を差し込んだ中で呼ぶ）。"""
     import copy
     import cuts
     import illu25 as I25
@@ -5112,7 +5117,7 @@ def _selftest_ep17():
 
 def selftest():
     """物差しの検算。正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。"""
-    ok25 = selftest_ep25()        # 🆕 25本目 ⑤b-4（2026-10-25）＝本番の表のまま（見本の差し込みより先）
+    ok25 = selftest_ep25()        # 🆕 25本目 ⑤b-4（2026-10-25）。2026-10-27〜：25本目も見本 fixture_ep25 の表＝selftest_ep25 が差し込んで・終わったら戻す
     ok24 = selftest_ep24() and ok25   # 🆕 24本目 ⑤b-3（2026-10-22）。2026-10-25〜：24本目も見本 fixture_ep24 の表＝selftest_ep24 が差し込んで・終わったら戻す
     ok17 = selftest_ep17() and ok24   # 🆕 17本目 ⑤b-3（2026-10-20）。2026-10-22〜：17本目も見本 fixture_ep17 の表＝selftest_ep17 が差し込んで・終わったら戻す
     ok20 = selftest_ep20() and ok17   # 🆕 20本目 ⑤b-3（2026-10-08）。2026-10-12〜：20本目も見本 fixture_ep20 の表＝selftest_ep20 が差し込んで・終わったら戻す

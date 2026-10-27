@@ -175,7 +175,11 @@ UA = ("zukai-engine/1.0 (accident-documentary research; "
 #          c724・c726・c810・c813・c902・c920・ca05・ca10・ca11・ca13・cb13・cb14＝🔴 素材は未取得＝⑤b で1本ずつ原寸で見てから取る）。
 #          倍率は `ref/ep25/eizou_build/list25.tsv` の rate（素材の秒÷扉を除いたカットの秒＝narration.json の実測・⑤b-1 で道を足した＝取ったら回し直す）。
 #          `ref/ep25/clips.json`・`shots.json` は束のチャットで作る（無いあいだ CLIPS は空）
-_CLIPS_JSON = HERE / "ref" / "ep25" / "clips.json"
+#       🔴 2026-10-27（26本目 タイタニック号沈没事故 ⑤b-1）：**26本目へ切り替えた**（§0b）。25本目の台帳は `ref/ep25/clips.json`（git の中のまま）・
+#          USE の18欄は git の `5f692aab`（selftest の見本 `fixture_ep25._footage25` がそこから読む）。26本目の動く映像＝NOAA 2004 の残骸の映像（公的な機関・
+#          courtesy・`ref/ep26/src/eizou/N04-video.mp4`＝git の外）の13区間と Pexels の8カット（未取得）。`ref/ep26/clips.json`・`shots.json` は束のチャットで作る
+#          （無いあいだ CLIPS は空）。⚠️ NOAA の映像は Modal の保管庫にも要る（git の外）
+_CLIPS_JSON = HERE / "ref" / "ep26" / "clips.json"
 CLIPS = json.loads(_CLIPS_JSON.read_text(encoding="utf-8")) if _CLIPS_JSON.exists() else {}
 
 # 🔴🔴 2026-09-07（5本目 SL-1 ⑤c'・K-12）：**素材そのものが横に黒帯を持っている。**
@@ -252,7 +256,7 @@ def bars_left(cid, u=None):
 #    ＝ `SHOTS` が空のまま `outside_shot()` を回すと、**全欄が「対象外」で素通り**する。
 #    そうならないように `unknown_clip()` を足した（`fetch --check` が呼ぶ）。
 SHOTS = {}
-SHOT_FILE = HERE / "ref" / "ep25" / "shots.json"          # 25本目（束のチャットで作る）。24本目は ref/ep24/。17本目は ref/ep17/。23本目は ref/ep23/。22本目は ref/ep22/。21本目は ref/ep21/。20本目は ref/ep20/。19本目は ref/ep19/。18本目は ref/ep18/。16本目は ref/ep16/（0本）・15本目は ref/ep15/（0本）・14本目は ref/ep14/（2本）・13本目は ref/ep13/（0本）・12本目は ref/ep12/（2本）
+SHOT_FILE = HERE / "ref" / "ep26" / "shots.json"          # 26本目（束のチャットで作る）。25本目は ref/ep25/。24本目は ref/ep24/。17本目は ref/ep17/。23本目は ref/ep23/。22本目は ref/ep22/。21本目は ref/ep21/。20本目は ref/ep20/。19本目は ref/ep19/。18本目は ref/ep18/。16本目は ref/ep16/（0本）・15本目は ref/ep15/（0本）・14本目は ref/ep14/（2本）・13本目は ref/ep13/（0本）・12本目は ref/ep12/（2本）
 # 🔴 2026-09-13（7本目②）：**この表はまだ無い。**⑤で `tools/shots.py` が作る。
 #    無いあいだ SHOTS は空で、`outside_shot()` は全欄を「対象外」で飛ばす＝**素通りする**。
 #    それを塞ぐのが下の `unknown_clip()`（`fetch --check` が呼ぶ）。USE を書いたら必ず通す。
@@ -341,8 +345,10 @@ NOGO = {
     #    字と人を見て、使わない秒が出たら束のチャットで書く（印を24本目に替えた）
     # 🔴 2026-10-25（25本目 ⑤b-1）：印を25本目に替えた（24本目は空のままだった）。25本目もフリー素材だけ＝使う区間を焼いて
     #    字・人・会社の塗装（JR西日本の207系に見せない）を見て、使わない秒が出たら束のチャットで書く
-    # EP25_NOGO>>> ここから（手で書かない）
-    # EP25_NOGO>>> ここまで
+    # 🔴 2026-10-27（26本目 ⑤b-1）：印を26本目に替えた（25本目は空のままだった）。26本目の NOAA 2004 の映像は16コマを原寸で見た＝字の焼き込みも人も無い
+    #    （0〜9.5秒と346秒〜は黒）＝区間はその外。Pexels は使う区間を焼いて字・人・月（G1 p.40＝月は無かった）を見て、使わない秒が出たら束のチャットで書く
+    # EP26_NOGO>>> ここから（手で書かない）
+    # EP26_NOGO>>> ここまで
 }
 
 
@@ -586,29 +592,16 @@ USE = {
     #   🔴 25本目＝フリー素材（イメージ＝Pexels）の映像18カット（素材は未取得）＝要る秒は `ref/ep25/eizou_build/list25.tsv` の cont
     #   （narration.json の実測の秒・扉を除く＝⑤b-1）。取ったら `make_list25.py` を回し直して倍率の門番を通してから、欄は束のチャットで道具から書き出す
     #   （手で書かない）＝下の印のあいだ
-    # EP25_USE>>> ここから（手で書かない）
-    "c210": dict(clip="X-depart", start=6.00, until=13.69, rate=1.0),   # ショット 0〜20秒・使える 7.69秒／要る 7.64秒・行き先の字が大きく読める頭（0〜5秒）を外した区間
-    "c526": dict(clip="X-desk", start=12.91, until=22.14, rate=1.0),   # ショット 10〜25秒・使える 9.23秒／要る 9.18秒
-    "c532": dict(clip="X-training", start=8.40, until=15.71, rate=1.0),   # ショット 0〜19秒・使える 7.31秒／要る 7.26秒・壁の英語の貼り紙が入らない区間（0〜8秒は上の端に貼り紙の字）
-    "c707": dict(clip="X-train", start=0.30, until=8.53, rate=1.0, zoom=1.15, bias=0.0),   # ショット 0〜14秒・使える 8.23秒／要る 8.18秒・看板の少ない前半（後半は駐車場と店の看板が増える）
-    "c713": dict(clip="X-blueprint", start=1.09, until=8.96, rate=1.0),   # ショット 0〜10秒・使える 7.87秒／要る 7.82秒
-    "c715": dict(clip="X-signalwork", start=4.07, until=15.97, rate=1.0),   # ショット 0〜20秒・使える 11.90秒／要る 11.85秒
-    "c724": dict(clip="X-platform", start=4.30, until=12.93, rate=1.0),   # ショット 0〜34秒・使える 8.63秒／要る 8.58秒・JR西日本の電車が入らない区間（0.3秒の頭と16秒・21秒に JR西日本の電車）
-    "c726": dict(clip="X-clock", start=0.30, until=9.70, rate=0.75, zoom=1.2, bias=0.0),   # ショット 0〜10秒・使える 9.40秒／要る 12.52秒
-    "c810": dict(clip="X-signal", start=0.58, until=8.47, rate=1.0),   # ショット 0〜9秒・使える 7.89秒／要る 7.84秒
-    "c813": dict(clip="X-train2", start=1.84, until=8.21, rate=1.0),   # ショット 0〜10秒・使える 6.37秒／要る 6.32秒
-    # 🔧 ⑤c'：寄り 1.25・下寄せ（横は真ん中）で外国の旗（x 約294〜403）と建物の字「PALÁCIO DA JUSTIÇA」（y 約248〜285）が残った
-    #   ＝寄り 1.45・右下寄せ（映る範囲 x 596〜1920・y 335〜1080）
-    "c902": dict(clip="X-court", start=3.02, until=11.04, rate=1.0, zoom=1.45, xbias=1.0, bias=1.0),   # ショット 0〜14秒・使える 8.02秒／要る 7.97秒
-    "c920": dict(clip="X-papers", start=3.05, until=11.00, rate=1.0),   # ショット 0〜14秒・使える 7.95秒／要る 7.90秒
-    "ca05": dict(clip="X-table", start=6.07, until=14.97, rate=1.0),   # ショット 0〜21秒・使える 8.90秒／要る 8.85秒
-    # 🔧 ⑤c'：右の端の使い捨てのマスク（x 約1623〜）を外す＝寄り 1.25・左寄せ（映る範囲 x 0〜1536・電話機は 〜約1492）
-    "ca10": dict(clip="X-phone", start=0.30, until=8.70, rate=0.93, zoom=1.25, xbias=0.0),   # ショット 0〜9秒・使える 8.40秒／要る 8.96秒
-    "ca11": dict(clip="X-meeting", start=1.37, until=8.68, rate=1.0),   # ショット 0〜10秒・使える 7.31秒／要る 7.26秒
-    "ca13": dict(clip="X-janken", start=6.30, until=12.70, rate=0.77),   # ショット 6〜13秒・使える 6.40秒／要る 8.22秒
-    "cb13": dict(clip="X-dusk", start=10.64, until=17.41, rate=1.0),   # ショット 0〜28秒・使える 6.77秒／要る 6.72秒
-    "cb14": dict(clip="X-arrive", start=3.25, until=9.79, rate=1.0),   # ショット 0〜13秒・使える 6.54秒／要る 6.49秒
-    # EP25_USE>>> ここまで
+    # 🔴 2026-10-27（26本目 タイタニック号沈没事故 ⑤b-1）：**空にした**（§0b）。25本目の18欄（フリー素材の映像＝Pexels・`qa_out/ep25_assets.py use` が
+    #   書き出した・⑤c' の寄せの直しを含む）は git の `5f692aab`（`git show 5f692aab:tools/footage.py`・見本 `fixture_ep25._footage25` がそこから読む）。
+    #   🔴 25本目の ca11・ca13 は26本目にも同じカットIDがある（26本目 ca11＝Pexels の赤い光・ca13＝NOAA 2004 の映像）＝残すと25本目の映像が黙って出た。
+    #   ⚠️ 残す教訓＝寄せ（zoom・xbias・bias）で外国の旗・建物の字・使い捨てのマスクを画面の外へ出した（25本目 c902・ca10＝⑤c'）＝焼いた絵で見てから。
+    #   🔴 26本目＝**この事故の物の動く映像は NOAA 2004 の残骸の映像の13区間**（c105・c107・c515・c813・c901・c907・c918・c926・c929・c932・c943・c944・ca13＝
+    #   【映像あり】に数えない＝了承②）とフリー素材（イメージ＝Pexels）の8カット（c401・c414・c517・c610・c638・c939・ca11・cb05＝🔴 素材は未取得・月の写らないもの）。
+    #   区間と倍率は `ref/ep26/eizou_build/list26.tsv`（narration.json の実測の秒・扉を除く＝⑤b-1 で NOAA の区間を実測に合わせた）。
+    #   欄は束のチャットで道具から書き出す（手で書かない）＝下の印のあいだ。音は使わない（-an）
+    # EP26_USE>>> ここから（手で書かない）
+    # EP26_USE>>> ここまで
 }
 # ⚠️ 2026-09-23（12本目 ⑤c' 直しE）：ここにあった前の回の注（9.11 の c621・c712／6本目キー橋の「まだ決まっていない
 #    29欄」／5本目 SL-1 の「当てないと決めた」ph12・ph3）は、いまの USE と関係が無いので外した。

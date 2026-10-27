@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
-"""第5章　半径304メートル c601–c623（23カット）。25本目（JR福知山線脱線事故・2005-04-25）。
+"""第5章　カリフォルニアン号の甲板で c601–c641（41カット）。26本目（タイタニック号沈没事故・1912-04-14〜15）。
 
-■ 🔴 2026-10-25（⑤b-1）：24本目（チェルノブイリ原発事故）の中身を空にした＝git の `7ae693a1`（`git show 7ae693a1:tools/cuts/c6.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep25/make_plan25.py` で
-  映像方針の一覧 `ref/ep25/eizou_build/list25.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
-  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep25/eizou_list25.md`）。
+■ 🔴 2026-10-27（⑤b-1）：25本目（JR福知山線脱線事故）の中身を空にした＝git の `ef33e02c`（`git show ef33e02c:tools/cuts/c6.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep26/make_plan26.py` で
+  映像方針の一覧 `ref/ep26/eizou_build/list26.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
+  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep26/eizou_list26.md`）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
+  🔴 額装・帯の写真は静止（26本目から＝`build_jiko.FRAME_STILL`）＝`fmove`（額ごと動かす）・額の中の `cam` を書かない（門番 check_fmove が絵で測る）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット。
-  ⚠️ 人は役職だけ（①の承認）。名前の載る頁は注の「⚠️ …名前＝切り出しの外」のとおり寄る範囲から名前を外す
+  ⚠️ 人＝乗員・ほかの船の船長と航海士と通信士・審問の長は名前＋役職／会社の人とドンキーマンは役職だけ／乗客は名前なし（①・承認①）。
+     名前の載る紙面・頁は注の「…外」のとおり寄る範囲から名前を外す
 """
 import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
@@ -16,199 +18,129 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'c601': dict(kind='図・写真の頁',
-               plan='🔧 P-F05｜一覧の種類：頁｜見せ方：頁｜副題：事故現場略図〈報告書の付図5〉｜動き：寄る（曲線の入口と円曲線のキロ程へ）｜見た目の型：図の頁（現場の略図）｜権利：PDL1.0｜時期：文書｜人：なし｜出典の行：出典：鉄道事故調査報告書 RA2007-3 付図5（運輸安全委員会の頁）を加工して作成｜注：写真4点は切り出しの外｜新しい画（映像方針）：🔧 衛星写真（3回目）→ 付図5 の略図の部分｜このカットの前に章の扉｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 p.72'),
-    'c602': dict(kind='写真',
-               plan='G1974｜一覧の種類：実写｜見せ方：全面｜副題：1974〜78年の空中写真〈国土地理院〉｜動き：寄る｜見る向き：上から｜権利：PDL1.0｜時期：前｜人：なし｜出典の行：出典：国土地理院ウェブサイト（地理院タイル）を加工して作成｜注：付け替えの前＝曲線が北で分かれて緩い（原寸560px で見た）。線は描かない（⑤c の直しのチャットの決着＝半径の違いは次の c603 の再現イラストで見せる・空中写真3枚 c602・c604・c605 は印なしでそろえる）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 p.72（`JR東西線開業前の尼崎駅配線変更に伴い、それまで半径600mの右曲線であった区間が、平成8年12月20日に現在の線形となったものである`）'),
-    'c603': dict(kind='再現イラスト',
-               plan='一覧の種類：案C-E｜見る向き：上から｜見た目の型：案C-E（2本の線の重ね）｜注：形のもと＝空中写真の3つの年代｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 p.72（`上り線は半径304m`・`60mが緩和曲線`）'),
-    'c604': dict(kind='写真',
-               plan='G1984｜一覧の種類：実写｜見せ方：全面｜副題：1984〜86年の空中写真〈国土地理院〉｜動き：右へ｜見る向き：上から｜権利：PDL1.0｜時期：前｜人：なし｜出典の行：出典：国土地理院ウェブサイト（地理院タイル）を加工して作成｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='S3 p.3（`本件曲線の制限速度を従前の95km/hから70km/hに変更し`）'),
+    'c601': dict(kind='写真',
+               plan='🔧 S3-675:全体｜一覧の種類：実写｜見せ方：全面｜副題：カリフォルニアン号の船長スタンリー・ロード〈1912年5月・英国の審問のころ〉｜動き：寄る｜権利：PD｜時期：後・審問｜人：乗員（顔可）｜出典の行：Wikimedia Commons（パブリックドメイン）｜注：S3-675 は4回まで（c601・c622・c824・cb01）｜新しい画（映像方針）：🔧 額装 → 全面（1906px の横長）｜このカットの前に章の扉｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.56（`the steamship Californian, of the Leyland Line, Mr. Stanley Lord, master`）'),
+    'c602': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：上から｜見た目の型：氷原の手前で止まる船（機関を逆に・北と南に続く氷原）｜合図：🔁 正面→上から（前の図 c516）｜新しい画（映像方針）：台本どおり（地図ではない）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.56（`obliged to stop and reverse engines`…`she was running into field ice, which stretched as far as could then be seen to the northward and southward`）'),
+    'c603': dict(kind='文字の頁',
+               plan='P-G1-056:位置｜一覧の種類：頁｜見せ方：頁｜副題：英国の審問の報告 p.56｜動き：寄る（「I am satisfied that this position is not accurate」の一文へ）｜見た目の型：文字の頁｜権利：PD｜時期：文書｜人：なし｜出典の行：出典：英国の審問の報告（米国上院の刷り直し S. Doc. 933）p.56｜書き起こしの断り：札の緯度経度は英国の審問の書き起こし（有志のサイト）による｜新しい画（映像方針）：台本どおり（船長の位置の札を添える）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.56（`fixed by dead reckoning and verified by observations`…`I am satisfied that this position is not accurate`）・T1 Day 7 Q6704（書き起こし `Forty-two deg five min N, and 50 deg 7 min. W`）'),
+    'c604': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：上から｜見た目の型：推測の位置と海の流れに押された位置が離れていく矢印｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.56（`It is a position about 19 miles N. by E. of the position of the`…`when he foundered`）・G2 p.9（`a current setting about south by west`…`existed in the area of the accident`）'),
     'c605': dict(kind='写真',
-               plan='Gnew｜一覧の種類：実写｜見せ方：全面｜副題：現在の空中写真〈国土地理院〉｜動き：寄る｜見る向き：上から｜権利：PDL1.0｜時期：今｜人：なし｜出典の行：出典：国土地理院ウェブサイト（地理院タイル）を加工して作成｜注：今は南まで来て急に曲がる｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='S3 p.52（`新たに半径304mの曲線を設けることが珍しいことは認められる`）'),
-    'c606': dict(kind='図解',
-               plan='一覧の種類：模式｜見た目の型：1本の時間の線と2つの印｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 p.96（`最高運転速度は、同社によると、平成3年3月に120km/h となったものであり、それ以前は100km/h であった`）'),
-    'c607': dict(kind='図・写真の頁',
-               plan='🔧 P-F27-2｜一覧の種類：頁｜見せ方：頁｜副題：線路と信号の略図（塚口駅〜曲線）〈報告書の付図27〉｜動き：右へ｜見た目の型：図の頁（線路と信号の略図）｜権利：PDL1.0｜時期：文書｜人：なし｜出典の行：出典：鉄道事故調査報告書 RA2007-3 付図27（運輸安全委員会の頁）｜注：§0-5「c305・c607 の直線」＝付図5 に「直線」の語は無い・シミュレーションの模型（付図73・74）にだけある＝副題に使わない｜新しい画（映像方針）：🔧 Commons #13（2回目・画の欄の「直線から曲線へ」は報告書の文で当てられない）→ 付図27 の2/8｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 p.101（`120km/h まで許容されていた`）'),
-    'c608': dict(kind='図解',
-               plan='一覧の種類：模式｜見る向き：上から｜見た目の型：外へ押す矢印（速さと力）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='—（一般の物理の説明）'),
+               plan='🔧 S8-625:船尾｜一覧の種類：実写｜見せ方：全面｜副題：カリフォルニアン号〈カルパチア号の甲板から撮られたとみられる・NARA〉｜動き：左へ（船尾から船首へ）｜権利：PD｜時期：後・救助｜人：なし｜出典の行：出典：米国立公文書館（NARA）｜新しい画（映像方針）：🔧 S8-E03 → S8-625 の別の寄り（S8-E03 を3回までにする）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.56（`she remained approximately stationary until 5.15`…`The ship was slowly swinging around to starboard during the night`）'),
+    'c606': dict(kind='再現イラスト',
+               plan='一覧の種類：案C-1｜見る向き：横から｜見た目の型：カリフォルニアン号の船橋・夜11時ごろ・東から近づく船の灯・三等航海士の影｜合図：🔁 上から→横から（前の図 c604）｜新しい画（映像方針）：台本どおり（遠くの船の形は描き分けない・タイタニック号と名乗らない）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="G1 p.57（`At about 11 p. m. a steamer's light was seen approaching from the eastward`）"),
+    'c607': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：上から｜見た目の型：舷灯の色（右に緑・左に赤・マストに白）と見る人の目｜合図：🔁 横から→上から（前の図 c606）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.57（`and also her green side light`…`at some time between 11 and 11.30 he first saw her green light; she was then about 5 miles`）'),
+    'c608': dict(kind='写真',
+               plan='S3-749:全体｜一覧の種類：実写｜見せ方：額装（高さいっぱい）｜副題：スタンリー・ロード〈1908年・別の船の船長だったころ〉｜動き：静止｜権利：PD｜時期：別の年｜人：乗員（顔可）｜出典の行：Wikimedia Commons（パブリックドメイン）｜注：S3-749 は3回まで（c608・c624・c934）｜新しい画（映像方針）：台本どおり（縦長・小さい＝高さいっぱいの額・静止）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.57（`He noticed that about 11.30 she stopped`…`something like ourselves`）'),
     'c609': dict(kind='図解',
-               plan='一覧の種類：棒｜見た目の型：棒（転覆限界速度の割れ）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 p.188'),
-    'c610': dict(kind='図解',
-               plan='一覧の種類：模式｜見た目の型：表の値の札（106・122・123・133）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 p.194（`事故当日同社が公表した1両目の転覆限界速度の試算値は133km/h である`）・R1 p.188（表43）'),
+               plan='一覧の種類：模式｜見る向き：正面｜見た目の型：マストの灯が1つの船と2つの船を並べる｜合図：🔁 上から→正面（前の図 c607）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.57（`Mr. Groves made out two masthead lights`…`She is evidently a passenger steamer`）'),
+    'c610': dict(kind='フリー素材',
+               plan='X-ship-lights｜映像の素材は未取得（⑤b で1本ずつ原寸で見てから取る・月の写らないもの・要る秒＝扉を除いた中身 7.51秒＝narration.json の実測）｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：夜の海の遠い船の灯り｜動き：映像｜権利：Pexels License｜時期：イメージ｜人：なし｜出典の行：イメージ（Pexels）｜注：機関部の乗組員は役職だけ（承認①）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.57（`who was on deck at midnight, said, referring to this steamer`…`It could not have been anything but a passenger boat, she was too large`）'),
     'c611': dict(kind='図解',
-               plan='一覧の種類：模式｜見る向き：後ろから見た断面｜見た目の型：重心の高さの2つの印｜合図：🔁 上から→後ろから見た断面（前の図 c608）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 p.188（`「hG*=車両重心高さ」とされていた`）'),
+               plan='一覧の種類：模式｜見る向き：正面｜見た目の型：モールス灯の短い光と長い光｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.57（`Call her up on the Morse lamp, and see if you can get any answer`）'),
     'c612': dict(kind='図解',
-               plan='一覧の種類：模式｜見た目の型：幅の帯（105〜110・108前後）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='S3 p.11（`おおむね105km/hから110km/h程度で,108km/h前後であった可能性が高く`）・S3 p.56（`133km/hと現実の値とは相当異なる試算結果を発表した`）'),
-    'c613': dict(kind='写真',
-               plan='🔧 F13-1R｜一覧の種類：実写｜見せ方：全面｜副題：1両目の屋根の折れ曲がり〈自動車などの残骸を撤去した後に撮影・報告書の付図13〉｜動き：右へ｜権利：PDL1.0｜時期：後・損傷｜人：未見｜出典の行：出典：鉄道事故調査報告書 RA2007-3 付図13（運輸安全委員会の頁）を加工して作成｜注：原画は未見＝⑤b で原寸｜新しい画（映像方針）：🔧 模式（定員150人の1両目）→ 付図13 その1「屋根の折れ曲がり状況」＝模式の5つ続き c610〜c614 を切る｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 p.230（`転覆限界速度(本件列車1両目定員150名乗車時)104km/h をその手前の区間の最高速度120km/h が大きく超えていた`）'),
-    'c614': dict(kind='図解',
-               plan='一覧の種類：模式｜見た目の型：2つの速さの差（120と104）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 p.230'),
-    'c615': dict(kind='写真',
-               plan='🔧 F05-AR｜一覧の種類：実写｜見せ方：額装（高さいっぱい）｜副題：車両の撤去後、列車の最後部付近から尼崎駅方〈報告書の付図5〉｜動き：額の中で寄る｜権利：PDL1.0｜時期：後・撤去後｜人：遠景｜出典の行：出典：鉄道事故調査報告書 RA2007-3 付図5（運輸安全委員会の頁）を加工して作成｜注：243×330 の縦長｜新しい画（映像方針）：🔧 付図5ウ（同じ説明「列車の最後部付近から」の写真が2点ある）→ 撤去後の方（もう1点は c204）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 p.230（`同曲線への曲線速照機能の整備は優先的に行うべきであったものと考えられる`）'),
-    'c616': dict(kind='図解',
-               plan='🔧 一覧の種類：模式｜見た目の型：2つの箱の仕分け（原因の文／優先の根拠）｜新しい画（映像方針）：🔧 空中写真「2004年以降」（最新の層と画素の平均差9＝同じ写真）→ 模式｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 p.230（`現在の線形となったのが2.8.1 に記述したように平成8年12月であり`）'),
+               plan='🔧 一覧の種類：模式｜見る向き：横から｜見た目の型：2人の見立て（船長「客船には見えない」・三等航海士「客船です」）と、止まると灯りが消えたように見える灯りの列｜合図：🔁 正面→横から（前の図 c611）｜新しい画（映像方針）：🔧 S8-630 の2回目 → 模式（語りは2人の見立ての違い＝写真の使い回しを減らす）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.57（`That does not look like a passenger steamer`…`It is, sir. When she stopped her lights seemed to go out`）'),
+    'c613': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：時間の線｜見た目の型：3つの当直と、交代の前の1つの鐘｜合図：🔁 横から→時間の線（前の図 c612）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.57（`Mr Groves states that these lights went out at 11.40`…`because one bell was struck to call the middle watch`）'),
+    'c614': dict(kind='再現イラスト',
+               plan='🔧 一覧の種類：案C-1｜見る向き：横から｜見た目の型：同じ船橋・0時すぎ・三等航海士のモールス灯に答えなし・二等航海士が上がってくる影｜合図：🔁 時間の線→横から（前の図 c613）｜新しい画（映像方針）：🔧 S8-625 の3回目 → 案C-1（c615 と1つの場面で続ける）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="G1 p.58（`Mr. Groves's Morse signaling appears to have been ineffectual`…`he gave it up`…`relieved by Mr. Stone, the second officer, just after midnight`）"),
+    'c615': dict(kind='再現イラスト',
+               plan='🔧 一覧の種類：続き｜見た目の型：（c614 の続き）｜新しい画（映像方針）：🔧 案C-1 の2回目 → c614 の絵の続き（三等航海士が遠くの止まった船の灯りを指さして引き継ぐ）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.58（`she has been stopped since 11.40`…`At about the moment she stopped she`）'),
+    'c616': dict(kind='写真',
+               plan='🔧 S2-E01:全体｜一覧の種類：実写｜見せ方：全面｜副題：1912年の船の無線室〈姉妹船オリンピック号・1912年の本の写真〉｜動き：寄る（ヘッドホンへ）｜権利：PD｜時期：別の船｜人：乗員（顔可）｜出典の行：Wikimedia Commons（パブリックドメイン）｜書き起こしの断り：証言の言葉は英国の審問の書き起こし（有志のサイト）による｜注：S2-E01 は ca01 と2回（同じ副題）｜新しい画（映像方針）：🔧 副題で「1912年の船の無線室」と断る（カリフォルニアン号の無線室ではない）・額装 → 全面｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='T1 Day 8 Q8289・Q8285（書き起こし `between 12.15 and 12.20`・`Nothing at all`）'),
     'c617': dict(kind='図解',
-               plan='一覧の種類：模式｜見る向き：後ろから見た断面｜見た目の型：カントの断面（97mm）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 p.73（`円曲線部のカント50は97mmであり`）'),
-    'c618': dict(kind='図・写真の頁',
-               plan='🔧 P-F73｜一覧の種類：頁｜見せ方：頁｜副題：脱線シミュレーションの概要〈報告書の付図73〉｜動き：寄る（カント97mm と均衡速度の札へ）｜見た目の型：図の頁（シミュレーションの模型）｜権利：PDL1.0｜時期：文書｜人：なし｜出典の行：出典：鉄道事故調査報告書 RA2007-3 付図73（運輸安全委員会の頁）｜新しい画（映像方針）：🔧 付図5エ（c533 へ）→ 付図73（円曲線 半径304m・カント97mm）＝語り「傾きの不足」｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 p.73（`同社の車両の許容カント不足量`）・R1 p.101（`制限速度は実質的にも70km/h であった`）'),
+               plan='一覧の種類：模式｜見る向き：上から｜見た目の型：方位（羅針盤の目盛りと相手の船の向き）｜合図：🔁 横から→上から（前の図 c614）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.58（`pointed out the steamer to him with instructions to tell him if her bearings altered or if she got any closer`）'),
+    'c618': dict(kind='再現イラスト',
+               plan='一覧の種類：案C-7｜見る向き：横から｜見た目の型：カリフォルニアン号の船橋・0時20分ごろ・双眼鏡の見習い・マストの白い灯と赤い舷灯と甲板の灯りの群れ｜合図：🔁 上から→横から（前の図 c617）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="G1 p.58（`an apprentice named Gibson, whose attention was`…`to the steamer's lights at about 12.20 a. m.`…`glare of white lights on her afterdeck`）"),
     'c619': dict(kind='図解',
-               plan='一覧の種類：模式｜見る向き：上から｜見た目の型：連結器でつながる2つの車体と左向きの矢印｜合図：🔁 後ろから見た断面→上から（前の図 c617）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 p.226（`2両目は速度110km/h の等速度で走行しても脱線しない`・`1両目から連結器を介して左向きの力を受けたことによるものと推定される`）'),
-    'c620': dict(kind='写真',
-               plan='🔧 F13-1M｜一覧の種類：実写｜見せ方：全面｜副題：1両目の車体の中ほど〈マンションから引き出した後に撮影・報告書の付図13〉｜動き：左へ｜権利：PDL1.0｜時期：後・損傷｜人：遠景｜出典の行：出典：鉄道事故調査報告書 RA2007-3 付図13（運輸安全委員会の頁）を加工して作成｜注：⚠️ 説明が「左に横転した状態を撮影」の1点（F13-1L）は原画を見たら車内（室内）＝使わない｜新しい画（映像方針）：🔧 付図13コ（2両目台車＝上下を返した台車）→ 付図13 その1「車体中間部の状況（マンションから引き出した後に撮影）」＝語り「1両目は、その外側の左へ倒れた」｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 p.226'),
-    'c621': dict(kind='図・写真の頁',
-               plan='🔧 P-F74｜一覧の種類：頁｜見せ方：頁｜副題：シミュレーションで描いた脱線までの車体の傾き〈報告書の付図74〉｜動き：右へ（断面を順に）｜見る向き：後ろから見た断面｜見た目の型：図の頁（6つの断面）｜権利：PDL1.0｜時期：文書｜人：なし｜出典の行：出典：鉄道事故調査報告書 RA2007-3 付図74（運輸安全委員会の頁）｜注：図の中の115km/h はシミュレーションの条件＝副題で「シミュレーション」と断る｜新しい画（映像方針）：🔧 模式（右の曲線と外側）→ 付図74｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 p.1（`1両目が9時18分54秒ごろ左へ転倒するように脱線し`）・S2 p.3（`転覆限界速度をも超える時速約115kmで本件曲線に進入したことにある`）'),
+               plan='一覧の種類：模式｜見る向き：正面｜見た目の型：モールスの光とただの瞬きを並べる｜合図：🔁 横から→正面（前の図 c618）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.58（`He first thought her masthead light was flickering and next thought it was a Morse light`…`finally came to the conclusion that it was, as he had first supposed, the masthead light flickering`）'),
+    'c620': dict(kind='図解',
+               plan='一覧の種類：断面｜見る向き：横から｜見た目の型：カリフォルニアン号の前の断面（船橋とその下の海図室・伝声管）｜合図：🔁 正面→横から（前の図 c619）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.58（`Sometime after 12.30 a. m.`…`states that he saw two rockets fired from the ship which he had been observing, and about 1.10 a. m., Mr. Stone reported to the captain by voice pipe, that he had seen five white rockets from the direction of the steamer`）'),
+    'c621': dict(kind='再現イラスト',
+               plan='一覧の種類：案C-2｜見る向き：横から｜見た目の型：海図室・1時10分ごろ・横になる船長の影・伝声管の口｜書き起こしの断り：証言の言葉は英国の審問の書き起こし（有志のサイト）による｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.59（`remembered Gibson opening and closing the chart-room door`・`he went down to the chart room`）・T1 Day 7 Q6784（書き起こし `just below the upper bridge`）'),
     'c622': dict(kind='写真',
-               plan='🔧 F26-4｜一覧の種類：実写｜見せ方：全面｜副題：運転室からの視界（B6 を使い始めた地点のあたり）〈後日撮影・事故列車ではない〉｜動き：寄る｜権利：PDL1.0｜時期：後・損傷なし｜人：なし｜出典の行：出典：鉄道事故調査報告書 RA2007-3 付図26（運輸安全委員会の頁）を加工して作成｜新しい画（映像方針）：🔧 Commons #13（3回目）→ 付図26 の4コマ目｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='R1 p.230（`SW曲線速照機能は平成14年3月になって初めて最高運転速度130km/h の線区において使用開始され`）'),
+               plan='S3-675:顔｜一覧の種類：実写｜見せ方：全面｜副題：カリフォルニアン号の船長スタンリー・ロード〈1912年5月・英国の審問のころ〉｜動き：寄る（顔へ）｜権利：PD｜時期：後・審問｜人：乗員（顔可）｜出典の行：Wikimedia Commons（パブリックドメイン）｜新しい画（映像方針）：台本どおり（2回目・顔に寄る）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="G1 p.58（`Are they company's signals`…`I do not know, but they appear to me to be white rockets`）"),
     'c623': dict(kind='図解',
-               plan='一覧の種類：模式｜見た目の型：何も無い区間の線（線路の装置）｜台本の画＝台本 §4・一覧 eizou_list25.md（写さない）',
-               src='—'),
+               plan='一覧の種類：模式｜見る向き：正面｜見た目の型：会社ごとの夜の合図の光と、遭難の信号を並べる｜合図：🔁 横から→正面（前の図 c621）｜書き起こしの断り：証言の言葉は英国の審問の書き起こし（有志のサイト）による｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="T1 Day 28 Q25394（書き起こし `White Star Company's night signal`）・G2 p.14（`it has been suggested that these were Company signals from the other ship`）"),
+    'c624': dict(kind='写真',
+               plan='🔧 S3-749:顔｜一覧の種類：実写｜見せ方：額装（高さいっぱい）｜副題：スタンリー・ロード〈1908年・別の船の船長だったころ〉｜動き：静止｜権利：PD｜時期：別の年｜人：乗員（顔可）｜出典の行：Wikimedia Commons（パブリックドメイン）｜新しい画（映像方針）：🔧 S8-625 の4回目 → 船長の写真（語り＝船長の言葉）・額の中の寄りを替える（静止）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.58（`The master told him to go on Morsing, and, when he received any information, to send the apprentice down to him with it`）・G2 p.15（`no action was taken save to make further attempts to raise her with the morse lamp`）'),
+    'c625': dict(kind='再現イラスト',
+               plan='一覧の種類：案C-7｜見る向き：横から｜見た目の型：同じ船橋・見習いがモールス灯で呼ぶ・その船の上に低く白い信号弾が3発（数えられる形）｜合図：🔁 正面→横から（前の図 c623）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.58（`This witness thinks the time was 12.55`…`He got no reply, but the vessel fired three more white rockets; these rockets were also seen by Mr. Stone`）'),
+    'c626': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：横から｜見た目の型：信号弾の高さ（マストの灯の半分くらい・遠いと低く見える）｜書き起こしの断り：証言の言葉は英国の審問の書き起こし（有志のサイト）による｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="T1 Day 7 Q7921（書き起こし `they were only about half the height of the steamer's masthead light`）・G2 p.13（`described as low-lying (quoted as rising to less than mast-head height)`）"),
+    'c627': dict(kind='再現イラスト',
+               plan='🔧 一覧の種類：案C-8｜見る向き：横から｜見た目の型：カリフォルニアン号の船橋・1時から1時40分・双眼鏡の2人の影・遠くの灯りが変に見える｜新しい画（映像方針）：🔧 S8-E03 の3回目 → 案C-8（記録＝G1 p.58「Look at her now…her lights look queer」）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src="G1 p.58（`Between 1 o'clock and 1.40 some conversation passed between them`…`Look at her now, she looks very queer out of water, her lights look queer`）"),
+    'c628': dict(kind='文字の頁',
+               plan='P-G1-058｜一覧の種類：頁｜見せ方：頁｜副題：英国の審問の報告 p.58｜動き：寄る（「A ship is not going to fire rockets at sea for nothing」の行へ）｜見た目の型：文字の頁｜権利：PD｜時期：文書｜人：なし｜出典の行：出典：英国の審問の報告（米国上院の刷り直し S. Doc. 933）p.58｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.58（`A ship is not going to fire rockets at sea for nothing`…`admits himself that he may possibly have used that expression`）'),
+    'c629': dict(kind='写真',
+               plan='🔧 S9-674:全体｜一覧の種類：実写｜見せ方：全面｜副題：英国の審問の会場〈ロンドン・1912年〉｜動き：寄る｜権利：PD｜時期：後・審問｜人：なし｜出典の行：Wikimedia Commons（パブリックドメイン）｜書き起こしの断り：証言の言葉は英国の審問の書き起こし（有志のサイト）による｜注：打ち方（1発ずつ・短い間）は c516・ca10 の模式と語りで足りる。S9-674 は3回まで（c629・c802・c823）｜新しい画（映像方針）：🔧 模式（打ち方の目盛り）→ 英国の審問の会場（語り＝のちの審問で認めた・写真の無い画面が6つ続くのを切る）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='T1 Day 7 Q8033（書き起こし `I knew that rockets shown at short intervals, one at a time, meant distress signals, yes`）・Q8034（書き起こし `that those rockets were signals of distress?`…`No.`）・Q7993（書き起こし `I did not think the ship was in distress at the time.`）'),
+    'c630': dict(kind='再現イラスト',
+               plan='一覧の種類：案C-2｜見る向き：横から｜見た目の型：海図室・2時5分ごろ・戸が開いて見習いの影・横になった船長の影｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.58（`he saw the last of the rockets fired at about 1.40, and after watching the steamer for some 20 minutes more he sent Gibson down to the master`…`altogether we had seen eight of these white lights like white rockets`）・G1 p.59（`that this steamer was disappearing in the southwest`）'),
+    'c631': dict(kind='再現イラスト',
+               plan='🔧 一覧の種類：続き｜見た目の型：（c630 の続き）｜書き起こしの断り：証言の言葉は英国の審問の書き起こし（有志のサイト）による｜新しい画（映像方針）：🔧 S3-675 の3回目 → c630 の絵の続き（船長が「全部白か」と時刻を聞く＝記録 G1 p.59）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.59（`the master asked him if all the rockets were white, and also asked him the time`…`Gibson stated that at this time the master was awake. It was five minutes past two`）・T1 Day 7 Q7565（書き起こし `Five minutes past two by the wheelhouse clock`）'),
+    'c632': dict(kind='再現イラスト',
+               plan='一覧の種類：案C-8｜見る向き：横から｜見た目の型：同じ船橋・2時すぎ・南西の遠い灯りがだんだん消えていく・双眼鏡の2人の影｜新しい画（映像方針）：台本どおり（c627 と時刻の札を替える）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.59（`A gradual disappearing of all her lights, which would be perfectly natural with a ship steaming away from us`）'),
+    'c633': dict(kind='再現イラスト',
+               plan='🔧 一覧の種類：案C-9｜見る向き：横から｜見た目の型：カリフォルニアン号の船橋・2時40分ごろ・伝声管の口の前に立つ二等航海士の影・「南西に消えた」の札｜注：🆕 了承②（案C の場面を1つ足す）｜新しい画（映像方針）：🔧 模式（方位の目盛り）→ 案C-9（記録＝G1 p.59「Stone again called up the master by voice pipe」）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.59（`At about 2.40 a. m. Mr`…`Stone again called up the master by voice`…`I again assured him they were all white, just white`）'),
+    'c634': dict(kind='図解',
+               plan='一覧の種類：並べ｜見る向き：正面｜見た目の型：2人の記憶の2列（二等航海士・船長）｜合図：🔁 横から→正面（前の図 c633）｜新しい画（映像方針）：台本どおり（札は「カリフォルニアン号の時計」）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.59（`considerable discrepancy between the evidence of Mr. Stone and that of the master`…`he went to the voice pipe at about 1.15, but was told then of a white rocket (not five white rockets)`）'),
+    'c635': dict(kind='文字の頁',
+               plan='P-G1-059｜一覧の種類：頁｜見せ方：頁｜副題：英国の審問の報告 p.59｜動き：寄る（「considerable discrepancy」の段落へ）｜見た目の型：文字の頁｜権利：PD｜時期：文書｜人：なし｜出典の行：出典：英国の審問の報告（米国上院の刷り直し S. Doc. 933）p.59｜注：語りは G1 p.59 の事実だけ（書き起こしの「half awake」は語らない）＝断りは要らない｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.59（`between 1.30 and 4.30, when`…`he had no recollection of anything being reported to him at`…`although he remembered Gibson opening and closing the chart-room door`）・T1 Day 7 Q7288（書き起こし `I very likely was half awake`）'),
+    'c636': dict(kind='写真',
+               plan='🔧 S3-671:全体｜一覧の種類：実写｜見せ方：全面｜副題：英国の審問の長マージー卿〈1912年〉｜動き：寄る｜権利：PD｜時期：後・審問｜人：公的な任務（顔可）｜出典の行：Wikimedia Commons（パブリックドメイン）｜注：S3-671 は c801 と2回（同じ副題）｜新しい画（映像方針）：🔧 S8-E03 の4回目 → 英国の審問の長（語り＝英国の報告書が食い違いを書いた）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.60（`There are contradictions and inconsistencies in the story as told by the different witnesses`）'),
+    'c637': dict(kind='図解',
+               plan='一覧の種類：帯｜見る向き：時間の線｜見た目の型：カリフォルニアン号の時計の夜の帯（10:20ごろ〜2:40ごろ・〈二等航海士の話〉の札）｜合図：🔁 正面→時間の線（前の図 c634）｜注：c416 の帯と色と並びを替える｜新しい画（映像方針）：台本どおり（1:10ごろ と 2:40ごろ に〈二等航海士の話〉の札＝台本 §0-5・タイタニック号の時刻は並べない）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.56〜59（`until 10.20`・`went out at 11.40`・`about 1.10 a. m.`・`at about 1.40`・`five minutes past two`・`At about 2.40 a. m.`）・G1 p.59（`He, however, had the wireless operator called`）・G7 p.740（`When were you awakened`…`About 3.30 a. m.`…`New York time`…`And who awakened you`…`The chief officer`）'),
+    'c638': dict(kind='フリー素材',
+               plan='🔧 X-dawn｜映像の素材は未取得（⑤b で1本ずつ原寸で見てから取る・月の写らないもの・要る秒＝扉を除いた中身 10.16秒＝narration.json の実測）｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：夜明け前の海｜動き：映像｜権利：Pexels License｜時期：イメージ｜人：なし｜出典の行：イメージ（Pexels）｜注：⑤b で1本ずつ（月なし）｜新しい画（映像方針）：🔧 S8-625 の5回目 → イメージ（語り＝4時と4時半）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.59（`Mr. Stewart relieved Mr. Stone at 4 a. m.`…`At 4.30 he called the master and informed him that Mr. Stone had told him he had seen rockets in the middle watch. The master said, Yes, I know; he has been telling me`）'),
+    'c639': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：横から｜見た目の型：朝4時ごろの新しい船（マストの白い灯2つ）と前の船を並べる｜合図：🔁 時間の線→横から（前の図 c637）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.59（`a steamer came in sight with two white masthead lights`…`apparently took the fresh steamer for the one which had fired rockets, and said, She looks all right; she is not making any signals now. This mistake was not corrected`）'),
+    'c640': dict(kind='写真',
+               plan='🔧 S8-630:船首｜一覧の種類：実写｜見せ方：全面｜副題：カリフォルニアン号〈1907年〉｜動き：寄る（船首へ）｜権利：PD｜時期：別の年｜人：なし｜出典の行：Wikimedia Commons（パブリックドメイン）｜新しい画（映像方針）：🔧 S8-E03 の5回目 → S8-630 の別の寄り（語り＝全速で氷原へ）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.59（`He, however, had the wireless operator called. At about`…`a. m. Capt. Lord heard from the Virginian that the`…`Titanic had struck a berg, passengers in boats, ship sinking`…`he at once started through the field ice at full speed for the position`）'),
+    'c641': dict(kind='写真',
+               plan='S6-480:帆のボート｜一覧の種類：実写｜見せ方：全面｜副題：4月15日の朝、海の上のボート〈1912年・BnF〉｜動き：寄る（帆を張ったボートへ）｜権利：PD｜時期：後・救助｜人：遠景（⑤b で原寸）｜出典の行：出典：フランス国立図書館（BnF）｜注：S6-480 は3回まで（c104・c641・cb04）｜新しい画（映像方針）：台本どおり（2回目・別の寄り）｜台本の画＝台本 §4・一覧 eizou_list26.md（写さない）',
+               src='G1 p.60（`At 2.20 a. m. the Titanic had foundered`）'),
 }
 
 SPEC = {}
-
-# ══════════════════════════════════════════════════════════
-#  🆕 ⑤b-4（2026-10-25）：案C-E 付け替えの前後＝置き場 F5（`tools/illu25.py`・門番 check_illu ㊻）
-# ══════════════════════════════════════════════════════════
-SPEC.update({
-    # c603（2行・9.5秒）＝1行目「半径は、およそ半分。曲がり方は、ずっときつくなった。」で前（半径600m）といま（半径304m）の重ね →
-    #   2行目「曲線の長さは308メートル。入口の60メートルで、ゆるやかに曲がり始める。」で曲線の長さと入口の緩和曲線
-    #   （前の制限速度＝検察の主張は次の c604 の語り＝この絵の札にしない）
-    "c603": dict(fig=("illu", dict(
-        place="F5", start=dict(view="plan"),
-        steps=[dict(state=dict(f5old="on", f5new="on"), rec="R1 p72（それまで半径600mの右曲線であった区間が・半径304m）"),
-               dict(state=dict(f5len="on"), rec="R1 p72（半径304m、曲線長308mの右曲線・60mが緩和曲線）")]))),
-})
-
-# ══════════════════════════════════════════════════════════
-#  🆕 ⑤b-6（2026-10-26）：図解 第5章 11カット＝`tools/mech25.py`（fig=("m25", …)・門番 check_mech の judge_m25）。
-#   色は出どころの色（報告書＝青・神戸地裁＝線の色・JR西日本＝茶）。画面の字の数は全部 rel に。段の数＝語りの行の数
-# ══════════════════════════════════════════════════════════
-SPEC.update({
-    # c606（2行）＝基図に付け替え（1996年12月20日）と事故（2005年4月25日）／1行目：1991年3月の印／2行目：100→120km/h の段（会社の説明）
-    "c606": dict(
-        t="付け替えより前", s="1991年の変更",
-        fig=("m25", dict(view="speed_step", steps=[dict(state=dict(y91="on")), dict(state=dict(step="on"))],
-                         rel=[dict(t="1991年3月", src="R1 p96"), dict(t="100km/h・120km/h", src="R1 p96"),
-                              dict(t="1996年12月20日", src="R1 p72"), dict(t="2005年4月25日", src="R1 p1")],
-                         note="横は年・縦は0km/hから速さに比例（模式の線）", src=ss.src(["R1 p96", "R1 p72"])))),
-    # c608（3行）＝1行目：外へ押し出す力の矢印／2行目：速さ2倍 → 力4倍（升1つ → 4つ）／3行目（聞き役）：矢印が4倍の長さへ
-    "c608": dict(
-        t="曲線で働く力", s="速さの2乗",
-        fig=("m25", dict(view="push_out", steps=[dict(state=dict(force="on")), dict(state=dict(sq="on")), dict(state=dict(grow="on"))],
-                         rel=[dict(t="2倍・4倍", src="一般の物理の説明")],
-                         # 🔧 門番 cuts：出典の行が空＝外へ押す力は判決の説明（S3 p.25）・2乗は一般の物理（注で断る）
-                         note="2乗は一般の物理（模式）", src=ss.src(["S3 p8025"])))),
-    # c609（2行）＝1行目：6本の灰の棒（転覆限界速度）／2行目：出どころの色と条件・値
-    "c609": dict(
-        t="転覆の限界", s="条件と資料で割れる",
-        fig=("m25", dict(view="hbars6", steps=[dict(state=dict(bars="on")), dict(state=dict(cols="on"))],
-                         rel=[dict(t="104・定員150名", src="R1 p188"), dict(t="106・93名", src="R1 p188"), dict(t="122・123", src="R1 p188"),
-                              dict(t="108前後", src="S3 p8011"), dict(t="133", src="R1 p194")],
-                         note="棒は0から値どおり（km/h）", src=ss.src(["R1 p188", "R1 p194", "S3 p8011"])))),
-    # c610（2行）＝1行目：会社の公表 133（事故の日）／2行目：報告書の試算 106・122（123 は小さく）
-    "c610": dict(
-        t="2つの物差し", s="同じ1両目",
-        fig=("m25", dict(view="strip43", steps=[dict(state=dict(co="on")), dict(state=dict(rep="on"))],
-                         rel=[dict(t="表43", src="R1 p188"), dict(t="133", src="R1 p194"), dict(t="93名・106・122・123", src="R1 p188")],
-                         note="表の値は報告書のまま", src=ss.src(["R1 p188", "R1 p194"])))),
-    # c611（2行）＝1行目：ばねで車体が傾く分（点線の傾いた車体）／2行目：入れた高さ（報告書）と入れない高さ（会社の133km/h）
-    "c611": dict(
-        t="会社の計算", s="ばねの分を入れない",
-        fig=("m25", dict(view="cog2", steps=[dict(state=dict(spring="on")), dict(state=dict(two="on"))],
-                         rel=[dict(t="133km/h", src="R1 p194"), dict(t="表43", src="R1 p188")],
-                         note="重心の位置は模式", src=ss.src(["R1 p188"])))),
-    # c612（2行）＝1行目：神戸地裁の幅 105〜110km/h・108前後（可能性が高い）／2行目：会社の133km/h・相当異なる
-    "c612": dict(
-        t="判決の見積もり", s="幅のある値",
-        fig=("m25", dict(view="ramp", steps=[dict(state=dict(band="on")), dict(state=dict(co="on"))],
-                         rel=[dict(t="105〜110km/h", src="S3 p8011"), dict(t="108前後", src="S3 p8011"), dict(t="2012年1月", src="S3 p8066"),
-                              dict(t="133km/h", src="S3 p8056"), dict(t="100・130（目盛り）", src="S3 p8011")],
-                         note="目盛りの位置は速さに比例（100km/hより下は省く・坂の形は模式）", src=ss.src(["S3 p8011", "S3 p8056"])))),
-    # c614（1行）＝基図に天井の線（104km/h）／1行目：120km/h の矢印が突き抜ける
-    "c614": dict(
-        t="曲線の手前", s="限界より上",
-        fig=("m25", dict(view="ceiling", steps=[dict(state=dict(up="on"))],
-                         rel=[dict(t="104km/h・定員150名", src="R1 p230"), dict(t="120km/h", src="R1 p230")],
-                         note="縦は0km/hから速さに比例（模式）", src=ss.src(["R1 p230"])))),
-    # c616（2行）＝1行目：原因の3つの文の箱（出てこない ✕）／2行目：「優先」の根拠の箱へ
-    "c616": dict(
-        t="付け替えの置き場所", s="原因か、根拠か",
-        fig=("m25", dict(view="sort2", steps=[dict(state=dict(no="on")), dict(state=dict(yes="on"))],
-                         rel=[dict(t="1996年12月", src="R1 p230"), dict(t="3つ・文1・文2・文3", src="R1 p243"), dict(t="230頁", src="R1 p230")],
-                         note="仕分けの形は模式", src=ss.src(["R1 p230", "R1 p243"])))),
-    # c617（2行）＝1行目：枕木とレールが傾く（外側が 97mm 高い）・車体が内へ／2行目：カント
-    "c617": dict(
-        t="外側を高く", s="レールの傾き",
-        fig=("m25", dict(view="cant", steps=[dict(state=dict(tilt="on")), dict(state=dict(name="on"))],
-                         rel=[dict(t="97mm", src="R1 p73")],
-                         note="高さの差は強めて描いた（模式）", src=ss.src(["R1 p73"])))),
-    # c619（2行）＝1行目：2両目は 110km/h でもそれだけでは脱線しない（計算）／2行目：外への力＋連結器を通した左向きの力・推定される
-    "c619": dict(
-        t="2両目の脱線", s="引かれた力",
-        fig=("m25", dict(view="coupler", steps=[dict(state=dict(c2="on")), dict(state=dict(pull="on"))],
-                         rel=[dict(t="110km/h", src="R1 p226"), dict(t="1両目・2両目", src="R1 p226")],
-                         note="力の向きは模式", src=ss.src(["R1 p226"])))),
-    # c623（2行）＝1行目（問い）：曲線の手前の空の箱に「？」・ほかの鉄道は？／2行目：間に合わなかった工事の柵・次の章
-    "c623": dict(
-        t="曲線のATS", s="次の章の話",
-        fig=("m25", dict(view="empty_slot", steps=[dict(state=dict(q="on")), dict(state=dict(next="on"))],
-                         rel=[], note="装置の位置は模式", src=ss.src(["R1 p230"])))),   # 🔧 門番 cuts：出典の行が空
-})
-
-# ══════════════════════════════════════════════════════════
-#  🆕 ⑤b-7（2026-10-26）：写真と頁（書き方は c2.py の ⑤b-7 の注と同じ）
-# ══════════════════════════════════════════════════════════
-SPEC.update({
-    # c601（3行）＝付図5 の略図（3601×1517・横長 2.37）＝額装（キロ程の札「曲線入口 上り1k949m」「円曲線終点 上り1k889m」が絵の下の端 y0.91〜0.99＝
-    #   全面にすると字幕の帯に隠れる）
-    "c601": dict(photo=P("p_f05"), panel=True, pw=1640, color=1.0, fmove=ss.fm("in"), card_mix=0.14,   # 🔧 ⑤c'：白い頁の扉＝頁の字が「第5章」の札に透けた
-                 t="急な曲線", s="事故現場略図〈報告書の付図5〉"),
-    "c602": dict(photo=P("g1974"), **ss.mv(P("g1974"), "in"), side="none", color=1.0,
-                 t="付け替えの前", s="1974〜78年の空中写真〈国土地理院〉"),
-    "c604": dict(photo=P("g1984"), **ss.mv(P("g1984"), "r"), side="none", color=1.0,
-                 t="前の制限速度", s="1984〜86年の空中写真〈国土地理院〉"),
-    "c605": dict(photo=P("gnew"), **ss.mv(P("gnew"), "in"), side="none", color=1.0,
-                 t="地裁の見方", s="現在の空中写真〈国土地理院〉"),
-    # c607（2行）＝付図27 の2/8 の上（駅・踏切・信号機の札と「事故現場」の印＝下のキロ程の表の上 y0.696）＝額装（c217 と同じ切り方）
-    #   ⚠️ 試し焼き 40270496896：全面・縦だけは頁の題の行と見出しが重なった
-    "c607": dict(photo=P("p_f27_2"), trim=(0.000, 0.000, 1.000, 0.696), panel=True, pw=1640, color=1.0, fmove=ss.fm("in"),
-                 t="手前の区間", s="線路と信号の略図（塚口駅〜曲線）〈報告書の付図27〉"),
-    "c613": dict(photo=P("f13_1r"), **ss.mv(P("f13_1r"), "r"), side="none", color=1.0,
-                 t="物差しの値", s="1両目の屋根の折れ曲がり〈自動車などの残骸を撤去した後に撮影・報告書の付図13〉"),
-    "c615": dict(photo=P("f05_ar"), panel=True, ground=dict(photo=P("f05_ar")), color=1.0, fmove=ss.fm("in"),
-                 t="優先すべき所", s="車両の撤去後、列車の最後部付近から尼崎駅方〈報告書の付図5〉"),
-    # c618（2行）＝付図73 の左下の「軌道モデルの概要」（「均衡速度59.25km/h」「円曲線 半径304m 長さ188m カント97mm」＝切り口 x0〜0.600・y0.570〜0.912）＝額装
-    "c618": dict(photo=P("p_f73"), trim=(0.000, 0.570, 0.600, 0.912), panel=True, pw=1640, color=1.0, fmove=ss.fm("in"),
-                 t="実質の制限", s="脱線シミュレーションの概要〈報告書の付図73〉"),
-    "c620": dict(photo=P("f13_1m"), **ss.mv(P("f13_1m"), "l"), side="none", color=1.0,
-                 t="倒れた向き", s="1両目の車体の中ほど〈マンションから引き出した後に撮影・報告書の付図13〉"),
-    # c621（2行）＝付図74 の断面（上り1k949m〜1k816m）と曲線（切り口 y0.270〜0.990＝上のシミュレーションの条件の表は外す）＝額装
-    #   ⚠️ 試し焼き 40270496896：全面・縦だけは条件の表の行に見出しと章の札が重なった
-    "c621": dict(photo=P("p_f74"), trim=(0.000, 0.270, 1.000, 0.990), panel=True, pw=1640, color=1.0, fmove=ss.fm("in"),
-                 t="限界を超えて", s="シミュレーションで描いた脱線までの車体の傾き〈報告書の付図74〉"),
-    "c622": dict(photo=P("f26_4"), **ss.mv(P("f26_4"), "in"), side="none", color=1.0,
-                 t="無かった照らし", s="運転室からの視界（B6 を使い始めた地点のあたり）〈後日撮影・事故列車ではない〉"),
-})

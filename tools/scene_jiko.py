@@ -153,17 +153,22 @@ CSS = ""
 #    （c1〜c9・ca・cb＝242カット）＝`cuts/__init__.CHAPTER_FILES` から cc を外し、`NCH` を 10 に。つかみ（c1＝c101〜c107）は章の札なし。
 #    扉は c201〜cb01 の10枚（音の側と同じ＝check_script.door_key・25本目は INNER_CARDS なし）。
 #    ⚠️ 長い章名（第6章「間に合わなかったATS」・第8章「有罪になった人はいない」・第9章「「優先的に」の一語」）は右上の章の札の幅を焼いた絵で見る
+# 🔴 2026-10-27（26本目 ⑤b-1）：タイタニック号沈没事故へ差し替え。25本目の章名は git の `5f692aab`。
+#    正本＝repo `ref/ep26/daihon_v2.md` §4 の `### 第N章　…`（`（` の手前まで）＝映像方針の一覧 `list26.tsv` の chap。**26本目も つかみ＋10章**
+#    （c1〜c9・ca・cb＝235カット）＝`cuts/__init__.CHAPTER_FILES` と `NCH` は25本目のまま。つかみ（c1＝c101〜c107）は章の札なし。
+#    扉は c201〜cb01 の10枚（音の側と同じ＝check_script.door_key・26本目は INNER_CARDS なし）。
+#    ⚠️ 長い章名（第5章「カリフォルニアン号の甲板で」・第8章「80年後の調べ直し」・第9章「事故のあとの決まり」）は右上の章の札の幅を焼いた絵で見る
 CHAPTERS = {
-    "c2": (1, "伊丹駅の72メートル"),
-    "c3": (2, "脱線までの2分44秒"),
-    "c4": (3, "5両の脱線と107人"),
-    "c5": (4, "報告書の答え"),
-    "c6": (5, "半径304メートル"),
-    "c7": (6, "間に合わなかったATS"),
-    "c8": (7, "変わった決まり"),
-    "c9": (8, "有罪になった人はいない"),
-    "ca": (9, "「優先的に」の一語"),
-    "cb": (10, "祈りの杜"),
+    "c2": (1, "処女航海"),
+    "c3": (2, "氷の知らせ"),
+    "c4": (3, "衝突"),
+    "c5": (4, "遭難の信号"),
+    "c6": (5, "カリフォルニアン号の甲板で"),
+    "c7": (6, "沈没と救助"),
+    "c8": (7, "1912年の結論"),
+    "c9": (8, "80年後の調べ直し"),
+    "ca": (9, "事故のあとの決まり"),
+    "cb": (10, "船長のその後"),
 }
 NCH = 10
 
@@ -272,17 +277,24 @@ def chapter_of(cid):
 #    「優先的に」の一語＝調べる側から漏れて信頼を失った）・白黒＝書類の章（報告書の答え・有罪になった人はいない＝判決）・
 #    紺＝線路と仕組みの図解（伊丹駅の72メートル・半径304メートル・変わった決まり・祈りの杜＝今の現場）。
 #    ⚠️ 写真の色味は原本のまま（`build_jiko.PHOTO_KEEP_EP` の ep25＝1.0）＝章の色は図の層だけに効く。
+# 🔴 2026-10-27（26本目 ⑤b-1）：25本目の10件（git の `5f692aab`）から差し替えた＝10章（つかみ c101〜c107 は章が無い＝navy）。
+#    Claude の推奨（カズヤくんに見せて変えてよい）。選び方は25本目と同じ＝章の中身で4色（紺・セピア・赤銅・白黒）から選び、隣の章の差が DE_MIN 13 以上
+#    （🔴 セピアと白黒 6.5＝隣に置けない＝第9章 白黒 → 第10章はセピアにできない＝紺）。26本目も役の色は映像方針で決めていない＝青緑と夜の藍は使わない。
+#    紺＝船と海と位置の図解（処女航海・遭難の信号＝無線と信号弾の届き方・80年後の調べ直し＝距離と位置・船長のその後）・
+#    セピア＝夜の記録と経過（氷の知らせ＝電報の記録・カリフォルニアン号の甲板で＝その夜の証言）・赤銅＝壊れる・失う（衝突・沈没と救助）・
+#    白黒＝書類（1912年の結論＝英米の審問・事故のあとの決まり＝条約と法）。
+#    ⚠️ 写真の色味は原本のまま（`build_jiko.PHOTO_KEEP_EP` の ep26＝1.0）＝章の色は図の層だけに効く。
 CHAPTER_PALETTE = {
-    "伊丹駅の72メートル": "navy",              # 伊丹駅の行き過ぎ＝距離と位置の図解
-    "脱線までの2分44秒": "sepia",              # その朝の経過＝秒の記録
-    "5両の脱線と107人": "copper",              # 脱線と犠牲＝壊れる・失う
-    "報告書の答え": "mono",                    # 報告書の結論＝書類
-    "半径304メートル": "navy",                 # 曲線の付け替え＝線路の図解
-    "間に合わなかったATS": "sepia",            # ATS の設置の遅れ＝経過の記録
-    "変わった決まり": "navy",                  # 国の決まりと仕組み＝図解
-    "有罪になった人はいない": "mono",          # 裁判＝判決の書類
-    "「優先的に」の一語": "copper",            # 漏れた報告書の案＝信頼を失う
-    "祈りの杜": "navy",                        # 今の現場＝その後の図解
+    "処女航海": "navy",                        # 船と航路＝図解
+    "氷の知らせ": "sepia",                     # 氷の電報＝記録
+    "衝突": "copper",                          # 氷山との衝突＝壊れる
+    "遭難の信号": "navy",                      # 無線と信号弾の届き方＝図解
+    "カリフォルニアン号の甲板で": "sepia",     # その夜の証言＝記録
+    "沈没と救助": "copper",                    # 沈没と1,490人＝失う
+    "1912年の結論": "mono",                    # 英米の審問＝書類
+    "80年後の調べ直し": "navy",                # MAIB の距離と位置＝図解
+    "事故のあとの決まり": "mono",              # 条約と法＝書類
+    "船長のその後": "navy",                    # 船長のその後＝その後の図解（白黒の隣＝セピアにしない）
 }
 
 
@@ -862,6 +874,51 @@ def ep19_credit(name):
         u = _FO.USE.get(m.group(1))
         return _FO.CLIPS[u["clip"]]["credit"] if u else None
     return EP19_CREDIT.get(name)
+
+
+# ══════════════════════════════════════════════════════════
+#  26本目（タイタニック号沈没事故）── `ref/ep26/`（2026-10-27 ⑤b-1）
+# ══════════════════════════════════════════════════════════
+#   ep26/<欄の名>.jpg … 写真（Commons の PD〈NARA・LOC・BnF・オランダ国立公文書館・北アイルランド国立博物館ほか〉・NOAA 2003 の写真〈courtesy〉・
+#                        審問・MAIB・法の頁・Google の衛星写真）＝映像方針の一覧 `ref/ep26/eizou_list26.md`（了承②）
+#   ep26/stock/…      … イメージ（この事故の物でないフリー素材＝Pexels・20% に数えない・概要欄にクレジットを書かない）
+#   NOAA 2004 の残骸の映像（13区間）の出典は `footage.CLIPS`（`ref/ep26/clips.json`＝束のチャットで作る）の credit＝原文の courtesy の表記
+# 🔴 表はファイルから読む（ルール 0b-34①）。`ref/ep26/credits.json` は写真の束のチャット（⑤b-2 以降）で書く（無いあいだは空＝当たらない）。
+#    ⚠️ 名前が当たらないときは None → 最後の `PHOTO_CREDIT[...]` で KeyError（fail closed）。人は名前＋役職か役職だけ（①・承認①）・乗客は名前なし。
+#    🔴 作者の名前（NOAA 2003 の撮影者ほか＝「Image courtesy of ［撮影者］」）は git の外の表 `ref/ep26/src/credits_private.tsv`（⑤b で作る）＝
+#       credits.json に印 `{作者}` だけを書き、焼くときに足す（17・23〜25本目の型・公開リポに名前を積まない）。⚠️ 26本目の表の形（記号＝S11-716 ほか
+#       sources26.psv の code）はまだ決めていない＝`_ep26_author` は束のチャットで表の形を決めてから書く（それまで印のある点は焼かない＝fail closed）
+_EP26_CREDITS = HERE / "ref" / "ep26" / "credits.json"
+EP26_CREDIT = (json.loads(_EP26_CREDITS.read_text(encoding="utf-8"))
+               if _EP26_CREDITS.exists() else {})
+_EP26_AUTHOR = "{作者}"
+
+
+def _ep26_author(name):
+    import os
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        return EP23_AUTHOR_STANDIN                      # 検品の試し焼きだけ（本編は Modal＝表を保管庫から取る）
+    raise RuntimeError(f"{name}: 出典の行に作者の名前が要るが、26本目の作者の表（ref/ep26/src/credits_private.tsv）を読む道をまだ書いていない"
+                       "（⑤b の束のチャットで表の形を決めてから＝25本目 `_ep25_author` の型）＝印のまま焼かない")
+
+
+def ep26_credit(name):
+    """`ref/ep26/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if not name.startswith("ep26/"):
+        return None
+    if name.startswith("ep26/photo/gmap_"):
+        # 衛星写真（地図のカット c218・c306・c909・c917）＝出典の行は表 `cuts/ss.SAT` の credit（25本目の枝と同じ）。帰属の行そのものは地図の右下に残す（Google の決まり）
+        import cuts.ss as _ss
+        return next((v["credit"] for v in getattr(_ss, "SAT", {}).values() if v["file"] == name), None)
+    m = re.fullmatch(r"ep26/(?:stock/)?fb_(c[0-9a-f]{3}(?:~t)?)\.jpg", name)     # 映像のひかえの静止画＝出典は映像と同じ（19本目 ⑤b-2 の型）
+    if m:
+        import footage as _FO
+        u = _FO.USE.get(m.group(1))
+        return _FO.CLIPS[u["clip"]]["credit"] if u else None
+    v = EP26_CREDIT.get(name)
+    if v and _EP26_AUTHOR in v:
+        v = v.replace(_EP26_AUTHOR, _ep26_author(name))
+    return v
 
 
 # ══════════════════════════════════════════════════════════
@@ -1448,7 +1505,7 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep25_credit(spec["photo"]) or ep24_credit(spec["photo"]) or ep17_credit(spec["photo"]) or ep23_credit(spec["photo"]) or ep22_credit(spec["photo"]) or ep21_credit(spec["photo"]) or ep20_credit(spec["photo"]) or ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
+    cr = (ep26_credit(spec["photo"]) or ep25_credit(spec["photo"]) or ep24_credit(spec["photo"]) or ep17_credit(spec["photo"]) or ep23_credit(spec["photo"]) or ep22_credit(spec["photo"]) or ep21_credit(spec["photo"]) or ep20_credit(spec["photo"]) or ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
           or ep14_credit(spec["photo"])
           or ep13_credit(spec["photo"])
           or ep12_credit(spec["photo"])

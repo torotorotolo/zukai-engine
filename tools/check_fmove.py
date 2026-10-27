@@ -14,9 +14,20 @@
     3. そのカットの `_lab` の文字（見出し・副題・章の札・出典・注記）と GAP px 未満に近づく
     4. 書き方：額装（panel=True）でない・額の中の寄せ／カメラ／頁の印／差し込みと一緒に書いた（cam・hl・zoom≠1・intro・tail・band）
 
+■ 🆕 2026-10-27（26本目 ⑤b-1）：**額装の写真は静止**（10-26 カズヤくん＝25本目の試写「ただ写真が揺れる演出は、ぶれているだけで見づらいので
+   静止してください。次回から」・記憶 feedback-jiko-framed-photo-no-shake）。回の既定 `build_jiko.FRAME_STILL`（26本目から True）の回は、
+    5. 🔴 SPEC に `fmove`（額ごと動かす）を書いたカットを止める（書き方の網）
+    6. 🔴 **絵で測る**（記憶 feedback-settings-may-not-reach-the-picture＝SPEC の字面だけを見ない）＝額装・帯の写真のカット（写真だけ・図の地に敷かない・
+       箱が全画面でない＝`build_jiko.framed`）ごとに、本物の `build_jiko.scene()` を尺の 25% と 95% の2つの時刻で回し、画面の画素が1つでも変われば止める
+       （額ごと動く・額の中で寄る・cam で流す、のどれでも鳴る）。地（`{cid}_bg`）と文字の層（`{cid}_lab`）は空の層にする＝動くのは写真と額だけ
+       （見出しのフェードを数えない）。映像を当てたカット（footage.USE）は映像そのものが動く＝測らない（名を出す）。
+       全画面の写真のゆっくり寄る・流す（k・cam）は続ける（了承② 決め3）＝測らない。
+       ⚠️ 尻の差し込み（tail）の額は selftest で型（`tail_frame` の k）を絵で測る。本番の差し込みは `layer_index` を組まないと箱が出ない＝件数だけ出す（本番の絵は測っていない）
+   25本目までの回（FRAME_STILL＝False）は 5・6 を回さない（公開ずみ＝直さない）。
+
 ■ 使い方
     python tools/check_fmove.py             # 本番の SPEC
-    python tools/check_fmove.py --selftest  # 陽性対照（見出し・出典と字幕の帯・画面の外・書き方）＋陰性対照
+    python tools/check_fmove.py --selftest  # 陽性対照（見出し・出典と字幕の帯・画面の外・書き方・🆕 額装の静止）＋陰性対照
 """
 from __future__ import annotations
 
@@ -68,14 +79,100 @@ def judge(S, L, cid, spec):
     return bad, n
 
 
+# ── 🆕 26本目 ⑤b-1：額装の写真は静止（絵で測る） ─────────────────
+STILL_AT = (0.25, 0.95)          # 尺のこの2つの割合の時刻で scene() を回して比べる（頭の 0.15〜0.65秒の見出しのフェードは文字の層＝空にしてある）
+
+
+def _blank_lay(S, cid, names=("bg", "lab")):
+    from PIL import Image
+    out = {}
+    for n in names:
+        out[f"{cid}_{n}"] = Image.new("RGBA", (S.W, S.H), (0, 0, 0, 255 if n in ("bg", "tbg") else 0))
+    return out
+
+
+def frame_diff(S, B, cid, meta_c, src, dur):
+    """本物の `build_jiko.scene()` を2つの時刻で回した画面の差＝(変わった画素の数, 差の最大)。meta_c は build_jiko.meta_of の1カットぶんの形"""
+    import numpy as np
+    lay = _blank_lay(S, cid)
+    miss = cid in B._FOOT_MISS
+    B._FOOT_MISS.add(cid)        # 🔴 out/jiko/foot/<cid>/ に前の回のコマが残っていても読まない＝写真を測る（映像のカットは呼ぶ側で外す）
+    try:
+        fr = [np.asarray(B.scene(cid, a * dur, dur, lay, {cid: src}, {cid: meta_c}).convert("RGB"), dtype=np.int16) for a in STILL_AT]
+    finally:
+        if not miss:
+            B._FOOT_MISS.discard(cid)
+    d = np.abs(fr[0] - fr[1]).max(axis=2)
+    return int((d > 0).sum()), int(d.max())
+
+
+def tail_diff(S, B, cid, meta_c, dur):
+    """尻の差し込みの1コマ（`build_jiko.tail_frame`）を差し込みの出た後の2つの時刻で回した差＝(変わった画素の数, 差の最大)"""
+    import numpy as np
+    lay = _blank_lay(S, cid, ("tbg", "tlab"))
+    a = float(meta_c["tail"]["sec"])
+    ts = [a + (dur - a) * u for u in STILL_AT]
+    fr = [np.asarray(B.tail_frame(cid, t, dur, lay, {cid: meta_c}).convert("RGB"), dtype=np.int16) for t in ts]
+    d = np.abs(fr[0] - fr[1]).max(axis=2)
+    return int((d > 0).sum()), int(d.max())
+
+
+def run_still(S):
+    """26本目からの回：SPEC の fmove を止める（5）・額装・帯の写真を本物の scene() で2つの時刻に回して画素が変われば止める（6）。(🔴 の数, 測ったカットの数)"""
+    import build_jiko as B
+    import footage as FO
+    import el_script
+    if not B.FRAME_STILL:
+        print(f"■ 額装の静止：この回（{el_script.SLUG}）は FRAME_STILL＝False（25本目までの回）＝測らない")
+        return 0, 0
+    bad = [(cid, "SPEC に fmove（額ごと動かす）＝26本目からは額装は静止（fmove を消す）") for cid, s in sorted(S.SPEC.items()) if s.get("fmove")]
+    items, vids = [], []
+    for cid, (box, photo, bias) in sorted(S.PHOTO_CUTS.items()):
+        s = S.SPEC.get(cid) or {}
+        if s.get("fig") or s.get("illu") or not B.framed(box):
+            continue
+        (vids if cid in FO.USE else items).append(cid)
+    tails = sorted(c for c, s in S.SPEC.items() if s.get("tail") and not (s["tail"] or {}).get("full"))
+    print(f"■ 額装の静止（{el_script.SLUG}・FRAME_STILL）：SPEC の fmove {len(bad)} 欄・額装と帯の写真 {len(items)} カットを本物の scene() で"
+          f"{STILL_AT[0]:.0%} と {STILL_AT[1]:.0%} の時刻に回して比べる（映像を当てた額 {len(vids)}＝測らない{'：' + '・'.join(vids) if vids else ''}）")
+    if tails:
+        print(f"  ⚠️ 尻の差し込みの額 {len(tails)} 欄（{'・'.join(tails[:12])}）＝本番の絵は測っていない（型は selftest で測った）")
+    if items:
+        idx = {cid: dict(photo=True, back=False, veil=None, pveil=None, span=None, stages=0, holds=[]) for cid in items}
+        meta = B.meta_of(idx)
+        secs = dict(S.CUTS)
+        for cid in items:
+            box, photo, _ = S.PHOTO_CUTS[cid]
+            src = B.load_photo(photo, box, S.PHOTO_TRIM.get(cid), S.PHOTO_LEVELS.get(cid))
+            dur = max(1.0, secs.get(cid, 8.0) - S.card_of(cid))
+            n, mx = frame_diff(S, B, cid, meta[cid], src, dur)
+            if n:
+                why = [k for k in ("fmove", "cam") if meta[cid].get(k)] or ["額の中の寄り（k）"]
+                bad.append((cid, f"額装の写真が動く＝{dur * STILL_AT[0]:.1f}秒と {dur * STILL_AT[1]:.1f}秒で {n:,} 画素が変わる（差の最大 {mx}・"
+                                 f"見込みの元＝{'・'.join(why)}）"))
+            else:
+                print(f"  ✓ {cid}  静止（変わった画素 0）")
+    for cid, why in bad:
+        print(f"  🔴 {cid}：{why}")
+    if bad:
+        print(f"🔴 額装の静止を外れる所 {len(bad)} か所（exit 1）")
+    elif not items:
+        print("⚠️ 額装の静止：額装と帯の写真が0カット＝測っていない（章ファイルに写真をまだ書いていない回なら正しい・"
+              "書いたのに0なら PHOTO_CUTS を読めていない＝0件を調べて合格にしない）")
+    else:
+        print(f"✓ 額装の静止：fmove 0・額装と帯の写真 {len(items)} カットとも画素が変わらない")
+    return len(bad), len(items)
+
+
 def run():
     import scene_jiko as S
     import check_layout as L
+    nstill, _ = run_still(S)
     items = [(cid, s) for cid, s in sorted(S.SPEC.items()) if s.get("fmove")]
     print(f"■ 額ごと動かすカット {len(items)} 欄（SPEC の fmove）を、頭・真ん中・終わりの額の箱で測る")
     if not items:
         print("⚠️ 0欄＝この回は額ごと動かすカットが無い（あるはずの回なら章ファイルを読めていない）")
-        return 0
+        return 1 if nstill else 0
     hits, n = [], 0
     for cid, s in items:
         b, k = judge(S, L, cid, s)
@@ -91,7 +188,75 @@ def run():
         print(f"🔴 額ごと動かす額が {len(hits)} か所でかかる（exit 1）")
         return 1
     print(f"✓ {len(items)} 欄・額の箱 {n} 個とも、画面の内・字幕の帯の上・文字から {GAP}px 以上")
-    return 0
+    return 1 if nstill else 0
+
+
+def selftest_still(S, L, base):
+    """🆕 26本目 ⑤b-1：額装の静止の門番（6）が**絵で**鳴るか。本物の scene()・tail_frame() に、本物の写真（base の photo）と1カットぶんの meta を渡す。
+    FRAME_STILL を True／False に差し替えて回し、終わったら必ず戻す（try/finally）。"""
+    import build_jiko as B
+    import importlib
+    ss = importlib.import_module("cuts.ss")
+    ok = True
+
+    def chk(what, cond):
+        nonlocal ok
+        print(f"  {'✓' if cond else '🔴'} {what}")
+        ok &= bool(cond)
+
+    cid = "cz91"                 # どの回にも無いカットID（out/jiko/foot に前の回のコマが残っていても当たらない）
+    box = S.photo_box(base)
+    full = S.PHOTO_FULL
+    keep = (B.FRAME_STILL, S.PHOTO_CUTS.get(cid), S.PHOTO_CROP.get(cid))
+
+    def meta(**kw):
+        m = dict(photo=True, back=False, veil=None, pveil=None, span=None, labk=0.3, held=[], mute=[], color=1.0, times=[], pal="navy",
+                 card=0, tail_black=False, flash=None, cam=None, fmove=None, ground=None, moves=[], intro=None, hl=None, illu=None, tail=None,
+                 frame_only=False, still=False)
+        m.update(kw)
+        return m
+
+    def case(b, **kw):
+        S.PHOTO_CUTS[cid] = (b, base["photo"], 0.5)
+        S.PHOTO_CROP[cid] = (0.5, 1.0)
+        src = B.load_photo(base["photo"], b)
+        return frame_diff(S, B, cid, meta(**kw), src, 8.0)
+
+    try:
+        chk(f"額装の箱は全画面でない（{box}）＝framed", B.framed(box) and not B.framed(full))
+        B.FRAME_STILL = True
+        n, mx = case(box)
+        chk(f"陰性対照：FRAME_STILL・額装・書きなし → 静止（変わった画素 {n}）", n == 0)
+        n, mx = case(box, fmove=ss.fm("in"))
+        chk(f"陽性：額装に fmove=ss.fm('in')（額ごと寄る）→ 動く（{n:,} 画素・差の最大 {mx}）", n > 0)
+        n, mx = case(box, fmove=ss.fm("r"))
+        chk(f"陽性：額装に fmove=ss.fm('r')（額ごと右へ流す）→ 動く（{n:,} 画素）", n > 0)
+        n, mx = case(box, cam="pan_r")
+        chk(f"陽性：額装に cam='pan_r'（額の中を流す）→ 動く（{n:,} 画素）", n > 0)
+        n, mx = case(full)
+        chk(f"陰性の確かめ：全画面の写真は FRAME_STILL でも寄る（{n:,} 画素＝全画面のゆっくり寄るは続ける・門番は測らない）", n > 0)
+        B.FRAME_STILL = False
+        n, mx = case(box)
+        chk(f"陽性：25本目までの回（FRAME_STILL＝False）の額装・書きなし → 額の中で寄る（{n:,} 画素＝物差しは既定の寄りも拾う）", n > 0)
+        # 尻の差し込みの額（tail_frame の k）
+        tl = dict(photo=base["photo"], box=list(box), sec=2.0, full=False)
+        B.FRAME_STILL = True
+        nt, _ = tail_diff(S, B, cid, meta(tail=tl), 8.0)
+        chk(f"陰性対照：FRAME_STILL・尻の差し込みの額 → 静止（変わった画素 {nt}）", nt == 0)
+        B.FRAME_STILL = False
+        nt, _ = tail_diff(S, B, cid, meta(tail=tl), 8.0)
+        chk(f"陽性：FRAME_STILL＝False の尻の差し込みの額 → 寄る（{nt:,} 画素）", nt > 0)
+        B.FRAME_STILL = True
+        nt, _ = tail_diff(S, B, cid, meta(tail=dict(tl, still=True)), 8.0)
+        chk(f"陰性対照：尻の差し込みに still=True → 静止（{nt}）", nt == 0)
+    finally:
+        B.FRAME_STILL = keep[0]
+        for d, v in ((S.PHOTO_CUTS, keep[1]), (S.PHOTO_CROP, keep[2])):
+            if v is None:
+                d.pop(cid, None)
+            else:
+                d[cid] = v
+    return ok
 
 
 def selftest():
@@ -133,6 +298,9 @@ def selftest():
     for k in ("in", "out", "r", "l", "u", "d"):
         b, _ = judge(S, L, "c102", dict(base, fmove=ss.fm(k)))
         chk(f"ss.fm('{k}') は通る（{len(b)}件）", not b)
+    # 🆕 26本目 ⑤b-1：額装の静止（絵で測る）
+    print("■ 額装の静止（本物の scene()・tail_frame() で2つの時刻を比べる）")
+    ok &= selftest_still(S, L, base)
     print("✓ selftest 合格" if ok else "🔴 selftest 不合格")
     return 0 if ok else 1
 

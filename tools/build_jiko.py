@@ -82,7 +82,16 @@ BOOST = set()
 #    🔴 2026-10-22（24本目 ⑤b-1）：24本目も原色＝"ep24" を足した（IAEA・Commons・USGS の写真・報告書の頁・フリー素材＝色味は原本のまま）
 #    🔴 2026-10-25（25本目 ⑤b-1）：25本目も原色＝"ep25" を足した（報告書の付図の写真・国交省の写真・Commons・衛星写真と空中写真・報告書の頁・
 #       フリー素材＝色味は原本のまま＝記憶 feedback-jiko-photos-original-color）
-PHOTO_KEEP_EP = {"ep17": 1.0, "ep20": 1.0, "ep21": 1.0, "ep22": 1.0, "ep23": 1.0, "ep24": 1.0, "ep25": 1.0}
+#    🔴 2026-10-27（26本目 ⑤b-1）：26本目も原色＝"ep26" を足した（Commons・NARA・LOC・NOAA の写真と映像・報告書の頁・フリー素材＝
+#       色味は原本のまま＝記憶 feedback-jiko-photos-original-color）
+PHOTO_KEEP_EP = {"ep17": 1.0, "ep20": 1.0, "ep21": 1.0, "ep22": 1.0, "ep23": 1.0, "ep24": 1.0, "ep25": 1.0, "ep26": 1.0}
+# 🆕🔴 2026-10-27（26本目 ⑤b-1）：**額装の写真は静止**（2026-10-26 カズヤくん＝25本目の試写「ただ写真が揺れる演出は、ぶれている
+#    だけで見づらいので静止してください。次回から」・記憶 feedback-jiko-framed-photo-no-shake）＝**回の既定** `FRAME_STILL`。
+#    額装・帯の写真（箱が全画面でない＝`framed()`）と尻の差し込みの額は、額の中の寄り（k×0.35）を掛けない。全画面の写真のゆっくり
+#    寄る・流す（k・cam）は続ける（映像方針 了承② 決め3）。額ごと動かす `fmove`・額の中の `cam` は道具が止めずにそのまま描く＝
+#    門番 `check_fmove`（26本目からの回は、本物の `scene()` を2つの時刻で回して額の中の画素が変わったら止める）が止める。
+#    25本目までの回は False のまま（公開ずみ＝直さない・焼き直しても動きは変わらない）。回の名は `el_script.SLUG`
+FRAME_STILL_EP = {"ep26"}
 
 
 def _photo_keep_default():
@@ -90,7 +99,18 @@ def _photo_keep_default():
     return PHOTO_KEEP_EP.get(el_script.SLUG, 0.0)
 
 
+def _frame_still_default():
+    import el_script
+    return el_script.SLUG in FRAME_STILL_EP
+
+
 PHOTO_KEEP = _photo_keep_default()
+FRAME_STILL = _frame_still_default()
+
+
+def framed(box):
+    """写真の箱が全画面でない（額装・帯）。"""
+    return int(box[2]) < S.W or int(box[3]) < S.H
 
 
 def keep_of(d):
@@ -591,7 +611,9 @@ def scene(cut, t, dur, lay, photos, meta):
                 # 🔴 13本目 ⑤b-2：継承つき（BY-SA）の額装の写真は**寄らない**（寄り＝写真の端を切る＝翻案の灰色。
                 #    額装でも 0.35 の寄りで尺の終わりに約1.9% 切っていた）。⚠️ 代わりに写真は止まる
                 #    （check_motion は写真だけのカットを見ない）＝枠ごと寄せる作りは ⑤b-3 の宿題
-                kb = 0.0 if meta[cut].get("frame_only") or meta[cut].get("still") else k * (0.35 if box[3] < S.H else 1.0)
+                # 🆕 26本目 ⑤b-1：回の既定 FRAME_STILL＝額装・帯の写真は寄らない（全画面は今までどおり寄る）
+                kb = 0.0 if (meta[cut].get("frame_only") or meta[cut].get("still")
+                             or (FRAME_STILL and framed(box))) else k * (0.35 if box[3] < S.H else 1.0)
                 ph = fit(src, box, kb, bias, xb, zm)
                 if meta[cut].get("hl"):
                     # 🆕 18本目 ⑤c'（c105＝映像方針 §1-3「1頁目に印」の抜け）：**本の頁の上の印**（hl）。尻・頁の冒頭と同じ
@@ -1400,7 +1422,8 @@ def tail_frame(cut, t, dur, lay, meta):
         _INTRO_SRC[key] = load_photo(tl["photo"], box, tl.get("trim"), tl.get("levels"))
     a = float(tl["sec"])
     # 🆕 19本目 ⑤b-7c：`still=True`＝寄らない（額装だけの点＝引用の頁・c618 の諮問委員会の資料 p.47＝cuts.ss.check_frame_only）
-    k = 0.0 if tl.get("still") else max(0.0, min(1.0, (t - a) / max(dur - a, 0.001)))
+    # 🆕 26本目 ⑤b-1：回の既定 FRAME_STILL＝額装の差し込みは寄らない（全画面の差し込みは今までどおり寄る）
+    k = 0.0 if (tl.get("still") or (FRAME_STILL and not tl.get("full"))) else max(0.0, min(1.0, (t - a) / max(dur - a, 0.001)))
     src = _INTRO_SRC[key]
     fa = (k * (1.0 if tl.get("full") else 0.35), float(tl.get("bias", 0.5)), float(tl.get("xbias", 0.5)),
           float(tl.get("zoom", 1.0)))
