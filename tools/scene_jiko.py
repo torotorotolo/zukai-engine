@@ -886,20 +886,34 @@ def ep19_credit(name):
 # 🔴 表はファイルから読む（ルール 0b-34①）。`ref/ep26/credits.json` は写真の束のチャット（⑤b-2 以降）で書く（無いあいだは空＝当たらない）。
 #    ⚠️ 名前が当たらないときは None → 最後の `PHOTO_CREDIT[...]` で KeyError（fail closed）。人は名前＋役職か役職だけ（①・承認①）・乗客は名前なし。
 #    🔴 作者の名前（NOAA 2003 の撮影者ほか＝「Image courtesy of ［撮影者］」）は git の外の表 `ref/ep26/src/credits_private.tsv`（⑤b で作る）＝
-#       credits.json に印 `{作者}` だけを書き、焼くときに足す（17・23〜25本目の型・公開リポに名前を積まない）。⚠️ 26本目の表の形（記号＝S11-716 ほか
-#       sources26.psv の code）はまだ決めていない＝`_ep26_author` は束のチャットで表の形を決めてから書く（それまで印のある点は焼かない＝fail closed）
+#       credits.json に印 `{作者}` だけを書き、焼くときに足す（17・23〜25本目の型・公開リポに名前を積まない）。
+#    🆕 ⑤b-2（2026-10-27）：表の形＝列 source・no・title・license・author・url（`qa_out/ep26_assets.py` の docstring）・行の鍵＝(sources26, 記号)
+#       ＝束の名（`assets.json`）の code（S11-716・S11-910＝NOAA の頁の courtesy の撮影者）。作者欄は NOAA の頁の courtesy の行の名前そのまま（24字まで）
 _EP26_CREDITS = HERE / "ref" / "ep26" / "credits.json"
 EP26_CREDIT = (json.loads(_EP26_CREDITS.read_text(encoding="utf-8"))
                if _EP26_CREDITS.exists() else {})
 _EP26_AUTHOR = "{作者}"
+_EP26_PRIVATE = HERE / "ref" / "ep26" / "src" / "credits_private.tsv"
 
 
 def _ep26_author(name):
+    import csv
     import os
-    if os.environ.get("GITHUB_ACTIONS") == "true":
-        return EP23_AUTHOR_STANDIN                      # 検品の試し焼きだけ（本編は Modal＝表を保管庫から取る）
-    raise RuntimeError(f"{name}: 出典の行に作者の名前が要るが、26本目の作者の表（ref/ep26/src/credits_private.tsv）を読む道をまだ書いていない"
-                       "（⑤b の束のチャットで表の形を決めてから＝25本目 `_ep25_author` の型）＝印のまま焼かない")
+    if not _EP26_PRIVATE.exists():
+        if os.environ.get("GITHUB_ACTIONS") == "true":
+            return EP23_AUTHOR_STANDIN                  # 検品の試し焼きだけ（本編は Modal＝表を保管庫から取る）
+        raise RuntimeError(f"{name}: 出典の行に作者の名前が要るのに git の外の表 ref/ep26/src/credits_private.tsv が無い"
+                           "（Modal は保管庫 jiko-assets の ref/ep26/src/ に置く）＝印のまま焼かない")
+    code = json.loads((HERE / "ref" / "ep26" / "assets.json").read_text(encoding="utf-8"))[name[len("ep26/"):-len(".jpg")]]["code"]
+    rows = [r for r in csv.reader(_EP26_PRIVATE.open(encoding="utf-8"), delimiter="\t") if r]
+    head = rows[0]
+    row = {(r[0], r[1]): dict(zip(head, r)) for r in rows[1:] if len(r) >= 2}.get(("sources26", code)) or {}
+    who = " ".join((row.get("author") or "").split())
+    if not who:
+        raise RuntimeError(f"{name}（{code}）: git の外の表に (sources26, {code}) の作者欄が無い")
+    if re.search(r"[<>&]", who) or len(who) > 24:
+        raise RuntimeError(f"{name}（{code}）: 作者欄が SVG にそのまま書けないか長すぎる（{len(who)}字）＝焼かない")
+    return who
 
 
 def ep26_credit(name):

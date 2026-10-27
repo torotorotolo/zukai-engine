@@ -3073,3 +3073,113 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 ### 2. 地図の衛星写真（Google マップ）
 - c101・c328・c517・ca23・cb03＝Google マップの衛星写真（束の外＝`cuts/ss.SAT`）。出典は画面の地図の右下の帰属の行（Google の地図の利用）＋出典の行「地図：Google マップの衛星写真（帰属は地図の右下）」。🔴 PNG は公開リポに置かない（git の外・md5 と出どころは `cuts/ss.SAT`・`GEO`）
 - 🆕 ⑤b-3：描き足した線路の位置（c328・c517・ca23）＝国土地理院「地理院地図Vector」（experimental_bvmap・鉄道の中心線）を加工して作成（国土地理院コンテンツ利用規約＝出典の明示）＝額の下の断りに「線路の位置：地理院地図Vector（国土地理院）」・線の点は `cuts/ss.SAT_LINES`。駅と事故の現場の点＝Wikidata の座標（一般の座標＝断りに「一般の座標」）
+
+## タイタニック号沈没事故（1912-04-15・26本目）
+
+※2026-10-27（⑤b-2）。`qa_out/ep26_assets.py credits --write` が書く（手で直さない）。写真と頁は映像方針の一覧 `ref/ep26/eizou_list26.md`（了承② 2026-10-27）。
+
+### 0. 映像（音はすべて使わない＝`-an`）
+- **NOAA 2004 の残骸の映像**（N04＝米国海洋大気庁の Ocean Explorer の頁・5分53秒・640×426）＝頁の表記「Video courtesy of the RMS Titanic Team Expedition 2004, ROI, IFE, NOAA-OE.」（copyright・© の語なし＝NOAA の使い方の方針で courtesy は表記つきで使える）。画面の出典の行はこの表記のまま。13区間（扉を除くカットの秒＝narration.json の実測・`ref/ep26/eizou_build/list26.tsv`）・字の焼き込みも人も無い（映像方針で16コマを原寸）。【映像あり】に数えない（了承②）。映像そのものは git に入れない（焼くときに頁の直リンクから丸ごと取る＝`footage.local_media`・md5 は `ref/ep26/clips.json`）
+- フリー素材（Pexels・生成AI は使わない）＝画面の左上に「イメージ」・出典の行は「イメージ（Pexels）」だけ（クレジットは任意＝投稿者の名前は書かない・概要欄にも書かない）。20% に数えない。🔴 映像そのものもひかえの静止画も git に入れない（19本目 決め⑨）＝26本目は8カット（⑤b-3 で取る）
+
+| 記号 | 使うカット | 画面の出典 | ライセンス | 頁 |
+|---|---|---|---|---|
+| `N04` | c105 c107 c515 c813 c901 c907 c918 c926 c929 c932 c943 c944 ca13 | Video courtesy of the RMS Titanic Team Expedition 2004, ROI, IFE, NOAA-OE. | courtesy（NOAA の使い方の方針・copyright の語なし） | https://archive.oceanexplorer.noaa.gov/explorations/04titanic/media/movies/titanic2004_video.html |
+
+### 1. 写真・頁（Commons の PD・NOAA 2003・英国の審問の報告・MAIB 1992・米国の法）
+- Commons の PD＝出どころの機関の名（NARA・LOC・BnF・オランダ国立公文書館・北アイルランド国立博物館）か「Wikimedia Commons（パブリックドメイン）」（了承② 決め4）。色は原本のまま・小さい写真も全面（ぼけは差し替えの理由にしない）
+- NOAA 2003 の写真2点＝NOAA の頁の courtesy の表記（撮影者の個人名つき）。🔴 名前はこのリポに書かない＝`ref/ep26/credits.json` は印 `{作者}` だけ・焼くときに git の外の表から足す（`tools/scene_jiko.ep26_credit`）
+- 英国の審問の報告（米国上院の刷り直し S. Doc. 933）・米国の法＝米国の公文書（PD）＝出典の行は資料名と頁。MAIB 1992＝引用の型（出典・主従・必要最小限・**無加工の額装**＝`frame`）
+- 🔴 **人は名前＋役職か役職だけ・乗客は名前なし（①・承認①）**＝会社の人・議員の名（ネガの字）・MAIB の署名・電信会社の社長の名・カリフォルニアン号の機関部の乗組員の名前は束の段で切り出しの外（`qa_out/ep26_assets.py` の PHOTO_CROP・PAGE_CROP）。乗客の顔が分かる所は顔だけ升目（PD・MASK）
+- 撮影年＝Commons の頁と置き場の説明の年（sources26 の題・根拠の欄）・NOAA の頁（2003）・頁は資料の年。年の分からない点は「不明」（副題に年を書かない）
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `p_g1_005` | c803 | 1912 | PD（頁） | 英国の審問（Wreck Commissioner）の報告を米国上院が刷り直した公文書 | https://www.govinfo.gov/content/pkg/SERIALSET-06179_00_00-019-0933-0000/pdf/SERIALSET-06179_00_00-019-0933-0000.pdf |
+| `p_g1_041` | c806 | 1912 | PD（頁・名前の外を切り出し） | 英国の審問（Wreck Commissioner）の報告を米国上院が刷り直した公文書 | https://www.govinfo.gov/ |
+| `p_g1_054` | c514 | 1912 | PD（頁） | 英国の審問（Wreck Commissioner）の報告を米国上院が刷り直した公文書 | https://www.govinfo.gov/ |
+| `p_g1_056` | c603 | 1912 | PD（頁） | 英国の審問（Wreck Commissioner）の報告を米国上院が刷り直した公文書 | https://www.govinfo.gov/ |
+| `p_g1_058` | c628 | 1912 | PD（頁・名前の外を切り出し） | 英国の審問（Wreck Commissioner）の報告を米国上院が刷り直した公文書 | https://www.govinfo.gov/ |
+| `p_g1_059` | c635 | 1912 | PD（頁） | 英国の審問（Wreck Commissioner）の報告を米国上院が刷り直した公文書 | https://www.govinfo.gov/ |
+| `p_g1_060` | c818 | 1912 | PD（頁） | 英国の審問（Wreck Commissioner）の報告を米国上院が刷り直した公文書 | https://www.govinfo.gov/ |
+| `p_g1_076` | c215 | 1912 | PD（頁） | 英国の審問（Wreck Commissioner）の報告を米国上院が刷り直した公文書 | https://www.govinfo.gov/ |
+| `p_g1_085` | c809 | 1912 | PD（頁） | 英国の審問（Wreck Commissioner）の報告を米国上院が刷り直した公文書 | https://www.govinfo.gov/ |
+| `p_g2_01` | c904 | 1992 | 引用（OGL v3.0・© Crown copyright＝gov.uk の頁）（頁） | 英国運輸省 海難調査局（MAIB） | https://assets.publishing.service.gov.uk/media/54c15bf240f0b6158d000027/MAIBReport_ReappraisalOfEvidence-SSCalifornian-Titanic-1992.pdf |
+| `p_g2_03` | c906 | 1992 | 引用（OGL v3.0・© Crown copyright＝gov.uk の頁）（頁・名前の外を切り出し） | 英国運輸省 海難調査局（MAIB） | https://assets.publishing.service.gov.uk/ |
+| `p_g2_18` | c930 | 1992 | 引用（OGL v3.0・© Crown copyright＝gov.uk の頁）（頁） | 英国運輸省 海難調査局（MAIB） | https://assets.publishing.service.gov.uk/ |
+| `p_g2_21` | c937 | 1992 | 引用（OGL v3.0・© Crown copyright＝gov.uk の頁）（頁） | 英国運輸省 海難調査局（MAIB） | https://assets.publishing.service.gov.uk/ |
+| `p_g2_22` | c941 | 1992 | 引用（OGL v3.0・© Crown copyright＝gov.uk の頁）（頁） | 英国運輸省 海難調査局（MAIB） | https://assets.publishing.service.gov.uk/ |
+| `p_g2_23` | cb02 | 1992 | 引用（OGL v3.0・© Crown copyright＝gov.uk の頁）（頁・名前の外を切り出し） | 英国運輸省 海難調査局（MAIB） | https://assets.publishing.service.gov.uk/ |
+| `p_g4_2` | ca02 | 1912 | PD（頁） | 米国議会（法） | https://www.govinfo.gov/link/statute/37/199 |
+| `s10_871` | c412 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s10_905` | c503 c814 | 1912 | PD（この事故） | オランダ国立公文書館（Spaarnestad Photo）（Commons の版） | https://commons.wikimedia.org/ |
+| `s11_716` | c826 | 2003 | courtesy（NOAA・copyright の語なし）（この事故） | NOAA の頁の courtesy の撮影者（名前は git の外 `ref/ep26/src/credits_private.tsv` の (sources26, 記号) の行） | https://archive.oceanexplorer.noaa.gov/explorations/03titanic/media/titanic_bathtub.html |
+| `s11_910` | c903 | 2003 | courtesy（NOAA・copyright の語なし）（この事故） | NOAA の頁の courtesy の撮影者（名前は git の外 `ref/ep26/src/credits_private.tsv` の (sources26, 記号) の行） | https://archive.oceanexplorer.noaa.gov/explorations/03titanic/welcome.html |
+| `s12_913` | ca09 | 1923 | PD（この事故） | 米国議会図書館（LOC）（Commons の版） | https://commons.wikimedia.org/ |
+| `s1_002` | c101 cb07 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s1_013` | c304 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s1_016` | c203 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s1_017` | c415 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s1_020` | c407 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s1_032` | c213 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s1_042` | c201 | 1912 | PD（この事故） | 北アイルランド国立博物館（Harland & Wolff Collection）（Commons の版） | https://commons.wikimedia.org/ |
+| `s1_053` | c204 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s1_057` | c219 | 1912 | PD（この事故・顔に升目） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s1_076` | c404 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s1_084` | c205 cb03 | 1912 | PD（この事故） | オランダ国立公文書館（Spaarnestad Photo）（Commons の版） | https://commons.wikimedia.org/ |
+| `s1_089` | c212 c920 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s2_033` | c217 c922 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s2_045` | c207 c519 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s2_054` | c208 c509 | 1912 | PD（この事故・顔に升目） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s2_070` | c518 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s2_085` | c315 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s2_206` | c220 c321 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s2_724` | c410 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s2_e01` | c616 ca01 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s3_352` | c301 | 不明 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s3_424` | c511 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s3_577` | c711 | 1912 | PD（この事故） | 米国議会図書館（LOC）（Commons の版） | https://commons.wikimedia.org/ |
+| `s3_671` | c636 c801 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s3_675` | c601 c622 c824 cb01 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s3_698` | c819 | 不明 | PD（この事故・名前の外を切り出し） | 米国議会図書館（LOC）（Commons の版） | https://commons.wikimedia.org/ |
+| `s3_714` | c216 c805 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s3_736` | c402 c513 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s3_749` | c608 c624 c934 | 1908 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s3_753` | c709 c916 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s3_784` | c502 | 不明 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s3_810` | c405 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s4_228` | c310 | 1912 | PD（この事故） | 米国立公文書館（NARA）（Commons の版） | https://catalog.archives.gov/id/595107 |
+| `s4_242` | c305 | 1912 | PD（この事故） | 米国議会図書館（LOC）（Commons の版） | https://commons.wikimedia.org/ |
+| `s4_254` | c703 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s4_264` | c214 | 1912 | PD（この事故・名前の外を切り出し） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s4_300` | ca05 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s4_320` | c507 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s4_n06` | c309 | 1912 | PD（この事故・名前の外を切り出し） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/wiki/File:Amerika14April1912.JPG |
+| `s5_357` | c314 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s5_358` | c307 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s5_359` | c103 | 1912 | PD（この事故） | 米国立公文書館（NARA）（Commons の版） | https://catalog.archives.gov/id/278334 |
+| `s5_362` | c318 c817 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s5_365` | c409 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s6_372` | c718 ca12 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s6_377` | ca07 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s6_379` | c717 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s6_383` | c707 | 1912 | PD（この事故・顔に升目） | オランダ国立公文書館（Spaarnestad Photo）（Commons の版） | https://commons.wikimedia.org/ |
+| `s6_427` | c714 | 1912 | PD（この事故・顔に升目） | 米国議会図書館（LOC）（Commons の版） | https://commons.wikimedia.org/ |
+| `s6_480` | c104 c641 cb04 | 1912 | PD（この事故） | フランス国立図書館（BnF）（Commons の版） | https://gallica.bnf.fr/ |
+| `s6_619` | c713 | 1912 | PD（この事故） | 米国議会図書館（LOC）（Commons の版） | https://commons.wikimedia.org/ |
+| `s7_594` | c808 | 1912 | PD（この事故） | フランス国立図書館（BnF）（Commons の版） | https://gallica.bnf.fr/ |
+| `s7_598` | c942 | 1912 | PD（この事故） | 米国議会図書館（LOC）（Commons の版） | https://commons.wikimedia.org/ |
+| `s8_625` | c102 c605 c811 cb06 | 不明 | PD（この事故） | 米国立公文書館（NARA）（Commons の版） | https://catalog.archives.gov/id/278339 |
+| `s8_630` | c316 c520 c640 | 1907 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s8_e03` | c106 c716 c931 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s8_n01` | c308 | 1904 | PD（この事故） | 北アイルランド国立博物館（Harland & Wolff Collection）（Commons の版） | https://commons.wikimedia.org/wiki/File:The_3rd_Big_Four_liner_Baltic_(II).jpg |
+| `s8_n02` | c312 | 不明 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/wiki/File:SS_Mesaba.png |
+| `s8_n03` | c504 | 不明 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/wiki/File:RMS_Carpathia.jpg |
+| `s8_n04` | c715 | 不明 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/wiki/File:SS_Mount_Temple_in_London.jpg |
+| `s8_n05` | c924 | 不明 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/wiki/File:1905_White_Star_Line_piers_New_York.jpg |
+| `s9_645` | c705 c821 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s9_648` | c323 c820 | 1912 | PD（この事故・顔に升目） | 米国議会図書館（LOC）（Commons の版） | https://commons.wikimedia.org/ |
+| `s9_674` | c629 c802 c823 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+
+### 2. 地図の衛星写真（Google マップ）
+- c218・c306・c909・c917＝Google マップの衛星写真＋描き足し（束の外＝`cuts/ss.SAT`・⑤b-3 で撮る）。出典は画面の地図の右下の帰属の行（Google の地図の利用）。🔴 PNG は公開リポに置かない（git の外・md5 と出どころは `cuts/ss.SAT`・`GEO`）

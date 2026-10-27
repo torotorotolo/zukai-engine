@@ -1,0 +1,30 @@
+{
+ "N04": {
+  "url": "https://archive.oceanexplorer.noaa.gov/explorations/04titanic/media/movies/titanic2004_video.html",
+  "media": "https://archive.oceanexplorer.noaa.gov/explorations/04titanic/media/movies/titanic2004_640.mp4",
+  "stock": false,
+  "file": "ep26/src/eizou/N04-video.mp4",
+  "credit": "Video courtesy of the RMS Titanic Team Expedition 2004, ROI, IFE, NOAA-OE.",
+  "src": "noaa",
+  "at": 0.0,
+  "date": "2004",
+  "what": "NOAA 2004 の残骸の映像（5分53秒・640×426・30fps・音声つき＝音は使わない）",
+  "w": 640,
+  "h": 426,
+  "fps": 30.0,
+  "sar": "1:1",
+  "sec": 353.035,
+  "size": 33946045,
+  "md5": "d13757669b5ef044aadf0b0969a9d480",
+  "dispw": 640,
+  "decoded": [
+   640,
+   426
+  ],
+  "license": "courtesy（NOAA の使い方の方針・copyright の語なし）",
+  "rights": "頁の表記＝Video courtesy of the RMS Titanic Team Expedition 2004, ROI, IFE, NOAA-OE.",
+  "scan": "ref/ep26/src/eizou/N04-video.mp4",
+  "md5_scan": "d13757669b5ef044aadf0b0969a9d480",
+  "note": "音は使わない（-an）。0〜9.5秒と346秒〜は黒。字の焼き込みも人も無い（映像方針で16コマを原寸）"
+ }
+}

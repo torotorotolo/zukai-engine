@@ -1,0 +1,55 @@
+{
+ "N04": {
+  "src": "https://archive.oceanexplorer.noaa.gov/explorations/04titanic/media/movies/titanic2004_video.html",
+  "scan": "ref/ep26/src/eizou/N04-video.mp4",
+  "dur": 353.0,
+  "how": "⑤b-2（10-27）：2コマ/秒・64×36 の灰色＝隣のコマとの差が前後6秒（±1秒を除く）の中央値の 2.5 倍以上・7.0 以上で前後2コマの山（映像全体の中央値 4.50）＝別の場面。暗い所（平均の明るさ 12 未満）は場面にしない",
+  "shots": [
+   {
+    "start": 10.0,
+    "until": 52.5,
+    "motion": 3.45
+   },
+   {
+    "start": 57.0,
+    "until": 147.0,
+    "motion": 9.14
+   },
+   {
+    "start": 147.0,
+    "until": 161.0,
+    "motion": 8.2
+   },
+   {
+    "start": 161.0,
+    "until": 183.0,
+    "motion": 6.19
+   },
+   {
+    "start": 183.0,
+    "until": 249.0,
+    "motion": 5.05
+   },
+   {
+    "start": 249.0,
+    "until": 269.5,
+    "motion": 6.48
+   },
+   {
+    "start": 269.5,
+    "until": 316.0,
+    "motion": 3.57
+   },
+   {
+    "start": 316.0,
+    "until": 338.0,
+    "motion": 2.78
+   },
+   {
+    "start": 338.0,
+    "until": 346.0,
+    "motion": 4.11
+   }
+  ]
+ }
+}
