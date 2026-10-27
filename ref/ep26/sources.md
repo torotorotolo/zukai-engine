@@ -162,7 +162,7 @@
 | カルパチア号 | 船長 | 米 Day 1 Rostron01 | "north 52 degrees west true 58 miles" ／ "At 2:40, I saw a flare" ／ "Ordered company's rockets to be fired at 2:45 a. m. and every quarter of an hour after" ／ "At 4:10 I got the first boat alongside." | 英 Q25394「green flare … White Star Company's night signal」 |
 | カルパチア号 | 同 | 英 Day 28 Q25552 | "We saw masthead lights quite distinctly of another steamer between us and the "Titanic." That was about quarter-past three." | ほかの船が居た証言 |
 | カルパチア号 | 同 | 英 Day 28 Q25551 | "The first time that I saw the 'Californian' was at about eight o'clock on the morning of 15th April." | |
-| 「沈まない」 | ホワイト・スター・ライン社の会長（会社の人） | 英 Day 16 Q18755 | "the ship was looked upon as practically unsinkable; she was looked upon as being a lifeboat in herself." | 🔴 3隻の乗組員の口からは一度も出ない（Day 2〜36 を語で走査） |
+| 「沈まない」 | ホワイト・スター・ライン社の社長（会社の人）（⚠️ 10-27 ④' で訂正＝「会長」の語は当てた一次資料に無い。英国の報告 p.36 は `the managing director of the White Star Line`＝係 G1・G1-003） | 英 Day 16 Q18755（答えの頭は "I think"） | "the ship was looked upon as practically unsinkable; she was looked upon as being a lifeboat in herself." | 🔴 3隻の乗組員の口からは一度も出ない（Day 2〜36 を語で走査） |
 
 ### 4-2 食い違う時刻・数・距離（係A の一覧から・要点）
 1. **カリフォルニアン号の時計と NY の差**＝1時間50分（船長・正午の位置）／1時間55分（通信士・止まった位置）／約2時間（通信士・米）。タイタニック号は1時間33分（四等航海士）・カルパチア号は1時間50分（船長）。⚠️ 係の引き算（カリフォルニアン号の時計が約17〜22分進んでいた）は**証言ではない**。MAIB は「差は数分の見込み」（p.6）＝割れる。船どうしの差を直接言った証言は見つからない

@@ -1,0 +1,74 @@
+[
+ {
+  "id": "R2-001",
+  "cut": "c822",
+  "sev": "⚠️",
+  "face": "A",
+  "type": "-",
+  "now": "そう。米国上院の報告は、こうも書く。すぐ助けに向かっていたか、／通信士が、あと数分、持ち場にいたなら、／その船は、人々を救う誇りを得ていたかもしれない。",
+  "orig": "T3 AmInqRep06（書き起こし）: Had assistance been promptly proffered, or had wireless operator of the Californian remained a few minutes longer at his post on Sunday evening, that ship might have had the proud distinction of rescuing the lives of the passengers and crew of the Titanic.",
+  "why": "G7-037 の入れ替えで直しが新しく生んだ粗。第1版では「その船」の直前が「カリフォルニアン号とだけ書いた」（旧 c822）だったが、第2版では c821（船名なし）と聞き役のまとめ（船長の責任）のあとに来る。カットの中に船名が無いので、「その船」と「通信士」がどの船の話か、原文（同じ文の中で of the Californian・that ship と名指し）より弱く、直前に出た船名は c820 の頭まで戻る。「その船」を船名にすれば、通信士もカリフォルニアン号の人と分かる",
+  "old": "> その船は、人々を救う誇りを得ていたかもしれない。",
+  "new": "> カリフォルニアン号は、人々を救う誇りを得ていたかもしれない。",
+  "delta": 6
+ },
+ {
+  "id": "R2-002",
+  "cut": "c909",
+  "sev": "⚠️",
+  "face": "A",
+  "type": "-",
+  "now": "そう。まず、2人が同じ見方をしたところから。",
+  "orig": "G2 送り状: His report, which follows, incorporates his conclusions and those of the appointed Inspector.",
+  "why": "G5-017 で c908 の1行目「報告書には、調査官と次長、2人の結論が入っている」を消したため、c909 の「2人」の直前に出る人は c908「首席は、次長の報告と結論を、全面的に支持する」の首席と次長になった。「2人が同じ見方」は、支持し合った首席と次長に聞こえる。言いたいのは調査官と次長（c910「2人とも」・c912 で分かれる2人）。直しで新しくできた指す先の粗",
+  "old": "> そう。まず、2人が同じ見方をしたところから。",
+  "new": "> そう。まず、調査官と次長が同じ見方をしたところから。",
+  "delta": 4
+ },
+ {
+  "id": "R2-003",
+  "cut": "c920",
+  "sev": "⚠️",
+  "face": "B",
+  "type": "②強さを弱める",
+  "now": "調査官は、タイタニック号の姿が見えていたとみる。／カリフォルニアン号の時計で11時ごろから沈むまで。合わない話も多いが、／船長と当直の2人の航海士の話は、大すじでタイタニック号の動きと合う、と。",
+  "orig": "G2 p.12: As the Inspector points out, there is a good deal of evidence as to what was seen by CALIFORNIAN which does not coincide with what is known of TITANIC; but his opinion - … - is that the balance is strongly in favour of TITANIC having been the ship seen.",
+  "why": "G5-002 の直しで「合わない話も多い」は戻ったが、原文の strongly（全体の重みは強くタイタニック号の側）が落ち、「大すじで合う」（だいたい合う）になった。§1-3 は強さを変えない。調査官の見方だけが弱まると、次長の more probably（c928「たぶん…別の船」）との釣り合いが案B の芯の近くで次長側へ傾く。§2 #6 の「全体の重みで」に寄せ、「よく」で strongly を戻す",
+  "old": "> 船長と当直の2人の航海士の話は、大すじでタイタニック号の動きと合う、と。",
+  "new": "> 船長と当直の2人の航海士の話は、全体ではタイタニック号の動きとよく合う、と。",
+  "delta": 2
+ },
+ {
+  "id": "R2-004",
+  "cut": "c921",
+  "sev": "⚠️",
+  "face": "B",
+  "type": "④上位語に広げる",
+  "now": "カリフォルニアン号の側だけなら、次長も反対はしない。／だが答えは、タイタニック号の側にある、とした。その船の時計で0時30分ごろまで、／ほかの船は見えていない。見張り台にも船橋にも、人がいたのに。",
+  "orig": "G2 p.12: but his opinion - which if review were to be confined to what was seen by CALIFORNIAN I would not dissent from - is that the balance is strongly in favour of TITANIC having been the ship seen.",
+  "why": "G5-003 で足した条件。原文の条件は「カリフォルニアン号から見えたこと（what was seen by CALIFORNIAN）だけで考えるなら」。「カリフォルニアン号の側」は位置・流れ・針路まで含む広い言い方で、次長が c912〜c917 で調査官とはっきり割れた「カリフォルニアン号の位置」まで反対しない、と聞こえる。cb03 の「かばう側・責める側」とも紛れる。範囲を原文どおり「見えたこと」に絞る（行は31字）",
+  "old": "> カリフォルニアン号の側だけなら、次長も反対はしない。",
+  "new": "> カリフォルニアン号から見えたことだけなら、次長も反対はしない。",
+  "delta": 5
+ },
+ {
+  "id": "R2-005",
+  "cut": "c825",
+  "sev": "・",
+  "face": "E",
+  "type": "-",
+  "now": "§6 読みの表「| 免状 | めんじょう | c216・c825 |」（第2版 1259行）",
+  "orig": "G2 p.1: as no formal charge had been laid against him, and no action had been taken against his Certificate, he had no right of appeal.",
+  "why": "G4-016 で c825 の語りと画の欄は「資格への処分」に替わり、免状が語りに出るのは c216 だけになった。G0X-006・009・010 で語りから外れた語の行（MAIB・0時55分・国際商船会社）は直したが、この行は c825 を指したまま。カットの外（§6）なので old・new は出さない＝親が「c216」だけにする"
+ },
+ {
+  "id": "R2-006",
+  "cut": "c823",
+  "sev": "・",
+  "face": "F",
+  "type": "-",
+  "now": "§0-2「英国の報告の「船長の名前」＝MAIB p.15 の「名指ししなかった」は答えの書き方…（p.56・p.59・p.60）＝c822」（第2版 57行）",
+  "orig": "G2 p.15: the Court did not single him out personally for criticism but simply referred to 'the CALIFORNIAN'",
+  "why": "G7-037 で c822 と c823 の中身を入れ替えたため、「名指しせず」の語りはいま c823 にある。§0-2 の注意書きの指す先が古い（63行の ④ の記録「🔴 c822」は当時の番号の履歴なので残してよい）。カットの外なので old・new は出さない＝親が「＝c823」に"
+ }
+]

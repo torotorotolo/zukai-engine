@@ -1,0 +1,41 @@
+[
+ {
+  "id": "R1-001",
+  "cut": "c519",
+  "sev": "⚠️",
+  "face": "A",
+  "type": "③",
+  "now": "Q: そのころ、ボートはどうなっていたの？／次々と下ろされていった。／だが、いくつものボートが、空きのあるまま下ろされた。",
+  "orig": "G1 p.50: at about 12.45 Mr. Murdoch gave the order to lower No. 7 boat (on the starboard side) to the water. ／ G1 p.54: The firing of these signals began about the time that No. 7 boat was lowered (12.45 a. m.), and it continued until Mr. Boxall left the ship at about 1.45.",
+  "why": "G7-017 の直しで、文を縮めたときに答えの起点（0時45分ごろの7号艇から）が消えた。すると問いの「そのころ」は、すぐ前の c518 で最後に聞いた「1時45分ごろ」に掛かって聞こえる（時刻の起点のずれ）。出典の欄は G2-004 で G1 p.50（7号艇が最初＝12.45）に替えたのに、語りがもう7号艇を言っていないので、欄の片が語りのどこも支えていない。「7号艇から」を戻せば c509 の「7号艇を下ろしたころに始まり」（0時45分）につながり、欄の p.50 とも合う。時刻の数字は繰り返さない。",
+  "old": "> 次々と下ろされていった。",
+  "new": "> 7号艇から、次々と下ろされていった。",
+  "delta": 5
+ },
+ {
+  "id": "R1-002",
+  "cut": "c506",
+  "sev": "・",
+  "face": "B",
+  "type": "④",
+  "now": "Q: カリフォルニアン号は、無線を聞いていたの？／聞いていない。その船の通信士は1人だけで、眠っていた。",
+  "orig": "G1 p.54: The Californian heard none of the Titanic's messages; she had only one Marconi operator on board and he was asleep.",
+  "why": "原文は heard none（タイタニック号の通信を誰も聞き取っていない＝結果）。G2-006 で問いを「無線を聞いていたの？」に替えたため、「聞いていた（聞くことをしていたか）」とも聞こえる。対象も「無線」に広がった。c616 では三等航海士が0時15分から20分ごろにヘッドホンを当てている（何も聞こえなかった）。そのため「聞いていたの？→聞いていない」が後のカットと食い違って聞こえうる。問いを「聞いたの？」にすれば、heard none と答えがそのまま合う（字は減る）。",
+  "old": "> Q: カリフォルニアン号は、無線を聞いていたの？",
+  "new": "> Q: カリフォルニアン号は、無線を聞いたの？",
+  "delta": -2
+ },
+ {
+  "id": "R1-003",
+  "cut": "c317",
+  "sev": "・",
+  "face": "F",
+  "type": "-",
+  "now": "出典の欄 G1 p.56（`was on her passage from London`…`to Boston`・`She had a passenger certificate, but was not carrying any passengers at the time`）／語り「レイランド社の船で、ロンドンからアメリカのボストンへ向かっていた。」",
+  "orig": "G1 p.56: On the 14th of April the steamship Californian, of the Leyland Line, Mr. Stanley Lord, master, was on her passage from London, which port she left on April 5, to Boston",
+  "why": "G7-012 で国際商船会社の片を外したので、欄には会社の名を支える片が1つも無い。語りの「レイランド社の船で」の裏付けが欄から消えた（第1版でもレイランド社の片は無かった）。同じ頁の of the Leyland Line を足せば、語りの一字一字に片がそろう。出典の欄の直しなので 🔧 は付かない。",
+  "old": "（`was on her passage from London`",
+  "new": "（`the steamship Californian, of the Leyland Line`…`was on her passage from London`",
+  "delta": 0
+ }
+]

@@ -1,0 +1,8 @@
+{
+ "R1-001": {"v": "採る", "note": "G1 p.50（12.45 に7号艇の号令）・p.54（信号弾は7号艇を下ろしたころに始まった）＝「7号艇から」を戻して起点を c509 につなぐ（時刻の数は繰り返さない・+5）", "patches": [
+   {"cut": "c519", "old": "> 次々と下ろされていった。", "new": "> 7号艇から、次々と下ろされていった。", "order": 99}]},
+ "R1-002": {"v": "採る", "note": "G1 p.54 `heard none`＝聞き取っていない（結果）。問いを「聞いたの？」にして答えとそろえる（−2）", "patches": [
+   {"cut": "c506", "old": "> Q: カリフォルニアン号は、無線を聞いていたの？", "new": "> Q: カリフォルニアン号は、無線を聞いたの？", "order": 99}]},
+ "R1-003": {"v": "採る", "note": "出典の欄に G1 p.56 の `the steamship Californian, of the Leyland Line` を足した（語りの「レイランド社の船」の裏付け・印なし）", "patches": [
+   {"cut": "c317", "old": "（`was on her passage from London`", "new": "（`the steamship Californian, of the Leyland Line`…`was on her passage from London`", "order": 99}]}
+}

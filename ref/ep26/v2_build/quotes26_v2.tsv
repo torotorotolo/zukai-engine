@@ -1,0 +1,467 @@
+cut	doc	pages	verdict	where	quote
+c101	G1	54	OK		exploding in the air and throwing off white stars
+c102	G1	58	OK		altogether we had seen eight of these white lights like white rockets
+c102	G2	14	OK		The Inspector's answer is 'Yes', and I entirely agree with him
+c103	G1	5	OK		the loss of 1,490 lives
+c104	G1	56	OK		remained approximately stationary until 5.15
+c104	G1	60	OK		Had she done so she might have saved many if not all of the lives that were lost
+c105	G2	2	OK		in 1990 the Secretary of State for Transport
+c105	G2	3	OK		I think it possible that she was seen
+c106	G2	3	OK		The Inspector considers that TITANIC was seen by CALIFORNIAN
+c106	G2	3	OK		but more likely that she was not seen
+c106	G2	-1	OK		an Inspector from outside the Branch was appointed
+c107	G1	40	OK		There was no moon
+c201	G1	11	OK		a three-screw vessel of 46,328 tons gross
+c201	G1	11	OK		for the White Star Line service between Southampton and New York
+c202	G1	11	OK		46,328 tons gross
+c202	G1	56	OK		a vessel of 6,223 tons
+c203	G1	33	OK		The Titanic left Southampton on Wednesday, April 10
+c203	G2	1	OK		on her maiden voyage from Southampton towards New York
+c204	G1	33	OK		after calling at Cherbourg, proceeded to Queenstown
+c205	G1	33	OK		from which port she sailed on the afternoon of Thursday, April 11
+c205	G1	11	OK		registered as a British steamship at the port of Liverpool
+c206	G1	32	OK		In all, 2,201 persons were on board
+c208	G1	25	OK		for 1,178 persons
+c209	G1	25	OK		a total of 11,327.9 cubic feet for 1,178 persons
+c210	G1	62	OK		a provision for 962 persons
+c210	G1	62	OK		1,178 persons, a number far in excess of the requirements of the table
+c211	G1	64	OK		Those regulations were last revised in 1894
+c211	G1	63	OK		made in 1894 for vessels of 10,000 tons and upward
+c212	G1	76	OK		to revise the rules of 1894 and this, I think, was blameable
+c212	G1	76	OK		doubtful whether even if the rules had been revised
+c213	T1		書き起こし		the ship was looked upon as practically unsinkable
+c215	G1	76	OK		When naval architects have devised practical means
+c215	G1	76	OK		rendering ships unsinkable
+c215	G1	76	OK		be carried for all on board
+c216	G1	32	OK		the master, Edward Charles Smith, held an extra master's certificate
+c217	G1	41	OK		a telephone message to the bridge
+c217	G2	4	OK		the lookouts saw an iceberg ahead
+c218	G1	35	OK		The Titanic followed the outward southern track until Sunday, April 14, in the usual way
+c219	G1	35	OK		At 11.40 p m. on that day she struck an iceberg
+c219	G1	39	OK		all knew on the Sunday evening that the vessel was entering a region where ice might be expected
+c220	G1	35	OK		a wireless message from the steamship Caronia was received by Capt. Smith
+c301	G1	36	OK		There were two Marconi operators in the Marconi room
+c302	G2	1	OK		in 1912 many ships did not have wireless and those that did, did not necessarily keep continuous watch
+c303	G2	6	OK		It was customary in 1912 for ships to adjust their clocks so that the sun would be approximately on the meridian each day at 1200 hrs
+c304	G2	6	OK		the possible difference in times between TITANIC and CALIFORNIAN is only likely to have been a few minutes
+c306	G1	35	OK		at 9 a. m. (Titanic time) on that day a wireless message from the steamship Caronia was received by Capt. Smith
+c307	G1	35	OK		West-bound steamers report bergs, growlers, and field ice in 42° N., from 49° to 51° W., April 12
+c308	G1	36	OK		At 1.42 p. m., a wireless message from the steamship Baltic was received by Capt. Smith
+c308	G1	36	OK		Greek steamer Athenai reports passing icebergs and large quantities of field ice
+c309	G1	36	OK		about 1.45 p. m. (Titanic time) on the 14th a message was sent from the German steamer Amerika to the Hydro
+c309	G1	36	OK		because she was nearest to Cape Race
+c310	G1	36	OK		Being a message affecting navigation, it should in the ordinar
+c310	G1	36	OK		have been taken to the bridge
+c311	G1	36	OK		it was put aside by Phillips to wait until the Titanic would be within call of Cape Race
+c311	G1	36	OK		it was never handed to any officer
+c312	G1	37	OK		there was a fifth message received in the Marconi room of the Titanic at 9.40 p. m.
+c312	G1	37	OK		saw much heavy pack ice and great number large icebergs. Also field ice
+c313	G1	37	OK		it does not appear to have been delivered to the master or to any of the officers
+c313	G1	37	OK		transmitting messages via Cape Race for passengers
+c314	G1	37	OK		there was a fifth message
+c315	G1	40	OK		the other was to reduce speed materially as night approached. He did neither
+c316	G1	56	OK		At 7.30 p. m., ship's time, on April 14, a wireless message was sent from this ship to the Antill
+c317	G1	56	OK		the steamship Californian, of the Leyland Line
+c317	G1	56	OK		was on her passage from London
+c317	G1	56	OK		to Boston
+c317	G1	56	OK		She had a passenger certificate, but was not carrying any passengers at the time
+c318	G1	56	OK		Three large bergs, 5 miles to southward of us
+c319	G1	56	OK		The message was intercepted by the Titanic
+c319	G1	56	OK		It is all right. I heard you sending it to the Antillian, and I have got it
+c320	G1	57	OK		At about 11 p. m. a steamer's light was seen approaching
+c320	G1	57	OK		I think the Titanic is near us. I have got her
+c320	G1	57	OK		We are stopped and surrounded by ice
+c321	G1	57	OK		The Titanic replied: Keep out
+c322	G1	57	OK		The Titanic was in communication with Cape Race
+c322	G1	57	OK		as from her proximity the message from the Cali
+c322	G1	57	OK		was much stronger than any message being taken in by the Titanic from Cape Race
+c323	G7	739	OK		Shut up, shut up, I am busy; I am working Cape Race
+c323	G1	57	OK		up to the time he turned in at 11.30 p. m.
+c401	G1	40	OK		There was no moon, the stars were out
+c401	G1	39	OK		there is not much wind
+c401	G1	39	OK		a flat calm
+c402	G1	39	OK		if it becomes at all doubtful let me know at once
+c402	G1	39	OK		at 9.30 the master went to his room
+c402	G1	39	OK		to keep a sharp lookout for ice, particularly small ice and growlers
+c403	G1	39	OK		at 10 o'clock Mr. Lightoller handed over the watch to Mr. Murdoch, the first officer
+c403	G1	39	OK		we might be up around the ice any time now
+c404	G1	80	OK		about 22 knots
+c404	G2	4	OK		normal full speed (about 22 knots) was maintained
+c405	G1	41	OK		three blows on the gong
+c405	G1	41	OK		Iceberg right ahead
+c405	G2	1	OK		at about 2340 hrs ship's time
+c406	G1	41	OK		almost simultaneously with the three-gong signal Mr. Murdoch, the officer of the watch, gave the order
+c406	G2	4	OK		because of the helm orders then in use, was to direct the ship's head to port
+c407	G1	41	OK		Stop. full speed astern
+c407	G1	41	OK		the ship's head had fallen off about two points to port, when she collided with an iceberg well forward on her starboard side
+c408	G1	41	OK		from various experiments subsequently made with the steamship Olympic, a sister ship to the Titanic
+c408	G1	41	OK		about 37 seconds would be required
+c409	G1	41	OK		500 yards was about the distance at which the
+c410	G1	41	OK		The master rushed out onto the bridge
+c410	G1	41	OK		I hard-a-starboarded and reversed the engines, and I was going to hard-a-port round it, but she was too close
+c411	G1	42	OK		the damage extended over a length of about 300 feet
+c411	G1	42	OK		she would have passed through 300 feet in less than 10 seconds
+c412	G1	45	OK		water came into the five forward compartments to a height of about 14 feet above the keel in the first 10 minutes
+c412	G1	45	OK		the ship's pumps could not possibly have coped
+c413	G1	45	OK		and so on in succession to the other boiler rooms till the ship would ultimately fill and sink
+c414	G2	4	OK		Between collision and foundering the ship lay stopped
+c414	G2	7	OK		the ship must have drifted some distance before she foundered
+c414	G2	7	OK		it is an important feature in this reappraisal
+c415	G1	60	OK		The Titanic collided with the berg at 11.40
+c415	G1	49	OK		The collision took place at 11.40 p. m. (ship’s time)
+c415	G2	1	OK		at about 2340 hrs ship's time
+c415	G2	3	OK		struck the iceberg at 2345 hrs
+c416	G1	49	OK		at about 12.05 the order was given to uncover the 14 boats under davits
+c416	G1	54	OK		At 12.15 a. m. the distress signal CQD was sent
+c416	G1	85	OK		Two twenty a. m. (ship's time) April 15
+c501	G1	54	OK		At 12.15 a. m. the distress signal CQD was sent. This was heard by several steamships and by Cape Race
+c502	G1	54	OK		By 12.25 Mr. Boxall, the fourth officer, had worked out the correct position of the Titanic
+c502	G1	54	OK		Come at once, we have struck a berg
+c502	G7	23	OK		requiring immediate assistance and giving me his position
+c502	T1		書き起こし		I submitted the position to the Captain first, and he told me to take it to the marconi room
+c503	G1	54	OK		had worked out the correct position of the Titanic
+c503	G2	2	OK		discovered the wreck of TITANIC, in a position some 13 miles from that accepted by the 1912 Inquiry
+c504	G1	54	OK		This was heard by the Cunard steamer Carpathia, which was at this time bound from New York to Liverpool and 58 miles away. The Carpathia answered, saying that she was coming to the a
+c505	G7	23	OK		Yes, 12.35; that was our apparent time
+c505	G7	23	OK		Immediately on getting the message, I gave the order to turn the ship around
+c505	G7	24	OK		The course was north 52 degrees west true 58 miles from my position
+c506	G1	54	OK		The Californian heard none of the
+c506	G1	54	OK		she had only one Marconi operator on board and he was asleep
+c508	G1	54	OK		sent off at intervals from a socket by No. 1 emergency boat on the boat deck. They were the ordinary distress signals, exploding in the air and throwing off white stars
+c509	G1	54	OK		began about the time that No. 7 boat was lowered (12.45 a. m.), and it continued until Mr. Boxall left the ship at about 1.45
+c510	G1	54	OK		In all, Mr. Boxall fired about eight rockets
+c510	T1		書き起こし		between half a dozen and a dozen
+c510	T1		書き起こし		probably five minutes
+c511	G7	914	OK		Just white stars, bright. I do not know whether they were stars or bright balls
+c511	G7	914	OK		They were the regulation distress signals
+c511	G7	914	OK		Oh, no; not red
+c512	G1	54	OK		Mr. Boxall was also using a Morse light
+c512	G1	54	OK		a ship whose lights he saw about half a point on the port bow of the Titanic at a distance, as he thought, of about 5 or 6 miles
+c513	G1	54	OK		He got no answer
+c513	T1		書き起こし		A white light about two points on the port bow
+c514	G1	54	OK		There appears to be no doubt that the vessel whose lights he saw was the Californian
+c515	G2	12	OK		What is significant, however, is that no ship was seen by TITANIC until well after the collision
+c516	G2	18	OK		such signals could be of any colour
+c516	G2	18	OK		there was therefore nothing immediately to distinguish them from other rockets
+c517	G2	14	OK		rockets were much more used than is now the case for reasons other than indicating distress
+c518	G1	54	OK		until Mr. Boxall left the ship at about 1.45
+c518	G1	55	OK		a green flare which, as the evidence shows, was being sent up by Mr. Boxall in No. 2 boat
+c519	G1	50	OK		at about 12.45 Mr. Murdoch gave the order to lower No. 7 boat
+c519	G1	52	OK		No. 7 left with only 27, and No. 6 with only 28
+c519	G1	52	OK		must have left only partly filled
+c520	G1	54	OK		The evidence from the Californian speaks of eight rockets
+c601	G1	56	OK		the steamship Californian, of the Leyland Line, Mr. Stanley Lord, master
+c602	G1	56	OK		obliged to stop and reverse engines
+c602	G1	56	OK		she was running into field ice, which stretched as far as could then be seen to the northward and southward
+c603	G1	56	OK		fixed by dead reckoning and verified by observations
+c603	G1	56	OK		I am satisfied that this position is not accurate
+c603	T1		書き起こし		Forty-two deg five min N, and 50 deg 7 min. W
+c604	G1	56	OK		It is a position about 19 miles N. by E. of the position of the
+c604	G1	56	OK		when he foundered
+c604	G2	9	OK		a current setting about south by west
+c604	G2	9	OK		existed in the area of the accident
+c605	G1	56	OK		she remained approximately stationary until 5.15
+c605	G1	56	OK		The ship was slowly swinging around to starboard during the night
+c606	G1	57	OK		At about 11 p. m. a steamer's light was seen approaching from the eastward
+c607	G1	57	OK		and also her green side light
+c607	G1	57	OK		at some time between 11 and 11.30 he first saw her green light; she was then about 5 miles
+c608	G1	57	OK		He noticed that about 11.30 she stopped
+c608	G1	57	OK		something like ourselves
+c609	G1	57	OK		Mr. Groves made out two masthead lights
+c609	G1	57	OK		She is evidently a passenger steamer
+c610	G1	57	OK		who was on deck at midnight, said, referring to this steamer
+c610	G1	57	OK		It could not have been anything but a passenger boat, she was too large
+c611	G1	57	OK		Call her up on the Morse lamp, and see if you can get any answer
+c612	G1	57	OK		That does not look like a passenger steamer
+c612	G1	57	OK		It is, sir. When she stopped her lights seemed to go out
+c613	G1	57	OK		Mr Groves states that these lights went out at 11.40
+c613	G1	57	OK		because one bell was struck to call the middle watch
+c614	G1	58	OK		Mr. Groves's Morse signaling appears to have been ineffectual
+c614	G1	58	OK		he gave it up
+c614	G1	58	OK		relieved by Mr. Stone, the second officer, just after midnight
+c615	G1	58	OK		she has been stopped since 11.40
+c615	G1	58	OK		At about the moment she stopped she
+c616	T1		書き起こし		between 12.15 and 12.20
+c616	T1		書き起こし		Nothing at all
+c617	G1	58	OK		pointed out the steamer to him with instructions to tell him if her bearings altered or if she got any closer
+c618	G1	58	OK		an apprentice named Gibson, whose attention was
+c618	G1	58	OK		to the steamer's lights at about 12.20 a. m.
+c618	G1	58	OK		glare of white lights on her afterdeck
+c619	G1	58	OK		He first thought her masthead light was flickering and next thought it was a Morse light
+c619	G1	58	OK		finally came to the conclusion that it was, as he had first supposed, the masthead light flickering
+c620	G1	58	OK		Sometime after 12.30 a. m.
+c620	G1	58	OK		states that he saw two rockets fired from the ship which he had been observing, and about 1.10 a. m., Mr. Stone reported to the captain by voice pipe, that he had seen five white rockets from the direction of the steamer
+c621	G1	59	OK		remembered Gibson opening and closing the chart-room door
+c621	G1	59	OK		he went down to the chart room
+c621	T1		書き起こし		just below the upper bridge
+c622	G1	58	OK		Are they company's signals
+c622	G1	58	OK		I do not know, but they appear to me to be white rockets
+c623	T1		書き起こし		White Star Company's night signal
+c623	G2	14	OK		it has been suggested that these were Company signals from the other ship
+c624	G1	58	OK		The master told him to go on Morsing, and, when he received any information, to send the apprentice down to him with it
+c624	G2	15	OK		no action was taken save to make further attempts to raise her with the morse lamp
+c625	G1	58	OK		This witness thinks the time was 12.55
+c625	G1	58	OK		He got no reply, but the vessel fired three more white rockets; these rockets were also seen by Mr. Stone
+c626	T1		書き起こし		they were only about half the height of the steamer's masthead light
+c626	G2	13	OK		described as low-lying (quoted as rising to less than mast-head height)
+c627	G1	58	OK		Between 1 o'clock and 1.40 some conversation passed between them
+c627	G1	58	OK		Look at her now, she looks very queer out of water, her lights look queer
+c628	G1	58	OK		A ship is not going to fire rockets at sea for nothing
+c628	G1	58	OK		admits himself that he may possibly have used that expression
+c629	T1		書き起こし		I knew that rockets shown at short intervals, one at a time, meant distress signals, yes
+c629	T1		書き起こし		that those rockets were signals of distress?
+c629	T1		書き起こし		No.
+c629	T1		書き起こし		I did not think the ship was in distress at the time.
+c630	G1	58	OK		he saw the last of the rockets fired at about 1.40, and after watching the steamer for some 20 minutes more he sent Gibson down to the master
+c630	G1	58	OK		altogether we had seen eight of these white lights like white rockets
+c630	G1	59	OK		that this steamer was disappearing in the southwest
+c631	G1	59	OK		the master asked him if all the rockets were white, and also asked him the time
+c631	G1	59	OK		Gibson stated that at this time the master was awake. It was five minutes past two
+c631	T1		書き起こし		Five minutes past two by the wheelhouse clock
+c632	G1	59	OK		A gradual disappearing of all her lights, which would be perfectly natural with a ship steaming away from us
+c633	G1	59	OK		At about 2.40 a. m. Mr
+c633	G1	59	OK		Stone again called up the master by voice
+c633	G1	59	OK		I again assured him they were all white, just white
+c634	G1	59	OK		considerable discrepancy between the evidence of Mr. Stone and that of the master
+c634	G1	59	OK		he went to the voice pipe at about 1.15, but was told then of a white rocket (not five white rockets)
+c635	G1	59	OK		between 1.30 and 4.30, when
+c635	G1	59	OK		he had no recollection of anything being reported to him at
+c635	G1	59	OK		although he remembered Gibson opening and closing the chart-room door
+c635	T1		書き起こし		I very likely was half awake
+c636	G1	60	OK		There are contradictions and inconsistencies in the story as told by the different witnesses
+c637	G1	56,57,58,59	OK		until 10.20
+c637	G1	56,57,58,59	OK		went out at 11.40
+c637	G1	56,57,58,59	OK		about 1.10 a. m.
+c637	G1	56,57,58,59	OK		at about 1.40
+c637	G1	56,57,58,59	OK		five minutes past two
+c637	G1	56,57,58,59	OK		At about 2.40 a. m.
+c637	G1	59	OK		He, however, had the wireless operator called
+c637	G7	740	OK		When were you awakened
+c637	G7	740	OK		About 3.30 a. m.
+c637	G7	740	OK		New York time
+c637	G7	740	OK		And who awakened you
+c637	G7	740	OK		The chief officer
+c638	G1	59	OK		Mr. Stewart relieved Mr. Stone at 4 a. m.
+c638	G1	59	OK		At 4.30 he called the master and informed him that Mr. Stone had told him he had seen rockets in the middle watch. The master said, Yes, I know; he has been telling me
+c639	G1	59	OK		a steamer came in sight with two white masthead lights
+c639	G1	59	OK		apparently took the fresh steamer for the one which had fired rockets, and said, She looks all right; she is not making any signals now. This mistake was not corrected
+c640	G1	59	OK		He, however, had the wireless operator called. At about
+c640	G1	59	OK		a. m. Capt. Lord heard from the Virginian that the
+c640	G1	59	OK		Titanic had struck a berg, passengers in boats, ship sinking
+c640	G1	59	OK		he at once started through the field ice at full speed for the position
+c641	G1	60	OK		At 2.20 a. m. the Titanic had foundered
+c701	G1	51,52	OK		No. 1 certainly left with only 12
+c701	G1	51,52	OK		emergency boat with a carrying capacity of 40
+c701	G1	51,52	OK		No. 7 left with only 27, and No. 6 with only 28
+c702	G1	48	OK		Thus the total boat accommodation was for 1,178 persons
+c702	G1	76	OK		boat accommodation was utilized to less than two-thirds of its capacity
+c702	G1	51	OK		of the 712 persons saved only 652 could have left the
+c702	G1	51	OK		in boats
+c703	G1	85	OK		Two twenty a. m. (ship's time) April 15
+c703	G2	1	OK		She foundered less than two-and-three-quarter hours later
+c704	G1	56	OK		711 out of 2,201, or 32.30 per cent
+c704	G1	5	OK		the loss of 1,490 lives
+c706	G1	56	OK		212 out of 885, or 23.95 per cent
+c707	G1	55	OK		14 out of 168, or 8.33 per cent
+c708	G1	53	OK		There appears to have been no truth in these suggestions
+c708	G1	53	OK		by the difficulty of getting them up from their quarters, which were at the extreme ends of the ship
+c709	G1	55	OK		immediately ordered the ship to be turned around and driven at her highest
+c709	G1	55	OK		in the direction of the Titanic
+c709	G1	55	OK		saw a green flare which, as the evidence shows, was being sent up by Mr. Boxall in No. 2 boat
+c710	G1	55	OK		From this time until 4 a. m. Capt. Rostron was altering his course continually in order to avoid icebergs
+c710	G7	25	OK		we were passing icebergs on every side
+c711	T1		書き起こし		We saw masthead lights quite distinctly of another steamer between us and the
+c711	T1		書き起こし		That was about quarter-past three
+c712	G1	55	OK		he stopped his ship at 4.05
+c712	G1	55	OK		He sighted the first boat (No. 2) and picked her up at 4.10
+c713	G1	55	OK		The boats were scattered over an area of 4 or 5 miles, and it was 8 a. m. before they had all been picked up
+c713	G7	26	OK		all the people up aboard by 8.30
+c714	G1	55	OK		712 persons, one of whom died shortly after
+c715	G1	59	OK		Capt. Lord stated that about 7.30
+c715	G1	59	OK		he passed the
+c715	G1	59	OK		Temple, stopped, and that she was in the vicinity of the
+c715	G1	59	OK		He saw no wreckage there
+c715	G2	15	OK		then steamed through the ice field to join CARPATHIA
+c716	G7	26	OK		At 8 o'clock the Leyland Line steamer Californian hove up, and we exchanged messages
+c716	G7	26	OK		I gave them the notes by semaphore about the Titanic going down, and that I had got all the passengers from the boats
+c717	G1	55	OK		The court desires to record its great admiration of Capt. Rostron's conduct
+c718	G2	6	OK		The FI into the loss of TITANIC was ordered on 30 April 1912
+c718	G7	5	OK		FRIDAY, APRIL 19, 1912
+c801	G2	6	OK		the Wreck Commissioner appointed was Lord Mersey
+c801	G2	6	OK		The proceedings included 37 public sittings, beginning on 2 May 1912, and 97 witnesses were examined. The Court reported on 30 July 1912
+c802	G2	6	OK		The Transcript, which includes over 25,000 questions and answers, has been invaluable to this reappraisal
+c803	G1	5	OK		the loss of the said ship was due to collision with an iceberg, brought about by the excessive speed at which the ship was being navigated
+c804	G1	40	OK		for a quarter of a century or more, the practice of liners using this track when in the vicinity of ice at night had been in clear weather to keep the course, to maintain the speed and to trust to a sharp lookout
+c805	G1	40	OK		the event has proved the practice to be bad
+c805	G1	40	OK		in competition and in the desire of the public for quick passages rather than in the judgment of naviga
+c806	G1	41	OK		He made a mistake, a very grievous mistake, but one in which, in face of the practice and of past experience, negligence can not be said to have had any part
+c807	G1	41	OK		What was a mistake in the case of the Titanic would without doubt be negligence in any similar case in the future
+c808	G2	1	OK		The Court was asked the specific question (which was added to the original list of questions during the hearing)
+c808	G2	1	OK		What vessels had the opportunity of rendering assistance to the
+c809	G1	85	OK		The Californian. She could have reached the Titanic if she had made the attempt when she saw the first rocket. She made no attempt
+c810	G1	60	OK		There are contradictions and inconsistencies in the story as told by the different witnesses. But the truth of the matter is plain
+c811	G1	60	OK		The Titanic collided with the berg at 11.40. The vessel seen by the
+c811	G1	60	OK		stopped
+c811	G1	60	OK		The number sent up by the
+c811	G1	60	OK		was about eight. The
+c811	G1	60	OK		saw eight
+c812	G1	60	OK		was from about 12.45 to 1.45 o'clock. It was about this time that the Californian saw the rockets
+c812	G2	6	OK		only likely to have been a few minutes
+c813	G1	60	OK		At 2.40 Mr. Stone
+c813	G1	60	OK		the master that
+c813	G1	60	OK		the ship from which he had seen
+c813	G1	60	OK		rockets had disappeared. At 2.20 a. m. the Titanic had foundered
+c814	G1	60	OK		It was suggested that the rockets seen by the Californian were from some other ship
+c814	G1	60	OK		But no other ship
+c814	G1	60	OK		theory has ever
+c814	G1	60	OK		been heard of
+c814	G1	60	OK		circumstances convince
+c814	G1	60	OK		Californian was the Titanic
+c815	G1	60	OK		according to Capt. Lord, the
+c815	G1	60	OK		two vessels were about
+c815	G1	60	OK		5 miles apart at the time of the disaster
+c816	G1	60	OK		I am advised that the distance was probably greater, though not more than 8 to 10 miles
+c817	G1	60	OK		was loose ice extending for a distance of not more than 2 or 3 miles in the direction of the
+c817	G1	60	OK		The night was clear and the sea was smooth. When she first saw the rockets, the Californian could have pushed through the ice to the open water without any serious risk
+c818	G1	60	OK		Had she done so she might have saved many if not all of the lives that were lost
+c819	G7	2	OK		May 28, 1912. Ordered, That the testimony of witnesses
+c820	T3	6	書き起こし		was nearer the Titanic than the 19 miles reported by her captain
+c820	T3	6	書き起こし		failed to respond to them in accordance with the dictates of humanity, international usage, and the requirements of law
+c821	T3	6	書き起こし		whether arising from indifference or gross carelessness, is most reprehensible, and places upon the commander
+c821	T3	6	書き起こし		a grave responsibility
+c822	T3	6	書き起こし		Had assistance been promptly proffered, or had wireless operator of the Californian remained a few minutes longer at his post
+c822	T3	6	書き起こし		that ship might have had the proud distinction of rescuing the lives of the passengers and crew of the Titanic
+c823	G2	15	OK		the Court did not single him out personally for criticism but simply referred to 'the CALIFORNIAN'
+c824	G2	1	OK		it was upon him that the great weight of the extremely grave accusation implied by the Court's finding fell
+c825	G2	1	OK		he requested a re-hearing of that part of the Inquiry which concerned his ship; the request was rejected, and as no formal charge had been laid against him, and no action had been taken against his
+c826	G2	1	OK		For many years the matter rested
+c901	G2	1	OK		in the mid-1950's the book
+c901	G2	1	OK		it was widely read and a successful film based upon it was made. The allegations against CALIFORNIAN were repeated
+c902	G2	1	OK		this led Captain Lord, by then over 80 years old, to renew his plea for the matter to be re-examined
+c902	G2	1	OK		the body representing British shipmasters. In particular, two petitions were made to the Board of Trade asking for the Inquiry to be re-opened; both were rejected
+c903	G2	2	OK		In 1985 an expedition
+c903	G2	2	OK		discovered the wreck of TITANIC, in a position some 13 miles from that accepted by the 1912 Inquiry
+c904	G2	2	OK		in 1990 the Secretary of State for Transport
+c904	G2	2	OK		determined that the Marine Accident Investigation Branch should make a reappraisal of the relevant evidence
+c905	G2	3	OK		To establish so far as is now possible the positions of TITANIC
+c905	G2	3	OK		To consider whether TITANIC was seen by CALIFORNIAN
+c905	G2	3	OK		To consider whether distress signals from TITANIC were seen by
+c905	G2	3	OK		To assess the action taken by Captain Stanley Lord
+c906	G2	-1	OK		an Inspector from outside the Branch was appointed
+c906	G2	-1	OK		had recently retired from a post as Principal Nautical Surveyor
+c906	G2	-1	OK		is a very experienced Master Mariner
+c907	G2	-1	OK		I do not fully agree with all the Inspector's findings but this does not mean that I have any doubt
+c907	G2	-1	OK		the thoroughness of his enquiries
+c907	G2	-1	OK		I instructed the Deputy Chief Inspector of Marine Accidents to undertake this and report to me
+c908	G2	-1	OK		His report, which follows, incorporates his conclusions and those of the appointed Inspector
+c908	G2	-1	OK		full endorse the Deputy Chief Inspector's report and conclusions
+c909	G2	3	OK		when she foundered
+c909	G2	9	OK		caused by the wrong distance being allowed along the course line from the last known position - a simple mistake to make under stress
+c910	G2	9	OK		There is no doubt that in 1912 the Labrador current extended further south and east than is usual
+c910	G2	9	OK		the direction of set was about 196
+c910	G2	9	OK		and the rate about 1.3 knots
+c911	G2	9	OK		Labrador current extended further south and east than is usual
+c912	G2	7	OK		the Inspector has found that the two ships were between 5 and 10 miles apart whilst they lay stopped, and probably nearer five; whereas in my opinion the distance was substantially greater, probably about 18 miles
+c913	G2	9	OK		He considers that the current had set southerly since noon on 14 April; no allowance for this current was made
+c913	G2	3	OK		but was probably further East and only 5 to 7 miles off
+c914	G2	10	OK		The Pole Star sight taken by the Chief Officer at 1930 hrs (and confirmed by him in Court) gave the same latitude
+c914	G2	10	OK		as that observed at noon on the same day, showing a course made good of west
+c915	G2	10	OK		The one piece of evidence on CALIFORNIAN'S track which cannot have been fabricated is the signal sent to ANTILLIAN concerning the sighting of icebergs
+c915	G2	10	OK		it adds weight to the statement that CALIFORNIAN was steering westerly
+c916	G2	10	OK		the boat which it came from must have been to the north of CARPATHIA's course line and it follows that during the two hours the ship must have been set to the north
+c917	G2	11	OK		I do not believe that CALIFORNIAN will have been affected by the southerly set for more than at the most a few hours before she reached the ice field and stopped
+c917	G2	11	OK		I therefore consider that CALIFORNIAN was between 17 and 20 miles from TITANIC at the time of collision, bearing about NW by N from her
+c917	G2	3	OK		most likely about 18 miles
+c918	G2	13	OK		CALIFORNIAN'S lights
+c918	G2	13	OK		could certainly be seen on a night such as this at 5 miles or more range
+c918	G2	13	OK		she was well beyond the ordinary visible horizon
+c919	G2	13	OK		well beyond the ordinary visible horizon
+c919	G2	11	OK		our respective opinions on position are undoubtedly coloured by this difference
+c920	G2	12	OK		The Inspector considers that TITANIC was seen by CALIFORNIAN and indeed kept under observation from 2300 hrs or soon after on 14 April until she sank
+c920	G2	12	OK		the extent of coincidence between what they saw and what is known of TITANIC'S movements
+c920	G2	12	OK		which does not coincide with
+c920	G2	12	OK		strongly in favour of TITANIC having been the ship seen
+c921	G2	12	OK		no ship was seen by TITANIC until well after the collision; the exact time is not recorded but seems to have been about 0030 hrs
+c921	G2	12	OK		watch was maintained with officers on the Bridge and seamen in the
+c921	G2	12	OK		which if review were to be confined to
+c921	G2	12	OK		I would not dissent from
+c922	G2	12	OK		It is in my view inconceivable that CALIFORNIAN or any other ship was within the visible horizon of TITANIC during that period; it equally follows that TITANIC cannot have been within CALIFORNIAN'S horizon
+c923	G2	13	OK		a third ship was present which approached from the East, stopped on meeting the field ice, and then after a period steamed away to seek a break in the ice
+c924	G2	13	OK		This is very far from unlikely; the North Atlantic trade was busy in 1912 and a number of other ships are known to have been in the area
+c925	G2	13	OK		is that CALIFORNIAN did actually see TITANIC but at a very much greater range than her horizon because of abnormal
+c926	G2	13	OK		the rockets seen by CALIFORNIAN were described as low-lying
+c926	G2	13	OK		this could be because they actually rose to a height above the refracting layer
+c926	G2	13	OK		it requires a long period during which CALIFORNIAN could see TITANIC but not vice versa
+c926	G2	13	OK		This is not
+c926	G2	13	OK		impossible
+c927	G2	13	OK		later her red (port) light came into view, arguing that after stopping she swung markedly to starboard
+c927	G2	13	OK		Her port sidelight would therefore not be seen
+c928	G2	13	OK		I do not consider that a definite answer to the question 'was TITANIC seen' can be given
+c928	G2	13	OK		More probably, in my view, the ship seen by CALIFORNIAN was another, unidentified, vessel
+c929	G2	14	OK		One possibility is that she was the Norwegian sealer SAMSON
+c929	G2	14	OK		There are fairly obvious weaknesses in this account
+c930	G2	14	OK		The Inspector's answer is 'Yes', and I entirely agree with him
+c931	G2	14	OK		it has been suggested that these were Company signals from the other ship seen by CALIFORNIAN, I think this possibility is quite unrealistic
+c931	G2	14	OK		it would explain their apparent low altitude
+c932	G2	3	OK		The Inspector considers that TITANIC
+c932	G2	3	OK		distress signals were seen, and that proper action was not taken. I agree on both counts
+c932	G2	15	OK		Merely attempting to call by morse lamp fell far short of what was needed
+c933	G2	15,16	OK		The Master should have been called and if he did not immediately respond Mr
+c933	G2	15,16	OK		Stone should have reported to him in person
+c933	G2	15,16	OK		Stand By Engines
+c933	G2	15,16	OK		The Wireless Operator should have been called
+c933	G2	15,16	OK		got under way towards the apparent source of the rockets
+c934	G2	16	OK		that Captain Lord lay drunk in his cabin, that he was entirely callous or that he was frightened to attempt to manoeuvre in the ice
+c934	G2	16	OK		Captain Lord was in fact almost tee-total
+c934	G2	16	OK		Captain Lord in fact took his ship through the ice twice once he learnt of TITANIC'S distress
+c935	G2	17	OK		there is a state of somnambulism quite often experienced in which the subject appears to respond to a call but the message given does not break the barrier between sleep and
+c935	G2	17	OK		I think the message from the Bridge simply did not get through
+c936	G2	17	OK		There is a natural tendency to reject the signals of disaster and to hope that all is well despite the evidence of one's
+c936	G2	17	OK		Mr Stone should have gone down himself to the
+c936	G2	17	OK		Master when there was no proper response from him
+c937	G2	17	OK		he was in fact something of a martinet, and the young officer may have feared to leave the
+c937	G2	17	OK		I sympathise with Mr Stone, but it must be said that he was seriously at fault
+c938	G2	18	OK		The first rocket appears to have been fired at about 0045 hrs (TITANIC time)
+c938	G2	18	OK		given my minimum distance off of 17 miles, have reached the scene at just about the time of sinking. This however is unrealistic
+c939	G2	18	OK		No officer would take such action on seeing a single distant flash which might be a shooting star or even a visual aberration
+c940	G2	18	OK		Captain Lord would have been on the Bridge at perhaps 0055 hrs
+c940	G2	18	OK		would shortly receive TITANIC'S SOS with its incorrect position
+c940	G2	18	OK		CALIFORNIAN would arrive well after the sinking
+c941	G2	18	OK		if I am right as to the distance apart
+c941	G2	18	OK		I do not think any reasonably probable action by Captain Lord could have led to a different outcome of the tragedy. This of course does not alter the fact that the attempt should have been made
+c942	G2	18	OK		the effect of CALIFORNIAN taking proper action would have been no more than to place on her the task actually carried out by CARPATHIA, that is the rescue of those who escaped
+c943	G2	-1	OK		incorporates his conclusions and those of the appointed Inspector
+c943	G2	-1	OK		full endorse the Deputy Chief Inspector's report and conclusions
+c944	G2	18	OK		The TITANIC disaster led to a number of changes improving provisions for emergency at sea
+ca01	G1	85	OK		passenger and emigrant steamships
+ca01	G1	87	OK		worked with a sufficient number of trained operators to secure a continuous service by night and day
+ca02	G4		OK		two or more persons skilled in the use of such apparatus, one or the other of whom shall be
+ca02	G4		OK		on duty at all times while the vessel is being navigated
+ca02	G4		OK		approved, July 23, 1912
+ca03	G6		OK		in charge of a person skilled in the use of such apparatus
+ca04	G4		OK		the operator in the radio room and the bridge shall be maintained at all times
+ca05	G5		OK		All stations are required to give absolute priority to signals
+ca05	G5		OK		and radiograms relating to ships in distress; to cease all sending on
+ca05	G5		OK		hearing a distress signal
+ca06	G1	87	OK		when ice is reported in or near the track the ship should proceed in the dark hours at a moderate speed or alter her course so as to go well clear of the danger zone
+ca07	G1	86	OK		That the accommodation should be sufficient for all persons on board
+ca07	G1	78	OK		Had a boat drill been held on board
+ca07	G1	78	OK		No. (d) The carrying capacity
+ca08	U1		web		RCS assumed the responsibility of monitoring iceberg activity from the U.S. Navy
+ca08	U1		web		officially established by the Safety of Life at Sea (SOLAS) Convention
+ca09	U1		web		The tragedy led to the creation of the International Ice Patrol
+ca10	G2	18	OK		it was not until 1948 that the rules for distress signals were amended
+ca11	G2	18	OK		Had that rule been in force in 1912, when it was much more needed than now, Mr Stone would surely not have remained passive
+ca13	G2	19	OK		A final word seems called for on the aftermath of the FI and its finding so far as Captain Lord is concerned
+cb01	G2	19	OK		He lost his post with the Leyland Line, but soon gained employment with another British company
+cb01	G2	19	OK		he remained at sea throughout the Great War and into the 1920s with that Company. He died in 1962. No formal action was ever taken against him
+cb02	G2	19	OK		it is difficult not to believe that some at least of those responsible at the Board of Trade felt a substantial measure of doubt as to the justice of the findings
+cb03	G2	19	OK		Neither party will be entirely satisfied with this Report
+cb04	G2	19	OK		there are no villains in this story: just human beings with human characteristics
+cb05	G1	60	OK		she might have saved many if not all of the lives
+cb05	G2	3	OK		only 5 to 7 miles off
+cb05	G2	3	OK		between 17 and 20 miles from TITANIC
+cb05	G2	3	OK		I think it possible that she was seen
+cb05	G2	3	OK		but more likely that she was not seen
+cb06	G2	14	OK		I entirely agree with him
+cb06	G2	3	OK		proper action was not taken. I agree on both counts
