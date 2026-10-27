@@ -7,6 +7,9 @@
 網は2つ：
  1. 出さない名前＝git の外の src/names_private.txt（会社の人・カリフォルニアン号の機関部の乗組員・私人。注の行〈#〉は飛ばす）＝当たれば E。
     ラテン文字の名前は大文字小文字を問わず語の境で・かなと漢字はそのまま当てる（26本目は英語の資料＝綴りの大小が揺れる）。
+    🆕 2026-10-27（⑤a-1）：カタカナだけの名前は、前後がカタカナ（ァ〜ヴ・ー）でない所でだけ当てる＝カタカナの語の途中の字並び
+    （読みの辞書の発音「オーキスギル」＝大きすぎる・18本目の読みの注「ナガ／スギル」）に当たる偽の当たりを出さない。
+    「・名前」「名前は」のような本当の名前は当たる（selftest の陽性対照）。
  2. 撮影者の個人名＝git の外の src/credits_private.tsv の**作者の列だけ**（機関名の行は除く・「 at Japanese Wikipedia」「 (talk)」を外す）
     ＝ラテン文字は語の境で・漢字はそのまま当てる＝当たれば E。26本目は ⑤b で作る表＝④' の時点で無ければ網1だけで回す（そう出す）。
 当たった所は名前を伏せて「ファイル:行・語の頭1字＋○」だけ出す（この出力も gates.md に入る＝リポに名前を写さない）。
@@ -54,12 +57,23 @@ def mask(w):
     return w[0] + '○' * (len(w) - 1)
 
 
+KATA_ONLY = re.compile(r'[ァ-ヴー・]+')
+
+
+def name_rx(n):
+    """ラテン文字＝語の境・カタカナだけ＝前後がカタカナでない所（語の途中の字並びに当てない）・ほか＝字のまま。"""
+    if n.isascii():
+        return re.compile(r'(?<![A-Za-z])' + re.escape(n) + r'(?![A-Za-z])', re.I)
+    if KATA_ONLY.fullmatch(n):
+        return re.compile(r'(?<![ァ-ヴー])' + re.escape(n) + r'(?![ァ-ヴー])')
+    return re.compile(re.escape(n))
+
+
 def nets():
     names, toks = private_names(), author_tokens()
     if names is None or toks is None:
         return None
-    out = [('出さない名前', n, re.compile(r'(?<![A-Za-z])' + re.escape(n) + r'(?![A-Za-z])', re.I) if n.isascii()
-            else re.compile(re.escape(n))) for n in names]
+    out = [('出さない名前', n, name_rx(n)) for n in names]
     for t in sorted(toks):
         rx = re.compile(r'(?<![A-Za-z0-9])' + re.escape(t) + r'(?![A-Za-z0-9])') if t.isascii() else re.compile(re.escape(t))
         out.append(('撮影者の名前', t, rx))
@@ -113,6 +127,11 @@ def selftest():
     neg = ('Marine Accident Investigation Branch の再評価・英国の審問・米国上院・Californian・Titanic・Carpathia・'
            '船長・二等航海士・三等航海士・見習い・通信士・ドンキーマン・会社の会長・NARA・NOAA・Commons・Wikipedia')
     ok &= scan_text(neg, 'neg', net, []) == 0
+    # 🆕 2026-10-27：カタカナだけの名前は、中黒のうしろ・助詞の前では当たる（陽性）／カタカナの語の途中の字並びには当たらない（陰性）
+    kat = [n for n in names if KATA_ONLY.fullmatch(n)]
+    ok &= all(scan_text('ある乗組員・%sは' % n, 'pos', net, []) >= 1 and scan_text('「%s」' % n, 'pos', net, []) >= 1 for n in kat)
+    ok &= all(scan_text('オーキス%sノ' % n, 'neg', net, []) == 0 for n in kat)
+    ok &= scan_text('大きすぎる,,,1,名詞,一般,*,*,*,*,大きすぎる,オオキスギル,オーキスギル,0/6,*', 'neg', net, []) == 0
     # 大文字だけの名義は語の境で当てる＝先頭だけ大文字の別の語には当たらない（名義の字はここに書かない）
     caps = [t for t in toks if t.isascii() and t.isupper()]
     ok &= all(scan_text(t.capitalize() + 'hiro', 'neg', net, []) == 0 for t in caps)

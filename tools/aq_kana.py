@@ -28,6 +28,7 @@ r"""aq_kana.py — 台本の文を **AquesTalk の音声記号列** に変える
   - 記号は元の字で振り分ける（pyopenjtalk は 。「」★・ を全部「、」にする）
   - 回ごとの利用者辞書 `ref/<SLUG>/aq/userdict.csv`（pyopenjtalk の利用者辞書＝MeCab の CSV）と、
     行ごとの手書き `ref/<SLUG>/aq/override.tsv`（行ID<TAB>音声記号列）を読む
+  - 🆕 声に出さない括弧の中身 `ref/<SLUG>/aq/silent.tsv`（正規表現<TAB>理由・26本目から＝括弧の英単位）。無い回は中身も読む
 """
 import csv
 import hashlib
@@ -164,10 +165,43 @@ def load_override(slug=None):
     return out
 
 
+# 🔴 2026-10-27（26本目⑤a-1・カズヤくん「声はキロだけ」）：括弧の中身を声に出さない回。
+#    ref/<SLUG>/aq/silent.tsv（正規表現<TAB>理由）に**括弧の中身まるごと**が当たる型を書く（fullmatch）＝その括弧は
+#    括弧ごと読まない（字幕は台本の字のまま括弧つき）。ファイルが無い回は今までどおり中身も読む（1バイトも変わらない）。
+#    数の門番 check_aq_yomi も _pre を通す＝読まない括弧の数は台帳に載らない（声に無い数を台帳で採点しない）
+_SILENT = {}
+
+
+def load_silent(slug=None):
+    """ref/<SLUG>/aq/silent.tsv → 1つの正規表現（無い・空なら None）。"""
+    p = ep_dir(slug) / "silent.tsv"
+    key = str(p)
+    if key not in _SILENT:
+        pats = []
+        if p.exists():
+            for ln in p.read_text(encoding="utf-8").splitlines():
+                if not ln.strip() or ln.startswith("#"):
+                    continue
+                parts = ln.split("\t")
+                if len(parts) < 2 or not parts[1].strip():
+                    raise AqError(f"silent.tsv の行の形が違う（正規表現<TAB>理由）: {ln!r}")
+                re.compile(parts[0])                  # 書き損じは読み込みで止める
+                pats.append(f"(?:{parts[0]})")
+        _SILENT[key] = re.compile("|".join(pats)) if pats else None
+    return _SILENT[key]
+
+
+_PAREN_BODY = re.compile(r"[（(]([^（）()]*)[）)]")
+
+
 # ── 変換 ─────────────────────────────────────────────────────────────
-def _pre(text):
-    """読まない記号を外し、括弧を間にする（中身は読む）。"""
+def _pre(text, silent=None):
+    """読まない記号を外し、括弧を間にする（中身は読む）。
+    silent＝声に出さない括弧の中身の型（None＝回の silent.tsv を読む・False＝読まない括弧なし）。"""
     t = speaker.bare(text).replace("**", "")
+    sil = load_silent() if silent is None else (silent or None)
+    if sil is not None:
+        t = _PAREN_BODY.sub(lambda m: "" if sil.fullmatch(m.group(1)) else m.group(0), t)
     t = "".join("、" if c in PAREN_OPEN else ("" if c in PAREN_CLOSE or c in DROP else c) for c in t)
     t = re.sub(r"、{2,}", "、", t).strip("、 ")
     return t
@@ -355,7 +389,14 @@ def selftest():
     chk("手書き: 句に ' が2つで止める", bool(validate("ひと'つのあくせんと'くです。")[0]), True)
     chk("手書き: 仕様書の例は通る", validate("こ'んどは、もーすこ'し/ふくざつな/おんせーき'ごーです。")[0], [])
     chk("手書き: 最後に句切りが無ければ止める", bool(validate("これわ")[0]), True)
-    chk("括弧は間・閉じは消す", _pre("約2.4メートル（8フィート）の箱"), "約2.4メートル、8フィートの箱")
+    chk("括弧は間・閉じは消す", _pre("約2.4メートル（8フィート）の箱", silent=False), "約2.4メートル、8フィートの箱")
+    # 🔴 2026-10-27（26本目⑤a-1）：silent.tsv の型＝括弧の中身まるごとに当たれば括弧ごと読まない（陽性）／当たらない括弧は今までどおり（陰性）
+    sil = re.compile(r"[0-9]+(?:(?:か|から)[0-9]+)?(?:マイル|ノット)半?")
+    chk("🔴型に当たる括弧は括弧ごと読まない", _pre("約9キロ（5マイル）南にある", silent=sil), "約9キロ南にある")
+    chk("🔴幅の括弧も（4か5マイル）", _pre("約7キロから9キロ（4か5マイル）の範囲", silent=sil), "約7キロから9キロの範囲")
+    chk("括弧のあとの読点は残る", _pre("約9キロから19キロ（5から10マイル）、たぶん", silent=sil), "約9キロから19キロ、たぶん")
+    chk("型に当たらない括弧は読む（ブリッジ）", _pre("船橋（ブリッジ）から出す", silent=sil), "船橋、ブリッジから出す")
+    chk("中身の一部だけ当たる括弧は読む", _pre("約1キロ（5マイルほど）", silent=sil), "約1キロ、5マイルほど")
     chk("★と「」は読まない", _pre("★「その場で待機」"), "その場で待機")
     chk("聞き役の印は読まない", _pre("Q: 船長たちは？"), "船長たちは？")
     # 本番の変換（pyopenjtalk）で形を確かめる
