@@ -81,3 +81,9 @@ PLAN = {
 }
 
 SPEC = {}
+
+# 🆕 ⑤b-3（2026-10-27）：フリー素材（Pexels・イメージ）＝`ss.vid`（見出し・副題は書かない＝左上の「イメージ」と出典だけ）。
+#   区間（白い筋が上がる所だけ・0.6倍）は `qa_out/ep26_assets.py` の STOCK_WINDOW → footage.USE
+SPEC.update({
+    "c517": ss.vid("c517"),
+})

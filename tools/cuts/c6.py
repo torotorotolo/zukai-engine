@@ -144,3 +144,10 @@ PLAN = {
 }
 
 SPEC = {}
+
+# 🆕 ⑤b-3（2026-10-27）：フリー素材（Pexels・イメージ）＝`ss.vid`（見出し・副題は書かない＝左上の「イメージ」と出典だけ）。
+#   区間（c610＝船がいちばん遠い頭）は `qa_out/ep26_assets.py` の STOCK_WINDOW → footage.USE
+SPEC.update({
+    "c610": ss.vid("c610"),
+    "c638": ss.vid("c638"),
+})

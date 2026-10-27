@@ -81,3 +81,22 @@ PLAN = {
 }
 
 SPEC = {}
+
+# 🆕 ⑤b-3（2026-10-27）：地図（衛星写真＋描き足し＝`ss.sat`・寄らない・色を変えない）。札に数字を置かない（日付は語り）
+SPEC.update({
+    # c218（2行・8.2秒）＝1行目「いつもの航路で、大西洋を西へ」で港と航路 → 2行目「4月14日…氷山にぶつかる」で×
+    #   航路＝G1 p.33：寄港（サウサンプトン → シェルブール → クイーンズタウン）→ ファストネット灯台から曲がり角まで大圏 → その先はニューヨークへ（破線＝行き着かなかった）
+    "c218": dict(
+        **ss.sat("G01", steps=[
+            [dict(k="line", path=("southampton", "cherbourg", "queenstown") + ss.SAT_LINES["gc"] + ("collision",), role="ship",
+                  t="いつもの航路", u=0.7, lab=(0, -26, "middle")),
+             dict(k="line", path=("collision", "newyork"), role="ship", dash=True),
+             # ヨーロッパは Google の地名が多い（イギリス・アイルランド・フランス）＝港の札は 26px で、地名の字と重ねない向きへ（確かめ用の重ね絵で見た）
+             dict(k="pt", at="southampton", c="INK_W", t="サウサンプトン", size=26, lab=(6, -46, "start")),
+             dict(k="pt", at="cherbourg", c="INK_W", t="シェルブール", size=26, lab=(6, 34, "start")),
+             dict(k="pt", at="queenstown", c="INK_W", t="クイーンズタウン", size=26, lab=(-40, -24, "end")),
+             dict(k="pt", at="newyork", c="INK_W", t="ニューヨーク", lab=(0, 46, "middle"))],
+            [dict(k="x", at="collision", t="氷山にぶつかった所", lab=(0, 50, "middle"))]],
+            note="港は一般の座標・" + ss.SAT_LINE_NOTE),
+        t="大西洋を西へ", s="北大西洋（現在の衛星写真）"),
+})

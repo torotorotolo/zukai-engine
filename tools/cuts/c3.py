@@ -90,3 +90,20 @@ PLAN = {
 }
 
 SPEC = {}
+
+# 🆕 ⑤b-3（2026-10-27）：地図（衛星写真＋描き足し＝`ss.sat`・寄らない・色を変えない）。印は G1 p.35〜37 の緯度経度（札に数字を置かない）
+SPEC.update({
+    # c306（2行・7.7秒）＝1行目「タイタニック号の時計だ。4月14日の朝9時、」で航路 → 2行目「カロニア号から、最初の氷の知らせ」で5つの印
+    #   ⚠️ 映像方針の注「ニューファンドランドを左上に」はズーム6 でないと入らない＝5つの印が額の中で約80×35px に詰まる＝ズーム8 で氷の海域に寄せた（広い図は c218）
+    "c306": dict(
+        **ss.sat("G02", steps=[
+            # 色は役の名で引く（role＝jiko_style.ROLE の鍵＝色の名札。意味は前の回の名のまま）：ship＝水色・bldg_a＝桃色・ntsb＝緑・uscg＝青・company＝橙
+            [dict(k="line", path=("turning", "collision"), role="ship", t="タイタニック号の航路", u=0.35, lab=(0, 46, "middle"))],
+            [dict(k="line", path=("ice_caronia_w", "ice_caronia_e"), c="AMBER", t="カロニア号", u=0.2, lab=(0, -22, "middle")),
+             dict(k="line", path=ss.SAT_LINES["mesaba"], role="bldg_a", dash=True, t="メサバ号", u=0.42, lab=(16, 40, "start")),
+             dict(k="pt", at="ice_californian", role="ntsb", t="カリフォルニアン号", lab=(16, -22, "start")),
+             dict(k="pt", at="ice_baltic", role="uscg", t="バルティック号", lab=(-20, 6, "end")),
+             dict(k="pt", at="ice_amerika", role="company", t="アメリカ号", lab=(-18, 36, "end"))]],
+            note="印は英国の審問の報告の緯度経度"),
+        t="船からの無線", s="4月14日の氷の知らせの位置・北大西洋（現在の衛星写真）"),
+})

@@ -60,3 +60,9 @@ PLAN = {
 }
 
 SPEC = {}
+
+# 🆕 ⑤b-3（2026-10-27）：フリー素材（Pexels・イメージ）＝`ss.vid`（見出し・副題は書かない＝左上の「イメージ」と出典だけ）。
+#   区間と寄せ（左の灯りの列と下の対岸の町の灯りを画面の外へ）は `qa_out/ep26_assets.py` の STOCK_WINDOW・STOCK_GEOM → footage.USE
+SPEC.update({
+    "ca11": ss.vid("ca11"),
+})

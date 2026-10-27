@@ -924,6 +924,50 @@ GEO = {}
 #    SAT_LINES・SAT_LINE_NOTE は25本目の章ファイルが引いた名＝器だけ残す（26本目に線路は無い。航路などの線を足すなら出どころの断りも一緒に）
 SAT_LINES = {}
 SAT_LINE_NOTE = ""
+# 🆕 2026-10-27（26本目 ⑤b-3）：地図4カット（c218・c306・c909・c917）＝撮った絵は `ref/ep26/eizou_build/helpers/gshot26.py`（2回撮って gseam22 で継ぎ目なし）。
+#   点＝報告書の値（G1＝英国の審問の報告〈S. Doc. 933〉・G2＝MAIB 1992＝頁の画像で読んだ値＝`ref/ep26/sources.md` §2-1）と、港だけ一般の座標（Wikidata）。
+#   ⚠️ 地図の札に数字を置かない（数字の札は門番 check_sat の記録の表 REC_SAT_NUM と原文の通し頁が要る＝日付・距離は語りと副題で言う）
+SAT.update({
+    "G01": dict(file=f"{EP}photo/gmap_g01_atlantic.png", ll=(46.0, -34.0), z=4, md5="f8cd894a49cd015b7d5c1ae3c0d364ad", credit=SAT_CREDIT),
+    "G02": dict(file=f"{EP}photo/gmap_g02_ice.png", ll=(41.72, -49.75), z=8, md5="1f1cd59513d12287790bbe7aff512912", credit=SAT_CREDIT),
+    "G03": dict(file=f"{EP}photo/gmap_g03_titanic.png", ll=(41.765, -50.07), z=10, md5="18ceaf98a4453d8a410381d51af170d3", credit=SAT_CREDIT),
+    "G04": dict(file=f"{EP}photo/gmap_g04_californian.png", ll=(41.88, -50.03), z=10, md5="b236c9aa9328c8ee34013bccd721730b", credit=SAT_CREDIT),
+})
+GEO.update({
+    # 寄港地と行き先（G1 p.33 THE ROUTE FOLLOWED）＝一般の座標（Wikidata の P625）
+    "southampton": dict(ll=(50.9067, -1.4044), src="G1 p.33（`The Titanic left Southampton on Wednesday, April 10`）", how="一般の座標（Wikidata Q79848＝市）"),
+    "cherbourg": dict(ll=(49.6333, -1.6000), src="G1 p.33（`after calling at Cherbourg`）", how="一般の座標（Wikidata Q3667188＝町）"),
+    "queenstown": dict(ll=(51.8510, -8.2967), src="G1 p.33（`proceeded to Queenstown`）", how="一般の座標（Wikidata Q733093＝今のコーヴ）"),
+    "fastnet": dict(ll=(51.3933, -9.6049), src="G1 p.33（`from the Fastnet Light, off the southwest coast of Ireland`）", how="一般の座標（Wikidata Q3067133＝1904年からの灯台）"),
+    "newyork": dict(ll=(40.7128, -74.0061), src="G1 p.33（`and from this point on to New York`）", how="一般の座標（Wikidata Q60＝市）"),
+    "turning": dict(ll=(42.0, -47.0), src="G1 p.33（`a point in latitude 42° N. and 47° W. (sometimes termed the “turning point”)`）", how="報告書の値（曲がり角）"),
+    # タイタニック号の位置（G2＝MAIB 1992 p.3・p.7＝頁の画像で読んだ値。文字の層は緯度経度が空白）
+    "collision": dict(ll=(41 + 47 / 60, -(49 + 55 / 60)), src="G2 p.3・p.7（衝突の位置＝41°47′N 49°55′W・沈んだ位置から海流で逆算した推定）",
+                      how="報告書の値（推定）"),
+    "wreck": dict(ll=(41 + 43.6 / 60, -(49 + 56.9 / 60)), src="G2 p.3・p.7（ボイラーと船尾の位置＝41°43′.6N 49°56′.9W・1985年の発見）",
+                  how="報告書の値（残骸）"),
+    "cqd": dict(ll=(41 + 46 / 60, -(50 + 14 / 60)), src="G2 p.7・G1 p.85（タイタニック号が無線で送った位置＝41°46′N 50°14′W）", how="報告書の値（無線の位置）"),
+    # カリフォルニアン号の位置の2つの見方（G2 p.3・p.11）＝どちらも「あたり」の点（見えたかの線は描かない）
+    "cal_inv": dict(ll=(41 + 50 / 60, -(50 + 7 / 60)), src="G2 p.3（調査官＝41°50′N 50°07′W あたり・`probably further East and only 5 to 7 miles off`）",
+                    how="報告書の値（調査官の見方）"),
+    "cal_dep": dict(ll=(42.0, -(50 + 9 / 60)), src="G2 p.3・p.11（次長＝42°00′N 50°09′W あたりかやや北・`between 17 and 20 miles from TITANIC`）",
+                    how="報告書の値（次長の見方）"),
+    # 4月14日の氷の知らせ（G1 p.35〜37 ICE MESSAGES RECEIVED）
+    "ice_caronia_w": dict(ll=(42.0, -51.0), src="G1 p.35（`bergs, growlers, and field ice in 42° N., from 49° to 51° W.`）", how="報告書の値（範囲の西の端）"),
+    "ice_caronia_e": dict(ll=(42.0, -49.0), src="G1 p.35（`bergs, growlers, and field ice in 42° N., from 49° to 51° W.`）", how="報告書の値（範囲の東の端）"),
+    "ice_baltic": dict(ll=(41 + 51 / 60, -(49 + 52 / 60)), src="G1 p.36（`Athenai reports passing icebergs`…`in latitude 41° 51′ N., longitude 49° 52′ W.`）",
+                       how="報告書の値"),
+    "ice_amerika": dict(ll=(41 + 27 / 60, -(50 + 8 / 60)), src="G1 p.36（`Amerika passed two large icebergs in 41° 27′ N., 50° 8′ W.`）", how="報告書の値"),
+    "ice_californian": dict(ll=(42 + 3 / 60, -(49 + 9 / 60)), src="G1 p.37（`latitude 42° 3′ N., longitude 49° 9′ W. Three large bergs`）", how="報告書の値"),
+})
+SAT_LINES = dict(
+    # ファストネット灯台 → 曲がり角（北緯42度・西経47度）の大圏の弧（G1 p.33 `followed the arc of a great circle`）＝球の上で両端を結んで8つに割った点（計算）
+    gc=((51.393, -9.605), (50.946, -14.934), (50.261, -20.135), (49.351, -25.165), (48.232, -29.992), (46.919, -34.595), (45.432, -38.964),
+        (43.786, -43.097), (42.0, -47.0)),
+    # メサバ号の知らせの範囲（北緯42度〜41度25分・西経49度〜50度30分＝G1 p.37 `latitude 42° N. to 41° 25′ N., longitude 49° to longitude 50° 30′ W.`）の四角
+    mesaba=((42.0, -50.5), (42.0, -49.0), (41 + 25 / 60, -49.0), (41 + 25 / 60, -50.5), (42.0, -50.5)),
+)
+SAT_LINE_NOTE = "航路は英国の審問の報告 p.33 の道すじを描き直した模式"
 # 🆕 2026-10-23（24本目 ⑤b-6）：**この回は衛星写真の地図なし**の言い分（理由の文）。地図2つ（c203・c713）は描く＝`tools/mech24.py` の ussr・japan
 #    （国の形＝Natural Earth の切り出し `ref/ep24/make_map24.py`＝国の境・1986年の色・北方領土を描き分けるため。衛星写真には国の境が写らない）。
 #    門番 check_sat は、この文があるときだけ「地図のカット0」を通す（地図のカットが1つでもあれば、言い分と食い違う＝鳴る）。

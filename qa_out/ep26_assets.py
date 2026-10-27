@@ -943,10 +943,36 @@ def _head(u):
 NOAA_SIZE, NOAA_MD5_HEAD = 33946045, "d1375766"
 
 
+def _media_url(code, size, rec):
+    """🆕 ⑤b-3（10-27）：Pexels の直リンク＝取得の記録（fetch26.tsv の url_kind＝`stock:<直リンク>`）の URL を HEAD で照らし、
+    大きさが手元と同じなら返す（違えば止める）。25本目 `_media_url` の記録の枝だけ（新しい素材の名の形は番号から組めない）"""
+    try:
+        st, n, ct = _head(rec)
+    except Exception as e:                                   # noqa: BLE001
+        raise SystemExit(f"🔴 {code}: 記録の直リンクを引けない（{rec}・{e}）")
+    if st != 200 or n != size or not ct.startswith("video/"):
+        raise SystemExit(f"🔴 {code}: 記録の直リンクが手元と違う（http {st}・{n} B／手元 {size} B・{ct}）")
+    return rec
+
+
 def cmd_clips():
-    """clips.json＝NOAA 2004（公的な機関の頁の直リンク＝焼くときに丸ごと取る）。フリー素材は ⑤b-3（取ってから）"""
-    src = _sources()
+    """clips.json＝NOAA 2004（公的な機関の頁の直リンク＝焼くときに丸ごと取る）・フリー素材（Pexels＝取得の記録の直リンク＝🆕 ⑤b-3）"""
+    src, fet = _sources(), _fetched()
     out = json.loads(CLIPS.read_text(encoding="utf-8")) if CLIPS.exists() else {}
+    for code, cuts in _film_codes(("stock",)).items():
+        s = src[code]
+        p = HERE / s["file"]
+        r = fet.get(code) or {}
+        if not p.exists() or not r or md5(p) != r["md5_1"] or not r["url_kind"].startswith("stock:http"):
+            raise SystemExit(f"🔴 {code}: 手元の映像が無いか md5 が取得のときと違う（{s['file']}）＝fetch26.py stock で取る")
+        size = p.stat().st_size
+        media = _media_url(code, size, r["url_kind"][6:])
+        loc = _probe(p)
+        out[code] = dict(url=s["page"], media=media, stock=True, file=s["file"].removeprefix("ref/"), credit="イメージ（Pexels）", src="stock",
+                         at=0.0, what=s["title"][:60], w=loc["w"], h=loc["h"], fps=loc["fps"], sar=loc["sar"], sec=round(loc["sec"], 3),
+                         size=size, md5=r["md5_1"], dispw=loc["w"], decoded=[loc["w"], loc["h"]], license="Pexels License",
+                         license_url="https://www.pexels.com/license/", site="Pexels")
+        print(f"  {code:13} {loc['w']}x{loc['h']} {loc['fps']}fps {loc['sec']:7.2f}秒 {size / 1e6:.1f}MB  {' '.join(cuts)}  {media.rsplit('/', 1)[-1]}")
     for code, cuts in _film_codes(("noaa-video",)).items():
         s = src[code]
         p = HERE / s["file"]
@@ -976,6 +1002,9 @@ def cmd_clips():
 #    ⚠️ 1回目（10-27）は「映像全体の中央値の3倍」と「場面の頭のコマとの差 28」で割った＝ROV のカメラが動き続ける所（105〜137秒＝隣の差が 10〜27 の
 #       まま続く）を0.5秒ずつに刻んだ（61場面）。動き続ける映像は高い差がずっと続く＝前後と比べた跳ねだけを切り替わりと読む（147秒の
 #       4.9→17.8→1.7 は前後の約3倍＝帳簿の「浴槽（147〜161秒）」の頭と合う）。shots.shots_of（1秒1コマ）も ROV の映像では境目を出しすぎる＝使わない
+# 🆕 ⑤b-3：フリー素材で、動きの速い素材の隣の1秒の差がしきい値を超えて出た「境目」を、根拠つきで1ショットに直す（25本目 SHOT_ONE の型）
+#   根拠＝境目の前後の全コマの隣の差に、1コマに集まる跳ねが無い（切り替わりなら1コマに集まる）。⚠️ 記号は素材を替えても同じ＝替えたら測り直す
+SHOT_ONE = {}
 NOAA_STEP = 0.5          # 秒（2コマ/秒）
 NOAA_RATIO = 2.5         # 隣のコマとの差が、前後6秒の中央値の何倍を超えたら切り替わり
 NOAA_FLOOR = 7.0         # かつ、この差（灰色 0〜255 の平均の差＝映像全体の上位 25% の境）以上
@@ -1048,6 +1077,9 @@ def cmd_shots():
             import shots as SH
             sh, dur = SH.shots_of(p)
             how = "1秒1コマで tools/shots.shots_of（26本目・フリー素材）"
+            if code in SHOT_ONE:
+                sh = [dict(start=0.0, until=float(sh[-1]["until"]), motion=max(x["motion"] for x in sh))]
+                how += f"・🔧 1ショットに直した（{SHOT_ONE[code]}）"
         out[code] = dict(src=s["page"], scan=s["file"], dur=round(dur, 1), how=how, shots=sh)
         print(f"  {code:12} {dur:6.1f}秒  ショット {len(sh)}：" + " ".join(f"{x['start']:g}〜{x['until']:g}" for x in sh))
     SHOTS.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -1091,8 +1123,17 @@ def _write_block(tag, lines):
 
 # NOAA の区間＝映像方針（`assign26.psv`）の区間を ⑤b-1 で実測の秒に合わせた値＝一覧 list26.tsv の動きの欄「映像（a〜b秒）」から読む（手で写さない）
 # フリー素材の区間 {cid: (始め, 終わり, 理由)}・寄せ（footage.USE の zoom・bias・xbias）＝⑤b-3 で見取り図と原寸で決める
-STOCK_WINDOW = {}
-STOCK_GEOM = {}
+#   🆕 ⑤b-3（10-27）：明るさと色の推移（0.5秒ごと・明るい画素の彩度と RGB）で当たりを付け、640px のシート（6コマ）と原寸の切り出しで決めた。
+#   書いていないカット（c401・c414・c638・cb05）は1ショットのまん中（cmd_use の既定）＝4本とも頭から尻まで同じ眺め（月・人・字なし）
+STOCK_WINDOW = {
+    "c517": (20.40, 25.50, "白い筋が上がる区間だけ（20.8〜25秒）＝14〜16秒の開花は橙と緑・28〜30秒の開花は桃色と橙＝白一色でない"),
+    "c610": (0.30, 7.90, "頭がいちばん遠い（ドローンが船へ近づく映像＝あとほど船が大きい）"),
+    "c939": (22.40, 29.70, "27秒の流れ星の筋を入れる（15秒の筋は淡い）"),
+    "ca11": (2.90, 10.50, "赤い輪の開花（2.5・10秒）と上がる筋＝15秒からは白と金"),
+}
+STOCK_GEOM = {
+    "ca11": dict(zoom=1.35, bias=0, xbias=1.0),     # 左の灯りの列（x 210〜480）と下の対岸の町の灯り（y 960〜）を画面の外へ（見える x 498〜1920・y 0〜800）
+}
 STOCK_EDGE = 0.3                # ショットの境目から離す秒（フリー素材＝1秒1コマで測った境目）
 
 

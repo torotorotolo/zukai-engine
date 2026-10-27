@@ -3,6 +3,7 @@
 
   python -P ref/ep26/eizou_build/fetch26.py plan    → 取る点・ファイル名・大きさ（原本の bytes）・取る幅の一覧（取らない）
   python -P ref/ep26/eizou_build/fetch26.py fetch   → 取る（了承②のあと）。間をあけ、429 は長く待つ。md5 を2回取り、fetch26.tsv に残す
+  python -P ref/ep26/eizou_build/fetch26.py stock [記号…]  🆕 ⑤b-3：Pexels の映像（get＝stock:<直リンク>・カズヤくんの了承のあと）
 
 決まり（記憶 reference-commons-standard-thumbnail-sizes）：原本の幅が3840超→3840px／1920超→1920px の標準の縮小版・それ以下は原本（sha1 で照合）。
 縮小版は sha1 が無い＝長さ（Content-Length）の照合と md5 を2回。名乗り（User-Agent）にメールや「@」を入れない。
@@ -136,8 +137,52 @@ def download(url, path):
     raise RuntimeError('429 が続いた：%s' % url)
 
 
+def stock(only=None):
+    """🆕 ⑤b-3（10-27）：Pexels の映像（sources26 の get＝stock:<置き場の直リンク>・カズヤくんの了承のあと）＝幅1920の版。
+    HEAD で大きさ → GET → 長さの照合 → md5 を2回 → fetch26.tsv の url_kind＝`stock:<直リンク>`（ep26_assets.py clips がこの URL を HEAD で照らす）"""
+    with open(os.path.join(HERE, 'sources26.psv'), encoding='utf-8') as f:
+        rows = [ln.rstrip('\n') for ln in f if not ln.startswith('#') and ln.strip()]
+    head = rows[0].split('|')
+    done = {}                       # {記号: 最後の行の url_kind}＝⚠️ 記号は素材を替えても同じ＝直リンクが記録と違えば取り直す（記録は足すだけ・最後の行が効く）
+    with open(LOG, encoding='utf-8') as f:
+        for ln in f:
+            c = ln.rstrip('\n').split('\t')
+            if len(c) >= 9 and c[0] != 'code':
+                done[c[0]] = c[8]
+    bad = 0
+    for r in rows[1:]:
+        d = dict(zip(head, r.split('|')))
+        if d['type'] != 'stock' or not d['get'].startswith('stock:http') or done.get(d['code']) == d['get'] or (only and d['code'] not in only):
+            continue
+        url = d['get'][6:]
+        path = os.path.join(REPO, d['file'])
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, method='HEAD', headers=UA), timeout=60) as h:
+                want, ct = int(h.headers.get('Content-Length') or 0), h.headers.get('Content-Type') or ''
+            if not ct.startswith('video/') or not want:
+                raise RuntimeError('HEAD が映像でない（%s・%d B）' % (ct, want))
+            n = download(url, path)
+            if n != want or os.path.getsize(path) != want:
+                raise RuntimeError('大きさが HEAD と違う（%d / %d）' % (os.path.getsize(path), want))
+            m1, m2 = md5(path), md5(path)
+            with open(LOG, 'a', encoding='utf-8', newline='\n') as f:
+                f.write('%s\t%s\t%s\t%d\t%s\t%s\t%s\t%s\t%s\n' % (d['code'], time.strftime('%Y-%m-%d %H:%M'), d['file'], n, d['dims'].split('x')[0], m1, m2, '', 'stock:' + url))
+            print('%s %d bytes md5 %s %s' % (d['code'], n, m1[:8], 'md5x2一致' if m1 == m2 else '✗md5x2'), flush=True)
+            if m1 != m2:
+                bad += 1
+        except Exception as e:
+            bad += 1
+            print('%s ✗ %s' % (d['code'], e), flush=True)
+        time.sleep(3)
+    print('おわり＝失敗 %d' % bad)
+    return 1 if bad else 0
+
+
 def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else 'plan'
+    if mode == 'stock':
+        return stock(set(sys.argv[2:]) or None)
     tg = targets()
     meta = info([t for _, t, _ in tg])
     total = 0

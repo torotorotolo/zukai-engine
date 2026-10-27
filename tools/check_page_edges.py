@@ -134,7 +134,10 @@ def pick_control(spec_map, ocr, photo_of, box_of, skip):
     best = None
     for cid in S.ORDER:
         spec = spec_map.get(cid) or {}
-        if cid in skip or cid not in photo_of or not spec.get("panel"):
+        # 🆕 2026-10-27（26本目 ⑤b-3）：地図のカット（衛星写真＝`sat`）は対照に使わない。頁のカットがまだ無い回で、Google の地名の行
+        #    （c218「オランダ ベルリン ポーランド」）がいちばん幅の広い行として選ばれ、陽性①②が「出ない」で止まった＝trim を行の真ん中へ動かすと
+        #    額（16:9）に合わせて横が切られ、右寄りの地名の行が窓の外へ出る（地図は本番で trim も寄りも無い＝rects_of の1点だけ）
+        if cid in skip or cid not in photo_of or not spec.get("panel") or spec.get("sat"):
             continue
         o = ocr.get(Path(photo_of[cid]).name)
         if not o:

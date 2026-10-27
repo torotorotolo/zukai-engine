@@ -51,5 +51,124 @@
     "motion": 4.11
    }
   ]
+ },
+ "X-sea-stars": {
+  "src": "https://www.pexels.com/video/time-lapse-of-a-starry-night-sky-at-the-beach-13936805/",
+  "scan": "ref/ep26/src/eizou/X-sea-stars.mp4",
+  "dur": 12.0,
+  "how": "1秒1コマで tools/shots.shots_of（26本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 12.0,
+    "motion": 0.89
+   }
+  ]
+ },
+ "X-sea-calm": {
+  "src": "https://www.pexels.com/video/waves-on-the-beach-4938206/",
+  "scan": "ref/ep26/src/eizou/X-sea-calm.mp4",
+  "dur": 13.0,
+  "how": "1秒1コマで tools/shots.shots_of（26本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 13.0,
+    "motion": 1.71
+   }
+  ]
+ },
+ "X-flare-white": {
+  "src": "https://www.pexels.com/video/a-small-light-is-seen-in-the-dark-27456816/",
+  "scan": "ref/ep26/src/eizou/X-flare-white.mp4",
+  "dur": 46.0,
+  "how": "1秒1コマで tools/shots.shots_of（26本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 14.0,
+    "motion": 2.64
+   },
+   {
+    "start": 14.0,
+    "until": 30.0,
+    "motion": 0.43
+   },
+   {
+    "start": 30.0,
+    "until": 40.0,
+    "motion": 0.33
+   },
+   {
+    "start": 40.0,
+    "until": 46.0,
+    "motion": 4.19
+   }
+  ]
+ },
+ "X-ship-lights": {
+  "src": "https://www.pexels.com/video/nighttime-cruise-ship-on-patong-beach-waters-31085071/",
+  "scan": "ref/ep26/src/eizou/X-ship-lights.mp4",
+  "dur": 91.0,
+  "how": "1秒1コマで tools/shots.shots_of（26本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 91.0,
+    "motion": 0.25
+   }
+  ]
+ },
+ "X-dawn": {
+  "src": "https://www.pexels.com/video/aerial-view-of-calm-sea-at-sunrise-35466368/",
+  "scan": "ref/ep26/src/eizou/X-dawn.mp4",
+  "dur": 15.0,
+  "how": "1秒1コマで tools/shots.shots_of（26本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 15.0,
+    "motion": 1.15
+   }
+  ]
+ },
+ "X-meteor": {
+  "src": "https://www.pexels.com/video/stunning-night-sky-with-shooting-star-32270503/",
+  "scan": "ref/ep26/src/eizou/X-meteor.mp4",
+  "dur": 30.0,
+  "how": "1秒1コマで tools/shots.shots_of（26本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 30.0,
+    "motion": 0.56
+   }
+  ]
+ },
+ "X-flare-red": {
+  "src": "https://www.pexels.com/video/the-lights-are-on-in-the-night-sky-17701269/",
+  "scan": "ref/ep26/src/eizou/X-flare-red.mp4",
+  "dur": 21.0,
+  "how": "1秒1コマで tools/shots.shots_of（26本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 21.0,
+    "motion": 1.13
+   }
+  ]
+ },
+ "X-sea-night": {
+  "src": "https://www.pexels.com/video/water-with-waves-11287848/",
+  "scan": "ref/ep26/src/eizou/X-sea-night.mp4",
+  "dur": 30.0,
+  "how": "1秒1コマで tools/shots.shots_of（26本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 30.0,
+    "motion": 7.48
+   }
+  ]
  }
 }

@@ -78,3 +78,10 @@ SPEC.update({
     "c404": dict(photo=_S1076, **ss.mv(_S1076, "l", fy=0.47), side="none", color=1.0,
                  t="全速のまま", s="クイーンズタウンに着くタイタニック号〈1912年4月11日〉"),
 })
+
+# 🆕 ⑤b-3（2026-10-27）：フリー素材（Pexels・イメージ）＝`ss.vid`（見出し・副題は書かない＝左上の「イメージ」と出典だけ）。
+#   区間と寄せは `qa_out/ep26_assets.py` の STOCK_WINDOW・STOCK_GEOM → footage.USE（月・人・字の無いことは 640px のシートで見た）
+SPEC.update({
+    "c401": ss.vid("c401"),
+    "c414": ss.vid("c414"),
+})
