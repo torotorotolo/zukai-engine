@@ -61,7 +61,10 @@ def rects_of(sw, sh, box, spec):
         # 🆕 20本目 ⑤c'：額ごと動かす（fmove）も check_slide.cam_rects へ＝絵を切らない（本番 build_jiko と同じ）
         return CS.cam_rects(sw, sh, box, spec)
     b, xb, zm = (float(spec.get("bias", 0.5)), float(spec.get("xbias", 0.5)), float(spec.get("zoom", 1.0)))
-    if spec.get("still") or spec.get("sat"):
+    import build_jiko as B
+    # 🆕 2026-10-28（26本目 ⑤b-7）：回の既定 FRAME_STILL（26本目から）の**額装・帯の写真は寄らない**（本番 build_jiko の kb＝0・`framed(box)`）
+    #    ＝寄りの始めの1点だけ。寄る前提で21点に刻むと、静止の頁の切り口の辺が k＝1 の窓で隣の行を切ると鳴った（c809 ほか＝本番の絵では切れない）
+    if spec.get("still") or spec.get("sat") or (B.FRAME_STILL and B.framed(box)):
         # 🆕 19本目 ⑤b-7c：寄らない尻の頁（`still=True`＝build_jiko.tail_frame の k＝0・c618 の引用の頁）＝寄りの始めの1点だけ
         # 🆕 22本目 ⑤b-7：地図のカット（衛星写真＝`sat`）も寄らない（build_jiko の meta で still＝True）＝本番と同じ1点だけ。
         #    寄る前提で測ると、衛星写真の上の端の地名（c812・c813 の「Orlando」）が寄りの終わりに半分切れると鳴った（本番では切れない）
@@ -213,12 +216,23 @@ def sweep_control():
     h, mid = (b0 - b1) / 3, (b0 + b1) / 2               # k=0 では全部内・k=1 では全部外の行
     ocr = {"synth.png": dict(size=size, lines=[dict(box=[100, mid - h / 2, 1000, mid + h / 2], text="SYNTH")])}
     args = ("cS", spec, ocr, {"cS": "x/synth.png"}, {"cS": box})
-    old = cut_rows(*args, rects=lambda sw, sh, bx, sp: {k: CS.crop_rect(sw, sh, bx, k, 0.0, 0.5, 1.0)
-                                                        for k in (0.0, 1.0)})
-    new = cut_rows(*args)
-    good = not old and bool(new)
+    # 🆕 2026-10-28（26本目 ⑤b-7）：額装を寄る回（FRAME_STILL＝False＝25本目まで）の型として回し、終わったら必ず戻す。
+    #    FRAME_STILL＝True（26本目から）の額装は寄らない＝同じ行は出ないのが正しい（陰性⑤）
+    import build_jiko as B
+    keep = B.FRAME_STILL
+    try:
+        B.FRAME_STILL = False
+        old = cut_rows(*args, rects=lambda sw, sh, bx, sp: {k: CS.crop_rect(sw, sh, bx, k, 0.0, 0.5, 1.0)
+                                                            for k in (0.0, 1.0)})
+        new = cut_rows(*args)
+        B.FRAME_STILL = True
+        still = cut_rows(*args)
+    finally:
+        B.FRAME_STILL = keep
+    good = not old and bool(new) and not still
     print(f"  {'✓' if good else '🔴'} 陽性③ 寄りの途中だけで下の辺が行を横切る → 両端だけ {'出る' if old else '出ない'}"
           f"／刻み {f'{new[0][2]:.0%}（{new[0][1]}）で出た' if new else '出ない'}（両端では出ず、刻みで出るはず）")
+    print(f"  {'✓' if not still else '🔴'} 陰性⑤ FRAME_STILL の額装（寄らない）では同じ行は {'出た' if still else '出ない'}（出ないはず＝本番の絵は k＝0 だけ）")
     return good
 
 

@@ -305,3 +305,62 @@ SPEC.update({
         fig=("m26", dict(view="if_flow", steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))],
                          note="道は模式（時刻の札は置かない）", src=ss.src(["G2 p2022"])))),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-7（2026-10-28）：写真・頁・NOAA の映像（第8章の21カット）＝書き方は c2.py の ⑤b-7 の注と同じ
+# ══════════════════════════════════════════════════════════
+#   🔴 海難調査局（MAIB）の頁は引用（assets.json の frame）＝額装だけ（`ss.check_frame_only`＝切る・地のぼかし・寄せ・色を変えるを止める）。
+#      語りの段落だけにするのは束の段の切り出し（`qa_out/ep26_assets.py` の PAGE_CROP＝P-G2-03・18・21・22・23）
+#   NOAA 2004 の映像（c901・c907・c918・c926・c929・c932・c943・c944）＝`ss.vid`（ひかえの静止画 `ref/ep26/fb_c9xx.jpg`）
+_S11910, _PG201, _PG203, _S3753, _S1089, _S2033 = P("s11_910"), P("p_g2_01"), P("p_g2_03"), P("s3_753"), P("s1_089"), P("s2_033")
+_S8N05, _PG218, _S8E03, _S3749, _PG221, _PG222, _S7598 = (P("s8_n05"), P("p_g2_18"), P("s8_e03"), P("s3_749"), P("p_g2_21"),
+                                                         P("p_g2_22"), P("s7_598"))
+_NOAA = "海の底のタイタニック号〈2004年・NOAA ほか〉"
+# 絵はがき（S8-N05）＝絵の枠の内だけ（下の題「WHITE STAR LINE PIERS, NEW YORK.」と「COPYRIGHT, 1905…」と台紙の余白は外）
+_S8N05_IN = (0.012, 0.035, 0.975, 0.665)
+SPEC.update({
+    "c901": dict(**ss.vid("c901", t="繰り返された非難", s=_NOAA), side="none"),
+    "c903": dict(photo=_S11910, **ss.mv(_S11910, "d"), side="none", color=1.0,
+                 t="1985年の残骸", s="海の底のタイタニック号の残骸〈2003年・NOAA ほか〉"),
+    # c904（2行）＝報告書の表紙の題の4行（引用＝束の段で題だけを切り出した 778×742・額装・静止）
+    "c904": dict(photo=_PG201, panel=True, color=1.0,
+                 t="再評価の命令", s="海難調査局の報告書の表紙の題〈1992年〉"),
+    # c906（2行）＝送り状（束の段で宛先の大臣の名前と首席の署名を外した「Clearly, the case…」〜「I full endorse…」）
+    "c906": dict(photo=_PG203, panel=True, pw=1640, color=1.0,
+                 t="外から来た調査官", s="調査官を外から呼んだわけと同意の行"),
+    "c907": dict(**ss.vid("c907", t="次長がさらに調べる", s=_NOAA), side="none"),
+    # c916（1行）＝c709 と同じ写真・同じ副題＝額の中の切り口を顔（x 0.2〜0.8・y 0.02〜0.40）に替える（静止）
+    "c916": dict(photo=_S3753, trim=(0.2, 0.02, 0.8, 0.40), panel=True, ground=dict(photo=_S3753), color=1.0,
+                 t="北へ流された船", s="カルパチア号の船長アーサー・ロストロン〈1912年〉"),
+    "c918": dict(**ss.vid("c918", t="約9キロか約33キロか", s=_NOAA), side="none"),
+    # c920（3行）＝c212 と同じ写真・同じ副題＝寄り 1.25 で船体に沿って右へ（c212 は寄り 1.12）
+    "c920": dict(photo=_S1089, **ss.mv(_S1089, "r", z=1.25, span=(0.15, 0.85)), side="none", color=1.0,
+                 t="調査官の見立て", s="試運転の日のタイタニック号〈1912年4月2日〉"),
+    # c922（2行）＝c217 と同じ写真・同じ副題＝マストの見張り台（x 0.68・y 0.45）へ寄る
+    "c922": dict(photo=_S2033, **ss.mv(_S2033, "in", fx=0.68, fy=0.45, z=1.4), side="none", color=1.0,
+                 t="見えなければ見えない", s="船橋と見張り台〈1912年4月10日〉"),
+    "c924": dict(photo=_S8N05, **ss.tcam(_S8N05, _S8N05_IN, (0.38, 0.5, 1.0), (0.62, 0.5, 1.0)), side="none", color=1.0,
+                 t="第三の船がいた？", s="ニューヨークのホワイト・スター・ラインの桟橋〈1905年ごろの絵はがき〉"),
+    "c926": dict(**ss.vid("c926", t="低く見えた信号弾", s=_NOAA), side="none"),
+    "c929": dict(**ss.vid("c929", t="決まらない答え", s=_NOAA), side="none"),
+    # c930（2行）＝p.14 の節の題「WERE TITANIC'S ROCKETS SEEN?」と段落の頭（束の段の切り出し）
+    "c930": dict(photo=_PG218, panel=True, pw=1640, color=1.0,
+                 t="信号弾は見えていた", s="信号弾は見えたか、の節"),
+    # c931（2行）＝c106・c716 と同じ写真・同じ副題＝寄り 1.35 で船体に沿って右へ
+    "c931": dict(photo=_S8E03, **ss.mvz(_S8E03, (0.35, 0.47, 1.35), (0.70, 0.45, 1.35)), side="none", color=1.0,
+                 t="会社の信号ではない", s="カルパチア号の乗客が1912年4月15日に撮ったとされるカリフォルニアン号"),
+    "c932": dict(**ss.vid("c932", t="とても足りない", s=_NOAA), side="none"),
+    # c934（3行）＝c608・c624 と同じ写真・同じ副題＝まるごと（引き）・静止
+    "c934": dict(photo=_S3749, panel=True, ground=dict(photo=_S3749), color=1.0,
+                 t="退けられた説", s="スタンリー・ロード〈1908年・別の船の船長だったころ〉"),
+    # c937（2行）＝p.17「…Of course, … should have gone down himself…」〜「seriously at fault.」（束の段の切り出し）
+    "c937": dict(photo=_PG221, panel=True, pw=1640, color=1.0,
+                 t="重い落ち度", s="二等航海士の落ち度を書いた文"),
+    # c941（3行）＝p.18「It therefore seems clear that - if I am right as to the distance apart -…」〜「should have been made.」
+    "c941": dict(photo=_PG222, panel=True, pw=1640, color=1.0,
+                 t="結果は変わらない", s="前置きつきの結論の文"),
+    "c942": dict(photo=_S7598, **ss.mv(_S7598, "l"), side="none", color=1.0,
+                 t="救助を引き受けただけ", s="ニューヨークに入るカルパチア号〈1912年4月・LOC〉"),
+    "c943": dict(**ss.vid("c943", t="支持されたのは次長", s=_NOAA), side="none"),
+    "c944": dict(**ss.vid("c944", t="事故が変えたもの", s=_NOAA), side="none"),
+})

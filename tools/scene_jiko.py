@@ -1504,6 +1504,20 @@ def ep7_credit(name):
     return None
 
 
+def _ground_same_pd(name):
+    """🆕 2026-10-28（26本目 ⑤b-7）：額装の地に敷いた**同じ写真**のぼかしが PD（束の台帳 assets.json の lic）か。
+    PD は帰属も改変の断りも義務が無い（下の CC BY の注「PD の素材には足さない」）＝同じ出典を「／地：…・改変：ぼかし」で2回つなぐと
+    行が長くなって画面の左の外へ出た（c707・門番 layout）。束の外の写真・台帳が読めない・PD でないときは False（今までどおり2回目を出す）"""
+    import cuts.ss as _ss
+    if not name.startswith(_ss.EP):
+        return False
+    try:
+        rec = _ss._assets().get(Path(name).stem) or {}
+    except (OSError, RuntimeError, ValueError):
+        return False
+    return rec.get("lic") == "PD"
+
+
 def credit_of(cid, spec):
     """そのカットに出す出典。**動画を当てたカットは動画の出典を出す。**
 
@@ -1540,7 +1554,7 @@ def credit_of(cid, spec):
     gr = (spec.get("ground") or {}).get("photo")
     # 🆕 2026-10-26（25本目 ⑤b-7）：縦長の額装の地に**同じ写真**のぼかし（了承② 決め3「高さいっぱいの額・左右は写真のぼかし」）＝出どころは同じ
     #    ＝PDL の「を加工して作成」が地のぼかしまで含む（同じ出典を2回つなぐと行が長くなって画面の左の外へ出る）。CC BY などは下の型のまま
-    if gr and gr == spec.get("photo") and cr.endswith("を加工して作成"):
+    if gr and gr == spec.get("photo") and (cr.endswith("を加工して作成") or _ground_same_pd(gr)):
         gr = None
     if gr:
         gcr = credit_of(cid + "~g", dict(photo=gr))
@@ -1560,7 +1574,20 @@ def credit_of(cid, spec):
     #    ⚠️ 「濃淡補正」と同じ扱い＝**黙って手を入れない**。
     if "CC BY" in cr and "改変" not in cr:
         cr += "／改変：色調変更・切出"
+    # 🆕 2026-10-28（26本目 ⑤b-7）：写真・頁のカットの**書き起こしの断り**（映像方針の一覧の kotowari＝台本の出典の欄が有志のサイトの
+    #    書き起こしのカット・「副題とは別の行＝出典の札に足す」）＝PLAN の欄から読んで足す（手で写さない）。図解・案C は図の注が持つ。
+    #    門番 check_credits が「PLAN に断りがあるのに出典の行に無い」を全数で止める
+    kt = kotowari_of(cid.split("~")[0])
+    if kt and kt not in cr:
+        cr += "／" + kt
     return cr
+
+
+def kotowari_of(cid):
+    """PLAN の plan の欄の「書き起こしの断り：…」（無ければ空）。🆕 26本目 ⑤b-7"""
+    import cuts
+    m = re.search(r"書き起こしの断り：([^｜]+)", str((cuts.PLAN.get(cid) or {}).get("plan") or ""))
+    return m.group(1).strip() if m else ""
 
 
 def face_css(name, filename):

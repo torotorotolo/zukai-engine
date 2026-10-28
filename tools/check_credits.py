@@ -348,6 +348,16 @@ def run(full=False):
     if claims == 0:
         print("🔴 年の主張を1件も比べていない＝網（CLAIM_*）がこの回の副題の書き方に合っていない（空の合格にしない・exit 2）")
         return 2
+    # 🆕 2026-10-28（26本目 ⑤b-7）：**書き起こしの断り**（PLAN の「書き起こしの断り：…」）が写真・頁のカットの出典の行に出ているか（全数）
+    kt_n = 0
+    for cid, spec in sorted(cuts.SPEC.items()):
+        kt = S.kotowari_of(cid)
+        if not kt or not spec.get("photo") or spec.get("fig"):
+            continue
+        kt_n += 1
+        if kt not in S.credit_of(cid, spec):
+            hits.append((cid, Path(spec["photo"]).stem, f"書き起こしの断り「{kt}」が出典の行に無い"))
+    print(f"■ 書き起こしの断りのある写真・頁のカット {kt_n} 欄を、出典の行と照らした")
     for cid, slot, why in hits:
         print(f"  🔴 {cid}（{slot}）{why}")
     if full or not hits:
@@ -373,7 +383,11 @@ def selftest():
     # 🔴 2026-09-29（14本目 ⑤b-7a）：「60行以上」は**前の回の写真の数のまま残った定数**（14本目は39点で正しいのに 🔴）
     #    → 題材に依らない形＝「この回にカットが使っている写真の数以上・1以上」（→ [[feedback-per-episode-constants-go-stale]]）
     import cuts
-    used = {s["photo"] for s in cuts.SPEC.values() if s.get("photo")}
+    # 🆕 2026-10-28（26本目 ⑤b-7）：映像のひかえ（`/fb_`＝フリー素材の `stock/fb_` も）は表に載らない＝本番の run と同じく数えない
+    #    （NOAA の映像を11カット足したら「使う写真 110点＞表 85行」で落ちた＝数え方の穴）
+    #    地図の衛星写真（`sat`）も表の外（run と同じく数えない）
+    used = {s["photo"] for s in cuts.SPEC.values()
+            if s.get("photo") and not s.get("sat") and str(s["photo"]).startswith(EP_PREFIX) and "/fb_" not in str(s["photo"])}
     chk(f"表が読めている（{len(rows)}行・カットが使う写真 {len(used)}点）", len(rows) >= len(used) > 0)
     # ── 陽性対照＝**値**で見る（[[feedback-verify-your-own-instrument]]）
     r24 = dict(year=2024, lic="PD（Public domain）", who="X", title="")
@@ -434,6 +448,20 @@ def selftest():
         len(judge("当日の午後、ルイジアナ州の空軍基地", dict(r24, year=None))[0]) == 1)
     chk("陽性対照㉔：『翌日の現場』は当日の網に入らない（主張0件）",
         judge("翌日の現場", r01)[2] == 0)
+    # ── 2026-10-28（26本目 ⑤b-7）：書き起こしの断り＝PLAN の欄が出典の行に出る（写真のカットを1つ借り、PLAN を差して必ず戻す）
+    import scene_jiko as S
+    pc = next((c for c, s in sorted(cuts.SPEC.items()) if s.get("photo") and not s.get("fig") and not S.kotowari_of(c)), None)
+    if pc:
+        keep = cuts.PLAN.get(pc)
+        try:
+            cuts.PLAN[pc] = dict(keep or {}, plan=str((keep or {}).get("plan") or "") + "｜書き起こしの断り：対照の断り（合成）｜")
+            on = "対照の断り（合成）" in S.credit_of(pc, cuts.SPEC[pc])
+        finally:
+            cuts.PLAN[pc] = keep
+        off = "対照の断り（合成）" not in S.credit_of(pc, cuts.SPEC[pc])
+        chk(f"陽性対照㉕：PLAN に書き起こしの断りを差すと出典の行に出る・戻すと消える（{pc}）", on and off)
+    else:
+        chk("陽性対照㉕：断りの無い写真のカットが本番に1つも無い（対照が作れない）", False)
     print(f"\n{'✓ 物差しは通った' if ok else '🔴 物差しが壊れている'}")
     return 0 if ok else 2
 

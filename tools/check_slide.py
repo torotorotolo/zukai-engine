@@ -506,10 +506,14 @@ def cam_rects(sw, sh, box, spec):
         # 🆕 20本目 ⑤c'：額ごと動かす（fmove）は絵を切らない＝本番 build_jiko は切ったあとの写真を丸ごと動く箱へ（寄り k・cam・zoom は使わない）。
         #   ここが既定の寄り（k=1 で 1.9%）で窓を切って測っていた＝c821（付図-4 を額ごと寄るにした）の上の札を「切れている」と空振りした
         return {k: crop_rect(sw, sh, box, 0.0, 0.5, 0.5, 1.0) for k in (0.0, 1.0)}
+    import build_jiko as B
     if cam:
-        import build_jiko as B
         return {u: crop_rect(sw, sh, box, 0.0, y, x, z)
                 for u, (x, y, z) in zip((0.0, 0.5, 1.0), B.cam_samples(cam, b, xb, zm))}
+    if B.FRAME_STILL and B.framed(box):
+        # 🆕 2026-10-28（26本目 ⑤b-7）：回の既定 FRAME_STILL の額装・帯の写真は寄らない（本番 build_jiko の kb＝0）＝k=1 も寄りの始めの窓
+        r0 = crop_rect(sw, sh, box, 0.0, b, xb, zm)
+        return {0.0: r0, 1.0: r0}
     return {k: crop_rect(sw, sh, box, k, b, xb, zm) for k in (0.0, 1.0)}
 
 

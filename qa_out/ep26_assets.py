@@ -98,6 +98,20 @@ PAGE_CROP = {
     #   outside＝切り口の外にあるべき目印の行（字の層に名前が無い頁の陽性対照＝星の行より下に署名の場所）
     "P-G2-23": dict(head="A final word seems called for", tail="just human beings", outside=["* * * *"],
                     why="結びの段落だけ（頁の末の署名の場所を外す）"),
+    # 🆕 ⑤b-7（2026-10-28）：引用の頁は額装で切れない（ss.check_frame_only が trim を止める）＝語りの段落だけを束の段で切り出す
+    #   （映像方針の一覧 c930・c937・c941「静止の切り出し」。頁まるごとの額は字が約8px で読めない）
+    # c904（表紙）＝白い紙の真ん中の題の4行だけ（頁まるごとは額の高さ 648px で題の字が約15px・インク率 1.2%＝門番 blank の下限 4.0% の下）
+    "P-G2-01": dict(head='RMS "TITANIC"', tail='SS "CALIFORNIAN"',
+                    why="表紙の題の4行だけ（下の局の名・所・刷りの行は外す）"),
+    # c930（I entirely agree with him）＝節の題「WERE TITANIC'S ROCKETS SEEN?」から「…seen by TITANIC, than lights.」の行まで
+    "P-G2-18": dict(head="ROCKETS SEEN", tail="seen by TITANIC, than lights",
+                    why="節の題と、信号弾は見えていたとする段落の頭だけ"),
+    # c937（I sympathise with Mr Stone）＝「Of course, … should have gone down himself」の文から「seriously at fault.」まで
+    "P-G2-21": dict(head="own eyes and senses", tail="seriously at fault",
+                    why="二等航海士の落ち度を書いた文だけ"),
+    # c941（if I am right as to the distance apart）＝「It therefore seems clear…」から「…should have been made.」まで
+    "P-G2-22": dict(head="arrive well after the sinking", tail="should have been made",
+                    why="距離の見方が正しければ結果は変わらない、とする文だけ"),
 }
 # 送り状は宛先・署名の役職の行も目印にする（名前の表に無い名前が字の層で崩れていても、その行ごと外に出ていることを測る）
 #   ⚠️ 署名の下の役職の行「Chief Inspector of Marine Accidents」は本文の「Deputy Chief Inspector of Marine Accidents」にも含まれる＝目印にしない（1回目に当てて止まった）

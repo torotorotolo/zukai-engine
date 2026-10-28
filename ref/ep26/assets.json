@@ -529,19 +529,19 @@
   "crop_px": [
    0,
    0,
-   2076,
-   3338
+   778,
+   742
   ],
-  "w": 2076,
-  "h": 3338,
-  "md5": "4619ced761532016590380726de7a36e",
+  "w": 778,
+  "h": 742,
+  "md5": "43e07f9efa4f500042e807fe8d0021df",
   "src_md5": "530e9c2d9878c5e1f66cf16c06bc1e61",
   "lic": "引用（OGL v3.0・© Crown copyright＝gov.uk の頁）",
   "frame": true,
   "ground": "引用の型＝出典・主従・必要最小限・無加工の額装（sources.md §1 G2）",
   "url": "https://assets.publishing.service.gov.uk/media/54c15bf240f0b6158d000027/MAIBReport_ReappraisalOfEvidence-SSCalifornian-Titanic-1992.pdf",
   "blur": [],
-  "how": "PDF の頁を描いた（長辺 3600px）・インクの外接",
+  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（表紙の題の4行だけ（下の局の名・所・刷りの行は外す））＝字の層の行「RMS \"TITANIC\"」〜「SS \"CALIFORNIAN\"」",
   "year": 1992,
   "year_why": "英国運輸省 海難調査局の再評価の報告（1992年）",
   "stock": false,
@@ -561,12 +561,12 @@
    "expect": "reappraisal of evidence",
    "scale": 4.30911,
    "box_px": [
-    207,
-    78,
-    2283,
-    3416
+    912,
+    929,
+    1690,
+    1671
    ],
-   "how": "PDF の頁を描いた（長辺 3600px）・インクの外接"
+   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（表紙の題の4行だけ（下の局の名・所・刷りの行は外す））＝字の層の行「RMS \"TITANIC\"」〜「SS \"CALIFORNIAN\"」"
   }
  },
  "p_g2_03": {
@@ -643,19 +643,19 @@
   "crop_px": [
    0,
    0,
-   2160,
-   3183
+   1980,
+   664
   ],
-  "w": 2160,
-  "h": 3183,
-  "md5": "22e9369c4c320a7a811667f6fe80e20c",
+  "w": 1980,
+  "h": 664,
+  "md5": "7bf6466819a9109cd38cb1d86c388937",
   "src_md5": "530e9c2d9878c5e1f66cf16c06bc1e61",
   "lic": "引用（OGL v3.0・© Crown copyright＝gov.uk の頁）",
   "frame": true,
   "ground": "引用の型",
   "url": "https://assets.publishing.service.gov.uk/",
   "blur": [],
-  "how": "PDF の頁を描いた（長辺 3600px）・インクの外接",
+  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（節の題と、信号弾は見えていたとする段落の頭だけ）＝字の層の行「ROCKETS SEEN」〜「seen by TITANIC, than lights」",
   "year": 1992,
   "year_why": "英国運輸省 海難調査局の再評価の報告（1992年）",
   "stock": false,
@@ -675,12 +675,12 @@
    "expect": "entirely agree",
    "scale": 4.28449,
    "box_px": [
-    135,
-    166,
-    2295,
-    3349
+    344,
+    235,
+    2324,
+    899
    ],
-   "how": "PDF の頁を描いた（長辺 3600px）・インクの外接"
+   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（節の題と、信号弾は見えていたとする段落の頭だけ）＝字の層の行「ROCKETS SEEN」〜「seen by TITANIC, than lights」"
   }
  },
  "p_g2_21": {
@@ -700,19 +700,19 @@
   "crop_px": [
    0,
    0,
-   2128,
-   3299
+   1997,
+   698
   ],
-  "w": 2128,
-  "h": 3299,
-  "md5": "d2737a30f1a091860348055fd08425c2",
+  "w": 1997,
+  "h": 698,
+  "md5": "64d6dca4d2e73641df95cd3b6ef909b2",
   "src_md5": "530e9c2d9878c5e1f66cf16c06bc1e61",
   "lic": "引用（OGL v3.0・© Crown copyright＝gov.uk の頁）",
   "frame": true,
   "ground": "引用の型",
   "url": "https://assets.publishing.service.gov.uk/",
   "blur": [],
-  "how": "PDF の頁を描いた（長辺 3600px）・インクの外接",
+  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（二等航海士の落ち度を書いた文だけ）＝字の層の行「own eyes and senses」〜「seriously at fault」",
   "year": 1992,
   "year_why": "英国運輸省 海難調査局の再評価の報告（1992年）",
   "stock": false,
@@ -732,12 +732,12 @@
    "expect": "sympathise",
    "scale": 4.29062,
    "box_px": [
-    307,
-    58,
-    2435,
-    3357
+    342,
+    1078,
+    2339,
+    1776
    ],
-   "how": "PDF の頁を描いた（長辺 3600px）・インクの外接"
+   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（二等航海士の落ち度を書いた文だけ）＝字の層の行「own eyes and senses」〜「seriously at fault」"
   }
  },
  "p_g2_22": {
@@ -757,19 +757,19 @@
   "crop_px": [
    0,
    0,
-   2139,
-   3275
+   1978,
+   421
   ],
-  "w": 2139,
-  "h": 3275,
-  "md5": "949cfcde47a5eb492094567138a061ef",
+  "w": 1978,
+  "h": 421,
+  "md5": "b95ba3c54c6f8155f56228e4ce84057e",
   "src_md5": "530e9c2d9878c5e1f66cf16c06bc1e61",
   "lic": "引用（OGL v3.0・© Crown copyright＝gov.uk の頁）",
   "frame": true,
   "ground": "引用の型",
   "url": "https://assets.publishing.service.gov.uk/",
   "blur": [],
-  "how": "PDF の頁を描いた（長辺 3600px）・インクの外接",
+  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（距離の見方が正しければ結果は変わらない、とする文だけ）＝字の層の行「arrive well after the sinking」〜「should have been made」",
   "year": 1992,
   "year_why": "英国運輸省 海難調査局の再評価の報告（1992年）",
   "stock": false,
@@ -789,12 +789,12 @@
    "expect": "distance apart",
    "scale": 4.29062,
    "box_px": [
-    142,
-    87,
-    2281,
-    3362
+    329,
+    1861,
+    2307,
+    2282
    ],
-   "how": "PDF の頁を描いた（長辺 3600px）・インクの外接"
+   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（距離の見方が正しければ結果は変わらない、とする文だけ）＝字の層の行「arrive well after the sinking」〜「should have been made」"
   }
  },
  "p_g2_23": {

@@ -97,3 +97,27 @@ SPEC.update({
         fig=("m26", dict(view="skies2", steps=[dict(state=dict(q="on")), dict(state=dict(red="on")), dict(state=dict(any="on"))],
                          rel=[dict(t="1912年", src="G2 p2022"), dict(t="1948年", src="G2 p2022")], note="夜空と光は模式", src=ss.src(["G2 p2022"])))),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-7（2026-10-28）：写真・頁・NOAA の映像（第9章の7カット）＝書き方は c2.py の ⑤b-7 の注と同じ
+# ══════════════════════════════════════════════════════════
+_S2E01, _PG42, _S4300, _S6377, _S12913, _S6372 = P("s2_e01"), P("p_g4_2"), P("s4_300"), P("s6_377"), P("s12_913"), P("s6_372")
+SPEC.update({
+    # ca01（3行）＝c616 と同じ写真・同じ副題＝左の機器（x 0.35）から通信士（x 0.62）へ流す
+    "ca01": dict(photo=_S2E01, **ss.mvz(_S2E01, (0.35, 0.45, 1.25), (0.62, 0.55, 1.25)), side="none", color=1.0,
+                 t="途切れずに聞く", s="1912年の船の無線室〈姉妹船オリンピック号・1912年の本の写真〉"),
+    # ca02（2行）＝米国の法の「The radio equipment must be in charge of two or more persons…」〜「…while the vessel is being navigated.」の3行
+    #   切り口＝`pbox P-G4-2 "The radio equipment must be in charge" "navigated. Such"`
+    "ca02": dict(photo=_PG42, trim=(0.264, 0.135, 0.924, 0.196), panel=True, pw=1640, color=1.0,
+                 t="2人以上で受け持つ", s="無線を受け持つ人の数を決めた条"),
+    "ca05": dict(photo=_S4300, panel=True, ground=dict(photo=_S4300), color=1.0,
+                 t="遭難の通信を先に", s="陸の無線局〈1912年4月18日の米国の新聞〉"),
+    "ca07": dict(photo=_S6377, **ss.mv(_S6377, "r"), side="none", color=1.0,
+                 t="訓練も無かった", s="ニューヨークのピア54 のタイタニック号のボート〈1912年4月〉"),
+    # ca09（2行）＝机を囲む7人（x 0.2〜0.85・y 0.35〜0.75）へ寄る。四辺のガラス乾板の黒い縁（左 2.7%・右 3.9%）＝引いた側の寄り lo 1.1
+    "ca09": dict(photo=_S12913, **ss.mv(_S12913, "in", fx=0.53, fy=0.55, z=1.2, lo=1.1), side="none", color=1.0,
+                 t="国際氷山監視", s="国際氷山監視の会議〈1923年・LOC〉"),
+    "ca12": dict(photo=_S6372, **ss.mv(_S6372, "l"), side="none", color=1.0,
+                 t="遅すぎた決まり", s="ニューヨークの桟橋のタイタニック号のボート〈1912年4月〉"),
+    "ca13": dict(**ss.vid("ca13", t="船長のその後", s="海の底のタイタニック号〈2004年・NOAA ほか〉"), side="none"),
+})
