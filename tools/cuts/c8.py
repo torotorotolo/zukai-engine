@@ -116,7 +116,7 @@ SPEC.update({
     "c810": dict(
         t="2隻の記録", s="報告書の突き合わせ",
         fig=("m26", dict(view="match2", steps=[dict(state=dict(q="on")), dict(state=dict(cols="on")), dict(state=dict(pair="on"))],
-                         rel=[dict(t="約8発・8つ", src="G1 p60")], note="札の並びは模式（時刻は船ごとの時計のまま・1本の線にしない）", src=ss.src(["G1 p60"])))),
+                         rel=[dict(t="約8発・8発", src="G1 p60")], note="札の並びは模式（時刻は船ごとの時計のまま・1本の線にしない）", src=ss.src(["G1 p60"])))),
     # c812（2行）＝1行目「信号弾は0時45分ごろから1時45分ごろ。カリフォルニアン号もそのころ見た」で扇 → 2行目「時計の違う2隻の時刻を、そのまま並べた」
     "c812": dict(
         t="時刻の並べ方", s="2隻の時計",

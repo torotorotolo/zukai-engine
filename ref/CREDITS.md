@@ -3085,6 +3085,14 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | 記号 | 使うカット | 画面の出典 | ライセンス | 頁 |
 |---|---|---|---|---|
 | `N04` | c105 c107 c515 c813 c901 c907 c918 c926 c929 c932 c943 c944 ca13 | Video courtesy of the RMS Titanic Team Expedition 2004, ROI, IFE, NOAA-OE. | courtesy（NOAA の使い方の方針・copyright の語なし） | https://archive.oceanexplorer.noaa.gov/explorations/04titanic/media/movies/titanic2004_video.html |
+| `X-sea-stars` | c401 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/time-lapse-of-a-starry-night-sky-at-the-beach-13936805/ |
+| `X-sea-calm` | c414 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/waves-on-the-beach-4938206/ |
+| `X-flare-white` | c517 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-small-light-is-seen-in-the-dark-27456816/ |
+| `X-ship-lights` | c610 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/nighttime-cruise-ship-on-patong-beach-waters-31085071/ |
+| `X-dawn` | c638 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/aerial-view-of-calm-sea-at-sunrise-35466368/ |
+| `X-meteor` | c939 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/stunning-night-sky-with-shooting-star-32270503/ |
+| `X-flare-red` | ca11 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/the-lights-are-on-in-the-night-sky-17701269/ |
+| `X-sea-night` | cb05 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/water-with-waves-11287848/ |
 
 ### 1. 写真・頁（Commons の PD・NOAA 2003・英国の審問の報告・MAIB 1992・米国の法）
 - Commons の PD＝出どころの機関の名（NARA・LOC・BnF・オランダ国立公文書館・北アイルランド国立博物館）か「Wikimedia Commons（パブリックドメイン）」（了承② 決め4）。色は原本のまま・小さい写真も全面（ぼけは差し替えの理由にしない）
@@ -3104,11 +3112,11 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `p_g1_060` | c818 | 1912 | PD（頁） | 英国の審問（Wreck Commissioner）の報告を米国上院が刷り直した公文書 | https://www.govinfo.gov/ |
 | `p_g1_076` | c215 | 1912 | PD（頁） | 英国の審問（Wreck Commissioner）の報告を米国上院が刷り直した公文書 | https://www.govinfo.gov/ |
 | `p_g1_085` | c809 | 1912 | PD（頁） | 英国の審問（Wreck Commissioner）の報告を米国上院が刷り直した公文書 | https://www.govinfo.gov/ |
-| `p_g2_01` | c904 | 1992 | 引用（OGL v3.0・© Crown copyright＝gov.uk の頁）（頁） | 英国運輸省 海難調査局（MAIB） | https://assets.publishing.service.gov.uk/media/54c15bf240f0b6158d000027/MAIBReport_ReappraisalOfEvidence-SSCalifornian-Titanic-1992.pdf |
+| `p_g2_01` | c904 | 1992 | 引用（OGL v3.0・© Crown copyright＝gov.uk の頁）（頁・名前の外を切り出し） | 英国運輸省 海難調査局（MAIB） | https://assets.publishing.service.gov.uk/media/54c15bf240f0b6158d000027/MAIBReport_ReappraisalOfEvidence-SSCalifornian-Titanic-1992.pdf |
 | `p_g2_03` | c906 | 1992 | 引用（OGL v3.0・© Crown copyright＝gov.uk の頁）（頁・名前の外を切り出し） | 英国運輸省 海難調査局（MAIB） | https://assets.publishing.service.gov.uk/ |
-| `p_g2_18` | c930 | 1992 | 引用（OGL v3.0・© Crown copyright＝gov.uk の頁）（頁） | 英国運輸省 海難調査局（MAIB） | https://assets.publishing.service.gov.uk/ |
-| `p_g2_21` | c937 | 1992 | 引用（OGL v3.0・© Crown copyright＝gov.uk の頁）（頁） | 英国運輸省 海難調査局（MAIB） | https://assets.publishing.service.gov.uk/ |
-| `p_g2_22` | c941 | 1992 | 引用（OGL v3.0・© Crown copyright＝gov.uk の頁）（頁） | 英国運輸省 海難調査局（MAIB） | https://assets.publishing.service.gov.uk/ |
+| `p_g2_18` | c930 | 1992 | 引用（OGL v3.0・© Crown copyright＝gov.uk の頁）（頁・名前の外を切り出し） | 英国運輸省 海難調査局（MAIB） | https://assets.publishing.service.gov.uk/ |
+| `p_g2_21` | c937 | 1992 | 引用（OGL v3.0・© Crown copyright＝gov.uk の頁）（頁・名前の外を切り出し） | 英国運輸省 海難調査局（MAIB） | https://assets.publishing.service.gov.uk/ |
+| `p_g2_22` | c941 | 1992 | 引用（OGL v3.0・© Crown copyright＝gov.uk の頁）（頁・名前の外を切り出し） | 英国運輸省 海難調査局（MAIB） | https://assets.publishing.service.gov.uk/ |
 | `p_g2_23` | cb02 | 1992 | 引用（OGL v3.0・© Crown copyright＝gov.uk の頁）（頁・名前の外を切り出し） | 英国運輸省 海難調査局（MAIB） | https://assets.publishing.service.gov.uk/ |
 | `p_g4_2` | ca02 | 1912 | PD（頁） | 米国議会（法） | https://www.govinfo.gov/link/statute/37/199 |
 | `s10_871` | c412 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
@@ -3139,7 +3147,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `s3_352` | c301 | 不明 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
 | `s3_424` | c511 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
 | `s3_577` | c711 | 1912 | PD（この事故） | 米国議会図書館（LOC）（Commons の版） | https://commons.wikimedia.org/ |
-| `s3_671` | c636 c801 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
+| `s3_671` | c636 c801 | 1912 | PD（この事故・顔に升目） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
 | `s3_675` | c601 c622 c824 cb01 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |
 | `s3_698` | c819 | 不明 | PD（この事故・名前の外を切り出し） | 米国議会図書館（LOC）（Commons の版） | https://commons.wikimedia.org/ |
 | `s3_714` | c216 c805 | 1912 | PD（この事故） | Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄） | https://commons.wikimedia.org/ |

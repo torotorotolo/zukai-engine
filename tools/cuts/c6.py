@@ -348,8 +348,8 @@ SPEC.update({
     "c637": dict(
         t="その夜の出来事", s="船の時計で並べると",
         fig=("m26", dict(view="cfband", steps=[dict(state=dict(ev="on")), dict(state=dict(sleep="on"))],
-                         rel=[dict(t="22:20ごろ", src="G1 p56"), dict(t="23:40", src="G1 p57"), dict(t="1:10ごろ・白い信号弾5つ", src="G1 p58"),
-                              dict(t="2:05・全部で8つ", src="G1 p59"), dict(t="2:40ごろ", src="G1 p59"), dict(t="23:30", src="G1 p57")],
+                         rel=[dict(t="22:20ごろ", src="G1 p56"), dict(t="23:40", src="G1 p57"), dict(t="1:10ごろ・白い信号弾 5発", src="G1 p58"),
+                              dict(t="2:05・全部で8発", src="G1 p59"), dict(t="2:40ごろ", src="G1 p59"), dict(t="23:30", src="G1 p57")],
                          note="縦は時刻に比例", src=ss.src(["G1 p56", "G1 p57", "G1 p58", "G1 p59"])))),
     # c639（3行）＝1行目「新しく見えた別の船を、信号弾の船と思ったらしい」→ 2行目「大丈夫そうだ…取り違えは、正されなかった」→ 3行目の問い
     "c639": dict(

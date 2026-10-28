@@ -814,19 +814,19 @@
   "crop_px": [
    0,
    0,
-   1990,
-   1508
+   1979,
+   238
   ],
-  "w": 1990,
-  "h": 1508,
-  "md5": "aaf380fcf8fcaa2f403897d89be2dbba",
+  "w": 1979,
+  "h": 238,
+  "md5": "3ec79b35a62e0979a8ee24f1c5c24539",
   "src_md5": "530e9c2d9878c5e1f66cf16c06bc1e61",
   "lic": "引用（OGL v3.0・© Crown copyright＝gov.uk の頁）",
   "frame": true,
   "ground": "引用の型",
   "url": "https://assets.publishing.service.gov.uk/",
   "blur": [],
-  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（結びの段落だけ（頁の末の署名の場所を外す））＝字の層の行「A final word seems called for」〜「just human beings」・上下は絵のインクの無い行へ",
+  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（結びの段落のうち、役所の中にも結論を疑った人がいたとする文の4行だけ（頁の末の署名の場所を外す））＝字の層の行「the weight of a recent FI headed」〜「felt a substantial measure of doubt」・上下は絵のインクの無い行へ",
   "year": 1992,
   "year_why": "英国運輸省 海難調査局の再評価の報告（1992年）",
   "stock": false,
@@ -846,12 +846,12 @@
    "expect": "villains",
    "scale": 4.28756,
    "box_px": [
-    323,
-    274,
-    2313,
-    1782
+    324,
+    854,
+    2303,
+    1092
    ],
-   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（結びの段落だけ（頁の末の署名の場所を外す））＝字の層の行「A final word seems called for」〜「just human beings」・上下は絵のインクの無い行へ"
+   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（結びの段落のうち、役所の中にも結論を疑った人がいたとする文の4行だけ（頁の末の署名の場所を外す））＝字の層の行「the weight of a recent FI headed」〜「felt a substantial measure of doubt」・上下は絵のインクの無い行へ"
   }
  },
  "p_g4_2": {
@@ -2206,7 +2206,7 @@
   "part": "",
   "file": "ref/ep26/src/eizou/S3-671.jpg",
   "cut": "c636 c801",
-  "credit": "Wikimedia Commons（パブリックドメイン）",
+  "credit": "Wikimedia Commons（パブリックドメイン）・改変：顔にモザイク",
   "who": "Commons の表記（撮影者の死後70年超・1912年以前の刊行など＝sources26 の根拠の欄）",
   "note": "息子は審問の書記（公的な任務）＝名は言わない",
   "box": [
@@ -2223,14 +2223,14 @@
   ],
   "w": 916,
   "h": 768,
-  "md5": "d9436202b3c12b1dc53d51d244e84b86",
+  "md5": "e51feeed96fe51f9ef7d8955dbed3936",
   "src_md5": "8434b622bae7024d067efd3a123cb2c0",
   "lic": "PD",
   "frame": false,
   "ground": "1912年",
   "url": "https://commons.wikimedia.org/",
   "blur": [],
-  "how": "札なし（sRGB と読む）・fetch26.tsv の md5 と同じ（2回とも）",
+  "how": "札なし（sRGB と読む）・fetch26.tsv の md5 と同じ（2回とも）・顔だけ升目 1か所（升 14px）",
   "year": 1912,
   "year_why": "sources26.psv の basis の欄「1912年」（映像方針＝Commons の頁・置き場の説明で読んだ）",
   "stock": false,
@@ -2238,7 +2238,14 @@
   "related": false,
   "quote_page": false,
   "named": false,
-  "mosaic": null,
+  "mosaic": [
+   [
+    700,
+    165,
+    742,
+    220
+   ]
+  ],
   "name_mosaic": null,
   "masked_before": null,
   "era": "後・審問",
@@ -4034,14 +4041,14 @@
   ],
   "w": 1536,
   "h": 1209,
-  "md5": "621ce8b2906defe6fff1063cca8c8589",
+  "md5": "2d3697a7fe03a63c21b24763189ee5a6",
   "src_md5": "38cb00e5f8c4ea427715f0e65fb8517a",
   "lic": "PD",
   "frame": false,
   "ground": "米国議会図書館（LOC）・1912年4月",
   "url": "https://commons.wikimedia.org/",
   "blur": [],
-  "how": "札なし（sRGB と読む）・fetch26.tsv の md5 と同じ（2回とも）・顔だけ升目 29か所（升 14px）",
+  "how": "札なし（sRGB と読む）・fetch26.tsv の md5 と同じ（2回とも）・顔だけ升目 30か所（升 14px）",
   "year": 1912,
   "year_why": "sources26.psv の basis の欄「1912年」（映像方針＝Commons の頁・置き場の説明で読んだ）",
   "stock": false,
@@ -4223,6 +4230,12 @@
     820,
     1536,
     910
+   ],
+   [
+    575,
+    515,
+    682,
+    596
    ]
   ],
   "name_mosaic": null,

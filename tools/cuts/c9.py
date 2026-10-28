@@ -294,6 +294,7 @@ SPEC.update({
         fig=("m26", dict(view="asleep", steps=[dict(state=dict(call="on")), dict(state=dict(reply="on")), dict(state=dict(nogo="on"))],
                          note="眠りと目覚めの境は模式（次長の見方）", src=ss.src(["G2 p2021"])))),
     # c938（3行）＝1行目の問い → 2行目「タイタニック号の時計で0時45分ごろの、最初の信号弾ですぐ全速で」→ 3行目「約31キロでも、着くのはたぶん沈むころ」
+    #   🔧 一覧の見た目の型「札は…『現実的でない』」は置かない＝その語りは次の c939（前倒ししない・⑤b-6 §5-2・⑤c' で一覧と合わないことを記録）
     "c938": dict(
         t="全速で向かったなら", s="最初の信号弾で向かったとき",
         fig=("m26", dict(view="if_go", steps=[dict(state=dict(q="on")), dict(state=dict(go="on")), dict(state=dict(far="on"))],
