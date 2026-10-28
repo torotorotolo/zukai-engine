@@ -100,3 +100,39 @@ SPEC.update({
             note="港は一般の座標・" + ss.SAT_LINE_NOTE),
         t="大西洋を西へ", s="北大西洋（現在の衛星写真）"),
 })
+
+# 🆕 ⑤b-5（2026-10-28）：図解（`tools/mech26.py`・fig=("m26", …)）。段の数＝語りの行の数・画面の数は全部 rel に（門番 check_mech の judge_m26）
+SPEC.update({
+    # c202（2行）＝1行目「総トン数は、4万6,328トン」でタイタニック号の棒 → 2行目「カリフォルニアン号の約7倍」で短い棒とその長さの目盛り7つ
+    "c202": dict(
+        t="4万トンをこえる船", s="船の大きさを比べる",
+        fig=("m26", dict(view="tons2", steps=[dict(state=dict(tt="on")), dict(state=dict(cf="on"))],
+                         rel=[dict(t="46,328トン", src="G1 p11"), dict(t="6,223トン", src="G1 p56"), dict(t="約7倍", src="G1 p11")],
+                         note="棒の長さは総トン数に比例（約7倍＝46,328÷6,223）", src=ss.src(["G1 p11", "G1 p56"])))),
+    # c206（3行）＝1行目の問い → 2行目「乗客1,316人、乗員885人。あわせて2,201人」で縦の棒 → 3行目「子どもは109人」で黄の棒
+    "c206": dict(
+        t="乗っていた人", s="1912年4月14日の夜",
+        fig=("m26", dict(view="people4", steps=[dict(state=dict(q="on")), dict(state=dict(bars="on")), dict(state=dict(kids="on"))],
+                         rel=[dict(t="325人・285人・706人・885人", src="G1 p32"), dict(t="乗客 1,316人", src="G1 p32"),
+                              dict(t="あわせて 2,201人", src="G1 p32"), dict(t="子ども 109人", src="G1 p32")],
+                         note="棒の高さは人数に比例（子どもは乗客のうち）", src=ss.src(["G1 p32"])))),
+    # c209（2行）＝1行目「大きなボートが14隻、小さめのボートが2隻」→ 2行目「折りたたみ式のボートが4隻」（語りの呼び方＝台本 §0-5）
+    "c209": dict(
+        t="20隻の内わけ", s="大きさの違う3種類",
+        fig=("m26", dict(view="boats20", steps=[dict(state=dict(big="on")), dict(state=dict(fold="on"))],
+                         rel=[dict(t="65人乗り・14隻", src="G1 p25"), dict(t="40人乗り・2隻", src="G1 p25"), dict(t="47人乗り・4隻", src="G1 p25")],
+                         note="ボートの長さは定員に比例（並びは模式）", src=ss.src(["G1 p25"])))),
+    # c210（2行）＝1行目「これは規則より多かった。英国の規則が求めていたのは、」で規則の印 → 2行目「962人ぶんだけ」
+    "c210": dict(
+        t="基準を上回った席", s="1912年の英国の基準",
+        fig=("m26", dict(view="track3", steps=[dict(state=dict(rule="on")), dict(state=dict(num="on"))],
+                         rel=[dict(t="ボートの席 1,178人ぶん", src="G1 p62"), dict(t="乗っていた人 2,201人", src="G1 p32"),
+                              dict(t="962人ぶん", src="G1 p62")],
+                         note="帯の長さは人数に比例", src=ss.src(["G1 p62", "G1 p32"])))),
+    # c211（3行）＝1行目の問い → 2行目「1894年に作られ、見直されていなかった」で表の段 → 3行目「1万トン以上で終わり…同じ量」で平らな線と 46,328トンの印
+    "c211": dict(
+        t="見直されなかった規則", s="ボートの量を決めた表",
+        fig=("m26", dict(view="table1894", steps=[dict(state=dict(q="on")), dict(state=dict(t94="on")), dict(state=dict(flat="on"))],
+                         rel=[dict(t="1894年", src="G1 p64"), dict(t="1万トン以上", src="G1 p63"), dict(t="46,328トン", src="G1 p11")],
+                         note="表の段の数と高さは模式（横は総トン数に比例）", src=ss.src(["G1 p63", "G1 p64", "G1 p11"])))),
+})

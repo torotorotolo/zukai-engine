@@ -5717,8 +5717,342 @@ def _selftest_m25(ok):
     return ok
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 26本目 ⑤b-5（2026-10-28）：図解 m26（`tools/mech26.py`・第1〜5章の37カット）の記録＝門番の側（§5b-88）。
+#    ①どの船か・誰の話かの名と色（同じ画面で色が重ならない）・灯の色 ②値・比例（量は p＝p0＋v×k・時刻は p＝p0＋(分−t0)×k）・モールスの符号・舷灯の左右
+#    ③画面の全部の字の数を rel で・時刻は記録の時刻だけ・**時刻があればどの船の時計かを同じ画面に（船は1つ）**・割れる時刻（1:10／1:15・2:00／2:05）は
+#      誰の話か・出さない言葉（名前・死亡・救命艇・カッター）・カリフォルニアン号から見た画面で「タイタニック」と名乗らない
+#    ④出典の英文の句は原文の頁に在る（`ref/ep26/src/ep26_pages.txt`＝git の外・英字と数字だけに揃えて照らす・Actions では飛ばす）
+#    🔴 §0b（題材を替えるとき）：次の回の ⑤b-1 で REC_M26 を見本 fixture_ep26 へ移す（REC_M25 と同じ形）
+# ══════════════════════════════════════════════════════════
+def _m26_min(t):
+    """「0:15」「23:40」→ 夜を通した分（正午より前の時刻は翌日＝＋24時間）＝門番の側の式。"""
+    h, m_ = [int(x) for x in re.findall(r"\d+", t)[:2]]
+    return (h + (24 if h < 12 else 0)) * 60 + m_
+
+
+REC_M26 = dict(
+    src=dict(tt=("タイタニック号", "ship"), cf=("カリフォルニアン号", "ntsb"), cp=("カルパチア号", "uscg"), cr=("ケープ・レース", "tsb"),
+             an=("アンティリアン号", "city"), am=("アメリカ号", "company"), ol=("オリンピック号", "bldg_a"), rep=("報告書", "SUB"),
+             maib=("1992年の調べ直し", "DOC"), cap=("船長", "bldg_a"), mate=("航海士", "city")),
+    light=dict(green="OK", red="ALERT", white="SUB"),
+    # 画面に出してよい時刻（sources.md §6 の時計の表と G1 の時刻＝20:00〈p.37〉・22:00〈p.39〉・22:20〈p.56〉・23:00・23:30・23:40〈p.57〉・0:00〈p.58〉・
+    #   0:05〈p.49〉・0:15〈p.54〉・0:30〈p.58〉・0:35〈G7 PDF 23頁〉・0:45〈p.54〉・1:10〈p.58〉・1:15〈p.59〉・2:05〈p.59〉・2:20〈p.85〉・2:40〈p.59〉・4:00〈p.59〉）
+    times=("20:00", "22:00", "22:20", "23:00", "23:30", "23:40", "0:00", "0:05", "0:15", "0:30", "0:35", "0:45", "1:10", "1:15", "2:05", "2:20",
+           "2:40", "4:00"),
+    split=("1:10", "1:15", "2:00", "2:05"),
+    ships=("タイタニック号", "カリフォルニアン号", "カルパチア号"),
+    ng=("死亡", "救命艇", "カッター", "マードック", "グローブス", "ロストロン", "スチュワート", "ボックスホール", "ライトラー", "フィリップス",
+        "エバンス", "ギブソン", "ストーン", "ロード船長"),
+    # カリフォルニアン号から見た画面（見えた船をタイタニック号と名乗らない＝案B の守りの線）
+    no_tt=("field", "sidelights", "masts2", "morse", "views2", "watches", "bearing", "flicker", "section", "height", "memory2", "cfband", "swap"),
+    views=dict(
+        tons2=dict(val=((("tt", 46328), ("cf", 6223)), "約7倍", 7), pv=(46328, 6223)),
+        people4=dict(val=((("一等", 325), ("二等", 285), ("三等", 706), ("乗員", 885)), 1316, 2201, (109, (6, 24, 79)), True, True, True),
+                     pv=(325, 285, 706, 885, 109)),
+        boats20=dict(val=((("大きなボート", 65, 14), ("小さめのボート", 40, 2), ("折りたたみ式のボート", 47, 4)), 1178, True), pv=(65, 40, 47)),
+        track3=dict(val=(2201, 1178, 962), pv=(2201, 1178, 962)),
+        table1894=dict(val=(1894, 10000, 46328), pv=(10000, 46328)),
+        clocks2=dict(val=(0.0, 0.0)),
+        busy=dict(val=("20:00",)),
+        cf_side=dict(val=("レイランド社", "ロンドン", "ボストン", 0)),
+        drown=dict(val=(True,)),
+        watch=dict(val=("22:00",)),
+        helm=dict(val=(-22.5,)),
+        olympic=dict(val=((37, 466, 430, 22), 22.5), pv=(466 * 0.9144, 852.5 * 0.3048)),
+        damage=dict(val=((300, 90, 10, 20), ("前", "1", "2", "3", "6", "5")), pv=(300, 852.5)),
+        tray=dict(val=(5, True)),
+        ttband=dict(val=(("23:40", "衝突"), ("0:05ごろ", "ボートの用意"), ("0:15", "CQD"), ("0:45ごろ", "信号弾"), ("2:20", "沈没")),
+                    pm=("23:40", "0:05", "0:15", "0:45", "2:20")),
+        cqd=dict(val=((("C", "−·−·"), ("Q", "−−·−"), ("D", "−··")), "0:15")),
+        carp=dict(val=(("0:35", 52, 107), -52.0)),
+        rockets_n=dict(val=(8, (6, 12), 5)),
+        colors=dict(val=("SUB", True)),
+        field=dict(val=("22:20ごろ", True)),
+        drift=dict(val=((19, 35), 11.25, 191.25)),
+        sidelights=dict(val=(dict(right="green", left="red", mast="white"), True, True, (5, 9))),
+        masts2=dict(val=((1, 2), 2, True)),
+        views2=dict(val=(("客船には見えない", "客船です"), True)),
+        watches=dict(val=((("夜の当直", "三等航海士"), ("真夜中からの当直", "二等航海士"), ("朝の当直", "一等航海士")), "23:40"),
+                     pm=("0:00", "4:00", "23:40")),
+        section=dict(val=("0:30すぎ", 2, "1:10ごろ", 5)),
+        company=dict(val=("ホワイト・スター・ライン", "OK")),
+        height=dict(val=(0.5,)),
+        memory2=dict(val=(("mate", "1:10ごろ", 5), ("cap", "1:15ごろ", 1))),
+        cfband=dict(val=(("22:20ごろ", "止まる（氷原の手前）"), ("23:40", "灯が消える（三等航海士の話）"), ("1:10ごろ", "白い信号弾5つ（二等航海士の話）"),
+                         ("2:05", "全部で8つ（見習いの話）"), ("2:40ごろ", "見えなくなる（二等航海士の話）"), "23:30"),
+                    pm=("22:20", "23:40", "1:10", "2:05", "2:40", "23:30")),
+        swap=dict(val=("4:00ごろ", 2)),
+    ),
+    # 出典の英文の句（頁は ss.REC_DOCS の通し番号＝G1 1〜88・G2 2001〜2030・G7 20001〜21170）。名前の入らない所を選んだ
+    quote=dict(
+        tons2=(("G1 p11", "46,328 tons gross"), ("G1 p56", "a vessel of 6,223 tons")),
+        people4=(("G1 p32", "In all, 2,201 persons were on board"), ("G1 p32", "or 109 in all")),
+        boats20=(("G1 p25", "a total of 11,327.9 cubic feet for 1,178 persons"),),
+        track3=(("G1 p62", "a provision for 962 persons"), ("G1 p62", "1,178 persons, a number far in excess of the requirements of the table")),
+        table1894=(("G1 p64", "Those regulations were last revised in 1894"), ("G1 p63", "made in 1894 for vessels of 10,000 tons and upward")),
+        radio3=(("G2 p2005", "in 1912 many ships did not have wireless and those that did, did not necessarily keep continuous watch"),),
+        clocks2=(("G2 p2010", "It was customary in 1912 for ships to adjust their clocks so that the sun would be approximately on the meridian"),),
+        aside=(("G1 p36", "to wait until the Titanic would be within call of Cape Race"), ("G1 p36", "it was never handed to any officer")),
+        busy=(("G1 p37", "it does not appear to have been delivered to the master or to any of the officers"),
+              ("G1 p37", "very busy from 8 o'clock onward transmitting messages via Cape Race for passengers")),
+        cf_side=(("G1 p56", "the steamship Californian, of the Leyland Line"),
+                 ("G1 p56", "She had a passenger certificate, but was not carrying any passengers at the time")),
+        relay3=(("G1 p56", "The message was intercepted by the Titanic"), ("G1 p56", "I heard you sending it to the Antillian, and I have got it")),
+        drown=(("G1 p57", "The Titanic was in communication with Cape Race"),
+               ("G1 p57", "was much stronger than any message being taken in by the Titanic from Cape Race")),
+        watch=(("G1 p39", "we might be up around the ice any time now"), ("G1 p39", "both the men in the crow's nest")),
+        helm=(("G1 p41", "about two points to port"), ("G2 p2008", "because of the helm orders then in use, was to direct the ship's head to port")),
+        olympic=(("G1 p41", "about 37 seconds would be required"), ("G1 p41", "the ship would travel about 466 yards")),
+        damage=(("G1 p42", "The damage extended over a length of about 300 feet"), ("G1 p42", "she would have passed through 300 feet in less than 10 seconds"),
+                ("G1 p42", "No. 6 boiler room, No. 5 boiler room"), ("G1 p42", "moving at over 20 knots")),
+        tray=(("G1 p45", "and so on in succession to the other boiler rooms till the ship would ultimately fill and sink"),
+              ("G1 p45", "water came into the five forward compartments")),
+        ttband=(("G1 p42", "took place at 11.40 p.m."), ("G1 p49", "at about 12.05 the order was given to uncover the 14 boats under davits"),
+                ("G1 p54", "At 12.15 a. m. the distress signal CQD was sent"), ("G1 p54", "No. 7 boat was lowered (12.45 a. m.)"),
+                ("G1 p85", "Two twenty a. m. (ship's time) April 15")),
+        cqd=(("G1 p54", "This was heard by several steamships and by Cape Race"),),
+        carp=(("G7 p20023", "Yes, 12.35; that was our apparent time"), ("G7 p20024", "north 52 degrees west true 58 miles from my position")),
+        rockets_n=(("G1 p54", "fired about eight rockets"),),
+        colors=(("G2 p2022", "such signals could be of any colour"),
+                ("G2 p2022", "there was therefore nothing immediately to distinguish them from other rockets")),
+        field=(("G1 p56", "obliged to stop and reverse engines"), ("G1 p56", "which stretched as far as could then be seen to the northward and southward"),
+               ("G1 p56", "until 10.20")),
+        drift=(("G1 p56", "about 19 miles N. by E. of the position of the"), ("G2 p2013", "a current setting about south by west")),
+        sidelights=(("G1 p57", "and also her green side light"), ("G1 p57", "at some time between 11 and 11.30 he first saw her green light; she was then about 5 miles")),
+        masts2=(("G1 p57", "made out two masthead lights"), ("G1 p57", "She is evidently a passenger steamer")),
+        morse=(("G1 p57", "Call her up on the Morse lamp, and see if you can get any answer"),),
+        views2=(("G1 p57", "That does not look like a passenger steamer"), ("G1 p57", "It is, sir. When she stopped her lights seemed to go out")),
+        watches=(("G1 p57", "these lights went out at 11.40"), ("G1 p57", "because one bell was struck to call the middle watch"), ("G1 p58", "just after midnight")),
+        bearing=(("G1 p58", "with instructions to tell him if her bearings altered or if she got any closer"),),
+        flicker=(("G1 p58", "He first thought her masthead light was flickering and next thought it was a Morse light"),
+                 ("G1 p58", "finally came to the conclusion that it was, as he had first supposed, the masthead light flickering")),
+        section=(("G1 p58", "Sometime after 12.30 a. m."), ("G1 p58", "saw two rockets fired from the ship which he had been observing"),
+                 ("G1 p58", "reported to the captain by voice pipe, that he had seen five white rockets")),
+        company=(("G2 p2018", "it has been suggested that these were Company signals from the other ship"), ("G1 p54", "throwing off white stars")),
+        height=(("G2 p2017", "described as low-lying (quoted as rising to less than mast-head height)"),),
+        memory2=(("G1 p59", "he went to the voice pipe at about 1.15, but was told then of a white rocket (not five white rockets)"),
+                 ("G1 p58", "about 1.10 a. m.")),
+        cfband=(("G1 p56", "until 10.20"), ("G1 p57", "went out at 11.40"), ("G1 p57", "turned in at 11.30 p.m."), ("G1 p58", "about 1.10 a. m."),
+                ("G1 p59", "five minutes past two"), ("G1 p59", "At about 2.40 a. m."), ("G1 p58", "altogether we had seen eight of these white lights")),
+        swap=(("G1 p59", "a steamer came in sight with two white masthead lights"), ("G1 p59", "about 4 a.m."), ("G1 p59", "This mistake was not corrected")),
+    ),
+)
+_M26_PAGES = {}
+
+
+def _m26_page(rec):
+    """「G1 p56」「G2 p2013」「G7 p20023」の頁の文字（英字と数字だけ＝OCR の空白・引用符・改行のハイフンの揺れを吸う）。原文が手元に無い（Actions）は None。"""
+    import unicodedata
+    from pathlib import Path
+    m_ = re.fullmatch(r"\S+ p(\d+)", rec)
+    if not m_:
+        return None
+    if not _M26_PAGES:
+        t = Path(__file__).resolve().parent.parent / "ref" / "ep26" / "src" / "ep26_pages.txt"
+        if not t.exists():
+            _M26_PAGES[None] = True
+            return None
+        for mm in re.finditer(r"^=== p(\d+) ===\n(.*?)(?=^=== p|\Z)", t.read_text(encoding="utf-8"), re.M | re.S):
+            _M26_PAGES[int(mm.group(1))] = re.sub(r"[^a-z0-9]", "", unicodedata.normalize("NFKC", mm.group(2)).lower())
+    if None in _M26_PAGES:
+        return None
+    return _M26_PAGES.get(int(m_.group(1)), "")
+
+
+def _m26_q(q):
+    import unicodedata
+    return re.sub(r"[^a-z0-9]", "", unicodedata.normalize("NFKC", q).lower())
+
+
+def judge_m26(f):
+    """26本目 図解：①船と人の名と色・灯の色 ②値・比例・符号・左右 ③全部の字の数を rel で・時刻とどの船の時計か・割れる時刻は誰の話か・出さない言葉 ④句を原文の頁で。"""
+    import jiko_style as J
+    bad, n = [], 0
+    m = f.mech
+    g, view = m["geo"], m["view"]
+    R = REC_M26
+    if not R:
+        return ["記録の表 REC_M26 が空（その回の値を入れるまで、m26 のカットは止まる）"], 1
+
+    def need(cond, msg):
+        nonlocal n
+        n += 1
+        if not cond:
+            bad.append(msg)
+
+    def col(name):
+        return (J.ROLE.get(name) or getattr(J, name)).lower()
+
+    def prop(a, b):
+        return abs(a - b) < 0.5
+
+    Rv = R["views"].get(view) or {}
+    need({k: (t, col(r)) for k, (t, r) in g["src"].items()} == {k: (t, col(r)) for k, (t, r) in R["src"].items()},
+         "① 船と人の色か名が記録（タイタニック号＝水色・カリフォルニアン号＝緑・カルパチア号＝青・ケープ・レース＝紫・アメリカ号＝橙…）と違う")
+    cs = [col(R["src"][k][1]) for k in g["vsrc"]]
+    need(len(set(cs)) == len(cs), f"① 同じ画面の鍵 {g['vsrc']} の色が重なる")
+    need(dict(g["light"]) == {k: col(v) for k, v in R["light"].items()}, "① 灯の色が記録（舷灯の緑・赤・マストの白）と違う")
+    if "val" in Rv:
+        want = tuple(Rv["val"])
+        if view == "colors":
+            want = (col(want[0]),) + want[1:]
+        if view == "company":
+            want = (want[0], col(want[1]))
+        if view == "sidelights":
+            want = want + (tuple(col(R["light"][want[0][k]]) for k in ("right", "left", "mast")),)
+        need(tuple(g.get("val", ())) == want, f"② {view} の値 {g.get('val')} が記録と違う")
+    if "pv" in Rv:
+        px, lins = tuple(g.get("px", ())), tuple(g.get("lins", ()))
+        need(len(px) == len(Rv["pv"]) == len(lins) and all(prop(p, p0 + (float(v) - v0) * k) for p, (p0, k, v0), v in zip(px, lins, Rv["pv"])),
+             f"② {view} の画素が値に比例していない（記録の値 {Rv['pv']}）")
+    if "pm" in Rv:
+        px, lins = tuple(g.get("px", ())), tuple(g.get("lins", ()))
+        mins = [_m26_min(t) for t in Rv["pm"]]
+        need(len(px) == len(mins) == len(lins) and all(prop(p, p0 + (mm - t0) * k) for p, (p0, k, t0), mm in zip(px, lins, mins)),
+             f"② {view} の画素が時刻に比例していない（記録の時刻 {Rv['pm']}）")
+    texts = list(m["texts_all"])
+    ngs = [(t, w) for t in texts for w in R["ng"] if w in t]
+    need(not ngs, f"③ 画面の字「{ngs[0][0]}」に出さない言葉「{ngs[0][1]}」がある（名前は役職で・台本 §0-5・死の語）" if ngs else "")
+    if view in R["no_tt"]:
+        tts = [t for t in texts if "タイタニック" in t]
+        need(not tts, f"③ 見えた船の画面に「{tts[0] if tts else ''}」＝見えた船をタイタニック号と名乗らない（案B の守りの線）")
+    hms = sorted({hm.group(0).replace("：", ":") for t in texts for hm in re.finditer(r"\d{1,2}[:：]\d{2}", t)})
+    for full in hms:
+        need(full in R["times"], f"③ 画面の字の時刻「{full}」が記録の時刻（sources.md §6・G1）に無い")
+    if hms:
+        clocks = sorted({s_ for t in texts for s_ in R["ships"] if s_ in t and "時計" in t})
+        need(len(clocks) == 1, f"③ 時刻 {hms} があるのに、どの船の時計かが {clocks or '無い'}（1つの船の時計を同じ画面に）")
+        sp = [t for t in hms if t in R["split"]]
+        if sp:
+            need(any(("の話" in t) or ("の記憶" in t) or ("の証言" in t) for t in texts), f"③ 割れる時刻 {sp} に誰の話かが無い")
+    for p, q in R["quote"].get(view, ()):
+        src_ = _m26_page(p)
+        if src_ is not None:
+            need(_m26_q(q) in src_, f"④ 句「{q[:30]}…」が {p} の原文に無い")
+    said = [r.get("t", "") for r in m["rel"]]
+    for t in texts:
+        for mm in NUM_M17.finditer(t):
+            tok = mm.group(0)
+            need(any(tok in s for s in said), f"③ 画面の字「{t}」の数「{tok}」が rel（記録の値の宣言）に無い")
+    for r in m["rel"]:
+        need(bool(r.get("src")) and str(r.get("src")).split(" ")[0] in ("G1", "G2", "G7", "T1"), f"③ rel「{r.get('t')}」に出どころ（G1・G2・G7・T1）が無い")
+    return bad, n
+
+
+def _selftest_m26(ok):
+    """🆕 26本目 ⑤b-5：本番の m26 が全部通り、描く側の定数を壊すと**狙った理由で**鳴るか（陽性対照）。型の例外で止まった対照は鳴ったと数えない。"""
+    import mech26 as M
+    import cuts
+    good = {c: s["fig"][1] for c, s in cuts.SPEC.items() if s.get("fig") and s["fig"][0] == "m26"}
+    if not good:
+        print("  🔴 NG 26本目 m26 のカットが SPEC に無い＝検算できない")
+        return False
+    for cid, kw in sorted(good.items()):
+        bad, _ = judge("m26", kw)
+        ok &= not bad
+        if bad:
+            print(f"  🔴 NG 26本目 m26 の本番 {cid} が落ちた: {bad[0]}")
+    by_view = {}
+    for cid, kw in sorted(good.items()):
+        by_view.setdefault(kw["view"], kw)
+
+    def plain_clk(x, y, t, ship, cap=30, anchor="middle", mw=620):
+        return M._tline(x, y, t, cap, M.INK, anchor, mw)
+    cases = (("カリフォルニアン号を 6,232トンに", "tons2", "TN_V", (M.TN_V[0], ("cf", 6232, "6,232トン")), "② tons2 の値"),
+             ("棒の長さを描く側だけ変える", "tons2", "tn_end", lambda v: M.TN["x0"] + v * M.TN["k"] * 0.9, "② tons2 の画素"),
+             ("三等を 760人に", "people4", "PP_ROWS", M.PP_ROWS[:2] + (("三等", 760, "company"),) + M.PP_ROWS[3:], "② people4 の値"),
+             ("棒の高さを描く側だけ変える", "people4", "pp_top", lambda v: M.PP["y0"] - v * 0.4, "② people4 の画素"),
+             ("大きなボートを60人乗りに", "boats20", "BT_ROWS", (("大きなボート", 60, 14, "LINE"),) + M.BT_ROWS[1:], "② boats20 の値"),
+             ("規則を 926人に", "track3", "TK_V", (2201, 1178, 926), "② track3 の値"),
+             ("表の年を 1896 に", "table1894", "TB_V", (1896, 10000, 46328), "② table1894 の値"),
+             ("電報の時刻を 21:00 に", "busy", "BS_T", "21:00", "② busy の値"),
+             ("乗客を 12人に", "cf_side", "CS_V", ("レイランド社", "ロンドン", "ボストン", 12), "② cf_side の値"),
+             ("交代を 22:30 に", "watch", "WT_T", "22:30", "② watch の値"),
+             ("船首を右へ回す", "helm", "HM_DEG", 22.5, "② helm の値"),
+             ("37秒を39秒に", "olympic", "OL_V", (39, 466, 430, 22), "② olympic の値"),
+             ("船の長さを全長 882.75フィートで描く", "olympic", "OL_SHIP_FT", 882.75, "② olympic の画素"),
+             ("傷を 250フィートに", "damage", "DM_V", (250, 90, 10, 20), "② damage の値"),
+             ("区画の順を入れ替える", "damage", "DM_COMP", ("前", "1", "2", "3", "5", "6"), "② damage の値"),
+             ("前の4つに水", "tray", "TR_FRONT", 4, "② tray の値"),
+             ("CQD を 0:25 に", "ttband", "TT_EV", M.TT_EV[:2] + (("0:25", "CQD", "dn", "radio"),) + M.TT_EV[3:], "② ttband の値"),
+             ("帯の物差しを描く側だけ変える", "ttband", "tt_x", lambda t: M.TT["x0"] + (M._min(t) - M.TT["t0"]) * 9.0, "② ttband の画素"),
+             ("Q の符号を −·−− に", "cqd", "CQ_CODE", (M.CQ_CODE[0], ("Q", "−·−−"), M.CQ_CODE[2]), "② cqd の値"),
+             ("向きを 58度に", "carp", "CP_V", ("0:35", 58, 107), "② carp の値"),
+             ("報告書を 9発に", "rockets_n", "RN_V", (9, (6, 12), 5), "② rockets_n の値"),
+             ("タイタニック号の信号を赤に", "colors", "CL_TT", "ALERT", "② colors の値"),
+             ("止まった時刻を 22:30ごろ に", "field", "FD_T", "22:30ごろ", "② field の値"),
+             ("北微西に描く", "drift", "DF_BRG", -11.25, "② drift の値"),
+             ("舷灯の左右を入れ替える", "sidelights", "SL_SIDE", dict(right="red", left="green", mast="white"), "② sidelights の値"),
+             ("灯を3つに", "masts2", "MS_V", (1, 3), "② masts2 の値"),
+             ("2人の言葉を入れ替える", "views2", "VW_SAY", ("客船です", "客船には見えない"), "② views2 の値"),
+             ("鐘を 23:50 に", "watches", "WW_EV", "23:50", "② watches の値"),
+             ("伝声管の数を 6発に", "section", "SE_V", ("0:30すぎ", 2, "1:10ごろ", 6), "② section の値"),
+             ("ホワイト・スター・ラインを赤に", "company", "CO_WS", ("ホワイト・スター・ライン", "ALERT"), "② company の値"),
+             ("信号弾の高さを 7割に", "height", "HT_RATIO", 0.7, "② height の値"),
+             ("船長の時刻を 1:10ごろ に", "memory2", "MM_V", (M.MM_V[0], ("cap", "船長の記憶", "1:10ごろ", 1)), "② memory2 の値"),
+             ("見習いの時刻を 2:00 に", "cfband", "CB_EV", M.CB_EV[:3] + (("2:00", "全部で8つ（見習いの話）"),) + M.CB_EV[4:], "② cfband の値"),
+             ("縦の物差しを描く側だけ変える", "cfband", "cb_y", lambda t: M.CB["y0"] + (M._min(t) - M.CB["t0"]) * 1.6, "② cfband の画素"),
+             ("新しい船の灯を3つに", "swap", "SW_V", ("4:00ごろ", 3), "② swap の値"),
+             ("カリフォルニアン号の色を橙に", "tons2", "SRC", dict(M.SRC, cf=("カリフォルニアン号", "company")), "① 船と人の色か名"),
+             # 色の重なりは記録の色で数える（描く側の色の食い違いは上の「① 船と人の色か名」）＝同じ紫のケープ・レースと航海士を同じ画面に置く
+             ("ケープ・レースと航海士を同じ画面に", "aside", "VIEW_SRC", dict(M.VIEW_SRC, aside=M.VIEW_SRC["aside"] + ("mate",)), "① 同じ画面"),
+             ("緑の灯を赤の値に", "sidelights", "LIGHT", dict(M.LIGHT, green=M.J.ALERT), "① 灯の色"),
+             ("名前を帯の札に", "ttband", "TT_EV", (("23:40", "衝突（マードック）", "dn", "start"),) + M.TT_EV[1:], "③ 画面の字"),
+             ("見えた船を名乗る", "cfband", "CB_EV", (("22:20ごろ", "止まる（氷原の手前）"), ("23:40", "タイタニック号の灯が消える")) + M.CB_EV[2:], "③ 見えた船の画面"),
+             ("どの船の時計かを外す", "field", "_clk", plain_clk, "③ 時刻"),
+             ("誰の話かを外す", "memory2", "MM_V", (("mate", "二等航海士", "1:10ごろ", 5), ("cap", "船長", "1:15ごろ", 1)), "③ 割れる時刻"))
+    for name, view, attr, val, why in cases:
+        if view not in by_view:
+            print(f"  ⚠️ 26本目 陽性対照「{name}」：{view} のカットが無い（飛ばした）")
+            continue
+        keep = getattr(M, attr)
+        setattr(M, attr, val)
+        try:
+            bad, _ = judge("m26", by_view[view])
+            how = ""
+        except Exception as e:      # 型の例外で止まった対照は鳴ったと数えない（24本目 ⑤b-3 §6）
+            bad, how = [], f"（型の例外：{e}）"
+        finally:
+            setattr(M, attr, keep)
+        g_ = any(b.startswith(why) for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 26本目 ⑤b-5 陽性対照：{name}: {'不合格' if bad else '合格'}（不合格のはず・理由「{why}」）{how}"
+              + (f"  ← {[b for b in bad if b.startswith(why)][:1] or bad[:1]}" if bad else ""))
+    # rel から数を抜く（③）・記録に無い時刻（③）
+    kw = dict(by_view["track3"], rel=[r for r in by_view["track3"]["rel"] if "962" not in r.get("t", "")])
+    bad, _ = judge("m26", kw)
+    g_ = any(b.startswith("③") and "962" in b for b in bad)
+    ok &= g_
+    print(f"  {'OK' if g_ else '🔴 NG'} 🔴 26本目 ⑤b-5 陽性対照：rel から 962人ぶん を抜く: {'不合格' if bad else '合格'}（不合格のはず・理由「③」）")
+    keep = M.FD_T
+    M.FD_T = "22:26ごろ"
+    try:
+        kw = dict(by_view["field"], rel=list(by_view["field"]["rel"]) + [dict(t="22:26ごろ", src="G1 p56")])
+        bad, _ = judge("m26", kw)
+    finally:
+        M.FD_T = keep
+    g_ = any(b.startswith("③ 画面の字の時刻「22:26」") for b in bad)
+    ok &= g_
+    print(f"  {'OK' if g_ else '🔴 NG'} 🔴 26本目 ⑤b-5 陽性対照：記録に無い時刻 22:26: {'不合格' if bad else '合格'}（不合格のはず・理由「③ 時刻」）")
+    # 原文の句（④）＝手元に原文があるときだけ（Actions では飛ばす）
+    if _m26_page("G1 p11") is not None:
+        keepq = REC_M26["quote"]["tons2"]
+        REC_M26["quote"]["tons2"] = keepq + (("G1 p11", "46,328 tons net"),)
+        try:
+            bad, _ = judge("m26", by_view["tons2"])
+        finally:
+            REC_M26["quote"]["tons2"] = keepq
+        g_ = any(b.startswith("④") for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 26本目 ⑤b-5 陽性対照：原文に無い句「46,328 tons net」: {'不合格' if bad else '合格'}（不合格のはず・理由「④」）")
+    return ok
+
+
 def judge(kind, kw):
     f = getattr(F, kind)(**kw)
+    if kind == "m26":
+        return judge_m26(f)
     if kind == "m25":
         return judge_m25(f)
     if kind == "m24":
@@ -6157,12 +6491,17 @@ def main():
         print("selftest（m25）: 🔴 落ちた")
         return 2
     print("selftest（m25）: 通った")
+    # 🆕 26本目 ⑤b-5：m26 の検算＝見本の差し込みは上で全部戻したあと（本番の表 REC_M26 と26本目の章ファイル）
+    if not _selftest_m26(True):
+        print("selftest（m26）: 🔴 落ちた")
+        return 2
+    print("selftest（m26）: 通った")
     if "--selftest" in sys.argv:
         return 0
     import cuts
     targets = {c: s["fig"] for c, s in sorted(cuts.SPEC.items())
                if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash", "tail", "mod", "bolt", "vsec", "lv", "m18",
-                                                   "m19", "m20", "m21", "m22", "m23", "m17", "m24", "m25")}
+                                                   "m19", "m20", "m21", "m22", "m23", "m17", "m24", "m25", "m26")}
     if not targets:
         print("⚠️ latch・section・hull・lash・tail・mod・bolt のカットが0件（この回に仕組みの模式図が無いなら正しい。"
               "**0件を調べて合格**にしていないか確かめる）")
@@ -6178,7 +6517,7 @@ def main():
             n += 1
             vb = view_dir_check17(cuts.PLAN.get(cid, {}).get("plan", ""), F.m17(**kw).mech["lab"])
             bad = list(bad) + ([f"② {vb}"] if vb else [])
-        if kind in ("m24", "m25"):         # 🆕 24本目 ⑤b-4・25本目 ⑤b-5：見る向きの合図（PLAN の「見る向き：」× 左上の札）
+        if kind in ("m24", "m25", "m26"):  # 🆕 24本目 ⑤b-4・25本目 ⑤b-5・26本目 ⑤b-5：見る向きの合図（PLAN の「見る向き：」× 左上の札）
             n += 1
             vb = view_dir_check17(cuts.PLAN.get(cid, {}).get("plan", ""), getattr(F, kind)(**kw).mech["lab"])
             bad = list(bad) + ([f"② {vb}"] if vb else [])

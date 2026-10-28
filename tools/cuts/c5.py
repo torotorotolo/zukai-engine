@@ -128,3 +128,29 @@ SPEC.update({
                dict(state=dict(k4dist="on"), rec="G1 p54（at a distance, as he thought, of about 5 or 6 miles）",
                     tag=dict(t="約9〜11キロ（本人の見立て）", at="dist", off=(-40, -90)))]))),
 })
+
+# 🆕 ⑤b-5（2026-10-28）：図解（`tools/mech26.py`・fig=("m26", …)）。段の数＝語りの行の数・画面の数は全部 rel に（門番 check_mech の judge_m26）
+SPEC.update({
+    # c501（3行）＝1行目の問い → 2行目「タイタニック号の時計で0時15分、遭難の合図CQDを打った」→ 3行目「いくつもの船と、陸のケープ・レースが…聞いた」
+    "c501": dict(
+        t="助けを呼ぶ無線", s="タイタニック号の無線室から",
+        fig=("m26", dict(view="cqd", steps=[dict(state=dict(q="on")), dict(state=dict(code="on")), dict(state=dict(out="on"))],
+                         rel=[dict(t="0:15", src="G1 p54")], note="符号の点と線は国際の決まり・電波の線は模式", src=ss.src(["G1 p54"])))),
+    # c505（2行）＝1行目「カルパチア号の時計で0時35分に受けると、」→ 2行目「すぐ船を回せ…北西へ、約107キロ先の位置を目指した」
+    "c505": dict(
+        t="向かったカルパチア号", s="知らせを受けて、すぐに",
+        fig=("m26", dict(view="carp", steps=[dict(state=dict(get="on")), dict(state=dict(turn="on"))],
+                         rel=[dict(t="0:35", src="G7 p20023"), dict(t="北から西へ52度", src="G7 p20024"), dict(t="約107キロ", src="G7 p20024")],
+                         note="向きは記録の値（距離の線の長さと氷山の場所は模式）", src=ss.src(["G7 p20023", "G7 p20024"])))),
+    # c510（3行）＝1行目の問い → 2行目「報告書は、約8発とみる。」→ 3行目「6発から12発、間隔はたぶん5分」（四等航海士の証言）
+    "c510": dict(
+        t="何発打ったのか", s="報告書と証言",
+        fig=("m26", dict(view="rockets_n", steps=[dict(state=dict(q="on")), dict(state=dict(rep="on")), dict(state=dict(say="on"))],
+                         rel=[dict(t="約8発", src="G1 p54"), dict(t="6発から12発", src="T1 p15395"), dict(t="間隔は たぶん5分", src="T1 p15399")],
+                         note="証言の言葉は英国の審問の書き起こし（有志のサイト）による", src=ss.src(["G1 p54", "T1 p15395", "T1 p15399"])))),
+    # c516（3行）＝1行目の問い → 2行目「遭難の信号の色は、何色でもよかった」→ 3行目「タイタニック号のは白…見分けがつかない」
+    "c516": dict(
+        t="白い光の意味", s="1912年の遭難の信号",
+        fig=("m26", dict(view="colors", steps=[dict(state=dict(q="on")), dict(state=dict(any="on")), dict(state=dict(white="on"))],
+                         rel=[], note="色の並びは模式", src=ss.src(["G2 p2022"])))),
+})

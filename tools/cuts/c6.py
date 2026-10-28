@@ -269,3 +269,92 @@ SPEC.update({
                dict(state=dict(), rec="G1 p59（the master again asked him if he was certain there was no color in the lights）",
                     tag=dict(t="伝声管", at="pipe", off=(40, -170)))]))),
 })
+
+# 🆕 ⑤b-5（2026-10-28）：図解（`tools/mech26.py`・fig=("m26", …)）。段の数＝語りの行の数・画面の数は全部 rel に（門番 check_mech の judge_m26）
+SPEC.update({
+    # c602（2行）＝1行目「夜10時20分ごろ…機関を逆に回して止まった」→ 2行目「氷原は、北にも南にも、見える限り」
+    "c602": dict(
+        t="行く手をふさぐ氷", s="カリフォルニアン号は止まった",
+        fig=("m26", dict(view="field", steps=[dict(state=dict(stop="on")), dict(state=dict(ice="on"))],
+                         rel=[dict(t="22:20ごろ", src="G1 p56")], note="船と氷原の形は模式", src=ss.src(["G1 p56"])))),
+    # c604（3行）＝1行目「当時タイタニック号が沈んだとされた位置の、」→ 2行目「約35キロ（19マイル）北…推測の位置は、」→ 3行目「海の流れなどで、ずれる」
+    "c604": dict(
+        t="止まった位置", s="報告書が記した数",
+        fig=("m26", dict(view="drift", steps=[dict(state=dict(pts="on")), dict(state=dict(dist="on")), dict(state=dict(cur="on"))],
+                         rel=[dict(t="約35キロ（19マイル）", src="G1 p56")],
+                         note="位置と流れは模式（流れの向きは南微西＝1992年の調べ直し）", src=ss.src(["G1 p56", "G2 p2013"])))),
+    # c607（3行）＝1行目「船長は、甲板の灯りと、緑の舷灯を見た」→ 2行目「右側が緑、左側が赤…色で船の向きが分かる」→ 3行目「11時から11時半…約9キロ（5マイル）」
+    "c607": dict(
+        t="緑の灯", s="舷灯のしくみ",
+        fig=("m26", dict(view="sidelights", steps=[dict(state=dict(green="on")), dict(state=dict(two="on")), dict(state=dict(seen="on"))],
+                         rel=[dict(t="約9キロ（5マイル）", src="G1 p57"), dict(t="23:00〜23:30", src="G1 p57")],
+                         note="船の形と灯の見える範囲は模式", src=ss.src(["G1 p57"])))),
+    # c609（2行）＝1行目「三等航海士…の見方は違った」→ 2行目「マストの灯が2つ見えた。明らかに客船だ、と船長に伝えた」
+    "c609": dict(
+        t="もう1つの見方", s="当直の航海士",
+        fig=("m26", dict(view="masts2", steps=[dict(state=dict(who="on")), dict(state=dict(two="on"))],
+                         rel=[dict(t="マストの灯 1つ・2つ", src="G1 p57")], note="船の形と灯の高さは模式", src=ss.src(["G1 p57"])))),
+    # c611（1行）＝「モールス灯で呼んで、答えがあるか見てみよ」
+    "c611": dict(
+        t="呼んでみよ", s="船長の指示",
+        fig=("m26", dict(view="morse", steps=[dict(state=dict(call="on"))], rel=[], note="光の長さと並びは模式", src=ss.src(["G1 p57"])))),
+    # c612（3行）＝1行目「船長は…客船には見えない、と言った」→ 2行目「客船です。止まったとき、灯りが消えたように」→ 3行目「見立てが違った」
+    "c612": dict(
+        t="2人の見立て", s="三等航海士が語ったこと",
+        fig=("m26", dict(view="views2", steps=[dict(state=dict(a="on")), dict(state=dict(b="on")), dict(state=dict(diff="on"))],
+                         rel=[], note="灯りの列は模式", src=ss.src(["G1 p57"])))),
+    # c613（2行）＝1行目「灯りが消えたのは11時40分、と三等航海士は覚えている」→ 2行目「真夜中からの当直を起こす、1つの鐘」
+    "c613": dict(
+        t="覚えていた時刻", s="鐘の合図",
+        fig=("m26", dict(view="watches", steps=[dict(state=dict(out="on")), dict(state=dict(bell="on"))],
+                         rel=[dict(t="23:40", src="G1 p57"), dict(t="0:00", src="G1 p58"), dict(t="4:00", src="G1 p59"), dict(t="鐘1つ", src="G1 p57")],
+                         note="横は時刻に比例（外の端の時刻は出さない）", src=ss.src(["G1 p57", "G1 p58", "G1 p59"])))),
+    # c617（2行）＝1行目「方位が変わるか、近づいてきたら知らせよ」→ 2行目「方位とは、自分の船から見た、相手の向き」
+    "c617": dict(
+        t="方位とは", s="船長が二等航海士に",
+        fig=("m26", dict(view="bearing", steps=[dict(state=dict(watch="on")), dict(state=dict(mean="on"))],
+                         rel=[], note="羅針盤と船の位置は模式", src=ss.src(["G1 p58"])))),
+    # c619（2行）＝1行目「見習いは一度、灯の瞬きをモールスかと思って答えたが、」→ 2行目「ただの瞬きだと考え直した」
+    "c619": dict(
+        t="モールスか、瞬きか", s="見習いの見立て",
+        fig=("m26", dict(view="flicker", steps=[dict(state=dict(think="on")), dict(state=dict(fix="on"))],
+                         rel=[], note="光の並びは模式", src=ss.src(["G1 p58"])))),
+    # c620（2行）＝1行目「0時30分すぎには、機関室の乗組員が、信号弾を2発」→ 2行目「1時10分ごろ、伝声管で船長に…白い信号弾が5発」
+    "c620": dict(
+        t="真夜中すぎの信号弾", s="知らせはどう伝わったか",
+        fig=("m26", dict(view="section", steps=[dict(state=dict(two="on")), dict(state=dict(pipe="on"))],
+                         rel=[dict(t="0:30すぎ", src="G1 p58"), dict(t="機関室の乗組員が 2発", src="G1 p58"), dict(t="1:10ごろ", src="G1 p58"),
+                              dict(t="白い信号弾 5発", src="G1 p58")],
+                         note="船の中の並びは模式", src=ss.src(["G1 p58"])))),
+    # c623（3行）＝1行目「会社の信号とは…夜の合図の光」→ 2行目「ホワイト・スター・ラインは緑、とカルパチア号の船長」→ 3行目「決まった合図」
+    "c623": dict(
+        t="会社の信号", s="夜の光の決まり",
+        fig=("m26", dict(view="company", steps=[dict(state=dict(what="on")), dict(state=dict(ws="on")), dict(state=dict(vs="on"))],
+                         rel=[], note="証言の言葉は英国の審問の書き起こし（有志のサイト）による・光の形は模式",
+                         src=ss.src(["T1 p25394", "G2 p2018", "G1 p54"])))),
+    # c626（2行）＝1行目「高さは、その船のマストの灯の半分くらい」→ 2行目「低い光…のちの調べ直しで論点になる」
+    "c626": dict(
+        t="どのくらいの高さか", s="記録に残る見え方",
+        fig=("m26", dict(view="height", steps=[dict(state=dict(half="on")), dict(state=dict(topic="on"))],
+                         rel=[dict(t="1992年の調べ直し", src="G2 p2017")],
+                         note="証言の言葉は英国の審問の書き起こし（有志のサイト）による・絵は模式", src=ss.src(["T1 p7921", "G2 p2017"])))),
+    # c634（2行）＝1行目「船長の記憶は違う。伝声管で聞いたのは1時15分ごろで、」→ 2行目「白い信号弾が1発だけ」（左の列は c620 の続き＝頭から）
+    "c634": dict(
+        t="食い違う記憶", s="伝声管の知らせ",
+        fig=("m26", dict(view="memory2", start=dict(l="on"), steps=[dict(state=dict(r="on")), dict(state=dict(one="on"))],
+                         rel=[dict(t="1:10ごろ・白い信号弾 5発", src="G1 p58"), dict(t="1:15ごろ・白い信号弾 1発", src="G1 p59")],
+                         note="2人の話の写し", src=ss.src(["G1 p58", "G1 p59"])))),
+    # c637（2行）＝1行目「カリフォルニアン号の時計で並べると」で夜の出来事 → 2行目「通信士は11時半に寝て、朝…起こされるまで眠っていた」
+    "c637": dict(
+        t="その夜の出来事", s="船の時計で並べると",
+        fig=("m26", dict(view="cfband", steps=[dict(state=dict(ev="on")), dict(state=dict(sleep="on"))],
+                         rel=[dict(t="22:20ごろ", src="G1 p56"), dict(t="23:40", src="G1 p57"), dict(t="1:10ごろ・白い信号弾5つ", src="G1 p58"),
+                              dict(t="2:05・全部で8つ", src="G1 p59"), dict(t="2:40ごろ", src="G1 p59"), dict(t="23:30", src="G1 p57")],
+                         note="縦は時刻に比例", src=ss.src(["G1 p56", "G1 p57", "G1 p58", "G1 p59"])))),
+    # c639（3行）＝1行目「新しく見えた別の船を、信号弾の船と思ったらしい」→ 2行目「大丈夫そうだ…取り違えは、正されなかった」→ 3行目の問い
+    "c639": dict(
+        t="明け方の取り違え", s="船長の言葉",
+        fig=("m26", dict(view="swap", steps=[dict(state=dict(think="on")), dict(state=dict(said="on")), dict(state=dict(q="on"))],
+                         rel=[dict(t="4:00ごろ", src="G1 p59"), dict(t="マストの白い灯 2つ", src="G1 p59")],
+                         note="船の形は模式", src=ss.src(["G1 p59"])))),
+})

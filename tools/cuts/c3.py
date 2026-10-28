@@ -122,3 +122,43 @@ SPEC.update({
                dict(state=dict(k3key="tap"), rings=3, rec="G1 p57（This Evans did, calling up the Titanic and sending: We are stopped and surrounded by ice）",
                     tag=dict(t="通信士", at="op", off=(70, -40)))]))),
 })
+
+# 🆕 ⑤b-5（2026-10-28）：図解（`tools/mech26.py`・fig=("m26", …)）。段の数＝語りの行の数・画面の数は全部 rel に（門番 check_mech の judge_m26）
+SPEC.update({
+    # c302（2行）＝1行目「無線の無い船も多かった」→ 2行目「いつも誰かが聞いているとは、限らなかった」で眠る影と ✕
+    "c302": dict(
+        t="聞く人がいなければ", s="1912年の海の無線",
+        fig=("m26", dict(view="radio3", steps=[dict(state=dict(none="on")), dict(state=dict(deaf="on"))],
+                         rel=[], note="絵は模式", src=ss.src(["G2 p2005"])))),
+    # c303（2行）＝1行目「時計の話…当時の船は毎日、」で2つの時計 → 2行目「正午に太陽が真南に来るように…合わせていた」で太陽と針が12へ
+    "c303": dict(
+        t="船ごとの時計", s="1912年の決まり",
+        fig=("m26", dict(view="clocks2", steps=[dict(state=dict(clk="on")), dict(state=dict(noon="on"))],
+                         rel=[], note="絵は模式（時計に数字は描かない）", src=ss.src(["G2 p2010"])))),
+    # c311（2行）＝1行目「ケープ・レースと話せる所まで来るのを待とうと、」で脇に置く → 2行目「どの航海士にも渡らなかった…報告書はそうみる」で ✕
+    "c311": dict(
+        t="脇に置かれた知らせ", s="無線室で止まった",
+        fig=("m26", dict(view="aside", steps=[dict(state=dict(aside="on")), dict(state=dict(nope="on"))],
+                         rel=[], note="船の中の部屋の並びは模式", src=ss.src(["G1 p36"])))),
+    # c313（2行）＝1行目「この知らせも…届いていないようだ」で氷の知らせと ✕ → 2行目「8時から、乗客の電報を…送るのに追われていた」
+    "c313": dict(
+        t="乗客の電報に追われて", s="もう1つの氷の知らせ",
+        fig=("m26", dict(view="busy", steps=[dict(state=dict(ice="on")), dict(state=dict(busy="on"))],
+                         rel=[dict(t="20:00から", src="G1 p37")], note="部屋の形は模式", src=ss.src(["G1 p37"])))),
+    # c317（2行）＝1行目「レイランド社の船で、ロンドンからアメリカのボストンへ」→ 2行目「客を乗せていなかった」で空の窓と「乗客 0人」
+    #   🔧 一覧の「2隻の横の姿を同じ縮尺で」→ カリフォルニアン号1隻（記録の頁にカリフォルニアン号の長さが無い＝同じ縮尺にできない・大きさは c202 の総トン数）
+    "c317": dict(
+        t="近くにいた船", s="カリフォルニアン号（1912年4月）",
+        fig=("m26", dict(view="cf_side", steps=[dict(state=dict(co="on")), dict(state=dict(empty="on"))],
+                         rel=[dict(t="乗客 0人", src="G1 p56")], note="船の形は模式（記録に長さが無い）", src=ss.src(["G1 p56"])))),
+    # c319（2行）＝1行目「これを横で聞いていた」→ 2行目「分かった…受け取った、と返した」
+    "c319": dict(
+        t="横で聞いていた", s="通信士どうしのやりとり",
+        fig=("m26", dict(view="relay3", steps=[dict(state=dict(hear="on")), dict(state=dict(reply="on"))],
+                         rel=[], note="船の位置は模式", src=ss.src(["G1 p56"])))),
+    # c322（2行）＝1行目「陸のケープ・レースと交信中だった」で弱い電波 → 2行目「近くの船の強い電波が…かき消した」
+    "c322": dict(
+        t="かき消された電波", s="なぜ、そう返したのか",
+        fig=("m26", dict(view="drown", steps=[dict(state=dict(talk="on")), dict(state=dict(loud="on"))],
+                         rel=[], note="電波の輪と棒は模式", src=ss.src(["G1 p57"])))),
+})

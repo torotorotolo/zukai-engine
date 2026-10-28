@@ -85,3 +85,46 @@ SPEC.update({
     "c401": ss.vid("c401"),
     "c414": ss.vid("c414"),
 })
+
+# 🆕 ⑤b-5（2026-10-28）：図解（`tools/mech26.py`・fig=("m26", …)）。段の数＝語りの行の数・画面の数は全部 rel に（門番 check_mech の judge_m26）
+SPEC.update({
+    # c403（2行）＝1行目「夜10時、当直は一等航海士…に替わった」→ 2行目「いつ氷のあたりに来てもおかしくない」で鐘と電話の線・「氷が近い」
+    "c403": dict(
+        t="当直の交代", s="4月14日の夜",
+        fig=("m26", dict(view="watch", steps=[dict(state=dict(hand="on")), dict(state=dict(ice="on"))],
+                         rel=[dict(t="22:00", src="G1 p39"), dict(t="見張り 2人", src="G1 p39")],
+                         note="船の形と人の場所は模式", src=ss.src(["G1 p39"])))),
+    # c406（2行）＝1行目「ほとんど同時に号令をかけた。ハード・ア・スターボード」→ 2行目「船首を左へ回す号令」で船が左へ回る
+    "c406": dict(
+        t="とっさの号令", s="見張りの知らせと、ほぼ同時に",
+        fig=("m26", dict(view="helm", steps=[dict(state=dict(order="on")), dict(state=dict(turn="on"))],
+                         rel=[], note="回る角度は模式（報告書は約2点＝約22度）", src=ss.src(["G1 p41", "G2 p2008"])))),
+    # c408（3行）＝1行目の問い → 2行目「姉妹船オリンピック号の試験から見積もっている」→ 3行目「約22度…約37秒…約430メートル（466ヤード）」
+    "c408": dict(
+        t="ぶつかるまでの時間", s="姉妹船での試験から",
+        fig=("m26", dict(view="olympic", steps=[dict(state=dict(q="on")), dict(state=dict(test="on")), dict(state=dict(path="on"))],
+                         rel=[dict(t="約37秒", src="G1 p41"), dict(t="約22度", src="G1 p41"), dict(t="約430メートル", src="G1 p41"),
+                              dict(t="466ヤード", src="G1 p41")],
+                         note="見積もり（船の長さと道のりは同じ縮尺・回り方は模式）", src=ss.src(["G1 p41", "G1 p11"])))),
+    # c411（2行）＝1行目「傷は、船の前の約90メートル（300フィート）の範囲に」→ 2行目「10秒もかからずに付いた傷」
+    "c411": dict(
+        t="右舷の底の傷", s="前から6つの区画",
+        fig=("m26", dict(view="damage", steps=[dict(state=dict(dmg="on")), dict(state=dict(sec="on"))],
+                         rel=[dict(t="約90メートル", src="G1 p42"), dict(t="300フィート", src="G1 p42"), dict(t="10秒たらず", src="G1 p42"),
+                              dict(t="20ノットより速く", src="G1 p42"), dict(t="区画 前・1・2・3・6・5", src="G1 p42"),
+                              dict(t="1〜3＝船倉　6と5＝ボイラー室", src="G1 p42")],
+                         note="区画の境は模式（傷の長さは船の長さに比例）", src=ss.src(["G1 p42", "G1 p11"])))),
+    # c413（3行）＝1行目の問い → 2行目「1つに水が入っても、ほかは守られる」→ 3行目「前の5つに入ると…順に後ろへ」
+    "c413": dict(
+        t="区画とは", s="水を止める作り",
+        fig=("m26", dict(view="tray", steps=[dict(state=dict(q="on")), dict(state=dict(one="on")), dict(state=dict(five="on"))],
+                         rel=[dict(t="1つに水", src="G1 p45"), dict(t="前の5つ", src="G1 p45")],
+                         note="区画の数と形は模式", src=ss.src(["G1 p45"])))),
+    # c416（2行）＝1行目「救命ボートを下ろす用意が始まり」で 0:05ごろ → 2行目「助けを呼ぶ通信が打たれる」で 0:15・0:45ごろ
+    "c416": dict(
+        t="船の中では", s="衝突から沈没まで",
+        fig=("m26", dict(view="ttband", steps=[dict(state=dict(boat="on")), dict(state=dict(radio="on"))],
+                         rel=[dict(t="23:40", src="G1 p42"), dict(t="0:05ごろ", src="G1 p49"), dict(t="0:15", src="G1 p54"),
+                              dict(t="0:45ごろ", src="G1 p54"), dict(t="2:20", src="G1 p85")],
+                         note="横は時刻に比例", src=ss.src(["G1 p42", "G1 p49", "G1 p54", "G1 p85"])))),
+})
