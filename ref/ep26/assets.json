@@ -74,18 +74,18 @@
    0,
    0,
    1879,
-   690
+   689
   ],
   "w": 1879,
-  "h": 690,
-  "md5": "cb67c1178f5b225883af905daf43edd9",
+  "h": 689,
+  "md5": "3aa602d6dfc84fa9a0891ef14e354894",
   "src_md5": "1600f6a6f77fa1b4225b6d0670f31d00",
   "lic": "PD",
   "frame": false,
   "ground": "米国の公文書（S. Doc. 933）",
   "url": "https://www.govinfo.gov/",
   "blur": [],
-  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（頁の頭の2行（会社の人の名前）を外し、船長の判断の段落だけ）＝字の層の行「The evidence shows that he was not trying」〜「case in the future」",
+  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（頁の頭の2行（会社の人の名前）を外し、船長の判断の段落だけ）＝字の層の行「The evidence shows that he was not trying」〜「case in the future」・上下は絵のインクの無い行へ",
   "year": 1912,
   "year_why": "英国の審問の報告（1912年7月30日）を米国上院が刷り直した S. Doc. 933（1912年）",
   "stock": false,
@@ -106,11 +106,11 @@
    "scale": 5.67698,
    "box_px": [
     142,
-    614,
+    619,
     2021,
-    1304
+    1308
    ],
-   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（頁の頭の2行（会社の人の名前）を外し、船長の判断の段落だけ）＝字の層の行「The evidence shows that he was not trying」〜「case in the future」"
+   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（頁の頭の2行（会社の人の名前）を外し、船長の判断の段落だけ）＝字の層の行「The evidence shows that he was not trying」〜「case in the future」・上下は絵のインクの無い行へ"
   }
  },
  "p_g1_054": {
@@ -245,18 +245,18 @@
    0,
    0,
    1876,
-   722
+   720
   ],
   "w": 1876,
-  "h": 722,
-  "md5": "9dda7e3afc8eef7e4e947b20bca11b90",
+  "h": 720,
+  "md5": "4d6026e9024a48ee66ed6f4470ed9195",
   "src_md5": "1600f6a6f77fa1b4225b6d0670f31d00",
   "lic": "PD",
   "frame": false,
   "ground": "米国の公文書（S. Doc. 933）",
   "url": "https://www.govinfo.gov/",
   "blur": [],
-  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（機関部の乗組員の名前の行を外し、二等航海士と見習いの段落から頁の終わりまで）＝字の層の行「Both Mr. Stone and the apprentice」〜「altogether we had seen eight」",
+  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（機関部の乗組員の名前の行を外し、二等航海士と見習いの段落から頁の終わりまで）＝字の層の行「Both Mr. Stone and the apprentice」〜「altogether we had seen eight」・上下は絵のインクの無い行へ",
   "year": 1912,
   "year_why": "英国の審問の報告（1912年7月30日）を米国上院が刷り直した S. Doc. 933（1912年）",
   "stock": false,
@@ -277,11 +277,11 @@
    "scale": 5.67537,
    "box_px": [
     243,
-    2612,
+    2614,
     2119,
     3334
    ],
-   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（機関部の乗組員の名前の行を外し、二等航海士と見習いの段落から頁の終わりまで）＝字の層の行「Both Mr. Stone and the apprentice」〜「altogether we had seen eight」"
+   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（機関部の乗組員の名前の行を外し、二等航海士と見習いの段落から頁の終わりまで）＝字の層の行「Both Mr. Stone and the apprentice」〜「altogether we had seen eight」・上下は絵のインクの無い行へ"
   }
  },
  "p_g1_059": {
@@ -541,7 +541,7 @@
   "ground": "引用の型＝出典・主従・必要最小限・無加工の額装（sources.md §1 G2）",
   "url": "https://assets.publishing.service.gov.uk/media/54c15bf240f0b6158d000027/MAIBReport_ReappraisalOfEvidence-SSCalifornian-Titanic-1992.pdf",
   "blur": [],
-  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（表紙の題の4行だけ（下の局の名・所・刷りの行は外す））＝字の層の行「RMS \"TITANIC\"」〜「SS \"CALIFORNIAN\"」",
+  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（表紙の題の4行だけ（下の局の名・所・刷りの行は外す））＝字の層の行「RMS \"TITANIC\"」〜「SS \"CALIFORNIAN\"」・上下は絵のインクの無い行へ",
   "year": 1992,
   "year_why": "英国運輸省 海難調査局の再評価の報告（1992年）",
   "stock": false,
@@ -566,7 +566,7 @@
     1690,
     1671
    ],
-   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（表紙の題の4行だけ（下の局の名・所・刷りの行は外す））＝字の層の行「RMS \"TITANIC\"」〜「SS \"CALIFORNIAN\"」"
+   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（表紙の題の4行だけ（下の局の名・所・刷りの行は外す））＝字の層の行「RMS \"TITANIC\"」〜「SS \"CALIFORNIAN\"」・上下は絵のインクの無い行へ"
   }
  },
  "p_g2_03": {
@@ -587,18 +587,18 @@
    0,
    0,
    1985,
-   1055
+   1060
   ],
   "w": 1985,
-  "h": 1055,
-  "md5": "c88e53bf55d4e9b7c030b2f5e26323f4",
+  "h": 1060,
+  "md5": "79aa907e0c3614a80d4f547f50220a0d",
   "src_md5": "530e9c2d9878c5e1f66cf16c06bc1e61",
   "lic": "引用（OGL v3.0・© Crown copyright＝gov.uk の頁）",
   "frame": true,
   "ground": "引用の型",
   "url": "https://assets.publishing.service.gov.uk/",
   "blur": [],
-  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（宛先と前の大臣の名前・首席の署名の行を外し、調査官を外から呼んだ段落と同意の行だけ）＝字の層の行「Clearly, the case was somewhat outside」〜「I full endorse」",
+  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（宛先と前の大臣の名前・首席の署名の行を外し、調査官を外から呼んだ段落と同意の行だけ）＝字の層の行「Clearly, the case was somewhat outside」〜「I full endorse」・上下は絵のインクの無い行へ",
   "year": 1992,
   "year_why": "英国運輸省 海難調査局の再評価の報告（1992年）",
   "stock": false,
@@ -621,9 +621,9 @@
     426,
     1524,
     2411,
-    2579
+    2584
    ],
-   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（宛先と前の大臣の名前・首席の署名の行を外し、調査官を外から呼んだ段落と同意の行だけ）＝字の層の行「Clearly, the case was somewhat outside」〜「I full endorse」"
+   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（宛先と前の大臣の名前・首席の署名の行を外し、調査官を外から呼んだ段落と同意の行だけ）＝字の層の行「Clearly, the case was somewhat outside」〜「I full endorse」・上下は絵のインクの無い行へ"
   }
  },
  "p_g2_18": {
@@ -644,18 +644,18 @@
    0,
    0,
    1980,
-   664
+   639
   ],
   "w": 1980,
-  "h": 664,
-  "md5": "7bf6466819a9109cd38cb1d86c388937",
+  "h": 639,
+  "md5": "05bb8567b7a429c520cf4491fd02d336",
   "src_md5": "530e9c2d9878c5e1f66cf16c06bc1e61",
   "lic": "引用（OGL v3.0・© Crown copyright＝gov.uk の頁）",
   "frame": true,
   "ground": "引用の型",
   "url": "https://assets.publishing.service.gov.uk/",
   "blur": [],
-  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（節の題と、信号弾は見えていたとする段落の頭だけ）＝字の層の行「ROCKETS SEEN」〜「seen by TITANIC, than lights」",
+  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（節の題と、信号弾は見えていたとする段落の頭だけ）＝字の層の行「ROCKETS SEEN」〜「seen by TITANIC, than lights」・上下は絵のインクの無い行へ",
   "year": 1992,
   "year_why": "英国運輸省 海難調査局の再評価の報告（1992年）",
   "stock": false,
@@ -678,9 +678,9 @@
     344,
     235,
     2324,
-    899
+    874
    ],
-   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（節の題と、信号弾は見えていたとする段落の頭だけ）＝字の層の行「ROCKETS SEEN」〜「seen by TITANIC, than lights」"
+   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（節の題と、信号弾は見えていたとする段落の頭だけ）＝字の層の行「ROCKETS SEEN」〜「seen by TITANIC, than lights」・上下は絵のインクの無い行へ"
   }
  },
  "p_g2_21": {
@@ -701,18 +701,18 @@
    0,
    0,
    1997,
-   698
+   692
   ],
   "w": 1997,
-  "h": 698,
-  "md5": "64d6dca4d2e73641df95cd3b6ef909b2",
+  "h": 692,
+  "md5": "c3850ab7909afdbfc4d2e1c16867cf03",
   "src_md5": "530e9c2d9878c5e1f66cf16c06bc1e61",
   "lic": "引用（OGL v3.0・© Crown copyright＝gov.uk の頁）",
   "frame": true,
   "ground": "引用の型",
   "url": "https://assets.publishing.service.gov.uk/",
   "blur": [],
-  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（二等航海士の落ち度を書いた文だけ）＝字の層の行「own eyes and senses」〜「seriously at fault」",
+  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（二等航海士の落ち度を書いた文だけ）＝字の層の行「own eyes and senses」〜「seriously at fault」・上下は絵のインクの無い行へ",
   "year": 1992,
   "year_why": "英国運輸省 海難調査局の再評価の報告（1992年）",
   "stock": false,
@@ -733,11 +733,11 @@
    "scale": 4.29062,
    "box_px": [
     342,
-    1078,
+    1084,
     2339,
     1776
    ],
-   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（二等航海士の落ち度を書いた文だけ）＝字の層の行「own eyes and senses」〜「seriously at fault」"
+   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（二等航海士の落ち度を書いた文だけ）＝字の層の行「own eyes and senses」〜「seriously at fault」・上下は絵のインクの無い行へ"
   }
  },
  "p_g2_22": {
@@ -758,18 +758,18 @@
    0,
    0,
    1978,
-   421
+   440
   ],
   "w": 1978,
-  "h": 421,
-  "md5": "b95ba3c54c6f8155f56228e4ce84057e",
+  "h": 440,
+  "md5": "69f8fad36a93d914f024a1a48b2edf67",
   "src_md5": "530e9c2d9878c5e1f66cf16c06bc1e61",
   "lic": "引用（OGL v3.0・© Crown copyright＝gov.uk の頁）",
   "frame": true,
   "ground": "引用の型",
   "url": "https://assets.publishing.service.gov.uk/",
   "blur": [],
-  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（距離の見方が正しければ結果は変わらない、とする文だけ）＝字の層の行「arrive well after the sinking」〜「should have been made」",
+  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（距離の見方が正しければ結果は変わらない、とする文だけ）＝字の層の行「arrive well after the sinking」〜「should have been made」・上下は絵のインクの無い行へ",
   "year": 1992,
   "year_why": "英国運輸省 海難調査局の再評価の報告（1992年）",
   "stock": false,
@@ -790,11 +790,11 @@
    "scale": 4.29062,
    "box_px": [
     329,
-    1861,
+    1846,
     2307,
-    2282
+    2286
    ],
-   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（距離の見方が正しければ結果は変わらない、とする文だけ）＝字の層の行「arrive well after the sinking」〜「should have been made」"
+   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（距離の見方が正しければ結果は変わらない、とする文だけ）＝字の層の行「arrive well after the sinking」〜「should have been made」・上下は絵のインクの無い行へ"
   }
  },
  "p_g2_23": {
@@ -826,7 +826,7 @@
   "ground": "引用の型",
   "url": "https://assets.publishing.service.gov.uk/",
   "blur": [],
-  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（結びの段落だけ（頁の末の署名の場所を外す））＝字の層の行「A final word seems called for」〜「just human beings」",
+  "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（結びの段落だけ（頁の末の署名の場所を外す））＝字の層の行「A final word seems called for」〜「just human beings」・上下は絵のインクの無い行へ",
   "year": 1992,
   "year_why": "英国運輸省 海難調査局の再評価の報告（1992年）",
   "stock": false,
@@ -851,7 +851,7 @@
     2313,
     1782
    ],
-   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（結びの段落だけ（頁の末の署名の場所を外す））＝字の層の行「A final word seems called for」〜「just human beings」"
+   "how": "PDF の頁を描いた（長辺 3600px）・🔴 名前の外を切り出し（結びの段落だけ（頁の末の署名の場所を外す））＝字の層の行「A final word seems called for」〜「just human beings」・上下は絵のインクの無い行へ"
   }
  },
  "p_g4_2": {

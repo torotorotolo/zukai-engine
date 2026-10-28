@@ -177,8 +177,9 @@ SPEC.update({
     "c304": dict(photo=_S1013, **ss.mv(_S1013, "in", fx=0.5, fy=0.55), side="none", color=1.0,
                  t="ずれる時計の差", s="サウサンプトンのタイタニック号〈1912年4月〉"),
     # c305（1行）＝手書きの報告の頭（右上の「R.M.S. Carpathia … At Sea April 27th 1912」と「At 12.35 a.m. (ship's time)」の段落）＝
-    #   頁の頭の刷り「The Modern Historic Records Association」（y 〜0.035）は切り口の外・額装・静止
-    "c305": dict(photo=_S4242, trim=(0.03, 0.04, 0.97, 0.30), panel=True, pw=1640, ground=dict(photo=_S4242), color=1.0,
+    #   頁の頭の刷り「The Modern Historic Records Association」（y 〜0.055）は切り口の外・額装・静止。
+    #   上下の辺は絵のインクの無い行（scratchpad `inkrows.py`）＝試し焼き 40636765032 で y 0.04 は刷りの下半分・0.30 は最後の行の下半分が入った
+    "c305": dict(photo=_S4242, trim=(0.03, 0.060, 0.97, 0.307), panel=True, pw=1640, ground=dict(photo=_S4242), color=1.0,
                  t="船の時刻で", s="カルパチア号の船長の報告〈1912年4月27日・LOC〉"),
     "c307": dict(photo=_S5358, **ss.mv(_S5358, "l"), side="none", color=1.0,
                  t="12日の氷の知らせ", s="1912年4月、この海域の氷山〈ミニア号の船長が持っていた写真〉"),
@@ -190,8 +191,9 @@ SPEC.update({
                  t="アメリカ号の電報", s="タイタニック号を経て届いたアメリカ号の電報〈1912年4月・米国海軍水路部が受けた〉"),
     # c310（3行）＝日報の「COLLISION WITH ICEBERG…」と「The German steamer AMERIKA…」の2項（y 0.62〜0.74・手書きのレ点と括弧つき）。
     #   🔧 一覧は「全面（切り出し）・下へ」＝白い紙の字の頁を全面にすると見出し・章の札が頁の字に重なる（25本目 ⑤b-7 の所見）＝額装・静止にした。
-    #   頁の末の水路部長の署名（y 0.78〜）は切り口の外
-    "c310": dict(photo=_S4228, trim=(0.05, 0.612, 0.95, 0.747), panel=True, pw=1640, ground=dict(photo=_S4228), color=1.0,
+    #   頁の末の水路部長の署名（y 0.78〜）は切り口の外。上の辺は前の項の行（…EXCELSIOR (Ger ss). (New York Herald)）の下の白い帯
+    #   （y 0.612 は前の行の下半分が入った＝試し焼き 40636765032・scratchpad `inkrows.py`）
+    "c310": dict(photo=_S4228, trim=(0.05, 0.629, 0.95, 0.747), panel=True, pw=1640, ground=dict(photo=_S4228), color=1.0,
                  t="船橋には届かず", s="米国海軍水路部の日報〈1912年4月15日・NARA〉"),
     "c312": dict(photo=_S8N02, **ss.mv(_S8N02, "l"), side="none", color=1.0,
                  t="メサバ号から", s="メサバ号〈1898〜1909年ごろ・テムズ川〉"),

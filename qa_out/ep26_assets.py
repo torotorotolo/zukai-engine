@@ -363,6 +363,30 @@ def _crop_box_pt(pg, spec, code):
     return (max(0, x0 - 8), max(0, yt), min(pg.rect.width, x1 + 8), min(pg.rect.height, yb))
 
 
+def _snap_ink(im, box, reach):
+    """切り口 box（画素）の上と下の辺を、±reach の中で**インクの無い行の帯**のうち元の辺にいちばん近い帯の真ん中へ寄せる（左右はそのまま）。
+    インク＝横の範囲の紙の明るさ（中央値）より 60 暗い画素。帯＝インク率がその範囲の最小＋0.2% 以下の連続する行"""
+    import numpy as np
+    a = np.asarray(im.convert("L"), dtype=np.float32)
+    x0, y0, x1, y1 = box
+    xs = slice(int(x0), int(x1))
+    ink = (a[:, xs] < np.percentile(a[:, xs], 50) - 60).mean(axis=1)
+
+    def snap(y):
+        lo, hi = max(0, int(y - reach)), min(len(ink), int(y + reach) + 1)
+        seg = ink[lo:hi]
+        ok = seg <= seg.min() + 0.002
+        bands, s = [], None
+        for i, v in enumerate(list(ok) + [False]):
+            if v and s is None:
+                s = i
+            elif not v and s is not None:
+                bands.append(lo + (s + i - 1) / 2)
+                s = None
+        return int(round(min(bands, key=lambda c: abs(c - y)))) if bands else y
+    return (x0, snap(y0), x1, snap(y1))
+
+
 def render_page(code, s, names):
     """頁を描く＝(RGB の PIL 画像, 記録の dict)。名前の字の箱が束の絵に入れば止める"""
     import fitz
@@ -385,7 +409,11 @@ def render_page(code, s, names):
     if crop:
         bpt = _crop_box_pt(pg, crop, code)
         box = tuple(int(round(v * k)) for v in bpt)
-        how = f"PDF の頁を描いた（長辺 {PAGE_LONG}px）・🔴 名前の外を切り出し（{crop['why']}）＝字の層の行「{crop['head']}」〜「{crop['tail']}」"
+        # 🆕 ⑤b-7（2026-10-28）：上下の辺を**絵のインクの無い行**へ寄せる（字の層の座標は走査の絵の行と半行ほどずれる＝c930 の下の辺・
+        #    c941 の上の辺が次の行・前の行を半分に切った。門番 edges は束の絵の端そのものの欠けを測れない）。寄せる幅は字の層の行の高さの 0.6
+        lh = sorted((b[3] - b[1]) for _, b in _lines(pg))
+        box = _snap_ink(im, box, int(0.6 * k * lh[len(lh) // 2])) if lh else box
+        how = f"PDF の頁を描いた（長辺 {PAGE_LONG}px）・🔴 名前の外を切り出し（{crop['why']}）＝字の層の行「{crop['head']}」〜「{crop['tail']}」・上下は絵のインクの無い行へ"
     else:
         a = np.asarray(im.convert("L"))
         h, w = a.shape
