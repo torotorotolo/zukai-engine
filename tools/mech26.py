@@ -202,12 +202,13 @@ def _hand_pts(cx, cy, ln, w=7.0):
     return [(cx - w / 2, cy + 10), (cx + w / 2, cy + 10), (cx + w / 2, cy - ln + 8), (cx, cy - ln), (cx - w / 2, cy - ln + 8)]
 
 
-def _say(cx, cy, who, t, cap=30, w=None):
-    """誰の話か（色）と言葉の札（上の小さな名・下の言葉）。"""
+def _say(cx, cy, who, t, cap=30, w=None, head=None):
+    """誰の話か（色）と言葉の札（上の小さな名・下の言葉）。head＝上の名（役職を細かく＝三等航海士・見習い）。"""
     c = sc(who) if who in SRC else rc(who)
-    ww = w or max(_w(t, cap), _w(SRC.get(who, (who,))[0], 24)) + 60
+    hd = head or (SRC[who][0] if who in SRC else who)
+    ww = w or max(_w(t, cap), _w(hd, 24)) + 60
     return (F.rect(cx - ww / 2, cy - 44, ww, 88, J.BG2, c, 4, rx=14)
-            + _tline(cx, cy - 14, SRC[who][0] if who in SRC else who, 24, c, "middle", ww - 24)
+            + _tline(cx, cy - 14, hd, 24, c, "middle", ww - 24)
             + _tline(cx, cy + 28, t, cap, INK, "middle", ww - 24))
 
 
@@ -436,7 +437,7 @@ def table1894_stage(prev, st):
 #  第2章
 #  radio3（c302）＝横から見た海：陸の無線局の電波・無線の無い船・無線のある船の無線室で眠る影（G2 p.1）
 # ══════════════════════════════════════════════════════════
-RD = dict(yw=640.0, land=(110.0, 330.0), tw=230.0, a=(640.0, 940.0), b=(1180.0, 1560.0), call=(1700.0, 380.0, 86.0))
+RD = dict(yw=640.0, land=(110.0, 330.0), tw=230.0, a=(640.0, 940.0), b=(1180.0, 1560.0), call=(1680.0, 370.0, 112.0))
 
 
 def radio3_base(st0):
@@ -466,8 +467,11 @@ def radio3_stage(prev, st):
         rx = b0 + (b1 - b0) * 0.62
         s.append(F.line(rx, RD["yw"] - 60, cx - r * 0.7, cy + r * 0.7, J.LINE_DIM, 3))
         s.append(F.circ(cx, cy, r, J.BG, J.LINE, 4))
-        s.append(F.rect(cx - 62, cy + 18, 124, 14, J.LINE_DIM, None, None, rx=4) + _lying(cx + 6, cy + 2, 0.52, J.LINE))
-        s.append(_xmark(cx + 52, cy - 46, 18, J.ALERT, 7))
+        # 🔧 試し焼き 40610157899：0.52倍の影が棒にしか見えなかった＝吹き出しを大きく・寝台の脚と枕・影を 0.85倍
+        s.append(F.rect(cx - 96, cy + 22, 192, 18, J.LINE_DIM, None, None, rx=4) + F.line(cx - 88, cy + 40, cx - 88, cy + 70, J.LINE_DIM, 6)
+                 + F.line(cx + 88, cy + 40, cx + 88, cy + 70, J.LINE_DIM, 6) + F.rect(cx - 96, cy - 4, 46, 26, J.TICK, None, None, rx=8)
+                 + _lying(cx + 10, cy + 2, 0.85, J.LINE))
+        s.append(_xmark(cx + 64, cy - 62, 20, J.ALERT, 8))
         s.append(_tline(cx, cy + r + 40, "誰も聞いていない", 28, J.ALERT, "middle", 300))
     return s
 
@@ -890,6 +894,13 @@ def tray_parts(st):
         y = lv if lv is not None else TR["bot"] - 2
         g.append(_P(f"w{i}", "poly", [(a + 6, y), (b - 6, y), (b - 6, TR["bot"] - 4), (a + 6, TR["bot"] - 4)], fill=sc("tt"), stroke=None, w=2,
                     alpha=0.85 if lv is not None else 0.0))
+    # 🔧 試し焼き 40610157899：2行目の ✓（ほかは無事）が3行目で水の入った区画にも残った＝✓ を部品にし、水が入る区画では消す
+    for i in range(TR["n"] - 1):
+        a, b = tr_box(i)
+        x, y = (a + b) / 2, 660.0
+        dry = st.get("one") == "on" and (st.get("five") != "on" or i < TR["n"] - TR_FRONT - 1)
+        g.append(_P(f"k{i}", "poly", [(x - 20, y - 4), (x - 7, y + 9), (x + 17, y - 17), (x + 23, y - 11), (x - 7, y + 21), (x - 26, y + 2)],
+                    fill=J.OK, stroke=None, w=2, alpha=1.0 if dry else 0.0))
     return g
 
 
@@ -911,9 +922,6 @@ def tray_stage(prev, st):
         s.append(_tline((a + b) / 2, TR["top"] - 30, "区画", 30, INK, "middle", 160) + F.line((a + b) / 2, TR["top"] - 18, (a + b) / 2, TR["wall"] + 40, J.TICK, 3))
         xw = tr_box(3)[0]
         s.append(_tline(xw, TR["top"] - 30, "壁", 30, INK, "middle", 80) + F.line(xw, TR["top"] - 18, xw, TR["wall"] - 8, J.TICK, 3))
-        for i in range(TR["n"] - 1):
-            a, b = tr_box(i)
-            s.append(_check((a + b) / 2, 660.0, 18, J.OK))
         a, b = tr_box(TR["n"] - 1)
         s.append(_tline((a + b) / 2, TR["bot"] + 44, "1つに水", 28, sc("tt"), "middle", 160))
         s.append(_tline(700.0, TR["bot"] + 44, "ほかの区画は無事", 28, J.OK, "middle", 400))
@@ -1368,7 +1376,7 @@ def views2_stage(prev, st):
     if _on(prev, st, "a"):
         s.append(_say(390.0, 430.0, "cap", VW_SAY[0]) + _tline(390.0, 506.0, "（三等航海士の話）", 24, J.TICK, "middle", 300))
     if _on(prev, st, "b"):
-        s.append(_say(1530.0, 430.0, "mate", VW_SAY[1]))
+        s.append(_say(1530.0, 430.0, "mate", VW_SAY[1], head="三等航海士"))
         s.append(_tline(960.0, 810.0, "止まったとき → 灯りが消えて見えた", 28, INK, "middle", 620))
     if _on(prev, st, "diff"):
         s.append(_neq(960.0, 420.0) + _tline(960.0, 510.0, "見立てが違う", 32, J.ALERT, "middle", 300))
@@ -1495,7 +1503,7 @@ def flicker_base(st0):
 def flicker_stage(prev, st):
     s = []
     if _on(prev, st, "think"):
-        s.append(_say(1640.0, FK["ya"], "mate", "モールス？", w=240) + _tline(1640.0, FK["ya"] + 76, "見習いが答えた", 26, sc("mate"), "middle", 260))
+        s.append(_say(1640.0, FK["ya"], "mate", "モールス？", w=240, head="見習い") + _tline(1640.0, FK["ya"] + 76, "見習いが答えた", 26, sc("mate"), "middle", 260))
     if _on(prev, st, "fix"):
         s.append(_check(1560.0, FK["yb"], 26, J.OK) + _tline(1600.0, FK["yb"] + 12, "考え直した", 30, J.OK, "start", 220))
         s.append(_xmark(1760.0, FK["ya"] - 36, 18, J.ALERT, 7))
@@ -1718,12 +1726,13 @@ def swap_base(st0):
 def swap_stage(prev, st):
     s = []
     if _on(prev, st, "think"):
-        pts = _arcpts(890.0, 620.0, 300.0, 120.0, -20, -160, 12)
+        # 🔧 試し焼き 40610157899：矢印の根もとが新しい船のマストの灯に重なった＝弧を灯の上へ
+        pts = _arcpts(880.0, 600.0, 360.0, 150.0, -30, -150, 12)
         s.append(F.poly(pts[:-1], "none", J.AMBER, 5) + _arrow(pts[-2][0], pts[-2][1], pts[-1][0], pts[-1][1], J.AMBER, 5, 22))
-        s.append(_tline(890.0, 470.0, "信号弾の船と見たらしい", 30, J.AMBER, "middle", 420))
+        s.append(_tline(880.0, 398.0, "信号弾の船と見たらしい", 30, J.AMBER, "middle", 420))
     if _on(prev, st, "said"):
-        s.append(_say(1340.0, 400.0, "cap", "大丈夫そうだ"))
-        s.append(_xmark(890.0, 540.0, 22, J.ALERT, 8) + _tline(890.0, 600.0, "正されないまま", 28, J.ALERT, "middle", 300))
+        s.append(_say(1400.0, 400.0, "cap", "大丈夫そうだ"))
+        s.append(_xmark(880.0, 450.0, 22, J.ALERT, 8) + _tline(880.0, 510.0, "正されないまま", 28, J.ALERT, "middle", 300))
     if _on(prev, st, "q"):
         s.append(_qmark(560.0, 420.0, 80))
     return s

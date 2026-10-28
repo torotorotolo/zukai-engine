@@ -300,7 +300,7 @@ SPEC.update({
         fig=("m26", dict(view="morse", steps=[dict(state=dict(call="on"))], rel=[], note="光の長さと並びは模式", src=ss.src(["G1 p57"])))),
     # c612（3行）＝1行目「船長は…客船には見えない、と言った」→ 2行目「客船です。止まったとき、灯りが消えたように」→ 3行目「見立てが違った」
     "c612": dict(
-        t="2人の見立て", s="三等航海士が語ったこと",
+        t="2人の見立て", s="船橋でのやりとり",
         fig=("m26", dict(view="views2", steps=[dict(state=dict(a="on")), dict(state=dict(b="on")), dict(state=dict(diff="on"))],
                          rel=[], note="灯りの列は模式", src=ss.src(["G1 p57"])))),
     # c613（2行）＝1行目「灯りが消えたのは11時40分、と三等航海士は覚えている」→ 2行目「真夜中からの当直を起こす、1つの鐘」
