@@ -1964,6 +1964,9 @@ def decks_base(st0):
 def decks_stage(prev, st):
     s = []
     if _on(prev, st, "q"):
+        # 🔧 試し焼き 40623188317：赤い棒が道すじの無い所に浮いて見えた＝後ろの三等の部屋からボート甲板への道を細い点線で先に出す
+        a0, a1, a2, a3 = DK_ROOMS["aft"]
+        s.append(F.poly([(a1, (a2 + a3) / 2), (470.0, (a2 + a3) / 2), (470.0, DK["top"] + 10)], "none", J.TICK, 3, dash="8 10"))
         s.append(_tline(240.0, 340.0, "道をふさがれた？", 30, J.ALERT, "start", 400))
         s.append(_tline(240.0, 380.0, "よく語られる話", 26, J.TICK, "start", 300))
     if _on(prev, st, "rep"):
@@ -2748,8 +2751,9 @@ def third_stage(prev, st):
     if _on(prev, st, "path"):
         (ax, ay), (sx, sy), (lx, ly) = TH["arrive"], TH["stop"], TH["leave"]
         s.append(F.line(ax - 60, ay, sx + 100, sy, J.LINE, 4, dash="12 10") + _tline(1400.0, ay - 30, "東から来る", 26, INK, "middle", 200))
-        s.append(F.line(sx - 6, sy - 40, sx - 6, sy + 40, J.AMBER, 6) + F.line(sx + 10, sy - 40, sx + 10, sy + 40, J.AMBER, 6)
-                 + _tline(sx + 2, sy - 56, "止まる", 26, J.AMBER, "middle", 140))
+        # 🔧 試し焼き 40623188317：2本線が止まった船の先に重なった＝船の先（sx＋40−45）より左へ
+        s.append(F.line(sx - 40, sy - 40, sx - 40, sy + 40, J.AMBER, 6) + F.line(sx - 24, sy - 40, sx - 24, sy + 40, J.AMBER, 6)
+                 + _tline(sx - 32, sy - 56, "止まる", 26, J.AMBER, "middle", 140))
         p = _qbez((sx + 30, sy + 60), (sx + 40, ly - 40), (lx, ly))
         s.append(F.poly(p[:-2], "none", J.LINE, 4, dash="12 10") + _arrow(p[-3][0], p[-3][1], p[-1][0], p[-1][1], J.LINE, 4, 20))
         s.append(_tline(lx + 30, ly - 10, "すき間を探して去る", 26, INK, "start", 320))
