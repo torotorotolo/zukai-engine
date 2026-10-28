@@ -66,3 +66,34 @@ SPEC = {}
 SPEC.update({
     "ca11": ss.vid("ca11"),
 })
+
+# 🆕 ⑤b-6（2026-10-28）：図解（`tools/mech26.py`・fig=("m26", …)）。段の数＝語りの行の数・画面の数は全部 rel に（門番 check_mech の judge_m26）
+SPEC.update({
+    # ca03（2行）＝1行目「1910年の法では、技能のある1人が受け持てばよかった」→ 2行目「1人の通信士が眠れば…誰も聞いていない」（右の部屋＝ca02 の続き）
+    "ca03": dict(
+        t="眠れば誰も聞かない", s="法が変わる前と後",
+        fig=("m26", dict(view="law1910", steps=[dict(state=dict(one="on")), dict(state=dict(sleep="on"))],
+                         rel=[dict(t="1910年の法", src="G6 p1"), dict(t="技能のある1人", src="G6 p1"), dict(t="1912年7月の法", src="G4 p1"),
+                              dict(t="2人以上", src="G4 p1")], note="部屋は模式", src=ss.src(["G6 p1", "G4 p1"])))),
+    # ca04（2行）＝1行目「7月の法は、無線室と船橋が、いつでも話せるように」→ 2行目（聞き役）「つながっていることが大事」
+    "ca04": dict(
+        t="いつでも話せる", s="7月の法が求めたこと",
+        fig=("m26", dict(view="linked", steps=[dict(state=dict(law="on")), dict(state=dict(ok="on"))],
+                         rel=[dict(t="1912年7月の法", src="G4 p1")], note="部屋とつなぐ線は模式", src=ss.src(["G4 p1"])))),
+    # ca06（3行）＝1行目「航路の近くに氷の知らせがあれば」→ 2行目「ほどほどの速さで進むか」→ 3行目「針路を変えて、危ない海から大きく離れよ」
+    "ca06": dict(
+        t="氷の海の進み方", s="ほどほどか大回りか",
+        fig=("m26", dict(view="ice_rule", steps=[dict(state=dict(ice="on")), dict(state=dict(slow="on")), dict(state=dict(away="on"))],
+                         note="道すじは模式", src=ss.src(["G1 p87"])))),
+    # ca08（3行）＝1行目「1913年には、米国の巡視船が」→ 2行目「北大西洋の航路の氷を見張った。1914年の国際条約で」→ 3行目「国どうしの仕組みになった」
+    "ca08": dict(
+        t="変わった決まり", s="無線と氷の見張り",
+        fig=("m26", dict(view="ladder", steps=[dict(state=dict(patrol="on")), dict(state=dict(treaty="on")), dict(state=dict(intl="on"))],
+                         rel=[dict(t="1912年7月", src="G4 p1"), dict(t="8月", src="G5 p1"), dict(t="1913年", src="U1 p1"), dict(t="1914年", src="U1 p1"),
+                              dict(t="1948年", src="G2 p2022")], note="並びは年の順・間の長さは模式", src=ss.src(["G4 p1", "G5 p1", "U1 p1", "G2 p2022"])))),
+    # ca10（3行）＝1行目の問い → 2行目「1948年に…遭難の信号は赤になった」→ 3行目「1912年には、何色でもよかった。タイタニック号のは白」
+    "ca10": dict(
+        t="信号弾の色の決まり", s="2つの時代の夜空",
+        fig=("m26", dict(view="skies2", steps=[dict(state=dict(q="on")), dict(state=dict(red="on")), dict(state=dict(any="on"))],
+                         rel=[dict(t="1912年", src="G2 p2022"), dict(t="1948年", src="G2 p2022")], note="夜空と光は模式", src=ss.src(["G2 p2022"])))),
+})

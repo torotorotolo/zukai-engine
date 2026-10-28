@@ -27,6 +27,16 @@
          morse（c611 モールス灯）・views2（c612 2人の見立て）・watches（c613 3つの当直と鐘）・bearing（c617 方位）・flicker（c619 瞬き）・
          section（c620 前の断面と伝声管）・company（c623 会社の夜の合図）・height（c626 信号弾の高さ）・memory2（c634 2人の記憶）・
          cfband（c637 カリフォルニアン号の時計の縦の帯）・swap（c639 取り違え）
+  🆕 ⑤b-6（2026-10-28）＝第6〜9章の図解 37カット（35の見え方・c816 は c815 の・c911 は c910 の続き）
+  第6章  boxfill（c702 ボートの席の箱）・split2（c704 割れる1本の棒）・rates4（c706 割合の帯）・decks（c708 船の中の部屋）・flare_bow（c710 前の灯と氷山）
+  第7章  custom25（c804 25年のやり方）・before_after（c807 これまでとこれから）・match2（c810 2つの列を結ぶ）・clocks_gap（c812 盤の上の扇）・
+         rings3（c815・c816 距離の輪）・few_min（c822 無線室とあと数分）・appeal（c825 閉ざされた道）
+  第8章  years6（c902 横の年表）・four_q（c905 4つの問い）・book2（c908 1冊の中の2つの結論）・current（c910・c911 海の流れ）・dist2col（c912 2人の物差し）・
+         drift_s（c913 2本の道すじ）・polaris（c914 星の高さ）・antillian（c915 電報の位置）・horizon（c919 地球の丸み）・tt_watch（c921 見張りの目の届く先）・
+         third（c923 第三の船）・refract（c925 空気の層と光）・swing（c927 向きを変える船の灯）・seen2col（c928 2人の見方）・four_steps（c933 4つの手）・
+         asleep（c935 眠りと目覚めの境）・if_go（c938 向かう道すじ）・if_flow（c940 正しく動いた場合の道）
+  第9章  law1910（ca03 無線室の受け持ち）・linked（ca04 無線室と船橋）・ice_rule（ca06 2つの進み方）・ladder（ca08 縦の年表）・skies2（ca10 2つの夜空）
+  🔴 調査官＝紫 tsb・次長＝緑 ntsb（⑤b-3 の地図 c917 と同じ）。次長の緑はカリフォルニアン号の緑と同じ値＝同じ画面では次長を白い字（色の鍵にしない）
   🔴 同じ型は近くで続けない：棒 c202（横の棒と物差し）↔c206（縦の棒）↔c210（1本の帯）・時刻の帯 c416（横・青）↔c637（縦・橙）・
      灯 c607（上から見た舷灯）↔c609（2隻のマストの灯）↔c611（灯の点と線）↔c619（2本の光の帯）・2つの札 c510↔c612↔c634（形を替える）。
      案C の絵（K1〜K6）とも別の絵（c620 の断面は船橋と海図室の「つながり」だけ＝人の影は描かない）。
@@ -44,7 +54,7 @@ import re
 import jiko_style as J
 import titan_fig as F
 from mech21 import _P, _arrow, _check, _on, _qmark, _xmark
-from mech24 import _arcpts, _tline, _w, rc
+from mech24 import _arc_arrow, _arcpts, _tline, _w, rc
 from mech25 import _bell, _chip, _waves
 
 ONOFF = ("off", "on")
@@ -65,6 +75,13 @@ SRC = dict(
     maib=("1992年の調べ直し", "DOC"),       # 英国 海難調査局の再評価（G2）
     cap=("船長", "bldg_a"),                 # 証言の人（船長）
     mate=("航海士", "city"),                # 証言の人（航海士・見習い）
+    # 🆕 ⑤b-6：1992年の調べ直しの2人（色は ⑤b-3 の地図 c917 と同じ＝調査官 紫・次長 緑）・首席・米国上院の報告・米国の巡視船
+    #   🔴 次長の緑はカリフォルニアン号の緑と同じ値＝同じ画面に両方を出すときは、次長を白い字（色の鍵にしない）にする
+    insp=("調査官", "tsb"),                 # 外から呼ばれた調査官（G2）
+    dep=("次長", "ntsb"),                   # 次長（G2・首席が支持）
+    chief=("首席", "DOC"),                  # 首席（G2 の送り状）＝1992年の調べ直しと同じ茶（同じ画面に出さない）
+    sen=("米国上院の報告", "uscg"),         # 米国上院の報告（T3＝書き起こし）
+    rcs=("米国の巡視船", "uscg"),           # 1913年からの氷の見張り（U1）
 )
 # 灯の色（物の色）
 LIGHT = dict(green=J.OK, red=J.ALERT, white=J.SUB)
@@ -1739,6 +1756,1477 @@ def swap_stage(prev, st):
 
 
 # ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-28）：第6〜9章（c7〜ca）の37カット＝35の見え方（c816 は c815 の続き・c911 は c910 の続き＝同じ見え方の start）
+#  🔴 相方は形を替える：c704 割れる1本の棒↔c202・c206・c210／c812 盤の上の扇↔c303 回る針／c810 結ぶ行↔c634 ≠ の2列／
+#     c927 向きを変える船↔c607 扇の舷灯／ca04 浮いた2つの部屋↔c311・c620 船体の中の部屋／ca08 縦の年表↔c902 横の年表／ca10 2つの枠の夜空↔c516 1つの夜空
+#  🔴 画面の1つの字は12字未満を目安に（門番 echo は12字以上の字を字幕と比べる）
+# ══════════════════════════════════════════════════════════
+def _part_rect(ident, x0, y0, x1, y1, fill, alpha=1.0, **kw):
+    return _P(ident, "poly", [(x0, y0), (x1, y0), (x1, y1), (x0, y1)], fill=fill, stroke=None, w=2, alpha=alpha, **kw)
+
+
+def _card2(cx, cy, w, h, col, head, body, cap=30, hcap=24, sw=4):
+    """色の縁の札（上の小さな字＝誰か・何か／下の字＝中身）。"""
+    g = F.rect(cx - w / 2, cy - h / 2, w, h, J.BG2, col, sw, rx=12)
+    if head:
+        g += _tline(cx, cy - h / 2 + hcap + 10, head, hcap, col, "middle", w - 24)
+        return g + _tline(cx, cy + h / 2 - 18, body, cap, INK, "middle", w - 24)
+    return g + _tline(cx, cy + cap * 0.36, body, cap, INK, "middle", w - 24)
+
+
+def _star(cx, cy, r, col):
+    pts = []
+    for i in range(10):
+        a = math.radians(-90 + 36 * i)
+        rr = r if i % 2 == 0 else r * 0.45
+        pts.append((cx + rr * math.cos(a), cy + rr * math.sin(a)))
+    return F.poly(pts, col, None, close=True)
+
+
+def _trail(x0, y0, x1, y1, col, bend=40.0, sw=5):
+    """下から上がる信号弾の筋（ゆるい弧）と星。"""
+    pts = [(x0 + (x1 - x0) * t + bend * math.sin(math.pi * t), y0 + (y1 - y0) * t) for t in [i / 16 for i in range(17)]]
+    return F.poly(pts, "none", col, sw, op=0.85) + _burst(x1, y1, col, 30, 4)
+
+
+def _wheel(cx, cy, r, col):
+    g = [F.circ(cx, cy, r, "none", col, 4), F.circ(cx, cy, r * 0.25, col)]
+    for i in range(6):
+        a = math.pi * i / 3
+        g.append(F.line(cx + r * 0.25 * math.cos(a), cy + r * 0.25 * math.sin(a), cx + r * 1.25 * math.cos(a), cy + r * 1.25 * math.sin(a), col, 4))
+    return "".join(g)
+
+
+def _qbez(p0, p1, p2, n=24):
+    return [((1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * p1[0] + t * t * p2[0], (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * p1[1] + t * t * p2[1])
+            for t in [i / n for i in range(n + 1)]]
+
+
+def _sit_pts(cx, yb, s=1.0):
+    """座る顔の無い影の体（部品の頂点）。頭は _cpts で別の部品。"""
+    return [(cx - 40 * s, yb), (cx - 34 * s, yb - 70 * s), (cx - 14 * s, yb - 92 * s), (cx + 14 * s, yb - 92 * s), (cx + 34 * s, yb - 70 * s), (cx + 40 * s, yb)]
+
+
+# ══════════════════════════════════════════════════════════
+#  第6章
+#  boxfill（c702）＝正面：ボートの席 1,178人ぶんの箱（高さは人数に比例＝G1 p.48）・乗せられる量の3分の2の線（G1 p.76）・
+#  ボートで離れた人は多くて652人（G1 p.51）＝人の形は使わない
+# ══════════════════════════════════════════════════════════
+BF = dict(x0=780.0, x1=1140.0, yb=820.0, k=0.40)
+BF_V = (1178, 652)
+BF_FRAC = (2, 3)
+
+
+def bf_y(v):
+    return BF["yb"] - v * BF["k"]
+
+
+def boxfill_parts(st):
+    on = st.get("two3") == "on"
+    top = bf_y(BF_V[1]) if on else BF["yb"] - 6.0
+    return [_part_rect("fill", BF["x0"] + 6, top, BF["x1"] - 6, BF["yb"] - 3, sc("tt"), 0.85 if on else 0.0)]
+
+
+def boxfill_base(st0):
+    x0, x1, yb = BF["x0"], BF["x1"], BF["yb"]
+    top = bf_y(BF_V[0])
+    return [F.rect(x0, top, x1 - x0, yb - top, J.BG2, sc("tt"), 5, rx=6),
+            _tline((x0 + x1) / 2, top - 24, f"ボートの席 {BF_V[0]:,}人ぶん", 32, INK, "middle", 520)]
+
+
+def boxfill_stage(prev, st):
+    s = []
+    x0, x1 = BF["x0"], BF["x1"]
+    if _on(prev, st, "two3"):
+        y = bf_y(BF_V[0] * BF_FRAC[0] / BF_FRAC[1])
+        s.append(F.line(x0 - 50, y, x1 + 50, y, J.AMBER, 5, dash="16 10"))
+        s.append(_tline(x1 + 70, y + 11, f"席の{BF_FRAC[1]}分の{BF_FRAC[0]}", 30, J.AMBER, "start", 300))
+        s.append(_tline(x1 + 70, y + 56, "そこまで届かない", 28, J.AMBER, "start", 320))
+        s.append(_chip(1560.0, 330.0, "報告書", rc("SUB"), 30))
+    if _on(prev, st, "num"):
+        yf = bf_y(BF_V[1])
+        s.append(_tline(x0 - 40, yf + 14, f"多くて{BF_V[1]}人", 36, INK, "end", 360))
+        s.append(_tline(x0 - 40, yf + 58, "ボートで離れた人", 28, J.TICK, "end", 360))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  split2（c704）＝横から：乗っていた 2,201人の1本の縦の棒（高さは人数に比例）が、助かった 711人と亡くなった 1,490人に割れる（G1 p.56・p.5）
+#  🔴 c202（横の2本）・c206（縦の棒の並び）・c210（1本の帯の印）と形を替えた＝上の段が横へずれて床に下りる（人の形は使わない）
+# ══════════════════════════════════════════════════════════
+SP = dict(x=620.0, w=180.0, yb=810.0, k=0.21, dx=560.0)
+SP_V = (2201, 711, 1490)
+
+
+def sp_y(v):
+    return SP["yb"] - v * SP["k"]
+
+
+def split2_parts(st):
+    x, w = SP["x"], SP["w"]
+    lo_t, top = sp_y(SP_V[1]), sp_y(SP_V[0])
+    live, lost = st.get("live") == "on", st.get("lost") == "on"
+    return [_part_rect("lo", x, lo_t, x + w, SP["yb"], sc("tt"), 1.0 if live else 0.0),
+            _part_rect("hi", x, top, x + w, lo_t, J.TICK, 0.85 if live else 0.0, dx=SP["dx"] if lost else 0.0, dy=SP_V[1] * SP["k"] if lost else 0.0)]
+
+
+def split2_base(st0):
+    x, w, yb = SP["x"], SP["w"], SP["yb"]
+    top = sp_y(SP_V[0])
+    return [F.line(320.0, yb, 1600.0, yb, J.LINE, 5), F.rect(x, top, w, yb - top, "none", sc("tt"), 4, dash="10 8"),
+            _tline(x - 30, top + 12, f"乗っていた {SP_V[0]:,}人", 32, INK, "end", 480),
+            _chip(1480.0, 330.0, "報告書の数", rc("SUB"), 28)]
+
+
+def split2_stage(prev, st):
+    s = []
+    x, w = SP["x"], SP["w"]
+    if _on(prev, st, "live"):
+        s.append(_tline(x + w + 30, (sp_y(SP_V[1]) + SP["yb"]) / 2 + 12, f"助かった {SP_V[1]}人", 32, sc("tt"), "start", 320))
+    if _on(prev, st, "lost"):
+        s.append(_tline(x + SP["dx"] + w + 30, sp_y(SP_V[2] / 2) + 12, f"亡くなった {SP_V[2]:,}人", 32, INK, "start", 400))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  rates4（c706）＝横から：等級ごとの助かった人の割合の帯（全員＝100%の枠・帯の長さは割合に比例＝G1 p.55〜56）
+#  一等 62%・二等 41%・三等 25%・乗員 24%（語りの丸め＝62.46・41.40・25.21・23.95）。等級の色は c206 と同じ
+# ══════════════════════════════════════════════════════════
+RT = dict(x0=520.0, x1=1600.0, ys=(400.0, 510.0, 620.0, 730.0), h=64.0)
+RT_ROWS = (("一等", 62, "bldg_a"), ("二等", 41, "city"), ("三等", 25, "company"), ("乗員", 24, "SUB"))
+
+
+def rt_x(p):
+    return RT["x0"] + p * (RT["x1"] - RT["x0"]) / 100.0
+
+
+def rates4_parts(st):
+    g = []
+    for i, (_n, p, c) in enumerate(RT_ROWS):
+        on = st.get("a" if i < 2 else "b") == "on"
+        y, h = RT["ys"][i], RT["h"]
+        g.append(_part_rect(f"r{i}", RT["x0"], y - h / 2, rt_x(p) if on else RT["x0"] + 4.0, y + h / 2, rc(c), 1.0 if on else 0.0))
+    return g
+
+
+def rates4_base(st0):
+    g = [_tline(RT["x0"], 322.0, "助かった人の割合", 30, J.TICK, "start", 520)]
+    for i, (n, _p, c) in enumerate(RT_ROWS):
+        y, h = RT["ys"][i], RT["h"]
+        g.append(F.rect(RT["x0"], y - h / 2, RT["x1"] - RT["x0"], h, J.BG2, J.LINE_DIM, 3, rx=6))
+        g.append(_tline(RT["x0"] - 30, y + 11, n, 32, rc(c), "end", 160))
+    xm = rt_x(50)
+    # 🔧 geom_gap：帯を貫く半分の線が「41%」の札に 4px＝上と下の短い印だけ
+    g.append(F.line(xm, RT["ys"][0] - 56, xm, RT["ys"][0] - 38, J.TICK, 3) + F.line(xm, RT["ys"][-1] + 38, xm, RT["ys"][-1] + 56, J.TICK, 3))
+    g.append(_tline(xm, RT["ys"][-1] + 86, "半分", 26, J.TICK, "middle", 120))
+    g.append(_tline(RT["x1"], RT["ys"][-1] + 86, "全員", 26, J.TICK, "end", 120))
+    return g
+
+
+def rates4_stage(prev, st):
+    s = []
+    for i, (_n, p, _c) in enumerate(RT_ROWS):
+        if _on(prev, st, "a" if i < 2 else "b"):
+            s.append(_tline(rt_x(p) + 20, RT["ys"][i] + 12, f"{p}%", 34, INK, "start", 160))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  decks（c708）＝横から見たタイタニック号の中（船首＝右・模式）：一等の部屋は真ん中の上・三等の部屋は前と後ろの端の下・ボート甲板までの道のり（G1 p.53）。
+#  1行目「道をふさがれた」は語られる話（赤い棒）→ 2行目 報告書「本当のことは無いようだ」で赤い棒が消える（部品）→ 3行目 低い理由（離れたがらなかった・部屋が船の端）
+# ══════════════════════════════════════════════════════════
+DK = dict(x0=200.0, x1=1720.0, top=470.0, keel=820.0, decks=(560.0, 650.0, 740.0))
+DK_ROOMS = dict(first=(760.0, 1120.0, 482.0, 548.0), aft=(250.0, 420.0, 752.0, 808.0), fwd=(1440.0, 1610.0, 752.0, 808.0))
+DK_GATE = (440.0, 600.0, 500.0, 616.0)
+
+
+def decks_parts(st):
+    a = 1.0 if (st.get("q") == "on" and st.get("rep") != "on") else 0.0
+    return [_part_rect("gate", *DK_GATE, J.ALERT, a)]
+
+
+def decks_base(st0):
+    x0, x1, top, keel = DK["x0"], DK["x1"], DK["top"], DK["keel"]
+    g = [F.poly(_hull_side(x0, x1, keel, keel - top), J.BG2, sc("tt"), 4, close=True)]
+    for y in DK["decks"]:
+        g.append(F.line(x0 + 50, y, x1 - 70, y, J.LINE_DIM, 3))
+    for bx in (560.0, 700.0, 1160.0, 1300.0):
+        g.append(F.rect(bx, top - 28, 90, 22, J.BG2, J.LINE, 3, rx=11))
+    g.append(_tline(960.0, top - 32, "ボート甲板", 28, INK, "middle", 260))
+    for key, (a, b, c, d) in DK_ROOMS.items():
+        col = rc("bldg_a") if key == "first" else rc("company")
+        g.append(F.rect(a, c, b - a, d - c, col, col, 3, rx=6, op=0.45))
+        g.append(_tline((a + b) / 2, (c + d) / 2 + 11, "一等" if key == "first" else "三等", 30, INK, "middle", b - a - 10))
+    g.append(_tline(x1 - 30, keel + 40, "船首", 26, J.TICK, "end", 120))
+    return g
+
+
+def decks_stage(prev, st):
+    s = []
+    if _on(prev, st, "q"):
+        s.append(_tline(240.0, 340.0, "道をふさがれた？", 30, J.ALERT, "start", 400))
+        s.append(_tline(240.0, 380.0, "よく語られる話", 26, J.TICK, "start", 300))
+    if _on(prev, st, "rep"):
+        s.append(_chip(1480.0, 340.0, "本当のことは無いようだ", rc("SUB"), 28))
+        s.append(_tline(1480.0, 400.0, "（報告書）", 24, J.TICK, "middle", 200))
+    if _on(prev, st, "far"):
+        a0, a1, a2, a3 = DK_ROOMS["aft"]
+        f0, f1, f2, f3 = DK_ROOMS["fwd"]
+        s.append(F.poly([(a1, (a2 + a3) / 2), (470.0, (a2 + a3) / 2), (470.0, DK["top"] + 10)], "none", J.AMBER, 5, dash="14 10")
+                 + _arrow(470.0, DK["top"] + 60, 470.0, DK["top"] + 6, J.AMBER, 5, 20))
+        s.append(F.poly([(f0, (f2 + f3) / 2), (1390.0, (f2 + f3) / 2), (1390.0, DK["top"] + 10)], "none", J.AMBER, 5, dash="14 10")
+                 + _arrow(1390.0, DK["top"] + 60, 1390.0, DK["top"] + 6, J.AMBER, 5, 20))
+        s.append(_tline(490.0, 700.0, "部屋が船の端", 28, J.AMBER, "start", 260))
+        s.append(_chip(960.0, 340.0, "離れたがらなかった", J.AMBER, 28))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  flare_bow（c710）＝上から見たカルパチア号（船首＝上・模式）：前の少し左に 2号艇の緑の合図の灯（G1 p.55）→ 4:00 まで氷山をよけて
+#  何度も向きを変える（G1 p.55・G7 PDF 25頁）。カリフォルニアン号は出さない（灯の緑と船の緑が重ならない）
+# ══════════════════════════════════════════════════════════
+FB = dict(cx=960.0, cy=760.0, L=150.0, W=42.0, light=(760.0, 380.0))
+FB_ICE = ((520.0, 560.0), (660.0, 690.0), (1200.0, 470.0), (1320.0, 660.0), (1460.0, 400.0), (420.0, 400.0), (1100.0, 620.0), (900.0, 500.0))
+FB_ZIG = ((960.0, 670.0), (1010.0, 600.0), (930.0, 540.0), (860.0, 470.0), (800.0, 420.0))
+FB_T = "4:00まで"
+
+
+def flare_bow_base(st0):
+    g = [_ship_top(FB["cx"], FB["cy"], FB["L"], FB["W"], 0.0, sc("cp")),
+         _tline(FB["cx"] + 50, FB["cy"] + 40, "カルパチア号", 28, sc("cp"), "start", 260)]
+    for x, y in FB_ICE:
+        g.append(_ice(x, y, 0.8))
+    g.append(_north(1760.0, 360.0))
+    return g
+
+
+def flare_bow_stage(prev, st):
+    s = []
+    lx, ly = FB["light"]
+    if _on(prev, st, "flare"):
+        s.append(F.line(FB["cx"], FB["cy"] - FB["L"] / 2 - 8, lx + 8, ly + 18, J.TICK, 3, dash="8 10"))
+        s.append(F.rect(lx - 34, ly + 30, 68, 22, J.BG2, sc("tt"), 3, rx=11))
+        s.append(_lamp(lx, ly, LIGHT["green"], 12.0, 2.6))
+        s.append(_tline(lx - 60, ly - 40, "2号艇の合図の灯", 30, LIGHT["green"], "end", 360))
+        s.append(_tline(lx - 60, ly, "（四等航海士）", 24, J.TICK, "end", 260))
+        s.append(_tline(lx - 60, ly + 44, "前の少し左", 26, J.TICK, "end", 220))     # 🔧 geom_gap：見る線の上だった
+    if _on(prev, st, "zig"):
+        s.append(F.poly(list(FB_ZIG), "none", sc("cp"), 5, dash="14 10")
+                 + _arrow(FB_ZIG[-2][0], FB_ZIG[-2][1], FB_ZIG[-1][0], FB_ZIG[-1][1], sc("cp"), 5, 20))
+        s.append(_clk(1200.0, 330.0, FB_T, "cp", 28))    # 🔧 layout：下では船の名に重なった
+        s.append(_tline(1060.0, 560.0, "右へ左へ", 28, sc("cp"), "start", 200))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  第7章
+#  custom25（c804）＝時間の線（模式）：25年以上（左へ点線で続く）、晴れた夜は氷の近くでも針路と速さを保ち、見張りに頼る＝この航路の客船のやり方（G1 p.40）
+# ══════════════════════════════════════════════════════════
+CU = dict(x0=300.0, x1=1560.0, y=560.0, h=56.0)
+CU_V = 25
+
+
+def custom25_base(st0):
+    y = CU["y"]
+    return [F.line(160.0, y, 1700.0, y, J.LINE_DIM, 3),
+            F.line(CU["x1"], y - 80, CU["x1"], y + 60, sc("tt"), 5), _tline(CU["x1"], y + 96, "この事故", 28, sc("tt"), "middle", 200)]
+
+
+def custom25_stage(prev, st):
+    s = []
+    x0, x1, y, h = CU["x0"], CU["x1"], CU["y"], CU["h"]
+    if _on(prev, st, "q"):
+        s.append(_chip(1080.0, 340.0, "タイタニック号の船長？", rc("bldg_a"), 28) + _qmark(1340.0, 340.0, 60))
+    if _on(prev, st, "band"):
+        s.append(F.rect(x0, y - h / 2, x1 - x0, h, J.AMBER, None, None, rx=6, op=0.45))
+        s.append(F.line(170.0, y, x0, y, J.AMBER, 6, dash="12 10") + _arrow(220.0, y, 172.0, y, J.AMBER, 6, 22))
+        s.append(_tline((x0 + x1) / 2, y - h / 2 - 24, f"{CU_V}年以上", 36, J.AMBER, "middle", 300))
+        s.append(_chip(480.0, 340.0, "報告書：そうは言わない", rc("SUB"), 28))
+    if _on(prev, st, "way"):
+        for x in (480.0, 800.0, 1120.0, 1400.0):
+            s.append(_ship_side(x - 60, x + 60, y + h / 2 - 6, J.LINE, h=16.0, masts=False))
+        for x, lab in ((520.0, "針路そのまま"), (960.0, "速さそのまま"), (1400.0, "見張りに頼る")):
+            if lab.startswith("針路"):
+                s.append(_arrow(x - 70, 700.0, x + 70, 700.0, INK, 6, 22))
+            elif lab.startswith("速さ"):
+                s.append(F.poly([(x - 50, 680.0), (x - 20, 700.0), (x - 50, 720.0)], "none", INK, 6)
+                         + F.poly([(x, 680.0), (x + 30, 700.0), (x, 720.0)], "none", INK, 6))
+            else:
+                s.append(_eye(x, 700.0, INK, 0.7))
+            s.append(_tline(x, 776.0, lab, 28, INK, "middle", 260))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  before_after（c807）＝時間の線（模式）：事故の線の左＝これまで（タイタニック号では間違い）・右＝これから（同じことをすれば怠り）（G1 p.41）
+# ══════════════════════════════════════════════════════════
+BA = dict(xm=960.0, y=600.0, xs=(560.0, 1360.0))
+BA_W = ("間違い", "怠り")
+
+
+def before_after_base(st0):
+    xm, y = BA["xm"], BA["y"]
+    g = [F.line(180.0, y, 1720.0, y, J.LINE_DIM, 4) + _arrow(1680.0, y, 1740.0, y, J.LINE_DIM, 4, 20),
+         F.line(xm, 380.0, xm, 820.0, sc("tt"), 5), _tline(xm, 356.0, "タイタニック号の事故", 28, sc("tt"), "middle", 360),
+         _tline(BA["xs"][0], 420.0, "これまで", 32, INK, "middle", 220), _tline(BA["xs"][1], 420.0, "これから", 32, INK, "middle", 220)]
+    for x in BA["xs"]:
+        g.append(_ship_side(x - 110, x + 110, y - 8, J.LINE, h=24.0))
+    return g
+
+
+def before_after_stage(prev, st):
+    s = []
+    xa, xb = BA["xs"]
+    if _on(prev, st, "a"):
+        s.append(_chip(xa, 690.0, BA_W[0], J.AMBER, 32) + _tline(xa, 760.0, "タイタニック号では", 26, sc("tt"), "middle", 300))
+        s.append(_chip(300.0, 330.0, "報告書", rc("SUB"), 28))
+    if _on(prev, st, "b"):
+        s.append(_chip(xb, 690.0, BA_W[1], J.ALERT, 32) + _tline(xb, 760.0, "同じことをすれば", 26, INK, "middle", 300))
+    if _on(prev, st, "c"):
+        s.append(_xmark(xb + 150, 520.0, 30, J.ALERT, 9) + _tline(xb + 200, 530.0, "もう許されない", 28, J.ALERT, "start", 300))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  match2（c810）＝正面：1912年の報告の突き合わせ（左＝タイタニック号の記録・右＝カリフォルニアン号の記録・それぞれの船の時計のまま）を
+#  行ごとに点線で結ぶ（G1 p.60）。🔴 時刻は出さない（1画面に船の時計は1つ）・2列を1本の線にしない・右の列は「見えた船」と書く
+#  🔴 c634（2つの札と ≠）と形を替えた＝3行の札を点線で結ぶ
+# ══════════════════════════════════════════════════════════
+MT = dict(l=(260.0, 860.0), r=(1060.0, 1660.0), y0=340.0, rows=(480.0, 600.0, 720.0), h=84.0)
+MT_ROWS = (("衝突", "見えた船の灯が消える"), ("信号弾 約8発", "白い信号弾 8つ"), ("沈む", "見えなくなる"))
+
+
+def match2_base(st0):
+    (l0, l1), (r0, r1) = MT["l"], MT["r"]
+    return [_chip((l0 + l1) / 2, MT["y0"], "タイタニック号の記録", sc("tt"), 30), _chip((r0 + r1) / 2, MT["y0"], "カリフォルニアン号の記録", sc("cf"), 30)]
+
+
+def match2_stage(prev, st):
+    s = []
+    (l0, l1), (r0, r1) = MT["l"], MT["r"]
+    if _on(prev, st, "q"):
+        s.append(_qmark(960.0, 540.0, 76))
+    if _on(prev, st, "cols"):
+        for (a, b), y in zip(MT_ROWS, MT["rows"]):
+            s.append(F.rect(l0, y - MT["h"] / 2, l1 - l0, MT["h"], J.BG2, sc("tt"), 4, rx=10) + _tline((l0 + l1) / 2, y + 11, a, 30, INK, "middle", l1 - l0 - 30))
+            s.append(F.rect(r0, y - MT["h"] / 2, r1 - r0, MT["h"], J.BG2, sc("cf"), 4, rx=10) + _tline((r0 + r1) / 2, y + 11, b, 30, INK, "middle", r1 - r0 - 30))
+        for x in ((l0 + l1) / 2, (r0 + r1) / 2):
+            s.append(_tline(x, MT["y0"] + 58, "その船の時計のまま", 24, J.TICK, "middle", 400))
+    if _on(prev, st, "pair"):
+        for y in MT["rows"]:
+            s.append(F.line(l1 + 10, y, r0 - 10, y, rc("SUB"), 4, dash="10 8"))
+        s.append(_chip(960.0, 830.0, "報告書：はっきりしている", rc("SUB"), 28))
+        s.append(_tline(1660.0, 838.0, "食い違いもある", 26, J.AMBER, "end", 260))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  clocks_gap（c812）＝正面：2つの時計の盤に、信号弾のころの扇（左＝タイタニック号の時計の 0:45ごろ〜1:45ごろ＝G1 p.60・
+#  右＝カリフォルニアン号の時計のそのころ＝G1 p.54 の 0:30〜1:40）→ 報告書は時計の違う2隻の時刻をそのまま並べた・1992年の見方「差は数分ほど」（G2 p.6）
+#  🔴 c303（針が12へ回る）と形を替えた＝盤の上の扇。数字の札は左の時計だけ（1画面に船の時計は1つ）
+# ══════════════════════════════════════════════════════════
+CG = dict(xs=(600.0, 1320.0), cy=560.0, r=150.0)
+CG_T = (("tt", "0:45", "1:45"), ("cf", "0:30", "1:40"))
+
+
+def cg_ang(t):
+    """時計の盤の角度（度・12時から時計回り）＝(夜を通した分 − 0:00) × 0.5。"""
+    return (_min(t) - 24 * 60) * 0.5
+
+
+def _sector(cx, cy, r, a0, a1):
+    return [(cx, cy)] + _arcpts(cx, cy, r, r, a0 - 90.0, a1 - 90.0, 16)
+
+
+def clocks_gap_base(st0):
+    g = []
+    for x, (ship, _a, _b) in zip(CG["xs"], CG_T):
+        g.append(_clock(x, CG["cy"], CG["r"], sc(ship)))
+        g.append(_tline(x, CG["cy"] - CG["r"] - 28, SRC[ship][0], 30, sc(ship), "middle", 360))
+    return g
+
+
+def clocks_gap_stage(prev, st):
+    s = []
+    if _on(prev, st, "range"):
+        for x, (_ship, a, b) in zip(CG["xs"], CG_T):
+            s.append(F.poly(_sector(x, CG["cy"], CG["r"] * 0.9, cg_ang(a), cg_ang(b)), J.AMBER, None, close=True, op=0.55))
+        s.append(_clk(CG["xs"][0], CG["cy"] + CG["r"] + 50, "0:45ごろ〜1:45ごろ", "tt", 28, mw=640))
+        s.append(_tline(CG["xs"][1], CG["cy"] + CG["r"] + 50, "そのころ見た", 28, sc("cf"), "middle", 300))
+    if _on(prev, st, "diff"):
+        x0, x1 = CG["xs"][0] + CG["r"] + 20, CG["xs"][1] - CG["r"] - 20
+        s.append(F.line(x0, CG["cy"], x1, CG["cy"], J.ALERT, 5, dash="12 10"))
+        s.append(_tline((x0 + x1) / 2, CG["cy"] - 24, "時計が違う", 28, J.ALERT, "middle", 260))
+        s.append(_tline((x0 + x1) / 2, CG["cy"] + 52, "報告書は", 24, rc("SUB"), "middle", 200))
+        s.append(_tline((x0 + x1) / 2, CG["cy"] + 84, "そのまま並べた", 24, rc("SUB"), "middle", 220))
+        s.append(_chip(960.0, 820.0, "差は数分ほど（1992年の調べ直し）", rc("DOC"), 26))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  rings3（c815・c816）＝上から（模式）：止まったカリフォルニアン号のまわりの距離の輪（半径は距離に比例＝5・8・10マイル＝約9・15・19キロ＝G1 p.60）。
+#  船の印は置かない（見えたかどうかは描かない）→ 船長の話＝約9キロ → 報告書＝9キロより遠く、15〜19キロより遠くない（c816）
+# ══════════════════════════════════════════════════════════
+RG = dict(cx=820.0, cy=575.0, k=27.0)
+RG_MI = (5, 8, 10)
+RG_KM = ("約9キロ", "約15キロ", "約19キロ")
+
+
+def rg_r(mi):
+    return mi * RG["k"]
+
+
+RG_ARC = (-70.0, 70.0)        # 段で明るくする弧（右半分＝輪の上の札にかからない）
+
+
+def rings3_base(st0):
+    cx, cy = RG["cx"], RG["cy"]
+    r1, r2, r3 = (rg_r(m) for m in RG_MI)
+    g = [F.circ(cx, cy, r, "none", J.LINE_DIM, 3) for r in (r1, r2, r3)]
+    g.append(F.circ(cx, cy, 12, sc("cf")))
+    # 🔧 layout：輪の中の札は、あとの段の線が横切る＝船の名は輪の外（左）・距離の札は輪のすき間の上
+    g.append(_tline(cx - r3 - 24, cy + 9, "カリフォルニアン号", 24, sc("cf"), "end", 240))
+    g.append(_tline(cx, cy - (r1 + r2) / 2 + 9, RG_KM[0], 26, J.TICK, "middle", 160))
+    g.append(_tline(cx, cy - (r2 + r3) / 2 + 9, RG_KM[1], 26, J.TICK, "middle", 160))
+    g.append(_tline(cx, cy - r3 - 14, RG_KM[2], 26, J.TICK, "middle", 160))
+    return g
+
+
+def _rg_arc(r, col, sw):
+    return F.poly(_arcpts(RG["cx"], RG["cy"], r, r, RG_ARC[0], RG_ARC[1], 20), "none", col, sw)
+
+
+def rings3_stage(prev, st):
+    s = []
+    cx, cy = RG["cx"], RG["cy"]
+    r1, r2, r3 = (rg_r(m) for m in RG_MI)
+    if _on(prev, st, "q"):
+        s.append(_qmark(1340.0, 340.0, 64))
+    if _on(prev, st, "cap"):
+        s.append(_rg_arc(r1, sc("cap"), 7))
+        s.append(_say(1460.0, 470.0, "cap", "約9キロ（5マイル）", head="船長の話"))
+    if _on(prev, st, "far"):
+        band = _arcpts(cx, cy, r3, r3, RG_ARC[0], RG_ARC[1], 20) + _arcpts(cx, cy, r1 + 6, r1 + 6, RG_ARC[1], RG_ARC[0], 20)
+        s.append(F.poly(band, rc("SUB"), None, close=True, op=0.16))
+        s.append(_tline(cx + r3 + 30, 650.0, "9キロより遠い", 28, rc("SUB"), "start", 300))
+        s.append(_chip(1580.0, 330.0, "報告書の見方", rc("SUB"), 28))    # 🔧 layout：「？」を覆った
+    if _on(prev, st, "lim"):
+        s.append(_rg_arc(r3, rc("SUB"), 6) + _rg_arc(r2, rc("SUB"), 4))
+        s.append(_tline(cx + r3 + 30, 720.0, "15〜19キロより", 28, rc("SUB"), "start", 300))
+        s.append(_tline(cx + r3 + 30, 764.0, "遠くはない", 28, rc("SUB"), "start", 300))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  few_min（c822）＝正面から見たカリフォルニアン号の無線室（模式）：壁の時計 23:30（通信士が寝た＝G1 p.57）・空いた椅子・寝台の顔の無い影 →
+#  米国上院の報告（T3＝書き起こし）「すぐ助けに向かっていたか、通信士があと数分持ち場にいたなら…」＝時計の扇「あと数分」と点線の影
+# ══════════════════════════════════════════════════════════
+FM = dict(clock=(960.0, 410.0, 88.0), floor=800.0, desk=(300.0, 740.0, 640.0), chair=(840.0, 800.0), bunk=(1180.0, 1700.0, 700.0))
+FM_T = "23:30"
+
+
+def few_min_base(st0):
+    cx, cy, r = FM["clock"]
+    d0, d1, dy = FM["desk"]
+    b0, b1, by = FM["bunk"]
+    hh = (11 + 30 / 60) * 30.0
+    g = [F.line(200.0, FM["floor"], 1760.0, FM["floor"], J.LINE_DIM, 3),
+         _clock(cx, cy, r, sc("cf")),
+         F.poly(_rot(_hand_pts(cx, cy, r * 0.55, 9.0), cx, cy, hh), INK, None, close=True),
+         F.poly(_rot(_hand_pts(cx, cy, r * 0.80, 6.0), cx, cy, 180.0), INK, None, close=True),
+         _clk(cx, cy + r + 46, FM_T, "cf", 26),
+         F.rect(d0, dy, d1 - d0, 20, J.BG2, J.LINE, 4, rx=4), F.line(d0 + 20, dy + 20, d0 + 20, FM["floor"], J.LINE, 5),
+         F.line(d1 - 20, dy + 20, d1 - 20, FM["floor"], J.LINE, 5), F.rect(420.0, dy - 80, 160, 80, J.BG2, J.LINE, 4, rx=6),
+         _tline(500.0, dy - 30, "無線", 24, J.LINE, "middle", 120)]
+    x, yb = FM["chair"]
+    g.append(F.poly([(x - 40, yb - 70), (x + 40, yb - 70)], "none", J.LINE, 5) + F.line(x - 40, yb - 70, x - 40, yb, J.LINE, 5)
+             + F.line(x + 40, yb - 70, x + 40, yb, J.LINE, 5) + F.line(x + 40, yb - 70, x + 40, yb - 160, J.LINE, 5))
+    g.append(F.rect(b0, by, b1 - b0, 22, J.LINE_DIM, None, None, rx=4) + F.line(b0 + 10, by + 22, b0 + 10, FM["floor"], J.LINE_DIM, 6)
+             + F.line(b1 - 10, by + 22, b1 - 10, FM["floor"], J.LINE_DIM, 6) + _lying((b0 + b1) / 2 + 20, by - 18, 0.9, J.LINE))
+    g.append(_tline((b0 + b1) / 2, by + 70, "眠る通信士", 26, J.TICK, "middle", 220))
+    return g
+
+
+def few_min_stage(prev, st):
+    s = []
+    cx, cy, r = FM["clock"]
+    if _on(prev, st, "sen"):
+        s.append(_chip(400.0, 330.0, SRC["sen"][0], sc("sen"), 28) + _tline(400.0, 386.0, "（書き起こし）", 24, J.TICK, "middle", 220))
+        s.append(_ship_side(1380.0, 1560.0, 352.0, sc("cf"), h=18.0) + _arrow(1580.0, 334.0, 1720.0, 334.0, sc("cf"), 5, 20))
+        s.append(_tline(1550.0, 400.0, "すぐ向かっていたら", 26, sc("cf"), "middle", 320))
+    if _on(prev, st, "few"):
+        s.append(F.poly(_sector(cx, cy, r * 0.82, 180.0, 210.0), J.AMBER, None, close=True, op=0.7))
+        s.append(_tline(cx + r + 24, cy + 10, "あと数分", 30, J.AMBER, "start", 220))
+        x, yb = FM["chair"]
+        s.append(F.circ(x, yb - 190, 20, "none", J.AMBER, 4) + F.poly(_sit_pts(x, yb - 74, 0.9), "none", J.AMBER, 4, close=True, dash="10 8"))
+        s.append(_tline(x + 60, 700.0, "持ち場にいたなら", 26, J.AMBER, "start", 300))   # 🔧 layout：上では時計の札に重なった
+    if _on(prev, st, "pride"):
+        s.append(_say(1440.0, 530.0, "cf", "救う側だったかも", head="上院の報告の見方"))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  appeal（c825）＝時間の線（模式）：船長 → 審問のやり直しを求める → 退けられた／正式な告発 なし → 資格への処分 なし → 申し立ての道 なし（G2 p.1）
+# ══════════════════════════════════════════════════════════
+AP = dict(ys=(440.0, 690.0), xs=(380.0, 960.0, 1540.0), w=440.0, h=120.0)
+AP_ROW2 = (("正式な告発", "なし"), ("資格への処分", "なし"), ("申し立ての道", "なし"))
+
+
+def appeal_base(st0):
+    return [F.line(200.0, 565.0, 1720.0, 565.0, J.LINE_DIM, 2, dash="6 10")]
+
+
+def appeal_stage(prev, st):
+    s = []
+    xs, (y1, y2), w, h = AP["xs"], AP["ys"], AP["w"], AP["h"]
+    if _on(prev, st, "ask"):
+        s.append(_card2(xs[0], y1, w, h, sc("cap"), "", "船長", 34))
+        s.append(_card2(xs[1], y1, w, h, rc("SUB"), "審問", "やり直しを求める", 30))
+        s.append(_card2(xs[2], y1, w, h, J.ALERT, "", "退けられた", 32) + _xmark(xs[2] + w / 2 - 40, y1 - h / 2 + 4, 20, J.ALERT, 8))
+        for i in range(2):
+            s.append(_arrow(xs[i] + w / 2 + 10, y1, xs[i + 1] - w / 2 - 10, y1, INK, 5, 20))
+    if _on(prev, st, "none"):
+        for i, (hd, body) in enumerate(AP_ROW2):
+            s.append(_card2(xs[i], y2, w, h, J.TICK, hd, body, 34))
+            if i < 2:
+                s.append(_arrow(xs[i] + w / 2 + 10, y2, xs[i + 1] - w / 2 - 10, y2, INK, 5, 20))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  第8章
+#  years6（c902）＝時間の線（横・模式＝並びは年の順・間は等しい）：1912年 審問の報告 → 1950年代 本と映画 → 船長の訴えと2度の請願（年は書かない＝G2 p.1 に無い）→
+#  1985年 残骸 → 1990年 調べ直しを命じる → 1992年 報告（G2 p.1〜2・送り状）。船長の亡くなった年は入れない
+#  🔴 ca08（縦の年表）と並びと色を替える
+# ══════════════════════════════════════════════════════════
+YR = dict(x0=250.0, dx=284.0, y=600.0)
+YR_EV = (("1912年", "審問の報告", "SUB"), ("1950年代", "本と映画", "AMBER"), ("", "船長の訴え", "bldg_a"),
+         ("1985年", "残骸が見つかる", "LINE"), ("1990年", "調べ直しを命じる", "DOC"), ("1992年", "調べ直しの報告", "DOC"))
+
+
+def yr_x(i):
+    return YR["x0"] + i * YR["dx"]
+
+
+def years6_base(st0):
+    y = YR["y"]
+    g = [F.line(180.0, y, 1730.0, y, J.LINE, 4) + _arrow(1700.0, y, 1760.0, y, J.LINE, 4, 20)]
+    for i, (yr, ev, c) in enumerate(YR_EV):
+        x = yr_x(i)
+        g.append(F.circ(x, y, 16, rc(c)))
+        g.append(_tline(x, y - 36, yr or "その後", 30, rc(c) if yr else J.TICK, "middle", 260))
+        g.append(_tline(x, y + 56, ev, 26, INK, "middle", YR["dx"] - 20))
+    return g
+
+
+def years6_stage(prev, st):
+    s = []
+    x, y = yr_x(2), YR["y"]
+    if _on(prev, st, "plea"):
+        s.append(F.circ(x, y, 24, "none", sc("cap"), 6))     # 🔧 geom_gap：30 では上下の札に 3〜4px
+        s.append(_chip(x, 420.0, "80歳をこえて", sc("cap"), 28) + _tline(x, 478.0, "もう一度調べて", 26, sc("cap"), "middle", 260))
+    if _on(prev, st, "pet"):
+        s.append(_xmark(x - 46, 730.0, 18, J.ALERT, 7) + _xmark(x + 46, 730.0, 18, J.ALERT, 7))
+        s.append(_tline(x, 800.0, "請願2度・退けられた", 28, J.ALERT, "middle", 300))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  four_q（c905）＝正面（模式）：調べ直しの4つの問いの札（G2 p.3）＝①2隻の位置と距離 ②タイタニック号は見えていたか ③遭難の信号は見えたか・正しく動いたか ④船長の行い
+#  🔴 c933（4つの手の矢印）と形を替えた＝2×2 の札と絵
+# ══════════════════════════════════════════════════════════
+FQ = dict(xs=(600.0, 1320.0), ys=(480.0, 700.0), w=620.0, h=170.0)
+FQ_Q = (("①", "位置と距離"), ("②", "見えていたか"), ("③", "信号と動き"), ("④", "船長の行い"))
+
+
+def _fq_icon(i, cx, cy):
+    if i == 0:
+        return F.circ(cx - 60, cy, 14, sc("tt")) + F.line(cx - 44, cy, cx + 44, cy, INK, 3, dash="8 6") + F.circ(cx + 60, cy, 14, sc("cf"))
+    if i == 1:
+        return _eye(cx - 30, cy, J.TICK, 0.6) + _ship_side(cx + 20, cx + 110, cy + 18, sc("tt"), h=14.0, masts=False)
+    if i == 2:
+        return _burst(cx - 30, cy - 6, rc("SUB"), 26, 4) + _check(cx + 50, cy, 18, J.OK)
+    return _chip(cx, cy, "船長", sc("cap"), 26)
+
+
+def four_q_base(st0):
+    return [_chip(960.0, 330.0, "調べ直しの4つの問い", sc("maib"), 30)]
+
+
+def four_q_stage(prev, st):
+    s = []
+    if _on(prev, st, "q"):
+        s.append(_qmark(1440.0, 345.0, 56))
+    for i, (num, t) in enumerate(FQ_Q):
+        if _on(prev, st, "a" if i < 2 else "b"):
+            cx, cy = FQ["xs"][i % 2], FQ["ys"][i // 2]
+            w, h = FQ["w"], FQ["h"]
+            s.append(F.rect(cx - w / 2, cy - h / 2, w, h, J.BG2, sc("maib"), 4, rx=14))
+            s.append(_tline(cx - w / 2 + 30, cy + 14, num, 40, sc("maib"), "start", 60))
+            s.append(_tline(cx - w / 2 + 96, cy + 12, t, 32, INK, "start", 300))
+            s.append(_fq_icon(i, cx + 190, cy))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  book2（c908）＝正面（模式）：1冊の報告の中に、左の頁＝調査官の結論・右の頁＝次長の結論 → 首席は次長の報告と結論を全面的に支持（G2 送り状）→ 意見が分かれた
+# ══════════════════════════════════════════════════════════
+BK = dict(cx=960.0, cy=610.0, w=540.0, h=360.0)
+BK_PAGES = ("insp", "dep")
+BK_BACK = "dep"
+
+
+def book2_base(st0):
+    cx, cy, w, h = BK["cx"], BK["cy"], BK["w"], BK["h"]
+    g = [F.rect(cx - w - 24, cy - h / 2 - 16, 2 * w + 48, h + 32, "none", rc("DOC"), 4, rx=10)]
+    for j, key in enumerate(BK_PAGES):
+        x0 = cx - w if j == 0 else cx + 8
+        g.append(F.rect(x0, cy - h / 2, w - 8, h, J.BG2, sc(key), 4, rx=6))
+        g.append(_tline(x0 + (w - 8) / 2, cy - h / 2 + 50, f"{SRC[key][0]}の結論", 30, sc(key), "middle", w - 40))
+        for k in range(5):
+            yy = cy - h / 2 + 100 + k * 46
+            g.append(F.line(x0 + 40, yy, x0 + w - 48 - (80 if k == 4 else 0), yy, J.LINE_DIM, 6))
+    return g
+
+
+def book2_stage(prev, st):
+    s = []
+    cx, cy, w, h = BK["cx"], BK["cy"], BK["w"], BK["h"]
+    if _on(prev, st, "chief"):
+        s.append(_chip(1660.0, 330.0, SRC["chief"][0], sc("chief"), 30))
+        xr = cx + 8 + (w - 8) / 2
+        s.append(_arrow(1600.0, 360.0, xr + 140, cy - h / 2 - 20, sc("chief"), 5, 22))
+        s.append(_tline(1700.0, 400.0, "全面的に支持", 28, sc("chief"), "middle", 260))
+        s.append(_check(xr + 200, cy - h / 2 + 40, 20, sc(BK_BACK)))
+    if _on(prev, st, "split"):
+        pts = [(cx, cy - h / 2 - 10 + 30 * i) for i in range(13)]
+        s.append(F.poly([(x + (14 if i % 2 else -14), y) for i, (x, y) in enumerate(pts)], "none", J.ALERT, 5))
+        s.append(_tline(cx, cy - h / 2 - 34, "意見が分かれた", 30, J.ALERT, "middle", 300))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  current（c910・c911）＝上から（模式）：南へ向かう流れ（約196度＝南南西・約1.3ノット＝時速約2.4キロ＝G2 p.9）→
+#  北から来る冷たい海流が、いつもより南まで張り出す（部品の舌が南へ伸びる）→（c911）調査官も次長も同じ見方
+# ══════════════════════════════════════════════════════════
+CR = dict(top=300.0, usual=500.0, far=740.0, x0=720.0, x1=1200.0)
+CR_DIR = 196.0
+CR_KMH = "時速約2.4キロ"
+CR_ARROWS = ((860.0, 360.0), (1000.0, 380.0), (940.0, 470.0))
+
+
+def _cr_tongue(tip):
+    x0, x1, top = CR["x0"], CR["x1"], CR["top"]
+    xm = (x0 + x1) / 2
+    return [(x0, top), (x1, top), (x1 - 50, tip - 110), (xm, tip), (x0 + 50, tip - 110)]
+
+
+def current_parts(st):
+    return [_P("tongue", "poly", _cr_tongue(CR["far"] if st.get("far") == "on" else CR["usual"]), fill=J.LINE, stroke=None, w=2, alpha=0.32)]
+
+
+def cr_vec(L=110.0):
+    a = math.radians(CR_DIR)
+    return L * math.sin(a), -L * math.cos(a)
+
+
+def current_base(st0):
+    return [F.line(600.0, CR["usual"], 1320.0, CR["usual"], J.TICK, 3, dash="10 10"),
+            _tline(1340.0, CR["usual"] + 10, "いつもの南の端", 26, J.TICK, "start", 260), _north(1760.0, 380.0)]
+
+
+def current_stage(prev, st):
+    s = []
+    if _on(prev, st, "flow"):
+        vx, vy = cr_vec()
+        for x, y in CR_ARROWS:
+            s.append(_arrow(x, y, x + vx, y + vy, INK, 6, 22))
+        s.append(_tline(1340.0, 360.0, "南へ向かう流れ", 28, INK, "start", 300))
+        s.append(_tline(1340.0, 404.0, CR_KMH, 28, J.AMBER, "start", 300))
+    if _on(prev, st, "far"):
+        s.append(_tline(960.0, 286.0, "北から来る冷たい海流", 28, J.LINE, "middle", 400))
+        s.append(_arrow(1250.0, CR["usual"] + 20, 1250.0, CR["far"] - 20, J.AMBER, 5, 20) + _tline(1280.0, 680.0, "いつもより南まで", 28, J.AMBER, "start", 300))
+    if _on(prev, st, "both"):
+        s.append(_say(380.0, 440.0, "insp", "流れは南へ", head="調査官") + _check(560.0, 410.0, 18, J.OK))
+        s.append(_say(380.0, 610.0, "dep", "流れは南へ", head="次長") + _check(560.0, 580.0, 18, J.OK))
+        s.append(_tline(380.0, 730.0, "2人とも同じ", 30, INK, "middle", 260))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  dist2col（c912）＝正面：2人の距離の物差し（横は距離に比例＝1マイル 60画素）：調査官 5〜10マイル（約9〜19キロ）・たぶん5に近い／
+#  次長 17〜20マイル（約31〜37キロ）・たぶん約18（約33キロ）（G2 p.3・p.7）。🔴 どちらにも帰属の札
+# ══════════════════════════════════════════════════════════
+DC = dict(x0=420.0, k=60.0, ys=(480.0, 680.0), h=44.0, axis=800.0)
+DC_INSP = (5, 10, 5)
+DC_DEP = (17, 20, 18)
+
+
+def dc_x(mi):
+    return DC["x0"] + mi * DC["k"]
+
+
+def dist2col_base(st0):
+    g = [F.line(DC["x0"], DC["axis"], dc_x(21.5), DC["axis"], J.LINE, 4)]
+    for m in range(0, 21, 5):
+        g.append(F.line(dc_x(m), DC["axis"] - 12, dc_x(m), DC["axis"] + 12, J.LINE, 3))
+    g.append(_tline(DC["x0"], DC["axis"] + 46, "近い", 26, J.TICK, "middle", 100) + _tline(dc_x(20), DC["axis"] + 46, "遠い", 26, J.TICK, "middle", 100))
+    for key, y in zip(("insp", "dep"), DC["ys"]):
+        g.append(_chip(250.0, y, SRC[key][0], sc(key), 30))
+        g.append(F.line(DC["x0"], y, dc_x(21.5), y, J.LINE_DIM, 2, dash="6 10"))
+    return g
+
+
+def _dc_bar(vals, y, key, lab, lab2):
+    a, b, p = vals
+    h = DC["h"]
+    return (F.rect(dc_x(a), y - h / 2, dc_x(b) - dc_x(a), h, sc(key), None, None, rx=h / 2, op=0.75)
+            + _tline((dc_x(a) + dc_x(b)) / 2, y - h / 2 - 16, lab, 30, sc(key), "middle", 360)
+            + (_tline(dc_x(p), y + h / 2 + 40, lab2, 26, INK, "middle", 300) if lab2 else ""))
+
+
+def dist2col_stage(prev, st):
+    s = []
+    if _on(prev, st, "dep"):
+        s.append(_chip(960.0, 330.0, "分かれた点：流れがいつから押したか", J.AMBER, 26))
+        s.append(_dc_bar(DC_DEP, DC["ys"][1], "dep", "約31〜37キロ", "たぶん約33キロ") + F.circ(dc_x(DC_DEP[2]), DC["ys"][1], 12, INK))
+    if _on(prev, st, "insp"):
+        s.append(_dc_bar(DC_INSP, DC["ys"][0], "insp", "約9〜19キロ", ""))
+    if _on(prev, st, "near"):
+        s.append(F.circ(dc_x(DC_INSP[2]), DC["ys"][0], 12, INK) + _tline(dc_x(DC_INSP[2]), DC["ys"][0] + DC["h"] / 2 + 40, "たぶん9キロに近い", 26, INK, "middle", 300))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  drift_s（c913）＝上から（模式）：調査官の見方＝カリフォルニアン号は14日の昼から南へ流された（緑の弧）・船長の計算は流れを入れていない（桃の点線）→
+#  だからタイタニック号にもっと近かった（G2 p.9・p.3）。🔴 c604（2つの点と流れの枠）と形を替えた＝2本の道すじ
+# ══════════════════════════════════════════════════════════
+DS = dict(start=(1680.0, 420.0), calc=(800.0, 420.0), real=(820.0, 630.0), tt=(560.0, 770.0))
+
+
+def ds_real_path():
+    (x0, y0), (x1, y1) = DS["start"], DS["real"]
+    return [(x0 + (x1 - x0) * t, y0 + (y1 - y0) * t ** 1.8) for t in [i / 20 for i in range(21)]]
+
+
+def drift_s_base(st0):
+    sx, sy = DS["start"]
+    tx, ty = DS["tt"]
+    return [F.circ(sx, sy, 12, sc("cf")), _tline(sx, sy - 30, "14日の昼", 28, J.AMBER, "middle", 200),
+            _xmark(tx, ty, 18, sc("tt"), 7), _tline(tx + 36, ty + 10, "タイタニック号", 26, sc("tt"), "start", 260), _north(1760.0, 700.0)]
+
+
+def drift_s_stage(prev, st):
+    s = []
+    rx, ry = DS["real"]
+    cx, cy = DS["calc"]
+    if _on(prev, st, "flow"):
+        p = ds_real_path()
+        s.append(F.poly(p[:-1], "none", sc("cf"), 6) + _ship_top(rx, ry, 90.0, 28.0, -90.0, sc("cf")))
+        s.append(_tline(1180.0, 600.0, "南へ流される", 28, sc("cf"), "start", 260))
+        s.append(_chip(400.0, 330.0, "調査官の見方", sc("insp"), 28))
+    if _on(prev, st, "calc"):
+        sx, sy = DS["start"]
+        s.append(F.line(sx, sy, cx + 50, cy, sc("cap"), 4, dash="12 10") + _ship_top(cx, cy, 90.0, 28.0, -90.0, sc("cap"), dash="8 6"))
+        s.append(_tline(cx, cy - 40, "船長の計算", 28, sc("cap"), "middle", 220))
+        s.append(_arrow(rx - 40, ry + 30, DS["tt"][0] + 60, DS["tt"][1] - 40, J.AMBER, 5, 20) + _tline(640.0, 640.0, "もっと近い", 28, J.AMBER, "end", 220))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  polaris（c914）＝横から（模式）：カリフォルニアン号の時計で 19:30、北極星の高さ（角度）＝緯度 → 正午と同じ緯度＝真西へ進んでいた（G2 p.10）。
+#  角度は 42°05′（sources.md §2-1）＝札に数は出さない。🔴 次長の緑とカリフォルニアン号の緑が重なる＝「次長の論拠」は白い字
+# ══════════════════════════════════════════════════════════
+PO = dict(eye=(470.0, 690.0), r=560.0, hull=(300.0, 640.0, 760.0), inset=(1320.0, 600.0, 1760.0, 830.0))
+PO_LAT = 42.0 + 5.0 / 60.0
+PO_T = "19:30"
+
+
+def po_star():
+    ex, ey = PO["eye"]
+    a = math.radians(PO_LAT)
+    return ex + PO["r"] * math.cos(a), ey - PO["r"] * math.sin(a)
+
+
+def polaris_base(st0):
+    x0, x1, yw = PO["hull"]
+    ex, ey = PO["eye"]
+    return [F.line(200.0, yw, 1760.0, yw, J.LINE_DIM, 3), _ship_side(x0, x1, yw, sc("cf"), h=34.0),
+            F.circ(ex, ey, 9, INK), F.line(ex, ey, 1200.0, ey, J.TICK, 3, dash="10 10"), _tline(1210.0, ey + 9, "水平", 24, J.TICK, "start", 100)]
+
+
+def polaris_stage(prev, st):
+    s = []
+    ex, ey = PO["eye"]
+    sx, sy = po_star()
+    if _on(prev, st, "dep"):
+        s.append(_chip(1480.0, 330.0, "次長の論拠：星の観測", J.LINE, 28, ink=INK))
+    if _on(prev, st, "star"):
+        s.append(F.line(ex, ey, sx, sy, J.AMBER, 4) + _star(sx, sy, 26, J.AMBER) + _tline(sx + 40, sy + 10, "北極星", 28, J.AMBER, "start", 200))
+        s.append(F.poly(_arcpts(ex, ey, 150, 150, -PO_LAT, 0.0, 12), "none", J.AMBER, 5) + _tline(ex + 170, ey - 40, "高さ＝緯度", 26, J.AMBER, "start", 200))
+        s.append(_clk(1100.0, 470.0, PO_T, "cf", 28))
+    if _on(prev, st, "same"):
+        a, b, c, d = PO["inset"]
+        s.append(F.rect(a, b, c - a, d - b, J.BG2, J.LINE_DIM, 3, rx=10, dash="8 8") + _north(c - 40, b + 70, 1.0))   # 🔧 geom_gap：0.6 倍では「北」が三角に触れた
+        s.append(_ship_top(c - 120, (b + d) / 2 + 20, 80.0, 24.0, -90.0, sc("cf")) + _arrow(c - 170, (b + d) / 2 + 20, a + 40, (b + d) / 2 + 20, sc("cf"), 5, 20))
+        s.append(_tline(a + 20, b + 40, "正午と同じ緯度", 26, J.AMBER, "start", 300) + _tline((a + c) / 2 - 30, d - 20, "真西へ", 28, sc("cf"), "middle", 200))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  antillian（c915）＝上から（模式）：18:30（カリフォルニアン号の時計）の推測の位置と南の大きな氷山3つ → アンティリアン号への電報（事故の前＝あとから作れない）→
+#  止まった位置へ真西の線と合う（G2 p.7・p.10・G1 p.56）。🔴 次長は白い字（緑が重なる）
+# ══════════════════════════════════════════════════════════
+AN = dict(cf=(1180.0, 520.0), an=(1640.0, 360.0), stop=(520.0, 520.0))
+AN_ICE = ((1110.0, 650.0), (1190.0, 680.0), (1270.0, 650.0))
+AN_T = "18:30"
+
+
+def antillian_base(st0):
+    x, y = AN["cf"]
+    return [_ship_top(x, y, 90.0, 28.0, -90.0, sc("cf")), F.circ(x, y + 46, 7, sc("cf")), _north(1760.0, 720.0)]
+
+
+def antillian_stage(prev, st):
+    s = []
+    x, y = AN["cf"]
+    ax, ay = AN["an"]
+    if _on(prev, st, "msg"):
+        for ix, iy in AN_ICE:
+            s.append(_ice(ix, iy, 0.8))
+        s.append(_tline(1190.0, 750.0, "大きな氷山3つ", 28, J.SUB, "middle", 300))
+        s.append(_clk(860.0, 360.0, f"{AN_T}の位置", "cf", 26, mw=620))
+        s.append(_slip(1330.0, 450.0, J.AMBER, 60.0, 40.0, 3) + _waves(1370.0, 440.0, 20, 3, J.AMBER, -70, -10, 16, 4))
+        s.append(_ship_top(ax, ay, 70.0, 22.0, -90.0, sc("an")) + _tline(ax - 60, ay + 10, SRC["an"][0], 26, sc("an"), "end", 300))
+        s.append(_chip(400.0, 330.0, "次長の論拠：電報", J.LINE, 28, ink=INK))
+    if _on(prev, st, "west"):
+        sx, sy = AN["stop"]
+        s.append(F.line(x - 60, y, sx + 30, sy, sc("cf"), 4, dash="12 10") + _arrow(sx + 80, sy, sx + 20, sy, sc("cf"), 4, 20))
+        s.append(_tline((x + sx) / 2, y - 26, "西へ進む線と合う", 28, sc("cf"), "middle", 320))
+        s.append(_chip(1500.0, 540.0, "あとから作れない", J.AMBER, 26))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  horizon（c919）＝横から（模式）：地球の丸み（大きな円の弧）と見張りの目の高さ・水平線＝目から弧に触れる線 → 近い船の灯は見え、遠い船の灯は線の下に隠れる（G2 p.13）→
+#  2人の距離の見方は、見えたかどうかの考えに引っぱられている（次長＝G2 p.11）。🔴 c925（空気の層）と形を替えた
+# ══════════════════════════════════════════════════════════
+HZ = dict(cx=960.0, cy=1940.0, R=1300.0, ex=460.0, eh=130.0, near=800.0, far=1500.0, mast=50.0, xr=(300.0, 1640.0))
+
+
+def hz_y(x):
+    return HZ["cy"] - math.sqrt(HZ["R"] ** 2 - (x - HZ["cx"]) ** 2)
+
+
+def hz_eye():
+    return HZ["ex"], hz_y(HZ["ex"]) - HZ["eh"]
+
+
+def hz_tangent():
+    """目から弧に触れる線の向き（画面の角度・度）と触れる点。"""
+    ex, ey = hz_eye()
+    dx, dy = HZ["cx"] - ex, HZ["cy"] - ey
+    d = math.hypot(dx, dy)
+    a = math.degrees(math.atan2(dy, dx)) - math.degrees(math.asin(HZ["R"] / d))
+    L = math.sqrt(d * d - HZ["R"] ** 2)
+    return a, (ex + L * math.cos(math.radians(a)), ey + L * math.sin(math.radians(a)))
+
+
+def hz_line_y(x):
+    ex, ey = hz_eye()
+    a, _t = hz_tangent()
+    return ey + (x - ex) * math.tan(math.radians(a))
+
+
+def hz_light(x):
+    return x, hz_y(x) - HZ["mast"]
+
+
+def horizon_base(st0):
+    x0, x1 = HZ["xr"]
+    pts = [(x0 + (x1 - x0) * i / 40, hz_y(x0 + (x1 - x0) * i / 40)) for i in range(41)]
+    ex, ey = hz_eye()
+    g = [F.poly(pts, "none", J.LINE, 5), F.line(ex, hz_y(ex), ex, ey, J.LINE, 4), _eye(ex, ey - 4, J.TICK, 0.5)]
+    for x in (HZ["near"], HZ["far"]):
+        g.append(F.line(x, hz_y(x), x, hz_light(x)[1], J.LINE, 4))
+    g.append(_lamp(*hz_light(HZ["near"]), J.AMBER, 9.0, 2.4))
+    g.append(_lamp(*hz_light(HZ["far"]), J.AMBER, 9.0, 2.4))
+    return g
+
+
+def horizon_stage(prev, st):
+    s = []
+    ex, ey = hz_eye()
+    if _on(prev, st, "hide"):
+        _a, (tx, ty) = hz_tangent()
+        s.append(F.line(ex, ey, 1720.0, hz_line_y(1720.0), J.TICK, 3, dash="12 8"))
+        s.append(F.circ(tx, ty, 8, J.TICK) + _tline(tx, ty + 46, "水平線", 26, J.TICK, "middle", 160))
+        nx, ny = hz_light(HZ["near"])
+        fx, fy = hz_light(HZ["far"])
+        s.append(_tline(nx, ny - 34, "見える", 26, J.AMBER, "middle", 140))
+        s.append(_xmark(fx, fy + 40, 16, J.ALERT, 6) + _tline(fx + 36, fy + 50, "隠れる", 26, J.ALERT, "start", 140))   # 🔧 geom_gap：下では弧に 5px
+    if _on(prev, st, "two"):
+        s.append(_say(560.0, 350.0, "insp", "近い → 見えた", head="調査官"))
+        s.append(_say(1360.0, 350.0, "dep", "遠い → 見えない", head="次長"))
+    if _on(prev, st, "pull"):
+        s.append(_tline(760.0, 486.0, "距離の見方", 28, INK, "middle", 220) + _tline(1160.0, 486.0, "見えたかの考え", 28, INK, "middle", 260))
+        s.append(_arrow(1020.0, 476.0, 890.0, 476.0, J.ALERT, 5, 20) + _tline(960.0, 530.0, "引っぱられている", 26, J.ALERT, "middle", 260))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  tt_watch（c921）＝横から（模式）：左の枠＝カリフォルニアン号の側（見えたことは次長も反対しない）→ 右＝タイタニック号の船橋と見張り台から見た海には、
+#  タイタニック号の時計で 0:30ごろまで、ほかの船の灯は見えない（見張り台にも船橋にも人がいた＝G2 p.12）。🔴 c403（電話の線と鐘）と形を替えた＝目の届く先
+# ══════════════════════════════════════════════════════════
+TW = dict(hull=(760.0, 1400.0, 780.0), inset=(140.0, 300.0, 620.0, 520.0))
+TW_T = "0:30ごろまで"
+
+
+def tw_points():
+    x0, x1, yw = TW["hull"]
+    (_m0, _y0), (mx, my) = _mast_tops(x0, x1, yw, 40.0)
+    L = x1 - x0
+    return (x0 + L * 0.66, yw - 40.0 - 40.0 * 0.55 - 8), (mx, my + 34)
+
+
+def tt_watch_base(st0):
+    x0, x1, yw = TW["hull"]
+    return [F.line(200.0, yw, 1760.0, yw, J.LINE_DIM, 3), _ship_side(x0, x1, yw, sc("tt"), h=40.0)]
+
+
+def tt_watch_stage(prev, st):
+    s = []
+    (bx, by), (nx, ny) = tw_points()
+    if _on(prev, st, "cfok"):
+        a, b, c, d = TW["inset"]
+        s.append(F.rect(a, b, c - a, d - b, J.BG2, sc("cf"), 3, rx=12, dash="10 8"))
+        s.append(_eye(a + 90, (b + d) / 2, sc("cf"), 0.7) + _check(a + 190, (b + d) / 2, 20, sc("cf")))
+        s.append(_tline(a + 250, b + 70, "カリフォルニアン号", 26, sc("cf"), "start", 230) + _tline(a + 250, b + 114, "の側", 26, sc("cf"), "start", 230))
+        s.append(_tline((a + c) / 2, d - 24, "次長も反対しない", 26, INK, "middle", 400))
+    if _on(prev, st, "ans"):
+        for (x, y) in ((bx, by), (nx, ny)):
+            s.append(F.line(x, y, 1760.0, y - 40, J.TICK, 3, dash="10 10") + F.line(x, y, 1760.0, y + 60, J.TICK, 3, dash="10 10"))
+        s.append(_qmark(1640.0, 530.0, 56) + _tline(1640.0, 460.0, "ほかの船は見えない", 26, J.ALERT, "middle", 320))   # 🔧 geom_gap：見る線の上だった
+        s.append(_clk(1080.0, 400.0, TW_T, "tt", 28))
+    if _on(prev, st, "crew"):
+        s.append(F.circ(nx, ny, 9, J.AMBER) + _tline(nx - 24, ny - 40, "見張り台", 26, J.AMBER, "end", 160))   # 🔧 geom_gap：「船橋」に 3px
+        s.append(F.circ(bx, by, 9, J.AMBER) + _tline(bx + 20, by - 30, "船橋", 26, J.AMBER, "start", 120))   # 🔧 geom_gap：左では煙突に重なった
+        s.append(_tline(1080.0, 850.0, "どちらにも人がいた", 26, J.AMBER, "middle", 320))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  third（c923）＝上から（模式）：次長の見方の1つ＝第三の船（形は描き分けない）が東から来て氷原で止まり、しばらくして、すき間を探して去る（G2 p.13）
+#  🔴 c602（止まる緑の船）と形を替えた＝点線の道すじと印（船の色は付けない＝名前の分からない船）
+# ══════════════════════════════════════════════════════════
+TH = dict(arrive=(1700.0, 520.0), stop=(860.0, 520.0), leave=(1060.0, 820.0))
+TH_ICE = ((600.0, 330.0), (700.0, 430.0), (620.0, 540.0), (720.0, 650.0), (610.0, 760.0), (680.0, 820.0), (540.0, 450.0), (560.0, 660.0))
+
+
+def third_parts(st):
+    ax, ay = TH["arrive"]
+    dx = TH["stop"][0] - ax + 40.0 if st.get("path") == "on" else 0.0
+    return [_P("ship", "poly", _top_pts(ax, ay, 90.0, 28.0), fill=J.BG2, stroke=J.LINE, w=4, pivot=[ax, ay], rot=-90.0, dx=dx,
+               alpha=1.0 if st.get("one") == "on" else 0.0)]
+
+
+def third_base(st0):
+    g = [F.poly([(500.0, 300.0), (780.0, 300.0), (770.0, 840.0), (500.0, 840.0)], J.SUB, None, close=True, op=0.10)]
+    for x, y in TH_ICE:
+        g.append(_ice(x, y, 0.9))
+    g.append(_tline(640.0, 286.0, "氷原", 28, J.SUB, "middle", 120) + _north(1760.0, 720.0))
+    return g
+
+
+def third_stage(prev, st):
+    s = []
+    if _on(prev, st, "q"):
+        s.append(_qmark(1520.0, 345.0, 60))
+    if _on(prev, st, "one"):
+        s.append(_chip(1160.0, 340.0, "次長の見方：第三の船", sc("dep"), 28))
+        s.append(_tline(1700.0, 590.0, "名前の分からない船", 24, J.TICK, "end", 320))
+    if _on(prev, st, "path"):
+        (ax, ay), (sx, sy), (lx, ly) = TH["arrive"], TH["stop"], TH["leave"]
+        s.append(F.line(ax - 60, ay, sx + 100, sy, J.LINE, 4, dash="12 10") + _tline(1400.0, ay - 30, "東から来る", 26, INK, "middle", 200))
+        s.append(F.line(sx - 6, sy - 40, sx - 6, sy + 40, J.AMBER, 6) + F.line(sx + 10, sy - 40, sx + 10, sy + 40, J.AMBER, 6)
+                 + _tline(sx + 2, sy - 56, "止まる", 26, J.AMBER, "middle", 140))
+        p = _qbez((sx + 30, sy + 60), (sx + 40, ly - 40), (lx, ly))
+        s.append(F.poly(p[:-2], "none", J.LINE, 4, dash="12 10") + _arrow(p[-3][0], p[-3][1], p[-1][0], p[-1][1], J.LINE, 4, 20))
+        s.append(_tline(lx + 30, ly - 10, "すき間を探して去る", 26, INK, "start", 320))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  refract（c925）＝横から（模式）：海の上の冷たい空気と上の暖かい空気の層で、光が曲がる（G2 p.13・Annex 4）→ 水平線（海のふくらみ）の向こうの船が
+#  浮き上がって見える → それなら遠くのタイタニック号を見ていたことになる。🔴 c919（地球の弧と線）と形を替えた＝空気の層と曲がる光
+# ══════════════════════════════════════════════════════════
+RF = dict(sea=780.0, cold=660.0, warm=440.0, eye=(300.0, 724.0), bump=(900.0, 1300.0, 712.0), ship=(1480.0, 1640.0))
+
+
+def rf_light():
+    a, b = RF["ship"]
+    return (a + b) / 2 + 30, RF["sea"] - 52.0
+
+
+def refract_base(st0):
+    sea, cold, warm = RF["sea"], RF["cold"], RF["warm"]
+    b0, b1, by = RF["bump"]
+    g = [F.rect(180.0, cold, 1580.0, sea - cold, J.LINE, None, None, op=0.16), F.rect(180.0, warm, 1580.0, cold - warm, J.AMBER, None, None, op=0.08),
+         _tline(200.0, sea - 14, "冷たい空気", 26, J.LINE, "start", 200), _tline(200.0, warm + 36, "暖かい空気", 26, J.AMBER, "start", 200),
+         F.poly([(180.0, sea)] + _qbez((b0, sea), ((b0 + b1) / 2, 2 * by - sea), (b1, sea), 16) + [(1760.0, sea)], J.BG2, J.LINE, 4),
+         _tline((b0 + b1) / 2, by + 52, "海のふくらみ", 24, J.TICK, "middle", 200)]
+    a, b = RF["ship"]
+    g.append(_ship_side(a, b, RF["sea"], J.LINE, h=14.0))
+    g.append(_lamp(*rf_light(), J.AMBER, 7.0, 2.2))
+    ex, ey = RF["eye"]
+    g.append(_eye(ex, ey, J.TICK, 0.5))
+    return g
+
+
+def refract_stage(prev, st):
+    s = []
+    ex, ey = RF["eye"]
+    lx, ly = rf_light()
+    if _on(prev, st, "bend"):
+        s.append(F.line(ex + 30, ey, (RF["bump"][0] + RF["bump"][1]) / 2, RF["bump"][2] + 12, J.TICK, 3, dash="8 8")
+                 + _xmark((RF["bump"][0] + RF["bump"][1]) / 2 + 30, RF["bump"][2] - 20, 14, J.ALERT, 5))
+        p = _qbez((lx, ly), ((lx + ex) / 2, 520.0), (ex + 30, ey - 6))
+        s.append(F.poly(p[:-2], "none", J.AMBER, 5) + _arrow(p[-3][0], p[-3][1], p[-1][0], p[-1][1], J.AMBER, 5, 18))
+        s.append(_tline(960.0, 560.0, "光が曲がる", 28, J.AMBER, "middle", 220))
+    if _on(prev, st, "ghost"):
+        a, b = RF["ship"]
+        s.append(_ship_side(a, b, 600.0, J.AMBER, h=14.0, dash="8 6", sw=3) + _tline((a + b) / 2, 500.0, "浮き上がって見える", 26, J.AMBER, "middle", 300))
+    if _on(prev, st, "tt"):
+        a, b = RF["ship"]
+        s.append(_tline((a + b) / 2, RF["sea"] + 40, "タイタニック号", 28, sc("tt"), "middle", 260) + _tline((a + b) / 2, RF["sea"] + 76, "（遠く）", 24, sc("tt"), "middle", 160))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  swing（c927）＝上から（模式）：見えた船（東向き＝右舷＝緑が船長の目の側）→ 止まってから右（右舷）へ大きく回る → 赤（左舷）が見える（G2 p.13）／
+#  右の枠＝止まったままのタイタニック号なら赤は見えないはず（次長の見方）。🔴 c607（1隻の扇）と形を替えた＝向きが変わる船（部品が回る）
+#  🔴 舷灯の左右は門番が測る（右舷＝緑・左舷＝赤・回る向きは時計回り＝右舷へ）
+# ══════════════════════════════════════════════════════════
+SG = dict(cx=820.0, cy=450.0, L=300.0, W=76.0, eye=(820.0, 800.0), rot=150.0, inset=(1340.0, 330.0, 1780.0, 720.0))
+
+
+def _sg_lamps(cx, cy, L, W):
+    """東向き（船首＝右）の船の舷灯の中心＝右舷（下＝南）が緑・左舷（上＝北）が赤。"""
+    return dict(green=(cx + 0.14 * L, cy + W / 2 + 12), red=(cx + 0.14 * L, cy - W / 2 - 12))
+
+
+def swing_parts(st):
+    cx, cy, L, W = SG["cx"], SG["cy"], SG["L"], SG["W"]
+    rot = SG["rot"] if st.get("seen") == "on" else 0.0
+    lp = _sg_lamps(cx, cy, L, W)
+    g = [_P("hull", "poly", _top_pts(cx, cy, L, W), fill=J.BG2, stroke=J.LINE, w=4, pivot=[cx, cy], rot=90.0 + rot)]
+    for side in ("green", "red"):
+        x, y = lp[side]
+        lit = (side == "green") != (st.get("seen") == "on")
+        g.append(_P(side, "poly", _cpts(x, y, 14), fill=LIGHT[side], stroke=None, w=2, pivot=[cx, cy], rot=rot, alpha=1.0 if lit else 0.25))
+    return g
+
+
+def swing_base(st0):
+    ex, ey = SG["eye"]
+    return [_eye(ex, ey, sc("cap"), 0.8), _tline(ex + 70, ey + 10, "船長の目", 26, sc("cap"), "start", 200),
+            F.line(ex, ey - 40, SG["cx"], SG["cy"] + 120, J.TICK, 3, dash="8 10"), _tline(SG["cx"] - 210, SG["cy"] - 130, "見えた船", 26, J.TICK, "middle", 200)]
+
+
+def swing_stage(prev, st):
+    s = []
+    if _on(prev, st, "seen"):
+        s.append(_tline(560.0, 640.0, "最初は緑", 28, LIGHT["green"], "end", 200) + _tline(560.0, 684.0, "のちに赤", 28, LIGHT["red"], "end", 200))
+        s.append(_arc_arrow(SG["cx"], SG["cy"], 210, 210, -40.0, 60.0, J.AMBER, 5, 20) + _tline(1060.0, 640.0, "止まってから右へ回る", 26, J.AMBER, "start", 320))
+    if _on(prev, st, "tt"):
+        a, b, c, d = SG["inset"]
+        x, y = (a + c) / 2, (b + d) / 2 - 10
+        s.append(F.rect(a, b, c - a, d - b, J.BG2, sc("tt"), 3, rx=12, dash="10 8"))
+        s.append(_tline(x, b + 44, "止まったままの", 26, INK, "middle", 300) + _tline(x, b + 84, "タイタニック号", 26, sc("tt"), "middle", 300))
+        s.append(_ship_top(x, y + 30, 200.0, 50.0, 90.0, sc("tt")))
+        lp = _sg_lamps(x, y + 30, 200.0, 50.0)
+        s.append(_lamp(*lp["green"], LIGHT["green"], 10.0, 2.2) + _lamp(*lp["red"], LIGHT["red"], 10.0, 1.0) + _xmark(lp["red"][0] + 40, lp["red"][1] - 6, 14, J.ALERT, 5))
+        s.append(_tline(x, d - 56, "赤は見えないはず", 26, J.ALERT, "middle", 320) + _tline(x, d - 20, "（次長の見方）", 22, J.TICK, "middle", 220))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  seen2col（c928）＝正面（模式）：「タイタニック号は見えたか」の2列＝調査官「見えていた」（c920）／次長＝答えは出せない → 見えたなら異常屈折 → たぶん名前の分からない別の船（G2 p.13）
+#  🔴 c912（物差し）・c810（結ぶ行）と形を替えた＝片側に札が1枚ずつ積まれる
+# ══════════════════════════════════════════════════════════
+SC2 = dict(l=(320.0, 820.0), r=(1020.0, 1640.0), y0=390.0, ys=(490.0, 615.0, 740.0), h=100.0)
+SC2_DEP = ("答えは出せない", "見えたなら 異常屈折", "たぶん 別の船")
+
+
+def seen2col_base(st0):
+    (l0, l1), (r0, r1) = SC2["l"], SC2["r"]
+    return [_tline(960.0, 310.0, "タイタニック号は見えたか", 30, sc("tt"), "middle", 520),
+            _chip((l0 + l1) / 2, SC2["y0"], SRC["insp"][0], sc("insp"), 30), _chip((r0 + r1) / 2, SC2["y0"], SRC["dep"][0], sc("dep"), 30),
+            _card2((l0 + l1) / 2, SC2["ys"][0], l1 - l0, SC2["h"], sc("insp"), "", "見えていた", 30)]
+
+
+def seen2col_stage(prev, st):
+    s = []
+    (r0, r1) = SC2["r"]
+    for i, f in enumerate(("a", "b", "c")):
+        if _on(prev, st, f):
+            s.append(_card2((r0 + r1) / 2, SC2["ys"][i], r1 - r0, SC2["h"], sc("dep"), "", SC2_DEP[i], 30))
+            if i == 2:
+                s.append(_tline((r0 + r1) / 2, SC2["ys"][i] + SC2["h"] / 2 + 34, "（名前は分からない）", 24, J.TICK, "middle", 300))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  four_steps（c933）＝正面（模式）：取るべきだった4つの手の順の矢羽根（G2 p.15〜16）＝①二等航海士が船長を呼ぶ（応じなければ自分で行く）②機関室へ「すぐ動けるように」
+#  （Stand By Engines＝原文）③通信士を起こす ④船長は船橋へ・信号弾の方へ。🔴 c905（2×2 の札）・c825（箱と矢印）と形を替えた＝矢羽根の列
+# ══════════════════════════════════════════════════════════
+FS = dict(xs=(560.0, 1360.0), ys=(480.0, 720.0), w=700.0, h=150.0)
+FS_STEPS = (("①", "mate", "二等航海士が", "船長を呼ぶ"), ("②", None, "機関室へ", "すぐ動けるように"), ("③", None, "通信士を", "起こす"),
+            ("④", "cap", "船長は", "船橋へ → 信号弾の方へ"))
+
+
+def _chev(cx, cy, w, h, col):
+    a, b = cx - w / 2, cx + w / 2
+    return F.poly([(a, cy - h / 2), (b - 40, cy - h / 2), (b, cy), (b - 40, cy + h / 2), (a, cy + h / 2), (a + 40, cy)], J.BG2, col, 4, close=True)
+
+
+def four_steps_base(st0):
+    return []
+
+
+def four_steps_stage(prev, st):
+    s = []
+    on = {0: "s1", 1: "s2", 2: "s3", 3: "s3"}
+    for i, (num, who, hd, body) in enumerate(FS_STEPS):
+        if _on(prev, st, on[i]):
+            cx, cy = FS["xs"][i % 2], FS["ys"][i // 2]
+            col = sc(who) if who else J.LINE
+            s.append(_chev(cx, cy, FS["w"], FS["h"], col))
+            s.append(_tline(cx - FS["w"] / 2 + 70, cy + 14, num, 40, col, "start", 60))
+            s.append(_tline(cx - FS["w"] / 2 + 130, cy - 20, hd, 26, col, "start", 300) + _tline(cx - FS["w"] / 2 + 130, cy + 30, body, 32, INK, "start", FS["w"] - 200))
+            if i == 2:
+                s.append(_arrow(FS["xs"][0] + FS["w"] / 2 + 6, FS["ys"][1], FS["xs"][1] - FS["w"] / 2 + 30, FS["ys"][1], INK, 5, 20))
+    if _on(prev, st, "s1"):
+        s.append(_chip(960.0, 330.0, "取るべきだった手（次長の見方）", sc("dep"), 28))
+    if _on(prev, st, "s2"):
+        x, y = FS["xs"][0], FS["ys"][0]
+        s.append(_tline(x - FS["w"] / 2 + 130, y + FS["h"] / 2 + 36, "応じなければ自分で行く", 26, sc("mate"), "start", 400))
+        x, y = FS["xs"][1], FS["ys"][0]
+        s.append(_tline(x - FS["w"] / 2 + 130, y + FS["h"] / 2 + 36, "（Stand By Engines）", 24, J.TICK, "start", 400))
+        s.append(_arrow(FS["xs"][0] + FS["w"] / 2 + 6, FS["ys"][0], FS["xs"][1] - FS["w"] / 2 + 30, FS["ys"][0], INK, 5, 20))
+    if _on(prev, st, "s3"):
+        s.append(F.poly([(FS["xs"][1], FS["ys"][0] + FS["h"] / 2 + 60), (FS["xs"][1], FS["ys"][0] + FS["h"] / 2 + 70), (FS["xs"][0], FS["ys"][1] - FS["h"] / 2 - 18)],
+                        "none", INK, 4, dash="10 8"))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  asleep（c935）＝横から（模式）：眠りと目覚めの境の線・寝台の船長の顔の無い影 → 船橋から呼ぶ → 返事は境を越えるが、言われたことは境で止まる（✕）→
+#  船橋からの知らせは届かなかった（次長の見方＝G2 p.17）。心の中は描かない（境の線は次長の言う「眠りと目覚めの境」）
+# ══════════════════════════════════════════════════════════
+SL2 = dict(line=560.0, sleeper=(760.0, 720.0), bridge=(1560.0, 380.0), msg=(1000.0, 650.0))
+
+
+def asleep_base(st0):
+    x, y = SL2["sleeper"]
+    bx, by = SL2["bridge"]
+    return [F.line(200.0, SL2["line"], 1720.0, SL2["line"], J.TICK, 3, dash="14 10"),
+            _tline(220.0, SL2["line"] - 18, "目覚め", 26, J.TICK, "start", 160), _tline(220.0, SL2["line"] + 44, "眠り", 26, J.TICK, "start", 160),
+            F.rect(x - 160, y + 26, 340, 20, J.LINE_DIM, None, None, rx=4), _lying(x, y + 6, 0.9, sc("cap")),
+            _tline(x, y + 92, SRC["cap"][0], 26, sc("cap"), "middle", 140),
+            _room(bx, by, 220.0, 90.0, "船橋", J.LINE)]
+
+
+def asleep_stage(prev, st):
+    s = []
+    x, y = SL2["sleeper"]
+    bx, by = SL2["bridge"]
+    mx, my = SL2["msg"]
+    if _on(prev, st, "call"):
+        s.append(F.poly([(bx, by + 45), (bx, 700.0), (x + 220, 700.0)], "none", J.LINE, 4, dash="10 8"))
+        s.append(_waves(x + 120, y - 24, 16, 3, J.LINE, 140, 220, 16, 4) + _tline(bx + 30, 640.0, "呼ぶ", 26, INK, "start", 100))
+    if _on(prev, st, "reply"):
+        s.append(F.line(x - 40, y - 30, x - 40, 470.0, J.OK, 4, dash="8 8") + _chip(x - 40, 440.0, "（返事）", J.OK, 24))
+        s.append(_slip(mx, my, J.AMBER, 60.0, 40.0, 3) + F.line(mx, my - 30, mx, SL2["line"] + 10, J.AMBER, 4)
+                 + _xmark(mx, SL2["line"], 16, J.ALERT, 6) + _tline(mx + 50, my + 10, "頭に届かない", 26, J.AMBER, "start", 220))
+    if _on(prev, st, "nogo"):
+        s.append(_say(1360.0, 780.0, "dep", "届かなかった", head="次長の見方"))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  if_go（c938）＝上から（模式）：タイタニック号の時計で 0:45ごろの最初の信号弾で、すぐ全速で向かったら → いちばん近い見方の約31キロ（17マイル）でも、
+#  着くのはたぶん沈むころ（次長＝G2 p.18）。🔴 次長は白い字（緑が重なる）
+# ══════════════════════════════════════════════════════════
+IG = dict(cf=(520.0, 400.0), tt=(1480.0, 760.0))
+IG_T = "0:45ごろ"
+
+
+def if_go_base(st0):
+    (cx, cy), (tx, ty) = IG["cf"], IG["tt"]
+    deg = math.degrees(math.atan2(tx - cx, -(ty - cy)))
+    return [_ship_top(cx, cy, 100.0, 30.0, deg, sc("cf")), _tline(cx, cy - 70, SRC["cf"][0], 26, sc("cf"), "middle", 300),
+            _xmark(tx, ty, 18, sc("tt"), 7), _tline(tx, ty + 56, SRC["tt"][0], 26, sc("tt"), "middle", 260), _north(1760.0, 380.0)]
+
+
+def if_go_stage(prev, st):
+    s = []
+    (cx, cy), (tx, ty) = IG["cf"], IG["tt"]
+    if _on(prev, st, "q"):
+        s.append(_qmark(1500.0, 360.0, 60))
+    if _on(prev, st, "go"):
+        s.append(_burst(tx, ty - 70, rc("SUB"), 26, 4) + _clk(tx, ty - 120, IG_T, "tt", 26))
+        # 🔧 geom_gap：札が向かう矢印の上だった＝矢印の右上と左下へ
+        s.append(_arrow(cx + 50, cy + 30, tx - 60, ty - 36, sc("cf"), 6, 24) + _tline(900.0, 500.0, "すぐ全速で", 28, sc("cf"), "start", 220))
+    if _on(prev, st, "far"):
+        s.append(_tline(1000.0, 660.0, "最短 約31キロ", 30, J.AMBER, "end", 300))
+        # 🔧 layout：船の名の札に重なった＝左下へ
+        s.append(_tline(1100.0, 800.0, "着くのは沈むころ", 28, J.AMBER, "end", 320) + _tline(1100.0, 840.0, "（次長の見方）", 22, J.TICK, "end", 220))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  if_flow（c940）＝時間の線（模式・時刻の札は置かない）：正しく動いた場合の道すじ＝最初の信号弾 → 船長が船橋に来るまで少しかかる → 氷の中を慎重に →
+#  ずれた位置の無線で迷う → 着くのは沈んだずっとあと（次長＝G2 p.18）。🔴 c825（箱）・c933（矢羽根）と形を替えた＝曲がる道と目印
+# ══════════════════════════════════════════════════════════
+IF = dict(pts=((260.0, 640.0), (560.0, 470.0), (860.0, 640.0), (1160.0, 470.0), (1460.0, 640.0), (1700.0, 520.0)))
+
+
+def _if_path(i0, i1):
+    pts = IF["pts"]
+    out = []
+    for i in range(i0, i1):
+        (a, b), (c, d) = pts[i], pts[i + 1]
+        out += _qbez((a, b), ((a + c) / 2, (b + d) / 2 + (60 if i % 2 == 0 else -60)), (c, d), 10)[:-1]
+    return out + [pts[i1]]
+
+
+def if_flow_base(st0):
+    return [F.poly(_if_path(0, 5), "none", J.LINE_DIM, 3, dash="6 10")]
+
+
+def if_flow_stage(prev, st):
+    s = []
+    p = IF["pts"]
+    if _on(prev, st, "a"):
+        s.append(F.poly(_if_path(0, 2), "none", sc("cf"), 6))
+        s.append(_burst(p[0][0], p[0][1], rc("SUB"), 26, 4) + _tline(p[0][0], p[0][1] + 64, "最初の信号弾", 26, INK, "middle", 220))
+        s.append(_chip(p[1][0], p[1][1] - 60, "船長が船橋へ", sc("cap"), 26) + _tline(p[1][0], p[1][1] - 112, "少しかかる", 24, J.TICK, "middle", 200))
+        s.append(_ice(p[2][0], p[2][1] - 4, 0.9) + _tline(p[2][0], p[2][1] + 64, "氷の中を慎重に", 26, INK, "middle", 260))
+    if _on(prev, st, "b"):
+        s.append(F.poly(_if_path(2, 5), "none", sc("cf"), 6))
+        s.append(_slip(p[3][0], p[3][1] - 4, sc("tt"), 60.0, 40.0, 3) + _tline(p[3][0], p[3][1] - 56, "ずれた位置の無線", 26, sc("tt"), "middle", 260)
+                 + _tline(p[3][0], p[3][1] + 56, "迷う", 26, INK, "middle", 120))
+        # 🔧 echo：「着くのは沈んだずっとあと」は語りの丸写し＝着く印と短い札
+        s.append(F.circ(p[5][0], p[5][1], 14, J.TICK) + _tline(p[4][0], p[4][1] + 64, "沈んだずっとあと", 26, J.AMBER, "middle", 400))
+        s.append(_chip(1560.0, 330.0, "次長の見方", J.LINE, 26, ink=INK))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  第9章
+#  law1910（ca03）＝横から（模式）：左＝1910年の法（技能のある1人＝G6）→ その1人が眠れば、無線は誰も聞いていない／右＝1912年7月の法（2人以上・どちらかが当直＝G4・ca02 の続き）
+#  🔴 c302（海の上の吹き出し）と形を替えた＝2つの部屋を並べる
+# ══════════════════════════════════════════════════════════
+LW = dict(l=(160.0, 900.0), r=(1020.0, 1760.0), y0=330.0, top=380.0, floor=820.0)
+
+
+def _lw_room(a, b):
+    return (F.rect(a, LW["top"], b - a, LW["floor"] - LW["top"], J.BG2, J.LINE_DIM, 3, rx=10)
+            + F.rect(a + 40, 640.0, 260, 18, J.BG2, J.LINE, 4, rx=4) + F.line(a + 60, 658.0, a + 60, LW["floor"], J.LINE, 4)
+            + F.line(a + 280, 658.0, a + 280, LW["floor"], J.LINE, 4) + F.rect(a + 90, 570.0, 120, 70, J.BG2, J.LINE, 4, rx=6)
+            + F.rect(b - 300, 720.0, 260, 18, J.LINE_DIM, None, None, rx=4))
+
+
+def law1910_parts(st):
+    a = LW["l"][0]
+    sit = 0.0 if st.get("sleep") == "on" else 1.0
+    lie = 1.0 - sit
+    b = LW["l"][1]
+    return [_P("head0", "poly", _cpts(a + 360, 520.0, 20), fill=J.LINE, stroke=None, w=2, alpha=sit),
+            _P("body0", "poly", _sit_pts(a + 360, 640.0, 0.85), fill=J.LINE, stroke=None, w=2, alpha=sit),
+            _P("head1", "poly", _cpts(b - 236, 700.0, 17), fill=J.LINE, stroke=None, w=2, alpha=lie),
+            _P("body1", "poly", [(b - 214, 686.0), (b - 100, 686.0), (b - 100, 714.0), (b - 214, 714.0)], fill=J.LINE, stroke=None, w=2, alpha=lie)]
+
+
+def law1910_base(st0):
+    (l0, l1), (r0, r1) = LW["l"], LW["r"]
+    g = [_lw_room(l0, l1), _lw_room(r0, r1),
+         _chip((r0 + r1) / 2, LW["y0"], "1912年7月の法", J.AMBER, 28),
+         _figure(r0 + 360, 640.0, 0.85, J.LINE), _lying(r1 - 170, 700.0, 0.8, J.LINE_DIM),
+         _arc_arrow(r0 + 520, 600.0, 120, 70, 200.0, 340.0, J.AMBER, 4, 18),
+         _tline((r0 + r1) / 2, 420.0, "2人以上・どちらかが当直", 26, J.AMBER, "middle", 520)]   # 🔧 geom_gap：下では机の脚が貫いた
+    return g
+
+
+def law1910_stage(prev, st):
+    s = []
+    (l0, l1) = LW["l"]
+    if _on(prev, st, "one"):
+        s.append(_chip((l0 + l1) / 2, LW["y0"], "1910年の法", J.AMBER, 28))
+        s.append(_tline((l0 + l1) / 2, 420.0, "技能のある1人", 26, J.AMBER, "middle", 400))
+    if _on(prev, st, "sleep"):
+        s.append(_xmark(l0 + 150, 540.0, 20, J.ALERT, 8) + _tline((l0 + l1) / 2, 470.0, "誰も聞いていない", 28, J.ALERT, "middle", 360))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  linked（ca04）＝横から（模式）：無線室と船橋の2つの部屋（船体は描かない）を1本の線でつなぐ（1912年7月の法＝いつでも話せるように＝G4）→ 声が線を通る（部品）
+#  🔴 c311（船体の中の部屋と ✕）・c620（断面と伝声管）と形を替えた＝浮いた2つの部屋と時計の輪
+# ══════════════════════════════════════════════════════════
+LK = dict(radio=(520.0, 660.0, 300.0, 150.0), bridge=(1400.0, 440.0, 300.0, 150.0))
+
+
+def lk_ends():
+    rx, ry, rw, rh = LK["radio"]
+    bx, by, bw, bh = LK["bridge"]
+    return (rx + rw / 2 + 14, ry - rh / 2 + 30), (bx - bw / 2 - 14, by + bh / 2 - 30)
+
+
+def linked_parts(st):
+    (x0, y0), (x1, y1) = lk_ends()
+    on = st.get("ok") == "on"
+    return [_P("voice", "poly", _cpts(x0, y0, 14), fill=J.AMBER, stroke=None, w=2, alpha=1.0 if on else 0.0,
+               dx=x1 - x0 if on else 0.0, dy=y1 - y0 if on else 0.0)]
+
+
+def linked_base(st0):
+    rx, ry, rw, rh = LK["radio"]
+    bx, by, bw, bh = LK["bridge"]
+    return [F.rect(rx - rw / 2, ry - rh / 2, rw, rh, J.BG2, J.LINE, 4, rx=12) + F.rect(rx - 100, ry - 30, 90, 60, J.BG2, J.LINE, 3, rx=6)
+            + _tline(rx + 70, ry + 10, "無線室", 30, INK, "middle", 160),
+            F.rect(bx - bw / 2, by - bh / 2, bw, bh, J.BG2, J.LINE, 4, rx=12) + _wheel(bx - 70, by, 26, J.LINE) + _tline(bx + 60, by + 10, "船橋", 30, INK, "middle", 160)]
+
+
+def linked_stage(prev, st):
+    s = []
+    (x0, y0), (x1, y1) = lk_ends()
+    if _on(prev, st, "law"):
+        s.append(F.line(x0, y0, x1, y1, J.AMBER, 8))
+        mx, my = (x0 + x1) / 2, (y0 + y1) / 2
+        s.append(_clock(mx, my + 90, 40, J.AMBER) + _tline(mx + 60, my + 100, "いつでも", 28, J.AMBER, "start", 200))
+        s.append(_chip(960.0, 330.0, "1912年7月の法", J.AMBER, 28))
+    if _on(prev, st, "ok"):
+        s.append(_check(x1 + 60, y1 - 100, 22, J.OK) + _tline(x1 - 10, y1 - 150, "つながっている", 28, J.OK, "middle", 260))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  ice_rule（ca06）＝上から（模式）：航路の近くに氷の知らせ → 暗いあいだは、ほどほどの速さで進む（短い刻みの矢印）か、針路を変えて危ない海から大きく離れる（大回りの矢印）
+#  （英国の審問の勧め＝G1 p.87）
+# ══════════════════════════════════════════════════════════
+IR = dict(start=(280.0, 600.0), zone=((1000.0, 430.0), (1250.0, 390.0), (1430.0, 470.0), (1410.0, 650.0), (1200.0, 720.0), (990.0, 650.0)))
+IR_ICE = ((1090.0, 520.0), (1240.0, 480.0), (1330.0, 600.0), (1150.0, 640.0))
+
+
+def ice_rule_base(st0):
+    x, y = IR["start"]
+    return [F.line(x + 60, y, 1760.0, y, J.TICK, 3, dash="8 12"), _tline(1760.0, y - 16, "航路", 24, J.TICK, "end", 100),
+            _ship_top(x, y, 90.0, 28.0, 90.0, J.LINE), _tline(x, y - 60, "暗いあいだ", 26, J.TICK, "middle", 200), _north(1760.0, 760.0)]   # 🔧 geom_gap：下では大回りの道が貫いた
+
+
+def ice_rule_stage(prev, st):
+    s = []
+    x, y = IR["start"]
+    if _on(prev, st, "ice"):
+        s.append(F.poly(list(IR["zone"]), J.SUB, J.ALERT, 3, close=True, dash="10 8", op=0.18))
+        for ix, iy in IR_ICE:
+            s.append(_ice(ix, iy, 0.8))
+        s.append(_slip(430.0, 470.0, J.AMBER, 60.0, 40.0, 3) + _tline(480.0, 480.0, "氷の知らせ", 26, J.AMBER, "start", 200))
+        s.append(_chip(960.0, 330.0, "英国の審問の勧め", rc("SUB"), 28))
+    if _on(prev, st, "slow"):
+        for i in range(6):
+            xx = x + 80 + i * 90
+            s.append(F.poly([(xx, y - 14), (xx + 18, y), (xx, y + 14)], "none", J.AMBER, 5))
+        s.append(_tline(620.0, y - 40, "ほどほどの速さ", 28, J.AMBER, "middle", 300))
+    if _on(prev, st, "away"):
+        p = _qbez((x + 40, y + 30), (1000.0, 980.0), (1720.0, 680.0))
+        s.append(F.poly(p[:-2], "none", J.OK, 5) + _arrow(p[-3][0], p[-3][1], p[-1][0], p[-1][1], J.OK, 5, 22))
+        s.append(_tline(1220.0, 770.0, "大きく離れる", 28, J.OK, "middle", 260))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  ladder（ca08）＝時間の線（縦・模式＝並びは年の順・間は等しい）：1912年7月 米国の無線の法（G4）・8月 無線の法（G5）→ 1913年 米国の巡視船が氷を見張る →
+#  1914年 国際条約 → 国どうしの仕組みに（U1）・1948年 遭難の信号は赤（G2 p.18）。🔴 c902（横の年表）と並びと色を替えた
+# ══════════════════════════════════════════════════════════
+LD = dict(x=560.0, ys=(330.0, 445.0, 560.0, 675.0, 790.0))
+LD_EV = (("1912年7月", "米国の無線の法", "TICK"), ("1912年8月", "無線の法（遭難が先）", "TICK"), ("1913年", "巡視船が氷を見張る", "uscg"),
+         ("1914年", "国際条約", "AMBER"), ("1948年", "遭難の信号は赤", "ALERT"))
+
+
+LD_LATER = (2, 3)             # 語りで出す段（1913年・1914年）＝基図には中身の札を描かない（🔧 layout：同じ札が2つの層に重なった）
+
+
+def ladder_base(st0):
+    x = LD["x"]
+    g = [F.line(x, LD["ys"][0] - 20, x, LD["ys"][-1] + 20, J.LINE, 5)]
+    for i, ((yr, ev, c), y) in enumerate(zip(LD_EV, LD["ys"])):
+        g.append(F.circ(x, y, 14, rc(c), None, op=0.55))
+        g.append(_tline(x - 36, y + 11, yr, 30, rc(c), "end", 300))
+        if i not in LD_LATER:
+            g.append(_tline(x + 40, y + 11, ev, 28, J.TICK, "start", 520))
+    return g
+
+
+def ladder_stage(prev, st):
+    s = []
+    x = LD["x"]
+    if _on(prev, st, "patrol"):
+        y = LD["ys"][2]
+        s.append(F.circ(x, y, 22, "none", sc("rcs"), 6) + _tline(x + 40, y + 11, LD_EV[2][1], 28, sc("rcs"), "start", 520))
+        s.append(_ship_side(1220.0, 1420.0, y + 14, sc("rcs"), h=18.0) + _ice(1500.0, y + 4, 0.8) + _tline(1320.0, y + 56, SRC["rcs"][0], 24, sc("rcs"), "middle", 260))
+    if _on(prev, st, "treaty"):
+        y = LD["ys"][3]
+        s.append(F.circ(x, y, 22, "none", J.AMBER, 6) + _tline(x + 40, y + 11, LD_EV[3][1], 28, J.AMBER, "start", 520))
+    if _on(prev, st, "intl"):
+        y = LD["ys"][3]
+        for i, c in enumerate((J.USCG, J.ALERT, J.OK, J.SUB)):
+            fx = 900.0 + i * 70
+            s.append(F.line(fx, y + 20, fx, y - 30, J.TICK, 3) + F.rect(fx, y - 30, 44, 28, c, None, None, rx=3))
+        s.append(_tline(1200.0, y + 11, "国どうしの仕組みに", 28, J.AMBER, "start", 400))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  skies2（ca10）＝正面（模式）：2つの枠の夜空＝右「1948年から」遭難の信号は赤（G2 p.18）／左「1912年」何色でもよかった・タイタニック号のは白
+#  🔴 c516（1つの夜空の星の並び）と形を替えた＝枠を2つに・下から上がる筋
+# ══════════════════════════════════════════════════════════
+SK = dict(l=(180.0, 900.0), r=(1020.0, 1740.0), y0=320.0, top=360.0, bot=820.0)
+SK_ANY = ("SUB", "OK", "USCG", "AMBER", "ALERT")
+SK_TT = "SUB"
+SK_NOW = "ALERT"
+
+
+def skies2_base(st0):
+    g = []
+    for (a, b), t in ((SK["l"], "1912年"), (SK["r"], "1948年から")):
+        g.append(F.rect(a, SK["top"], b - a, SK["bot"] - SK["top"], J.BG, J.LINE_DIM, 4, rx=12))
+        g.append(_chip((a + b) / 2, SK["y0"], t, J.AMBER, 28))
+    return g
+
+
+def skies2_stage(prev, st):
+    s = []
+    if _on(prev, st, "q"):
+        s.append(_qmark(960.0, 600.0, 60))
+    if _on(prev, st, "red"):
+        a, b = SK["r"]
+        s.append(_trail((a + b) / 2, SK["bot"] - 30, (a + b) / 2, 470.0, rc(SK_NOW), 30.0))
+        s.append(_tline((a + b) / 2 + 60, 700.0, "遭難の信号は赤", 30, rc(SK_NOW), "start", 300))   # 🔧 geom_gap：筋が貫いた＝筋の右
+    if _on(prev, st, "any"):
+        a, b = SK["l"]
+        for i, c in enumerate(SK_ANY):
+            x = a + 110 + i * 125
+            s.append(_trail(x, SK["bot"] - 30, x, 470.0 + (i % 2) * 70, rc(c), 24.0 if i % 2 else -24.0))
+        xt = a + 110 + SK_ANY.index(SK_TT) * 125
+        # 🔧 geom_gap：下では筋が貫いた＝枠の上の左右へ
+        s.append(F.circ(xt, 470.0, 50, "none", sc("tt"), 4) + _tline(b - 20, 404.0, "タイタニック号＝白", 26, sc("tt"), "end", 300))
+        s.append(_tline(a + 20, 404.0, "何色でもよかった", 28, INK, "start", 300))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
 #  見え方の表（mech25 と同じ作り）
 # ══════════════════════════════════════════════════════════
 def _v(lab, fields, base, stage, parts=None):
@@ -1786,10 +3274,47 @@ VIEWS = dict(
     memory2=_v("正面から見た2つの記憶", ("l", "r", "one"), memory2_base, memory2_stage),
     cfband=_v("時間の線（縦）", ("ev", "sleep"), cfband_base, cfband_stage),
     swap=_v("横から見た2隻の船", ("think", "said", "q"), swap_base, swap_stage),
+    # 🆕 ⑤b-6：第6〜9章
+    boxfill=_v("正面から見たボートの席の量", ("two3", "num"), boxfill_base, boxfill_stage, boxfill_parts),
+    split2=_v("横から見た割れる1本の棒（人数）", ("live", "lost"), split2_base, split2_stage, split2_parts),
+    rates4=_v("横から見た割合の帯（助かった人）", ("a", "b"), rates4_base, rates4_stage, rates4_parts),
+    decks=_v("横から見た船の中の部屋", ("q", "rep", "far"), decks_base, decks_stage, decks_parts),
+    flare_bow=_v("上から見た前の灯と氷山", ("flare", "zig"), flare_bow_base, flare_bow_stage),
+    custom25=_v("時間の線（25年のやり方）", ("q", "band", "way"), custom25_base, custom25_stage),
+    before_after=_v("時間の線（これまでとこれから）", ("a", "b", "c"), before_after_base, before_after_stage),
+    match2=_v("正面から見た2つの列を結ぶ札", ("q", "cols", "pair"), match2_base, match2_stage),
+    clocks_gap=_v("正面から見た2つの時計の盤", ("range", "diff"), clocks_gap_base, clocks_gap_stage),
+    rings3=_v("上から見た距離の輪", ("q", "cap", "far", "lim"), rings3_base, rings3_stage),
+    few_min=_v("正面から見た無線室", ("sen", "few", "pride"), few_min_base, few_min_stage),
+    appeal=_v("時間の線（審問のあと）", ("ask", "none"), appeal_base, appeal_stage),
+    years6=_v("時間の線（調べ直しまで）", ("plea", "pet"), years6_base, years6_stage),
+    four_q=_v("正面から見た4つの問い", ("q", "a", "b"), four_q_base, four_q_stage),
+    book2=_v("正面から見た1冊の中の2つの結論", ("chief", "split"), book2_base, book2_stage),
+    current=_v("上から見た海の流れ", ("flow", "far", "both"), current_base, current_stage, current_parts),
+    dist2col=_v("正面から見た2人の距離の物差し", ("dep", "insp", "near"), dist2col_base, dist2col_stage),
+    drift_s=_v("上から見た2本の道すじ", ("flow", "calc"), drift_s_base, drift_s_stage),
+    polaris=_v("横から見た星の高さ", ("dep", "star", "same"), polaris_base, polaris_stage),
+    antillian=_v("上から見た電報の位置", ("msg", "west"), antillian_base, antillian_stage),
+    horizon=_v("横から見た地球の丸み", ("hide", "two", "pull"), horizon_base, horizon_stage),
+    tt_watch=_v("横から見た見張りの目の届く先", ("cfok", "ans", "crew"), tt_watch_base, tt_watch_stage),
+    third=_v("上から見た第三の船の道すじ", ("q", "one", "path"), third_base, third_stage, third_parts),
+    refract=_v("横から見た空気の層と光", ("bend", "ghost", "tt"), refract_base, refract_stage),
+    swing=_v("上から見た向きを変える船の灯", ("seen", "tt"), swing_base, swing_stage, swing_parts),
+    seen2col=_v("正面から見た2人の見方", ("a", "b", "c"), seen2col_base, seen2col_stage),
+    four_steps=_v("正面から見た4つの手の順", ("s1", "s2", "s3"), four_steps_base, four_steps_stage),
+    asleep=_v("横から見た眠りと目覚めの境", ("call", "reply", "nogo"), asleep_base, asleep_stage),
+    if_go=_v("上から見た向かう道すじ", ("q", "go", "far"), if_go_base, if_go_stage),
+    if_flow=_v("時間の線（向かった場合の道すじ）", ("a", "b"), if_flow_base, if_flow_stage),
+    law1910=_v("横から見た無線室の受け持ち", ("one", "sleep"), law1910_base, law1910_stage, law1910_parts),
+    linked=_v("横から見た無線室と船橋のつながり", ("law", "ok"), linked_base, linked_stage, linked_parts),
+    ice_rule=_v("上から見た2つの進み方", ("ice", "slow", "away"), ice_rule_base, ice_rule_stage),
+    ladder=_v("時間の線（縦・年の順）", ("patrol", "treaty", "intl"), ladder_base, ladder_stage),
+    skies2=_v("正面から見た2つの夜空", ("q", "red", "any"), skies2_base, skies2_stage),
 )
 START = {v: {f: d["fields"][f][0] for f in d["fields"]} for v, d in VIEWS.items()}
 # 値に比例・原文の値の写し（左上に「模式」を付けない）
-NOT_SCHEMATIC = ("tons2", "people4", "track3", "ttband", "rockets_n", "watches", "memory2", "cfband")
+NOT_SCHEMATIC = ("tons2", "people4", "track3", "ttband", "rockets_n", "watches", "memory2", "cfband",
+                 "boxfill", "split2", "rates4", "dist2col")
 
 
 def lab_of(view, st0):
@@ -1910,7 +3435,15 @@ VIEW_SRC = dict(tons2=("tt", "cf"), track3=("tt",), table1894=("tt",), radio3=("
                 damage=("tt",), tray=("tt",), ttband=("tt",), cqd=("tt", "cr"), carp=("cp", "tt"), rockets_n=("rep", "mate"), colors=("tt",),
                 field=("cf",), drift=("tt", "cf", "cr"), sidelights=("cap", "cf"), masts2=("mate", "cap"), morse=("cap",), views2=("cap", "mate"),
                 watches=("cf", "mate"), bearing=("cf", "cap"), flicker=("mate",), section=("cf", "cap", "mate"), company=("cap",),
-                height=("mate", "maib"), memory2=("mate", "cap", "cf"), cfband=("cf",), swap=("cf", "cap"))
+                height=("mate", "maib"), memory2=("mate", "cap", "cf"), cfband=("cf",), swap=("cf", "cap"),
+                # 🆕 ⑤b-6（rates4 は等級の色だけ・law1910 と linked は色の鍵なし）
+                boxfill=("tt", "rep"), split2=("tt", "rep"), decks=("tt", "rep"), flare_bow=("cp", "tt"), custom25=("cap", "rep", "tt"),
+                before_after=("tt", "rep"), match2=("tt", "cf", "rep"), clocks_gap=("tt", "cf", "rep", "maib"), rings3=("cf", "cap", "rep"),
+                few_min=("sen", "cf"), appeal=("cap", "rep"), years6=("rep", "cap", "maib"), four_q=("maib", "tt", "cf", "cap"),
+                book2=("insp", "dep", "chief"), current=("insp", "dep"), dist2col=("insp", "dep"), drift_s=("cf", "cap", "insp", "tt"),
+                polaris=("cf",), antillian=("cf", "an"), horizon=("insp", "dep"), tt_watch=("cf", "tt"), third=("dep",), refract=("tt",),
+                swing=("cap", "tt"), seen2col=("insp", "dep", "tt"), four_steps=("dep", "mate", "cap"), asleep=("cap", "dep"),
+                if_go=("cf", "tt"), if_flow=("cf", "cap", "tt"), ice_rule=("rep",), ladder=("rcs",), skies2=("tt",))
 
 
 def _lit(view, st):
@@ -1998,6 +3531,96 @@ def _geo(view, allst):
                     lins=((CB["y0"], (CB["y1"] - CB["y0"]) / (CB["t1"] - CB["t0"]), CB["t0"]),) * len(ts), mins=tuple(_min(t) for t in ts))
     if view == "swap":
         return dict(val=SW_V)
+    # 🆕 ⑤b-6
+    if view == "boxfill":
+        top = parts_of("boxfill", last)[0]["pts"][0][1]
+        return dict(val=(BF_V, BF_FRAC), px=(bf_y(BF_V[0]), bf_y(BF_V[0] * BF_FRAC[0] / BF_FRAC[1]), top), lins=((BF["yb"], -BF["k"], 0.0),) * 3)
+    if view == "split2":
+        hi = parts_of("split2", last)[1]
+        return dict(val=(SP_V, SP_V[1] + SP_V[2] == SP_V[0]), px=(sp_y(SP_V[0]), sp_y(SP_V[1]), min(y for _x, y in hi["pts"]) + float(hi.get("dy", 0.0))),
+                    lins=((SP["yb"], -SP["k"], 0.0),) * 3)
+    if view == "rates4":
+        return dict(val=tuple((n, p) for n, p, _c in RT_ROWS), px=tuple(max(x for x, _y in p["pts"]) for p in parts_of("rates4", last)),
+                    lins=((RT["x0"], (RT["x1"] - RT["x0"]) / 100.0, 0.0),) * len(RT_ROWS))
+    if view == "decks":
+        r = DK_ROOMS
+        return dict(val=(r["aft"][0] - DK["x0"] < 120, DK["x1"] - r["fwd"][1] < 160, r["aft"][2] > r["first"][3],
+                         all(p.get("alpha", 1.0) < 0.5 for p in parts_of("decks", last))))
+    if view == "flare_bow":
+        return dict(val=(FB["light"][0] < FB["cx"], FB["light"][1] < FB["cy"], FB_T))
+    if view == "custom25":
+        return dict(val=(CU_V,))
+    if view == "before_after":
+        return dict(val=BA_W)
+    if view == "match2":
+        return dict(val=MT_ROWS)
+    if view == "clocks_gap":
+        ts = tuple(t for _s, a, b in CG_T for t in (a, b))
+        return dict(val=CG_T, px=tuple(cg_ang(t) for t in ts), lins=((0.0, 0.5, 24 * 60),) * len(ts))
+    if view == "rings3":
+        return dict(val=RG_KM, px=tuple(rg_r(m) for m in RG_MI), lins=((0.0, RG["k"], 0.0),) * len(RG_MI))
+    if view == "few_min":
+        return dict(val=(FM_T,))
+    if view == "appeal":
+        return dict(val=AP_ROW2)
+    if view == "years6":
+        xs = [yr_x(i) for i in range(len(YR_EV))]
+        return dict(val=(tuple(y for y, _e, _c in YR_EV), tuple(e for _y, e, _c in YR_EV), xs == sorted(xs)))
+    if view == "four_q":
+        return dict(val=FQ_Q)
+    if view == "book2":
+        return dict(val=(BK_PAGES, BK_BACK))
+    if view == "current":
+        vx, vy = cr_vec()
+        tip = max(y for _x, y in parts_of("current", last)[0]["pts"])
+        return dict(val=(CR_DIR, CR_KMH, round(math.degrees(math.atan2(vx, -vy)) % 360.0, 2), tip > CR["usual"]))
+    if view == "dist2col":
+        ms = DC_INSP + DC_DEP
+        return dict(val=(DC_INSP, DC_DEP), px=tuple(dc_x(m) for m in ms), lins=((DC["x0"], DC["k"], 0.0),) * len(ms))
+    if view == "drift_s":
+        (rx, ry), (cx, cy), (tx, ty) = DS["real"], DS["calc"], DS["tt"]
+        return dict(val=(ry > cy, math.hypot(rx - tx, ry - ty) < math.hypot(cx - tx, cy - ty)))
+    if view == "polaris":
+        (ex, ey), (sx, sy) = PO["eye"], po_star()
+        return dict(val=(round(math.degrees(math.atan2(ey - sy, sx - ex)), 3), PO_T))
+    if view == "antillian":
+        (x, y), (sx, sy) = AN["cf"], AN["stop"]
+        return dict(val=(AN_T, sx < x, abs(sy - y) < 0.5, len(AN_ICE)))
+    if view == "horizon":
+        return dict(val=(hz_light(HZ["near"])[1] < hz_line_y(HZ["near"]), hz_light(HZ["far"])[1] > hz_line_y(HZ["far"])))
+    if view == "tt_watch":
+        return dict(val=(TW_T,))
+    if view == "third":
+        return dict(val=(TH["arrive"][0] > TH["stop"][0], TH["stop"][0] > max(x for x, _y in TH_ICE)))
+    if view == "refract":
+        return dict(val=(rf_light()[0] > RF["bump"][1],))
+    if view == "swing":
+        def vis(st):
+            lamps = {p["id"]: F.mech_pts(p, p) for p in parts_of("swing", st) if p["id"] in ("green", "red")}
+            ey = SG["eye"][1]
+            return min(lamps, key=lambda k: ey - sum(y for _x, y in lamps[k]) / len(lamps[k]))
+        rot = float(parts_of("swing", last)[1].get("rot", 0.0))
+        ilp = _sg_lamps(0.0, 0.0, 200.0, 50.0)
+        return dict(val=(vis(allst[0]), vis(last), "starboard" if rot > 0 else "port", "green" if ilp["green"][1] > ilp["red"][1] else "red"))
+    if view == "seen2col":
+        return dict(val=SC2_DEP)
+    if view == "four_steps":
+        return dict(val=tuple((n, w, h) for n, w, h, _b in FS_STEPS))
+    if view == "if_go":
+        return dict(val=(IG_T,))
+    if view == "law1910":
+        ps = parts_of("law1910", last)
+        return dict(val=(ps[0].get("alpha", 1.0) < 0.5, ps[2].get("alpha", 1.0) > 0.5))
+    if view == "linked":
+        p = parts_of("linked", last)[0]
+        (x0, y0), (x1, y1) = lk_ends()
+        c = F.mech_pts(p, p)
+        mx, my = sum(x for x, _y in c) / len(c), sum(y for _x, y in c) / len(c)
+        return dict(val=(abs(mx - x1) < 1.0 and abs(my - y1) < 1.0,))
+    if view == "ladder":
+        return dict(val=tuple(y for y, _e, _c in LD_EV))
+    if view == "skies2":
+        return dict(val=(SK_NOW, SK_TT, len(set(SK_ANY))))
     return {}
 
 

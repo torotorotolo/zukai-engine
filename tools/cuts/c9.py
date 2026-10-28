@@ -198,3 +198,110 @@ SPEC.update({
                dict(state=dict(), rings=2, rec="G2 p2021（Mr Stone should have gone down himself to the Master when there was no proper response from him）",
                     tag=dict(t="伝声管", at="pipe", off=(40, -170)))]))),     # 🔧 試し焼き 40594842436：左上では「二等航海士」の札の線と交わった
 })
+
+# 🆕 ⑤b-6（2026-10-28）：図解（`tools/mech26.py`・fig=("m26", …)）。段の数＝語りの行の数・画面の数は全部 rel に（門番 check_mech の judge_m26）
+#   🔴 調査官＝紫・次長＝緑（c917 の地図と同じ）。カリフォルニアン号（緑）と同じ画面では次長を白い字に（c914・c915・c921・c938・c940）
+SPEC.update({
+    # c902（2行）＝1行目「80歳をこえていた船長は、もう一度調べてほしいと訴えた」→ 2行目「請願も2度出たが、どちらも退けられた」
+    "c902": dict(
+        t="80年のあいだ", s="調べ直しまでの年表",
+        fig=("m26", dict(view="years6", steps=[dict(state=dict(plea="on")), dict(state=dict(pet="on"))],
+                         rel=[dict(t="1912年", src="G2 p2006"), dict(t="1950年代", src="G2 p2005"), dict(t="80歳", src="G2 p2005"),
+                              dict(t="2度", src="G2 p2005"), dict(t="1985年", src="G2 p2006"), dict(t="1990年", src="G2 p2006"), dict(t="1992年", src="G2送 p2003")],
+                         note="並びは年の順・間の長さは模式（請願の年は記録に無い）", src=ss.src(["G2 p2005", "G2 p2006"])))),
+    # c905（3行）＝1行目の問い → 2行目「2隻の位置と距離。タイタニック号は見えていたか」→ 3行目「遭難の信号は…正しく動いたか。そして、船長の行い」
+    "c905": dict(
+        t="問われたこと", s="1992年の報告の始まり",
+        fig=("m26", dict(view="four_q", steps=[dict(state=dict(q="on")), dict(state=dict(a="on")), dict(state=dict(b="on"))],
+                         rel=[dict(t="4つの問い", src="G2 p2007")], note="札の絵は模式", src=ss.src(["G2 p2007"])))),
+    # c908（2行）＝1行目「首席は、次長の報告と結論を、全面的に支持する」→ 2行目（聞き役）「意見が分かれたんだね」
+    "c908": dict(
+        t="首席はどちらに", s="1冊の報告に2つの結論",
+        fig=("m26", dict(view="book2", steps=[dict(state=dict(chief="on")), dict(state=dict(split="on"))],
+                         note="本の形は模式", src=ss.src(["G2送 p2003"])))),
+    # c910（2行）＝1行目「2人とも、海の流れが南へ向かっていたことは認める」→ 2行目「北から来る冷たい海流が、いつもより南まで」
+    "c910": dict(
+        t="張り出した流れ", s="1912年の北大西洋",
+        fig=("m26", dict(view="current", steps=[dict(state=dict(flow="on")), dict(state=dict(far="on"))],
+                         rel=[dict(t="時速約2.4キロ", src="G2 p2013")], note="海流の形は模式（向きは約196度・速さは約1.3ノット）", src=ss.src(["G2 p2013"])))),
+    # c911（1行・c910 の続き）＝聞き役「流れの向きは、どちらも同じ考えなんだね」で2人の札
+    "c911": dict(
+        t="流れの向き", s="2人の考え",
+        fig=("m26", dict(view="current", start=dict(flow="on", far="on"), steps=[dict(state=dict(both="on"))],
+                         rel=[dict(t="時速約2.4キロ", src="G2 p2013"), dict(t="2人", src="G2 p2013")],
+                         note="海流の形は模式（向きは約196度・速さは約1.3ノット）", src=ss.src(["G2 p2013"])))),
+    # c912（3行）＝1行目「分かれた点の1つは…いつから船を押したか」で次長の帯 → 2行目「調査官は…約9キロから19キロ」→ 3行目「たぶん9キロに近い」
+    "c912": dict(
+        t="割れた見立て", s="調査官の見方と次長の見方",
+        fig=("m26", dict(view="dist2col", steps=[dict(state=dict(dep="on")), dict(state=dict(insp="on")), dict(state=dict(near="on"))],
+                         rel=[dict(t="約9〜19キロ（5〜10マイル）", src="G2 p2011"), dict(t="9キロに近い", src="G2 p2011"),
+                              dict(t="約31〜37キロ（17〜20マイル）", src="G2 p2007"), dict(t="約33キロ（18マイル）", src="G2 p2011")],
+                         note="横は距離に比例（止まっていたあいだの2隻の間）", src=ss.src(["G2 p2007", "G2 p2011"])))),
+    # c913（2行）＝1行目「調査官によれば…14日の昼から南へ流されていたのに」→ 2行目「船長は計算に入れていない。だから、もっと近かった」
+    "c913": dict(
+        t="計算に入れなかった流れ", s="調査官が見た道すじ",
+        fig=("m26", dict(view="drift_s", steps=[dict(state=dict(flow="on")), dict(state=dict(calc="on"))],
+                         rel=[dict(t="14日の昼", src="G2 p2013")], note="道すじは模式", src=ss.src(["G2 p2007", "G2 p2013"])))),
+    # c914（3行）＝1行目「次長は…1つは、星の観測だ」→ 2行目「夜7時半、北極星で測った緯度が」→ 3行目「昼の12時と同じ。真西へ」
+    "c914": dict(
+        t="真西へ進んだ証し", s="北極星で測る緯度",
+        fig=("m26", dict(view="polaris", steps=[dict(state=dict(dep="on")), dict(state=dict(star="on")), dict(state=dict(same="on"))],
+                         rel=[dict(t="19:30", src="G2 p2014")], note="星の高さと船は模式（角度は北緯42度5分の写し）", src=ss.src(["G2 p2014"])))),
+    # c915（2行）＝1行目「アンティリアン号への電報。事故の前に打った知らせで」→ 2行目「あとから作りようがない…西へ進んでいたことと合う」
+    "c915": dict(
+        t="事故の前の電報", s="西へ進んでいたか",
+        fig=("m26", dict(view="antillian", steps=[dict(state=dict(msg="on")), dict(state=dict(west="on"))],
+                         rel=[dict(t="18:30", src="G2 p2011"), dict(t="大きな氷山3つ", src="G2 p2011")], note="位置は模式",
+                         src=ss.src(["G2 p2011", "G2 p2014"])))),
+    # c919（3行）＝1行目「地球は丸いので、遠い船は、水平線の向こうに隠れる」→ 2行目「2人の距離の見方は、見えたかどうかの考えに」→ 3行目「引っぱられている」
+    "c919": dict(
+        t="見えない遠さ", s="地球は丸い",
+        fig=("m26", dict(view="horizon", steps=[dict(state=dict(hide="on")), dict(state=dict(two="on")), dict(state=dict(pull="on"))],
+                         note="地球の丸みと高さは模式（大きく誇張）", src=ss.src(["G2 p2015", "G2 p2017"])))),
+    # c921（3行）＝1行目「カリフォルニアン号から見えたことだけなら、次長も反対はしない」→ 2行目「その船の時計で0時30分ごろまで」→ 3行目「見張り台にも船橋にも、人がいた」
+    "c921": dict(
+        t="答えはこちら側に", s="見張りがいた船",
+        fig=("m26", dict(view="tt_watch", steps=[dict(state=dict(cfok="on")), dict(state=dict(ans="on")), dict(state=dict(crew="on"))],
+                         rel=[dict(t="0:30ごろ", src="G2 p2016")], note="船と目の届く先は模式", src=ss.src(["G2 p2016"])))),
+    # c923（3行）＝1行目の問い → 2行目「次長は、2つの見方をあげる。1つは、第三の船だ」→ 3行目「東から来て氷原で止まり…すき間を探して去った」
+    "c923": dict(
+        t="見えていた船は", s="次長があげた見方",
+        fig=("m26", dict(view="third", steps=[dict(state=dict(q="on")), dict(state=dict(one="on")), dict(state=dict(path="on"))],
+                         note="道すじと氷原は模式（形は描き分けない）", src=ss.src(["G2 p2017"])))),
+    # c925（3行）＝1行目「異常屈折だ。空気の温度の差で光が曲がり」→ 2行目「水平線の向こうの物が、見えることがある」→ 3行目「遠くのタイタニック号を見ていたことになる」
+    "c925": dict(
+        t="異常屈折", s="遠くが浮かぶしくみ",
+        fig=("m26", dict(view="refract", steps=[dict(state=dict(bend="on")), dict(state=dict(ghost="on")), dict(state=dict(tt="on"))],
+                         note="空気の層と光の道は模式（大きく誇張）", src=ss.src(["G2 p2017", "G2 p2030"])))),
+    # c927（2行）＝1行目「船長が見たのは緑の舷灯。のちに赤の舷灯が見えた」で船が右へ回る → 2行目「止まったままのタイタニック号なら、赤い灯は見えないはず」
+    "c927": dict(
+        t="舷灯の色", s="緑から赤へ",
+        fig=("m26", dict(view="swing", steps=[dict(state=dict(seen="on"), delay=2.2), dict(state=dict(tt="on"))],
+                         note="船の向きと回り方は模式（右舷＝緑・左舷＝赤）", src=ss.src(["G2 p2017"])))),
+    # c928（3行）＝1行目「はっきりした答えは出せない」→ 2行目「見えたのなら、異常屈折のせいだ」→ 3行目「名前の分からない別の船だろう」
+    "c928": dict(
+        t="はっきりしない答え", s="1992年の2つの見方",
+        fig=("m26", dict(view="seen2col", steps=[dict(state=dict(a="on")), dict(state=dict(b="on")), dict(state=dict(c="on"))],
+                         note="札の並びは模式", src=ss.src(["G2 p2017"])))),
+    # c933（3行）＝1行目「二等航海士が船長を呼び」→ 2行目「すぐ応じなければ自分で行く。機関室に…」→ 3行目「通信士を起こす。そして船長は船橋へ」
+    "c933": dict(
+        t="船長を呼ぶところから", s="次長があげた4つ",
+        fig=("m26", dict(view="four_steps", steps=[dict(state=dict(s1="on")), dict(state=dict(s2="on")), dict(state=dict(s3="on"))],
+                         note="手の順は模式（Stand By Engines＝原文の言い方）", src=ss.src(["G2 p2019", "G2 p2020"])))),
+    # c935（3行）＝1行目「深く眠っていて呼ばれると」→ 2行目「返事はしても、言われたことが頭に届かない」→ 3行目「船橋からの知らせは、ただ届かなかった」
+    "c935": dict(
+        t="届かなかった知らせ", s="深い眠りの中の呼びかけ",
+        fig=("m26", dict(view="asleep", steps=[dict(state=dict(call="on")), dict(state=dict(reply="on")), dict(state=dict(nogo="on"))],
+                         note="眠りと目覚めの境は模式（次長の見方）", src=ss.src(["G2 p2021"])))),
+    # c938（3行）＝1行目の問い → 2行目「タイタニック号の時計で0時45分ごろの、最初の信号弾ですぐ全速で」→ 3行目「約31キロでも、着くのはたぶん沈むころ」
+    "c938": dict(
+        t="全速で向かったなら", s="最初の信号弾で向かったとき",
+        fig=("m26", dict(view="if_go", steps=[dict(state=dict(q="on")), dict(state=dict(go="on")), dict(state=dict(far="on"))],
+                         rel=[dict(t="0:45ごろ", src="G2 p2022"), dict(t="約31キロ（17マイル）", src="G2 p2022")], note="位置は模式",
+                         src=ss.src(["G2 p2022"])))),
+    # c940（2行）＝1行目「船長が船橋に来るまで少しかかり、氷の中では慎重に」→ 2行目「ずれた位置の無線で迷い、着くのは、沈んだずっとあと」
+    "c940": dict(
+        t="正しく動いても", s="遅れが重なる",
+        fig=("m26", dict(view="if_flow", steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))],
+                         note="道は模式（時刻の札は置かない）", src=ss.src(["G2 p2022"])))),
+})

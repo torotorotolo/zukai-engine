@@ -5734,18 +5734,24 @@ def _m26_min(t):
 REC_M26 = dict(
     src=dict(tt=("タイタニック号", "ship"), cf=("カリフォルニアン号", "ntsb"), cp=("カルパチア号", "uscg"), cr=("ケープ・レース", "tsb"),
              an=("アンティリアン号", "city"), am=("アメリカ号", "company"), ol=("オリンピック号", "bldg_a"), rep=("報告書", "SUB"),
-             maib=("1992年の調べ直し", "DOC"), cap=("船長", "bldg_a"), mate=("航海士", "city")),
+             maib=("1992年の調べ直し", "DOC"), cap=("船長", "bldg_a"), mate=("航海士", "city"),
+             # 🆕 ⑤b-6：調査官＝紫・次長＝緑（⑤b-3 の地図 c917 と同じ）・首席＝茶・米国上院の報告＝青・米国の巡視船＝青
+             insp=("調査官", "tsb"), dep=("次長", "ntsb"), chief=("首席", "DOC"), sen=("米国上院の報告", "uscg"), rcs=("米国の巡視船", "uscg")),
     light=dict(green="OK", red="ALERT", white="SUB"),
     # 画面に出してよい時刻（sources.md §6 の時計の表と G1 の時刻＝20:00〈p.37〉・22:00〈p.39〉・22:20〈p.56〉・23:00・23:30・23:40〈p.57〉・0:00〈p.58〉・
     #   0:05〈p.49〉・0:15〈p.54〉・0:30〈p.58〉・0:35〈G7 PDF 23頁〉・0:45〈p.54〉・1:10〈p.58〉・1:15〈p.59〉・2:05〈p.59〉・2:20〈p.85〉・2:40〈p.59〉・4:00〈p.59〉）
     times=("20:00", "22:00", "22:20", "23:00", "23:30", "23:40", "0:00", "0:05", "0:15", "0:30", "0:35", "0:45", "1:10", "1:15", "2:05", "2:20",
-           "2:40", "4:00"),
+           "2:40", "4:00",
+           # 🆕 ⑤b-6：1:45〈G1 p.60・信号弾のころの終わり＝タイタニック号の時計〉・18:30〈G2 p.7＝カリフォルニアン号の推測の位置〉・19:30〈G2 p.10＝北極星の観測〉
+           "1:45", "18:30", "19:30"),
     split=("1:10", "1:15", "2:00", "2:05"),
     ships=("タイタニック号", "カリフォルニアン号", "カルパチア号"),
     ng=("死亡", "救命艇", "カッター", "マードック", "グローブス", "ロストロン", "スチュワート", "ボックスホール", "ライトラー", "フィリップス",
         "エバンス", "ギブソン", "ストーン", "ロード船長"),
     # カリフォルニアン号から見た画面（見えた船をタイタニック号と名乗らない＝案B の守りの線）
-    no_tt=("field", "sidelights", "masts2", "morse", "views2", "watches", "bearing", "flicker", "section", "height", "memory2", "cfband", "swap"),
+    no_tt=("field", "sidelights", "masts2", "morse", "views2", "watches", "bearing", "flicker", "section", "height", "memory2", "cfband", "swap",
+           # 🆕 ⑤b-6：船長の話の距離の輪・第三の船・カリフォルニアン号の側の論拠（星の観測・電報）
+           "rings3", "third", "polaris", "antillian"),
     views=dict(
         tons2=dict(val=((("tt", 46328), ("cf", 6223)), "約7倍", 7), pv=(46328, 6223)),
         people4=dict(val=((("一等", 325), ("二等", 285), ("三等", 706), ("乗員", 885)), 1316, 2201, (109, (6, 24, 79)), True, True, True),
@@ -5783,6 +5789,40 @@ REC_M26 = dict(
                          ("2:05", "全部で8つ（見習いの話）"), ("2:40ごろ", "見えなくなる（二等航海士の話）"), "23:30"),
                     pm=("22:20", "23:40", "1:10", "2:05", "2:40", "23:30")),
         swap=dict(val=("4:00ごろ", 2)),
+        # 🆕 ⑤b-6（第6〜9章）：値は G1・G2 の頁と sources.md §2・§6・§7・§8（量は p＝p0＋v×k・時刻は p＝p0＋(分−t0)×k）
+        boxfill=dict(val=((1178, 652), (2, 3)), pv=(1178, 1178 * 2 / 3, 652)),
+        split2=dict(val=((2201, 711, 1490), True), pv=(2201, 711, 1490)),
+        rates4=dict(val=(("一等", 62), ("二等", 41), ("三等", 25), ("乗員", 24)), pv=(62, 41, 25, 24)),
+        decks=dict(val=(True, True, True, True)),             # 三等は船の両端・一等より下・赤い棒（語られる話）は報告書の段で消える
+        flare_bow=dict(val=(True, True, "4:00まで")),         # 緑の灯は前の少し左
+        custom25=dict(val=(25,)),
+        before_after=dict(val=("間違い", "怠り")),
+        match2=dict(val=(("衝突", "見えた船の灯が消える"), ("信号弾 約8発", "白い信号弾 8つ"), ("沈む", "見えなくなる"))),
+        clocks_gap=dict(val=(("tt", "0:45", "1:45"), ("cf", "0:30", "1:40")), pm=("0:45", "1:45", "0:30", "1:40")),
+        rings3=dict(val=("約9キロ", "約15キロ", "約19キロ"), pv=(5, 8, 10)),
+        few_min=dict(val=("23:30",)),
+        appeal=dict(val=(("正式な告発", "なし"), ("資格への処分", "なし"), ("申し立ての道", "なし"))),
+        years6=dict(val=(("1912年", "1950年代", "", "1985年", "1990年", "1992年"),
+                         ("審問の報告", "本と映画", "船長の訴え", "残骸が見つかる", "調べ直しを命じる", "調べ直しの報告"), True)),
+        four_q=dict(val=(("①", "位置と距離"), ("②", "見えていたか"), ("③", "信号と動き"), ("④", "船長の行い"))),
+        book2=dict(val=(("insp", "dep"), "dep")),             # 首席が支持したのは次長
+        current=dict(val=(196.0, "時速約2.4キロ", 196.0, True)),
+        dist2col=dict(val=((5, 10, 5), (17, 20, 18)), pv=(5, 10, 5, 17, 20, 18)),
+        drift_s=dict(val=(True, True)),                       # 流された道は計算より南・タイタニック号に近い
+        polaris=dict(val=(42.083, "19:30")),                  # 北緯 42°05′（sources.md §2-1）
+        antillian=dict(val=("18:30", True, True, 3)),         # 止まった位置は真西
+        horizon=dict(val=(True, True)),                       # 近い船の灯は線の上・遠い船の灯は線の下
+        tt_watch=dict(val=("0:30ごろまで",)),
+        third=dict(val=(True, True)),                         # 東から来て氷原の東の端で止まる
+        refract=dict(val=(True,)),                            # 船は海のふくらみの向こう
+        swing=dict(val=("green", "red", "starboard", "green")),   # 最初は緑・のちに赤・右舷へ回る・止まったままなら緑だけ
+        seen2col=dict(val=("答えは出せない", "見えたなら 異常屈折", "たぶん 別の船")),
+        four_steps=dict(val=(("①", "mate", "二等航海士が"), ("②", None, "機関室へ"), ("③", None, "通信士を"), ("④", "cap", "船長は"))),
+        if_go=dict(val=("0:45ごろ",)),
+        law1910=dict(val=(True, True)),
+        linked=dict(val=(True,)),
+        ladder=dict(val=("1912年7月", "1912年8月", "1913年", "1914年", "1948年")),
+        skies2=dict(val=("ALERT", "SUB", 5)),
     ),
     # 出典の英文の句（頁は ss.REC_DOCS の通し番号＝G1 1〜88・G2 2001〜2030・G7 20001〜21170）。名前の入らない所を選んだ
     quote=dict(
@@ -5836,6 +5876,58 @@ REC_M26 = dict(
         cfband=(("G1 p56", "until 10.20"), ("G1 p57", "went out at 11.40"), ("G1 p57", "turned in at 11.30 p.m."), ("G1 p58", "about 1.10 a. m."),
                 ("G1 p59", "five minutes past two"), ("G1 p59", "At about 2.40 a. m."), ("G1 p58", "altogether we had seen eight of these white lights")),
         swap=(("G1 p59", "a steamer came in sight with two white masthead lights"), ("G1 p59", "about 4 a.m."), ("G1 p59", "This mistake was not corrected")),
+        # 🆕 ⑤b-6（第6〜9章）：名前の入らない所を選んだ。G4・G5・G6・T3・U1 は原文の通し頁が無い（照らさない）
+        boxfill=(("G1 p48", "Thus the total boat accommodation was for 1,178 persons"), ("G1 p76", "boat accommodation was utilized to less than two-thirds of its capacity"),
+                 ("G1 p51", "of the 712 persons saved only 652 could have left the")),
+        split2=(("G1 p56", "711 out of 2,201, or 32.30 per cent"), ("G1 p5", "the loss of 1,490 lives")),
+        rates4=(("G1 p55", "62.46 per cent"), ("G1 p55", "41.40 per cent"), ("G1 p55", "25.21 per cent"), ("G1 p56", "212 out of 885, or 23.95 per cent")),
+        decks=(("G1 p53", "There appears to have been no truth in these suggestions"), ("G1 p53", "which were at the extreme ends of the ship")),
+        flare_bow=(("G1 p55", "was altering his course continually in order to avoid icebergs"), ("G7 p20025", "we were passing icebergs on every side")),
+        custom25=(("G1 p40", "for a quarter of a century or more"), ("G1 p40", "to keep the course, to maintain the speed and to trust to a sharp lookout")),
+        before_after=(("G1 p41", "What was a mistake in the case of the Titanic would without doubt be negligence in any similar case in the future"),),
+        match2=(("G1 p60", "There are contradictions and inconsistencies in the story as told by the different witnesses"),
+                ("G1 p60", "But the truth of the matter is plain"), ("G1 p60", "The Californian saw eight")),
+        clocks_gap=(("G1 p60", "from about 12.45 to 1.45"), ("G1 p54", "eight rockets having been seen between 12.30 and 1.40"),
+                    ("G2 p2010", "only likely to have been a few minutes")),
+        rings3=(("G1 p60", "5 miles apart at the time of the disaster"), ("G1 p60", "though not more than 8 to 10 miles")),
+        few_min=(("G1 p57", "turned in at 11.30"),),
+        appeal=(("G2 p2005", "he requested a re-hearing of that part of the Inquiry which concerned his ship; the request was rejected"),
+                ("G2 p2005", "he had no right of appeal")),
+        years6=(("G2 p2005", "by then over 80 years old"), ("G2 p2005", "two petitions were made to the Board of Trade asking for the Inquiry to be re-opened; both were rejected"),
+                ("G2 p2005", "in the mid-1950's"), ("G2 p2006", "In 1985 an expedition"), ("G2 p2006", "in 1990 the Secretary of State for Transport")),
+        four_q=(("G2 p2007", "To establish so far as is now possible the positions of TITANIC"), ("G2 p2007", "To consider whether TITANIC was seen by CALIFORNIAN"),
+                ("G2 p2007", "To consider whether distress signals from TITANIC were seen by")),
+        book2=(("G2 p2003", "His report, which follows, incorporates his conclusions and those of the appointed Inspector"),
+               ("G2 p2003", "full endorse the Deputy Chief Inspector's report and conclusions")),
+        current=(("G2 p2013", "the Labrador current extended further south and east than is usual"), ("G2 p2013", "the direction of set was about 196"),
+                 ("G2 p2013", "and the rate about 1.3 knots")),
+        dist2col=(("G2 p2011", "between 5 and 10 miles apart whilst they lay stopped, and probably nearer five"), ("G2 p2011", "probably about 18 miles"),
+                  ("G2 p2007", "between 17 and 20 miles")),
+        drift_s=(("G2 p2013", "He considers that the current had set southerly since noon on 14 April; no allowance for this current was made"),
+                 ("G2 p2007", "only 5 to 7 miles off")),
+        polaris=(("G2 p2014", "The Pole Star sight taken by the Chief Officer at 1930 hrs"),
+                 ("G2 p2014", "as that observed at noon on the same day, showing a course made good of west")),
+        antillian=(("G2 p2011", "At 1830 hrs three large icebergs were seen some five miles to the south"),
+                   ("G2 p2014", "which cannot have been fabricated is the signal sent to ANTILLIAN"),
+                   ("G2 p2014", "it adds weight to the statement that CALIFORNIAN was steering westerly")),
+        horizon=(("G2 p2017", "well beyond the ordinary visible horizon"), ("G2 p2015", "our respective opinions on position are undoubtedly coloured by this difference")),
+        tt_watch=(("G2 p2016", "no ship was seen by TITANIC until well after the collision"), ("G2 p2016", "about 0030 hrs"),
+                  ("G2 p2016", "watch was maintained with officers on the Bridge and seamen in the")),
+        third=(("G2 p2017", "a third ship was present which approached from the East, stopped on meeting the field ice, and then after a period steamed away to seek a break in the ice"),),
+        refract=(("G2 p2017", "at a very much greater range than her horizon because of abnormal"),),
+        swing=(("G2 p2017", "later her red (port) light came into view, arguing that after stopping she swung markedly to starboard"),
+               ("G2 p2017", "Her port sidelight would therefore not be seen")),
+        seen2col=(("G2 p2017", "I do not consider that a definite answer to the question 'was TITANIC seen' can be given"),
+                  ("G2 p2017", "the ship seen by CALIFORNIAN was another, unidentified, vessel")),
+        four_steps=(("G2 p2020", "Stand By Engines"), ("G2 p2020", "The Wireless Operator should have been called"),
+                    ("G2 p2020", "got under way towards the apparent source of the rockets")),
+        asleep=(("G2 p2021", "I think the message from the Bridge simply did not get through"), ("G2 p2021", "the subject appears to respond to a call")),
+        if_go=(("G2 p2022", "The first rocket appears to have been fired at about 0045 hrs (TITANIC time)"),
+               ("G2 p2022", "given my minimum distance off of 17 miles, have reached the scene at just about the time of sinking")),
+        if_flow=(("G2 p2022", "would shortly receive TITANIC'S SOS with its incorrect position"), ("G2 p2022", "CALIFORNIAN would arrive well after the sinking")),
+        ice_rule=(("G1 p87", "when ice is reported in or near the track the ship should proceed in the dark hours at a moderate speed or alter her course so as to go well clear of the danger zone"),),
+        ladder=(("G2 p2022", "it was not until 1948 that the rules for distress signals were amended"),),
+        skies2=(("G2 p2022", "such signals could be of any colour"), ("G2 p2022", "it was not until 1948 that the rules for distress signals were amended")),
     ),
 )
 _M26_PAGES = {}
@@ -5936,7 +6028,9 @@ def judge_m26(f):
             tok = mm.group(0)
             need(any(tok in s for s in said), f"③ 画面の字「{t}」の数「{tok}」が rel（記録の値の宣言）に無い")
     for r in m["rel"]:
-        need(bool(r.get("src")) and str(r.get("src")).split(" ")[0] in ("G1", "G2", "G7", "T1"), f"③ rel「{r.get('t')}」に出どころ（G1・G2・G7・T1）が無い")
+        # 🆕 ⑤b-6：G2送（MAIB の送り状）・T3（米国上院の報告の書き起こし）・G4／G5／G6（米国の法）・U1（米国沿岸警備隊の記事）を足した
+        need(bool(r.get("src")) and str(r.get("src")).split(" ")[0] in ("G1", "G2", "G7", "T1", "G2送", "T3", "G4", "G5", "G6", "U1"),
+             f"③ rel「{r.get('t')}」に出どころ（G1・G2・G7・T1・G2送・T3・G4〜G6・U1）が無い")
     return bad, n
 
 
@@ -6002,6 +6096,48 @@ def _selftest_m26(ok):
              ("見えた船を名乗る", "cfband", "CB_EV", (("22:20ごろ", "止まる（氷原の手前）"), ("23:40", "タイタニック号の灯が消える")) + M.CB_EV[2:], "③ 見えた船の画面"),
              ("どの船の時計かを外す", "field", "_clk", plain_clk, "③ 時刻"),
              ("誰の話かを外す", "memory2", "MM_V", (("mate", "二等航海士", "1:10ごろ", 5), ("cap", "船長", "1:15ごろ", 1)), "③ 割れる時刻"))
+    # 🆕 ⑤b-6（第6〜9章）：値だけを変える対照（描く側の並びは壊さない＝型の例外にしない）
+    cases = cases + (
+        ("ボートの席を 1,187人に", "boxfill", "BF_V", (1187, 652), "② boxfill の値"),
+        ("箱の高さを描く側だけ変える", "boxfill", "bf_y", lambda v: M.BF["yb"] - v * 0.38, "② boxfill の画素"),
+        ("助かった人を 712人に", "split2", "SP_V", (2201, 712, 1490), "② split2 の値"),
+        ("棒の高さを描く側だけ変える", "split2", "sp_y", lambda v: M.SP["yb"] - v * 0.2, "② split2 の画素"),
+        ("二等を 44% に", "rates4", "RT_ROWS", M.RT_ROWS[:1] + (("二等", 44, "city"),) + M.RT_ROWS[2:], "② rates4 の値"),
+        ("帯の物差しを描く側だけ変える", "rates4", "rt_x", lambda p: M.RT["x0"] + p * 10.0, "② rates4 の画素"),
+        ("三等の部屋を真ん中に", "decks", "DK_ROOMS", dict(M.DK_ROOMS, aft=(700.0, 870.0, 752.0, 808.0)), "② decks の値"),
+        ("緑の灯を右前に", "flare_bow", "FB", dict(M.FB, light=(1160.0, 380.0)), "② flare_bow の値"),
+        ("25年を 20年に", "custom25", "CU_V", 20, "② custom25 の値"),
+        ("間違いと怠りを入れ替える", "before_after", "BA_W", ("怠り", "間違い"), "② before_after の値"),
+        ("見えた船の行に船の名を書く", "match2", "MT_ROWS", (("衝突", "タイタニック号の灯が消える"),) + M.MT_ROWS[1:], "② match2 の値"),
+        ("扇を 0:55ごろから に", "clocks_gap", "CG_T", (("tt", "0:55", "1:45"), M.CG_T[1]), "② clocks_gap の値"),
+        ("盤の角度を描く側だけ変える", "clocks_gap", "cg_ang", lambda t: (M._min(t) - 24 * 60) * 0.55, "② clocks_gap の画素"),
+        ("内の輪を 6マイルに", "rings3", "RG_MI", (6, 8, 10), "② rings3 の画素"),
+        ("寝た時刻を 23:40 に", "few_min", "FM_T", "23:40", "② few_min の値"),
+        ("処分ありに", "appeal", "AP_ROW2", (M.AP_ROW2[0], ("資格への処分", "あり"), M.AP_ROW2[2]), "② appeal の値"),
+        ("請願に年を書く", "years6", "YR_EV", M.YR_EV[:2] + (("1965年", "船長の訴え", "bldg_a"),) + M.YR_EV[3:], "② years6 の値"),
+        ("問いの順を入れ替える", "four_q", "FQ_Q", (M.FQ_Q[1], M.FQ_Q[0]) + M.FQ_Q[2:], "② four_q の値"),
+        ("首席が調査官を支持", "book2", "BK_BACK", "insp", "② book2 の値"),
+        ("流れを北東へ", "current", "CR_DIR", 36.0, "② current の値"),
+        ("次長を 15〜20マイルに", "dist2col", "DC_DEP", (15, 20, 18), "② dist2col の値"),
+        ("物差しを描く側だけ変える", "dist2col", "dc_x", lambda m: M.DC["x0"] + m * 58.0, "② dist2col の画素"),
+        ("流された道を北へ", "drift_s", "DS", dict(M.DS, real=(820.0, 300.0)), "② drift_s の値"),
+        ("緯度を 41度に", "polaris", "PO_LAT", 41.0, "② polaris の値"),
+        ("止まった位置を北西に", "antillian", "AN", dict(M.AN, stop=(520.0, 420.0)), "② antillian の値"),
+        ("遠い船の灯を高くする", "horizon", "HZ", dict(M.HZ, mast=160.0), "② horizon の値"),
+        ("見えない時刻を 0:40ごろまで に", "tt_watch", "TW_T", "0:40ごろまで", "② tt_watch の値"),
+        ("第三の船を西から", "third", "TH", dict(M.TH, arrive=(300.0, 520.0)), "② third の値"),
+        ("船を水平線の手前に", "refract", "RF", dict(M.RF, ship=(980.0, 1140.0)), "② refract の値"),
+        ("左（左舷）へ回す", "swing", "SG", dict(M.SG, rot=-150.0), "② swing の値"),
+        ("舷灯の左右を入れ替える", "swing", "_sg_lamps", lambda cx, cy, L, W: dict(green=(cx + 0.14 * L, cy - W / 2 - 12), red=(cx + 0.14 * L, cy + W / 2 + 12)),
+         "② swing の値"),
+        ("次長の結びの順を入れ替える", "seen2col", "SC2_DEP", (M.SC2_DEP[2], M.SC2_DEP[1], M.SC2_DEP[0]), "② seen2col の値"),
+        ("手の順を入れ替える", "four_steps", "FS_STEPS", (M.FS_STEPS[2], M.FS_STEPS[1], M.FS_STEPS[0], M.FS_STEPS[3]), "② four_steps の値"),
+        ("最初の信号弾を 0:55ごろ に", "if_go", "IG_T", "0:55ごろ", "② if_go の値"),
+        ("1914年を 1915年に", "ladder", "LD_EV", M.LD_EV[:3] + (("1915年", "国際条約", "AMBER"),) + M.LD_EV[4:], "② ladder の値"),
+        ("1948年からの色を白に", "skies2", "SK_NOW", "SUB", "② skies2 の値"),
+        ("次長の色を紫に", "dist2col", "SRC", dict(M.SRC, dep=("次長", "tsb")), "① 船と人の色か名"),
+        # 次長の緑とカリフォルニアン号の緑は同じ値＝同じ画面に色の鍵として両方を置くと鳴る
+        ("次長とカリフォルニアン号を同じ画面に", "polaris", "VIEW_SRC", dict(M.VIEW_SRC, polaris=("cf", "dep")), "① 同じ画面"))
     for name, view, attr, val, why in cases:
         if view not in by_view:
             print(f"  ⚠️ 26本目 陽性対照「{name}」：{view} のカットが無い（飛ばした）")

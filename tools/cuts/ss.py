@@ -1035,6 +1035,14 @@ REC_DOCS = {                                # 出典の書き方「資料名 p�
     "G2": dict(range=(2001, 2030), name="英国 海難調査局の再評価（1992年）", page="print", base=2004),
     "G7": dict(range=(20001, 21170), name="米国上院の公聴会の記録（1912年）", page="pdf", base=20000),
     "T1": dict(range=(1, 25700), name="英国の審問の証言（書き起こし・有志のサイト）", page=None, base=0, text=False),
+    # 🆕 2026-10-28（⑤b-6・図解 第6〜9章）：原文の通し頁を持たない資料（`text=False`＝頁の照合はしない・画面は名だけ・書き方は「名 p1」）。
+    #   G2送＝MAIB の送り状（PDF 3頁＝印刷の頁の前＝「G2 p2003」と書くと画面が「-1頁」になる）
+    "G2送": dict(range=(2003, 2003), name="英国 海難調査局の再評価（1992年）の送り状", page=None, base=0, text=False),
+    "T3": dict(range=(1, 1), name="米国上院の報告（書き起こし・有志のサイト）", page=None, base=0, text=False),
+    "G4": dict(range=(1, 1), name="米国の法（無線の当直の改正・1912年）", page=None, base=0, text=False),
+    "G5": dict(range=(1, 1), name="米国の無線の法（遭難の通信・1912年）", page=None, base=0, text=False),
+    "G6": dict(range=(1, 1), name="米国の法（船の無線・1910年）", page=None, base=0, text=False),
+    "U1": dict(range=(1, 1), name="米国沿岸警備隊の歴史の記事", page=None, base=0, text=False),
 }
 # 割れる時刻＝二等航海士が伝声管で知らせた時刻（二等航海士 1:10／船長 1:15＝sources.md §4-2-6）と見習いが下りた時刻（二等航海士 2:00／見習い 2:05）。
 #   🔴 2:05 は台本 c631 が「見習いは言う」と言う＝札に出してよい（門番 check_illu ㊽ が「見習い」の断りを札に求める）＝割れる表には 2:00 だけ

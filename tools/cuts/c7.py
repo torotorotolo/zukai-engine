@@ -95,3 +95,36 @@ SPEC.update({
                     # 🔧 geom_gap：(640, 210) では時計の札が煙突の角に・「2号艇」が丸窓の列にかかった＝札は左上・ボートの札は水の上
                     tag=[dict(t="4:10（カルパチア号の時計）", xy=(300, 230), keep=True), dict(t="2号艇", at="boat", off=(60, 90), delay=2.0)])]))),
 })
+
+# 🆕 ⑤b-6（2026-10-28）：図解（`tools/mech26.py`・fig=("m26", …)）。段の数＝語りの行の数・画面の数は全部 rel に（門番 check_mech の judge_m26）
+SPEC.update({
+    # c702（2行）＝1行目「乗せられる量の3分の2に届かなかった」で3分の2の線と使われた量 → 2行目「ボートで離れたのは、多くて652人」
+    "c702": dict(
+        t="ボートの使われ方", s="使い切れなかった席",
+        fig=("m26", dict(view="boxfill", steps=[dict(state=dict(two3="on")), dict(state=dict(num="on"))],
+                         rel=[dict(t="1,178人ぶん", src="G1 p48"), dict(t="3分の2", src="G1 p76"), dict(t="多くて652人", src="G1 p51")],
+                         note="箱の高さは人数に比例（離れた人は、あとで海から拾い上げた人を除いた数）", src=ss.src(["G1 p48", "G1 p51", "G1 p76"])))),
+    # c704（2行）＝1行目「乗っていた2,201人のうち、助かったのは711人」→ 2行目「1,490人が亡くなった」で上の段が割れて床へ
+    "c704": dict(
+        t="乗っていた人の内訳", s="数え方は英国の報告書",
+        fig=("m26", dict(view="split2", steps=[dict(state=dict(live="on")), dict(state=dict(lost="on"))],
+                         rel=[dict(t="2,201人", src="G1 p56"), dict(t="711人", src="G1 p56"), dict(t="1,490人", src="G1 p5")],
+                         note="棒の高さは人数に比例（711＋1,490＝2,201）", src=ss.src(["G1 p5", "G1 p56"])))),
+    # c706（2行）＝1行目「一等は62%、二等は41%」→ 2行目「三等は25%。乗員は24%」
+    "c706": dict(
+        t="等級で違った割合", s="英国の審問の数から",
+        fig=("m26", dict(view="rates4", steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))],
+                         rel=[dict(t="62%・41%・25%", src="G1 p55"), dict(t="24%", src="G1 p56")],
+                         note="帯の長さは割合に比例（語りの丸め＝62.46・41.40・25.21・23.95）", src=ss.src(["G1 p55", "G1 p56"])))),
+    # c708（3行）＝1行目「道をふさがれた、とよく語られる」→ 2行目 報告書「本当のことは無いようだ」で赤い棒が消える → 3行目 低い理由
+    "c708": dict(
+        t="三等の客の道", s="報告書の答え",
+        fig=("m26", dict(view="decks", steps=[dict(state=dict(q="on")), dict(state=dict(rep="on")), dict(state=dict(far="on"))],
+                         note="部屋の場所と道のりは模式（人は描かない）", src=ss.src(["G1 p53"])))),
+    # c710（2行）＝1行目「2号艇の四等航海士が上げた、合図の灯」→ 2行目「4時まで…何度も向きを変えた」
+    "c710": dict(
+        t="前に見えた緑の灯", s="氷山の中を進む",
+        fig=("m26", dict(view="flare_bow", steps=[dict(state=dict(flare="on")), dict(state=dict(zig="on"))],
+                         rel=[dict(t="2号艇", src="G1 p55"), dict(t="4:00まで", src="G1 p55")],
+                         note="船と氷山の位置は模式", src=ss.src(["G1 p55", "G7 p20025"])))),
+})

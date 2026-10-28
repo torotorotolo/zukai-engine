@@ -99,3 +99,51 @@ PLAN = {
 }
 
 SPEC = {}
+
+# 🆕 ⑤b-6（2026-10-28）：図解（`tools/mech26.py`・fig=("m26", …)）。段の数＝語りの行の数・画面の数は全部 rel に（門番 check_mech の judge_m26）
+SPEC.update({
+    # c804（3行）＝1行目の問い → 2行目「報告書は、そうは言わない。25年以上…」で帯 → 3行目「針路と速さを保ち、見張りに頼る」
+    "c804": dict(
+        t="この航路のやり方", s="晴れた夜の客船の進み方",
+        fig=("m26", dict(view="custom25", steps=[dict(state=dict(q="on")), dict(state=dict(band="on")), dict(state=dict(way="on"))],
+                         rel=[dict(t="25年以上", src="G1 p40")], note="船の絵と帯は模式（25年より前は点線＝「以上」）", src=ss.src(["G1 p40"])))),
+    # c807（3行）＝1行目「タイタニック号では間違い」→ 2行目「これから同じことをすれば怠り」→ 3行目（聞き役）「もう許されない」
+    "c807": dict(
+        t="事故の前とあと", s="同じことの重さ",
+        fig=("m26", dict(view="before_after", steps=[dict(state=dict(a="on")), dict(state=dict(b="on")), dict(state=dict(c="on"))],
+                         note="線は模式（同じやり方の扱いが、事故を境に変わる）", src=ss.src(["G1 p41"])))),
+    # c810（3行）＝1行目の問い → 2行目「2隻の記録を、それぞれの船の時計のまま並べた」で2列 → 3行目「本当のところは明らか」で行を結ぶ
+    "c810": dict(
+        t="2隻の記録", s="報告書の突き合わせ",
+        fig=("m26", dict(view="match2", steps=[dict(state=dict(q="on")), dict(state=dict(cols="on")), dict(state=dict(pair="on"))],
+                         rel=[dict(t="約8発・8つ", src="G1 p60")], note="札の並びは模式（時刻は船ごとの時計のまま・1本の線にしない）", src=ss.src(["G1 p60"])))),
+    # c812（2行）＝1行目「信号弾は0時45分ごろから1時45分ごろ。カリフォルニアン号もそのころ見た」で扇 → 2行目「時計の違う2隻の時刻を、そのまま並べた」
+    "c812": dict(
+        t="時刻の並べ方", s="2隻の時計",
+        fig=("m26", dict(view="clocks_gap", steps=[dict(state=dict(range="on")), dict(state=dict(diff="on"))],
+                         rel=[dict(t="0:45ごろ〜1:45ごろ", src="G1 p60"), dict(t="1992年", src="G2 p2010")],
+                         note="時計の盤は模式（右の扇＝カリフォルニアン号の時計のそのころ）", src=ss.src(["G1 p54", "G1 p60", "G2 p2010"])))),
+    # c815（2行）＝1行目の問い → 2行目「船長の話では約9キロ（5マイル）」で内の輪
+    "c815": dict(
+        t="2隻の間の距離", s="船長が言った距離",
+        fig=("m26", dict(view="rings3", steps=[dict(state=dict(q="on")), dict(state=dict(cap="on"))],
+                         rel=[dict(t="約9キロ（5マイル）", src="G1 p60"), dict(t="約15キロ（8マイル）・約19キロ（10マイル）", src="G1 p60")],
+                         note="輪の半径は距離に比例・位置は模式（船の印は置かない）", src=ss.src(["G1 p60"])))),
+    # c816（2行・c815 の続き）＝1行目「たぶん約9キロより遠い」で外の帯 → 2行目「約15キロから19キロより遠くはない」で外の輪
+    "c816": dict(
+        t="報告書の距離", s="助言を受けた見方",
+        fig=("m26", dict(view="rings3", start=dict(q="on", cap="on"), steps=[dict(state=dict(far="on")), dict(state=dict(lim="on"))],
+                         rel=[dict(t="約9キロ（5マイル）", src="G1 p60"), dict(t="約15キロ（8マイル）・約19キロ（10マイル）", src="G1 p60")],
+                         note="輪の半径は距離に比例・位置は模式（船の印は置かない）", src=ss.src(["G1 p60"])))),
+    # c822（3行）＝1行目「米国上院の報告は…すぐ助けに向かっていたか」→ 2行目「通信士が、あと数分、持ち場にいたなら」→ 3行目「救う誇りを得ていたかもしれない」
+    "c822": dict(
+        t="もし起きていたら", s="上院が書いたこと",
+        fig=("m26", dict(view="few_min", steps=[dict(state=dict(sen="on")), dict(state=dict(few="on")), dict(state=dict(pride="on"))],
+                         rel=[dict(t="23:30", src="G1 p57")], note="部屋は模式（米国上院の報告の文は書き起こし・公式の写しは未照合）",
+                         src=ss.src(["T3 p1", "G1 p57"])))),
+    # c825（2行）＝1行目「審問のやり直しを求めた。だが退けられた」→ 2行目「正式な告発も…不服を申し立てる道も無かった」
+    "c825": dict(
+        t="閉ざされた道", s="船長が求めたこと",
+        fig=("m26", dict(view="appeal", steps=[dict(state=dict(ask="on")), dict(state=dict(none="on"))],
+                         note="流れは模式", src=ss.src(["G2 p2005"])))),
+})
