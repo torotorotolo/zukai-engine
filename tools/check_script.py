@@ -149,7 +149,7 @@ MAX_CHARS_PER_LINE = 41
 #    ⚠️ 実測では **35〜50分帯が1.47倍**。27〜35分はその帯の外側なので、
 #       そこに寄せるなら題材の側に理由が要る（この門番は「外」とは言わなくなるだけ）。
 #       ＝**下限を下げたのは「素材の薄い題材を無理に伸ばさない」ためで、短くするためではない。**
-DUR_MIN = 27 * 60
+DUR_A_MIN = 27 * 60          # A の枠の下限（下の DUR_MIN は「いまの回の枠」＝dur_band() が決める）
 # 🔴🔴 2026-09-08 カズヤくん指示「**今後どの動画尺においても上限を40分とします**」。
 #    ⚠️ **このチャンネル（事故検証ch「そのとき、何が起きたか」）限定**（2026-09-08 本人が明示）。
 #       心理ch・フクロウ・ショートには当てない（それぞれ別のリポジトリに別の定数がある）。
@@ -157,6 +157,14 @@ DUR_MIN = 27 * 60
 #      本人が**訂正**したので撤回ずみ（[[feedback-new-rules-override-old]]＝新しい指示を採る）。
 #    旧＝38分（4本目から一度も動かしていなかった）。下限 27分は据え置き。
 DUR_MAX_DEFAULT = 40 * 60
+# 🆕🔴🔴 2026-10-29（27本目 ②③）**尺は A／B の2枠**（ルール §3-11・カズヤくん 10-29「30分以上では作れないテーマも出る」）。
+#    A＝27〜40分（上の2つ・既定）／B＝8〜20分。どちらにするかは ②素材の終わりに Claude が決める。
+#    B の回は**回の名（el_script.SLUG）をここに書く**＝書かない回は A（いままでどおり）。
+#    回の名で引くので、回を替えても前の回の行は残してよい（ほかの回に効かない）。
+DUR_B = (8 * 60, 20 * 60)
+DUR_PATTERN = {
+    "ep27": "B",   # 27本目 八田與一容疑者の事件（10-29 ②の終わりに B＝判決・報告書なし＋まだ続くニュース）
+}
 
 # 回ごとの上書き。「この回だけ」と言われたときの置き場。
 # ⚠️ ここに書いたら、その回が終わったときに消すこと（消し忘れると次の回へ黙って持ち越される）。
@@ -186,7 +194,15 @@ def _slug():
         return None
 
 
-DUR_MAX = DUR_MAX_OVERRIDE.get(_slug(), DUR_MAX_DEFAULT)
+def dur_band(slug=None):
+    """いまの回（slug を渡せばその回）の尺の枠 (下限, 上限)。DUR_PATTERN に無い回は A。
+    上限の回ごとの上書き（DUR_MAX_OVERRIDE）は A・B のどちらにも効く。"""
+    s = _slug() if slug is None else slug
+    lo, hi = DUR_B if DUR_PATTERN.get(s, "A") == "B" else (DUR_A_MIN, DUR_MAX_DEFAULT)
+    return lo, DUR_MAX_OVERRIDE.get(s, hi)
+
+
+DUR_MIN, DUR_MAX = dur_band()
 
 
 def measured_cps(cuts=None, path="audio/narration.json"):
@@ -317,9 +333,11 @@ def judged_sec(d1, d2, d3, measured):
     return (d3, "③＝この回の音の実測") if measured else (sorted([d1, d2, d3])[1], "①②③の中央値")
 
 
-def dur_ok(sec):
-    """🔴 尺の合否はここ1本（本番も検算も通る。判定を2か所に書かない）。"""
-    return DUR_MIN <= sec <= DUR_MAX
+def dur_ok(sec, band=None):
+    """🔴 尺の合否はここ1本（本番も検算も通る。判定を2か所に書かない）。
+    band＝(下限, 上限)。省略するといまの回の枠（dur_band()）。"""
+    lo, hi = (DUR_MIN, DUR_MAX) if band is None else band
+    return lo <= sec <= hi
 # 🔴 写真映像の下限＝**この1か所が正本**（check_cuts.py もここを読む。2026-09-24・13本目⑤b-1）。
 #    2026-09-23 カズヤくん（全回に恒久）：**20%以上・上限なし・門番は警告だけ**
 #    （旧 08-03〜09-22＝45〜50%・下回ると E）。旧定数はここと check_cuts.py に別々にあり、
@@ -820,21 +838,37 @@ def selftest():
     #    ⚠️ それまで**しきい値そのものを試す検算が1本も無かった**＝
     #       値を書き換えても誰も気づかない状態だった（[[feedback-rules-need-gates]]）。
     #    境目のちょうど上・ちょうど下・1秒外を、**本番の dur_ok() そのもの**に入れる。
-    chk('尺 27分00秒は通る', dur_ok(27 * 60), True)
-    chk('尺 26分59秒は落ちる', dur_ok(27 * 60 - 1), False)
-    chk('尺 上限ちょうどは通る', dur_ok(DUR_MAX), True)
-    chk('尺 上限＋1秒は落ちる', dur_ok(DUR_MAX + 1), False)
+    #    🆕 2026-10-29（27本目 ③）：枠が A／B の2つになった＝**枠を渡して試す**
+    #       （いまの回が B〈ep27〉でも A の検算は回り、A の回でも B の検算は回る）。
+    A = (DUR_A_MIN, DUR_MAX_DEFAULT)
+    chk('尺 27分00秒は通る', dur_ok(27 * 60, A), True)
+    chk('尺 26分59秒は落ちる', dur_ok(27 * 60 - 1, A), False)
+    chk('尺 上限ちょうどは通る', dur_ok(DUR_MAX_DEFAULT, A), True)
+    chk('尺 上限＋1秒は落ちる', dur_ok(DUR_MAX_DEFAULT + 1, A), False)
     # 旧の下限だった帯が、いまは通ること＝変更が効いていること
-    chk('尺 32分（旧下限35分の下）が通る', dur_ok(32 * 60), True)
-    chk('尺 28分（旧下限30分の下）が通る', dur_ok(28 * 60), True)
-    chk('下限の表示が定数と揃う', fmt(DUR_MIN), '27分00秒')
+    chk('尺 32分（旧下限35分の下）が通る', dur_ok(32 * 60, A), True)
+    chk('尺 28分（旧下限30分の下）が通る', dur_ok(28 * 60, A), True)
+    chk('下限の表示が定数と揃う', fmt(DUR_A_MIN), '27分00秒')
     # 🔴 上限そのものの検算（2026-09-08 に 38→40分。事故検証ch 限定・全回）。
     #    ⚠️ 定数を書き換えても誰も気づかない状態にしない。上限の**値**をここに直接書く。
     chk('上限の既定は40分', DUR_MAX_DEFAULT, 40 * 60)
     chk('回ごとの上書きは いまは無い', dict(DUR_MAX_OVERRIDE), {})
-    chk('上限の表示が定数と揃う', fmt(DUR_MAX), '40分00秒')
-    chk('尺 39分（旧上限38分の上）が通る', dur_ok(39 * 60), True)
-    chk('尺 40分01秒は落ちる', dur_ok(40 * 60 + 1), False)
+    chk('上限の表示が定数と揃う', fmt(DUR_MAX_DEFAULT), '40分00秒')
+    chk('尺 39分（旧上限38分の上）が通る', dur_ok(39 * 60, A), True)
+    chk('尺 40分01秒は落ちる', dur_ok(40 * 60 + 1, A), False)
+    # 🆕🔴 B の枠（2026-10-29・ルール §3-11）。値をここに直接書く＝定数を書き換えたら落ちる
+    chk('B の枠は8〜20分', DUR_B, (8 * 60, 20 * 60))
+    chk('B 8分00秒は通る', dur_ok(8 * 60, DUR_B), True)
+    chk('B 7分59秒は落ちる', dur_ok(8 * 60 - 1, DUR_B), False)
+    chk('B 20分00秒は通る', dur_ok(20 * 60, DUR_B), True)
+    chk('B 20分01秒は落ちる', dur_ok(20 * 60 + 1, DUR_B), False)
+    chk('🔴B の回に A の尺（27分）を持ち込むと落ちる', dur_ok(27 * 60, DUR_B), False)
+    chk('🔴A の回に B の尺（16分）を持ち込むと落ちる', dur_ok(16 * 60, A), False)
+    # 回の名で枠を引く（表に無い回は A）・本番の定数はいまの回の枠と揃う
+    chk('ep27 は B', dur_band('ep27'), DUR_B)
+    chk('ep26 は A', dur_band('ep26'), (27 * 60, 40 * 60))
+    chk('表に無い回は A', dur_band('epX_not_in_table'), A)
+    chk('本番の枠はいまの回の名から', (DUR_MIN, DUR_MAX), dur_band())
 
     # 🔴🔴 2026-09-13（7本目 ⑤a）新設：**合否をどの数字で決めるか**の陽性・陰性対照。
     #    実際に踏んだ穴＝声を Koichi に替えたら③だけが実測になり、**中央値が①（Hiro の秒/カット）**に
@@ -845,8 +879,8 @@ def selftest():
     chk('音が無ければ中央値で決める', judged_sec(_d1, _d2, _d3, False)[0], _d1)
     chk('🔴中央値は①＝古い定数だった', sorted([_d1, _d2, _d3])[1], _d1)
     #    陰性対照＝③が範囲の外なら、音があっても落ちること（実測に寄せても網は緩めない）
-    chk('実測が40分超なら落ちる', dur_ok(judged_sec(_d1, _d2, 41 * 60.0, True)[0]), False)
-    chk('実測が27分未満なら落ちる', dur_ok(judged_sec(_d1, _d2, 26 * 60.0, True)[0]), False)
+    chk('実測が40分超なら落ちる', dur_ok(judged_sec(_d1, _d2, 41 * 60.0, True)[0], A), False)
+    chk('実測が27分未満なら落ちる', dur_ok(judged_sec(_d1, _d2, 26 * 60.0, True)[0], A), False)
 
     # 🔴 写真映像の下限（2026-09-24・13本目⑤b-1 新設）。⚠️ それまで**写真の割合を試す検算が1本も無く**、
     #    方針を 45%→20% に変えた日（09-23）も門番は旧定数のまま E を出し続けた（13本目④の 29.7%）。
