@@ -35,7 +35,8 @@ ROLES = os.path.join(HERE, 'roles.tsv')
 FRAG = os.path.join(EP, 'src', 'news_frag_v2.txt')
 ENV = dict(os.environ, PYTHONIOENCODING='utf-8', PYTHONUTF8='1')
 CUT = re.compile(r'^\*\*(c[0-9a-d]\d{2})\*\*')
-LO, HI, OPEN_MAX = 5690, 5990, 46.0
+LO, HI, OPEN_MAX = 5690, 5990, 46.0   # ③ の目標16分±25秒（参考＝外でも止めない）
+B_LO, B_HI = 2920, 7300                # B の枠 8〜20分（÷365）＝外なら止める（10-29 カズヤくんの指示で補足を外し、16分から15分台に下がった）
 HOOK = 'c103'                      # 冒頭の引き「1万3978件・逮捕につながる有力な手がかりは、まだ得られていない」
 M_OUT = {}
 
@@ -104,13 +105,17 @@ def band():
         return 2, 'm27 の出力が読めない（字数か冒頭の秒が無い）'
     n = int(m.group(1))
     hook, c107 = float(o[HOOK]), float(o.get('c107', 0))
-    bad = []
+    bad, note = [], []
+    if not B_LO <= n <= B_HI:
+        bad.append('字数 %d が B の枠 %d〜%d（8〜20分）の外' % (n, B_LO, B_HI))
     if not LO <= n <= HI:
-        bad.append('字数 %d が幅 %d〜%d の外' % (n, LO, HI))
+        note.append('参考：③ の目標16分の幅 %d〜%d の外（%+d字＝約%+.0f秒・10-29 カズヤくんの指示で一般の語の補足を外したため）' % (
+            LO, HI, n - 5840, (n - 5840) * 60 / 365.0))
     if hook > OPEN_MAX:
         bad.append('冒頭の引き %s の終わり %.1f秒が %d秒を越えた' % (HOOK, hook, OPEN_MAX))
-    txt = '句読点なし %d字（幅 %d〜%d・上限まで %d字）／冒頭の引き %s=%.1f秒（%d秒まで）・最初の見出しの前 c107 の終わり=%.1f秒／%s' % (
-        n, LO, HI, HI - n, HOOK, hook, OPEN_MAX, c107, '・'.join(bad) or 'OK')
+    txt = '句読点なし %d字（B の枠 %d〜%d の内か・%.0f分%02.0f秒）／冒頭の引き %s=%.1f秒（%d秒まで）・最初の見出しの前 c107 の終わり=%.1f秒／%s%s' % (
+        n, B_LO, B_HI, n // 365, (n * 60 / 365.0) % 60, HOOK, hook, OPEN_MAX, c107, '・'.join(bad) or 'OK',
+        ('／' + '・'.join(note)) if note else '')
     return (1 if bad else 0), txt
 
 
