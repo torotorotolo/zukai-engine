@@ -812,6 +812,107 @@ SCENES.update({
 })
 
 
+# ── 26本目 タイタニック号沈没事故（1912-04-14〜15・北大西洋）── 2026-10-28 ⑥ ──────────────────────
+# 🆕 10-28 カズヤくん（T1〈出航する S1-002〉の反転版を見て）「T1 最有力候補。生成AIも作る。AI案は、沈みゆくタイタニック号の
+#    インパクトがある実写イラスト」＝夜（月なし・星・凪）・船首が沈み船尾が上がりはじめた・灯はともったまま・白い信号弾（この回の核）。
+#    記録に合わせる：信号弾は 0:45〜1:45 ごろ（船首が沈んでいく途中）＝船尾が高く立つ最後の場面とは同時に描かない・沈没のときに氷山は近くに無い。
+#    反転版は字のすき間に主役が出る地で効く（25本目）＝船を画面の横いっぱいに。禁止は字（船名も）だけ＋顔（犠牲の数と並べない＝B5-4）。
+LOOK_TTN = (
+    "A real PHOTOGRAPH, indistinguishable from documentary press photography, as if taken on the night of 15 April "
+    "1912 on the open North Atlantic with a modern full-frame camera and a fast lens from a small boat low on the "
+    "water. Moonless night, a clear black sky full of stars, the sea absolutely flat and glassy like a mirror. The "
+    "only light comes from the ship's own warm electric lights and from the white stars of a distress rocket, "
+    "reflected in the still water. Fine natural film grain, true photographic depth of field, physically accurate "
+    "black-painted steel, white-painted superstructure and buff funnels. The mood is silent, cold and terrible. "
+)
+FRAME_TTN = (
+    "COMPOSITION, critical: 16:9 frame, a side view of the whole ship seen from the sea surface at a short "
+    "distance, so that the ship FILLS THE WHOLE WIDTH of the frame from the left edge to the right edge. A wide line "
+    "of lettering will later cover the top 18% of the frame, a yellow line the bottom 22%, and one huge word will run "
+    "across the whole middle, so the glowing rows of portholes and windows, the four funnels and the rocket's white "
+    "stars must be spread across the whole middle band, readable at a glance even when the picture is tiny. "
+)
+BAN_TTN = (
+    "No text, letters, numbers, ship names, words, flags with writing, logos, labels or watermarks of any kind, in "
+    "any language — the hull carries no name and no lettering at all. No faces: any people are only tiny dark "
+    "distant silhouettes. No iceberg anywhere in the picture. "
+)
+TAIL_TTN = (
+    "The result must look like a genuine, dramatic news photograph of a real moment, full of detail. It must NOT "
+    "look like a render, a video game, a movie still, a movie poster, a painting, a 3D visualisation, a model or an "
+    "illustration. No lens flare, no cinematic colour grading, no fog, no storm, no waves."
+)
+SCENES.update({
+    "ttn_a": {
+        "ep": "ep26",
+        "name": "沈みゆくタイタニック号（夜・月なし・凪・船首が沈み船尾が上がりはじめる・灯はともったまま・白い信号弾）",
+        "hypothesis": "カズヤくんの案＝沈みゆくタイタニック号のインパクト。T1（昼の出航）は落ち着きすぎ＝夜の沈む途中の船と信号弾で迫力。"
+                      "反転版の字の外に灯のともる船体と信号弾の白い光が出るよう、船を横いっぱいに",
+        "look": LOOK_TTN, "frame": FRAME_TTN, "ban": BAN_TTN, "tail": TAIL_TTN,
+        "scene": (
+            "The British ocean liner RMS Titanic, about 269 metres long, sinking by the head in the early hours of "
+            "15 April 1912: a very long black hull with a thin white line, a white superstructure, four tall buff-yellow "
+            "funnels with black tops in a row, two tall masts, rows of round portholes and windows glowing warm yellow "
+            "all along the hull and the decks. The bow has sunk deep: the sea has swallowed the forecastle and is "
+            "creeping up the front of the white superstructure, and the whole ship is tilted down at the front, its "
+            "stern rising slightly out of the water, the top of the rudder and the lower edge of the stern showing "
+            "above the black sea. The lights are still burning. High above the funnels, a white distress rocket has "
+            "just burst and hangs in the sky as a cluster of bright white falling stars, lighting the funnels, the "
+            "masts and the water. Far away on the flat sea, a few small white wooden lifeboats are being rowed away "
+            "from the ship. "
+        ),
+    },
+    # 🆕 10-28 カズヤくん（ttn_a を反転版に当てた並べを見て）「AI写真を再生成。もっと派手で目を引くような写真にして。誇張もOK。
+    #    生成前に案を出して、私の承認後にGO」→ 3案から **案A「船尾が空へ立ち上がる」**（承認）。
+    #    誇張（承認の内）＝信号弾（0:45〜1:45 ごろ）と船尾が高く立つ場面（2:15 ごろ）を同時に・信号弾を3〜4発同時に。
+    #    信号弾は物語どおり白（題「白い信号弾」）・字なし・顔なし・氷山なし・映画の場面や絵の構図をまねない
+    "ttn_b": {
+        "ep": "ep26",
+        "name": "案A 船尾が空へ立ち上がる最後の数分（赤い船底と3つのスクリュー・灯はともったまま・白い信号弾3〜4発＝誇張）",
+        "hypothesis": "ttn_a は暗く静か（字の中と外の差 +42）＝派手さが足りない。赤い船底・金の灯・白い信号弾の青白い光・深い青の空で色と明るさを足し、"
+                      "傾いた船体を画面の対角いっぱいに",
+        "look": (
+            "A real PHOTOGRAPH, indistinguishable from dramatic documentary press photography, as if taken on the night "
+            "of 15 April 1912 on the open North Atlantic with a modern full-frame camera and a wide lens from a small "
+            "boat low on the water, very close to the ship. Moonless night, a deep dark-blue sky full of stars, the "
+            "sea flat and glassy. The scene is lit by the ship's own blazing warm golden electric lights and by the "
+            "brilliant cold bluish-white light of several distress rockets bursting overhead, reflected in the wet "
+            "steel and in the black water. Fine natural film grain, true photographic depth of field, physically "
+            "accurate steel, paint, foam and spray. Vivid, high-contrast and full of light, yet completely real. "
+        ),
+        "frame": (
+            "COMPOSITION, critical: 16:9 frame. The ship must FILL THE WHOLE FRAME from the left edge to the right edge, "
+            "its hull running diagonally across the picture: the sinking bow and the white foam on one side, the raised "
+            "stern with the red hull bottom and the propellers on the other side, the propellers inside the middle of "
+            "the frame, not at the very top edge. A wide line of lettering will later cover the top 18% of the frame, a "
+            "yellow line the bottom 22%, and one huge word will run across the whole middle, so the glowing windows, "
+            "the red hull bottom, the propellers and the white rocket stars must be spread across the whole picture, "
+            "readable at a glance even when the picture is tiny. Original composition: do not copy any film scene or "
+            "any painting. "
+        ),
+        "ban": BAN_TTN,
+        "tail": (
+            "The result must look like a genuine, dramatic, high-impact photograph of a real moment, full of detail and "
+            "vivid light. Exaggerated drama is welcome, but it must NOT look like a render, a video game, a movie still, "
+            "a movie poster, a painting, a 3D visualisation, a model or an illustration. No lens flare, no cinematic "
+            "teal-and-orange grading, no fog, no storm waves."
+        ),
+        "scene": (
+            "The British ocean liner RMS Titanic in her final minutes, early on 15 April 1912, seen from very close and "
+            "from low on the water, looking up. The ship is tilted steeply down at the bow, at about 25 degrees: the "
+            "whole front of the ship has already gone under, and the sea boils with white foam and spray where it "
+            "swallows the decks. The stern has risen high into the air, showing the long curve of the hull bottom "
+            "painted dark red, and the three huge bronze propellers and the rudder hang clear of the water, dripping. "
+            "The black hull with its thin white line, the white superstructure and the buff-yellow funnels with black "
+            "tops are covered with rows of portholes and windows that still blaze warm golden yellow, and steam vents "
+            "from the funnels. High above, three or four white distress rockets are bursting at the same moment, each "
+            "a big cluster of brilliant white falling stars, flooding the scene with cold bluish-white light that "
+            "makes the wet steel shine and glitters on the black, glassy sea. "
+        ),
+    },
+})
+
+
 def build(v):
     """🔴 質感（look）と締め（tail）は**場面ごとに差し替えられる**（2026-09-22 追加）。
 

@@ -63,8 +63,9 @@ MP4 = HERE / "out" / "jiko" / "titan_audio-r29.mp4"
 SCOPES = ["https://www.googleapis.com/auth/youtube"]
 CATEGORY_EDUCATION = "27"
 # 🔴 名前が違えば cmd_up は止まる＝改名したらここも直す（2026-09-24「そのとき、何が起きたか」→「仕事帰りの事故調査ノート」・
-#    2026-10-05 →「ゆっくり事故調査ノート」@jikochosa＝カズヤくんが Studio で改名・API の who で確かめた）
-CHANNEL = "ゆっくり事故調査ノート"
+#    2026-10-05 →「ゆっくり事故調査ノート」@jikochosa＝カズヤくんが Studio で改名・API の who で確かめた・
+#    2026-10-29 →「ゆっくり調査ノート」@chosanote＝カズヤくんが Studio で改名・API で確かめた＝事件・災害も扱うため）
+CHANNEL = "ゆっくり調査ノート"
 
 
 # ── 🔴 トークンを public リポジトリへ置いてしまわないための門番 ──────────

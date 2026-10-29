@@ -60,6 +60,10 @@ TAGLINE = "調査報告書と記録で「そのとき、何が起きたか」を
 #    上の NAME／TAGLINE は 09-24 の本番バナー（`banner()`）を焼き直せるように残す
 NAME3 = "ゆっくり事故調査ノート"
 NAME3_TOP, NAME3_MAIN = "ゆっくり", "事故調査ノート"     # 2段に分けて大きく（1段だとアイコンと並べて約73px＝今より小さい）
+# 🆕 2026-10-29 改名（カズヤくんが Studio で）＝「ゆっくり調査ノート」@chosanote（事件・災害も扱う）。
+#    バナーは v3 と同じ作りで名前だけ替える＝`banner_v3(top=NAME4_TOP, main=NAME4_MAIN)`（`--v4`）。v3 の絵は焼き直せるように残す
+NAME4 = "ゆっくり調査ノート"
+NAME4_TOP, NAME4_MAIN = "ゆっくり", "調査ノート"
 
 # ── アイコン ──────────────────────────────────────────────
 IC = 800                      # YouTube の推奨は 800×800
@@ -295,7 +299,7 @@ def banner(note=False):
     return "".join(g)
 
 
-def banner_v3(D=300):
+def banner_v3(D=300, top=NAME3_TOP, main=NAME3_MAIN):
     """🆕 2026-10-05（改名「ゆっくり事故調査ノート」@jikochosa）カズヤくん：
        「現在のデザインの下部一行（調査報告書と記録で――）は削除。新チャンネル名とアイコンを大きく表記。
         他デザインは旧ヘッダーと同じ」。
@@ -331,17 +335,20 @@ def banner_v3(D=300):
 
     tx = icx + r + 56
     maxw = SAFE_X + SAFE_W - pad - tx
-    s2 = fm.fit(NAME3_MAIN, maxw, "Dela", cap=160, floor=60)
-    s1 = min(fm.fit(NAME3_TOP, maxw, "Dela", cap=160, floor=40), round(s2 * 0.62))
-    w2, w1 = fm.width(NAME3_MAIN, s2, "Dela"), fm.width(NAME3_TOP, s1, "Dela")
+    s2 = fm.fit(main, maxw, "Dela", cap=160, floor=60)
+    # 🆕 2026-10-29：字の少ない名前（v4「調査ノート」）は幅いっぱいだと 159px になり、下線が安全領域の下へ出た（🔴）
+    #    ＝高さでも抑える。60＝時間軸とのすき間 30＋下線までの 26＋線の太さの余り 4（v3 の 114px はこの上限の内）
+    s2 = min(s2, (SAFE_Y + SAFE_H - ay - 60) / 0.86)
+    s1 = min(fm.fit(top, maxw, "Dela", cap=160, floor=40), round(s2 * 0.62))
+    w2, w1 = fm.width(main, s2, "Dela"), fm.width(top, s1, "Dela")
     gap = 30                                     # 時間軸と字のすき間
     y1 = ay - gap                                # 上の段のベースライン（字の下端≒ここ）
     y2 = ay + gap + s2 * 0.86                    # 下の段のベースライン（字の上端≒ y2 − 0.86·s2）
     ul = y2 + 26                                 # 赤い下線（09-24 は名前のベースラインの 36px 下）
     g.append(f'<text x="{tx:.0f}" y="{y1:.0f}" font-family="Dela" font-size="{s1:.0f}" '
-             f'fill="{J.INK_W}">{NAME3_TOP}</text>')
+             f'fill="{J.INK_W}">{top}</text>')
     g.append(f'<text x="{tx:.0f}" y="{y2:.0f}" font-family="Dela" font-size="{s2:.0f}" '
-             f'fill="{J.INK_W}">{NAME3_MAIN}</text>')
+             f'fill="{J.INK_W}">{main}</text>')
     g.append(f'<path d="M{tx:.0f} {ul:.0f} h{w2:.0f}" stroke="{J.ALERT}" stroke-width="7"/>')
 
     top, bot = y1 - s1 * 0.88, ul + 4
@@ -419,6 +426,12 @@ def banner_crops(p, name="banner_crops"):
 
 def main():
     print("チャンネル素材を焼く", flush=True)
+    # 🆕 2026-10-29：`--v4` は改名「ゆっくり調査ノート」のバナーだけ（v3 と同じ作り・名前だけ替える・v3 の絵は上書きしない）
+    if "--v4" in sys.argv:
+        bn4 = bake("banner_v4", banner_v3(top=NAME4_TOP, main=NAME4_MAIN), BN_W, BN_H)
+        banner_crops(bn4, "banner_v4_crops")
+        print("→ out/brand/", flush=True)
+        return
     # 🆕 2026-10-05：`--v3` は改名「ゆっくり事故調査ノート」のバナーだけ（09-24 の本番 banner.png・アイコンは焼き直さない）
     if "--v3" in sys.argv:
         bn3 = bake("banner_v3", banner_v3(), BN_W, BN_H)

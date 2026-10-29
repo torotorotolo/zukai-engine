@@ -73,8 +73,9 @@ SNAP_DIR = HERE / "analytics" / "snapshots"
 # 🔴 2026-09-24 改名（旧「そのとき、何が起きたか」）。Studio の CSV はファイル名にその時点の名前が入る
 #    ＝旧名の CSV も読めるように、選り分けは新旧の両方で行う（CHANNEL_NAMES）
 # 🆕 2026-10-05 改名「ゆっくり事故調査ノート」@jikochosa（カズヤくん・Studio）＝旧名2つも CSV の選り分けに残す
-CHANNEL = "ゆっくり事故調査ノート"
-CHANNEL_NAMES = (CHANNEL, "仕事帰りの事故調査ノート", "そのとき、何が起きたか")
+# 🆕 2026-10-29 改名「ゆっくり調査ノート」@chosanote（カズヤくん・Studio）＝旧名3つも残す
+CHANNEL = "ゆっくり調査ノート"
+CHANNEL_NAMES = (CHANNEL, "ゆっくり事故調査ノート", "仕事帰りの事故調査ノート", "そのとき、何が起きたか")
 
 # 🔴 これ未満はカーブを読まない（十数〜数十再生ではノイズしか出ない）
 MIN_VIEWS_CURVE = 200

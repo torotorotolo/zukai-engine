@@ -1,0 +1,10 @@
+videoId 3NTJQrd2Vm0  https://youtu.be/3NTJQrd2Vm0
+✓ 題: 65字
+✓ 説明: 3506字
+✓ タグ: 15個
+✓ 子ども向けでない: self=False made=False
+✓ 公開設定: private
+✓ 処理: succeeded
+✓ 画質: hd
+✓ 尺: PT35M47S（手元 35分46.1秒）
+✓ サムネ: maxres 1280x720：平均の差 3.59（8 未満）・鮮明さの比 1.09（0.95 以上）
