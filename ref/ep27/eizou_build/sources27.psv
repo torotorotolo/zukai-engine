@@ -1,0 +1,63 @@
+# 27本目 映像方針：素材の出どころ（2026-10-29・チャット5・手で書く入力）。区切りは「|」・12列＝code|type|title|get|dims|rights|basis|credit|era|people|file|note
+# type：commons-photo（Commons＝了承②で幅1920を取る）／police-video（県警の YouTube＝引用・本番は ⑤b で Actions／Modal の yt-dlp）／police-image（県警の頁・X の画像＝引用・取得ずみ）／npa-image（警察庁の頁の写真＝引用・取得ずみ）／stock（Pexels＝了承②で幅1920）／satellite（Google の衛星写真＝⑤b-1 で撮る）
+# get：commons:<CM 番号>（src/commons/commons_meta.tsv の行＝0から）／yt:<ID>／web:<ファイル>／x:<投稿>／pexels:<ID>／google:⑤b-1
+# title＝見て確かめた中身（2026-10-29 に 640px の見本帳・原寸のコマで見た＝src/seen_log.tsv の「映像方針」）。credit＝画面の出典の行。{作者}＝撮影者の名前（git の外の src/credits_private.tsv から差し込む＝⑤b で作る）
+# 🔴 撮影者・作者の個人名はここに書かない。名前の網＝python -P ref/ep27/v2_build/namecheck27.py <ファイル>
+code|type|title|get|dims|rights|basis|credit|era|people|file|note
+YT-A|police-video|手配の動画（夜の歩道を歩く姿・防犯カメラ・自撮り・結びの字）＝10〜19秒と154〜159秒は重要指名手配のポスター（小さな字に「…死亡ひき逃げ事件の犯人です。犯人に関する情報を求めています。」＝使わない）|yt:Ir4Lpk4p11c|1920x1080（174秒）|引用|大分県の頁が「引用」を禁止の外と明記（materials §1）・県警の YouTube はライセンスの表示なし|出典：大分県警察 公式YouTube（2024年8月1日）|2024年8月の動画|容疑者（引用）・防犯カメラは県警のぼかし入り|⑤b で取る（手元の yt-dlp は 403＝Actions／Modal で JS の部品つき）|見方＝内蔵ブラウザのページの中で1080pのコマを写した（src/police_yt/ytA_frames・ytA_edges）＝OCR と原寸と0.25秒きざみの境目
+YT-C|police-video|殺人の疑いになってからの手配の動画（警察庁指定 重要指名手配 八田與一 → 殺人・殺人未遂・道路交通法違反 → 懸賞金・自撮り → この顔見たら110番）＝「犯」の字は60コマ OCR で0・使う秒は原寸で見た|yt:zj9LhnLb1So|854x476（30秒）|引用|同上|出典：大分県警察 公式YouTube（2025年12月11日）|2025年12月の動画（頁の公開日 2025-12-11 を yt-dlp の upload_date で確かめた）|容疑者（引用）|src/police_yt/20251211_zj9LhnLb1So.mp4（取得ずみ）|
+NPA01|npa-image|警察庁の重要指名手配の頁の顔写真（字なし＝OCR 0）|web:npa_wanted_01.jpg|1109x1505|引用|警察庁の頁は PDL1.0 だが県警の写真＝第三者の権利（materials §1）|出典：警察庁 重要指名手配の頁|2022年の手配の写真|容疑者（引用）|src/police_web/npa_wanted_01.jpg（取得ずみ）|
+SKETCH6|police-image|似顔絵6枚（長い髪・ひげ・眼鏡・後ろに束ねた髪ほか＝字なし＝OCR 0）|web:2323829_4634889〜4634894_misc.jpeg|1700x2338×6|引用|大分県の頁の引用の条件|出典：大分県警察（ホームページ・2024年6月）|2024年6月の公開|容疑者の想像の絵（引用）|src/police_web/2323829_46348{89..94}_misc.jpeg（取得ずみ）|
+SKETCH2|police-image|似顔絵のうち2枚（ひげ＝4634890・眼鏡＝4634891）を大きく|web:2323829_4634890・4634891_misc.jpeg|1700x2338×2|引用|同上|出典：大分県警察（ホームページ・2024年6月）|2024年6月の公開|容疑者の想像の絵（引用）|同上|SKETCH6 の中の2枚＝絵は無加工・並べ方だけ違う
+XPOST1|police-image|県警 X の固定の投稿の画像1枚目＝手配のポスター（全身の写真・サングラスの写真を含む・字は「…道路交通法違反事件の被疑者です。」＝「犯」の字は OCR で0）|x:oita_police/status/2071406565274640830 photo/1|666x949|引用|同上（県警の公式の X）|出典：大分県警察 公式X（2026年6月29日）|2026年6月の公開|容疑者（引用）・QR コード2つ|src/police_x/x20260629_HL8dC-vaIAAXBRK.jpg（取得ずみ・md5 bcfefe8d）|🔴 2枚目（HL8dIH1acAA5kXz）は縦書きで「…死傷させた犯人です。」＝使わない
+G1|satellite|野口原から北浜までの全体（約2km）|google:⑤b-1|1920x1080|Google の帰属の行を絵の近くに出し続ける|25本目からの地図の決まり|Google の帰属の行（画像 ©… ・地図データ ©… Google）|現在|なし|⑤b-1 で撮る（PNG はリポに置かない）|c212 は経路の線と防犯カメラ8台の印（県警の公表の範囲）・c617 は線なし
+G2|satellite|野口原の県道の交差点（現場付近）|google:⑤b-1|1920x1080|同上|同上|同上|現在|なし|同上|c104 は広め・c202 は交差点に寄る（細かい位置は描かない）
+G3|satellite|青山町と上田の湯町（隣り合う）|google:⑤b-1|1920x1080|同上|同上|同上|現在|なし|同上|G4（上田の湯町だけ）は撮らない
+G7|satellite|北浜のヨットハーバー（OpenStreetMap 33.27823,131.50798）|google:⑤b-1|1920x1080|同上|同上|同上|現在|なし|同上|c216 は寄り・c601 は海まで広く
+G9|satellite|日本全体（目撃の地域の札を重ねる地）|google:⑤b-1|1920x1080|同上|同上|同上|現在|なし|同上|🆕 台本の「日本の略図」を衛星写真に（25本目からの決まり）・地方の境は描かず札だけ
+CM001|commons-photo|JR別府駅のホームから見た夕方の青山通り（バス・車）|commons:CM001|3264x2448|CC BY-SA 4.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）|2016年2月|遠くに小さく|src/eizou/CM001.jpg|
+CM014|commons-photo|JR別府駅前の手湯（左に人の後ろ姿と脚＝顔は写らない）|commons:CM014|5472x3648|CC BY-SA 4.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）|2024年5月|後ろ姿だけ（顔なし）|src/eizou/CM014.jpg|
+CM022|commons-photo|JR別府駅の東口（海岸口）・タクシー・人は小さく|commons:CM022|3232x2424|CC BY-SA 4.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）|2016年2月|遠くに小さく|src/eizou/CM022.jpg|
+CM039|commons-photo|JR別府駅の西口（山手口）・バス|commons:CM039|3264x2448|CC BY-SA 4.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）|2016年2月|なし|src/eizou/CM039.jpg|
+CM040|commons-photo|ホームの駅名の看板「べっぷ BEPPU」|commons:CM040|4912x3264|CC BY-SA 2.0|Commons の表示（Flickr）|写真：{作者}／Wikimedia Commons（CC BY-SA 2.0）|2016年6月|なし|src/eizou/CM040.jpg|
+CM044|commons-photo|JR別府駅近くの夜の交差点（縦長・月と雲・信号）|commons:CM044|3024x4032|CC BY 2.0|Commons の表示（Flickr・撮影地 33.27923,131.50219）|写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切り出し|2022年9月10日 21:47|遠くに小さく（⑤b で原寸）|src/eizou/CM044.jpg|縦長＝全面は下の通りを切り出す
+CM045|commons-photo|JR別府駅近くの夜の通り（商店街の入り口とコンビニ）|commons:CM045|4032x3024|CC BY 2.0|Commons の表示（撮影地 33.27926,131.50327）|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2022年9月10日 21:49|中景に歩く人4人ほど＝⑤b で原寸・顔が分かれば顔だけモザイク|src/eizou/CM045.jpg|
+CM046|commons-photo|北浜の国道10号の交差点の夜（レストラン・ホテル・走る車）|commons:CM046|4032x3024|CC BY 2.0|Commons の表示（撮影地 33.27973,131.50597＝ヨットハーバーから0.25km）|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2022年9月10日 21:52|なし|src/eizou/CM046.jpg|
+CM051|commons-photo|別府観光港の第三埠頭のフェリー乗り場の夜|commons:CM051|3264x2448|CC BY 3.0|Commons の表示（panoramio）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2015年2月|なし|src/eizou/CM051.jpg|
+CM054|commons-photo|鶴見岳から見た別府市の街と別府湾の全景|commons:CM054|12496x7226|CC BY 2.0|Commons の表示（Flickr）|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2017年2月|なし|src/eizou/CM054.jpg|幅12496＝取るのは幅3840（寄りの余地）
+CM056|commons-photo|ヨットハーバーのそばの北浜公園（帆の形の時計・左にヨットの帆柱・高崎山）|commons:CM056|4032x3024|CC BY 2.0|Commons の表示（撮影地 33.27920,131.50659＝ヨットハーバーから0.17km）|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2020年9月|遠くに小さく|src/eizou/CM056.jpg|
+CM057|commons-photo|的ヶ浜公園の南から見た別府湾と高崎山（手前に土のう袋）|commons:CM057|3264x2448|CC BY-SA 4.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）|2016年2月|なし|src/eizou/CM057.jpg|
+CM059|commons-photo|的ヶ浜公園の南から見た別府湾（手前に土のう袋）|commons:CM059|3264x2448|CC BY-SA 4.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）|2016年2月|なし|src/eizou/CM059.jpg|
+CM072|commons-photo|北浜のヨットハーバー（桟橋に並ぶヨット・高崎山・「you」の看板の建物）|commons:CM072|3264x2448|CC BY-SA 4.0|Commons の表示（座標なし＝CM056 と同じ山と建物の並びで北浜と判断）|写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）|2024年5月28日|なし|src/eizou/CM072.jpg|
+CM074|commons-photo|防波堤の柵と別府湾（CM072 と同じ人が同じ15時台に撮影）|commons:CM074|4032x3024|CC BY-SA 4.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）|2024年5月28日|なし|src/eizou/CM074.jpg|
+CM075|commons-photo|防波堤から見た別府湾（同上）|commons:CM075|5472x3648|CC BY-SA 4.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）|2024年5月28日|なし|src/eizou/CM075.jpg|
+CM076|commons-photo|防波堤の遊歩道と別府湾・遠くに別府観光港のフェリー（同上）|commons:CM076|5472x3648|CC BY-SA 4.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）|2024年5月28日|なし|src/eizou/CM076.jpg|
+CM102|commons-photo|北浜の海べりから見た別府湾の朝日（小さな船の影）|commons:CM102|1920x1440|CC BY 3.0|Commons の表示（panoramio・撮影地 33.28006,131.50763）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2011年3月9日|なし|src/eizou/CM102.jpg|幅1920＝原本
+CM106|commons-photo|別府観光港の交通センターと駐車場|commons:CM106|3264x2448|CC0|Commons の表示|Wikimedia Commons（CC0）|2020年7月|なし|src/eizou/CM106.jpg|
+CM108|commons-photo|別府観光港の第三埠頭のフェリー乗り場（宇和島運輸）・タクシー|commons:CM108|8256x5504|CC0|Commons の表示|Wikimedia Commons（CC0）|2023年11月|なし|src/eizou/CM108.jpg|
+CM110|commons-photo|別府観光港の第三埠頭の道路と乗り場|commons:CM110|8256x5504|CC0|Commons の表示|Wikimedia Commons（CC0）|2023年11月|なし|src/eizou/CM110.jpg|
+CM112|commons-photo|別府観光港の交通センター（大きな看板の建物・バス）|commons:CM112|8256x5504|CC0|Commons の表示|Wikimedia Commons（CC0）|2023年11月|遠くに小さく|src/eizou/CM112.jpg|
+CM143|commons-photo|JR別府駅のきっぷ売り場（券売機と運賃表）|commons:CM143|4032x3024|CC BY 2.0|Commons の表示（撮影地＝別府駅）|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2020年9月|なし|src/eizou/CM143.jpg|
+CM144|commons-photo|JR別府駅の改札口（「ようこそ別府」の看板・階段とエスカレーター）|commons:CM144|4032x3024|CC BY 2.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2022年9月10日 21:39|遠くに小さく1人|src/eizou/CM144.jpg|
+CM145|commons-photo|JR別府駅の観光案内所の前（人のいない構内）|commons:CM145|4032x3024|CC BY 2.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2022年9月10日 21:41|なし|src/eizou/CM145.jpg|
+CM151|commons-photo|JR別府駅のホーム（線路ごしの夜）|commons:CM151|4032x3024|CC BY 2.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2022年9月10日 21:38|なし|src/eizou/CM151.jpg|
+CM152|commons-photo|JR別府駅のホームの特急（青い車両・発車の案内）|commons:CM152|4032x3024|CC BY 2.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2022年9月10日 21:38|なし|src/eizou/CM152.jpg|
+CM153|commons-photo|JR別府駅の階段（ホームから下りる・エレベーターの札）|commons:CM153|4032x3024|CC BY 2.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2022年9月10日 21:38|なし|src/eizou/CM153.jpg|
+CM154|commons-photo|夜の JR別府駅の駅舎とタクシー|commons:CM154|4032x3024|CC BY 2.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2022年9月10日 21:45|中景に小さく数人＝⑤b で原寸|src/eizou/CM154.jpg|
+CM156|commons-photo|夜の JR別府駅（バスの乗り場の側から）|commons:CM156|3648x2736|CC BY 3.0|Commons の表示（panoramio）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2011年2月19日|なし|src/eizou/CM156.jpg|
+CM198|commons-photo|十文字原の展望台から見た別府の夜景|commons:CM198|2688x1512|CC0|Commons の表示|Wikimedia Commons（CC0）|2020年9月|なし|src/eizou/CM198.jpg|
+CM202|commons-photo|SPA ビーチの静かな海（手前に柵）|commons:CM202|3264x2448|CC BY-SA 4.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）|2016年2月|遠くに小さく|src/eizou/CM202.jpg|
+CM203|commons-photo|的ヶ浜公園の園路|commons:CM203|3264x2448|CC BY-SA 4.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）|2016年2月|なし|src/eizou/CM203.jpg|
+CM204|commons-photo|的ヶ浜公園の南から見た SPA ビーチと別府湾|commons:CM204|3264x2448|CC BY-SA 4.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）|2016年2月|砂浜に遠く小さく2人|src/eizou/CM204.jpg|
+CM205|commons-photo|的ヶ浜の砂浜と海（白いホテル）|commons:CM205|4000x3000|CC BY 2.0|Commons の表示（撮影地 33.28450,131.50567）|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2011年11月|なし|src/eizou/CM205.jpg|
+CM208|commons-photo|鉄輪のあたりの湯けむりの街並みと高崎山|commons:CM208|4032x3024|CC BY 2.0|Commons の表示（撮影地＝駅から北西へ約3.5km）|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2022年9月10日|なし|src/eizou/CM208.jpg|事件の現場の近くではない＝副題は「別府市の」
+CM254|commons-photo|北浜の国道10号（改修中の別府タワー・ホテル・店の看板・道に「50」）|commons:CM254|4032x3024|CC BY 2.0|Commons の表示（撮影地 33.27980,131.50651）|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2022年9月11日 07:09|遠くに小さく|src/eizou/CM254.jpg|🔴 速さの図の地にしない（道の「50」が制限40キロと紛れる）
+CM257|commons-photo|別府タワーから見た北の眺め（的ヶ浜公園・SPA ビーチ・海）|commons:CM257|3858x2572|CC BY 3.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2013年3月|なし|src/eizou/CM257.jpg|
+CM258|commons-photo|別府タワーから見た北の街並み|commons:CM258|3888x2592|CC BY 3.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2013年3月|なし|src/eizou/CM258.jpg|
+CM259|commons-photo|別府タワーから見た南の街並みと高崎山|commons:CM259|3888x2592|CC BY 3.0|Commons の表示|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2013年3月|なし|src/eizou/CM259.jpg|
+CM283|commons-photo|ラッピングのバスと駐車場の案内（鉄輪のあたり）|commons:CM283|4032x3024|CC BY 2.0|Commons の表示（撮影地＝駅から北西へ約3.5km）|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2022年9月10日|なし|src/eizou/CM283.jpg|
+CM289|commons-photo|北浜交差点から見た国道10号と別府タワー（縦長）|commons:CM289|2410x3214|CC BY-SA 4.0|Commons の表示（撮影地 33.27969,131.50589）|写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）|2016年2月|なし|src/eizou/CM289.jpg|
+PX30037331|stock|イメージ：人のいない夜の商店街のアーケード（日本）|pexels:30037331|3840x2398|Pexels License|頁で商用可・クレジット不要を確かめる（⑤b の取得の日）|イメージ（Pexels）|イメージ|なし|src/eizou/PX30037331_1920.jpg|
+PX7146298|stock|イメージ：昼の駅のホーム（日本・駅名の看板なし）|pexels:7146298|6016x4016|Pexels License|同上|イメージ（Pexels）|イメージ|遠くに小さく|src/eizou/PX7146298_1920.jpg|
+PX7553959|stock|イメージ：夜の街を車の中から（街の灯が大きくぼけている・ナンバーなし・人影はぼけて見分けられない）|pexels:7553959|5184x3007|Pexels License|同上（頁で「Free to use」10-29）|イメージ（Pexels）|イメージ|ぼけた人影だけ|src/eizou/PX7553959_1920.jpg|10-29 に原寸（1920×1114）で見た＝c510 の第1候補 PX4512439 はナンバーが読めた（NG）
+PX7508684|stock|イメージ：天井のドーム型の防犯カメラ|pexels:7508684|3264x2448|Pexels License|同上|イメージ（Pexels）|イメージ|なし|src/eizou/PX7508684_1920.jpg|

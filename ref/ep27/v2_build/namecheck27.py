@@ -11,13 +11,16 @@ import sys
 sys.stdout.reconfigure(encoding='utf-8')
 HERE = os.path.dirname(os.path.abspath(__file__))
 NAMES = os.path.join(os.path.dirname(HERE), 'src', 'names_private.txt')
+# 🆕 映像方針（10-29）：Commons の撮影者の網＝eizou_build/authors27.py が作る（無ければ止める＝fail closed）
+NAMES_COMMONS = os.path.join(os.path.dirname(HERE), 'src', 'names_commons.txt')
 
 
 def main(files):
-    if not os.path.exists(NAMES):
-        print('🔴 網のファイルが無い＝止める:', NAMES)
-        return 2
-    words = [ln.strip() for ln in open(NAMES, encoding='utf-8') if ln.strip() and not ln.startswith('#')]
+    for p in (NAMES, NAMES_COMMONS):
+        if not os.path.exists(p):
+            print('🔴 網のファイルが無い＝止める:', p)
+            return 2
+    words = [ln.strip() for p in (NAMES, NAMES_COMMONS) for ln in open(p, encoding='utf-8') if ln.strip() and not ln.startswith('#')]
     hits = 0
     for f in files:
         try:
