@@ -5,7 +5,7 @@
   "file": "src/eizou/CM001.jpg",
   "cut": "c319",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）／改変なし",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -50,7 +50,7 @@
   "file": "src/eizou/CM014.jpg",
   "cut": "c505",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）／改変なし",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -95,7 +95,7 @@
   "file": "src/eizou/CM022.jpg",
   "cut": "c413",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）／改変なし",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -140,7 +140,7 @@
   "file": "src/eizou/CM039.jpg",
   "cut": "c220",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）／改変なし",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -185,7 +185,7 @@
   "file": "src/eizou/CM040.jpg",
   "cut": "c514",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 2.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 2.0）／改変なし",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -230,7 +230,7 @@
   "file": "src/eizou/CM044.jpg",
   "cut": "c204",
   "ji": "c201 c203 c205 c517 c518",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：顔にモザイク・切り出し",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出・顔にモザイク",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "縦長＝全面は下の通りを切り出す",
   "box": [
@@ -282,7 +282,7 @@
   "file": "src/eizou/CM045.jpg",
   "cut": "c105",
   "ji": "c519",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：顔にモザイク",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出・顔にモザイク",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -346,7 +346,7 @@
   "file": "src/eizou/CM046.jpg",
   "cut": "c215",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -391,7 +391,7 @@
   "file": "src/eizou/CM051.jpg",
   "cut": "c516",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 3.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 3.0）／改変：切出",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -436,7 +436,7 @@
   "file": "src/eizou/CM054.jpg",
   "cut": "c107 c706",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "幅12496＝取るのは幅3840（寄りの余地）",
   "box": [
@@ -481,7 +481,7 @@
   "file": "src/eizou/CM056.jpg",
   "cut": "c217 c705",
   "ji": "c218",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -526,7 +526,7 @@
   "file": "src/eizou/CM057.jpg",
   "cut": "c704",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）／改変なし",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -571,7 +571,7 @@
   "file": "src/eizou/CM059.jpg",
   "cut": "c610",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）／改変なし",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -616,7 +616,7 @@
   "file": "src/eizou/CM072.jpg",
   "cut": "c101",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）／改変なし",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -661,7 +661,7 @@
   "file": "src/eizou/CM074.jpg",
   "cut": "c609",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）／改変なし",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -706,7 +706,7 @@
   "file": "src/eizou/CM075.jpg",
   "cut": "c219",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）／改変なし",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -751,7 +751,7 @@
   "file": "src/eizou/CM076.jpg",
   "cut": "c415",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）／改変なし",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -796,7 +796,7 @@
   "file": "src/eizou/CM102.jpg",
   "cut": "c520",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 3.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 3.0）／改変：切出",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "幅1920＝原本",
   "box": [
@@ -1021,7 +1021,7 @@
   "file": "src/eizou/CM143.jpg",
   "cut": "c417",
   "ji": "c501 c502 c503",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -1066,7 +1066,7 @@
   "file": "src/eizou/CM144.jpg",
   "cut": "c320",
   "ji": "c401",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -1111,7 +1111,7 @@
   "file": "src/eizou/CM145.jpg",
   "cut": "c315",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -1156,7 +1156,7 @@
   "file": "src/eizou/CM151.jpg",
   "cut": "c304 c703",
   "ji": "c302 c513 c515",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -1201,7 +1201,7 @@
   "file": "src/eizou/CM152.jpg",
   "cut": "c307",
   "ji": "c306",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -1246,7 +1246,7 @@
   "file": "src/eizou/CM153.jpg",
   "cut": "c308 c702",
   "ji": "c310 c701",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -1291,7 +1291,7 @@
   "file": "src/eizou/CM154.jpg",
   "cut": "c214 c608",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：顔にモザイク",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出・顔にモザイク",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -1343,7 +1343,7 @@
   "file": "src/eizou/CM156.jpg",
   "cut": "c311",
   "ji": "c312",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 3.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 3.0）／改変：切出",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -1433,7 +1433,7 @@
   "file": "src/eizou/CM202.jpg",
   "cut": "c613",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）／改変なし",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -1478,7 +1478,7 @@
   "file": "src/eizou/CM203.jpg",
   "cut": "c507",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）／改変なし",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -1523,7 +1523,7 @@
   "file": "src/eizou/CM204.jpg",
   "cut": "c611",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）／改変なし",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -1568,7 +1568,7 @@
   "file": "src/eizou/CM205.jpg",
   "cut": "c602",
   "ji": "c612",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -1613,7 +1613,7 @@
   "file": "src/eizou/CM208.jpg",
   "cut": "c206",
   "ji": "c208",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "事件の現場の近くではない＝副題は「別府市の」",
   "box": [
@@ -1658,7 +1658,7 @@
   "file": "src/eizou/CM254.jpg",
   "cut": "c404",
   "ji": "c405 c406 c407 c605 c606 c607",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "🔴 速さの図の地にしない（道の「50」が制限40キロと紛れる）",
   "box": [
@@ -1703,7 +1703,7 @@
   "file": "src/eizou/CM257.jpg",
   "cut": "c317 c614",
   "ji": "c318",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 3.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 3.0）／改変：切出",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -1748,7 +1748,7 @@
   "file": "src/eizou/CM258.jpg",
   "cut": "c209",
   "ji": "c210",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 3.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 3.0）／改変：切出",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -1793,7 +1793,7 @@
   "file": "src/eizou/CM259.jpg",
   "cut": "c402",
   "ji": "c403",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 3.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 3.0）／改変：切出",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -1838,7 +1838,7 @@
   "file": "src/eizou/CM283.jpg",
   "cut": "c211",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [
@@ -1883,7 +1883,7 @@
   "file": "src/eizou/CM289.jpg",
   "cut": "c409",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）／改変なし",
   "who": "Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す）",
   "note": "",
   "box": [

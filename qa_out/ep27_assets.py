@@ -366,15 +366,25 @@ def year_of(code, s):
 
 
 def screen_credit(code, s, face_mask):
-    """画面の出典の行（了承② 決め4）＝sources27 の出典の欄のまま（CC BY・BY-SA は「写真：{作者}／Wikimedia Commons（ライセンス）」・
-    CC0＝「Wikimedia Commons（CC0）」・Pexels＝「イメージ（Pexels）」・県警＝「出典：大分県警察 …」）。顔だけ升目は「／改変：顔にモザイク」"""
+    """画面の出典の行（了承② 決め4）＝sources27 の出典の欄（CC BY・BY-SA は「写真：{作者}／Wikimedia Commons（ライセンス）」・
+    CC0＝「Wikimedia Commons（CC0）」・Pexels＝「イメージ（Pexels）」・県警＝「出典：大分県警察 …」）＋**改変の断りを明記**：
+    BY-SA＝「／改変なし」（額装・無加工）・CC BY＝「／改変：切出」（全面＝画面の窓で切る）・顔だけ升目は「・顔にモザイク」を足す。
+    🔴 ⑤b-2 の試し焼き（10-30）で見つけた：断りを書かないと `scene_jiko.credit_of` が「CC BY」を含み「改変」の無い行に古い決まり（6本目＝
+       デュオトーンの頃）の「／改変：色調変更・切出」を足す＝**原色のまま・切らない BY-SA の額にも「色調変更・切出」と出ていた**（c101）。
+       24・25本目と同じく断りを台帳に書く（色は変えていない＝「色調変更」は書かない）"""
     cr = s["credit"]
     if "［" in cr or "（⑤b" in cr:
         raise SystemExit(f"🔴 {code}: 出典の欄に書きかけの印が残る（{cr[:60]}）")
-    if face_mask:
-        if s["type"] not in PHOTO_TYPES or "BY-SA" in s["rights"]:
-            raise SystemExit(f"🔴 {code}: 顔の升目は CC BY・CC0 の写真だけ（{s['rights']}＝BY-SA は升目も翻案）")
-        cr = cr.replace("／改変：", "／改変：顔にモザイク・") if "／改変：" in cr else cr + "／改変：顔にモザイク"
+    if face_mask and (s["type"] not in PHOTO_TYPES or "BY-SA" in s["rights"]):
+        raise SystemExit(f"🔴 {code}: 顔の升目は CC BY・CC0 の写真だけ（{s['rights']}＝BY-SA は升目も翻案）")
+    if s["type"] in PHOTO_TYPES and "CC BY" in s["rights"]:
+        cr = re.sub(r"／改変：.*$", "", cr)                    # sources27 の「／改変：切り出し」（CM044）は下の型に揃える
+        if "BY-SA" in s["rights"]:
+            cr += "／改変なし"
+        else:
+            cr += "／改変：切出" + ("・顔にモザイク" if face_mask else "")
+    elif face_mask:
+        cr += "／改変：顔にモザイク"
     return cr
 
 
