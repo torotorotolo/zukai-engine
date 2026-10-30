@@ -66,11 +66,28 @@ def ink_lum():
     return float(lum(np.array(_hex(J.INK_W))))
 
 
+def dilate(m, r):
+    """3×3 の正方形で r 回ふくらませる（scipy.ndimage.binary_dilation と同じ答え＝外は 0）。
+    🔴 2026-10-30（⑤b-4）：Actions に scipy が無く層の段のあとで落ちた（手元にはあった）＝numpy だけで書く。selftest で scipy と照らす"""
+    out = m.copy()
+    for _ in range(r):
+        g = out.copy()
+        g[1:, :] |= out[:-1, :]
+        g[:-1, :] |= out[1:, :]
+        g[:, 1:] |= out[:, :-1]
+        g[:, :-1] |= out[:, 1:]
+        g[1:, 1:] |= out[:-1, :-1]
+        g[1:, :-1] |= out[:-1, 1:]
+        g[:-1, 1:] |= out[1:, :-1]
+        g[:-1, :-1] |= out[1:, 1:]
+        out = g
+    return out
+
+
 def ring_of(alpha):
     """インク（α≥INK_A）の周り RING px の帯のうち、地が見えている所（α≤COVER_A）・字幕の帯より上。"""
-    from scipy import ndimage
     ink = alpha >= INK_A
-    grown = ndimage.binary_dilation(ink, structure=np.ones((3, 3), bool), iterations=RING)
+    grown = dilate(ink, RING)
     ring = grown & (alpha <= COVER_A)
     ring[SUB_Y:, :] = False
     return ring
@@ -281,6 +298,15 @@ def selftest():
         return a
 
     txt = blob(400, 400, 700, 460)
+    # 膨らませは scipy と同じ答え（手元に scipy があるときだけ照らす＝Actions には無い）
+    rnd = np.random.default_rng(3).random((120, 160)) > 0.985
+    rnd[0, 5] = rnd[-1, -3] = True                               # 縁の点（外は 0 の扱い）
+    try:
+        from scipy import ndimage
+        same = bool((dilate(rnd, RING) == ndimage.binary_dilation(rnd, structure=np.ones((3, 3), bool), iterations=RING)).all())
+        say(same, "dilate は scipy.ndimage.binary_dilation（3×3・10回）と画素まで同じ")
+    except ImportError:
+        print("  ・ scipy が無い＝dilate の照らし合わせは飛ばす（手元で照らしてある）")
     # 陰性：暗い地（30）＝通る
     r, _at, n, _m = worst(lum(np.full((H_, W_, 3), 30.0)), ring_of(txt))
     say(n > 0 and r >= TARGET, f"陰性 暗い地（30）で通る（{r:.1f}:1・升 {n}）")
