@@ -173,8 +173,9 @@ SPEC.update({
     "c512": dict(photo=_PX7508684, **ss.mvz(_PX7508684, (0.6, 0.64, 1.1), (0.6, 0.64, 1.3)), side="none", color=1.0, t="", s=""),
     # c514（2行）＝JR別府駅のホームの駅名の看板（CC BY-SA＝額装・静止・無加工）
     "c514": dict(photo=P("cm040"), panel=True, color=1.0, t="うその動画", s="JR別府駅のホームの駅名の看板〈2016年〉"),
-    # c516（2行）＝第三埠頭の夜の灯へ寄る
-    "c516": dict(photo=_CM051, **ss.mv(_CM051, "in", fx=0.35, fy=0.62), side="none", color=1.0,
+    # c516（2行）＝第三埠頭の夜の灯へ寄る。引いた側も下へ寄せる（`ss.mvz`）＝右上の船会社のネオンの字（y 0.15〜0.30）を両端とも窓の外へ
+    #   （r03：引いた頭で章の札がネオンに重なり、寄りの終わりではネオンの字が窓の右上で切れた）
+    "c516": dict(photo=_CM051, **ss.mvz(_CM051, (0.4, 0.7, 1.12), (0.32, 0.7, 1.3)), side="none", color=1.0,
                  t="遺族とSNS", s="別府観光港の第三埠頭の夜〈2015年〉"),
     # c520（2行）＝北浜の海べりの朝日（海に映る光の筋へ寄る）
     "c520": dict(photo=_CM102, **ss.mv(_CM102, "in", fx=0.58, fy=0.6), side="none", color=1.0,
@@ -189,10 +190,11 @@ SPEC.update({
     # c504（3行）＝1行目「いちばん多いのは関東」→ 2行目「次が近畿、その次が大分県をのぞく九州…大分県は約740件」→ 3行目「ネットの動画や画像…約1230件」
     "c504": dict(
         **ss.sat("G9", steps=[
-            [dict(k="txt", at="kanto", c="AMBER", t="関東 約4950件", lab=(36, -26, "start"))],
-            [dict(k="txt", at="kinki", c="INK_W", t="近畿 約1830件", lab=(10, 76, "middle")),
-             dict(k="txt", at="kyushu", c="INK_W", t="大分県をのぞく九州 約1680件", lab=(-24, 40, "end"), size=28),
-             dict(k="txt", at="oita", c="INK_W", t="大分県 約740件", lab=(-24, -46, "end"))],
+            # ⑤b-5 の焼き（Modal qa-ep27_b5_sat）で札だけだと「大分県 約740件」が朝鮮半島の南の海に浮き、どこの札か分かりにくかった＝地方の目安に点を置いて札と結ぶ
+            [dict(k="pt", at="kanto", c="AMBER", t="関東 約4950件", lab=(24, -22, "start"))],
+            [dict(k="pt", at="kinki", c="INK_W", t="近畿 約1830件", lab=(40, 46, "start")),
+             dict(k="pt", at="kyushu", c="INK_W", t="大分県をのぞく九州 約1680件", lab=(-22, 34, "end"), size=28),
+             dict(k="pt", at="oita", c="INK_W", t="大分県 約740件", lab=(-22, -26, "end"))],
             [dict(k="say", xy=(1893, 883), t="その他の地域 約2810件", anchor="end", size=28),
              dict(k="say", xy=(1893, 943), t="ネットの動画や画像 約1230件", anchor="end", size=28)]],
             note="札の置き場は一般の座標（地方の目安）・地方の境は描かない"),
