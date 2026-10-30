@@ -466,6 +466,15 @@ def frame_only_for(spec):
 _BREAKS_FRAME = ("trim", "veil", "vignette", "focus", "xbias", "bias", "ann", "mark", "blur", "cam", "intro")
 
 
+def _fills_screen(ph, tol=0.002):
+    """台帳（assets.json の w・h）で、その点が画面と同じ 16:9 ちょうどか（全画面にしても切れない）。台帳に無い点は False（止める側）"""
+    if not isinstance(ph, str) or not ph.startswith(EP):
+        return False
+    r = _assets().get(ph[len(EP):].rsplit(".", 1)[0]) or {}
+    w, h = r.get("w"), r.get("h")
+    return bool(w and h) and abs(w / h - 16 / 9) <= tol
+
+
 def check_frame_only(spec, use=None):
     """継承つきの点を、切る・色を変える・重ねる型に渡しているカット／2回使っているカットを挙げる（空なら合格）。
 
@@ -488,8 +497,13 @@ def check_frame_only(spec, use=None):
             bad.append(f"{cid}＝intro の {intro_ph}（{fo[intro_ph]}）: 冒頭の全画面は切る＝継承つきは使えない")
         # 🆕 17本目 ⑤b-2：額装の地に敷く別の写真（`ground=`＝build_jiko.ground_photo）は切ってぼかす＝継承つきは使えない
         gr_ph = (s.get("ground") or {}).get("photo")
-        if gr_ph in fo:
-            bad.append(f"{cid}＝ground の {gr_ph}（{fo[gr_ph]}）: 地の写真は切ってぼかす＝継承つきは使えない")
+        # 🆕 27本目 ⑥'（2026-10-30 カズヤくん「加工しない決まりについては、元の画像をその上に無加工で表示するので問題ありません。今後は無視して
+        #    ください」）＝額の中が無加工（panel=True・color=1.0・下の切る書き方なし）なら、地に**同じ点**のぼかしを敷くのは可（BY-SA も引用も）。
+        #    ⚠️ 別の額装だけの点を地にするのは今までどおり止める（その点は画面に無加工で出ていない）
+        same_ok = gr_ph == ph and s.get("panel") and float(s.get("color") or 0.0) == 1.0
+        if gr_ph in fo and not same_ok:
+            bad.append(f"{cid}＝ground の {gr_ph}（{fo[gr_ph]}）: 地の写真は切ってぼかす＝継承つきは使えない"
+                       "（同じ点を無加工の額＋その地にするときだけ可＝10-30）")
         # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻）は寄る（build_jiko.tail_frame）＝継承つきは使えない
         tail_ph = (s.get("tail") or {}).get("photo")
         if tail_ph in fo:
@@ -506,7 +520,9 @@ def check_frame_only(spec, use=None):
             continue
         seen.setdefault(ph, []).append(cid)
         why = [k for k in _BREAKS_FRAME if s.get(k) is not None]
-        if not s.get("panel"):
+        # 🆕 27本目 ⑥'（2026-10-30 カズヤくん「写真を全画面表示に」）：画面と同じ 16:9 ちょうどの点は、全画面でも上下左右が切れない
+        #    （build_jiko.fit の cover が等倍＝c102 の県警の動画のコマ 1920×1080）＝切る書き方（上の _BREAKS_FRAME・zoom）が無いときだけ panel なしで可
+        if not s.get("panel") and not _fills_screen(ph):
             why.append("panel=True が無い（全画面＝上下左右が切れる）")
         if float(s.get("zoom") or 1.0) != 1.0:
             why.append(f"zoom={s.get('zoom')}（1.0 以外は切る）")

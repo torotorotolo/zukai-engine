@@ -1632,6 +1632,11 @@ def credit_of(cid, spec):
     #    ＝PDL の「を加工して作成」が地のぼかしまで含む（同じ出典を2回つなぐと行が長くなって画面の左の外へ出る）。CC BY などは下の型のまま
     if gr and gr == spec.get("photo") and (cr.endswith("を加工して作成") or _ground_same_pd(gr)):
         gr = None
+    # 🆕 27本目 ⑥'（2026-10-30）：額の中は無加工のまま、地に**同じ写真**のぼかし（c101＝BY-SA の「改変なし」の額）＝同じ出典を2回つながず
+    #    「（地：同じ写真のぼかし）」だけ足す（地は改変した複製＝改変の旨は要る・額の中の写真は「改変なし」のまま）
+    if gr and gr == spec.get("photo"):
+        cr += "（地：同じ写真のぼかし）"
+        gr = None
     if gr:
         gcr = credit_of(cid + "~g", dict(photo=gr))
         gcr = re.sub(r"^(写真|出典)：", "", gcr)
@@ -1908,6 +1913,9 @@ V_GAP = 12
 #    → **出典の行も1つの段として、段と段のあいだと同じだけ離す**。足りないカットだけ列ごと上へ。
 CRED_GAP = BLOCK_GAP
 PANEL_CRED_Y = J.BAND_B - 4                          # 額の下に出す出典の位置
+# 🆕 27本目 ⑥'（2026-10-30）：高さいっぱいの額（SPEC の `ptall=True`＝photo_box）。上の端から24px・出典の行の上は34px 空ける
+#    （出典の字の高さ約26px＋すき間）・額の左端は見出しと副題の右端（〜700px）より右＝PTALL_LEFT_MIN
+PTALL_TOP, PTALL_CRED, PTALL_LEFT_MIN = 24, 34, 720
 
 
 def photo_box(spec):
@@ -1940,6 +1948,15 @@ def photo_box(spec):
         if t:
             sw = max(1, int(sw * (t[2] - t[0])))
             sh = max(1, int(sh * (t[3] - t[1])))
+        if spec.get("ptall"):
+            # 🆕 27本目 ⑥'（2026-10-30 カズヤくん「写真を全画面表示に。縦横比の都合上、全画面表示ができない場合は、背景を方眼ではなく
+            #    そのシーンの写真をぼやかしたものを使用」）＝切れない点（BY-SA・引用）の**高さいっぱいの額**：上の端（PTALL_TOP）〜出典の行の上
+            #    （PANEL_CRED_Y − PTALL_CRED）・右の余白でそろえる＝見出しと副題は左の地の上、出典は額の真下（どちらも写真に重ねない）。
+            #    地は SPEC の ground（同じ写真のぼかし＝build_jiko.ground_photo）。⚠️ 額の左端が見出しの右端（PTALL_LEFT_MIN）より右に来る形だけ
+            ph_ = PANEL_CRED_Y - PTALL_CRED - PTALL_TOP
+            z = min((J.RIGHT - PTALL_LEFT_MIN) / sw, ph_ / sh)
+            w, h = int(sw * z), int(sh * z)
+            return (J.RIGHT - w, PTALL_TOP, w, h)
         mw = spec.get("pw", PANEL_MAXW)
         z = min(mw / sw, PANEL_MAXH / sh)
         w, h = int(sw * z), int(sh * z)
