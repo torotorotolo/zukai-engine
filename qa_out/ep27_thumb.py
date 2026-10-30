@@ -17,7 +17,7 @@ import io
 import sys
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageFilter
 
 HERE = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(HERE / "tools"))
@@ -368,6 +368,246 @@ def body_a4(two_tone=True):
     return "".join(s), px
 
 
+# ══════════════════════════════════════════════════════════
+#  v7（10-31・公開のあと カズヤくん「27本目のサムネを修正します」）
+#  ①「重要指名手配」の帯は字をなくしてトラテープ（黄と黒の斜めの縞）
+#  ②「容疑者」を省いて名前をもっと大きく（10-31 カズヤくんの決め＝事件の回の決まり②より新しい・題と概要欄は「容疑者」つきのまま）
+#  ③顔写真を切り抜き、地は全部単色（A＝v6 の暗い赤・B＝紺＝10-30 の A／B と同じ色）
+#  ④「八田與一」＝他の回と同じ透ける大きな字（H 型の反転版＝字の外は地のまま・字の中は暗い白黒・赤い縁＝26本目と同じ hx2）
+#  ⑤その右下に他の回と同じ形の「なぜ見つからない？」（黄 #fbfb0e・黒フチ16・NSB 112・基線 692）⑥2行の間に「情報1万3978件」（白・黒フチ）
+#  顔に字をかけない＝元の写真で髪 y74〜450・目 y≈515・口 y≈760（行ごとの暗さで測った）。名前を顔に重ねると「一」の横の画が
+#  目にかかり、顔を隠す黒い帯（目線）に見える → 名前は顔の左に収める
+# ══════════════════════════════════════════════════════════
+CUT = HERE / "ref" / "ep27" / "police" / "npa01_cut.png"   # 切り抜き（透明つき・git の外＝警察の写真から作った物）
+S7, FX7, FY7 = 0.6, 680, -36                               # 顔の倍率・左上の位置（v6 と同じ大きさ・65px 右へ＝名前の幅を空ける）
+FADE7 = 150                                                # 元の写真の左の端から 150px で体を地へ溶かす（端で体が縦に切れて見えない）
+BAND7 = (160, 440, 40, 800)                                # 名前の縁の外側が収まる枠（上・下・左・右）＝テープの下端 y143（x=40）より下・髪の左端 x811 より左
+BOLD7 = {"八": 16, "田": 16, "與": 0, "一": 16}             # 太らせ（画の多い「與」は0＝縁で埋まらない）
+# 🆕 同じ日（v7 を焼いている途中）カズヤくん「サムネの文字フォントは『キリンをもう一度』の『事態が動いています』の動画サムネと同じものに。
+#    背景が単色なので文字の透け感は無しで良い」＝見本 `TFHX_1QXSMI`「事態が動いています 確認してください【八田與一】」のサムネをブラウザで見た
+#    ＝極太の明朝（点がしずく形・横画の右端にうろこ・細く抜ける払い）＝v6 の見本 `_Z26yksEZTk`（八田與一に関する全ての情報）と同じ系統
+#    → 名前・件数・1句を Noto Serif JP Black（NSJ）に。名前は透けない塗り（字の中＝下の色 INK7・赤い縁はそのまま）。出典の小さな札はゴシックのまま（v6 と同じ）
+FONT7 = "NotoSerifJP-Black.woff2"
+# 🆕 同じ日（明朝の1版を見て）カズヤくん「背景は黒。名前は赤にして。青版は不要」＝k 版。地＝v6b の黒と同じ #050505。
+#    名前の赤＝見本 `TFHX_1QXSMI` のサムネの「最新 情報」の赤い画素の中央値 (246,4,4)（ブラウザの画面から測った）。縁なし＝黒い地では暗い縁は
+#    見えず、同じ赤の縁は字を太らせて「與」の中をつぶす。前の2版は消さずに残す（選ばれ直すことがある＝サムネの型の記憶）
+# 🆕 同じ日（k 版を見て）カズヤくん「『八田與一』のフォントが指定していたものと異なって見えます。『八田』が大きく、『與一』が小さく見えます。
+#    文字の大きさの見え方を統一してください。文字色の赤も指定したモデル（キリン）と同じ赤を」＝k2 版。見本を等倍にして測った：
+#    ・書体＝見本と同じ字の高さ・横幅・黒フチで候補を並べると Noto Serif JP Black が「八」の払い・「田」の角・「一」の大きなうろこまで一番そろう
+#      （しっぽり明朝 B1・Zen Old Mincho は「八」「一」の形が違う）＝書体は合っていた。違って見えたのは加工＝横の詰め 0.66（見本は約 0.83）と
+#      「八」「田」だけの太らせ 16（「與」は 0）。見本は白い字に太い黒フチ（「一」の白い芯 3〜5px の上下に黒 12px）＝細い横画もフチで太く見える
+#      → 黒い地ではフチが見えない → 4字とも同じだけ太らせる（BOLD7K）・詰めは見本と同じ 0.83（SX7K）
+#    ・赤＝見本の「最新 情報」の芯は上から下まで (240〜248, 3〜6, 3〜7)＝色の上下差なし＝k 版の (246,4,4) と同じ値のまま
+BOLD7K = {c: 10 for c in "八田與一"}                       # 4字そろえて太らせる（横画 約7px → 約17px＝210px で約3px）
+SX7K = 0.83                                                # 横の詰め＝見本（「八田與一」の4字で 586px・字の高さ 158px）と同じ
+# k2 を原寸で見たら、今度は「與」がいちばん大きく見えた＝書体の作りで「與」は「田」より 1.067 倍高い（k2 で 222px 対 208px）うえ、
+# 太らせで墨の量も最多（赤の画素 26928・田 23362・八 12266・一 3882）・太らせ 10 で「與」の離れた2つの塊がくっついた（hx3.pieces）
+# → k3：「與」を「八」「田」と同じ高さへ縮めて字の縦のまん中を「田」にそろえる・「與」の太らせは 8・画が1本の「一」は 14
+BOLD7K3 = {"八": 10, "田": 10, "與": 8, "一": 14}
+HSC7K3 = {"與": 208 / 222}
+STYLE7 = {   # 記号: (地, 名前の字の中, 名前の縁の太さ, 太らせ, 横の詰め＝None なら枠いっぱいに合わせる, 字ごとの大きさ)
+    "": ("#5c0b0b", "#111111", 18, BOLD7, None, None),      # 明朝の1版 A：暗い赤の地（v6 の bg3 の中心）・黒い字に赤い縁（ep27_A7_v7.png＝dfb9da22…）
+    "n": ("#0f2a66", "#111111", 18, BOLD7, None, None),     # 明朝の1版 B：紺（ep27_A7n_v7.png＝0b164756…）＝「青版は不要」
+    "k": ("#050505", "#f60404", 0, BOLD7, None, None),      # 2版：黒い地・赤い名前（ep27_A7k_v7.png＝c86ee837…）
+    "k2": ("#050505", "#f60404", 0, BOLD7K, SX7K, None),    # 3版：k の名前を見本の形に（4字同じ太らせ・詰め 0.83）（ep27_A7k2_v7.png＝f223acd8…）
+    "k3": ("#050505", "#f60404", 0, BOLD7K3, SX7K, HSC7K3),  # 4版：k2 の4字の高さをそろえる（ep27_A7k3_v7.png＝8b169b92…）
+    "k4": ("#050505", "#f60404", 0, None, "kirin", None),    # 5版：見本の「八田與一」をそのまま写す（下の KIRIN7）（ep27_A7k4_v7.png＝35b81f64…）
+    "k5": ("#050505", "#f60404", 0, None, "kirin", None),    # 6版：k4 を縦にだけ伸ばす（KIRIN7_SY）
+}
+# 🆕 同じ日（k4 を見て）カズヤくん「名前の縦幅をもう少し大きく」＝横は顔の髪で決まる（白い縁が x811 に届かない最大）→ 縦にだけ伸ばす。
+#    1.15倍＝「田」186px → 約214px（k3 の約210px と同じくらい）。縁（太らせ・ぼかし）は伸ばさない＝字の形を座標で伸ばしてから縁を描く
+KIRIN7_SY = {"k5": 1.15}
+# 🆕 同じ日（k3 を見て）カズヤくん「キリンは文字の縁にぼやけたようなエフェクトが入っているので、それも完全再現。『八田與一』の部分のみ完全コピー。
+#    背景が黒なので縁は白で」＝k4。見本（TFHX_1QXSMI のサムネ・1280x720）の「八田與一」をページの画素で直に測った：
+#    ・4字の白い字の箱（RGB の最小 >150）＝八 x11〜157・y20〜149／田 x171〜299・y22〜154／與 x310〜457・y12〜159／一 x463〜602・y67〜88
+#    ・Noto Serif JP Black の字の形を1字ずつ箱に当てはめた（大きさ・横の詰め・原点・基線）＝KIRIN7。重ね図で輪郭は見本の白い字の縁に沿う
+#      （白の重なり IoU 0.73〜0.81＝細い画の 1〜2px のずれと JPEG のにじみの分）。字ごとの大きさは 134〜155px とばらつく＝見本の並びのまま写す
+#    ・縁＝白い字からの距離ごとの暗さ（地で割った値の中央値）が d≦7 で 0.97〜1・d=10 0.91・12 0.79・16 0.44・20 0.13・24 0.03
+#      ＝字を外へ R 太らせた形をぼかし σ で（まっすぐな縁なら Φ((R−d)/σ)）＝R 14.8・σ 4.3（等倍で焼いて同じ物差しで照らした）
+#    → 色だけ替える：字＝見本の「最新 情報」の赤（k と同じ）・縁＝白（地が黒）。倍率は縁の見える幅こみで髪の左の端に届かない最大
+KIRIN7 = {"八": (145.41, 1.041, 7.32, 138.88), "田": (148.44, 1.013, 156.82, 143.22),
+          "與": (154.81, 0.977, 306.48, 144.48), "一": (134.15, 1.097, 458.23, 140.28)}   # 字: (大きさ, 横の詰め, 原点 x, 基線 y)＝見本の等倍
+KIRIN7_INK = (10.5, 602.5, 11.5, 159.5)                    # 4字の字の外接（左・右・上・下）＝見本の等倍
+KIRIN7_GLOW = (14.8, 4.3)                                  # 縁の太らせ R・ぼかし σ（見本の等倍）
+KIRIN7_SEEN = 22                                           # 縁が見える幅（暗さ 0.05 まで＝見本の等倍）
+HAIR7_LEFT = FX7 + 219 * S7                                # 髪の左の端（元の写真の x219＝いちばん広い行）＝x 811
+NAME7_CY = 300                                             # 名前の字の縦のまん中（k3 と同じ）
+
+
+def name_kirin7(hx, ink, sy=1.0):
+    """見本の「八田與一」を KIRIN7 の並びのまま k 倍して置く（白いぼかしの縁＋字）。sy＝縦にだけ伸ばす倍率（字の縦のまん中 NAME7_CY を中心に）。
+    返り値＝SVG・字の並び（hx.lay と同じ形・基線は伸ばしたあと）・倍率"""
+    from fontTools.pens.svgPathPen import SVGPathPen
+    from fontTools.pens.transformPen import TransformPen
+    k = (HAIR7_LEFT - BAND7[2]) / (KIRIN7_INK[1] - KIRIN7_INK[0] + KIRIN7_SEEN)
+    dx, dy = BAND7[2] - KIRIN7_INK[0] * k, NAME7_CY - (KIRIN7_INK[2] + KIRIN7_INK[3]) / 2 * k
+    gl = [(c, X * k + dx, NAME7_CY + (b * k + dy - NAME7_CY) * sy, f * k, s, 0, FONT7) for c, (f, s, X, b) in KIRIN7.items()]
+    hx.ink("八", FONT7)                                 # 書体を読み込む（hx._FT）
+    gs, cmap, upm = hx._FT[FONT7]
+    ds = []
+    for c, x, b, f, s, _, _ in gl:
+        sp = SVGPathPen(gs)
+        gs[cmap[ord(c)]].draw(TransformPen(sp, (f * s / upm, 0, 0, -f * sy / upm, x, b)))
+        ds.append(f'<path d="{sp.getCommands()}"/>')
+    p = "".join(ds)
+    r, sig = (v * k for v in KIRIN7_GLOW)
+    svg = (f'<defs><filter id="kg" x="0" y="0" width="{W}" height="{H}" filterUnits="userSpaceOnUse">'
+           f'<feGaussianBlur stdDeviation="{sig:.2f}"/></filter></defs>'
+           f'<g fill="#ffffff" stroke="#ffffff" stroke-width="{2 * r:.2f}" stroke-linejoin="round" filter="url(#kg)">{p}</g>'
+           f'<g fill="{ink}">{p}</g>')
+    return svg, gl, k
+
+
+def lay7(hx, top, bot, left, right, rim, bold, sx_want=None, hsc=None):
+    """名前の字を並べる。sx_want＝None なら枠いっぱい（hx.lay のまま）。数なら、横の詰めがその値になる字の高さを二分で探し、枠の縦のまん中に置く。
+    hsc＝字ごとの大きさ（hx.lay は基線をそろえるだけ）＝大きさを変えた字は、字の形の縦のまん中を「田」にそろえ直す"""
+    kw = dict(left=left, right=right, rim=rim, bold=bold, font=FONT7, hsc=hsc or {})
+    if sx_want is None:
+        gl, fs, sx = hx.lay("八田與一", top, bot, **kw)
+    else:
+        lo, hi = 40.0, float(bot - top)
+        for _ in range(40):
+            h = (lo + hi) / 2
+            lo, hi = (h, hi) if hx.lay("八田與一", top, top + h, **kw)[2] > sx_want else (lo, h)
+        off = ((bot - top) - h) / 2
+        gl, fs, sx = hx.lay("八田與一", top + off, top + off + h, **kw)
+    if hsc:
+        def mid(c, b, f, font):                        # 字の形の縦のまん中（画面の y）
+            i = hx.ink(c, font)
+            return b - (i[1] + i[3]) / 2 * f
+        ref = next(mid(c, b, f, font) for c, x, b, f, s, bd, font in gl if c == "田")
+        gl = [(c, x, b + ref - mid(c, b, f, font) if c in hsc else b, f, s, bd, font) for c, x, b, f, s, bd, font in gl]
+    return gl, fs, sx
+
+
+def _hx():
+    """Vault の hx・hx3（26本目と同じ H 型の反転版の道具）を読むだけで使う。hx は読み込むと T.OUT を Vault へ向ける＝ここで戻す"""
+    res = Path(r"C:\Users\konar\Documents\Obsidian Vault\Resources\事故検証-サムネ海外競合5ch-20261012")
+    if str(res) not in sys.path:
+        sys.path.insert(0, str(res))
+    import hx
+    import hx3
+    T.OUT = HERE / "out" / "thumb"
+    hx3.OUT = T.OUT
+    return hx, hx3
+
+
+def cutout():
+    """正面写真から人だけを切り抜く（透明つき PNG・一度作ったら使い回す＝`--recut` で作り直す）。地はクリーム色の無地（上の端の色の幅 3〜7）
+    → Lab の距離で地の種（端につながる所だけ）→ GrabCut（cv2）で縁を決める → 縁の段々をならす → 1px 削って 1.6px ぼかす（クリーム色のにじみを残さない）
+    1回目（10-31 07:55）は襟のフリース（地と色が近い）の縁が段々に見えた（原寸で x760〜790・y470〜540）＝開いて閉じる（菱形の半径4）を足した"""
+    if CUT.exists() and "--recut" not in sys.argv:
+        return Image.open(CUT).convert("RGBA")
+    import cv2
+    import numpy as np
+    from scipy import ndimage as nd
+    rgb = np.asarray(Image.open(PHOTO).convert("RGB"))
+    lab = cv2.cvtColor(rgb, cv2.COLOR_RGB2LAB).astype(float)
+    d = np.sqrt(((lab - np.median(lab[:10].reshape(-1, 3), 0)) ** 2).sum(-1))
+
+    def edge(m):                                       # 上・左・右の端につながる所だけ（顔の中の明るい所を地にしない）
+        lb, _ = nd.label(m)
+        keep = (set(np.unique(lb[0])) | set(np.unique(lb[:, 0])) | set(np.unique(lb[:, -1]))) - {0}
+        return np.isin(lb, list(keep))
+    m = np.full(d.shape, cv2.GC_PR_FGD, np.uint8)
+    m[edge(d < 25)] = cv2.GC_PR_BGD
+    m[edge(d < 12)] = cv2.GC_BGD
+    m[nd.binary_erosion(~edge(d < 30), iterations=25)] = cv2.GC_FGD
+    cv2.grabCut(rgb[:, :, ::-1].copy(), m, None, np.zeros((1, 65)), np.zeros((1, 65)), 6, cv2.GC_INIT_WITH_MASK)
+    fg = (m == cv2.GC_FGD) | (m == cv2.GC_PR_FGD)
+    lb, n = nd.label(fg)
+    fg = nd.binary_fill_holes(lb == 1 + int(np.argmax(nd.sum(fg, lb, range(1, n + 1)))))
+    st = nd.generate_binary_structure(2, 1)
+    fg = nd.binary_fill_holes(nd.binary_closing(nd.binary_opening(fg, st, iterations=4), st, iterations=4))
+    # 髪の縁の明るい画素＝クリーム色の地のにじみ（暗い地で白い毛羽に見えた＝てっぺん y78〜94・明るさ105〜119／髪は40〜50）を外す。
+    # 元の y 440 より上は髪だけ（額は y≈450 から＝行ごとの暗さで測った）＝肌を削らない
+    rim = fg & ~nd.binary_erosion(fg, iterations=6)
+    rim[440:] = False
+    fg &= ~(rim & (rgb.mean(-1) > 90))
+    fg = nd.binary_erosion(fg, iterations=1)
+    # 髪の縁の色のにじみを髪の色へ落とす（黒い地で髪の輪郭が明るく浮いた＝縁の 1〜3px の明るさ中央値 54・髪の内側 27＝10-31 の k 版）
+    # ＝縁から内へ 10px と外（ぼかしで半透明になる所）の色を、髪の内側（縁から 12px より内・元の y100〜440）の 75% 点で頭打ちにする
+    zone = ~nd.binary_erosion(fg, iterations=10)
+    zone[440:] = False
+    hair = nd.binary_erosion(fg, iterations=12)
+    hair[440:] = False
+    hair[:100] = False
+    rgb = rgb.copy()
+    rgb[zone] = np.minimum(rgb[zone], np.percentile(rgb[hair], 75, axis=0)).astype(np.uint8)
+    im = Image.fromarray(rgb).convert("RGBA")
+    im.putalpha(Image.fromarray((fg * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(1.6)))
+    im.save(CUT)
+    return im
+
+
+def _uri(im, fmt="PNG"):
+    buf = io.BytesIO()
+    im.save(buf, fmt)
+    return f"data:image/{fmt.lower()};base64," + base64.b64encode(buf.getvalue()).decode()
+
+
+def face7():
+    """切り抜きを v6 と同じ大きさへ縮め、元の写真の左の端の体だけを地へ溶かす（FADE7）"""
+    import numpy as np
+    cut = cutout()
+    a = np.asarray(cut.getchannel("A"), float) * np.clip(np.arange(cut.width) / FADE7, 0, 1)[None, :]
+    cut.putalpha(Image.fromarray(a.astype(np.uint8)))
+    return cut.resize((round(cut.width * S7), round(cut.height * S7)), Image.LANCZOS)
+
+
+def tape7(base, cy, k=2):
+    """地の画へトラテープ（黄と黒の斜めの縞・字なし・太さ 72）を描く。x=380 で中心の高さ cy・右上がり 7度（SVG の rotate(-7) と同じ向き）。
+    2倍で描いて縮める（縁と縞のぎざぎざを消す）。縞の幅は SVG の版と同じ 32px（45度の縞を x+y で切る＝周期 32√2）"""
+    import math
+    import numpy as np
+    from PIL import ImageDraw
+    yy, xx = np.mgrid[0:H * k, 0:W * k]
+    s = ((xx + yy) // round(32 * math.sqrt(2) * k)) % 2
+    st = Image.fromarray(np.where(s[..., None] == 0, (0xff, 0xd6, 0x0a), (0x11, 0x11, 0x11)).astype(np.uint8))
+    a = math.radians(-7)
+    pts = [((380 + (x - 380) * math.cos(a) - (y - cy) * math.sin(a)) * k, (cy + (x - 380) * math.sin(a) + (y - cy) * math.cos(a)) * k)
+           for x, y in ((-80, cy - 36), (1520, cy - 36), (1520, cy + 36), (-80, cy + 36))]
+    m = Image.new("L", (W * k, H * k), 0)
+    ImageDraw.Draw(m).polygon(pts, fill=255)
+    base.paste(st.resize((W, H), Image.LANCZOS), (0, 0), m.resize((W, H), Image.LANCZOS))
+
+
+TAPE7_BEHIND = 235                                         # 案 C：テープを名前の後ろに通す高さ（x=380 の中心）＝八・田・與の上半分を横切り、髪の奥を通って右の端へ
+
+
+def body_a7(kind="k", behind=False):
+    """kind＝STYLE7 の記号。behind=False＝テープは v6 の位置（名前の上）。True＝案 C：テープを名前の後ろに通す（字の中にテープの縞が暗く透ける）"""
+    hx, _ = _hx()
+    bg, ink, rim, bold, sx_want, hsc = STYLE7[kind]
+    face = face7()
+    base = Image.new("RGB", (W, H), bg)
+    if behind:
+        tape7(base, TAPE7_BEHIND)
+    base.paste(face.convert("RGB"), (FX7, FY7), face.getchannel("A"))
+    col = _uri(base)
+    ns = 'font-family="NSB" font-size="18" fill="#ffffff" stroke="#000" stroke-width="4" paint-order="stroke fill"'
+    ex = [] if behind else [
+          '<defs><pattern id="tiger" patternUnits="userSpaceOnUse" width="64" height="64" patternTransform="rotate(45)">'
+          '<rect width="32" height="64" fill="#ffd60a"/><rect x="32" width="32" height="64" fill="#111111"/></pattern>'
+          '<clipPath id="tp7"><rect x="-80" y="30" width="1600" height="72" transform="rotate(-7 380 64)"/></clipPath></defs>',
+          # テープ＝v6 と同じ位置と傾き（右上がり 7度）・字なし。右は顔の奥を通って上の端へ抜ける（テープの所だけ顔を描き直す）
+          '<g transform="rotate(-7 380 64)"><rect x="-80" y="30" width="1600" height="72" fill="url(#tiger)"/></g>',
+          f'<g clip-path="url(#tp7)"><image href="{_uri(face)}" x="{FX7}" y="{FY7}" width="{face.width}" height="{face.height}"/></g>']
+    post = ['<text x="40" y="546" font-family="NSJ" font-size="76" fill="#ffffff" stroke="#000" stroke-width="14" '
+            'stroke-linejoin="round" paint-order="stroke fill">情報1万3978件</text>',
+            '<text x="1240" y="692" text-anchor="end" font-family="NSJ" font-size="112" fill="#fbfb0e" stroke="#000" '
+            'stroke-width="16" stroke-linejoin="round" paint-order="stroke fill">なぜ見つからない？</text>',
+            f'<text x="16" y="684" {ns}>写真：警察庁</text><text x="16" y="706" {ns}>（大分県警察手配）</text>']
+    if sx_want == "kirin":                             # k4：見本の「八田與一」を写す（型抜きの窓は使わない＝地の上にテープ → 名前 → 字）
+        name, gl, k = name_kirin7(hx, ink, KIRIN7_SY.get(kind, 1.0))
+        return (f'<image href="{col}" x="0" y="0" width="{W}" height="{H}"/>' + "".join(ex) + name + "".join(post),
+                (gl, KIRIN7["田"][0] * k, KIRIN7["田"][1], 0))
+    dark = _uri(Image.new("RGB", (W, H), ink))         # 字の中＝透けない塗り（10-31 カズヤくん「透け感は無しで良い」）＝hx2 の型抜きの窓に無地を置く
+    gl, fs, sx = lay7(hx, *BAND7, rim, bold, sx_want, hsc)
+    svg = _swap(hx.hx2(dark, col, gl, ex + post, rim=rim), f'<rect x="0" y="470" width="{W}" height="250" fill="url(#bt)"/>', "")  # 下の暗幕なし＝地は全部単色
+    return svg, (gl, fs, sx, rim)
+
+
 def sheet3(names, outp):
     """案ごとに 640px と 210px（実寸）を横に並べ、縦に積む"""
     from PIL import ImageDraw, ImageFont
@@ -399,7 +639,21 @@ def main():
     name = arg("name", "ep27_A_v1")
     (T.OUT / "ep27").mkdir(parents=True, exist_ok=True)
     style = arg("style", "v2")
-    if style == "v6c":                                 # ⑥'：v6 の地の別色版（明るい赤・白・紺）を焼いて v6 と並べる
+    if style == "v7":                                  # 🆕 10-31：切り抜き＋単色の地＋大きな名前。--kinds＝STYLE7 の記号（既定 k＝黒い地・赤い名前）
+        # 案 C（テープを名前の後ろ＝透け感を出す案）は「透け感は無しで良い」で見送り＝body_a7(behind=True) は残すだけ
+        for kind in arg("kinds", "k").split(","):
+            b, (gl, fs, sx, rim) = body_a7(kind)
+            n = f"ep27_A7{kind}_v7"
+            bake2(f"ep27/{n}", b)
+            check(T.OUT / "ep27" / f"{n}.png", T.OUT / "ep27" / f"{n}_check.png")
+            print(f"{n}：名前 大きさ {fs:.1f}px・長体 {sx:.3f}・縁 {rim}・字の原点 x＝" + "・".join(f"{c}{x:.0f}" for c, x, *_ in gl))
+            hx, hx3 = _hx()
+            print("  赤い字（と縁）の外接の箱（x0, x1, y0, y1）：", hx.red_box(f"ep27/{n}"))
+            print("  塊の数（点や画が縁でくっつかないか）：")
+            hx3.pieces(gl, rim=rim)
+            print(" ", T.OUT / "ep27" / f"{n}_check.png")
+        return
+    if style == "v6c":                                # ⑥'：v6 の地の別色版（明るい赤・白・紺）を焼いて v6 と並べる
         names = ["ep27_A6_v6"]
         for kind in V6C:
             b, px = body_a6c(kind)

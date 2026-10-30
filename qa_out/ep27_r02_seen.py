@@ -20,6 +20,9 @@ def main():
     paths = [a for a in sys.argv[1:] if not a.startswith("--")]
     with SEEN.open("a", encoding="utf-8") as f:
         for p in paths:
+            if p.startswith(("http://", "https://")):  # ブラウザで見た画（手元にファイルが無い）＝URL をそのまま帳へ
+                f.write(f"{datetime.now():%H:%M}\t{p}\t-\t{note}\n")
+                continue
             q = Path(p)
             if not q.is_absolute():
                 q = HERE / q
