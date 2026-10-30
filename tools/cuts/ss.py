@@ -130,8 +130,8 @@ from functools import lru_cache
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parents[2]
-REF = HERE / "ref" / "ep26"        # 🔴 §0b：回の名に結んだ束の置き場（2026-10-25 25本目 ⑤b-1 で ep24 → ep25・2026-10-27 26本目 ⑤b-1 で ep25 → ep26）
-EP = "ep26/"
+REF = HERE / "ref" / "ep27"        # 🔴 §0b：回の名に結んだ束の置き場（2026-10-25 25本目 ⑤b-1 で ep24 → ep25・2026-10-27 26本目 ⑤b-1 で ep25 → ep26・2026-10-30 27本目 ⑤b-1 で ep26 → ep27）
+EP = "ep27/"
 W, H = 1920, 1080
 
 # 画面の縦横比。これより縦長／横長の図は額装パネルに回す。
@@ -237,6 +237,8 @@ SCREEN_AR = W / H
 #          章ファイルで panel を書かずに cam（`ss.mv`・`ss.mvz`）を明記する。幅 1280 未満の全面（s8_e03 977＝c106 ほか・s5_358・s4_320 ほか）も同じ。
 #          横長の額＝s8_n04 3.407・s4_264 4.245（WIDE_AR の外＝額装）／s4_n06 1.982（映像方針は幅いっぱいの額＝章ファイルで panel=True を明記）・
 #          頁の切り出し p_g1_041 2.723・p_g1_058 2.598・p_g2_03 1.882 は WIDE_AR の内＝頁は章ファイルで panel=True を明記
+#    🔴 2026-10-30（27本目 ⑤b-1）：26本目の束から決めた 1.11 のまま残した（見本に入れない＝16〜26本目と同じ）＝27本目の束で
+#       `qa_out/ep27_assets.py panel` のいちばん大きな切れ目から取り直す（上の 1.11 の理由の注は26本目の束の写真のこと）
 PANEL_AR = 1.11                 # これ未満＝縦長すぎ（上下が切れる）
 WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝2.85（26本目の束から）。これ超＝横長すぎ
 
@@ -643,14 +645,12 @@ NG_PHOTOS: dict[str, str] = {}
 #    🆕 2026-10-27（26本目 ⑤b-2）：5点＝束で顔だけ升目にした（範囲は `qa_out/ep26_assets.py` の MASK・原寸で覆えていることを見た＝scratchpad `b2/v1〜v3.jpg`）。
 #       升目にしない点（S2-045・S1-084・S7-594・S6-480・S1-057 の上半分＝顔が数画素のぼけ／S6-379＝ボートの乗員／S1-013＝制服の係と後ろ向きの人）は同じ MASK の注。
 #       名前の字は升目でなく束の段で切り出しの外（`qa_out/ep26_assets.py` の PHOTO_CROP・PAGE_CROP＝7点）
-NEEDS_MASK: dict[str, str] = {
-    P("s9_648"): "c323・c820＝米国上院の公聴会の部屋（議員・証人・記者・傍聴の人が写真から分けられない＝顔の分かる30人・⑤c' で1人足した）",
-    P("s2_054"): "c208・c509＝ボート甲板を歩く乗客4人（右の後ろ姿の人はそのまま）",
-    P("s1_057"): "c219＝タイタニック号の甲板の人たち（下半分の顔の分かる10人）",
-    P("s6_383"): "c707＝カルパチア号の横のボートの生存者（上から・こちらを向く顔11）",
-    P("s6_427"): "c714＝カルパチア号の甲板の生存者（ほとんど後ろ姿・前と横を向く顔5）",
-    P("s3_671"): "c636・c801・c800card＝英国の審問に着く長と息子の右を歩く女の人（私人・⑤c' で足した）",
-}
+#    🔴 2026-10-30（27本目 ⑤b-1・§0b）：26本目の6点（`s9_648`＝c323・c820 の米国上院の公聴会の部屋・`s2_054`＝ボート甲板の乗客4人・`s1_057`＝甲板の人たち・
+#       `s6_383`＝カルパチア号の横のボートの生存者・`s6_427`＝カルパチア号の甲板の生存者・`s3_671`＝審問に着く長の右を歩く女の人）は見本 `tools/fixture_ep26.py` の
+#       NEEDS_MASK へ移した（`ep26/` の名を文字で書いた・説明は1字も変えていない＝git の `54b15e5e`。範囲は `qa_out/ep26_assets.py` の MASK）。
+#       ⚠️ 空のあいだ門番 check_photo_mask は「NEEDS_MASK が空」の注意を出す＝27本目の束のチャットで、隠す点（了承② 決め4＝CC BY は顔が分かれば顔だけモザイク・
+#       BY-SA は遠い人と後ろ姿だけ＝CM045・CM154・CM144・CM022・CM204・CM014 を原寸で）があれば `P("名")` で書く（EP が追う）
+NEEDS_MASK: dict[str, str] = {}
 
 # 🆕 2026-10-13（21本目 ⑤b-7）：**スライドの台紙の黒い縁がある写真**（名 → 何か）。全画面で流す・寄る窓が縁に入らないかを門番
 #    `tools/check_photo_edge.py` が測る（縁の幅は**絵から毎回測る**＝ここには書かない）。夜空など縁でない暗い所の写真は入れない。
@@ -664,15 +664,9 @@ NEEDS_MASK: dict[str, str] = {
 #       チャットで、台紙の縁がある写真があれば名簿を書く（無い回なら「無い」を名簿の注で言う形に門番を直す＝⑤b-2 の宿題）
 #    🆕 2026-10-27（26本目 ⑤b-2）：束の全85点を `python qa_out/ep26_assets.py edges` で測り、MIN_EDGE 以上の13点を 640px の並べで見た（scratchpad `b2/g1〜g3・e1.jpg`）。
 #       **ガラス乾板の走査の黒い縁**（板の縁＋外の白い余白・BnF の版は縁に整理番号の字）＝全画面で流す・寄る窓が入れば台紙の縁と同じく黒い帯が出る＝7点をここへ
-SLIDE_MOUNT: dict[str, str] = {
-    P("s3_577"): "LOC（Bain）のガラス乾板＝四辺の黒い縁と外の白い余白（c711）",
-    P("s3_698"): "LOC（Bain）のガラス乾板＝左と下の黒い縁と白い余白（上はネガの字ごと束で切った・c819）",
-    P("s6_427"): "LOC（Bain）のガラス乾板＝左右と下の黒い縁（c714）",
-    P("s6_480"): "BnF（Rol）のガラス乾板＝左の黒い縁に整理番号の字（c104・c641・cb04）",
-    P("s6_619"): "LOC の台紙（灰色の紙と外の黒い縁・2枚の小さな写真＝c713 は1枚目を章ファイルで切る）",
-    P("s7_594"): "BnF（Rol）のガラス乾板＝左の黒い縁に整理番号の字（c808）",
-    P("s12_913"): "LOC（National Photo）のガラス乾板＝四辺の黒い縁と外の白い余白（ca09）",
-}
+#    🔴 2026-10-30（27本目 ⑤b-1・§0b）：26本目の7点（LOC・BnF のガラス乾板と LOC の台紙）は見本 `tools/fixture_ep26.py` の SLIDE_MOUNT へ移した
+#       （`ep26/` の名を文字で書いた・説明は1字も変えていない＝git の `54b15e5e`）。27本目の束（Commons の写真・県警の画像・Pexels）で台紙の縁を測り直す
+SLIDE_MOUNT: dict[str, str] = {}
 
 # 🆕 2026-10-14（22本目 ⑤b-2）：**四辺に暗い帯があっても、台紙の縁ではない写真**（名 → 何か）＝数と絵で決めた（`python qa_out/ep22_assets.py edges`＝
 #    門番の物差し `check_photo_edge.margins` で束の全43点を測り、MIN_EDGE〈1.2%〉以上の3点を帯の明るさの分け方で見た）。
@@ -714,14 +708,11 @@ SLIDE_MOUNT: dict[str, str] = {
 #       止まる（fail closed）＝26本目の束のチャットで、台紙の縁のある写真があれば SLIDE_MOUNT を、無ければ暗い帯のある点を SLIDE_NOT_MOUNT に理由つきで書く
 #       （鍵は `P("名")` で書けば EP が追う＝回の名に化けない）
 #    🆕 2026-10-27（26本目 ⑤b-2）：MIN_EDGE 以上の13点のうち、写真か紙面の中身の暗がり6点（ガラス乾板の縁の7点は上の SLIDE_MOUNT）
-SLIDE_NOT_MOUNT: dict[str, str] = {
-    P("s11_716"): "NOAA 2003 の深海の暗い水（上・右・下 5%）＝写真の中身",
-    P("s2_033"): "下 5% は船体の黒い外板＝写真の中身",
-    P("s2_206"): "下 2.4% は無線室の机の陰＝写真の中身",
-    P("s5_358"): "下 2.6% は夜明けの暗い海＝写真の中身",
-    P("s6_379"): "上・下 5% は夜の空と船体の陰＝写真の中身",
-    P("s4_n06"): "左 1.9% は電報の用紙の黒い枠の線＝紙面の中身",
-}
+#    🔴 2026-10-30（27本目 ⑤b-1・§0b）：26本目の6点（NOAA 2003 の深海・船体の外板・無線室の机の陰・夜明けの海・夜の空・電報の用紙の枠＝どれも写真か紙面の中身）は
+#       見本 `tools/fixture_ep26.py` の SLIDE_NOT_MOUNT へ移した（`ep26/` の名を文字で書いた・説明は1字も変えていない＝git の `54b15e5e`）。
+#       ⚠️ SLIDE_MOUNT も SLIDE_NOT_MOUNT も空のあいだ、門番 check_photo_edge は「SLIDE_MOUNT が空」で止まる（fail closed）＝27本目の束のチャットで、
+#       台紙の縁のある写真があれば SLIDE_MOUNT を、無ければ暗い帯のある点（夜の写真が多い）を SLIDE_NOT_MOUNT に理由つきで書く（鍵は `P("名")`）
+SLIDE_NOT_MOUNT: dict[str, str] = {}
 
 # 🆕 2026-10-13（21本目 ⑤b-7）：**原寸で見て字でないと決めた OCR の範囲**（OCR の読み置きのファイル名 → [((x0, y0, x1, y1)＝束の画素, 何か)]）。
 #    `check_slide.load_ocr` がこの中に真ん中のある行を外す（外した行は「文字行と見なさなかった」の表に理由つきで出る）。
@@ -731,11 +722,9 @@ SLIDE_NOT_MOUNT: dict[str, str] = {
 #       `tools/fixture_ep21.py` へ移した（値は1つも変えていない＝git の `35fab37`）。22本目で字でない範囲を決めたら、ここに足す
 #    🔴 2026-10-22（24本目 ⑤b-1・§0b）：17本目の1点（`hel.jpg`＝HEL〈ヘルシンキ空港 1981年〉の DC-9 の胴体の客室の窓の列〈OCR が「物 1100 ぐ を 00…」と読んだ〉＝字でない・
 #       ⑤b-7 の下見の原寸の切り出し Q1）は見本 `tools/fixture_ep17.py` の OCR_NOT_TEXT へ移した（値は1つも変えていない＝git の `2cc5e5ab`）。24本目で字でない範囲を決めたら、ここに足す
-OCR_NOT_TEXT: dict[str, list] = {
-    # 🆕 2026-10-28（26本目 ⑤b-7）：1912年の本の頁の氷原の写真（c318・c817）の手前の暗い海面＝OCR が「を を 第 朝 を…」と読んだ行
-    #   （箱 1247,811〜1482,841）を原寸の切り出し（scratchpad `b7/c318_ocr.jpg`）で見た＝網点（半調）の模様で字は無い。門番 slide G-13 が c318 で鳴った
-    "s5_362.jpg": [((1240, 800, 1490, 850), "氷原の手前の暗い海面の網点（半調）の模様＝字でない")],
-}
+#    🔴 2026-10-30（27本目 ⑤b-1・§0b）：26本目の1点（`s5_362.jpg`＝1912年の本の頁の氷原の写真〈c318・c817〉の手前の暗い海面の網点＝⑤b-7 に原寸で見た）は
+#       見本 `tools/fixture_ep26.py` の OCR_NOT_TEXT へ移した（値は1つも変えていない＝git の `54b15e5e`）。27本目で字でない範囲を決めたら、ここに足す
+OCR_NOT_TEXT: dict[str, list] = {}
 
 # 🔴 2026-09-29（14本目 ⑤b-7a）：**切り出し（`TRIM`）で外した私人の範囲**（元画像の割合 x0,y0,x1,y1・何か）。
 #    門番 photomask が「その写真を使う全カットの窓（`trim` か `TRIM`・冒頭の写真は切らない＝全体）がこの範囲に
@@ -927,52 +916,15 @@ GEO = {}
 #    26本目の地図（c218・c306・c909・c917＝了承② 決め2「衛星写真＋描き足し・外洋も」）は、衛星写真を撮って SAT に md5 つきで足し、GEO に場所を出どころつきで足す
 #    （撮り方・継ぎ目の話・Wikidata の座標の話は見本の注）。空のあいだ、`sat=` のカットは門番 check_sat・合成が止まる（fail closed）。
 #    SAT_LINES・SAT_LINE_NOTE は25本目の章ファイルが引いた名＝器だけ残す（26本目に線路は無い。航路などの線を足すなら出どころの断りも一緒に）
+# 🔴 2026-10-30（27本目 ⑤b-1・§0b）：26本目の表（SAT＝G01 北大西洋・G02 氷・G03 タイタニック号・G04 カリフォルニアン号の Google の衛星写真4点〈c218・c306・c909・c917〉／
+#    GEO＝寄港地と行き先・タイタニック号とカリフォルニアン号の位置・氷の知らせの15点／SAT_LINES＝大圏の弧 gc・メサバ号の知らせの範囲 mesaba／
+#    SAT_LINE_NOTE＝航路の出典の断り）は selftest の見本 `tools/fixture_ep26.py` へ移した（値は1つも変えていない＝git の `54b15e5e`。`file` は `ep26/…` の名を文字で書いた・
+#    SAT.update／GEO.update の2文と SAT_LINES・SAT_LINE_NOTE の2回の代入も並びのまま）。27本目の地図（衛星写真9カット＝G1 全体〈経路の線と防犯カメラ8台の印〉・
+#    G2 広め／交差点に寄る・G3 青山町と上田の湯町・G7 寄り／海まで広く・G9 日本全体＋地方の札＝映像方針の一覧）は、衛星写真を撮って SAT に md5 つきで足し、
+#    GEO に場所を出どころつきで足す（撮り方・継ぎ目の話は見本の注・`ref/ep26/eizou_build/helpers/gshot26.py`）。空のあいだ、`sat=` のカットは門番 check_sat・合成が止まる（fail closed）。
+#    ⚠️ 事件の回＝防犯カメラの位置・逃げた道すじの線は報道・県警の公開の範囲だけ（出どころの断りを SAT_LINE_NOTE に）
 SAT_LINES = {}
 SAT_LINE_NOTE = ""
-# 🆕 2026-10-27（26本目 ⑤b-3）：地図4カット（c218・c306・c909・c917）＝撮った絵は `ref/ep26/eizou_build/helpers/gshot26.py`（2回撮って gseam22 で継ぎ目なし）。
-#   点＝報告書の値（G1＝英国の審問の報告〈S. Doc. 933〉・G2＝MAIB 1992＝頁の画像で読んだ値＝`ref/ep26/sources.md` §2-1）と、港だけ一般の座標（Wikidata）。
-#   ⚠️ 地図の札に数字を置かない（数字の札は門番 check_sat の記録の表 REC_SAT_NUM と原文の通し頁が要る＝日付・距離は語りと副題で言う）
-SAT.update({
-    "G01": dict(file=f"{EP}photo/gmap_g01_atlantic.png", ll=(46.0, -34.0), z=4, md5="f8cd894a49cd015b7d5c1ae3c0d364ad", credit=SAT_CREDIT),
-    "G02": dict(file=f"{EP}photo/gmap_g02_ice.png", ll=(41.72, -49.75), z=8, md5="1f1cd59513d12287790bbe7aff512912", credit=SAT_CREDIT),
-    "G03": dict(file=f"{EP}photo/gmap_g03_titanic.png", ll=(41.765, -50.07), z=10, md5="18ceaf98a4453d8a410381d51af170d3", credit=SAT_CREDIT),
-    "G04": dict(file=f"{EP}photo/gmap_g04_californian.png", ll=(41.88, -50.03), z=10, md5="b236c9aa9328c8ee34013bccd721730b", credit=SAT_CREDIT),
-})
-GEO.update({
-    # 寄港地と行き先（G1 p.33 THE ROUTE FOLLOWED）＝一般の座標（Wikidata の P625）
-    "southampton": dict(ll=(50.9067, -1.4044), src="G1 p.33（`The Titanic left Southampton on Wednesday, April 10`）", how="一般の座標（Wikidata Q79848＝市）"),
-    "cherbourg": dict(ll=(49.6333, -1.6000), src="G1 p.33（`after calling at Cherbourg`）", how="一般の座標（Wikidata Q3667188＝町）"),
-    "queenstown": dict(ll=(51.8510, -8.2967), src="G1 p.33（`proceeded to Queenstown`）", how="一般の座標（Wikidata Q733093＝今のコーヴ）"),
-    "fastnet": dict(ll=(51.3933, -9.6049), src="G1 p.33（`from the Fastnet Light, off the southwest coast of Ireland`）", how="一般の座標（Wikidata Q3067133＝1904年からの灯台）"),
-    "newyork": dict(ll=(40.7128, -74.0061), src="G1 p.33（`and from this point on to New York`）", how="一般の座標（Wikidata Q60＝市）"),
-    "turning": dict(ll=(42.0, -47.0), src="G1 p.33（`a point in latitude 42° N. and 47° W. (sometimes termed the “turning point”)`）", how="報告書の値（曲がり角）"),
-    # タイタニック号の位置（G2＝MAIB 1992 p.3・p.7＝頁の画像で読んだ値。文字の層は緯度経度が空白）
-    "collision": dict(ll=(41 + 47 / 60, -(49 + 55 / 60)), src="G2 p.3・p.7（衝突の位置＝41°47′N 49°55′W・沈んだ位置から海流で逆算した推定）",
-                      how="報告書の値（推定）"),
-    "wreck": dict(ll=(41 + 43.6 / 60, -(49 + 56.9 / 60)), src="G2 p.3・p.7（ボイラーと船尾の位置＝41°43′.6N 49°56′.9W・1985年の発見）",
-                  how="報告書の値（残骸）"),
-    "cqd": dict(ll=(41 + 46 / 60, -(50 + 14 / 60)), src="G2 p.7・G1 p.85（タイタニック号が無線で送った位置＝41°46′N 50°14′W）", how="報告書の値（無線の位置）"),
-    # カリフォルニアン号の位置の2つの見方（G2 p.3・p.11）＝どちらも「あたり」の点（見えたかの線は描かない）
-    "cal_inv": dict(ll=(41 + 50 / 60, -(50 + 7 / 60)), src="G2 p.3（調査官＝41°50′N 50°07′W あたり・`probably further East and only 5 to 7 miles off`）",
-                    how="報告書の値（調査官の見方）"),
-    "cal_dep": dict(ll=(42.0, -(50 + 9 / 60)), src="G2 p.3・p.11（次長＝42°00′N 50°09′W あたりかやや北・`between 17 and 20 miles from TITANIC`）",
-                    how="報告書の値（次長の見方）"),
-    # 4月14日の氷の知らせ（G1 p.35〜37 ICE MESSAGES RECEIVED）
-    "ice_caronia_w": dict(ll=(42.0, -51.0), src="G1 p.35（`bergs, growlers, and field ice in 42° N., from 49° to 51° W.`）", how="報告書の値（範囲の西の端）"),
-    "ice_caronia_e": dict(ll=(42.0, -49.0), src="G1 p.35（`bergs, growlers, and field ice in 42° N., from 49° to 51° W.`）", how="報告書の値（範囲の東の端）"),
-    "ice_baltic": dict(ll=(41 + 51 / 60, -(49 + 52 / 60)), src="G1 p.36（`Athenai reports passing icebergs`…`in latitude 41° 51′ N., longitude 49° 52′ W.`）",
-                       how="報告書の値"),
-    "ice_amerika": dict(ll=(41 + 27 / 60, -(50 + 8 / 60)), src="G1 p.36（`Amerika passed two large icebergs in 41° 27′ N., 50° 8′ W.`）", how="報告書の値"),
-    "ice_californian": dict(ll=(42 + 3 / 60, -(49 + 9 / 60)), src="G1 p.37（`latitude 42° 3′ N., longitude 49° 9′ W. Three large bergs`）", how="報告書の値"),
-})
-SAT_LINES = dict(
-    # ファストネット灯台 → 曲がり角（北緯42度・西経47度）の大圏の弧（G1 p.33 `followed the arc of a great circle`）＝球の上で両端を結んで8つに割った点（計算）
-    gc=((51.393, -9.605), (50.946, -14.934), (50.261, -20.135), (49.351, -25.165), (48.232, -29.992), (46.919, -34.595), (45.432, -38.964),
-        (43.786, -43.097), (42.0, -47.0)),
-    # メサバ号の知らせの範囲（北緯42度〜41度25分・西経49度〜50度30分＝G1 p.37 `latitude 42° N. to 41° 25′ N., longitude 49° to longitude 50° 30′ W.`）の四角
-    mesaba=((42.0, -50.5), (42.0, -49.0), (41 + 25 / 60, -49.0), (41 + 25 / 60, -50.5), (42.0, -50.5)),
-)
-SAT_LINE_NOTE = "航路は英国の審問の報告 p.33 の道すじを描き直した模式"
 # 🆕 2026-10-23（24本目 ⑤b-6）：**この回は衛星写真の地図なし**の言い分（理由の文）。地図2つ（c203・c713）は描く＝`tools/mech24.py` の ussr・japan
 #    （国の形＝Natural Earth の切り出し `ref/ep24/make_map24.py`＝国の境・1986年の色・北方領土を描き分けるため。衛星写真には国の境が写らない）。
 #    門番 check_sat は、この文があるときだけ「地図のカット0」を通す（地図のカットが1つでもあれば、言い分と食い違う＝鳴る）。
@@ -980,6 +932,7 @@ SAT_LINE_NOTE = "航路は英国の審問の報告 p.33 の道すじを描き直
 # 🔴 2026-10-25（25本目 ⑤b-1・§0b）：None に戻した（24本目の文は見本 `tools/fixture_ep24.py` の SAT_NONE）。25本目は衛星写真の地図の回
 #    （記憶 feedback-jiko-maps-use-satellite＝25本目から衛星写真が既定・映像方針＝c101・c328・c517・ca23・cb03 の5カット）＝SAT・GEO は ⑤b で撮って足す
 # ✅ 2026-10-27（26本目 ⑤b-1）：None のまま（26本目も衛星写真の地図の回＝c218・c306・c909・c917）
+# ✅ 2026-10-30（27本目 ⑤b-1）：None のまま（27本目も衛星写真の地図の回＝9カット〈G1・G2・G3・G7・G9〉）
 SAT_NONE = None
 
 
@@ -1028,43 +981,24 @@ def sat(code, steps, note="", **kw):
 #    26本目の値は、その型（案C-1〜9＝再現イラスト18カット＝台本 第2版の案C）を初めて使う ⑤b のチャットで入れる（空のあいだ、その型を使うカットは門番・型が止まる＝fail closed）。
 #    頁の番号の書き方（印刷の頁・資料をまたぐ通し番号 k000＋）と資料の名の決め方（🔴 名に数字を入れない＝門番 wording が裸の時刻と読む）は見本の REC_DOCS の注。
 #    🔴 26本目の案C の置き場は F1〜F6（illu25）・N1〜N4（illu24）・C1〜C7（illu17）ほかの回の名と別の名で。REC_PAGES の道は26本目（`ref/ep26/src/ep26_pages.txt`＝まだ無い）
-REC_PAGES = REF / "src" / "ep26_pages.txt"      # 部品の出典（`rec=`）を当てる原文（git の外＝手元だけ）＝`ref/ep26/make_pages26.py` が作る
-# 🆕 2026-10-27（26本目 ⑤b-4・案C 再現イラスト＝`tools/illu26.py` の置き場 K1〜K9）。頁の番号（`ref/ep26/make_pages26.py` の注と同じ）：
-#    G1＝英国の審問の報告の米国上院の刷り直し S. Doc. 933＝**印刷の頁**（PDF＝印刷＝台本の「G1 p.57」がそのまま p57）／
-#    G2＝MAIB 1992＝**2000＋PDF の頁**（画面は印刷の頁＝PDF−4＝台本の「G2 p.17」は p2021）／
-#    G7＝米国上院の公聴会 S. Doc. 726＝**20000＋PDF の頁**（画面は「PDF N頁」＝印刷の頁とは数頁ずれる）／
-#    T1＝英国の審問の証言の書き起こし（有志のサイト・保存していない）＝番号は**問の番号 Q**（`text=False`＝原文の頁の照合はしない・画面は名だけ）。
-#    T2（米国の公聴会の書き起こし）は G7 で照らした＝案C では G7 の頁で書く（T2 の名は置かない）
-REC_DOCS = {                                # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
-    "G1": dict(range=(1, 88), name="英国の審問の報告（1912年）", page="print", base=0),
-    "G2": dict(range=(2001, 2030), name="英国 海難調査局の再評価（1992年）", page="print", base=2004),
-    "G7": dict(range=(20001, 21170), name="米国上院の公聴会の記録（1912年）", page="pdf", base=20000),
-    "T1": dict(range=(1, 25700), name="英国の審問の証言（書き起こし・有志のサイト）", page=None, base=0, text=False),
-    # 🆕 2026-10-28（⑤b-6・図解 第6〜9章）：原文の通し頁を持たない資料（`text=False`＝頁の照合はしない・画面は名だけ・書き方は「名 p1」）。
-    #   G2送＝MAIB の送り状（PDF 3頁＝印刷の頁の前＝「G2 p2003」と書くと画面が「-1頁」になる）
-    "G2送": dict(range=(2003, 2003), name="英国 海難調査局の再評価（1992年）の送り状", page=None, base=0, text=False),
-    "T3": dict(range=(1, 1), name="米国上院の報告（書き起こし・有志のサイト）", page=None, base=0, text=False),
-    "G4": dict(range=(1, 1), name="米国の法（無線の当直の改正・1912年）", page=None, base=0, text=False),
-    "G5": dict(range=(1, 1), name="米国の無線の法（遭難の通信・1912年）", page=None, base=0, text=False),
-    "G6": dict(range=(1, 1), name="米国の法（船の無線・1910年）", page=None, base=0, text=False),
-    "U1": dict(range=(1, 1), name="米国沿岸警備隊の歴史の記事", page=None, base=0, text=False),
-}
-# 割れる時刻＝二等航海士が伝声管で知らせた時刻（二等航海士 1:10／船長 1:15＝sources.md §4-2-6）と見習いが下りた時刻（二等航海士 2:00／見習い 2:05）。
-#   🔴 2:05 は台本 c631 が「見習いは言う」と言う＝札に出してよい（門番 check_illu ㊽ が「見習い」の断りを札に求める）＝割れる表には 2:00 だけ
-ILLU_SPLIT_TIMES = ("1:10", "1:15", "2:00")
-ILLU_CROWD_UNTIL = "2:20"                   # 群れ（タイタニック号の甲板の乗客）は沈没（2:20＝タイタニック号の時計）より前の場面だけ
-ILLU_ROLES = dict(sprite=("crew",), crowd=("passengers",))   # 型紙の影＝乗組員（役職だけ）・群れ＝乗客（数えられない形）
-ILLU_SEC_OK = {}                            # 札に出してよい秒＝{秒: 出典}（門番 check_illu ⑤）＝26本目は秒の札を出さない
-# 札に出してよい時計の時刻（sources.md §6 の時計の表と G1 p57〜59 の時刻・どの船の時計かは札に書く＝門番 ㊽）
-ILLU_CLOCK_OK = ("23:00", "0:00", "0:20", "0:45", "1:00", "1:40", "2:05", "2:40", "4:10")
-ILLU_COUNTS = {                             # 描いてよい数＝{部品の obj の名: (数, 出典)}（門番 check_illu ③）
-    "seat": (40, "G1 p52（this was an emergency boat with a carrying capacity of 40）"),
-    "filled": (12, "G1 p51（No. 1 certainly left with only 12）"),
-    "flare": (3, "G1 p58（He got no reply, but the vessel fired three more white rockets）"),
-}
+# 🔴 2026-10-30（27本目 ⑤b-1・§0b）：26本目の案C の表（REC_DOCS＝G1 英国の審問の報告・G2 MAIB 1992・G7 米国上院の公聴会・T1 審問の証言の書き起こし・
+#    G2送・T3・G4〜G6・U1 の11資料〈頁の番号の書き方＝印刷の頁・2000＋PDF・20000＋PDF＝見本の注〉・原文の道 REC_PAGES＝`ref/ep26/src/ep26_pages.txt`〈手元にある・git の外〉・
+#    割れる時刻 ILLU_SPLIT_TIMES〈1:10・1:15・2:00〉・群れの時刻の上限 ILLU_CROWD_UNTIL〈2:20〉・置いてよい役割 ILLU_ROLES〈乗組員の影・乗客の群れ〉・
+#    時計の時刻 ILLU_CLOCK_OK〈9つ〉・描いてよい数 ILLU_COUNTS〈席40・乗った12・信号弾3〉・縮尺を持たない置き場 ILLU_TOP_NOSCALE〈K5〉）は selftest の見本
+#    `tools/fixture_ep26.py` へ移した（値は1つも変えていない＝git の `54b15e5e`）。27本目は再現イラスト0（映像方針）＝案C の表は空のまま使わない見込み
+#    （図解の出典の札で REC_DOCS を引く型を使うなら、その ⑤b で27本目の資料を入れる。🔴 名に数字を入れない＝門番 wording が裸の時刻と読む）。
+#    REC_PAGES の道は27本目（`ref/ep27/src/ep27_pages.txt`＝まだ無い）
+REC_PAGES = REF / "src" / "ep27_pages.txt"      # 部品の出典（`rec=`）を当てる原文（git の外＝手元だけ）
+REC_DOCS = {}                               # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
+ILLU_SPLIT_TIMES = ()                       # 割れる時刻（2つの資料で時刻が割れる所＝札は秒で見る）
+ILLU_CROWD_UNTIL = None                     # 群れを描いてよい場面の時刻の上限（None＝群れを描かない）
+ILLU_ROLES = dict(sprite=(), crowd=())      # 置いてよい役割（門番 check_illu ②）＝空の組なら、どの役割も置けない（fail closed）
+ILLU_SEC_OK = {}                            # 札に出してよい秒＝{秒: 出典}（門番 check_illu ⑤）
+ILLU_CLOCK_OK = ()                          # 札に出してよい時計の時刻（「時:分」まで）＝空なら時計の札を出せない
+ILLU_COUNTS = {}                            # 描いてよい数＝{部品の obj の名: (数, 出典)}（門番 check_illu ③）
 ILLU_ASSUME = {}                            # 想定の札を出すカット＝{カットID: 札の言葉}（門番 check_illu ④）
 ILLU_DESTROY_CUTS = ()                      # 壊れる物の部品を描いてよいカット（門番 check_illu ⑫＝空なら全部止める）
-ILLU_TOP_NOSCALE = {"K5": "人を描かない席の印の模式（1号艇）"}   # 縮尺を持たない模式の上から見た絵の置き場（門番 check_illu ⑧ は「人が0・模式の断り」を測る）
+ILLU_TOP_NOSCALE = {}                       # 縮尺を持たない模式の上から見た絵の置き場＝{置き場: 理由}（門番 check_illu ⑧ は縮尺の代わりに「人が0・模式の断り」を測る）
 ILLU_SUB_UNTIL = None                      # 潜水艦の時刻の上限（門番 ⑮＝無ければ潜水艦を描いたカットは止まる）
 ILLU_SUB_EXC = {}                           # 上の上限の例外＝{カットID: 時刻}
 ILLU_SUB_STOP = None                        # 艦の絵を止めたカット（これより後に潜水艦を置かない）

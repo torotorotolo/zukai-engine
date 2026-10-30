@@ -158,19 +158,20 @@ CSS = ""
 #    （c1〜c9・ca・cb＝235カット）＝`cuts/__init__.CHAPTER_FILES` と `NCH` は25本目のまま。つかみ（c1＝c101〜c107）は章の札なし。
 #    扉は c201〜cb01 の10枚（音の側と同じ＝check_script.door_key・26本目は INNER_CARDS なし）。
 #    ⚠️ 長い章名（第5章「カリフォルニアン号の甲板で」・第8章「80年後の調べ直し」・第9章「事故のあとの決まり」）は右上の章の札の幅を焼いた絵で見る
+# 🔴 2026-10-30（27本目 ⑤b-1）：八田與一容疑者の事件へ差し替え。26本目の章名は git の `54b15e5e`。
+#    正本＝repo `ref/ep27/daihon_v2.md` §4 の `### 第N章　…`（`（` の手前まで）＝映像方針の一覧（`make_list27.py` の chap）。**27本目は つかみ＋6章**
+#    （c1〜c7＝107カット）＝`cuts/__init__.CHAPTER_FILES` から c8・c9・ca・cb を外し、`NCH` を 6 に。つかみ（c1＝c101〜c107）は章の札なし。
+#    扉は c201〜c701 の6枚（音の側と同じ＝check_script.door_key・27本目は INNER_CARDS なし）。
+#    ⚠️ 長い章名（第3章「ひき逃げから殺人へ」・第6章「情報を届けるには」）は右上の章の札の幅を焼いた絵で見る
 CHAPTERS = {
-    "c2": (1, "処女航海"),
-    "c3": (2, "氷の知らせ"),
-    "c4": (3, "衝突"),
-    "c5": (4, "遭難の信号"),
-    "c6": (5, "カリフォルニアン号の甲板で"),
-    "c7": (6, "沈没と救助"),
-    "c8": (7, "1912年の結論"),
-    "c9": (8, "80年後の調べ直し"),
-    "ca": (9, "事故のあとの決まり"),
-    "cb": (10, "船長のその後"),
+    "c2": (1, "事件の夜"),
+    "c3": (2, "全国で探す"),
+    "c4": (3, "ひき逃げから殺人へ"),
+    "c5": (4, "1万3978件"),
+    "c6": (5, "海と、4年目"),
+    "c7": (6, "情報を届けるには"),
 }
-NCH = 10
+NCH = 6
 
 
 def chapter_of(cid):
@@ -284,17 +285,19 @@ def chapter_of(cid):
 #    セピア＝夜の記録と経過（氷の知らせ＝電報の記録・カリフォルニアン号の甲板で＝その夜の証言）・赤銅＝壊れる・失う（衝突・沈没と救助）・
 #    白黒＝書類（1912年の結論＝英米の審問・事故のあとの決まり＝条約と法）。
 #    ⚠️ 写真の色味は原本のまま（`build_jiko.PHOTO_KEEP_EP` の ep26＝1.0）＝章の色は図の層だけに効く。
+# 🔴 2026-10-30（27本目 ⑤b-1）：26本目の10件（git の `54b15e5e`）から差し替えた＝6章（つかみ c101〜c107 は章が無い＝navy）。
+#    Claude の推奨（カズヤくんに見せて変えてよい）。選び方は25・26本目と同じ＝章の中身で4色（紺・セピア・赤銅・白黒）から選び、隣の章の差が DE_MIN 13 以上
+#    （🔴 セピアと白黒 6.5＝隣に置けない＝第3章 白黒の隣の第4章はセピアにできない＝紺）。27本目も役の色は映像方針で決めていない＝青緑と夜の藍は使わない。
+#    赤銅＝失う（事件の夜＝ひき逃げで1人が亡くなる）・紺＝位置と数と窓口の図解（全国で探す＝手配と目撃の地図・1万3978件＝情報の数・情報を届けるには＝窓口）・
+#    白黒＝書類（ひき逃げから殺人へ＝容疑の切り替え・逮捕状）・セピア＝経過の記録（海と、4年目＝海の捜索と4年の流れ）。
+#    ⚠️ 写真の色味は原本のまま（`build_jiko.PHOTO_KEEP_EP` の ep27＝1.0）＝章の色は図の層だけに効く。説明カットの地の写真は暗くするだけ（色相は変えない）
 CHAPTER_PALETTE = {
-    "処女航海": "navy",                        # 船と航路＝図解
-    "氷の知らせ": "sepia",                     # 氷の電報＝記録
-    "衝突": "copper",                          # 氷山との衝突＝壊れる
-    "遭難の信号": "navy",                      # 無線と信号弾の届き方＝図解
-    "カリフォルニアン号の甲板で": "sepia",     # その夜の証言＝記録
-    "沈没と救助": "copper",                    # 沈没と1,490人＝失う
-    "1912年の結論": "mono",                    # 英米の審問＝書類
-    "80年後の調べ直し": "navy",                # MAIB の距離と位置＝図解
-    "事故のあとの決まり": "mono",              # 条約と法＝書類
-    "船長のその後": "navy",                    # 船長のその後＝その後の図解（白黒の隣＝セピアにしない）
+    "事件の夜": "copper",                      # ひき逃げ・1人が亡くなる＝失う
+    "全国で探す": "navy",                      # 手配と全国の目撃の地図＝図解
+    "ひき逃げから殺人へ": "mono",              # 容疑の切り替え・逮捕状＝書類
+    "1万3978件": "navy",                       # 寄せられた情報の数＝図解（白黒の隣＝セピアにしない）
+    "海と、4年目": "sepia",                    # 海の捜索と4年の経過＝記録
+    "情報を届けるには": "navy",                # 情報提供の窓口＝図解
 }
 
 
@@ -874,6 +877,64 @@ def ep19_credit(name):
         u = _FO.USE.get(m.group(1))
         return _FO.CLIPS[u["clip"]]["credit"] if u else None
     return EP19_CREDIT.get(name)
+
+
+# ══════════════════════════════════════════════════════════
+#  27本目（八田與一容疑者の事件）── `ref/ep27/`（2026-10-30 ⑤b-1）
+# ══════════════════════════════════════════════════════════
+#   ep27/<欄の名>.jpg … 写真（Commons の実写＝CC BY・BY-SA・CC0〈額装は BY-SA と引用だけ〉・大分県警察の X の画像と警察庁の写真＝引用・加工しない・
+#                        Google の衛星写真）＝映像方針の一覧 `ref/ep27/eizou_list27.md`（了承②）。説明カットの地の写真も同じ表（「地の写真：…／改変：明るさ」）
+#   ep27/stock/…      … イメージ（この事件の物でないフリー素材＝Pexels の写真4点・20% に数えない・概要欄にクレジットを書かない）
+#   県警の動画（YT-A 5区間・YT-C 1区間）の出典は `footage.CLIPS`（`ref/ep27/clips.json`＝束のチャットで作る）の credit＝「出典：大分県警察 公式YouTube（年月日）」
+# 🔴 表はファイルから読む（ルール 0b-34①）。`ref/ep27/credits.json` は写真の束のチャット（⑤b-2 以降）で書く（無いあいだは空＝当たらない）。
+#    ⚠️ 名前が当たらないときは None → 最後の `PHOTO_CREDIT[...]` で KeyError（fail closed）。
+#    🔴 事件の回（ルール §B2-10）＝被害者・遺族・けがをした人・目撃者・SNS の投稿者の名前は出典の行にも出さない。
+#    🔴 作者の名前（CC BY・BY-SA の Commons の撮影者）は git の外の表 `ref/ep27/src/credits_private.tsv`（映像方針で作った＝`eizou_build/authors27.py`・
+#       列＝code・作者〈頭の行は `#` の注〉・行の鍵＝sources27.psv の記号 CM…）＝credits.json に印 `{作者}` だけを書き、焼くときに足す（17・23〜26本目の型）。
+#       束の名（`ref/ep27/assets.json`＝⑤b-2 で作る）の code から引く
+_EP27_CREDITS = HERE / "ref" / "ep27" / "credits.json"
+EP27_CREDIT = (json.loads(_EP27_CREDITS.read_text(encoding="utf-8"))
+               if _EP27_CREDITS.exists() else {})
+_EP27_AUTHOR = "{作者}"
+_EP27_PRIVATE = HERE / "ref" / "ep27" / "src" / "credits_private.tsv"
+
+
+def _ep27_author(name):
+    import csv
+    import os
+    if not _EP27_PRIVATE.exists():
+        if os.environ.get("GITHUB_ACTIONS") == "true":
+            return EP23_AUTHOR_STANDIN                  # 検品の試し焼きだけ（本編は Modal＝表を保管庫から取る）
+        raise RuntimeError(f"{name}: 出典の行に作者の名前が要るのに git の外の表 ref/ep27/src/credits_private.tsv が無い"
+                           "（Modal は保管庫 jiko-assets の ref/ep27/src/ に置く）＝印のまま焼かない")
+    code = json.loads((HERE / "ref" / "ep27" / "assets.json").read_text(encoding="utf-8"))[name[len("ep27/"):-len(".jpg")]]["code"]
+    rows = [r for r in csv.reader(_EP27_PRIVATE.open(encoding="utf-8"), delimiter="\t") if r and not r[0].startswith("#")]
+    row = {r[0]: r for r in rows[1:] if len(r) >= 2}.get(code) or []
+    who = " ".join((row[1] if len(row) >= 2 else "").split())
+    if not who:
+        raise RuntimeError(f"{name}（{code}）: git の外の表に {code} の作者欄が無い")
+    if re.search(r"[<>&]", who) or len(who) > 24:
+        raise RuntimeError(f"{name}（{code}）: 作者欄が SVG にそのまま書けないか長すぎる（{len(who)}字）＝焼かない")
+    return who
+
+
+def ep27_credit(name):
+    """`ref/ep27/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if not name.startswith("ep27/"):
+        return None
+    if name.startswith("ep27/photo/gmap_"):
+        # 衛星写真（地図のカット＝G1・G2・G3・G7・G9）＝出典の行は表 `cuts/ss.SAT` の credit（25・26本目の枝と同じ）。帰属の行そのものは地図の右下に残す（Google の決まり）
+        import cuts.ss as _ss
+        return next((v["credit"] for v in getattr(_ss, "SAT", {}).values() if v["file"] == name), None)
+    m = re.fullmatch(r"ep27/(?:stock/)?fb_(c[0-9a-f]{3}(?:~t)?)\.jpg", name)     # 映像のひかえの静止画＝出典は映像と同じ（19本目 ⑤b-2 の型）
+    if m:
+        import footage as _FO
+        u = _FO.USE.get(m.group(1))
+        return _FO.CLIPS[u["clip"]]["credit"] if u else None
+    v = EP27_CREDIT.get(name)
+    if v and _EP27_AUTHOR in v:
+        v = v.replace(_EP27_AUTHOR, _ep27_author(name))
+    return v
 
 
 # ══════════════════════════════════════════════════════════
@@ -1533,7 +1594,7 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep26_credit(spec["photo"]) or ep25_credit(spec["photo"]) or ep24_credit(spec["photo"]) or ep17_credit(spec["photo"]) or ep23_credit(spec["photo"]) or ep22_credit(spec["photo"]) or ep21_credit(spec["photo"]) or ep20_credit(spec["photo"]) or ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
+    cr = (ep27_credit(spec["photo"]) or ep26_credit(spec["photo"]) or ep25_credit(spec["photo"]) or ep24_credit(spec["photo"]) or ep17_credit(spec["photo"]) or ep23_credit(spec["photo"]) or ep22_credit(spec["photo"]) or ep21_credit(spec["photo"]) or ep20_credit(spec["photo"]) or ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
           or ep14_credit(spec["photo"])
           or ep13_credit(spec["photo"])
           or ep12_credit(spec["photo"])

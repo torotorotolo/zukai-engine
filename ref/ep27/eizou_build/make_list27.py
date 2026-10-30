@@ -18,16 +18,23 @@
   E 冒頭（c101〜c107）にイメージ（冒頭は実写か実写を地にした画面）／イメージの副題が「イメージ」で始まらない
   E 同じ写真（全面・額装）を3回以上／同じ写真に別の副題／文字だけの画面がある／写真と映像が 20% 未満
   ⚠️ 同じ写真を2回（寄りの名が違えば ⚠️ のまま）・2回が8カットより近い／続く図で見た目の型が同じ／写真の無い画面が5つ以上続く／止めが区間の半分をこえる
-秒＝台本の句読点なしの字数÷365（⑤a の前の見込み）。
+  🆕 E（⑤b-1・10-30）県警の動画の区間＋止めが、カットの中身の秒（扉を除く＝実測）に足りない／区間の終わりが手元の素材の実の長さ（ffprobe）をこえる・
+     ⚠️ 手元の素材の実の長さが VIDEO_LEN と 0.1秒より違う／素材が手元に無い（長さを測れない）
+秒＝audio/narration.json が27本目の台本と合えば実測（⑤b-1 から＝26本目 make_list26.measured() の型・扉は check_script.door_key で数え、
+    映像の区間と比べる秒は扉を除いた中身＝cont）・合わなければ台本の句読点なしの字数÷365 の見込み（出力に書く）。
 """
+import json
 import os
 import re
+import subprocess
 import sys
 from collections import Counter, defaultdict
 
 sys.stdout.reconfigure(encoding='utf-8')
 HERE = os.path.dirname(os.path.abspath(__file__))
 EP = os.path.dirname(HERE)
+REPO = os.path.dirname(os.path.dirname(EP))
+NARR = os.path.join(REPO, 'audio', 'narration.json')
 DAIHON = os.path.join(EP, 'daihon_v2.md')
 OUT_MD = os.path.join(EP, 'eizou_list27.md')
 OUT_TSV = os.path.join(HERE, 'list27.tsv')
@@ -112,8 +119,46 @@ def read_cuts(daihon=DAIHON):
     for r in rows:
         r['start'] = sec
         r['dur'] = r['n'] / RATE * 60
+        r['cont'], r['card'] = r['dur'], 0.0
         sec += r['dur']
     return rows
+
+
+def measured(rows):
+    """🆕 ⑤b-1（10-30）：秒を audio/narration.json の実測に（26本目 make_list26.measured() の型）。27本目の台本と合わないときは ÷365 の見込みのまま。
+    start＝扉こみの頭・dur＝扉＋中身・cont＝扉を除いた中身（声＋LEAD＋TAIL＝映像の区間と比べる秒）。扉は check_script.door_key（27本目は INNER_CARDS なし）"""
+    if not os.path.exists(NARR):
+        return '÷365 の見込み（narration.json が無い）'
+    dur = json.load(open(NARR, encoding='utf-8')).get('durations', {})
+    if [r['cid'] for r in rows] != [c for c in dur if c != 'ed01']:
+        return '÷365 の見込み（narration.json は27本目の台本と合わない＝⑤a の前）'
+    sys.path.insert(0, os.path.join(REPO, 'tools'))
+    import check_script as CSC
+    sec, prev = 0.0, None
+    for r in rows:
+        key = CSC.door_key(r['cid'], slug='ep27')
+        r['card'] = CSC.CARD_SEC if (prev is not None and key != prev) else 0.0
+        prev = key
+        r['start'] = sec
+        r['cont'] = dur[r['cid']] + CSC.LEAD + CSC.TAIL
+        r['dur'] = r['cont'] + r['card']
+        sec += r['dur']
+    return 'audio/narration.json の実測'
+
+
+def media_len(path):
+    """手元の素材（ref/ep27 からの道）の実の長さ（ffprobe）。道が無い・読めないなら None。
+    置き場の欄は「src/…/x.mp4（取得ずみ）」のように注が付く＝頭の道（拡張子まで）だけを使う"""
+    m = re.match(r'[\w./\-]+\.(?:mp4|webm|mkv|mov)', path or '')
+    path = m.group(0) if m else ''
+    p = os.path.join(EP, path) if path else ''
+    if not path or not os.path.exists(p):
+        return None
+    out = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', p], capture_output=True, text=True)
+    try:
+        return float(out.stdout.strip())
+    except ValueError:
+        return None
 
 
 def fmt_t(s):
@@ -138,6 +183,7 @@ def is_fig(c):
 
 def build(assign_path=ASSIGN, sources_path=SOURCES, daihon=DAIHON):
     cuts = read_cuts(daihon)
+    tnote = measured(cuts)
     A = read_psv(assign_path, KEYS)
     S = {s['code']: s for s in read_psv(sources_path, SKEYS)}
     amap = {a['cid']: a for a in A}
@@ -201,8 +247,17 @@ def build(assign_path=ASSIGN, sources_path=SOURCES, daihon=DAIHON):
                                 E.append('%s %s %.2f〜%.2f秒が「犯人」の字の映る %.2f〜%.2f秒にかかる' % (cid, vid, lo, hi, blo, bhi))
                         if hi > VIDEO_LEN[vid]:
                             E.append('%s %s の区間の終わり %.2f秒が動画の長さ %.2f秒をこえる' % (cid, vid, hi, VIDEO_LEN[vid]))
-                        if hi - lo + hold + 0.05 < r['dur']:
-                            E.append('%s 区間 %.1f秒＋止め %.1f秒がカットの %.1f秒に足りない' % (cid, hi - lo, hold, r['dur']))
+                        have = media_len(s['file'])
+                        if have is None:
+                            W.append('%s %s の素材が手元に無い（置き場の欄＝%s）＝実の長さを測れない（取ってから回し直す）' % (cid, vid, s['file'][:30] or '空'))
+                        else:
+                            if abs(have - VIDEO_LEN[vid]) > 0.1:
+                                W.append('%s %s の手元の素材 %.2f秒が VIDEO_LEN %.2f秒と違う' % (cid, vid, have, VIDEO_LEN[vid]))
+                            if hi > have + 0.01:
+                                E.append('%s %s の区間の終わり %.2f秒が手元の素材の実の長さ %.2f秒をこえる' % (cid, vid, hi, have))
+                        if hi - lo + hold + 0.05 < r['cont']:
+                            E.append('%s 区間 %.2f秒＋止め %.2f秒がカットの中身 %.2f秒（扉を除く）に足りない（尻が %.2f秒 欠ける）' % (
+                                cid, hi - lo, hold, r['cont'], r['cont'] - (hi - lo + hold)))
                         if hold > (hi - lo) * 0.5:
                             W.append('%s 止め %.1f秒が区間 %.1f秒の半分をこえる' % (cid, hold, hi - lo))
             if 'BY-SA' in s['rights']:
@@ -277,7 +332,7 @@ def build(assign_path=ASSIGN, sources_path=SOURCES, daihon=DAIHON):
     real = [r for r in rows if r['kind'] in ('実写', '引用')]
     if len(real) < PHOTO_LO * n:
         E.append('写真と映像（この事件の実写＋引用）%d/%d が 20%% 未満' % (len(real), n))
-    return dict(rows=rows, S=S, E=E, W=W, uses=uses, ji_uses=ji_uses, n=n, photo=photo, real=real)
+    return dict(rows=rows, S=S, E=E, W=W, uses=uses, ji_uses=ji_uses, n=n, photo=photo, real=real, tnote=tnote)
 
 
 def write(r, out_md=OUT_MD, out_tsv=OUT_TSV):
@@ -291,7 +346,7 @@ def write(r, out_md=OUT_MD, out_tsv=OUT_TSV):
     L.append('---\ntitle: 27本目 場面ごとの映像・写真の一覧（生成物）\ncreated: 2026-10-29\ntags: [project/jiko-kensho, ep27]\n---\n')
     L.append('# 27本目 場面ごとの映像・写真の一覧（107カット・映像方針）\n')
     L.append('> **生成物＝手で直さない**。作り方＝`python -P ref/ep27/eizou_build/make_list27.py`（入力＝台本 第2版 `daihon_v2.md` §4・当て方 `eizou_build/assign27.psv`・出どころ `eizou_build/sources27.psv`）。直すのは入力。')
-    L.append('> 秒＝句読点なしの字数÷365 の見込み（⑤a の前）。🔧＝台本の画の欄から替えたカット（⑤b はこの一覧に従う・台本は直さない）。色味は原本（10-07）・写真は画面いっぱい（10-11）＝例外は BY-SA（額装・無加工・1点1カット）と警察の素材（引用＝額装・無加工）と衛星写真（額装）＝額装はどれも静止（10-26）。説明カットの地＝CC BY・CC0 の写真を暗くするだけ（27本目〜）。見た画像の記録＝`src/seen_log.tsv`（映像方針の印）。\n')
+    L.append('> 秒＝' + r['tnote'] + '（扉こみの頭と長さ・映像の区間と比べるのは扉を除いた中身＝list27.tsv の cont）。🔧＝台本の画の欄から替えたカット（⑤b はこの一覧に従う・台本は直さない）。色味は原本（10-07）・写真は画面いっぱい（10-11）＝例外は BY-SA（額装・無加工・1点1カット）と警察の素材（引用＝額装・無加工）と衛星写真（額装）＝額装はどれも静止（10-26）。説明カットの地＝CC BY・CC0 の写真を暗くするだけ（27本目〜）。見た画像の記録＝`src/seen_log.tsv`（映像方針の印）。\n')
     L.append('## §0 数\n')
     L.append('| 物差し | 値 | 決まり |\n|---|---|---|')
     L.append('| この事件の写真・映像（Commons の実写＋警察の素材の引用） | **%d カット＝%.1f%%**（実写 %d・引用 %d・秒 %.0f＝%.1f%%） | 20%%以上 %s |' % (
@@ -347,9 +402,10 @@ def write(r, out_md=OUT_MD, out_tsv=OUT_TSV):
     with open(out_md, 'w', encoding='utf-8', newline='\n') as f:
         f.write('\n'.join(L) + '\n')
     with open(out_tsv, 'w', encoding='utf-8', newline='\n') as f:
-        f.write('\t'.join(['cid', 'start', 'dur'] + KEYS[1:]) + '\n')
+        f.write('\t'.join(['cid', 'start', 'dur'] + KEYS[1:] + ['card', 'cont']) + '\n')
         for x in rows:
-            f.write('\t'.join([x['cid'], '%.2f' % x['start'], '%.2f' % x['dur']] + [x[k] for k in KEYS[1:]]) + '\n')
+            f.write('\t'.join([x['cid'], '%.2f' % x['start'], '%.2f' % x['dur']] + [x[k] for k in KEYS[1:]]
+                              + ['%.1f' % x['card'], '%.2f' % x['cont']]) + '\n')
 
 
 def selftest():
@@ -362,7 +418,8 @@ def selftest():
            'CMT|commons-photo|テスト|commons:CMT|4032x3024|CC BY 2.0|Flickr|Wikimedia Commons（CC BY 2.0）|後|なし|x|',
            'CMSA|commons-photo|テスト|commons:CMSA|3264x2448|CC BY-SA 4.0|-|Wikimedia Commons（CC BY-SA 4.0）|後|なし|x|',
            'CMU|commons-photo|テスト2|commons:CMU|4032x3024|CC BY 2.0|Flickr|Wikimedia Commons（CC BY 2.0）|後|なし|x|',
-           'YT-A|police-video|手配の動画|yt|1920x1080|引用|県の頁|出典：大分県警察 公式YouTube（2024年8月1日）|後|容疑者（引用）|x|']
+           'YT-A|police-video|手配の動画|yt|1920x1080|引用|県の頁|出典：大分県警察 公式YouTube（2024年8月1日）|後|容疑者（引用）|x|',
+           'YT-C|police-video|手配の動画|yt|854x476|引用|県の頁|出典：大分県警察 公式YouTube（2025年12月11日）|後|容疑者（引用）|x|']
     cases = [
         ('陰性', None, 0),
         ('陽性 BY-SA を全面で', ('c201', '実写|CMSA||全面|別府の港〈2024年5月〉|静止'), 1),
@@ -374,6 +431,8 @@ def selftest():
         ('陽性 SNS の印なし', ('c201', 'SNS||CMT|—|カード|'), 1),
         ('陽性 額装に動き', ('c201', '実写|CMT||額装（高さいっぱい）|別府市の夜〈2022年9月〉|寄る'), 1),
         ('陰性 SNS の原文の中の八田與一', ('c201', '実写|CMU||全面|SNS の声「なんか八田與一に似てる」|寄る'), 0),
+        ('陽性 区間＋止めがカットの中身に足りない（⑤b-1）', ('c201', '引用|YT-A||額装（引用）|警察が公開した手配の動画〈2024年8月〉|映像 22.0〜23.0秒'), 1),
+        ('陽性 区間の終わりが動画の長さをこえる', ('c201', '引用|YT-C||額装（引用）|警察が公開した手配の動画〈2025年12月〉|映像 25.0〜31.0秒'), 1),
         ('陽性 県警の動画の区間が重なる', [('c201', '引用|YT-A||額装（引用）|警察が公開した手配の動画〈2024年8月〉|映像 22.0〜32.0秒'),
                                        ('c202', '引用|YT-A||額装（引用）|警察が公開した手配の動画〈2024年8月〉|映像 30.0〜40.0秒')], 1),
     ]
@@ -405,6 +464,9 @@ def main():
         return selftest()
     r = build()
     write(r)
+    rows = {x['cid']: x for x in r['rows']}
+    print('秒：', r['tnote'], '・c103 の終わり %.1f・c107 %.1f・合計 %s' % (
+        rows['c103']['start'] + rows['c103']['dur'], rows['c107']['start'] + rows['c107']['dur'], fmt_t(sum(x['dur'] for x in r['rows']))))
     print('カット %d・写真と映像（実写＋引用）%d＝%.1f%%・E %d・⚠️ %d → %s' % (r['n'], len(r['real']), 100.0 * len(r['real']) / r['n'], len(r['E']), len(r['W']), OUT_MD))
     for e in r['E']:
         print('E', e)

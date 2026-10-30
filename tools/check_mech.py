@@ -5731,205 +5731,12 @@ def _m26_min(t):
     return (h + (24 if h < 12 else 0)) * 60 + m_
 
 
-REC_M26 = dict(
-    src=dict(tt=("タイタニック号", "ship"), cf=("カリフォルニアン号", "ntsb"), cp=("カルパチア号", "uscg"), cr=("ケープ・レース", "tsb"),
-             an=("アンティリアン号", "city"), am=("アメリカ号", "company"), ol=("オリンピック号", "bldg_a"), rep=("報告書", "SUB"),
-             maib=("1992年の調べ直し", "DOC"), cap=("船長", "bldg_a"), mate=("航海士", "city"),
-             # 🆕 ⑤b-6：調査官＝紫・次長＝緑（⑤b-3 の地図 c917 と同じ）・首席＝茶・米国上院の報告＝青・米国の巡視船＝青
-             insp=("調査官", "tsb"), dep=("次長", "ntsb"), chief=("首席", "DOC"), sen=("米国上院の報告", "uscg"), rcs=("米国の巡視船", "uscg")),
-    light=dict(green="OK", red="ALERT", white="SUB"),
-    # 画面に出してよい時刻（sources.md §6 の時計の表と G1 の時刻＝20:00〈p.37〉・22:00〈p.39〉・22:20〈p.56〉・23:00・23:30・23:40〈p.57〉・0:00〈p.58〉・
-    #   0:05〈p.49〉・0:15〈p.54〉・0:30〈p.58〉・0:35〈G7 PDF 23頁〉・0:45〈p.54〉・1:10〈p.58〉・1:15〈p.59〉・2:05〈p.59〉・2:20〈p.85〉・2:40〈p.59〉・4:00〈p.59〉）
-    times=("20:00", "22:00", "22:20", "23:00", "23:30", "23:40", "0:00", "0:05", "0:15", "0:30", "0:35", "0:45", "1:10", "1:15", "2:05", "2:20",
-           "2:40", "4:00",
-           # 🆕 ⑤b-6：1:45〈G1 p.60・信号弾のころの終わり＝タイタニック号の時計〉・18:30〈G2 p.7＝カリフォルニアン号の推測の位置〉・19:30〈G2 p.10＝北極星の観測〉
-           "1:45", "18:30", "19:30"),
-    split=("1:10", "1:15", "2:00", "2:05"),
-    ships=("タイタニック号", "カリフォルニアン号", "カルパチア号"),
-    ng=("死亡", "救命艇", "カッター", "マードック", "グローブス", "ロストロン", "スチュワート", "ボックスホール", "ライトラー", "フィリップス",
-        "エバンス", "ギブソン", "ストーン", "ロード船長"),
-    # カリフォルニアン号から見た画面（見えた船をタイタニック号と名乗らない＝案B の守りの線）
-    no_tt=("field", "sidelights", "masts2", "morse", "views2", "watches", "bearing", "flicker", "section", "height", "memory2", "cfband", "swap",
-           # 🆕 ⑤b-6：船長の話の距離の輪・第三の船・カリフォルニアン号の側の論拠（星の観測・電報）
-           "rings3", "third", "polaris", "antillian"),
-    views=dict(
-        tons2=dict(val=((("tt", 46328), ("cf", 6223)), "約7倍", 7), pv=(46328, 6223)),
-        people4=dict(val=((("一等", 325), ("二等", 285), ("三等", 706), ("乗員", 885)), 1316, 2201, (109, (6, 24, 79)), True, True, True),
-                     pv=(325, 285, 706, 885, 109)),
-        boats20=dict(val=((("大きなボート", 65, 14), ("小さめのボート", 40, 2), ("折りたたみ式のボート", 47, 4)), 1178, True), pv=(65, 40, 47)),
-        track3=dict(val=(2201, 1178, 962), pv=(2201, 1178, 962)),
-        table1894=dict(val=(1894, 10000, 46328), pv=(10000, 46328)),
-        clocks2=dict(val=(0.0, 0.0)),
-        busy=dict(val=("20:00",)),
-        cf_side=dict(val=("レイランド社", "ロンドン", "ボストン", 0)),
-        drown=dict(val=(True,)),
-        watch=dict(val=("22:00",)),
-        helm=dict(val=(-22.5,)),
-        olympic=dict(val=((37, 466, 430, 22), 22.5), pv=(466 * 0.9144, 852.5 * 0.3048)),
-        damage=dict(val=((300, 90, 10, 20), ("前", "1", "2", "3", "6", "5")), pv=(300, 852.5)),
-        tray=dict(val=(5, True)),
-        ttband=dict(val=(("23:40", "衝突"), ("0:05ごろ", "ボートの用意"), ("0:15", "CQD"), ("0:45ごろ", "信号弾"), ("2:20", "沈没")),
-                    pm=("23:40", "0:05", "0:15", "0:45", "2:20")),
-        cqd=dict(val=((("C", "−·−·"), ("Q", "−−·−"), ("D", "−··")), "0:15")),
-        carp=dict(val=(("0:35", 52, 107), -52.0)),
-        rockets_n=dict(val=(8, (6, 12), 5)),
-        colors=dict(val=("SUB", True)),
-        field=dict(val=("22:20ごろ", True)),
-        drift=dict(val=((19, 35), 11.25, 191.25)),
-        sidelights=dict(val=(dict(right="green", left="red", mast="white"), True, True, (5, 9))),
-        masts2=dict(val=((1, 2), 2, True)),
-        views2=dict(val=(("客船には見えない", "客船です"), True)),
-        watches=dict(val=((("夜の当直", "三等航海士"), ("真夜中からの当直", "二等航海士"), ("朝の当直", "一等航海士")), "23:40"),
-                     pm=("0:00", "4:00", "23:40")),
-        section=dict(val=("0:30すぎ", 2, "1:10ごろ", 5)),
-        company=dict(val=("ホワイト・スター・ライン", "OK")),
-        height=dict(val=(0.5,)),
-        memory2=dict(val=(("mate", "1:10ごろ", 5), ("cap", "1:15ごろ", 1))),
-        cfband=dict(val=(("22:20ごろ", "止まる（氷原の手前）"), ("23:40", "灯が消える（三等航海士の話）"), ("1:10ごろ", "白い信号弾 5発（二等航海士の話）"),
-                         ("2:05", "全部で8発（見習いの話）"), ("2:40ごろ", "見えなくなる（二等航海士の話）"), "23:30"),
-                    pm=("22:20", "23:40", "1:10", "2:05", "2:40", "23:30")),
-        swap=dict(val=("4:00ごろ", 2)),
-        # 🆕 ⑤b-6（第6〜9章）：値は G1・G2 の頁と sources.md §2・§6・§7・§8（量は p＝p0＋v×k・時刻は p＝p0＋(分−t0)×k）
-        boxfill=dict(val=((1178, 652), (2, 3)), pv=(1178, 1178 * 2 / 3, 652)),
-        split2=dict(val=((2201, 711, 1490), True), pv=(2201, 711, 1490)),
-        rates4=dict(val=(("一等", 62), ("二等", 41), ("三等", 25), ("乗員", 24)), pv=(62, 41, 25, 24)),
-        decks=dict(val=(True, True, True, True)),             # 三等は船の両端・一等より下・赤い棒（語られる話）は報告書の段で消える
-        flare_bow=dict(val=(True, True, "4:00まで")),         # 緑の灯は前の少し左
-        custom25=dict(val=(25,)),
-        before_after=dict(val=("間違い", "怠り")),
-        match2=dict(val=(("衝突", "見えた船の灯が消える"), ("信号弾 約8発", "白い信号弾 8発"), ("沈む", "見えなくなる"))),
-        clocks_gap=dict(val=(("tt", "0:45", "1:45"), ("cf", "0:30", "1:40")), pm=("0:45", "1:45", "0:30", "1:40")),
-        rings3=dict(val=("約9キロ", "約15キロ", "約19キロ"), pv=(5, 8, 10)),
-        few_min=dict(val=("23:30",)),
-        appeal=dict(val=(("正式な告発", "なし"), ("資格への処分", "なし"), ("申し立ての道", "なし"))),
-        years6=dict(val=(("1912年", "1950年代", "", "1985年", "1990年", "1992年"),
-                         ("審問の報告", "本と映画", "船長の訴え", "残骸が見つかる", "調べ直しを命じる", "調べ直しの報告"), True)),
-        four_q=dict(val=(("①", "位置と距離"), ("②", "見えていたか"), ("③", "信号と動き"), ("④", "船長の行い"))),
-        book2=dict(val=(("insp", "dep"), "dep")),             # 首席が支持したのは次長
-        current=dict(val=(196.0, "時速約2.4キロ", 196.0, True)),
-        dist2col=dict(val=((5, 10, 5), (17, 20, 18)), pv=(5, 10, 5, 17, 20, 18)),
-        drift_s=dict(val=(True, True)),                       # 流された道は計算より南・タイタニック号に近い
-        polaris=dict(val=(42.083, "19:30")),                  # 北緯 42°05′（sources.md §2-1）
-        antillian=dict(val=("18:30", True, True, 3)),         # 止まった位置は真西
-        horizon=dict(val=(True, True)),                       # 近い船の灯は線の上・遠い船の灯は線の下
-        tt_watch=dict(val=("0:30ごろまで",)),
-        third=dict(val=(True, True)),                         # 東から来て氷原の東の端で止まる
-        refract=dict(val=(True,)),                            # 船は海のふくらみの向こう
-        swing=dict(val=("green", "red", "starboard", "green")),   # 最初は緑・のちに赤・右舷へ回る・止まったままなら緑だけ
-        seen2col=dict(val=("答えは出せない", "見えたなら 異常屈折", "たぶん 別の船")),
-        four_steps=dict(val=(("①", "mate", "二等航海士が"), ("②", None, "機関室へ"), ("③", None, "通信士を"), ("④", "cap", "船長は"))),
-        if_go=dict(val=("0:45ごろ",)),
-        law1910=dict(val=(True, True)),
-        linked=dict(val=(True,)),
-        ladder=dict(val=("1912年7月", "1912年8月", "1913年", "1914年", "1948年")),
-        skies2=dict(val=("ALERT", "SUB", 5)),
-    ),
-    # 出典の英文の句（頁は ss.REC_DOCS の通し番号＝G1 1〜88・G2 2001〜2030・G7 20001〜21170）。名前の入らない所を選んだ
-    quote=dict(
-        tons2=(("G1 p11", "46,328 tons gross"), ("G1 p56", "a vessel of 6,223 tons")),
-        people4=(("G1 p32", "In all, 2,201 persons were on board"), ("G1 p32", "or 109 in all")),
-        boats20=(("G1 p25", "a total of 11,327.9 cubic feet for 1,178 persons"),),
-        track3=(("G1 p62", "a provision for 962 persons"), ("G1 p62", "1,178 persons, a number far in excess of the requirements of the table")),
-        table1894=(("G1 p64", "Those regulations were last revised in 1894"), ("G1 p63", "made in 1894 for vessels of 10,000 tons and upward")),
-        radio3=(("G2 p2005", "in 1912 many ships did not have wireless and those that did, did not necessarily keep continuous watch"),),
-        clocks2=(("G2 p2010", "It was customary in 1912 for ships to adjust their clocks so that the sun would be approximately on the meridian"),),
-        aside=(("G1 p36", "to wait until the Titanic would be within call of Cape Race"), ("G1 p36", "it was never handed to any officer")),
-        busy=(("G1 p37", "it does not appear to have been delivered to the master or to any of the officers"),
-              ("G1 p37", "very busy from 8 o'clock onward transmitting messages via Cape Race for passengers")),
-        cf_side=(("G1 p56", "the steamship Californian, of the Leyland Line"),
-                 ("G1 p56", "She had a passenger certificate, but was not carrying any passengers at the time")),
-        relay3=(("G1 p56", "The message was intercepted by the Titanic"), ("G1 p56", "I heard you sending it to the Antillian, and I have got it")),
-        drown=(("G1 p57", "The Titanic was in communication with Cape Race"),
-               ("G1 p57", "was much stronger than any message being taken in by the Titanic from Cape Race")),
-        watch=(("G1 p39", "we might be up around the ice any time now"), ("G1 p39", "both the men in the crow's nest")),
-        helm=(("G1 p41", "about two points to port"), ("G2 p2008", "because of the helm orders then in use, was to direct the ship's head to port")),
-        olympic=(("G1 p41", "about 37 seconds would be required"), ("G1 p41", "the ship would travel about 466 yards")),
-        damage=(("G1 p42", "The damage extended over a length of about 300 feet"), ("G1 p42", "she would have passed through 300 feet in less than 10 seconds"),
-                ("G1 p42", "No. 6 boiler room, No. 5 boiler room"), ("G1 p42", "moving at over 20 knots")),
-        tray=(("G1 p45", "and so on in succession to the other boiler rooms till the ship would ultimately fill and sink"),
-              ("G1 p45", "water came into the five forward compartments")),
-        ttband=(("G1 p42", "took place at 11.40 p.m."), ("G1 p49", "at about 12.05 the order was given to uncover the 14 boats under davits"),
-                ("G1 p54", "At 12.15 a. m. the distress signal CQD was sent"), ("G1 p54", "No. 7 boat was lowered (12.45 a. m.)"),
-                ("G1 p85", "Two twenty a. m. (ship's time) April 15")),
-        cqd=(("G1 p54", "This was heard by several steamships and by Cape Race"),),
-        carp=(("G7 p20023", "Yes, 12.35; that was our apparent time"), ("G7 p20024", "north 52 degrees west true 58 miles from my position")),
-        rockets_n=(("G1 p54", "fired about eight rockets"),),
-        colors=(("G2 p2022", "such signals could be of any colour"),
-                ("G2 p2022", "there was therefore nothing immediately to distinguish them from other rockets")),
-        field=(("G1 p56", "obliged to stop and reverse engines"), ("G1 p56", "which stretched as far as could then be seen to the northward and southward"),
-               ("G1 p56", "until 10.20")),
-        drift=(("G1 p56", "about 19 miles N. by E. of the position of the"), ("G2 p2013", "a current setting about south by west")),
-        sidelights=(("G1 p57", "and also her green side light"), ("G1 p57", "at some time between 11 and 11.30 he first saw her green light; she was then about 5 miles")),
-        masts2=(("G1 p57", "made out two masthead lights"), ("G1 p57", "She is evidently a passenger steamer")),
-        morse=(("G1 p57", "Call her up on the Morse lamp, and see if you can get any answer"),),
-        views2=(("G1 p57", "That does not look like a passenger steamer"), ("G1 p57", "It is, sir. When she stopped her lights seemed to go out")),
-        watches=(("G1 p57", "these lights went out at 11.40"), ("G1 p57", "because one bell was struck to call the middle watch"), ("G1 p58", "just after midnight")),
-        bearing=(("G1 p58", "with instructions to tell him if her bearings altered or if she got any closer"),),
-        flicker=(("G1 p58", "He first thought her masthead light was flickering and next thought it was a Morse light"),
-                 ("G1 p58", "finally came to the conclusion that it was, as he had first supposed, the masthead light flickering")),
-        section=(("G1 p58", "Sometime after 12.30 a. m."), ("G1 p58", "saw two rockets fired from the ship which he had been observing"),
-                 ("G1 p58", "reported to the captain by voice pipe, that he had seen five white rockets")),
-        company=(("G2 p2018", "it has been suggested that these were Company signals from the other ship"), ("G1 p54", "throwing off white stars")),
-        height=(("G2 p2017", "described as low-lying (quoted as rising to less than mast-head height)"),),
-        memory2=(("G1 p59", "he went to the voice pipe at about 1.15, but was told then of a white rocket (not five white rockets)"),
-                 ("G1 p58", "about 1.10 a. m.")),
-        cfband=(("G1 p56", "until 10.20"), ("G1 p57", "went out at 11.40"), ("G1 p57", "turned in at 11.30 p.m."), ("G1 p58", "about 1.10 a. m."),
-                ("G1 p59", "five minutes past two"), ("G1 p59", "At about 2.40 a. m."), ("G1 p58", "altogether we had seen eight of these white lights")),
-        swap=(("G1 p59", "a steamer came in sight with two white masthead lights"), ("G1 p59", "about 4 a.m."), ("G1 p59", "This mistake was not corrected")),
-        # 🆕 ⑤b-6（第6〜9章）：名前の入らない所を選んだ。G4・G5・G6・T3・U1 は原文の通し頁が無い（照らさない）
-        boxfill=(("G1 p48", "Thus the total boat accommodation was for 1,178 persons"), ("G1 p76", "boat accommodation was utilized to less than two-thirds of its capacity"),
-                 ("G1 p51", "of the 712 persons saved only 652 could have left the")),
-        split2=(("G1 p56", "711 out of 2,201, or 32.30 per cent"), ("G1 p5", "the loss of 1,490 lives")),
-        rates4=(("G1 p55", "62.46 per cent"), ("G1 p55", "41.40 per cent"), ("G1 p55", "25.21 per cent"), ("G1 p56", "212 out of 885, or 23.95 per cent")),
-        decks=(("G1 p53", "There appears to have been no truth in these suggestions"), ("G1 p53", "which were at the extreme ends of the ship")),
-        flare_bow=(("G1 p55", "was altering his course continually in order to avoid icebergs"), ("G7 p20025", "we were passing icebergs on every side")),
-        custom25=(("G1 p40", "for a quarter of a century or more"), ("G1 p40", "to keep the course, to maintain the speed and to trust to a sharp lookout")),
-        before_after=(("G1 p41", "What was a mistake in the case of the Titanic would without doubt be negligence in any similar case in the future"),),
-        match2=(("G1 p60", "There are contradictions and inconsistencies in the story as told by the different witnesses"),
-                ("G1 p60", "But the truth of the matter is plain"), ("G1 p60", "The Californian saw eight")),
-        clocks_gap=(("G1 p60", "from about 12.45 to 1.45"), ("G1 p54", "eight rockets having been seen between 12.30 and 1.40"),
-                    ("G2 p2010", "only likely to have been a few minutes")),
-        rings3=(("G1 p60", "5 miles apart at the time of the disaster"), ("G1 p60", "though not more than 8 to 10 miles")),
-        few_min=(("G1 p57", "turned in at 11.30"),),
-        appeal=(("G2 p2005", "he requested a re-hearing of that part of the Inquiry which concerned his ship; the request was rejected"),
-                ("G2 p2005", "he had no right of appeal")),
-        years6=(("G2 p2005", "by then over 80 years old"), ("G2 p2005", "two petitions were made to the Board of Trade asking for the Inquiry to be re-opened; both were rejected"),
-                ("G2 p2005", "in the mid-1950's"), ("G2 p2006", "In 1985 an expedition"), ("G2 p2006", "in 1990 the Secretary of State for Transport")),
-        four_q=(("G2 p2007", "To establish so far as is now possible the positions of TITANIC"), ("G2 p2007", "To consider whether TITANIC was seen by CALIFORNIAN"),
-                ("G2 p2007", "To consider whether distress signals from TITANIC were seen by")),
-        book2=(("G2 p2003", "His report, which follows, incorporates his conclusions and those of the appointed Inspector"),
-               ("G2 p2003", "full endorse the Deputy Chief Inspector's report and conclusions")),
-        current=(("G2 p2013", "the Labrador current extended further south and east than is usual"), ("G2 p2013", "the direction of set was about 196"),
-                 ("G2 p2013", "and the rate about 1.3 knots")),
-        dist2col=(("G2 p2011", "between 5 and 10 miles apart whilst they lay stopped, and probably nearer five"), ("G2 p2011", "probably about 18 miles"),
-                  ("G2 p2007", "between 17 and 20 miles")),
-        drift_s=(("G2 p2013", "He considers that the current had set southerly since noon on 14 April; no allowance for this current was made"),
-                 ("G2 p2007", "only 5 to 7 miles off")),
-        polaris=(("G2 p2014", "The Pole Star sight taken by the Chief Officer at 1930 hrs"),
-                 ("G2 p2014", "as that observed at noon on the same day, showing a course made good of west")),
-        antillian=(("G2 p2011", "At 1830 hrs three large icebergs were seen some five miles to the south"),
-                   ("G2 p2014", "which cannot have been fabricated is the signal sent to ANTILLIAN"),
-                   ("G2 p2014", "it adds weight to the statement that CALIFORNIAN was steering westerly")),
-        horizon=(("G2 p2017", "well beyond the ordinary visible horizon"), ("G2 p2015", "our respective opinions on position are undoubtedly coloured by this difference")),
-        tt_watch=(("G2 p2016", "no ship was seen by TITANIC until well after the collision"), ("G2 p2016", "about 0030 hrs"),
-                  ("G2 p2016", "watch was maintained with officers on the Bridge and seamen in the")),
-        third=(("G2 p2017", "a third ship was present which approached from the East, stopped on meeting the field ice, and then after a period steamed away to seek a break in the ice"),),
-        refract=(("G2 p2017", "at a very much greater range than her horizon because of abnormal"),),
-        swing=(("G2 p2017", "later her red (port) light came into view, arguing that after stopping she swung markedly to starboard"),
-               ("G2 p2017", "Her port sidelight would therefore not be seen")),
-        seen2col=(("G2 p2017", "I do not consider that a definite answer to the question 'was TITANIC seen' can be given"),
-                  ("G2 p2017", "the ship seen by CALIFORNIAN was another, unidentified, vessel")),
-        four_steps=(("G2 p2020", "Stand By Engines"), ("G2 p2020", "The Wireless Operator should have been called"),
-                    ("G2 p2020", "got under way towards the apparent source of the rockets")),
-        asleep=(("G2 p2021", "I think the message from the Bridge simply did not get through"), ("G2 p2021", "the subject appears to respond to a call")),
-        if_go=(("G2 p2022", "The first rocket appears to have been fired at about 0045 hrs (TITANIC time)"),
-               ("G2 p2022", "given my minimum distance off of 17 miles, have reached the scene at just about the time of sinking")),
-        if_flow=(("G2 p2022", "would shortly receive TITANIC'S SOS with its incorrect position"), ("G2 p2022", "CALIFORNIAN would arrive well after the sinking")),
-        ice_rule=(("G1 p87", "when ice is reported in or near the track the ship should proceed in the dark hours at a moderate speed or alter her course so as to go well clear of the danger zone"),),
-        ladder=(("G2 p2022", "it was not until 1948 that the rules for distress signals were amended"),),
-        skies2=(("G2 p2022", "such signals could be of any colour"), ("G2 p2022", "it was not until 1948 that the rules for distress signals were amended")),
-    ),
-)
+# 🔴 2026-10-30（27本目 ⑤b-1・§0b）：26本目の値（図解 m26 の記録＝船と人の名と色・灯の色・出してよい時刻・割れる時刻・出さない言葉・タイタニック号と名乗らない画面・
+#    形と値と比例・原文の英文の句と頁）は selftest の見本 `tools/fixture_ep26.py` の REC_M26 へ移した（値は1つも変えていない＝git の `54b15e5e`）。selftest `_selftest_m26` は
+#    見本の表と26本目の章ファイル（`fixture_ep26.apply_cuts()`）を差し込んで回す。空のあいだ m26 のカットは `judge_m26` が「記録の表 REC_M26 が空」で止める
+#    （fail closed）。型（_m26_min・judge_m26・_m26_page・_M26_PAGES・_m26_q・mech26.py・titan_fig.m26）は残した。27本目の図解の記録は、その型を初めて使う ⑤b のチャットで
+#    別の名（REC_M27）に
+REC_M26 = {}
 _M26_PAGES = {}
 
 
@@ -6627,8 +6434,18 @@ def main():
         print("selftest（m25）: 🔴 落ちた")
         return 2
     print("selftest（m25）: 通った")
-    # 🆕 26本目 ⑤b-5：m26 の検算＝見本の差し込みは上で全部戻したあと（本番の表 REC_M26 と26本目の章ファイル）
-    if not _selftest_m26(True):
+    # 🆕 26本目 ⑤b-5：m26 の検算＝見本の差し込みは上で全部戻したあと
+    # 🔴 2026-10-30（27本目 ⑤b-1・§0b）：表 REC_M26 は見本 fixture_ep26・カットは26本目の章ファイル（`apply_cuts()`＝git の `54b15e5e`）を差して回し、終わったら戻す
+    #    （m25 と同じ形。`_selftest_m26` は m26 のカットが SPEC に無ければ「検算できない」で落ちる＝飛ばして合格を返さない）。
+    #    ⚠️ `_m26_page` は原文を覚える（`_M26_PAGES`）＝26本目の原文の道を直書き＝差し込みの前後で捨てなくても同じ原文（本番で m26 は使わない）
+    import fixture_ep26
+    fixture_ep26.apply(sys.modules[__name__])
+    try:
+        fixture_ep26.apply_cuts()
+        ok26 = _selftest_m26(True)
+    finally:
+        fixture_ep26.restore()
+    if not ok26:
         print("selftest（m26）: 🔴 落ちた")
         return 2
     print("selftest（m26）: 通った")

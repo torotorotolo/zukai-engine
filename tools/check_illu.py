@@ -3217,24 +3217,13 @@ def _judge_f6(sc, where, geo, texts):
 # ══════════════════════════════════════════════════════════
 K26_PLACES = ("K1", "K2", "K3", "K4", "K5", "K6")
 K26_MARK = "㊽"
-K26_CUTS = ("c320", "c506", "c508", "c512", "c606", "c614", "c615", "c618", "c621", "c625", "c627", "c630", "c631", "c632", "c633",
-            "c701", "c712", "c936")
-REC_K26 = dict(
-    # 置き場ごとに描いてよい人の影の数の上限（記録の場面にいた役職だけ）と、札に書いてよい役職（名前は書かない）
-    people=dict(K1=2, K2=2, K3=1, K4=1, K5=0, K6=0),
-    roles=("三等航海士", "二等航海士", "見習い", "船長", "通信士", "四等航海士"),
-    # 時計の札＝置き場ごとの時刻（sources.md §6・G1 p54〜59）と「どの船の時計か」
-    clock=dict(K1=("23:00", "0:00", "0:20", "1:00", "1:40", "2:40"), K2=("2:05",), K3=("23:00",), K4=("0:45",), K6=("4:10",)),
-    ship=dict(K1=("カリフォルニアン号の時計",), K2=("操舵室の時計",), K3=("カリフォルニアン号の時計",), K4=("タイタニック号の時計",),
-              K6=("カルパチア号の時計",)),
-    who={"2:05": "見習い"},             # 証言で割れる時刻は誰の話かを札に（T1 Q7565＝見習い 2:05／二等航海士の話は 2:00 の向き＝sources.md §4-2）
-    flares=3,                            # G1 p58「the vessel fired three more white rockets」
-    miles=(5, 6),                        # G1 p54「about 5 or 6 miles」→ 札は km（1マイル＝1.852km・四捨五入）
-    bearing="南西",                      # G1 p59「disappeared bearing SW.」
-    seats=40, filled=12,                 # G1 p52「a carrying capacity of 40」・G1 p51「No. 1 certainly left with only 12」
-    boat=(25 + 2 / 12, 7 + 2 / 12),      # G1 p25「25 feet 2 inches long by 7 feet 2 inches broad」（emergency boat＝wood cutter）
-    no_name=dict(K1="タイタニック", K4="カリフォルニアン"),   # 見えた船を名乗らない（映像方針 26本目 案C の守りの線）
-)
+# 🔴 2026-10-30（27本目 ⑤b-1・§0b）：26本目の値（REC_K26＝置き場ごとの人の影の数・役職の札・時計の時刻とどの船の時計か・割れる時刻は誰の話か・信号弾の数・
+#    距離と方角・1号艇の席の数と寸法・見えた船を名乗らない／K26_CUTS＝26本目の案C の正しい場面18カット〈c320〜c936＝27本目にも同じ番号のカットがある〉）は
+#    selftest の見本 `tools/fixture_ep26.py` へ移した（値は1つも変えていない＝git の `54b15e5e`）。selftest `selftest_ep26` は見本の表と26本目の章ファイル
+#    （`fixture_ep26.apply_cuts()`）を差し込んで回す。空のあいだ置き場 K1〜K6 の場面は `judge_k26` が「記録の表が空」で止める（fail closed）。
+#    型（K26_PLACES・K26_MARK・NUM_KM26・CLOCK26・QUOTE26・ROLE26・_nz26・_pages26・judge_k26・illu26.py）は残した
+K26_CUTS = ()
+REC_K26 = {}
 NUM_KM26 = re.compile(r"(\d+)\s*〜\s*(\d+)\s*キロ")
 CLOCK26 = re.compile(r"(\d{1,2}):(\d{2})")
 QUOTE26 = re.compile(r"(G1|G2|G7)\s*p(\d+)（([^）]*)）")
@@ -3349,7 +3338,25 @@ def judge_k26(sc, where):
 
 def selftest_ep26():
     """🆕 26本目 ⑤b-4（2026-10-27）：㊽ の検算。正しい場面（26本目の SPEC 18カット）が通り、わざと壊した場面（陽性対照）が狙った理由で落ちる。
-    いまは本番の表（ss・REC_K26・章ファイル）のまま回す（26本目が本番の回）＝次の回の ⑤b-1 で見本 `fixture_ep26` へ移す"""
+    ✅ 2026-10-30（27本目 ⑤b-1・§0b）：本番の表（cuts.ss の REC_DOCS・REC_PAGES・ILLU_* ／この門番の REC_K26・K26_CUTS）は27本目の空の器にした＝26本目の値は
+       見本 `fixture_ep26`（25本目の selftest_ep25 と同じ作り）。差し込んだら原文の頁の読み込み `_pages26()`（lru_cache）を捨てて26本目の原文を読み直し、
+       戻したらまた捨てる。正しい場面の SPEC は26本目の章ファイル（`apply_cuts()`＝git の `54b15e5e`）から読む＝落ちても終わっても `restore()` で本番の値
+       （と27本目の PLAN・SPEC）へ戻す。本体は `_selftest_ep26`"""
+    import fixture_ep26
+    fixture_ep26.apply(sys.modules[__name__])
+    _pages.cache_clear()          # 🔴 原文の頁の読み込みは覚えている（lru_cache）＝本番の（空の）原文を捨てて26本目を読み直す
+    _pages26.cache_clear()
+    try:
+        fixture_ep26.apply_cuts()
+        return _selftest_ep26()
+    finally:
+        fixture_ep26.restore()
+        _pages.cache_clear()
+        _pages26.cache_clear()
+
+
+def _selftest_ep26():
+    """26本目 K1〜K6（㊽）の検算の本体（`fixture_ep26` の `apply(gate)`＋`apply_cuts()` を差し込んだ中で呼ぶ）。"""
     import copy
     import cuts
     import illu26 as I26

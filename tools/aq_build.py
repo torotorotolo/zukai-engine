@@ -51,7 +51,7 @@ PUNCT = re.compile(r"[、。？！「」（）・]")   # 「句読点なし」�
 #    r02＝話速147・364.3字/分（声だけ 453.1）。14本目 373.2・15本目 r01 374.8 は試写で「ほんの少し遅く」と言われた速さ。
 #    14・15本目は TARGET 380（競合「ゆっくり事故検証」5本の中央値）・下限 373（27分を割るときに下げてよい所まで）だった
 TARGET_CPM = 365     # 字/分（16本目から）
-FLOOR_SEC = 27 * 60  # 尺の下限（据え置き）
+FLOOR_SEC = 27 * 60  # 尺の下限（据え置き）＝A の枠の下限。🆕 2026-10-30（27本目 ⑤b-1）から判定には使わない（judge_rate は check_script.dur_band の回の枠）
 FLOOR_CPM = 360      # 合格の幅の下。これより遅くするならカズヤくんに聞く
 CEIL_CPM = 370       # 合格の幅の上。14本目・15本目 r01（373〜375）の手前で止める
 MEMO = "事故検証ch aq_build が書く（手で直さない）"
@@ -194,7 +194,7 @@ VOICES = {
     #    幅に入る行間は 0.35〜0.50 だけ（計算：0.40＝365.3・0.35＝367.9＝試写で「遅い・間が長い」と言われたときの戻し先／
     #    0.50＝360.3・0.55 で 357.8＝下限の外＝「速い」と言われても行間で遅くする余地は無い＝声の段はカズヤくんに聞く）。
     #    ⚠️ 上の FLOOR_SEC（27分）は A の枠の定数＝B の回の --rate は「尺 27分00秒以上 🔴」と出る（表示だけ・exit 0）＝尺の合否は
-    #    check_script ③（dur_band＝B）で見る。門番 E0（check_aq_audio・check_subwrap・check_listener〈W2＝役割「質問」63%・
+    #    check_script ③（dur_band＝B）で見る（✅ 10-30 ⑤b-1 でカズヤくん了承＝judge_rate を dur_band の回の枠に直した＝「尺 8〜20分（B の枠）✓」）。門番 E0（check_aq_audio・check_subwrap・check_listener〈W2＝役割「質問」63%・
     #    「まとめ」33%＝台本の割合・④' 承認ずみ〉・check_script〈W0〉）・4つの測り方（--rate・check_script ③・check_listener・
     #    出荷する wav をつないだ長さ 926.044秒）が秒まで一致
     "ep27": {"speed": 143, "gap": 0.49, "cand": "A"},
@@ -336,10 +336,17 @@ def fmt(s):
     return f"{int(s) // 60}分{s - 60 * (int(s) // 60):04.1f}秒"
 
 
-def judge_rate(total, cpm):
-    """(尺が27分以上か, 字/分が FLOOR_CPM〜CEIL_CPM の内か, 外れの向き "遅すぎ"／"速すぎ"／"")。境目は内側。"""
+def judge_rate(total, cpm, band=None):
+    """(尺が回の枠の内か, 字/分が FLOOR_CPM〜CEIL_CPM の内か, 外れの向き "遅すぎ"／"速すぎ"／"")。境目は内側。
+    🆕 2026-10-30（27本目 ⑤b-1・カズヤくん了承）：尺の枠は `check_script.dur_band()`（A＝27〜40分・B＝8〜20分・回の名 el_script.SLUG で引く）＝
+    band＝(下限, 上限) の秒を渡せばその枠。それまでは「27分以上か」だけ（FLOOR_SEC＝A の枠の決め打ち）で、B の回（27本目）の --rate が
+    「尺 27分00秒以上 🔴」と出ていた（表示だけ・exit 0）。A の回の判定は上限40分が増えただけ（check_script ③ と同じ判定にそろえた）"""
+    if band is None:
+        import check_script as CS
+        band = CS.dur_band()
+    lo, hi = band
     side = "遅すぎ" if cpm < FLOOR_CPM else "速すぎ" if cpm > CEIL_CPM else ""
-    return total >= FLOOR_SEC, not side, side
+    return lo <= total <= hi, not side, side
 
 
 def rate_report(js=None, quiet=False):
@@ -360,7 +367,9 @@ def rate_report(js=None, quiet=False):
     s0 = js["presets"]["n"]["話速"]
     # ⚠️ 話速から尺を式で当てない：AquesTalk1 の話速は段々（14本目の実測＝154→153 で声が 2.7% 跳ぶ・1段では 0.1%）。
     #    話速を替えたら全行を焼き直して、ここの実測で合否を見る（1回 約1分・費用なし）
-    ok_floor, ok_cpm, side = judge_rate(total, cpm)
+    import check_script as CS
+    band = CS.dur_band()
+    ok_floor, ok_cpm, side = judge_rate(total, cpm, band)
     if not quiet:
         gc = js.get("gap_cuts") or {}
         gcs = ("（" + "・".join(f"{g}秒＝{len([c for c in gc if gc[c] == g])}カット" for g in sorted(set(gc.values())))
@@ -368,7 +377,9 @@ def rate_report(js=None, quiet=False):
         print(f"話速 {s0}・行間 {js.get('gap')}秒{gcs}／句読点なし {chars:,}字／声 {fmt(speech)}＋構造 {fmt(over)} ＝ 尺 {fmt(total)}")
         print(f"  字/分（句読点なし÷尺）= {cpm:.1f}（目標 {TARGET_CPM}・合格の幅 {FLOOR_CPM}〜{CEIL_CPM}）"
               f"／声だけの字/分 = {chars / (speech / 60):.1f}")
-        print(f"  判定：尺 27分00秒以上 {'✓' if ok_floor else '🔴'}・{FLOOR_CPM}〜{CEIL_CPM}字/分 {'✓' if ok_cpm else '🔴' + side}")
+        kind = "B" if band == CS.DUR_B else "A"
+        print(f"  判定：尺 {band[0] // 60}〜{band[1] // 60}分（{kind} の枠）{'✓' if ok_floor else '🔴'}・"
+              f"{FLOOR_CPM}〜{CEIL_CPM}字/分 {'✓' if ok_cpm else '🔴' + side}")
         op = [c for c, _ in narration.SCRIPT][:8]
         print("  冒頭: " + " ".join(f"{c}={tl[c][1]:.1f}s" for c in op))
     return dict(total=total, speech=speech, over=over, cpm=cpm, chars=chars, s0=s0,
@@ -598,12 +609,22 @@ def selftest():
     ok(voice_defs("ep14", "B", 150)[None][1]["棒読み"] == "false" and d1[None][1]["棒読み"] == "true",
        "候補A は棒読み・B はアクセントあり")
     # 話速の判定（2026-10-01・ルール §C-1 #68）。見本＝実測の尺と字/分
-    ok(judge_rate(1669.6, 364.3) == (True, True, ""), "15本目 r02（話速147・364.3）は合格＝16本目からの標準")
-    ok(judge_rate(1622.5, 374.8) == (True, False, "速すぎ"), "15本目 r01（話速153・374.8）は速すぎ")
-    ok(judge_rate(1622.5, 373.2) == (True, False, "速すぎ"), "14本目（話速154・373.2）は速すぎ")
-    ok(judge_rate(2300.0, 354.0) == (True, False, "遅すぎ"), "大きな段を1つ遅くした値（354）は遅すぎ")
-    ok(judge_rate(2300.0, FLOOR_CPM)[1] and judge_rate(2300.0, CEIL_CPM)[1], "幅の境目は合格")
-    ok(judge_rate(1619.0, 365.0)[0] is False, "27分を割ると尺が🔴")
+    # 🆕 2026-10-30（27本目 ⑤b-1）：尺は回の枠（check_script.dur_band）＝A の見本は A の枠を明示して前と同じ結果・B の陽性と陰性を足した
+    import check_script as CS
+    A, B = CS.dur_band("ep26"), CS.dur_band("ep27")
+    ok(A == (27 * 60, 40 * 60) and B == (8 * 60, 20 * 60) and B == CS.DUR_B, "回の名で枠を引く（26本目＝A 27〜40分・27本目＝B 8〜20分）")
+    ok(judge_rate(1669.6, 364.3, A) == (True, True, ""), "15本目 r02（話速147・364.3）は合格＝16本目からの標準")
+    ok(judge_rate(1622.5, 374.8, A) == (True, False, "速すぎ"), "15本目 r01（話速153・374.8）は速すぎ")
+    ok(judge_rate(1622.5, 373.2, A) == (True, False, "速すぎ"), "14本目（話速154・373.2）は速すぎ")
+    ok(judge_rate(2300.0, 354.0, A) == (True, False, "遅すぎ"), "大きな段を1つ遅くした値（354）は遅すぎ")
+    ok(judge_rate(2300.0, FLOOR_CPM, A)[1] and judge_rate(2300.0, CEIL_CPM, A)[1], "幅の境目は合格")
+    ok(judge_rate(1619.0, 365.0, A)[0] is False, "A の回で27分を割ると尺が🔴")
+    ok(judge_rate(2146.2, TARGET_CPM, A) == (True, True, ""), "26本目の尺（35分46.2秒・字/分は目標の値で）は A の枠の内")
+    ok(judge_rate(2401.0, 365.0, A)[0] is False, "A の回で40分をこえると尺が🔴（check_script ③ と同じ上限）")
+    ok(judge_rate(926.0, 360.8, B) == (True, True, ""), "🆕 27本目（15分26.0秒・360.8）は B の枠の内＝陰性（前は「27分以上 🔴」）")
+    ok(judge_rate(1201.0, 365.0, B)[0] is False, "🆕 B の回で20分をこえると尺が🔴（陽性）")
+    ok(judge_rate(479.0, 365.0, B)[0] is False, "🆕 B の回で8分を割ると尺が🔴（陽性）")
+    ok(judge_rate(480.0, 365.0, B)[0] and judge_rate(1200.0, 365.0, B)[0], "B の枠の境目は合格")
     if fails:
         print(f"selftest: 落ちた {len(fails)}: {fails}")
         return 1
