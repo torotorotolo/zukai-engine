@@ -1,0 +1,31 @@
+{
+ "YT-C": {
+  "url": "https://www.youtube.com/watch?v=zj9LhnLb1So",
+  "media": "ref/ep27/src/police_yt/20251211_zj9LhnLb1So.mp4",
+  "local_from": 0.0,
+  "private": true,
+  "stock": false,
+  "credit": "出典：大分県警察 公式YouTube（2025年12月11日）",
+  "src": "local",
+  "at": 0.0,
+  "date": "2025年12月",
+  "what": "殺人の疑いになってからの手配の動画（警察庁指定 重要指名手配 八田與一 → 殺人・殺人未遂・道路交通法違反 → 懸賞金・自撮り → この顔見たら110番）＝「犯",
+  "w": 854,
+  "h": 476,
+  "fps": 30.0,
+  "sar": "1:1",
+  "sec": 30.094,
+  "size": 1726845,
+  "md5": "84d9b96c68df4017e9c06f94efdf56e4",
+  "dispw": 854,
+  "decoded": [
+   854,
+   476
+  ],
+  "license": "引用（著作権法32条・大分県の頁が引用を禁止の外に置く）",
+  "rights": "同上",
+  "scan": "ref/ep27/src/police_yt/20251211_zj9LhnLb1So.mp4",
+  "md5_scan": "84d9b96c68df4017e9c06f94efdf56e4",
+  "note": "🔴 公開リポに置かない（git の外・焼くのは Modal＝保管庫 jiko-assets の同じ道）。音は使わない（-an）。話している秒だけ・実時間（速さを変えない）・加工しない"
+ }
+}

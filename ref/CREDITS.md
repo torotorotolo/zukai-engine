@@ -3191,3 +3191,80 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 
 ### 2. 地図の衛星写真（Google マップ）
 - c218・c306・c909・c917＝Google マップの衛星写真＋描き足し（束の外＝`cuts/ss.SAT`・⑤b-3 で撮る）。出典は画面の地図の右下の帰属の行（Google の地図の利用）。🔴 PNG は公開リポに置かない（git の外・md5 と出どころは `cuts/ss.SAT`・`GEO`）
+
+## 八田與一容疑者の事件（2022-06-29・27本目）
+
+※2026-10-30（⑤b-2）。`qa_out/ep27_assets.py credits --write` が書く（手で直さない）。写真は映像方針の一覧 `ref/ep27/eizou_list27.md`（了承② 2026-10-29）。
+🔴 事件の回（ルール §B2-10）＝被害者・遺族・けがをした人・目撃者・SNS の投稿者の名前は書かない・容疑者は必ず「八田與一容疑者」。
+
+### 0. 県警の動画（引用＝話している秒だけ・カットの秒で実時間・加工しない・音は使わない＝`-an`・サムネに使わない）
+- 大分県の「著作権・リンク等について」は「『私的使用のための複製』や『引用』など著作権法で認められた場合を除き」無断の転載・複製・改変を禁じる＝引用は県が禁止の外に置く（`ref/ep27/materials.md` §1）。🔴 **動画も、そこから抜いたコマも公開リポに置かない**（焼くのは Modal＝保管庫）。🔴 YT-A の 0〜20秒・153.5〜159.25秒（重要指名手配のポスター＝小さな字に「犯人」）は使わない（門番 `make_list27.BAD`）
+
+| 記号 | 使うカット | 画面の出典 | 使い方 | 取得 |
+|---|---|---|---|---|
+| `YT-A` | c102 c303 c305 c309 c316 | 出典：大分県警察 公式YouTube（2024年8月1日） | 引用（話している秒だけ・実時間・音は使わない） | 🔴 未取得 |
+| `YT-C` | c106 | 出典：大分県警察 公式YouTube（2025年12月11日） | 引用（話している秒だけ・実時間・音は使わない） | 取得ずみ（git の外・md5 は clips.json） |
+
+### 1. 写真（Commons の CC BY・BY-SA・CC0・Pexels のイメージ・県警と警察庁の引用）
+- CC BY・BY-SA＝「写真：{作者}／Wikimedia Commons（ライセンス）」。🔴 撮影者の名前はこのリポに書かない＝`ref/ep27/credits.json` は印 `{作者}` だけ・焼くときに git の外の表 `ref/ep27/src/credits_private.tsv` から足す（`tools/scene_jiko.ep27_credit`）。CC0＝「Wikimedia Commons（CC0）」
+- BY-SA＝額装（無加工・1点1カット・升目もかけない）。CC BY・CC0 の顔の分かる人は顔だけ升目（「／改変：顔にモザイク」）。色は原本のまま
+- 説明カットの地（「地 c…」）＝CC BY・CC0 の写真を暗くするだけ（字と地の比 8:1 が下限＝了承② 決め1・出典の行は「地の写真：…／改変：明るさ」＝⑤b-3）
+- イメージ（Pexels の写真）＝`ep27/stock/` の名・画面の左上に「イメージ」・20% に数えない・git に入れない（焼くときに直リンクから取り直して md5 を照らす）
+- 県警・警察庁の引用（`ep27/police/` の名）＝**公開リポに置かない**（git の外・Modal の保管庫）・額装・加工しない（似顔絵は並べ方だけ）
+- 撮影年＝Commons の頁の撮影日・県警の頁と動画の公開日（sources27 の時期の欄）。イメージは「不明」（副題に年を書かない）
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `cm001` | c319 | 2016 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM001 |
+| `cm014` | c505 | 2024 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM014 |
+| `cm022` | c413 | 2016 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM022 |
+| `cm039` | c220 | 2016 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM039 |
+| `cm040` | c514 | 2016 | CC BY-SA 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM040 |
+| `cm044` | c204（地 c201 c203 c205 c517 c518） | 2022 | CC BY 2.0（この事件の土地・顔に升目） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM044 |
+| `cm045` | c105（地 c519） | 2022 | CC BY 2.0（この事件の土地・顔に升目） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM045 |
+| `cm046` | c215 | 2022 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM046 |
+| `cm051` | c516 | 2015 | CC BY 3.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM051 |
+| `cm054` | c107 c706 | 2017 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM054 |
+| `cm056` | c217 c705（地 c218） | 2020 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM056 |
+| `cm057` | c704 | 2016 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM057 |
+| `cm059` | c610 | 2016 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM059 |
+| `cm072` | c101 | 2024 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM072 |
+| `cm074` | c609 | 2024 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM074 |
+| `cm075` | c219 | 2024 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM075 |
+| `cm076` | c415 | 2024 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM076 |
+| `cm102` | c520 | 2011 | CC BY 3.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM102 |
+| `cm106` | c506（地 c508） | 2020 | CC0（この事件の土地） | Commons の投稿者（CC0＝表示は任意） | commons:CM106 |
+| `cm108` | c412 | 2023 | CC0（この事件の土地） | Commons の投稿者（CC0＝表示は任意） | commons:CM108 |
+| `cm110` | c408（地 c410） | 2023 | CC0（この事件の土地） | Commons の投稿者（CC0＝表示は任意） | commons:CM110 |
+| `cm112` | c411 | 2023 | CC0（この事件の土地） | Commons の投稿者（CC0＝表示は任意） | commons:CM112 |
+| `cm143` | c417（地 c501 c502 c503） | 2020 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM143 |
+| `cm144` | c320（地 c401） | 2022 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM144 |
+| `cm145` | c315 | 2022 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM145 |
+| `cm151` | c304 c703（地 c302 c513 c515） | 2022 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM151 |
+| `cm152` | c307（地 c306） | 2022 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM152 |
+| `cm153` | c308 c702（地 c310 c701） | 2022 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM153 |
+| `cm154` | c214 c608 | 2022 | CC BY 2.0（この事件の土地・顔に升目） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM154 |
+| `cm156` | c311（地 c312） | 2011 | CC BY 3.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM156 |
+| `cm198` | c414 c616（地 c103 c416 c615） | 2020 | CC0（この事件の土地） | Commons の投稿者（CC0＝表示は任意） | commons:CM198 |
+| `cm202` | c613 | 2016 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM202 |
+| `cm203` | c507 | 2016 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM203 |
+| `cm204` | c611 | 2016 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM204 |
+| `cm205` | c602（地 c612） | 2011 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM205 |
+| `cm208` | c206（地 c208） | 2022 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM208 |
+| `cm254` | c404（地 c405 c406 c407 c605 c606 c607） | 2022 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM254 |
+| `cm257` | c317 c614（地 c318） | 2013 | CC BY 3.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM257 |
+| `cm258` | c209（地 c210） | 2013 | CC BY 3.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM258 |
+| `cm259` | c402（地 c403） | 2013 | CC BY 3.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM259 |
+| `cm283` | c211 | 2022 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM283 |
+| `cm289` | c409 | 2016 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM289 |
+| `npa01` | c301 | 2022 | 引用（著作権法32条・大分県の頁が引用を禁止の外に置く）（引用・非公開） | 警察庁の重要指名手配の頁（写真は大分県警察＝第三者の権利） | web:npa_wanted_01.jpg |
+| `sketch2` | c314 | 2024 | 引用（著作権法32条・大分県の頁が引用を禁止の外に置く）（引用・非公開） | 大分県警察 | web:2323829_4634890・4634891_misc.jpeg |
+| `sketch6` | c313 | 2024 | 引用（著作権法32条・大分県の頁が引用を禁止の外に置く）（引用・非公開） | 大分県警察 | web:2323829_4634889〜4634894_misc.jpeg |
+| `xpost1` | c603 c604 | 2026 | 引用（著作権法32条・大分県の頁が引用を禁止の外に置く）（引用・非公開） | 大分県警察 | x:oita_police/status/2071406565274640830 photo/1 |
+| `px30037331` | c207 | 不明 | Pexels License（イメージ）（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/30037331/ |
+| `px7146298` | c509 | 不明 | Pexels License（イメージ）（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/7146298/ |
+| `px7508684` | c512 | 不明 | Pexels License（イメージ）（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/7508684/ |
+| `px7553959` | c510 | 不明 | Pexels License（イメージ）（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/7553959/ |
+
+### 2. 地図の衛星写真（Google マップ）
+- G1・G2・G3・G7・G9（9カット）＝Google マップの衛星写真＋描き足し（束の外＝`cuts/ss.SAT`・⑤b-4 で撮る）。出典は画面の地図の右下の帰属の行（Google の地図の利用）。🔴 PNG は公開リポに置かない（git の外・Modal の保管庫）

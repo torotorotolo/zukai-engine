@@ -1,0 +1,50 @@
+{
+ "YT-C": {
+  "src": "src/police_yt/20251211_zj9LhnLb1So.mp4",
+  "scan": "ref/ep27/src/police_yt/20251211_zj9LhnLb1So.mp4",
+  "dur": 30.0,
+  "how": "1秒1コマで tools/shots.shots_of（27本目・県警の動画）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 2.0,
+    "motion": 37.76
+   },
+   {
+    "start": 2.0,
+    "until": 8.0,
+    "motion": 10.91
+   },
+   {
+    "start": 8.0,
+    "until": 14.0,
+    "motion": 1.09
+   },
+   {
+    "start": 14.0,
+    "until": 18.0,
+    "motion": 9.49
+   },
+   {
+    "start": 18.0,
+    "until": 22.0,
+    "motion": 11.62
+   },
+   {
+    "start": 22.0,
+    "until": 24.0,
+    "motion": 13.5
+   },
+   {
+    "start": 24.0,
+    "until": 27.0,
+    "motion": 14.09
+   },
+   {
+    "start": 27.0,
+    "until": 30.0,
+    "motion": 0.02
+   }
+  ]
+ }
+}
