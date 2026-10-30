@@ -5992,8 +5992,195 @@ def _selftest_m26(ok):
     return ok
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 27本目 ⑤b-4（2026-10-30）：図解 m27（`tools/mech27.py`・図34）の記録＝門番の側（§5b-88）。
+#    ①誰か・何かの名と色（同じ画面で色が重ならない） ②値・比例（量は p＝p0＋v×k・月は p＝p0＋(月−m0)×k・日は p＝p0＋日×k）・
+#      SNS の札は原文どおり・元刑事と県警の言葉は記事と投稿の字のまま・電話番号
+#    ③画面の全部の字の数を rel で・rel の出どころの記号・出さない言葉（「犯人」）・**「八田與一」は必ず「容疑者」**（SNS の札の原文だけ例外）
+#    ④SNS の画面に注釈（cuts.ss.SNS_NOTE）＝置き場と焼いた絵の字は check_ground の②
+#    🔴 §0b（題材を替えるとき）：次の回の ⑤b-1 で REC_M27 を見本 fixture_ep27 へ移す（REC_M26 と同じ形）
+# ══════════════════════════════════════════════════════════
+REC_M27 = dict(
+    src=dict(police=("警察", "uscg"), npa=("警察庁", "tsb"), kuni=("国", "tsb"), family=("遺族ら", "bldg_a"), news=("報道", "DOC"),
+             expert=("専門家", "DOC"), car=("容疑者の車", "company"), mini=("ミニバイク", "ship"), moto=("オートバイ", "ntsb"),
+             court=("裁判", "INST"), civil=("民事", "ntsb"), seen=("目撃の情報", "company"), sns=("SNS の声", "SUB")),
+    views=dict(
+        bignum=dict(val=("1万3978件", "2026年9月末まで")),
+        talk=dict(val=(15, 30), pv=(15, 30)),
+        speed=dict(val=(40, 70, 100), pv=(40, 70, 100)),
+        reward=dict(val=((300, 500, 800), True), pv=(300, 500, 800)),
+        steps5=dict(val=(("2022年7月", "名前と顔写真"), ("2023年5月", "動画10本"), ("2023年9月", "重要指名手配・報奨金"), ("2024年6月", "似顔絵"),
+                         ("2024年8月", "手配の動画")), pm=("2022年7月", "2023年5月", "2023年9月", "2024年6月", "2024年8月")),
+        limit=dict(val=(7,), pv=(7,)),
+        cumline=dict(val=(("2022年7月28日", 36), ("2023年6月29日", 854), ("2023年12月末", 4052), ("2025年4月末", 9430), ("2025年12月末", 12029),
+                          ("2026年9月末", 13978)), pv=(36, 854, 4052, 9430, 12029, 13978),
+                     pd=("2022-07-28", "2023-06-29", "2023-12-31", "2025-04-30", "2025-12-31", "2026-09-30"), d0="2022-06-29"),
+        monthly=dict(val=(("2023年9月15〜30日", 884), ("2023年10月", 915), ("2024年7月", 660), ("2025年6月", 706), ("2026年6月", 401)),
+                     pv=(884, 915, 660, 706, 401)),
+        share=dict(val=((13978, 13240), 95)),
+        detective=dict(val=(("声をかけない", "追い詰めない", "すぐに110番"), "違っていたからといって怒られるわけじゃない")),
+        post=dict(val=("あなたのそばに潜んでいるかも。",)),
+        contact=dict(val=("0977-21-2131",)),
+    ),
+    # SNS の札の原文（Yahoo!リアルタイム検索で見た投稿の字＝控え ref/ep27/src/sns_posts.tsv〈git の外〉・アカウント名は持たない）
+    sns=dict(k1=("なんか八田與一にめっちゃ似てる人とすれ違ったんだけどたぶん違う", "X の投稿（2026年10月29日）"),
+             k3=("関東で目撃情報が寄せられているから、重点的に調べるべきではないか", "X の投稿（2026年10月25日）"),
+             k4=("八田與一容疑者、警察が海を捜索してるけど死んだ説が濃厚だと思う。", "X の投稿（2026年10月22日）")),
+    ng=("犯人",),
+    note="※SNS の投稿。事実かは確かめられていません",      # 了承②（10-29）の文言＝描く側の cuts.ss.SNS_NOTE と別に持つ
+    rel_src=r"^(T\d{6}-\d{2}|(OAB|OBS|西日本|共|日経|日テレ|NPS|ABEMA|X|県警X|県警YT) \d{4}-\d{2}-\d{2}|県警|警察庁|願う会|① §\d)$",
+)
+SNS_VIEWS27 = ("sns1", "sns13", "sns4")
+
+
+def _ym27(t):
+    y, m_ = [int(x) for x in re.findall(r"\d+", t)[:2]]
+    return y * 12 + m_ - 1
+
+
+def judge_m27(f):
+    """27本目 図解：①名と色 ②値・比例・原文 ③全部の字の数を rel で・出どころ・出さない言葉・容疑者 ④SNS の注釈。"""
+    import datetime as dt
+    import jiko_style as J
+    import cuts.ss as ss
+    bad, n = [], 0
+    m = f.mech
+    g, view = m["geo"], m["view"]
+    R = REC_M27
+    if not R:
+        return ["記録の表 REC_M27 が空（その回の値を入れるまで、m27 のカットは止まる）"], 1
+
+    def need(cond, msg):
+        nonlocal n
+        n += 1
+        if not cond:
+            bad.append(msg)
+
+    def col(name):
+        return (J.ROLE.get(name) or getattr(J, name)).lower()
+
+    def prop(a, b):
+        return abs(a - b) < 0.5
+
+    Rv = R["views"].get(view) or {}
+    need({k: (t, col(r)) for k, (t, r) in g["src"].items()} == {k: (t, col(r)) for k, (t, r) in R["src"].items()},
+         "① 誰か・何かの名か色が記録（警察＝青・警察庁と国＝紫・遺族ら＝桃・報道＝茶・容疑者の車＝橙…）と違う")
+    cs = [col(R["src"][k][1]) for k in g["vsrc"]]
+    need(len(set(cs)) == len(cs), f"① 同じ画面の鍵 {g['vsrc']} の色が重なる")
+    if "val" in Rv:
+        need(tuple(g.get("val", ())) == tuple(Rv["val"]), f"② {view} の値 {g.get('val')} が記録と違う")
+    if "pv" in Rv:
+        px, lins = tuple(g.get("px", ())), tuple(g.get("lins", ()))
+        need(len(px) == len(Rv["pv"]) == len(lins) and all(prop(p, p0 + (float(v) - v0) * k) for p, (p0, k, v0), v in zip(px, lins, Rv["pv"])),
+             f"② {view} の画素が値に比例していない（記録の値 {Rv['pv']}）")
+    if "pm" in Rv:
+        px, lins = tuple(g.get("px", ())), tuple(g.get("lins", ()))
+        ms = [_ym27(t) for t in Rv["pm"]]
+        need(len(px) == len(ms) == len(lins) and all(prop(p, p0 + (mm - m0) * k) for p, (p0, k, m0), mm in zip(px, lins, ms)),
+             f"② {view} の画素が月に比例していない（記録の月 {Rv['pm']}）")
+    if "pd" in Rv:
+        px, lins = tuple(g.get("pxx", ())), tuple(g.get("linx", ()))
+        d0 = dt.date.fromisoformat(Rv["d0"])
+        ds = [(dt.date.fromisoformat(d) - d0).days for d in Rv["pd"]]
+        need(len(px) == len(ds) == len(lins) and all(prop(p, p0 + (d - v0) * k) for p, (p0, k, v0), d in zip(px, lins, ds)),
+             f"② {view} の画素が日に比例していない（記録の日 {Rv['pd']}）")
+    if view in SNS_VIEWS27:
+        got = {k: ("".join(lines), src) for k, lines, src in g.get("val", ())}
+        need(got == {k: tuple(v) for k, v in R["sns"].items()}, "② SNS の札の字が原文の記録（REC_M27 の sns）と違う")
+    texts = list(m["texts_all"])
+    ngs = [(t, w) for t in texts for w in R["ng"] if w in t]
+    need(not ngs, f"③ 画面の字「{ngs[0][0]}」に出さない言葉「{ngs[0][1]}」がある（推定無罪＝§B2-10）" if ngs else "")
+    cards = {ln for _k, (lines, _s) in __import__("mech27").SNS_CARDS.items() for ln in lines} if view in SNS_VIEWS27 else set()
+    bare = [t for t in texts if "八田" in t and "容疑者" not in t and t not in cards]
+    need(not bare, f"③ 画面の字「{bare[0] if bare else ''}」に「容疑者」が無い（必ず「八田與一容疑者」＝§B2-10・SNS の原文の札だけ例外）")
+    said = [r.get("t", "") for r in m["rel"]]
+    for t in texts:
+        for mm in NUM_M17.finditer(t):
+            tok = mm.group(0)
+            need(any(tok in s for s in said), f"③ 画面の字「{t}」の数「{tok}」が rel（記録の値の宣言）に無い")
+    for r in m["rel"]:
+        need(bool(re.match(R["rel_src"], str(r.get("src", "")))), f"③ rel「{r.get('t')}」の出どころ「{r.get('src')}」が記号の形（T……・OAB 年-月-日・県警・警察庁・① §n ほか）でない")
+    if view in SNS_VIEWS27:
+        need(R["note"] in texts, f"④ SNS の画面に注釈「{R['note']}」（了承② の文言）が無い")
+        need(ss.SNS_NOTE == R["note"], f"④ 描く側の注釈の文言 cuts.ss.SNS_NOTE「{ss.SNS_NOTE}」が了承② の文言と違う")
+    elif any(R["note"] in t for t in texts):
+        need(False, "④ SNS の画面でないのに注釈がある")
+    return bad, n
+
+
+def _selftest_m27(ok):
+    """🆕 27本目 ⑤b-4：本番の m27 が全部通り、描く側の定数を壊すと**狙った理由で**鳴るか（陽性対照）。型の例外で止まった対照は鳴ったと数えない。"""
+    import mech27 as M
+    import cuts
+    good = {c: s["fig"][1] for c, s in cuts.SPEC.items() if s.get("fig") and s["fig"][0] == "m27"}
+    if not good:
+        print("  🔴 NG 27本目 m27 のカットが SPEC に無い＝検算できない")
+        return False
+    for cid, kw in sorted(good.items()):
+        bad, _ = judge("m27", kw)
+        if bad:
+            ok = False
+            print(f"  🔴 NG 27本目 m27 の本番 {cid} が落ちた: {bad[0]}")
+    print(f"  {'OK' if ok else '🔴 NG'} 27本目 m27 の本番 {len(good)}カット")
+    by_view = {kw["view"]: kw for kw in good.values()}
+
+    def control(label, view, mutate, restore, want):
+        nonlocal ok
+        mutate()
+        try:
+            bad, _ = judge("m27", by_view[view])
+        except Exception as e:                       # noqa: BLE001
+            bad = [f"（型の例外 {e}）"]
+        finally:
+            restore()
+        g_ = any(b.startswith(want) for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 27本目 陽性対照：{label}: {'不合格' if bad else '合格'}（不合格のはず・理由「{want}」）")
+
+    sp = M.SP_V
+    control("速さの値を 40→50", "speed", lambda: setattr(M, "SP_V", (50, 70, 100)), lambda: setattr(M, "SP_V", sp), "②")
+    sp_x0 = M.sp_x
+    control("速さの棒の比例を崩す（最初の棒だけ 30px 長く）", "speed",
+            lambda: setattr(M, "sp_x", lambda v: sp_x0(v) + (30 if v == 40 else 0)), lambda: setattr(M, "sp_x", sp_x0), "②")
+    cards = dict(M.SNS_CARDS)
+    control("SNS の札の字を1字かえる", "sns1",
+            lambda: M.SNS_CARDS.__setitem__("k1", (("なんか八田與一によく似てる人と", "すれ違ったんだけどたぶん違う"), cards["k1"][1])),
+            lambda: M.SNS_CARDS.update(cards), "②")
+    src = dict(M.SRC)
+    control("警察の色を緑に", "contact", lambda: M.SRC.__setitem__("police", ("警察", "ntsb")), lambda: M.SRC.update(src), "①")
+    q = M.DT_Q
+    control("元刑事の言葉を言い換える", "detective", lambda: setattr(M, "DT_Q", "違っても怒られない"), lambda: setattr(M, "DT_Q", q), "②")
+    old = M.VIEWS["items4"]["stage"]
+    control("「犯人」の字を足す", "items4",
+            lambda: M.VIEWS["items4"].__setitem__("stage", lambda p, s, _o=old: _o(p, s) + [M._t(960, 800, "犯人の手がかり")]),
+            lambda: M.VIEWS["items4"].__setitem__("stage", old), "③")
+    old2 = M.VIEWS["hitrun3"]["stage"]
+    control("「八田與一」だけの字（容疑者なし）", "hitrun3",
+            lambda: M.VIEWS["hitrun3"].__setitem__("stage", lambda p, s, _o=old2: _o(p, s) + [M._t(960, 820, "八田與一の疑い")]),
+            lambda: M.VIEWS["hitrun3"].__setitem__("stage", old2), "③")
+    kw = dict(by_view["speed"], rel=[r for r in by_view["speed"]["rel"] if "70" not in r["t"]])
+    bad, _ = judge("m27", kw)
+    g_ = any(b.startswith("③") and "70" in b for b in bad)
+    ok &= g_
+    print(f"  {'OK' if g_ else '🔴 NG'} 27本目 陽性対照：rel から「70キロ以上」を抜く: {'不合格' if bad else '合格'}（不合格のはず・理由「③」）")
+    kw = dict(by_view["speed"], rel=[dict(r, src="TOS") for r in by_view["speed"]["rel"]])
+    bad, _ = judge("m27", kw)
+    g_ = any(b.startswith("③") and "出どころ" in b for b in bad)
+    ok &= g_
+    print(f"  {'OK' if g_ else '🔴 NG'} 27本目 陽性対照：rel の出どころを記号でない形に: {'不合格' if bad else '合格'}（不合格のはず・理由「③」）")
+    import cuts.ss as ss
+    note = ss.SNS_NOTE
+    control("SNS の注釈の文言が無い（別の文に）", "sns4", lambda: setattr(ss, "SNS_NOTE", "※注"), lambda: setattr(ss, "SNS_NOTE", note), "④")
+    mo = M.MO_V
+    control("月ごとの棒の値を1つかえる", "monthly", lambda: setattr(M, "MO_V", mo[:1] + (("2023年10月", 900, "900件", ""),) + mo[2:]),
+            lambda: setattr(M, "MO_V", mo), "②")
+    return ok
+
+
 def judge(kind, kw):
     f = getattr(F, kind)(**kw)
+    if kind == "m27":
+        return judge_m27(f)
     if kind == "m26":
         return judge_m26(f)
     if kind == "m25":
@@ -6449,12 +6636,17 @@ def main():
         print("selftest（m26）: 🔴 落ちた")
         return 2
     print("selftest（m26）: 通った")
+    # 🆕 27本目 ⑤b-4：m27 の検算＝本番の章ファイルのまま（27本目の回の中）。m27 のカットが SPEC に無ければ「検算できない」で落ちる
+    if not _selftest_m27(True):
+        print("selftest（m27）: 🔴 落ちた")
+        return 2
+    print("selftest（m27）: 通った")
     if "--selftest" in sys.argv:
         return 0
     import cuts
     targets = {c: s["fig"] for c, s in sorted(cuts.SPEC.items())
                if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash", "tail", "mod", "bolt", "vsec", "lv", "m18",
-                                                   "m19", "m20", "m21", "m22", "m23", "m17", "m24", "m25", "m26")}
+                                                   "m19", "m20", "m21", "m22", "m23", "m17", "m24", "m25", "m26", "m27")}
     if not targets:
         print("⚠️ latch・section・hull・lash・tail・mod・bolt のカットが0件（この回に仕組みの模式図が無いなら正しい。"
               "**0件を調べて合格**にしていないか確かめる）")
@@ -6470,7 +6662,7 @@ def main():
             n += 1
             vb = view_dir_check17(cuts.PLAN.get(cid, {}).get("plan", ""), F.m17(**kw).mech["lab"])
             bad = list(bad) + ([f"② {vb}"] if vb else [])
-        if kind in ("m24", "m25", "m26"):  # 🆕 24本目 ⑤b-4・25本目 ⑤b-5・26本目 ⑤b-5：見る向きの合図（PLAN の「見る向き：」× 左上の札）
+        if kind in ("m24", "m25", "m26", "m27"):  # 🆕 24本目 ⑤b-4・25本目 ⑤b-5・26本目 ⑤b-5・27本目 ⑤b-4：見る向きの合図（PLAN の「見る向き：」× 左上の札）
             n += 1
             vb = view_dir_check17(cuts.PLAN.get(cid, {}).get("plan", ""), getattr(F, kind)(**kw).mech["lab"])
             bad = list(bad) + ([f"② {vb}"] if vb else [])

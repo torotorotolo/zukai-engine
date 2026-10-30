@@ -512,8 +512,9 @@ def cam_rects(sw, sh, box, spec):
     if cam:
         return {u: crop_rect(sw, sh, box, 0.0, y, x, z)
                 for u, (x, y, z) in zip((0.0, 0.5, 1.0), B.cam_samples(cam, b, xb, zm))}
-    if B.FRAME_STILL and B.framed(box):
+    if (B.FRAME_STILL and B.framed(box)) or (spec.get("dim") and spec.get("fig")):
         # 🆕 2026-10-28（26本目 ⑤b-7）：回の既定 FRAME_STILL の額装・帯の写真は寄らない（本番 build_jiko の kb＝0）＝k=1 も寄りの始めの窓
+        # 🆕 27本目 ⑤b-4：説明カットの地の写真（dim）も動かさない（build_jiko.scene の dim の枝＝fit の k=0）
         r0 = crop_rect(sw, sh, box, 0.0, b, xb, zm)
         return {0.0: r0, 1.0: r0}
     return {k: crop_rect(sw, sh, box, k, b, xb, zm) for k in (0.0, 1.0)}

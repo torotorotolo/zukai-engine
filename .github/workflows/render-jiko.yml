@@ -193,6 +193,12 @@ jobs:
         if: inputs.scan != 'true'
         run: python tools/layer_hash.py
 
+      # 🆕 27本目 ⑤b-4：説明カットの地の写真（暗くするだけ）＝字と図の線の周りの地で 8:1・SNS の注釈の置き場と字の画素（焼いた層で測る）。
+      #   落ちたら検品画像を焼かない（fail closed＝手元の門番を通してから回す）
+      - name: Check ground photos (8:1) and SNS note
+        if: inputs.scan != 'true'
+        run: python tools/check_ground.py
+
       - name: Build QA stills
         if: inputs.scan != 'true'
         run: |

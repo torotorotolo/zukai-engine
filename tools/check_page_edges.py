@@ -64,7 +64,8 @@ def rects_of(sw, sh, box, spec):
     import build_jiko as B
     # 🆕 2026-10-28（26本目 ⑤b-7）：回の既定 FRAME_STILL（26本目から）の**額装・帯の写真は寄らない**（本番 build_jiko の kb＝0・`framed(box)`）
     #    ＝寄りの始めの1点だけ。寄る前提で21点に刻むと、静止の頁の切り口の辺が k＝1 の窓で隣の行を切ると鳴った（c809 ほか＝本番の絵では切れない）
-    if spec.get("still") or spec.get("sat") or (B.FRAME_STILL and B.framed(box)):
+    # 🆕 27本目 ⑤b-4：説明カットの地の写真（dim）も動かさない（build_jiko.scene の dim の枝＝fit の k=0）＝1点だけ
+    if spec.get("still") or spec.get("sat") or (B.FRAME_STILL and B.framed(box)) or (spec.get("dim") and spec.get("fig")):
         # 🆕 19本目 ⑤b-7c：寄らない尻の頁（`still=True`＝build_jiko.tail_frame の k＝0・c618 の引用の頁）＝寄りの始めの1点だけ
         # 🆕 22本目 ⑤b-7：地図のカット（衛星写真＝`sat`）も寄らない（build_jiko の meta で still＝True）＝本番と同じ1点だけ。
         #    寄る前提で測ると、衛星写真の上の端の地名（c812・c813 の「Orlando」）が寄りの終わりに半分切れると鳴った（本番では切れない）

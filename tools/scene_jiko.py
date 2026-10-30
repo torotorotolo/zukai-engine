@@ -1567,6 +1567,19 @@ def ep7_credit(name):
     return None
 
 
+def ground_credit(cid, spec):
+    """🆕 27本目 ⑤b-4：説明カットの地の写真の出典の行＝「地の写真：…／改変：切出・明るさ」（了承② 決め1）。
+    束の出典（credits.json）の頭「写真：」を「地の写真：」に・改変の欄の尻に「明るさ」を足す（画面いっぱいに敷く＝切出は束の書きのまま）。
+    CC0 は改変を書かない（PD と同じ＝表示の義務の無い物に義務があるように見せない・6本目 ⑤c' の注）"""
+    cr = credit_of(cid, spec)
+    body = re.sub(r"^(写真|出典)：", "", cr)
+    if "（CC0）" not in body:
+        if "／改変：" not in body:
+            raise ValueError(f"{cid}: 地の写真 {spec.get('photo')} の出典に改変の欄が無い（CC BY は改変の旨が要る）＝{cr}")
+        body += "・明るさ"
+    return "地の写真：" + body
+
+
 def _ground_same_pd(name):
     """🆕 2026-10-28（26本目 ⑤b-7）：額装の地に敷いた**同じ写真**のぼかしが PD（束の台帳 assets.json の lic）か。
     PD は帰属も改変の断りも義務が無い（下の CC BY の注「PD の素材には足さない」）＝同じ出典を「／地：…・改変：ぼかし」で2回つなぐと
@@ -2220,7 +2233,11 @@ def fig_base(cid, spec, ground=True):
         #    ⚠️ 長い出典（IDO-19311 の行は 24px で 1,120px）はそのままだと括弧に届く。
         #      **入る大きさに落として書く**（式で決める。目で詰めない）。
         _fig = (spec.get("fig") or ("", None))[0]
-        if _fig == "quote":
+        if spec.get("dim"):
+            # 🆕 27本目 ⑤b-4：説明カットの地の写真（暗くするだけ＝build_jiko.ground_dim）＝**方眼なし**（了承② 決め1）。
+            #    出典の行は右上（本体枠の上 y=196・右寄せ）＝「地の写真：…／改変：切出・明るさ」。図の出典は図の左下（note の行）
+            g = [J.outlined(J.RIGHT, CRED_BACK_Y, ground_credit(cid, spec), J.LINE, 24, anchor="end", sw=5)]
+        elif _fig == "quote":
             _c = credit_of(cid, spec)
             _sz = fm.fit(_c, CRED_BACK_W, "Noto", cap=24, floor=17)
             g = [J.grid_only(W, H),
@@ -2873,6 +2890,16 @@ def build_layers(allow_missing=False):
             n = len(SUBS.get(c) or [])
             if n:
                 SUB_MUTE[c] = {n - 1}
+    # 🆕 27本目 ⑤b-4：原文どおりの字を大きく出す札（SNS の投稿・元刑事の言葉・県警の投稿の文＝m27 の `mute=[行の番号]`）は、
+    #    その字を読む行の字幕を消す（記憶 feedback-no-subtitle-when-onscreen「その言葉が出ているあいだ、字幕は消す」）
+    for c in spans:
+        fig = (SPEC.get(c) or {}).get("fig")
+        if fig and fig[0] == "m27" and fig[1].get("mute"):
+            n = len(SUBS.get(c) or [])
+            bad = [i for i in fig[1]["mute"] if not 0 <= int(i) < n]
+            if bad:
+                raise SystemExit(f"{c}: mute の行 {bad} が字幕の行（0〜{n - 1}）に無い")
+            SUB_MUTE.setdefault(c, set()).update(int(i) for i in fig[1]["mute"])
     return jobs, spans
 
 
@@ -2937,6 +2964,8 @@ def layer_index(allow_missing=False):
                         levels=ts.get("levels") or LEVELS_BY_PHOTO.get(ts["photo"]))
         idx[cid] = {"photo": bool(s.get("photo")), "back": bool(s.get("photo") and s.get("fig")),
                     "veil": float(s.get("veil", VEIL)), "span": spans[cid],
+                    # 🆕 27本目 ⑤b-4：説明カットの地の写真の明るさの掛け算（ss.gr＝暗幕を敷かない・方眼なし・静止）
+                    "dim": (float(s["dim"]) if s.get("dim") and s.get("fig") and s.get("photo") else None),
                     # 🔴 実写カット（fig の無いカット）にかける暗幕。**書いたカットだけ**
                     "pveil": (float(s["veil"]) if s.get("veil") and not s.get("fig") else None),
                     "stages": ns, "layers": sorted(names),
@@ -2971,6 +3000,10 @@ def pal_of_layer(k):
     for pre in ("sub_", "card_"):
         if k.startswith(pre):
             return palette_of(k[len(pre):])
+    # 🆕 27本目 ⑤b-4：説明カットの地の写真（SPEC の dim）の層は**章の色に置き換えない**（了承② 決め1「章の色は残さない」）＝図は回の色（navy の値と役の色）。
+    #    章の扉（card_）は今までどおり章の色
+    if (SPEC.get(k.split("_")[0]) or {}).get("dim"):
+        return "navy"
     return palette_of(k.split("_")[0])
 
 

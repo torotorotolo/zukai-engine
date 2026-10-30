@@ -89,6 +89,8 @@ KATAKANA = re.compile(r"[ァ-ヶー・]+")
 # 図の引数のうち、文字列でも「画面の文」ではないもの（色・種類・ファイル名・位置）
 NOT_TEXT_KEYS = {"c", "vc", "dc", "tc", "kc", "kind", "mode", "photo", "at", "anchor", "fam",
                  "font", "img", "src", "side", "ref",
+                 # 🆕 27本目 ⑤b-4：m27 の数の宣言（rel）と字幕を消す行（mute）は画面に出ない（画面の字は層の <text> で測る）
+                 "rel", "mute",
                  # 🔴 2026-09-28（14本目 ⑤b-2）：案C の再現イラストの**画面に出ない欄**（出典の宣言 rec・人数の宣言 people・
                  #    場面の状態 state／start・置き場 place・touch）。画面の出典は rec から「PDF N頁」の形で組み直して出る
                  "rec", "people", "state", "start", "place", "touch"}
@@ -162,6 +164,11 @@ def exempt_strings(spec):
     """そのカットで「ナレーションに寄ってよい」文字列（見出し・副題・引用の札）。"""
     out = {norm(spec.get("t", "")), norm(spec.get("s", ""))}
     fig = spec.get("fig")
+    if fig and fig[0] == "m27":
+        # 🆕 27本目 ⑤b-4：原文どおりの字の札（SNS の投稿・元刑事の言葉・県警の投稿の文）＝決め所と同じ役目（その行の字幕は mute で消える）
+        import mech27
+        for q in mech27.quote_lines(fig[1].get("view", "")):
+            out.add(norm(q))
     if fig and fig[0] == "trace":
         # 🔴 12本目から：報告書の実物をなぞる型。和訳（phrase）は**決め所**＝quote の phrase と同じ役目
         #    （声と同時に出し、その行の字幕は消える＝SUB_MUTE）。出どころ（doc）も同じく免除

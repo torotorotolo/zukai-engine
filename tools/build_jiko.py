@@ -448,6 +448,20 @@ def _bg_of(meta, cut):
     return J.palette((meta.get(cut) or {}).get("pal"))["BG"]
 
 
+_DIM_LUT = {}
+
+
+def ground_dim(ph, k):
+    """🆕 27本目 ⑤b-4：説明カットの地の写真＝画素の値に k を掛けるだけ（色相は変わらない＝了承② 決め1「色は原本・暗くするだけ」）。
+    門番 check_ground が同じ関数で地を作って 8:1 を測る（本番と同じ式）。"""
+    k = round(float(k), 3)
+    if not 0.0 < k <= 1.0:
+        raise ValueError(f"地の写真の明るさ {k} は 0〜1 の掛け算で書く")
+    if k not in _DIM_LUT:
+        _DIM_LUT[k] = [int(round(v * k)) for v in range(256)] * 3
+    return ph.convert("RGB").point(_DIM_LUT[k]).convert("RGBA")
+
+
 # ── 12本目からの転換・カメラ・閃光（§5b-17）────────────────────────
 FADE_BLACK = 0.40     # 章の終わりの暗転／扉の出だしの暗転明け（秒）
 CARD_X = 0.40         # 扉 → 中身へ重ねて入れ替える秒
@@ -549,7 +563,13 @@ def scene(cut, t, dur, lay, photos, meta):
     if il and il.get("full"):
         # 🔴 14本目 ⑤b-2：全面の再現イラスト（地は絵・上の層 `_base` は札と章と出典だけ）
         return illu_frame(cut, t, lay, meta, il["scenes"][0], f"{cut}_base")
-    if meta[cut]["back"]:
+    if meta[cut]["back"] and meta[cut].get("dim"):
+        # 🆕 27本目 ⑤b-4：説明カットの地の写真（了承② 決め1）＝**暗くするだけ**（画素の値の掛け算＝色は原本・暗幕の板を敷かない・
+        #    デュオトーンにしない）・**動かさない**（寄り k=0・映像を当てない）・方眼なし（scene_jiko.fig_base）。門番＝check_ground の 8:1
+        xb, zm = S.PHOTO_CROP[cut]
+        fr = ground_dim(fit(photos[cut], S.PHOTO_FULL, 0.0, S.PHOTO_CUTS[cut][2], xb, zm), meta[cut]["dim"])
+        fr.alpha_composite(lay[f"{cut}_base"])
+    elif meta[cut]["back"]:
         # ★写真を地にして、暗幕を挟み、その上に図解を重ねる
         k = t / max(dur, 0.001)
         xb, zm = S.PHOTO_CROP[cut]
@@ -1503,6 +1523,7 @@ def meta_of(idx):
     m = {}
     for cid, v in idx.items():
         m[cid] = {"photo": v["photo"], "back": v["back"], "veil": v["veil"],
+                  "dim": v.get("dim"),       # 🆕 27本目 ⑤b-4：説明カットの地の写真の明るさの掛け算（ground_dim＝暗幕なし・静止）
                   # 🔴🔴 2026-09-07（5本目 SL-1 ⑤c'）：**この1行が抜けていた。**
                   #    scene_jiko.layer_index() は `pveil` を正しく作っていたのに
                   #    ここで写していなかったので、build_jiko.py:346 の

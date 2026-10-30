@@ -5182,3 +5182,13 @@ def m25(view, steps, **kw):
 def m26(view, steps, **kw):
     import mech26 as _m
     return _m.m26(view, steps, **kw)
+
+
+# ── ㉒ 27本目 ⑤b-4（2026-10-30）：図解（図34＝大きな数・2台・坂と交差点・点線・やり取りの帯・速さの棒・途切れる線・3つの記号・公表の札・
+#      全国の警察・報奨金の積み棒・手配の歩み・罪の名前・告訴・2つの疑い・逮捕状・6つの箱・時効の棒・2つの部屋・累計の線・月ごとの棒・100マス・
+#      確かめ・人違い・うその動画・SNS の札3・元刑事の札・手前の道・約1分・めくりの暦・県警の投稿の札・窓口）＝`tools/mech27.py`
+#      （門番 check_mech の judge_m27）。🔴 地は写真（cuts.ss.gr＝暗くするだけ）・字は暗い縁取り・人は描かない・容疑者は必ず「容疑者」 ──
+#   `fig=("m27", dict(view=…, steps=[…], rel=[…], note="…", src=…))`
+def m27(view, steps, **kw):
+    import mech27 as _m
+    return _m.m27(view, steps, **kw)
