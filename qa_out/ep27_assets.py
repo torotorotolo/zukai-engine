@@ -104,12 +104,25 @@ SKETCH_BG = (40, 40, 40)
 MASK = {
     # c105（全面・寄る）・c519 の地＝JR別府駅近くの夜の通り（2022年9月）
     "CM045": [(390, 1146, 422, 1182, "コンビニの前を歩くピンクのシャツの人"), (1544, 1152, 1576, 1188, "右を歩く水色のシャツの人"),
-              (1598, 1146, 1632, 1186, "右を歩く緑のシャツの人")],
+              (1598, 1146, 1632, 1186, "右を歩く緑のシャツの人"),
+              # 🆕 ⑤c'（カズヤくん 10-30「地元の店だけ隠す」）：右のバー2軒の店名＝2倍の切り出し（qa_out/ep27_c2/r3.png）と 10px の目盛りで読んだ
+              (1374, 915, 1634, 969, "店名：右のバーの光る看板（紋と店名）"), (1282, 1020, 1458, 1054, "店名：右のバーの看板の店名")],
     # c214（全面・寄る）・c608（右へ）＝夜の JR別府駅
-    "CM154": [(1306, 1000, 1340, 1042, "右のタクシーの中の人の横顔")],
+    "CM154": [(1306, 1000, 1340, 1042, "右のタクシーの中の人の横顔"),
+              (1650, 993, 1676, 1021, "🆕 ⑤c'：駅前で札を持って座る人の顔（マスク姿・約25px）")],
     # c204（全面・寄る＝下の通りを切り出す）・地 c201 c203 c205 c517 c518＝駅近くの夜の交差点
     "CM044": [(1640, 2226, 1672, 2262, "横断歩道を渡る黒いシャツの人")],
+    # 🆕 ⑤c'：c404（全面・寄る）・地 c405 c406 c407 c605 c606＝北浜の国道10号＝焼肉店の店名（丸い看板・縦の看板の紋・左の看板の下の紋）。
+    #    「焼肉」「BBQ」は一般の語＝残す
+    "CM254": [(612, 894, 686, 961, "店名：丸い看板"), (522, 905, 548, 970, "店名：縦の看板の紋"), (478, 928, 518, 950, "店名：左の看板の下の紋")],
+    # 🆕 ⑤c'：c402（寄りで窓の外）・地 c403＝別府タワーから見た南の街並み＝焼肉店の店名（丸い看板）と URL
+    "CM259": [(788, 873, 872, 970, "店名：丸い看板"), (676, 943, 784, 961, "店名：看板の URL")],
+    # 🆕 ⑤c'：c411（全面・寄る）＝別府観光港の交通センター（2023年11月）＝1階の食堂の札（qa_out/ep27_c2/r9.png）。焼酎の銘柄・物産の幕はそのまま
+    "CM112": [(1620, 748, 1788, 784, "店名：1階の食堂の札")],
+    # 🆕 ⑤c'：c506（全面・流す）・地 c501 c502 c503 c508＝交通センター（2020年7月）＝1階の食堂の札
+    "CM106": [(1020, 758, 1346, 829, "店名：1階の食堂の札")],
 }
+# ⚠️ 店名の升目は **27本目だけ**（カズヤくん 10-30「店名を隠す処理は今回だけでよい」＝ほかの回の決まりにしない）
 MASKED_BEFORE = {}
 
 
@@ -386,6 +399,11 @@ def screen_credit(code, s, face_mask):
     cr = s["credit"]
     if "［" in cr or "（⑤b" in cr:
         raise SystemExit(f"🔴 {code}: 出典の欄に書きかけの印が残る（{cr[:60]}）")
+    # 🆕 ⑤c'：face_mask は MASK の箱の一覧（真偽でも可）。札が「店名：」で始まる箱は店名の升目＝断りを「顔」「店名」「顔と店名」に分ける
+    boxes = face_mask if isinstance(face_mask, (list, tuple)) else []
+    shop = any(str(b[4]).startswith("店名：") for b in boxes if len(b) > 4)
+    face = bool(face_mask) and (not boxes or any(not str(b[4]).startswith("店名：") for b in boxes if len(b) > 4))
+    what = "・" + ("顔と店名" if face and shop else "店名" if shop else "顔") + "にモザイク" if face_mask else ""
     if face_mask and (s["type"] not in PHOTO_TYPES or "BY-SA" in s["rights"]):
         raise SystemExit(f"🔴 {code}: 顔の升目は CC BY・CC0 の写真だけ（{s['rights']}＝BY-SA は升目も翻案）")
     if s["type"] in PHOTO_TYPES and "CC BY" in s["rights"]:
@@ -393,9 +411,9 @@ def screen_credit(code, s, face_mask):
         if "BY-SA" in s["rights"]:
             cr += "／改変なし"
         else:
-            cr += "／改変：切出" + ("・顔にモザイク" if face_mask else "")
+            cr += "／改変：切出" + what
     elif face_mask:
-        cr += "／改変：顔にモザイク"
+        cr += "／改変：" + what[1:]
     return cr
 
 
@@ -479,11 +497,13 @@ def cmd_build():
             notes.append("fetch27.tsv の md5 と同じ（2回とも）")
             if box_m:
                 im = mosaic(im, box_m, MOSAIC_PX)
-                notes.append(f"顔だけ升目 {len(box_m)}か所（升 {MOSAIC_PX}px）")
+                n_shop = sum(1 for b in box_m if str(b[4]).startswith("店名："))
+                kinds = ([f"顔だけ升目 {len(box_m) - n_shop}か所"] if len(box_m) > n_shop else []) + ([f"店名の升目 {n_shop}か所"] if n_shop else [])
+                notes.append("・".join(kinds) + f"（升 {MOSAIC_PX}px）")
             im.save(dst, quality=JPEG_Q, optimize=True)
             w, h = im.size
         y, ywhy = year_of(code, s)
-        cr = screen_credit(code, s, bool(box_m))
+        cr = screen_credit(code, s, box_m)
         private = t in QUOTE_TYPES
         db[name] = dict(code=code, part="", file=s["file"], cut=" ".join(u["main"]), ji=" ".join(u["ji"]), credit=cr, who=who_table(code, s),
                         note=s["note"][:200], box=[0.0, 0.0, 1.0, 1.0], crop_px=[0, 0, w, h], w=w, h=h,
@@ -661,7 +681,9 @@ def cmd_credits(write=False):
             bad += 1
         cj[f"ep27/{n}.jpg"] = r["credit"]
         kind = "イメージ" if r["stock"] else ("引用・非公開" if r["private"] else "この事件の土地")
-        mod = "・顔に升目" if r.get("mosaic") else ""
+        # 🆕 ⑤c'：店名の升目（出典の行の「店名にモザイク」）は「店名に升目」と書き分ける
+        cr_ = r.get("credit") or ""
+        mod = ("・顔と店名に升目" if "顔と店名" in cr_ else "・店名に升目" if "店名にモザイク" in cr_ else "・顔に升目") if r.get("mosaic") else ""
         use = " ".join(cuts) + (f"（地 {r['ji']}）" if r["ji"] else "")
         rows.append(f"| `{Path(n).name}` | {use or '—'} | {y if y else '不明'} | {r['lic']}（{kind}{mod}） | {r['who']} | {r['url']} |")
     for k, v in cj.items():

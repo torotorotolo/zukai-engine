@@ -3221,7 +3221,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `cm039` | c220 | 2016 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM039 |
 | `cm040` | c514 | 2016 | CC BY-SA 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM040 |
 | `cm044` | c204（地 c201 c203 c205 c517 c518） | 2022 | CC BY 2.0（この事件の土地・顔に升目） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM044 |
-| `cm045` | c105（地 c519） | 2022 | CC BY 2.0（この事件の土地・顔に升目） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM045 |
+| `cm045` | c105（地 c519） | 2022 | CC BY 2.0（この事件の土地・顔と店名に升目） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM045 |
 | `cm046` | c215 | 2022 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM046 |
 | `cm051` | c516 | 2015 | CC BY 3.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM051 |
 | `cm054` | c107 c706 | 2017 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM054 |
@@ -3233,11 +3233,10 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `cm075` | c219 | 2024 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM075 |
 | `cm076` | c415 | 2024 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM076 |
 | `cm102` | c520 | 2011 | CC BY 3.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM102 |
-| `cm106` | c506（地 c508） | 2020 | CC0（この事件の土地） | Commons の投稿者（CC0＝表示は任意） | commons:CM106 |
+| `cm106` | c506（地 c501 c502 c503 c508） | 2020 | CC0（この事件の土地・店名に升目） | Commons の投稿者（CC0＝表示は任意） | commons:CM106 |
 | `cm108` | c412 | 2023 | CC0（この事件の土地） | Commons の投稿者（CC0＝表示は任意） | commons:CM108 |
 | `cm110` | c408（地 c410） | 2023 | CC0（この事件の土地） | Commons の投稿者（CC0＝表示は任意） | commons:CM110 |
-| `cm112` | c411 | 2023 | CC0（この事件の土地） | Commons の投稿者（CC0＝表示は任意） | commons:CM112 |
-| `cm143` | c417（地 c501 c502 c503） | 2020 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM143 |
+| `cm112` | c411 | 2023 | CC0（この事件の土地・店名に升目） | Commons の投稿者（CC0＝表示は任意） | commons:CM112 |
 | `cm144` | c320（地 c401） | 2022 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM144 |
 | `cm145` | c315 | 2022 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM145 |
 | `cm151` | c304 c703（地 c302 c513 c515） | 2022 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM151 |
@@ -3245,16 +3244,16 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `cm153` | c308 c702（地 c310 c701） | 2022 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM153 |
 | `cm154` | c214 c608 | 2022 | CC BY 2.0（この事件の土地・顔に升目） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM154 |
 | `cm156` | c311（地 c312） | 2011 | CC BY 3.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM156 |
-| `cm198` | c414 c616（地 c103 c416 c615） | 2020 | CC0（この事件の土地） | Commons の投稿者（CC0＝表示は任意） | commons:CM198 |
+| `cm198` | c414 c616（地 c103） | 2020 | CC0（この事件の土地） | Commons の投稿者（CC0＝表示は任意） | commons:CM198 |
 | `cm202` | c613 | 2016 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM202 |
 | `cm203` | c507 | 2016 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM203 |
 | `cm204` | c611 | 2016 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM204 |
 | `cm205` | c602（地 c612） | 2011 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM205 |
 | `cm208` | c206（地 c208） | 2022 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM208 |
-| `cm254` | c404（地 c405 c406 c407 c605 c606 c607） | 2022 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM254 |
-| `cm257` | c317 c614（地 c318） | 2013 | CC BY 3.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM257 |
-| `cm258` | c209（地 c210） | 2013 | CC BY 3.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM258 |
-| `cm259` | c402（地 c403） | 2013 | CC BY 3.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM259 |
+| `cm254` | c404（地 c405 c406 c407 c605 c606 c607） | 2022 | CC BY 2.0（この事件の土地・店名に升目） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM254 |
+| `cm257` | c317 c614（地 c318 c615） | 2013 | CC BY 3.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM257 |
+| `cm258` | c209 c417（地 c210 c416） | 2013 | CC BY 3.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM258 |
+| `cm259` | c402（地 c403） | 2013 | CC BY 3.0（この事件の土地・店名に升目） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM259 |
 | `cm283` | c211 | 2022 | CC BY 2.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM283 |
 | `cm289` | c409 | 2016 | CC BY-SA 4.0（この事件の土地） | Commons の撮影者（名前は git の外 `ref/ep27/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:CM289 |
 | `npa01` | c301 | 2022 | 引用（著作権法32条・大分県の頁が引用を禁止の外に置く）（引用・非公開） | 警察庁の重要指名手配の頁（写真は大分県警察＝第三者の権利） | web:npa_wanted_01.jpg |

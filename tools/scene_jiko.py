@@ -2900,6 +2900,16 @@ def build_layers(allow_missing=False):
             if bad:
                 raise SystemExit(f"{c}: mute の行 {bad} が字幕の行（0〜{n - 1}）に無い")
             SUB_MUTE.setdefault(c, set()).update(int(i) for i in fig[1]["mute"])
+    # 🆕 27本目 ⑤c'：写真のカットで、画面の字をそのまま読む行（県警の手配の動画の結びの字＝c316）も消す＝SPEC の `mute=[行の番号]`。
+    #    ⑤c の机上で見つけた＝SUB_MUTE は決め所（with_last）と図（m27 の mute）からしか作られず、写真のカットには消す手が無かった
+    for c in spans:
+        mu = (SPEC.get(c) or {}).get("mute")
+        if mu:
+            n = len(SUBS.get(c) or [])
+            bad = [i for i in mu if not 0 <= int(i) < n]
+            if bad:
+                raise SystemExit(f"{c}: mute の行 {bad} が字幕の行（0〜{n - 1}）に無い")
+            SUB_MUTE.setdefault(c, set()).update(int(i) for i in mu)
     return jobs, spans
 
 

@@ -115,18 +115,41 @@ def _brace_h(x0, x1, y, col, up=True, t="", cap=30):
 
 # ── 小さな絵（人は描かない） ─────────────────────────────
 def _bike(cx, cy, s, col, big=False):
-    """横から見た二輪（車輪2つ・車体・ハンドル・座席）。big＝オートバイ（車輪が大きい）。"""
+    """横から見た二輪（前は右）。big=False＝ミニバイク（スクーターの形：後ろの覆い・足を置く床・前の覆い）・
+    big=True＝オートバイ（エンジン・燃料タンク・座席・排気管）。どちらも前照灯つき。
+    🔧 ⑤c'（2026-10-30）：前の形（細いひし形の枠と車輪だけ）は本番 1:1 で**ペダルの自転車**に見えた（c201・c203・c606）＝
+       エンジンや覆いの塊で描き直した。車輪の位置と半径・いちばん上の高さ（ハンドル）は前と同じ＝札との位置は変えない。"""
     r = (58.0 if big else 40.0) * s
     gap = (210.0 if big else 150.0) * s
     xa, xb = cx - gap / 2, cx + gap / 2
-    top = cy - r - (46.0 if big else 30.0) * s
-    g = [F.circ(xa, cy, r, "none", col, 7), F.circ(xb, cy, r, "none", col, 7),
-         F.poly([(xa, cy), (cx - 10 * s, top + 22 * s), (xb - 26 * s, top + 4 * s), (xb, cy)], "none", col, 7),
-         F.line(xb - 26 * s, top + 4 * s, xb - 8 * s, top - 30 * s, col, 7),
-         F.line(xb - 30 * s, top - 30 * s, xb + 14 * s, top - 30 * s, col, 7),
-         F.line(cx - 50 * s, top + 14 * s, cx + 10 * s, top + 14 * s, col, 10)]
+    k = min(1.0, 0.45 + 0.55 * s)                   # 線の太さ（小さく描くときは細く＝車輪がつぶれない）
+    tire, hub = 10.0 * k, (8.0 if big else 6.0) * s
+    g = [F.circ(xa, cy, r, "none", col, tire), F.circ(xb, cy, r, "none", col, tire),
+         F.circ(xa, cy, hub, col), F.circ(xb, cy, hub, col)]
     if big:
-        g.append(F.rect(cx - 36 * s, top + 26 * s, 80 * s, 36 * s, col, None, None, rx=8, op=0.85))
+        # ⚠️ 座席から後ろの車輪への細い線・車輪を横切る排気管は、手元の層の焼き（qa_out/ep27_c2/r6.png）で自転車の枠に見えた＝外して太い泥よけに
+        g += [F.line(cx - 40 * s, cy - 40 * s, xa, cy, col, 10 * k),                                   # 後ろの腕
+              F.line(cx - 92 * s, cy - 92 * s, xa - 40 * s, cy - 66 * s, col, 12 * k),                 # 後ろの泥よけ
+              F.rect(cx - 42 * s, cy - 72 * s, 84 * s, 56 * s, col, None, None, rx=8 * s),              # エンジン
+              F.poly([(cx - 20 * s, cy - 104 * s), (cx + 50 * s, cy - 114 * s),
+                      (cx + 64 * s, cy - 84 * s), (cx - 12 * s, cy - 76 * s)], col, None, None, close=True),  # 燃料タンク
+              F.line(cx - 96 * s, cy - 96 * s, cx - 20 * s, cy - 96 * s, col, 13 * k),                 # 座席
+              F.line(cx + 60 * s, cy - 110 * s, xb, cy, col, 9 * k),                                    # 前の足
+              F.line(cx + 60 * s, cy - 110 * s, cx + 66 * s, cy - 134 * s, col, 7 * k),
+              F.line(cx + 44 * s, cy - 134 * s, cx + 92 * s, cy - 134 * s, col, 8 * k),                 # ハンドル
+              F.circ(cx + 86 * s, cy - 106 * s, 11 * s, col)]                                           # 前照灯
+    else:
+        g += [F.poly([(xa - 44 * s, cy - 26 * s), (xa - 36 * s, cy - 58 * s), (cx + 4 * s, cy - 62 * s),
+                      (cx + 14 * s, cy - 34 * s), (cx + 14 * s, cy - 14 * s), (xa + 18 * s, cy - 14 * s)],
+                     col, None, None, close=True),                                                      # 後ろの覆い
+              F.line(xa - 34 * s, cy - 72 * s, cx + 2 * s, cy - 72 * s, col, 12 * k),                  # 座席
+              F.line(cx + 14 * s, cy - 14 * s, xb - 34 * s, cy - 14 * s, col, 9 * k),                  # 足を置く床
+              F.poly([(xb - 34 * s, cy - 14 * s), (xb - 24 * s, cy - 92 * s), (xb - 8 * s, cy - 92 * s),
+                      (xb - 16 * s, cy - 14 * s)], col, None, None, close=True),                        # 前の覆い
+              F.line(xb - 12 * s, cy - 88 * s, xb, cy, col, 7 * k),                                     # 前の足
+              F.line(xb - 14 * s, cy - 92 * s, xb - 12 * s, cy - 100 * s, col, 7 * k),
+              F.line(xb - 32 * s, cy - 100 * s, xb + 8 * s, cy - 100 * s, col, 8 * k),                  # ハンドル
+              F.circ(xb + 2 * s, cy - 86 * s, 8 * s, col)]                                              # 前照灯
     return "".join(g)
 
 
@@ -219,7 +242,8 @@ def bignum_stage(prev, st):
         s.append(_t(CX, 600.0, BN_V[0], 176, J.AMBER, "middle", 1500))
         s.append(_t(CX, 676.0, "〈2026年の9月末までの合計〉", 36, J.LINE, "middle", 900))
     if _on(prev, st, "clue"):
-        s.append(_tag(CX, 790.0, "有力な手がかり：まだ無い", J.ALERT, 40, INK))
+        # 🔧 ⑤c'：「まだ無い」は語り（「まだ得られていないという」＝報道の伝聞）より強い言い切り＝語りの言葉に揃える
+        s.append(_tag(CX, 790.0, "有力な手がかり：まだ得られていない", J.ALERT, 40, INK))
     return s
 
 
@@ -267,7 +291,8 @@ def crash_base(st0):
     # 止まっていた2台（並びの前後は描かない＝札の中に2つの印）
     cx, cy = CR["pair"]
     g.append(_panel(cx - 130, cy - 150, 260, 130, J.LINE))
-    g.append(_bike(cx - 58, cy - 62, 0.42, sc("mini")) + _bike(cx + 58, cy - 62, 0.42, sc("moto"), big=True))
+    # 🔧 ⑤c'：0.42・±58 では描き直した2台の車輪が重なって1つの塊に見えた（手元の層の焼き）＝0.38・±60（車輪のすき間 約14px・額の中）
+    g.append(_bike(cx - 60, cy - 62, 0.38, sc("mini")) + _bike(cx + 60, cy - 62, 0.38, sc("moto"), big=True))
     g.append(_t(cx, cy + 50, "止まっていた2台", 32, INK, "middle", 380))
     return g
 
@@ -359,7 +384,7 @@ def talk_stage(prev, st):
 #  speed（c210）＝横の棒（長さは時速に比例）：制限 40・報道の数 70以上〈2022年〉・100近く〈2023年〉
 # ══════════════════════════════════════════════════════════
 SP = dict(x0=520.0, k=11.0, ys=(430.0, 580.0, 700.0), h=72.0)
-SP_V = (40, 70, 100)
+SP_V = (40, 70)          # 🔧 ⑤c'：100（2023年の報道）は c211 の語り＝この図から外した
 
 
 def sp_x(v):
@@ -369,7 +394,8 @@ def sp_x(v):
 def speed_base(st0):
     x0 = SP["x0"]
     g = [F.line(x0, 360.0, x0, 760.0, J.LINE, 5)]
-    for lab, y in zip(("制限", "2022年の報道", "2023年の報道"), SP["ys"]):
+    # 🔧 ⑤c'：「2023年の報道 100キロ近く」の行を外した＝100キロは次の c211 の語り（c210 の語りは 70キロ以上まで＝図が先回りしていた）
+    for lab, y in zip(("制限", "2022年の報道"), SP["ys"]):
         g.append(_t(x0 - 26, y + 11, lab, 30, INK, "end", 340))
     return g
 
@@ -386,10 +412,8 @@ def speed_stage(prev, st):
         s.append(F.rect(x0, y - h / 2, sp_x(SP_V[1]) - x0, h, J.ALERT, None, None, rx=6))
         s.append(_arrow(sp_x(SP_V[1]), y, sp_x(SP_V[1]) + 90, y, J.ALERT, 8, 28))
         s.append(_t(sp_x(SP_V[1]) + 110, y + 12, "70キロ以上", 36, J.ALERT, "start", 360))
-        y2 = SP["ys"][2]
-        s.append(F.rect(x0, y2 - h / 2, sp_x(SP_V[2]) - x0, h, "none", J.ALERT, 5, rx=6, dash="14 8"))
-        s.append(_t(sp_x(SP_V[2]) + 20, y2 + 12, "100キロ近く", 32, J.ALERT, "start", 300))
-        s.append(_tag(1460.0, 800.0, "ブレーキの跡は無かった", J.AMBER, 32, INK))
+        # 🔧 ⑤c'：y800 では札の周りの地の升が 8.0:1 を下回った（check_ground）＝外した3行目の空き y700 へ
+        s.append(_tag(1460.0, 700.0, "ブレーキの跡は無かった", J.AMBER, 32, INK))
     return s
 
 
@@ -610,10 +634,11 @@ def charge2_stage(prev, st):
 
 
 # ══════════════════════════════════════════════════════════
-#  complaint（c403）＝横から見た流れ：告訴＝被害を受けた側 → 警察へ「罪を調べて、罰して」・5万人以上の署名
+#  complaint（c403）＝横から見た流れ：告訴＝遺族らの会 → 警察へ「罪を調べて、罰して」・5万人以上の署名
+#   🔧 ⑤c'：「被害を受けた側」は語り（c402「亡くなった大学生の父親ら、…遺族らの会が」）よりあいまい＝語りの言葉に揃えた（名前は出さない）
 # ══════════════════════════════════════════════════════════
 def complaint_base(st0):
-    return [_box2(430.0, 540.0, 340.0, 130.0, "被害を受けた側", "告訴状を出す", sc("family"), 34, 30),
+    return [_box2(430.0, 540.0, 340.0, 130.0, "遺族らの会", "告訴状を出す", sc("family"), 34, 30),
             _box2(1490.0, 540.0, 340.0, 130.0, "別府警察署", "受け付けた", sc("police"), 34, 30)]
 
 
@@ -767,7 +792,9 @@ def courts2_stage(prev, st):
 # ══════════════════════════════════════════════════════════
 CL = dict(x0=300.0, x1=1640.0, d0=(2022, 6, 29), d1=(2026, 9, 30), y0=790.0, k=440.0 / 14000.0)
 CL_PTS = (((2022, 7, 28), 36, "36件", "2022年7月28日"), ((2023, 6, 29), 854, "854件", "2023年6月29日"),
-          ((2023, 12, 31), 4052, "4052件", "2023年12月末"), ((2025, 4, 30), 9430, "9430件", "2025年4月末"),
+          ((2023, 12, 31), 4052, "4052件", "2023年12月末"),
+          ((2024, 8, 31), 6937, "6937件", "2024年8月末"),    # 🔧 ⑤c'：語り「2年あまりで6937件」の点が無かった（① §2 の累計）
+          ((2025, 4, 30), 9430, "9430件", "2025年4月末"),
           ((2025, 12, 31), 12029, "1万2029件", "2025年12月末"), ((2026, 9, 30), 13978, "1万3978件", "2026年9月末"))
 
 
@@ -803,14 +830,15 @@ def cumline_stage(prev, st):
         s.append(_qmark(960.0, 520.0, 80))
     if _on(prev, st, "ends"):
         s.append(_cl_dot(0, -60, "start"))
-        s.append(_cl_dot(5, -60, "end"))
+        s.append(_cl_dot(6, -60, "end"))
     if _on(prev, st, "line"):
         pts = [(cl_x(d), cl_y(v)) for d, v, _l, _w in CL_PTS]
         s.append(F.poly(pts, "none", J.AMBER, 7))
         s.append(_cl_dot(1, -100, "middle"))
         s.append(_cl_dot(2, -96, "end"))          # 🔧 layout：-50 では 854件の札と重なった
-        s.append(_cl_dot(3, 52, "start"))         # 🔧 check_slide G-14：上に置くと地の写真の焼き込みの字（駅の札）に載った＝点の右下へ
-        s.append(_cl_dot(4, -50, "end"))
+        s.append(_cl_dot(3, -60, "end"))          # 🆕 ⑤c'：6937件（2024年8月末）＝点の左上（4052件の札より右・線より上）
+        s.append(_cl_dot(4, 52, "start"))         # 🔧 check_slide G-14：上に置くと地の写真の焼き込みの字（駅の札）に載った＝点の右下へ
+        s.append(_cl_dot(5, -50, "end"))
     return s
 
 
@@ -1086,7 +1114,8 @@ def road500_stage(prev, st):
         s.append(F.line(a, y + 110, b, y + 110, J.AMBER, 5) + F.line(a, y + 90, a, y + 130, J.AMBER, 5) + F.line(b, y + 90, b, y + 130, J.AMBER, 5))
         s.append(_t((a + b) / 2, y + 170, "約500メートル（道のり）", 34, J.AMBER, "middle", 700))
     if _on(prev, st, "flyer"):
-        s.append(_tag(1240.0, 820.0, "チラシ配り：11の都道府県", sc("police"), 30, INK))
+        # 🔧 ⑤c'：中心 x1240 では札の右の端が交差点の縦の道（x1410〜1510）に 4.5px 重なった（geom_gap）＝左へ 60px
+        s.append(_tag(1180.0, 820.0, "チラシ配り：11の都道府県", sc("police"), 30, INK))
     return s
 
 
@@ -1340,7 +1369,7 @@ def _geo(view, allst):
     if view == "talk":
         return dict(val=TK_S, px=tuple(tk_x(v) for v in TK_S), lins=((TK["x0"], TK["k"], 0.0),) * 2)
     if view == "speed":
-        return dict(val=SP_V, px=tuple(sp_x(v) for v in SP_V), lins=((SP["x0"], SP["k"], 0.0),) * 3)
+        return dict(val=SP_V, px=tuple(sp_x(v) for v in SP_V), lins=((SP["x0"], SP["k"], 0.0),) * len(SP_V))
     if view == "reward":
         return dict(val=(RW_V, RW_V[0] + RW_V[1] == RW_V[2]), px=tuple(rw_x(v) for v in RW_V), lins=((RW["x0"], RW["k"], 0.0),) * 3)
     if view == "steps5":
