@@ -11,6 +11,8 @@
   E 実写・引用・衛星・イメージに素材の記号が無い／記号が sources27.psv に無い／使わないと決めた点（NG）が sources27.psv にある
   E 🆕 県警・警察庁の素材（引用）＝額装（引用）でない・動き（寄る／流す）がある・地に使った・出典の行（機関・置き場・日付）が無い・副題に「警察」が無い
   E 🆕 県警の動画の区間が、「犯人」の字の映る秒（BAD）にかかる（10-29 に原寸と OCR で確かめた秒）／区間の長さ＋止めがカットの秒に足りない
+  E 🆕（⑤b-3・10-30）県警の動画の1コマ（police-frame＝get が frame:<動画の記号>@<秒>）の秒が BAD にかかる・動画の長さをこえる・
+     コマなのに動きの欄に映像の区間がある・get の形が違う／⚠️ コマが手元に無い（YT-A は 403 で取れない＝映像方針で写したコマを静止の引用に）
   E 🆕 CC BY-SA の写真＝額装でない・動きがある・2カット以上・地に使った（BY-SA は無加工・1点1カット＝ルール §5b-52）
   E 🆕 説明カットの地＝CC BY・CC0・PD の Commons の写真でない（BY-SA・警察の素材・衛星写真・フリー素材は地にしない＝§5b-117）／図の型なのに地が無い（地図の略図は除く）
   E 🆕 SNS のカード（見た目 SNS）に、注釈の印・アカウント名なしの印が無い（§B2-9）
@@ -260,6 +262,23 @@ def build(assign_path=ASSIGN, sources_path=SOURCES, daihon=DAIHON):
                                 cid, hi - lo, hold, r['cont'], r['cont'] - (hi - lo + hold)))
                         if hold > (hi - lo) * 0.5:
                             W.append('%s 止め %.1f秒が区間 %.1f秒の半分をこえる' % (cid, hold, hi - lo))
+                elif s['type'] == 'police-frame':
+                    # ⑤b-3（10-30）：県警の動画の1コマ＝静止の引用。コマの秒も「犯人」の字の秒（BAD）にかけない
+                    fm = re.match(r'frame:([\w-]+)@([\d.]+)$', s['get'])
+                    if not fm or fm.group(1) not in VIDEO_LEN:
+                        E.append('%s %s の get が frame:<動画の記号>@<秒> でない: %s' % (cid, code, s['get']))
+                    else:
+                        vid, sec = fm.group(1), float(fm.group(2))
+                        for blo, bhi in BAD.get(vid, []):
+                            if blo <= sec <= bhi:
+                                E.append('%s %s は %s %.2f秒のコマ＝「犯人」の字の映る %.2f〜%.2f秒' % (cid, code, vid, sec, blo, bhi))
+                        if sec > VIDEO_LEN[vid]:
+                            E.append('%s %s の秒 %.2f が %s の長さ %.2f秒をこえる' % (cid, code, sec, vid, VIDEO_LEN[vid]))
+                    if vw:
+                        E.append('%s %s は1コマ（静止）なのに動きの欄に映像の区間: %s' % (cid, code, r['motion']))
+                    m = re.match(r'(src/[^（\s|]+?\.(?:jpe?g|png))', s['file'])
+                    if not m or not os.path.exists(os.path.join(EP, m.group(1))):
+                        W.append('%s %s のコマが手元に無い（%s）' % (cid, code, s['file'][:40]))
             if 'BY-SA' in s['rights']:
                 if not r['frame'].startswith('額装'):
                     E.append('%s BY-SA %s が額装でない: %s' % (cid, code, r['frame']))
@@ -419,7 +438,9 @@ def selftest():
            'CMSA|commons-photo|テスト|commons:CMSA|3264x2448|CC BY-SA 4.0|-|Wikimedia Commons（CC BY-SA 4.0）|後|なし|x|',
            'CMU|commons-photo|テスト2|commons:CMU|4032x3024|CC BY 2.0|Flickr|Wikimedia Commons（CC BY 2.0）|後|なし|x|',
            'YT-A|police-video|手配の動画|yt|1920x1080|引用|県の頁|出典：大分県警察 公式YouTube（2024年8月1日）|後|容疑者（引用）|x|',
-           'YT-C|police-video|手配の動画|yt|854x476|引用|県の頁|出典：大分県警察 公式YouTube（2025年12月11日）|後|容疑者（引用）|x|']
+           'YT-C|police-video|手配の動画|yt|854x476|引用|県の頁|出典：大分県警察 公式YouTube（2025年12月11日）|後|容疑者（引用）|x|',
+           'YTAOK|police-frame|コマ|frame:YT-A@26.0|1920x1080|引用|県の頁|出典：大分県警察 公式YouTube（2024年8月1日）|後|容疑者（引用）|x|',
+           'YTABAD|police-frame|コマ|frame:YT-A@15.0|1920x1080|引用|県の頁|出典：大分県警察 公式YouTube（2024年8月1日）|後|容疑者（引用）|x|']
     cases = [
         ('陰性', None, 0),
         ('陽性 BY-SA を全面で', ('c201', '実写|CMSA||全面|別府の港〈2024年5月〉|静止'), 1),
@@ -435,6 +456,10 @@ def selftest():
         ('陽性 区間の終わりが動画の長さをこえる', ('c201', '引用|YT-C||額装（引用）|警察が公開した手配の動画〈2025年12月〉|映像 25.0〜31.0秒'), 1),
         ('陽性 県警の動画の区間が重なる', [('c201', '引用|YT-A||額装（引用）|警察が公開した手配の動画〈2024年8月〉|映像 22.0〜32.0秒'),
                                        ('c202', '引用|YT-A||額装（引用）|警察が公開した手配の動画〈2024年8月〉|映像 30.0〜40.0秒')], 1),
+        # ⑤b-3（10-30）県警の動画の1コマ（police-frame）
+        ('陰性 YT-A のコマ（26秒・静止）', ('c201', '引用|YTAOK||額装（引用）|警察が公開した手配の動画〈2024年8月〉|静止'), 0),
+        ('陽性 YT-A のコマが「犯人」の秒（15秒）', ('c201', '引用|YTABAD||額装（引用）|警察が公開した手配の動画〈2024年8月〉|静止'), 1),
+        ('陽性 コマに映像の区間', ('c201', '引用|YTAOK||額装（引用）|警察が公開した手配の動画〈2024年8月〉|映像 1.0〜9.0秒'), 1),
     ]
     ok = True
     for name, mod, want_e in cases:

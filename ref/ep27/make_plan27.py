@@ -40,7 +40,8 @@ sys.path.insert(0, str(HERE / "ref" / "ep27" / "eizou_build"))
 import make_list27 as ML  # noqa: E402
 
 N_CUTS = 107
-WANT = dict(photo=60, real=49, quote=11, police_video=6, stock=4, fig=43, sat=9, figs_paper=34, sns=3, textpage=0, panel=0, illu=0, text=0)
+# ⑤b-3（10-30 カズヤくん了承）：YT-A は取れない（403）＝c102・c303・c309・c316 は YT-A のコマの静止（police-frame）・c305 は YT-C＝県警の動画は c106・c305 の2
+WANT = dict(photo=60, real=49, quote=11, police_video=2, stock=4, fig=43, sat=9, figs_paper=34, sns=3, textpage=0, panel=0, illu=0, text=0)
 PIC = {"実写": "写真", "引用": "写真", "イメージ": "フリー素材", "文字だけ": "パネル"}
 TEXT = ("パネル", "決め所", "文字の頁")
 CHAP = re.compile(r"^(つかみ|第\d+章)　?(.*?)（.*）$")

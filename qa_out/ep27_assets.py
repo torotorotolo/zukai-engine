@@ -11,7 +11,9 @@ git の外の作者の表 `src/credits_private.tsv`〈列 code・作者＝行の
   python -P qa_out/ep27_assets.py edges             # 束の四辺の暗い帯＝門番 check_photo_edge の名簿（SLIDE_MOUNT／SLIDE_NOT_MOUNT）を決める
   python -P qa_out/ep27_assets.py credits [--write] # 画面の出典 ref/ep27/credits.json と ref/CREDITS.md の27本目の節
   python -P qa_out/ep27_assets.py stockcheck        # イメージ（Pexels）の直リンクを取り直して束と md5 が同じか（footage.stock_photos と同じ取り方）
-  python -P qa_out/ep27_assets.py clips｜shots      # 県警の動画の台帳 ref/ep27/clips.json・ショットの表 ref/ep27/shots.json
+  python -P qa_out/ep27_assets.py clips｜shots      # 県警の動画の台帳 ref/ep27/clips.json・ショットの表 ref/ep27/shots.json（YT-C は SCENES＝30コマ/秒の根拠つき）
+  python -P qa_out/ep27_assets.py use [c106 c305] [--all]   # 🆕 ⑤b-3：footage.USE の EP27_USE（一覧の区間と止め＝hold・実時間）を書き出す（手で書かない）
+  python -P qa_out/ep27_assets.py fb [c106 …]       # 🆕 ⑤b-3：県警の動画のひかえの静止画 ref/ep27/police/fb_<cid>.jpg（原寸・git に入れない）
 
 🔴 束の写真は長辺を縮めるだけ（色はそのまま＝原色）＝幅 2400 か高さ 1350 の大きい方まで（小さい写真は原画のまま）。
 🔴 イメージ（Pexels）＝取ったファイルそのまま（`ref/ep27/stock/`＝git に入れない＝19本目 決め⑨・焼くときに `footage.stock_photos` が台帳の
@@ -62,7 +64,7 @@ BUNDLE_W, BUNDLE_H = 2400, 1350        # 束の写真の大きさの上限（ど
 JPEG_Q = 92
 MOSAIC_PX = 14                         # 升目の大きさ（束の画素）
 PHOTO_TYPES = ("commons-photo",)
-QUOTE_TYPES = ("police-image", "npa-image")          # 引用の静止画（額装・加工しない・公開リポに置かない）
+QUOTE_TYPES = ("police-image", "npa-image", "police-frame")   # 引用の静止画（額装・加工しない・公開リポに置かない）。police-frame＝⑤b-3 の YT-A のコマ
 STOCK_TYPES = ("stock",)
 FILM_TYPES = ("police-video",)                       # 束に入れない（clips.json）
 SAT_TYPES = ("satellite",)                           # 束に入れない（cuts/ss.SAT＝⑤b-4 で撮る）
@@ -75,8 +77,17 @@ POLICE_FILES = {
     "XPOST1": ["police_x/x20260629_HL8dC-vaIAAXBRK.jpg"],
     "SKETCH6": [f"police_web/2323829_46348{n}_misc.jpeg" for n in range(89, 95)],
     "SKETCH2": ["police_web/2323829_4634890_misc.jpeg", "police_web/2323829_4634891_misc.jpeg"],
+    # 🆕 ⑤b-3（10-30 カズヤくん了承）：YT-A（取れない＝403）の代わりに、映像方針（10-29）で内蔵ブラウザの再生画面の中から写した 1080p のコマ
+    #    （取り直しではない）を静止の引用に＝c102・c309・c303・c316。コマの秒は sources27 の get（frame:YT-A@秒）＝門番 make_list27 が BAD と照らす
+    "YTA026": ["police_yt/ytA_frames/A_0026.00.jpg"],
+    "YTA034": ["police_yt/ytA_frames/A_0034.00.jpg"],
+    "YTA094": ["police_yt/ytA_frames/A_0094.00.jpg"],
+    "YTA165": ["police_yt/ytA_frames/A_0165.00.jpg"],
 }
 XPOST1_MD5 = "bcfefe8dac139b9cf3ab4792f00e2763"      # X の画像は fetch_log の外（映像方針で取った・sources27 の注「md5 bcfefe8d」）
+# YT-A のコマも fetch_log の外＝md5 は映像方針の見た記録（`src/seen_log.tsv` の 8・9・11・13 行＝頭12字）と同じ全桁（⑤b-3 で取り直して照らした）
+FRAME_MD5 = {"YTA026": "a366365f6837861f9c56a092f3557037", "YTA034": "895680381b0e17185cafbb9cd41848cb",
+             "YTA094": "26cd8c43c924ef9a5750742a08915ecb", "YTA165": "bae262202824d34316afde9bede1ad00"}
 # 似顔絵を並べる形（列・行）。絵は1枚ずつ同じ倍率で縮めるだけ・すき間は無地（絵の外）
 SKETCH_GRID = {"SKETCH6": (3, 2), "SKETCH2": (2, 1)}
 SKETCH_H = 1200                        # 似顔絵1枚の高さ（束の画素）＝額の高さ 1080 より大きい（寄りの余地）
@@ -326,7 +337,7 @@ def _police_ok(code):
         if not p.exists():
             raise SystemExit(f"🔴 {code}: 手元のファイルが無い（src/{rel}）")
         h = md5(p)
-        want = log.get(rel) or (XPOST1_MD5 if code == "XPOST1" else None)
+        want = log.get(rel) or (XPOST1_MD5 if code == "XPOST1" else FRAME_MD5.get(code))
         if h != want:
             raise SystemExit(f"🔴 {code}: src/{rel} の md5 {h[:8]} が取得の記録 {str(want)[:8]} と合わない")
         out.append((p, h))
@@ -399,6 +410,8 @@ def who_table(code, s):
         return "投稿者（クレジットは任意＝書かない）"
     if t == "npa-image":
         return "警察庁の重要指名手配の頁（写真は大分県警察＝第三者の権利）"
+    if t == "police-frame":
+        return "大分県警察（公式 YouTube の手配の動画の1コマ）"
     return "大分県警察"
 
 
@@ -603,7 +616,10 @@ def _film_rows():
         if s["type"] not in FILM_TYPES:
             continue
         cuts = " ".join(r["cid"] for r in lst if _code_of(r["main"]) == code)
-        state = "取得ずみ（git の外・md5 は clips.json）" if code in cl else "🔴 未取得"
+        # 🆕 ⑤b-3：YT-A は取れない（403・回避しない）＝動画は使わず、映像方針で写したコマ（police-frame）を静止の引用に（下の写真の表の yta…）
+        frames = " ".join(sorted(k for k, v in src.items() if v["type"] == "police-frame" and v["get"].startswith(f"frame:{code}@")))
+        state = ("取得ずみ（git の外・md5 は clips.json）" if code in cl else
+                 f"🔴 取れない（⑤b-2 の 403・回避しない）＝動画は使わない（⑤b-3：コマ {frames} を静止の引用に）" if frames else "🔴 未取得")
         rows.append(f"| `{code}` | {cuts} | {s['credit']} | 引用（話している秒だけ・実時間・音は使わない） | {state} |")
     return rows
 
@@ -659,7 +675,8 @@ def cmd_credits(write=False):
     md = CREDITS_MD.read_text(encoding="utf-8")
     block = "\n".join([
         CREDITS_HEAD, "",
-        "※2026-10-30（⑤b-2）。`qa_out/ep27_assets.py credits --write` が書く（手で直さない）。写真は映像方針の一覧 `ref/ep27/eizou_list27.md`（了承② 2026-10-29）。",
+        "※2026-10-30（⑤b-2・⑤b-3）。`qa_out/ep27_assets.py credits --write` が書く（手で直さない）。写真は映像方針の一覧 `ref/ep27/eizou_list27.md`"
+        "（了承② 2026-10-29・⑤b-3 の YT-A の当て直しは 10-30 カズヤくん了承）。",
         "🔴 事件の回（ルール §B2-10）＝被害者・遺族・けがをした人・目撃者・SNS の投稿者の名前は書かない・容疑者は必ず「八田與一容疑者」。",
         "",
         "### 0. 県警の動画（引用＝話している秒だけ・カットの秒で実時間・加工しない・音は使わない＝`-an`・サムネに使わない）",
@@ -731,9 +748,28 @@ def _probe(p):
 
 
 # 県警の動画の手元のファイル {記号: src からの道}（取得の記録 fetch_log.tsv の md5 と照らす）。
-# 🔴 YT-A（2024-08-01）は手元に無い（⑤b-2 の 10-30：手元の yt-dlp は配信の側から 403。別の取り方は YouTube のボット対策を回避する操作として止めた＝
-#    カズヤくんの判断待ち）＝ここに書かない（clips.json に載せない＝USE も書かない）
+# 🔴 YT-A（2024-08-01）は手元に無い（⑤b-2 の 10-30：手元の yt-dlp は配信の側から 403。別の取り方は YouTube のボット対策を回避する操作として止めた）
+#    ＝ここに書かない（clips.json に載せない＝USE も書かない）。✅ ⑤b-3（10-30 カズヤくん了承）＝動画は使わず、映像方針で写したコマ4つを静止の引用に
+#    （sources27 の police-frame＝束の police/yta026 ほか）・c305 は YT-C の自撮りの区間
 FILM_FILES = {"YT-C": "police_yt/20251211_zj9LhnLb1So.mp4"}
+FOOTAGE = HERE / "tools" / "footage.py"
+
+# 🆕 ⑤b-3（10-30）：**YT-C の場面＝30コマ/秒で測った境目を根拠つきで書く**（26本目 SHOT_ONE の型を広げた）。
+#   1秒1コマの `tools/shots.shots_of` は境目を 2・8・14・18・22・24・27秒に置いた＝自撮りの手ぶれ（18・22秒）で割れ、実の切り替え
+#   （3.4〜3.5・9.07・13.73・23.90・26.5〜26.6秒）を1秒単位にずらす＝c305（自撮り）がショットをまたぐことになり、c106 の尻（9.0秒）の先の
+#   似顔絵（9.37秒〜）を見落とす。測り方＝64×36 の灰色の隣のコマとの差（10コマ/秒の全体＋30コマ/秒で頭と尻）と、画面に重ねた字
+#   （左の懸賞金の字の範囲）の差（自撮りの 13.77〜23.87秒は 0.00〜0.08＝場面が替わらない）・0.5秒おき60コマの OCR（「犯」0）・原寸の6コマ
+#   （scratchpad `ytc_sheetA・B・D`）。⚠️ (1.0, 9.06) は県警の編集の切り替え（手配の札→罪名の字＝3.4〜3.5秒）を含む＝**根拠つきで1つに**：
+#   c106 は語りの順（名前→罪名）に札が替わるのを見せる意図（⑤b-1・了承②）・頭と尻を原寸で見た（⑤b-2）・字に「犯」0
+#   ＝門番 footage の exit 3（ショットまたぎ）が守る「範囲の中で絵が別物」は、区間の中を全部見て決めた
+SCENES = {"YT-C": [
+    (0.0, 1.0, "黒からの立ち上がり（字なし）"),
+    (1.0, 9.06, "手配の札（〜3.4）→ 罪名と情報提供先の字（3.5〜9.06）＝県警の編集の切り替えを根拠つきで1つに（c106）"),
+    (9.06, 13.73, "似顔絵6枚＋「警察庁指定 重要指名手配」（9.07〜9.37 は切り替えの暗転）"),
+    (13.73, 23.9, "自撮り（懸賞金 上限額800万円・※八田與一の実際の音声）＝重ねた字の差 0＝同じ場面（18.4・21.9秒の差は手ぶれと寄り）"),
+    (23.9, 26.6, "手配の札（c106 の頭と同じ札＝顔写真と縦の字）"),
+    (26.6, 30.09, "「この顔見たら110番 大分県警察」（止まった画面＝動き 0.02）"),
+]}
 
 
 def cmd_clips():
@@ -762,25 +798,151 @@ def cmd_clips():
     return 0
 
 
+def _gray10(p):
+    """10コマ/秒・64×36 の灰色（場面の動きと境目の差を測る）"""
+    import numpy as np
+    r = subprocess.run(["ffmpeg", "-v", "error", "-i", str(p), "-vf", "fps=10,scale=64:36,format=gray", "-f", "rawvideo", "-"],
+                       capture_output=True, timeout=600)
+    a = np.frombuffer(r.stdout, dtype=np.uint8)
+    n = len(a) // (64 * 36)
+    return a[:n * 64 * 36].reshape(n, 36, 64).astype(float)
+
+
 def cmd_shots():
-    """shots.json＝tools/shots.shots_of（1秒1コマ）"""
+    """shots.json＝SCENES に書いた回は30コマ/秒で測った場面（根拠つき）・ほかは tools/shots.shots_of（1秒1コマ）。
+    場面の境目ごとに 10コマ/秒の隣の差を出す（境目＝跳ね・場面の中＝動き）＝書いた境目が測った絵と合うかを毎回見せる"""
     sys.path.insert(0, str(HERE / "tools"))
+    import numpy as np
     import shots as SH
     out = {}
     for code, rel in FILM_FILES.items():
         p = SRC / rel
-        sh, dur = SH.shots_of(p)
-        out[code] = dict(src=f"src/{rel}", scan=f"ref/ep27/src/{rel}", dur=round(dur, 1), how="1秒1コマで tools/shots.shots_of（27本目・県警の動画）",
-                         shots=sh)
-        print(f"  {code:5} {dur:6.1f}秒  ショット {len(sh)}：" + " ".join(f"{x['start']:g}〜{x['until']:g}" for x in sh))
+        if code in SCENES:
+            f = _gray10(p)
+            d = np.r_[0, np.abs(np.diff(f, axis=0)).mean(axis=(1, 2))]
+            dur = len(f) / 10.0
+            sh, notes = [], []
+            for a, b, why in SCENES[code]:
+                i0, i1 = int(round(a * 10)), min(len(d), int(round(b * 10)))
+                sh.append(dict(start=a, until=b, motion=round(float(d[i0 + 1:i1].mean()) if i1 > i0 + 1 else 0.0, 2), why=why))
+                if a > 0:
+                    k = int(round(a * 10))
+                    notes.append(f"{a:g}秒の跳ね {d[max(1, k - 1):k + 2].max():.1f}")
+            how = ("⑤b-3（10-30）：30コマ/秒で測った場面（qa_out/ep27_assets.py の SCENES＝根拠つき）・1秒1コマの shots_of は自撮りの手ぶれで割れ、"
+                   "実の切り替えを1秒単位にずらした＝使わない／境目の跳ね（10コマ/秒の隣の差・灰色 0〜255）：" + "・".join(notes))
+            print(f"  {code:5} {dur:6.1f}秒  場面 {len(sh)}（SCENES）：" + " ".join(f"{x['start']:g}〜{x['until']:g}" for x in sh)
+                  + "\n        " + "・".join(notes))
+        else:
+            sh, dur = SH.shots_of(p)
+            how = "1秒1コマで tools/shots.shots_of（27本目・県警の動画）"
+            print(f"  {code:5} {dur:6.1f}秒  ショット {len(sh)}：" + " ".join(f"{x['start']:g}〜{x['until']:g}" for x in sh))
+        out[code] = dict(src=f"src/{rel}", scan=f"ref/ep27/src/{rel}", dur=round(dur, 1), how=how, shots=sh)
     SHOTS.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"→ ref/ep27/shots.json（{len(out)}本）")
     return 0
 
 
+def _write_block(tag, lines):
+    txt = FOOTAGE.read_bytes().decode("utf-8")
+    nl = "\r\n" if "\r\n" in txt else "\n"              # 🔴 25本目 ⑤b-1 の落とし穴＝改行を見分ける
+    m = re.search(rf"(    # {tag}>>> ここから[^\n]*\n)(.*?)(    # {tag}>>> ここまで)", txt, re.S)
+    if not m:
+        raise SystemExit(f"🔴 footage.py に {tag} の目印が無い")
+    FOOTAGE.write_bytes((txt[:m.start(2)] + "".join(x + nl for x in lines) + txt[m.end(2):]).encode("utf-8"))
+
+
+def cmd_use(only=None, all_=False):
+    """footage.USE の27本目の欄（26本目 `cmd_use` を写した）。区間と止めは一覧 list27.tsv の動きの欄「映像 a〜b秒（＋止め n秒）」から読む
+    （手で写さない）・速さは変えない（rate 1.0＝実時間）・止めは `hold`（区間の尻のコマで持たせる＝footage.overruns・_cut_stream）。
+    hold は**要る秒（narration.json の実測・扉を除く）− 区間**で決め、一覧の止め（了承の上限）をこえたら止める。
+    🔴 章ファイルに `ss.vid` を書いたカットだけ（`only` は書く前の鶏と卵を割るため＝ss.vid は USE の clip で private を見分ける）"""
+    sys.path.insert(0, str(HERE / "tools"))
+    sys.path.insert(0, str(BUILD))
+    import make_list27 as ML
+    if only:
+        secs, spec = {r["cid"]: float(r["cont"]) for r in _list()}, {}
+    else:
+        import footage as FO
+        import scene_jiko as S
+        secs, spec = FO.secs_of(), S.SPEC
+    sd = json.loads(SHOTS.read_text(encoding="utf-8"))
+    src = _sources()
+    lines, skip = [], []
+    for r in _list():
+        code = _code_of(r["main"])
+        if src.get(code, {}).get("type") not in FILM_TYPES:
+            continue
+        cid = r["cid"]
+        sp = spec.get(cid) or {}
+        wrote = str(sp.get("photo") or "").endswith(f"fb_{cid}.jpg")
+        if not (all_ or wrote or (only and cid in only)):
+            skip.append(cid)
+            continue
+        vw = ML.video_window(r["motion"])
+        if not vw:
+            raise SystemExit(f"🔴 {cid}: 一覧の動きの欄に区間「映像 a〜b秒」が無い（{r['motion']}）")
+        a, b, hold_max = vw
+        for blo, bhi in ML.BAD.get(code, []):
+            if a < bhi and b > blo:
+                raise SystemExit(f"🔴 {cid}: {code} {a}〜{b}秒が「犯人」の字の秒 {blo}〜{bhi} にかかる")
+        hit = [x for x in sd[code]["shots"] if x["start"] <= a < x["until"]]
+        if len(hit) != 1 or b > hit[0]["until"] + 1e-6:
+            raise SystemExit(f"🔴 {cid}: 区間 {a}〜{b} が1つの場面に収まらない（場面 {[(x['start'], x['until']) for x in hit]}）")
+        need = float(secs[cid])
+        hold = round(max(0.0, need - (b - a)) + 0.005, 2) if need > b - a else 0.0
+        if hold > hold_max + 0.05:
+            raise SystemExit(f"🔴 {cid}: 止め {hold:.2f}秒が一覧の止め {hold_max:.2f}秒（了承の上限）をこえる＝要る {need:.2f}秒・区間 {b - a:.2f}秒")
+        sh = hit[0]
+        hs = f", hold={hold}" if hold else ""
+        # 引用＝額装・地のぼかしを作らない（plain=True＝cuts/ss.check_frame_only が見る）・寄せない・等速
+        lines.append(f'    "{cid}": dict(clip="{code}", start={a:.2f}, until={b:.2f}, rate=1.0{hs}, plain=True),   '
+                     f'# 場面 {sh["start"]:g}〜{sh["until"]:g}秒・区間 {b - a:.2f}秒{f"＋止め {hold:.2f}秒" if hold else ""}／要る {need:.2f}秒'
+                     f'・実時間・音は使わない（-an）・{src[code]["credit"]}')
+    _write_block("EP27_USE", lines)
+    print(f"→ tools/footage.py USE {len(lines)}欄")
+    for x in lines:
+        print(x.strip())
+    if skip:
+        print(f"・章ファイルにまだ映像を書いていない：{' '.join(skip)}")
+    return 0
+
+
+def cmd_fb(only=None):
+    """県警の動画のひかえの静止画（映像のコマが切り出せなかったときだけ出る絵）＝区間の頭のコマを**原寸のまま**（引用＝加工しない・
+    寄せも切りもしない＝額装）。🔴 置き場は `ref/ep27/police/fb_<cid>.jpg`（公開リポに置かない＝`cuts/ss.PRIVATE_DIR`）。
+    Modal では `footage.fetch` が切り出したコマの1枚目から同じ道に作る（保管庫に入れなくてよい）"""
+    sys.path.insert(0, str(HERE / "tools"))
+    import footage as FO
+    bad = 0
+    (EPD / "police").mkdir(exist_ok=True)
+    for cid, u in FO.USE.items():
+        if only and cid not in only:
+            continue
+        c = FO.CLIPS.get(u["clip"]) or {}
+        if not c.get("private"):
+            continue
+        p = HERE / c["media"]
+        dst = EPD / "police" / f"fb_{cid}.jpg"
+        r = subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{float(u['start']):.3f}", "-i", str(p), "-frames:v", "1", "-q:v", "2", str(dst)],
+                           capture_output=True)
+        if r.returncode or not dst.exists():
+            print(f"🔴 {cid}: コマが取れない（{r.stderr.decode('utf-8', 'replace')[-120:]}）")
+            bad += 1
+            continue
+        from PIL import Image
+        with Image.open(dst) as im:
+            w, h = im.size
+        print(f"✓ {cid:5} {u['clip']:5} {float(u['start']):6.2f}秒 {w}x{h} → {dst.relative_to(HERE).as_posix()}（🔴 git に入れない）")
+    return 1 if bad else 0
+
+
 if __name__ == "__main__":
     a = sys.argv[1:]
     cmds = {"build": cmd_build, "panel": cmd_panel, "edges": cmd_edges, "clips": cmd_clips, "shots": cmd_shots, "stockcheck": cmd_stockcheck}
+    if a and a[0] == "fb":
+        sys.exit(cmd_fb(set(a[1:]) or None))
+    if a and a[0] == "use":
+        sys.exit(cmd_use(set(x for x in a[1:] if not x.startswith("--")) or None, "--all" in a))
     if a and a[0] == "credits":
         sys.exit(cmd_credits("--write" in a))
     if a and a[0] == "look":

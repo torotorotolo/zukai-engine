@@ -133,6 +133,17 @@ HERE = Path(__file__).resolve().parents[2]
 REF = HERE / "ref" / "ep27"        # 🔴 §0b：回の名に結んだ束の置き場（2026-10-25 25本目 ⑤b-1 で ep24 → ep25・2026-10-27 26本目 ⑤b-1 で ep25 → ep26・2026-10-30 27本目 ⑤b-1 で ep26 → ep27）
 EP = "ep27/"
 W, H = 1920, 1080
+# 🆕 2026-10-30（27本目 ⑤b-3）：**公開リポに置かない県警・警察庁の引用**の置き場（束の `police/`＝台帳 assets.json の `private`・
+#    県警の動画のひかえの静止画 `police/fb_<cid>.jpg`）＝git の外・Modal の保管庫 jiko-assets の同じ道（`modal_app.pull_private`）。
+#    Actions は保管庫を読めない＝箱は台帳の寸法で決める（`size_of` がファイルを開かない）・合成で理由を出して飛ばす（`build_jiko.drop_missing_private`）。
+#    手元と Modal では無ければ止める（fail closed）。§0b＝回を替えても道の名は同じ（回ごとに中身が変わるのは束と clips.json の `private`）
+PRIVATE_DIR = "police/"
+
+
+def is_private(name):
+    """SPEC の写真の道（`ref/` から）が公開リポに置かない引用の置き場の下か"""
+    return str(name or "").startswith(EP + PRIVATE_DIR)
+
 
 # 画面の縦横比。これより縦長／横長の図は額装パネルに回す。
 # 🔴 上限と下限は対。片側だけにすると粗が反対側へ移る（[[feedback-kinsoku-needs-both-ends]]）。
@@ -355,6 +366,11 @@ def vid(cid, **kw):
         if w < MIN_FULL_W or not PANEL_AR <= w / h <= WIDE_AR:
             raise ValueError(f"{cid}: フリー素材 {w}×{h} は全画面の箱に合わない（台帳の dispw を確かめる）")
         return dict(photo=f"{EP}stock/fb_{cid}.jpg", t="", s="", **kw)
+    # 🆕 27本目 ⑤b-3（2026-10-30）：**県警の動画の引用**（clips.json の `"private": true`）＝額装・静止（`build_jiko.FRAME_STILL_EP`）・
+    #    ひかえの静止画は公開リポに置かない `police/fb_<cid>.jpg`（手元は `qa_out/ep27_assets.py fb`・Modal は `footage.fetch` がコマの1枚目から作る）
+    #    ＝**ファイルを読まずに**箱を決める（Actions には無い＝`size_of` が台帳の寸法を返す）。見出し・副題は書く（誰が公開したかを副題で言う）
+    if c.get("private"):
+        return dict(photo=f"{EP}{PRIVATE_DIR}fb_{cid}.jpg", panel=True, **kw)
     # 🆕 17本目 ⑤c'（2026-10-21・c807）：器に黒帯のある記録映像（`footage.PILLAR` が 1 未満）のひかえ（止め絵 `still=True` と、
     #    映像が取れなかった日）は写真の道で焼く＝映像の寄せ（fzm）が掛からず帯が残った（c807 の左 74px が真っ黒）。
     #    ひかえにも映像と同じ寄せ（zoom_of・bias・xbias）を渡す＝映像の道と同じ切り口（映像のコマは meta の fzm が上書きするので変わらない）
@@ -421,6 +437,12 @@ def frame_only():
     if not db:
         raise RuntimeError("assets.json が空（束が読めていない＝fail closed）")
     out = {P(n): r["lic"] for n, r in db.items() if _is_sa(r.get("lic")) or r.get("frame")}
+    # 🆕 27本目 ⑤b-3（2026-10-30）：県警の動画の引用（clips.json の `private`）のひかえ `police/fb_<cid>.jpg` も額装だけの点＝
+    #    映像の欄（footage.USE）の寄り・速さ・地のぼかし（plain）を下の check_frame_only が見る（束に無い点なので台帳 assets.json から拾えない）
+    import footage as _FO
+    for cid, u in _FO.USE.items():
+        if (_FO.CLIPS.get(u.get("clip")) or {}).get("private"):
+            out.setdefault(f"{EP}{PRIVATE_DIR}fb_{cid}.jpg", "引用（県警の動画）")
     return out
 
 
@@ -502,7 +524,9 @@ def check_frame_only(spec, use=None):
         if why:
             bad.append(f"{cid}＝{ph}（{lic}）: " + "・".join(why))
     for ph, cids in sorted(seen.items()):
-        if len(cids) > 1:
+        # 🆕 27本目 ⑤b-3（2026-10-30）：1点1カットは**継承つき（BY-SA）の決まり**（ルール §5b-52）。引用（県警・警察庁の画・額装・加工しない）は
+        #    同じ絵を同じ副題で2回まで＝映像方針の一覧の門番（`make_list27`＝3回以上で E）と了承（27本目 c603・c604＝X のポスターの続き）に任せる
+        if len(cids) > 1 and _is_sa(fo[ph]):
             bad.append(f"{ph}（{fo[ph]}）を {len(cids)}カットで使っている（{'・'.join(cids)}）＝1点1カット")
     return bad
 
@@ -739,6 +763,10 @@ SLIDE_NOT_MOUNT: dict[str, str] = {
     P("cm198"): "下 5.0%＝手前の暗い山の斜面（十文字原からの夜景）",
     P("cm283"): "左 2.8%＝手前の暗い柱（駐車場の案内とバス）",
     P("police/xpost1"): "四辺＝手配のポスターの黒い地の図柄（引用＝額装・加工しない）",
+    # 🆕 ⑤b-3（10-30）：YT-A のコマ＝県警の動画の画のまま（引用＝切らない）。960px の並べ（scratchpad `ytA_sheet.jpg`）で見た
+    P("police/yta026"): "左右＝縦長のスマホの映像を横長に収めた県警の動画の外の黒（引用＝額装・加工しない）",
+    P("police/yta034"): "左＝夜の暗い歩道に大きな字・右＝縦長の映像の外の黒（県警の動画の画のまま）",
+    P("police/yta165"): "四辺＝黒地に白い字の結び（県警の動画の画のまま）",
     P("stock/px30037331"): "左・上・右＝夜の商店街のアーケードの暗い天井と店の戸（イメージ）",
     P("stock/px7553959"): "四辺＝夜の車の中の暗い内装（イメージ）",
 }
@@ -776,6 +804,18 @@ def size_of(name):
         r = _assets().get(name[len(EP):-len(".jpg")])
         if r and r.get("stock"):
             return (int(r["w"]), int(r["h"]))
+    if not p.exists() and is_private(name):
+        # 🆕 2026-10-30（27本目 ⑤b-3）：県警の引用（`police/`＝git の外・保管庫）は Actions では無い＝束は台帳 assets.json の寸法・
+        #    県警の動画のひかえ（`police/fb_<cid>.jpg`）は clips.json の寸法（表示の幅 dispw×高さ）。どちらも無ければ下で開いて止まる
+        stem = name[len(EP):-len(".jpg")]
+        r = _assets().get(stem)
+        if r and r.get("private"):
+            return (int(r["w"]), int(r["h"]))
+        if stem.startswith(PRIVATE_DIR + "fb_"):
+            import footage as _FO
+            c = _FO.CLIPS.get((_FO.USE.get(stem[len(PRIVATE_DIR) + 3:]) or {}).get("clip")) or {}
+            if c.get("private"):
+                return (int(c.get("dispw") or c["w"]), int(c["h"]))
     with Image.open(p) as im:
         return im.size
 

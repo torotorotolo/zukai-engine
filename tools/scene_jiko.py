@@ -885,7 +885,8 @@ def ep19_credit(name):
 #   ep27/<欄の名>.jpg … 写真（Commons の実写＝CC BY・BY-SA・CC0〈額装は BY-SA と引用だけ〉・大分県警察の X の画像と警察庁の写真＝引用・加工しない・
 #                        Google の衛星写真）＝映像方針の一覧 `ref/ep27/eizou_list27.md`（了承②）。説明カットの地の写真も同じ表（「地の写真：…／改変：明るさ」）
 #   ep27/stock/…      … イメージ（この事件の物でないフリー素材＝Pexels の写真4点・20% に数えない・概要欄にクレジットを書かない）
-#   県警の動画（YT-A 5区間・YT-C 1区間）の出典は `footage.CLIPS`（`ref/ep27/clips.json`＝束のチャットで作る）の credit＝「出典：大分県警察 公式YouTube（年月日）」
+#   県警の動画（YT-C 2区間＝c106・c305）の出典は `footage.CLIPS`（`ref/ep27/clips.json`）の credit＝「出典：大分県警察 公式YouTube（年月日）」・
+#   🆕 ⑤b-3：YT-A（取れない）のコマ4つ（`ep27/police/yta…`）は束の表（credits.json）＝同じ形の出典の行
 # 🔴 表はファイルから読む（ルール 0b-34①）。`ref/ep27/credits.json` は写真の束のチャット（⑤b-2 以降）で書く（無いあいだは空＝当たらない）。
 #    ⚠️ 名前が当たらないときは None → 最後の `PHOTO_CREDIT[...]` で KeyError（fail closed）。
 #    🔴 事件の回（ルール §B2-10）＝被害者・遺族・けがをした人・目撃者・SNS の投稿者の名前は出典の行にも出さない。
@@ -926,7 +927,8 @@ def ep27_credit(name):
         # 衛星写真（地図のカット＝G1・G2・G3・G7・G9）＝出典の行は表 `cuts/ss.SAT` の credit（25・26本目の枝と同じ）。帰属の行そのものは地図の右下に残す（Google の決まり）
         import cuts.ss as _ss
         return next((v["credit"] for v in getattr(_ss, "SAT", {}).values() if v["file"] == name), None)
-    m = re.fullmatch(r"ep27/(?:stock/)?fb_(c[0-9a-f]{3}(?:~t)?)\.jpg", name)     # 映像のひかえの静止画＝出典は映像と同じ（19本目 ⑤b-2 の型）
+    # 映像のひかえの静止画＝出典は映像と同じ（19本目 ⑤b-2 の型）。🆕 ⑤b-3：県警の動画のひかえ（`police/fb_<cid>.jpg`＝git の外）も
+    m = re.fullmatch(r"ep27/(?:stock/|police/)?fb_(c[0-9a-f]{3}(?:~t)?)\.jpg", name)
     if m:
         import footage as _FO
         u = _FO.USE.get(m.group(1))
@@ -1909,9 +1911,9 @@ def photo_box(spec):
         import satmap as _SM
         return _SM.box()
     if spec.get("panel"):
-        from PIL import Image
-        with Image.open(HERE / "ref" / spec["photo"]) as im:
-            sw, sh = im.size
+        # 🆕 27本目 ⑤b-3（2026-10-30）：寸法は `cuts/ss.size_of`（ふだんは開いて測る＝同じ値）。公開リポに置かない県警の引用（`police/`）は
+        #    Actions に無い＝台帳の寸法で箱を決める（層は焼けて、合成で理由を出して飛ばす＝build_jiko.drop_missing_private）
+        sw, sh = _cuts_ss.size_of(spec["photo"])
         # 🔴 2026-08-06（r11 の拡大目視）：**切り出しを勘定に入れていなかった。**
         #    額の箱を「切る**前**の縦横比」で作り、そこへ切ったあとの画像を
         #    `build_jiko.fit()` が**覆い**（cover）ではめる。だから
@@ -1938,9 +1940,7 @@ def photo_box(spec):
         return (x, J.BAND_T + (PANEL_MAXH - h) // 2, w, h)
     if not spec.get("band"):
         return PHOTO_FULL
-    from PIL import Image
-    with Image.open(HERE / "ref" / spec["photo"]) as im:
-        sw, sh = im.size
+    sw, sh = _cuts_ss.size_of(spec["photo"])
     h = min(int(W * sh / sw), 720)
     return (0, int(BAND_CY - h / 2), W, h)
 
@@ -3204,6 +3204,16 @@ def report():
     if sat:
         print(f"   衛星写真 {len(sat)}件は git の外（保管庫から・有る無しと md5 は build_jiko.drop_missing_sat）＝ここでは数えない")
         used = [n for n in used if n not in sat]
+    # 🆕 27本目 ⑤b-3（2026-10-30）：県警の引用（`police/`＝git の外・保管庫 jiko-assets）＝有る無しと md5 は `build_jiko.drop_missing_private`。
+    #    Actions は保管庫を読めない＝ここでは数えない（理由を出す）。県警の動画のひかえ（`police/fb_<cid>.jpg`）は `footage.fetch` がコマから作る＝
+    #    `--report` が先に回る Modal の qa でもまだ無い＝どこでも数えない。手元と Modal の束（`police/<名>.jpg`）は今までどおり「実体が無い」で止める
+    priv = [n for n in used if _cuts_ss.is_private(n)]
+    if priv:
+        fbs = [n for n in priv if n.split("/")[-1].startswith("fb_")]
+        skip = fbs + ([n for n in priv if n not in fbs] if os.environ.get("GITHUB_ACTIONS") == "true" else [])
+        print(f"   県警の引用 {len(priv)}件は git の外（保管庫から・有る無しと md5 は build_jiko.drop_missing_private）"
+              f"＝ここで数えない {len(skip)}件（動画のひかえ {len(fbs)}・Actions の束 {len(skip) - len(fbs)}）")
+        used = [n for n in used if n not in skip]
     nofile = [n for n in used if not (HERE / "ref" / n).exists()]
     if nofile:
         print(f"🔴 ref に実体が無い写真: {nofile}")
@@ -3232,7 +3242,9 @@ def report():
                 return False
             r = _ss._assets().get(n[len(_ss.EP):-len(".jpg")]) or {}
             return bool(r.get("stock") and r.get("media") and r.get("md5"))
-        uncommitted = [n for n in used if f"ref/{n}" not in intree and "/stock/fb_" not in n and not _refetched(n)]
+        # 🆕 27本目 ⑤b-3：県警の引用（`police/`）は公開リポに置かない＝コミットしないのが正しい（保管庫と pull_private）＝数えない
+        uncommitted = [n for n in used if f"ref/{n}" not in intree and "/stock/fb_" not in n and not _refetched(n)
+                       and not _cuts_ss.is_private(n)]
         if uncommitted:
             print(f"🔴 **コミットされていない写真** {len(uncommitted)}件: {uncommitted}")
             print("   → `.gitignore` の許可制リストに `!ref/<名前>` を1行ずつ足して"

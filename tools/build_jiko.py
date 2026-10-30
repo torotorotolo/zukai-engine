@@ -1993,6 +1993,98 @@ def drop_missing_sat(idx, mode):
     return out
 
 
+def drop_missing_private(idx, mode, spec=None, use=None, clips=None, assets=None, actions=None, have=None, root=None):
+    """🆕 27本目 ⑤b-3（2026-10-30）：**公開リポに置かない県警の引用**のカットの絵が手元に無いときの扱い（`drop_missing_sat` の型を広げた）。
+
+    対象＝SPEC の photo が `cuts/ss.PRIVATE_DIR`（`police/`）の下＝束の引用の静止画（台帳 assets.json の `private`）と、県警の動画の
+    ひかえの静止画（`police/fb_<cid>.jpg`＝`footage.USE` の clip が clips.json の `private`）。置き場は Modal の保管庫 jiko-assets の同じ道。
+    🔴 **Actions（GITHUB_ACTIONS）の検品（qa）だけ**理由を出して飛ばす（保管庫を読めない＝検品画像は Modal の `qa`）。
+    🔴 **手元と Modal では止める**（fail closed＝無いまま別の絵で焼かない・本編 full はどこでも止める）。
+    動画のカットは切り出したコマがあれば合成はコマを使う＝ひかえが無くても止めない（コマも無ければ止める）。
+    束の絵が在れば md5 を台帳と照らす（差し替わった絵で焼かない）。ひかえの静止画はコマから作り直す物＝照らさない。
+    引数の spec・use・clips・assets・actions・have・root は selftest が差し替える口（ふだんは本番の表と `ref/`）。"""
+    import hashlib
+    import footage as _FO
+    ss = S._cuts_ss
+    root = S.HERE / "ref" if root is None else Path(root)
+    spec = S.SPEC if spec is None else spec
+    use = _FO.USE if use is None else use
+    clips = _FO.CLIPS if clips is None else clips
+    actions = _FO.on_actions() if actions is None else actions
+    have = _FO.have if have is None else have
+    out, skipped = dict(idx), []
+    for cid in idx:
+        name = str((spec.get(cid) or {}).get("photo") or "")
+        if not ss.is_private(name):
+            continue
+        u = use.get(cid) or {}
+        film = bool((clips.get(u.get("clip")) or {}).get("private")) and not u.get("still")
+        p = root / name
+        if p.exists():
+            stem = name[len(ss.EP):-len(".jpg")]
+            if not stem.split("/")[-1].startswith("fb_"):
+                db = ss._assets() if assets is None else assets
+                r = db.get(stem) or {}
+                if not r.get("private") or not r.get("md5"):
+                    raise SystemExit(f"🔴 {cid}: ref/{name} が束の台帳 assets.json に private と md5 で載っていない（権利を確かめずに焼かない）")
+                got = hashlib.md5(p.read_bytes()).hexdigest()
+                if got != r["md5"]:
+                    raise SystemExit(f"🔴 {cid}: ref/{name} の md5 {got} が台帳 {r['md5']} と違う（保管庫と束を照らし直す）")
+            continue
+        if film and have(cid):
+            continue                     # 動画のコマがある＝合成はコマを使う（ひかえは要らない）
+        if mode == "full" or not actions:
+            raise SystemExit(f"🔴 {cid}: 公開リポに置かない県警の引用 ref/{name} が無い＝焼かない"
+                             f"（手元は `ref/{ss.EP}{ss.PRIVATE_DIR}` に束・Modal は保管庫 jiko-assets を pull_private）")
+        skipped.append(cid)
+        out.pop(cid)
+    for cid in skipped:
+        print(f"⏭ {cid}: 県警の引用 ref/{spec[cid]['photo']} が無い＝飛ばす（Actions は Modal の保管庫を読めない）"
+              f"＝`modal run modal_app.py::qa --partial --only=…` で焼く", flush=True)
+    if skipped:
+        print(f"⏭ 県警の引用のカット {len(skipped)} を飛ばした（{'・'.join(skipped)}）", flush=True)
+    return out
+
+
+def selftest_private():
+    """drop_missing_private の陽性・陰性（作り物の表と一時のファイル＝本番の束・保管庫に触れない）"""
+    import hashlib
+    import tempfile
+    ss = S._cuts_ss
+    ok = []
+    with tempfile.TemporaryDirectory() as td:          # OS の一時の場所＝本番の ref/ に触れない
+        (Path(td) / ss.EP / ss.PRIVATE_DIR).mkdir(parents=True)
+        (Path(td) / ss.EP / ss.PRIVATE_DIR / "q1.jpg").write_bytes(b"q1")
+        good = {"police/q1": dict(private=True, md5=hashlib.md5(b"q1").hexdigest())}
+        spec = {"a": dict(photo=f"{ss.EP}police/q1.jpg"), "b": dict(photo=f"{ss.EP}police/q9.jpg"),
+                "v": dict(photo=f"{ss.EP}police/fb_v.jpg"), "n": dict(photo=f"{ss.EP}cm001.jpg")}
+        use = {"v": dict(clip="pc", start=1.0, until=5.0)}
+        clips = {"pc": dict(private=True)}
+
+        def run(idx, mode="qa", actions=True, assets=good, have=lambda c: False):
+            try:
+                return sorted(drop_missing_private({c: {} for c in idx}, mode, spec, use, clips, assets, actions, have, td)), 0
+            except SystemExit:
+                return None, 1
+
+        cases = [
+            ("陰性：束が在り md5 が台帳と同じ＝そのまま焼く", run(["a", "n"]), (["a", "n"], 0)),
+            ("陰性：Actions で束が無い＝理由を出して飛ばす", run(["b", "n"]), (["n"], 0)),
+            ("陰性：Actions で動画のひかえもコマも無い＝飛ばす", run(["v"]), ([], 0)),
+            ("陰性：動画のコマがある＝ひかえが無くても焼く（手元）", run(["v"], actions=False, have=lambda c: True), (["v"], 0)),
+            ("陽性：手元・Modal で束が無い＝止める", run(["b"], actions=False), (None, 1)),
+            ("陽性：本編 full は Actions でも止める", run(["b"], mode="full"), (None, 1)),
+            ("陽性：手元で動画のひかえもコマも無い＝止める", run(["v"], actions=False), (None, 1)),
+            ("陽性：束の md5 が台帳と違う＝止める", run(["a"], assets={"police/q1": dict(private=True, md5="0" * 32)}), (None, 1)),
+            ("陽性：束が台帳に private で載っていない＝止める", run(["a"], assets={}), (None, 1)),
+        ]
+    for name, got, want in cases:
+        ok.append(got == want)
+        print(f"  {'✓' if got == want else '🔴'} {name}（{got}・期待 {want}）")
+    print(f"selftest_private {'OK' if all(ok) else 'NG'}（{sum(ok)}/{len(ok)}）")
+    return 0 if all(ok) else 1
+
+
 if __name__ == "__main__":
     mode = "qa"
     zooms = None
@@ -2000,7 +2092,7 @@ if __name__ == "__main__":
     at = None
     only = None
     for a in sys.argv[1:]:
-        if a in ("qa", "full", "shrink", "veil"):
+        if a in ("qa", "full", "shrink", "veil", "selftest_private"):
             mode = a
         elif a.startswith("--zoom="):
             zooms = set(a.split("=", 1)[1].split(","))
@@ -2018,14 +2110,17 @@ if __name__ == "__main__":
     if mode == "shrink":
         shrink_stills()
         sys.exit(0)
+    if mode == "selftest_private":
+        sys.exit(selftest_private())
     idx, _ = S.layer_index(allow_missing="--partial" in sys.argv)
     idx = drop_missing_sat(idx, mode)
+    idx = drop_missing_private(idx, mode)          # 🆕 27本目 ⑤b-3：県警の引用（Actions だけ飛ばす・手元と Modal は止める）
     if only:
         if mode == "full":
             raise SystemExit("--only は qa だけ（本編は全カット）")
         miss = sorted(only - set(idx))
         if miss:
-            raise SystemExit(f"--only のカット {miss} が焼ける一覧に無い（SPEC が無い・衛星写真が無い）")
+            raise SystemExit(f"--only のカット {miss} が焼ける一覧に無い（SPEC が無い・衛星写真が無い・県警の引用が無い）")
         idx = {c: v for c, v in idx.items() if c in only}
     if at:
         at = {c: v for c, v in at.items() if c in idx}      # 飛ばした地図のカット・--only の外は撮らない

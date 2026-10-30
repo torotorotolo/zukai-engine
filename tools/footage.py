@@ -57,6 +57,7 @@
 """
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
@@ -72,6 +73,28 @@ HERE = Path(__file__).parent.parent
 CLIP = HERE / "out" / "jiko" / "clip"
 FOOT = HERE / "out" / "jiko" / "foot"
 FPS = 30
+# 🆕 2026-10-30（27本目 ⑤b-3）：**公開リポに置かない県警の動画**（clips.json の `"private": true`＝git の外・Modal の保管庫 jiko-assets の同じ道＝
+#    `modal_app.pull_private`）。ひかえの静止画は `ref/<回>/police/fb_<cid>.jpg`（`cuts/ss.PRIVATE_DIR` と同じ・git に入れない）。
+#    🔴 Actions は保管庫を読めない＝媒体が無ければ**理由を出して飛ばす**（`fetch --check` の exit 7 にしない・切り出さない・合成は
+#       `build_jiko.drop_missing_private` が飛ばす）。🔴 手元と Modal では今までどおり止める（fail closed＝無いまま静止画に落とさない）
+PRIVATE_FB = "police"
+
+
+def on_actions():
+    """GitHub Actions の上か（保管庫を読めない機械）"""
+    return os.environ.get("GITHUB_ACTIONS") == "true"
+
+
+def private_absent(clip):
+    """公開リポに置かない動画（`private`）の媒体が、この機械に無いか（Actions で飛ばす条件の半分）"""
+    c = CLIPS.get(clip) or {}
+    if not c.get("private"):
+        return False
+    try:
+        mu, _ = media_of(clip)
+    except Exception:                                         # noqa: BLE001
+        return False
+    return not str(mu).startswith(("http://", "https://")) and not Path(mu).exists()
 # 🔴 2026-10-05（18本目 ⑤b-7c）：名乗りから個人のメールを外した（外のサービスへ送らない＝記憶 feedback-no-email-in-tool-headers）。
 #    連絡先はリポの URL だけ（Wikimedia の「名乗れ」はこれで足りる＝429 は UA が空のときの話）
 UA = ("zukai-engine/1.0 (accident-documentary research; "
@@ -618,11 +641,14 @@ USE = {
     # 🔴 2026-10-30（27本目 八田與一容疑者の事件 ⑤b-1）：**空にした**（§0b）。26本目の21欄（NOAA 2004 の残骸の映像13区間＋Pexels の8カット・
     #   `qa_out/ep26_assets.py use` が書き出した）は git の `54b15e5e`（`git show 54b15e5e:tools/footage.py`・見本 `fixture_ep26._footage26` がそこから読む）。
     #   🔴 26本目の c105・c107・c401・c414・c515・c517・c610・c638 ほかは27本目にも同じカットIDがある（27本目の c105・c107＝Commons の写真）＝残すと26本目の映像が黙って出た。
-    #   🔴 27本目＝**県警の動画の引用6区間**（YT-A：c102 22.5〜29.9秒＋止め0.2・c303 88.0〜99.9秒・c305 131.0〜140.0秒・c309 30.3〜36.4秒＋止め4.6・
-    #   c316 159.6〜169.5秒＋止め3.6／YT-C：c106 1.5〜9.0秒＋止め0.8＝⑤b-1 で narration.json の実測の秒に合わせた）。区間は `ref/ep27/eizou_build/assign27.psv`
+    #   🔴 27本目＝**県警の動画の引用2区間**（⑤b-3・10-30 カズヤくん了承＝YT-A は取れない〈403〉＝c102・c303・c309・c316 は YT-A のコマの静止〈束の
+    #   police/yta…＝USE に載せない〉・c305 は YT-C 14.5〜23.4秒／c106 は YT-C 1.5〜9.0秒＋止め＝hold）。区間は `ref/ep27/eizou_build/assign27.psv`
     #   （門番 `make_list27.py`＝区間＋止め ≧ 扉を除いた中身の秒・BAD の秒にかけない・素材の実の長さ）。欄は束のチャットで道具から書き出す（手で書かない）＝下の印のあいだ。
-    #   🔴 引用＝実時間（rate 1.0）・寄り（zoom・bias）で切らない・音は使わない（-an）
+    #   🔴 引用＝実時間（rate 1.0）・寄り（zoom・bias）で切らない・地のぼかしを作らない（plain=True）・音は使わない（-an）・止めは hold
+    #   （区間の尻のコマで持たせる＝読むのは中身 − hold）。媒体は公開リポに置かない（clips.json の private＝Actions は飛ばす・Modal は保管庫）
     # EP27_USE>>> ここから（手で書かない）
+    "c106": dict(clip="YT-C", start=1.50, until=9.00, rate=1.0, hold=0.81, plain=True),   # 場面 1〜9.06秒・区間 7.50秒＋止め 0.81秒／要る 8.30秒・実時間・音は使わない（-an）・出典：大分県警察 公式YouTube（2025年12月11日）
+    "c305": dict(clip="YT-C", start=14.50, until=23.40, rate=1.0, plain=True),   # 場面 13.73〜23.9秒・区間 8.90秒／要る 8.84秒・実時間・音は使わない（-an）・出典：大分県警察 公式YouTube（2025年12月11日）
     # EP27_USE>>> ここまで
 }
 # ⚠️ 2026-09-23（12本目 ⑤c' 直しE）：ここにあった前の回の注（9.11 の c621・c712／6本目キー橋の「まだ決まっていない
@@ -666,7 +692,14 @@ def overruns(use=None, secs=None):
         if u.get("until") is None:
             out.append((cid, None, float(u["start"]), None, None))
             continue
-        end = float(u["start"]) + secs[cid] * float(u.get("rate", 1.0))
+        # 🆕 27本目 ⑤b-3（2026-10-30）：`hold`＝区間の尻のコマで止める秒（県警の動画の引用＝速さを変えない・中身が区間より長い分を
+        #    最後のコマで持たせる＝`build_jiko.foot_frame` が「コマが尽きたら最後のコマ」）。読む秒＝中身 − hold。hold が負・中身以上は測れない＝落とす
+        hold = float(u.get("hold", 0.0))
+        if hold < 0 or hold >= secs[cid]:
+            # ⚠️ gap を None にすると check_until が「until 無し」と取り違えて黙って通す＝inf で必ずはみ出しに数える（fail closed）
+            out.append((cid, float("inf"), float(u["start"]), float(u["start"]), float(u["until"])))
+            continue
+        end = float(u["start"]) + (secs[cid] - hold) * float(u.get("rate", 1.0))
         gap = end - float(u["until"])
         if gap > TOL:
             out.append((cid, gap, float(u["start"]), end, float(u["until"])))
@@ -693,6 +726,9 @@ def check_until():
         print(f"  🔴 {cid}: until= が無い（そのショットが何秒で終わるか機械が読めない）")
     bad = [r for r in overruns() if r[1] is not None]
     for cid, gap, st, end, until in sorted(bad, key=lambda r: -r[1]):
+        if gap == float("inf"):
+            print(f"  🔴 {cid}: hold（尻のコマで止める秒）{USE[cid].get('hold')} が負か中身の秒以上＝読む秒が測れない")
+            continue
         print(f"  🔴 {cid}: 尻が {gap:+.2f}秒 はみ出す"
               f"（{st:.1f}〜{end:.2f}秒／ショットの終わり {until:.1f}秒）")
     out = outside_shot()
@@ -842,6 +878,14 @@ def selftest():
             rc5 = fetch(check=True)                       # 帯が 240px 残る
             globals()["USE"] = {"x01": dict(clip="t_clip", start=12.0, until=20.0)}
             rc0 = fetch(check=True)
+            # 🆕 27本目 ⑤b-3：hold（尻のコマで止める秒）＝中身 6.0秒を 15〜20秒（5秒）で受ける。止めが無ければはみ出す（1）・
+            #    hold 1.0 で収まる（0）・hold が中身以上は測れない（1）
+            globals()["USE"] = {"x01": dict(clip="t_clip", start=15.0, until=20.0)}
+            rch1 = fetch(check=True)
+            globals()["USE"] = {"x01": dict(clip="t_clip", start=15.0, until=20.0, hold=1.0)}
+            rch0 = fetch(check=True)
+            globals()["USE"] = {"x01": dict(clip="t_clip", start=15.0, until=20.0, hold=6.0)}
+            rch9 = fetch(check=True)
             # 🔴 exit 6 ＝ ショット表に無いクリップ（表のパスが前の題材を向いたままの型）
             globals()["USE"] = {"x01": dict(clip="mukashi_no_dai", start=1.0, until=5.0)}
             globals()["CLIPS"] = dict(CLIPS, mukashi_no_dai=dict(
@@ -895,6 +939,26 @@ def selftest():
                 rcl7b = fetch(check=True)
                 fxl["t_clip"] = dict(fxl["t_clip"], media=str(lp), md5=None)
                 rcl7c = fetch(check=True)
+                # 🆕 27本目 ⑤b-3：公開リポに置かない動画（private）＝Actions だけ理由を出して飛ばす（0）・手元と Modal は止める（7）・
+                #    Actions でも在って md5 が違えば止める（7＝飛ばすのは「無い」ときだけ）。⚠️ 環境変数は必ず元に戻す
+                keep_env = os.environ.get("GITHUB_ACTIONS")
+                try:
+                    fxl["t_clip"] = dict(fxl["t_clip"], media=str(Path(td) / "nai.mp4"), md5=lmd5, private=True)
+                    os.environ["GITHUB_ACTIONS"] = "true"
+                    rcp0 = fetch(check=True)
+                    rcpf = fetch(check=False)                  # 切り出しの段も飛ばす（ffmpeg を呼ばない）＝bad 0
+                    os.environ.pop("GITHUB_ACTIONS", None)
+                    rcp7 = fetch(check=True)
+                    os.environ["GITHUB_ACTIONS"] = "true"
+                    fxl["t_clip"] = dict(fxl["t_clip"], media=str(lp), md5="0" * 32)
+                    rcp7b = fetch(check=True)
+                    fxl["t_clip"] = dict(fxl["t_clip"], media=str(Path(td) / "nai.mp4"), md5=lmd5, private=False)
+                    rcp7c = fetch(check=True)                  # private の印が無い欄は Actions でも今までどおり 7
+                finally:
+                    if keep_env is None:
+                        os.environ.pop("GITHUB_ACTIONS", None)
+                    else:
+                        os.environ["GITHUB_ACTIONS"] = keep_env
             chk("陽性対照：リポの中の切り出しは読む秒を local_from だけ前へ（start 12 − 10＝2）", abs(offl + 10.0) < 1e-9, True)
             globals()["CLIPS"] = keep_clips_fx
         finally:
@@ -904,6 +968,9 @@ def selftest():
         for name, rc, want in (("until 無し", rc2, 2), ("ショットまたぎ", rc3, 3),
                                ("禁止の秒", rc4, 4), ("素材の黒帯", rc5, 5),
                                ("正しい欄", rc0, 0),
+                               ("陽性：止め（hold）が無く尻がはみ出す", rch1, 1),
+                               ("陰性：hold 1.0 で収まる", rch0, 0),
+                               ("陽性：hold が中身の秒以上", rch9, 1),
                                ("ショット表に無いクリップ", rc6, 6),
                                ("媒体が引ける欄", rc7_ok, 0),
                                ("媒体が引けない", rc7, 7),
@@ -913,7 +980,12 @@ def selftest():
                                ("リポの中の切り出し（有る・md5 が台帳と同じ）", rcl0, 0),
                                ("リポの中の切り出しの md5 が台帳と違う", rcl7, 7),
                                ("リポの中の切り出しが無い", rcl7b, 7),
-                               ("リポの中の切り出しの md5 が台帳に無い", rcl7c, 7)):
+                               ("リポの中の切り出しの md5 が台帳に無い", rcl7c, 7),
+                               ("陰性：公開リポに置かない動画が Actions に無い＝飛ばす", rcp0, 0),
+                               ("陰性：同じ欄の切り出しの段（Actions）＝飛ばす", rcpf, 0),
+                               ("陽性：同じ欄を手元・Modal で（GITHUB_ACTIONS なし）＝止める", rcp7, 7),
+                               ("陽性：Actions でも在って md5 が違う＝止める", rcp7b, 7),
+                               ("陽性：private の印が無い欄は Actions でも止める", rcp7c, 7)):
             ok.append(rc == want)
             print(f"  {'✓' if rc == want else '🔴'} {name} → `fetch --check` exit {rc}（期待 {want}）")
     finally:
@@ -1332,6 +1404,8 @@ def _cut_stream(cid, u, secs):
     """URL から、そのカットに要る区間だけをコマに切り出す（落とさない）。"""
     c = CLIPS[u["clip"]]
     rate = float(u.get("rate", 1.0))
+    # 🆕 27本目 ⑤b-3：`hold`（尻のコマで止める秒）の分は読まない＝区間の終わりの先（次の場面）を切り出さない。止めは合成が最後のコマで持たせる
+    secs = secs - float(u.get("hold", 0.0))
     n = int(round(secs * FPS)) + 2
     vf = []
     if abs(rate - 1.0) > 1e-6:
@@ -1421,10 +1495,11 @@ def fetch(check=False):
             print(f"  {cid}  尺{secs[cid]:5.2f}s  ← {u['clip']} {u['start']:.1f}秒の静止画（fb_{cid}.jpg・ゆっくり寄る）")
             continue
         rate = float(u.get("rate", 1.0))
-        end = float(u["start"]) + secs[cid] * rate
+        hold = float(u.get("hold", 0.0))
+        end = float(u["start"]) + (secs[cid] - hold) * rate
         flag = "" if end <= float(c["sec"]) + 0.05 else "  🔴 動画の終端を越える"
         print(f"  {cid}  {'頭' if u.get('head') else '尺'}{secs[cid]:5.2f}s  ← {u['clip']} {u['start']:.1f}〜{end:.1f}秒"
-              f"（{rate:.2f}倍速）{flag}")
+              f"（{rate:.2f}倍速{f'・尻のコマで止め {hold:.1f}秒' if hold else ''}）{flag}")
     over, miss, out, nog, bars = check_until()
     # 🔴 exit 6 ＝ USE が使っているクリップのショット表が無い（2026-09-08・6本目②で追加）。
     #    ⚠️ これは「粗が無い」ではなく「**見ていない**」。表のパスが前の題材を向いたままだと
@@ -1481,6 +1556,12 @@ def fetch(check=False):
                 bad_url.append((clip, f"{type(e).__name__}: {e}"))
                 continue
             if not str(mu).startswith(("http://", "https://")):
+                # 🆕 27本目 ⑤b-3：公開リポに置かない県警の動画は Actions に無い＝理由を出して飛ばす（手元・Modal は下の照合で exit 7）
+                if on_actions() and private_absent(clip):
+                    cids = " ".join(c for c, u in USE.items() if u.get("clip") == clip)
+                    print(f"  ⏭ {clip}: 公開リポに置かない県警の動画（private）＝Actions は保管庫を読めない＝飛ばす"
+                          f"（{cids}・合成も飛ばす・検品画像は Modal の qa）")
+                    continue
                 why, ln = probe_local(mu, CLIPS[clip].get("md5"))
                 if why:
                     bad_url.append((clip, why))
@@ -1530,11 +1611,17 @@ def fetch(check=False):
             return 8
         return 1 if over else 0
     bad = 0
+    gone = []                     # 🆕 27本目 ⑤b-3：Actions で飛ばした公開リポに置かない動画のカット
     for cid, u in USE.items():
         if u.get("still"):
             continue
         if have(cid):
             print(f"  {cid}: すでにある", flush=True)
+            continue
+        if on_actions() and private_absent(u["clip"]):
+            print(f"  ⏭ {cid}: {u['clip']} は公開リポに置かない県警の動画（private）＝Actions は保管庫を読めない＝切り出さない"
+                  f"（合成も build_jiko.drop_missing_private が飛ばす・検品画像は Modal の qa）", flush=True)
+            gone.append(cid)
             continue
         print(f"  {cid}: {u['clip']} の {u['start']}秒目から切り出す", flush=True)
         try:
@@ -1548,7 +1635,8 @@ def fetch(check=False):
             print(f"  🔴 {cid}: コマが足りない（{got}/{n}）。start が終端に近すぎる")
             bad += 1
     done = [c for c in USE if have(c)]
-    print(f"✓ 切り出し完了 {len(done)}/{len(USE) - len(stills)} カット: {'、'.join(done) or 'なし'}")
+    print(f"✓ 切り出し完了 {len(done)}/{len(USE) - len(stills)} カット: {'、'.join(done) or 'なし'}"
+          + (f"（⏭ Actions で飛ばした県警の動画 {len(gone)}: {'、'.join(gone)}）" if gone else ""))
     # 🆕 19本目 ⑤b-7b（2026-10-06）：フリー素材のひかえの静止画（`ref/<回>/stock/fb_<cid>.jpg`）は git に入れない（決め⑨）＝
     #    Actions・Modal の上には無い → **切り出したコマの1枚目から作る**（手元では `qa_out/ep19_assets.py fb` が棚の mp4 の
     #    同じ秒から作る）。コマが無いカットは作らない＝合成が写真を開けずに止まる（黙って別の絵に落とさない）
@@ -1560,6 +1648,14 @@ def fetch(check=False):
                 fbp.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(FOOT / cid / "00000.jpg", fbp)
                 print(f"  ✓ {cid}: フリー素材のひかえの静止画をコマの1枚目から作った（{fbp.relative_to(HERE).as_posix()}）")
+        # 🆕 27本目 ⑤b-3：公開リポに置かない県警の動画のひかえ（`police/fb_<cid>.jpg`）も git に無い＝Modal ではコマの1枚目から作る
+        #    （手元は `qa_out/ep27_assets.py fb` が区間の頭から作る）。コマが無ければ作らない＝合成が止める（黙って別の絵にしない）
+        if CLIPS[u["clip"]].get("private") and have(cid):
+            fbp = _CLIPS_JSON.parent / PRIVATE_FB / f"fb_{cid}.jpg"
+            if not fbp.exists():
+                fbp.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(FOOT / cid / "00000.jpg", fbp)
+                print(f"  ✓ {cid}: 県警の動画のひかえの静止画をコマの1枚目から作った（{fbp.relative_to(HERE).as_posix()}・git に入れない）")
     if bad:
         print(f"⚠️ {bad} カットは**静止画に落ちる**。パイプラインは止めない。")
     if sp_bad:
