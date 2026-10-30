@@ -39,12 +39,46 @@ REC_SAT_AREA = {}
 #    （`apply(gate)`＋`apply_cuts()`）を差して回す。24本目で地図の描き足しに数字を含む札を置くときは、その回の記録をここに入れる（空のあいだ、数字を含む札は「出どころの無い数」で鳴る＝fail closed）。
 #    ⚠️ 句の照合 `num_check` が使う `check_mech._m17_page`（原文の道 `ref/ep17/src/ep17_pages.txt` を直書き）は型として残した（24本目で使うなら原文の道を替える）
 REC_SAT_NUM = {}
+# 🆕 2026-10-30（27本目 ⑤b-5）：27本目の記録＝c212（防犯カメラ8台の札）・c504（目撃の地域の内訳＝日本全体の衛星写真に地方の札）。出典は報道＝原文の頁は手元の
+#    報道の抜き書き `ref/ep27/src/news_frag_v2.txt`（git の外・「=== pN ===」の頁＝④' で作った）＝出典の書き方「抜き書き pN」（`_rec_page`）。
+#    🔴 §0b：次の回で見本 `tools/fixture_ep27.py` へ移して空に（REC_SAT_PAGES も）
+REC_SAT_PAGES = Path(__file__).resolve().parent.parent / "ref" / "ep27" / "src" / "news_frag_v2.txt"
+REC_SAT_NUM.update({
+    "c212": {"防犯カメラ8台の映像から〈警察の公表〉": (("抜き書き p114", "８台の防犯カメラが捉えていました"),)},
+    "c504": {
+        "関東 約4950件": (("抜き書き p41", "関東が最多で約4950件"),),
+        "近畿 約1830件": (("抜き書き p41", "近畿が約1830件"),),
+        "大分県をのぞく九州 約1680件": (("抜き書き p41", "大分を除く九州が約1680件"),),
+        "大分県 約740件": (("抜き書き p41", "大分県内が約740件"),),
+        "その他の地域 約2810件": (("抜き書き p41", "その他の地域が約2810件"),),
+        "ネットの動画や画像 約1230件": (("抜き書き p53", "累計約1230件"),),
+    },
+})
 _NUM = __import__("re").compile(r"[0-9０-９]")
+_SAT_PAGES = {}
+
+
+def _rec_page(rec):
+    """出典「抜き書き pN」の頁の文字（NFKC・空白なし）＝REC_SAT_PAGES。それ以外は17本目の `check_mech._m17_page`（報告書・判決）。
+    原文が手元に無い（Actions）・頁が無いときは None（句の照合だけ飛ばす＝表に載っているかは照らす）"""
+    import re
+    import unicodedata
+    m_ = re.fullmatch(r"抜き書き p(\d+)", rec)
+    if not m_:
+        from check_mech import _m17_page
+        return _m17_page(rec)
+    if not _SAT_PAGES:
+        if not REC_SAT_PAGES.exists():
+            _SAT_PAGES[None] = True
+            return None
+        for mm in re.finditer(r"^=== p(\d+) ===\n(.*?)(?=^=== p|\Z)", REC_SAT_PAGES.read_text(encoding="utf-8"), re.M | re.S):
+            _SAT_PAGES[int(mm.group(1))] = re.sub(r"\s+", "", unicodedata.normalize("NFKC", mm.group(2)))
+    return _SAT_PAGES.get(int(m_.group(1)))
 
 
 def num_check(spec_all, rec=None):
     """地図のカットの描き足しの札（数字を含むもの）が、記録の表 REC_SAT_NUM に載っていて、句が原文の頁にあるか。"""
-    from check_mech import _m17_page, _m17_q
+    from check_mech import _m17_q
     R = REC_SAT_NUM if rec is None else rec
     bad = []
     for cid, s in sorted(spec_all.items()):
@@ -58,7 +92,7 @@ def num_check(spec_all, rec=None):
             bad.append(f"{cid}：記録の表の札「{t}」が描かれていない（古い表）")
         for t in sorted(drawn & set(table)):
             for p, q in table[t]:
-                src = _m17_page(p)
+                src = _rec_page(p)
                 if src is not None and _m17_q(q) not in src:
                     bad.append(f"{cid}：札「{t}」の句「{q[:14]}…」が {p} に無い")
     return bad
