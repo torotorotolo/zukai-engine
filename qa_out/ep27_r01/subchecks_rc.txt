@@ -1,0 +1,3 @@
+cutframes exit=0
+sub_center exit=0
+subscan exit=1

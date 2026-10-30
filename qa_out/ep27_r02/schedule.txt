@@ -1,0 +1,6 @@
+メタ: meta_ep27.json
+サムネの門番:
+  ✓ maxres 1280x720：平均の差 2.78（8 未満）・鮮明さの比 1.02（0.95 以上）
+予約した: 2026-10-31T07:00:00+09:00
+  UTC   : 2026-10-30T22:00:00.000Z
+  確認  : https://studio.youtube.com/video/MHckKqNXetQ/edit

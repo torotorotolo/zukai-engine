@@ -1,0 +1,19 @@
+メタ: meta_ep27.json
+接続先: ゆっくり調査ノート（@chosanote／動画13本）
+動画: titan_audio-ep27-r03.mp4（210.2 MB）
+題　: 別府ひき逃げ殺傷事件 まとめ完全版（2026年10月時点）八田與一容疑者の4年。寄せられた情報は1万3978件【事件検証】【ゆっくり解説】
+非公開で上げる（予約はあとで `schedule`）
+  3%  7%  11%  15%  19%  23%  27%  31%  35%  39%  43%  47%  51%  55%  59%  63%  67%  71%  75%  79%  83%  87%  91%  95%  99%
+上がった: https://youtu.be/MHckKqNXetQ
+管理　　: https://studio.youtube.com/video/MHckKqNXetQ/edit
+処理が終わるのを待つ（サムネは hd になってから貼る）
+  処理 processing・画質 sd（0秒）
+  処理 processing・画質 sd（20秒）
+  処理 processing・画質 sd（40秒）
+  処理 processing・画質 hd（61秒）
+  処理 succeeded・画質 hd（81秒）
+サムネを貼った: ep27_A6_v6.png
+  ✓ maxres 1280x720：平均の差 2.78（8 未満）・鮮明さの比 1.02（0.95 以上）
+✓ サムネは高解像度で貼れている
+
+次: python tools/upload_jiko.py schedule MHckKqNXetQ --at "…+09:00"（または public）

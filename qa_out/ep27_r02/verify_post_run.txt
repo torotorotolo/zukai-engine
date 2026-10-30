@@ -1,0 +1,10 @@
+videoId MHckKqNXetQ  https://youtu.be/MHckKqNXetQ
+✓ 題: 69字
+✓ 説明: 3006字
+✓ タグ: 15個
+✓ 子ども向けでない: self=False made=False
+✓ 公開設定: private／予約 2026-10-30T22:00:00Z
+✓ 処理: succeeded
+✓ 画質: hd
+✓ 尺: PT15M31S（手元 15分30.1秒）
+✓ サムネ: maxres 1280x720：平均の差 2.78（8 未満）・鮮明さの比 1.02（0.95 以上）

@@ -1,0 +1,3 @@
+A 27本目_声A_いま.m4a：-15.0 LUFS（titan_audio-ep27-r02.mp4 の 300秒から 30秒・そのまま）
+B 27本目_声B_2〜4kHzを下げた.m4a：-15.0 LUFS（equalizer=f=3000:t=o:w=1:g=-4・利得 +0.30dB で A にそろえた）
+→ C:\Users\konar\Desktop\zukai-engine\out\jiko\ep27_voice_ab
