@@ -252,6 +252,11 @@ def check_sns(S, B, jobs, want=None):
             if has:
                 warn.append(f"{c}: 印の無いカットに SNS の注釈がある")
             continue
+        # 🆕 2026-11-01（28本目 ⑤b-1）：画（SPEC）がまだ無いカット＝ここで止めない（⚠️）。回の頭の字幕の配線の焼き（partial・SPEC は ed01 だけ）が
+        #    この段で止まった。画が無いこと自体は check_cuts が止める（本編は素通りしない）＝2つの門番で同じことを受け持たない。画があるのに注釈が無ければ今までどおり🔴
+        if c not in getattr(S, "SPEC", {c: None}):
+            warn.append(f"{c}: 印 SNS のカットの画がまだ無い（注釈は測れない・画が無いカットは check_cuts の受け持ち）")
+            continue
         if not has:
             bad.append(f"{c}: 印 SNS のカットの層に注釈「{note}」の字が無い")
             continue
@@ -394,6 +399,11 @@ def selftest():
         say(any(b.startswith("x2:") and "黄色い字の画素が無い" in b for b in bad_), "陽性 字の画素が無いと鳴る")
         say(any(b.startswith("x3:") and "字幕の帯" in b for b in bad_), "陽性 字幕の帯・透かしに入ると鳴る")
         say(any(b.startswith("x4:") and "注釈" in b for b in bad_), "陽性 印 SNS のカットの層に注釈の字が無いと鳴る")
+        # 🆕 28本目 ⑤b-1：画（SPEC）が無いカットは止めず ⚠️・画があれば同じ注釈なしで鳴る（上の x4 は SPEC を持たない作り物＝SPEC の表が無い形のまま）
+        fS2 = types.SimpleNamespace(ORDER=["x4", "x5"], SPEC={"x4": {}})
+        bad2, w2, _ = check_sns(fS2, fB, {"x4_base": "（注釈なし）"}, want=["x4", "x5"])
+        say(any(b.startswith("x4:") for b in bad2), "陽性 画があるのに注釈が無いと鳴る（SPEC の表がある形）")
+        say(not any(b.startswith("x5:") for b in bad2) and any(w.startswith("x5:") and "画がまだ無い" in w for w in w2), "陰性 画がまだ無いカットは止めず ⚠️")
     return ok
 
 
