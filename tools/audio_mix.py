@@ -251,6 +251,16 @@ COMP_REL = 0.13          # 戻り（秒）★ここが肝
 #      比は保たれる。YouTube 側でも音量は正規化されるので、絶対値は問題にならない。
 COMP_HEADROOM = 0.0
 
+# 🔴 2026-11-01（28本目 ⑤a-2）：声の 2〜4kHz を弱める EQ＝視聴者の「耳が痛い」（10-30・記憶 feedback-jiko-yukkuri-audio-quality）。
+#    27本目 ⑥' で競合3本と同じ物差しで比べると、うちの声は 2〜4kHz（全体比）だけが 3.4〜4.2dB 強かった（−13.6／−16.8〜−17.6）
+#    ＝原因と決まったわけではなく「違いがある所」。カズヤくんが A/B（out/jiko/ep27_voice_ab/）を耳で聞いて B を選んだ（11-01）。
+#    実測（28本目の声・本編の関数・BGM なし）：2〜4kHz −13.8 → −16.6・4〜8kHz −27.7 → −29.7。BGM と AAC を通した本編の数は ⑥ で mp4 を測る。
+#    compress の値は変えない（語尾の門番）・-15.0 LUFS も変えない。公開ずみの回は直さない＝28本目より前の回は焼き直しても音が変わらない。
+#    ⚠️ BGM_RMS_EP のような回ごとの表にしない＝新しい回で足し忘れると黙って EQ なしに戻る。
+#    ⚠️ check_mask（語尾の 80〜400Hz）はこの EQ を通さない＝400Hz の変化は 0.1dB 未満（qa_out/ep28_a5/voicechain28.py --selftest）
+VOICE_EQ = (3000.0, 1.0, -4.0)   # 中心（Hz）・幅（オクターブ）・利得（dB）＝ffmpeg の equalizer=f=3000:t=o:w=1:g=-4
+VOICE_EQ_FROM = 28               # この回から（回の名 epNN の NN）
+
 # 🔴 2026-07-31：ここはテスト映像（アロハ航空）のカットIDのままだった。
 #    `p1` `c2` `c4` `c5` はタイタン号の台本に存在しないので、**心拍も衝撃音も
 #    一度も鳴らないまま34分が焼かれるところだった。**
@@ -551,6 +561,36 @@ def compress(x, t=COMP_T, r=COMP_R, atk=COMP_ATK, rel=COMP_REL):
     return out
 
 
+def voice_eq_ep():
+    """いまの回の声の EQ（中心・幅・利得）。VOICE_EQ_FROM より前の回は None。"""
+    import el_script
+    return VOICE_EQ if int(el_script.SLUG[2:]) >= VOICE_EQ_FROM else None
+
+
+def peaking(x, f0, width, gain):
+    """1つの帯だけを上げ下げする。山の形は ffmpeg の equalizer（t=o）と同じ（RBJ の peaking）。
+
+    ⚠️ 1サンプルずつ回さない（compress と同じ理由）＝carve と同じく FFT で掛ける＝位相は動かさない。
+       A/B の B（ffmpeg）とは大きさの形が同じで、位相だけ違う（qa_out/ep28_a5/voicechain28.py --selftest）。
+    ⚠️ 頭と尻が輪になってつながらないよう、後ろに無音を足してから掛ける。
+    """
+    n = len(x) + 4096
+    a = 10 ** (gain / 40.0)
+    w0 = 2 * np.pi * f0 / SR
+    alpha = np.sin(w0) * np.sinh(np.log(2) / 2 * width * w0 / np.sin(w0))
+    z = np.exp(-2j * np.pi * np.fft.rfftfreq(n, 1 / SR) / SR)
+    h = (((1 + alpha * a) - 2 * np.cos(w0) * z + (1 - alpha * a) * z ** 2)
+         / ((1 + alpha / a) - 2 * np.cos(w0) * z + (1 - alpha / a) * z ** 2))
+    return np.fft.irfft(np.fft.rfft(x, n) * np.abs(h), n)[:len(x)]
+
+
+def voice_chain(x):
+    """本編の声の道すじ＝compress → 回の EQ（声だけ・BGM には掛けない）。"""
+    y = compress(x)
+    eq = voice_eq_ep()
+    return peaking(y, *eq) if eq else y
+
+
 def duck_gain(narr, n, blk=None):
     """ナレーションが鳴っているあいだ寝床を下げる倍率を、10ms ごとに返す。
 
@@ -632,6 +672,8 @@ def main(head=None, out_name="mix.wav", duck=True, bgm="auto"):
 
     # ナレーション
     audio = HERE / "audio"
+    eq = voice_eq_ep()
+    print(f"声の EQ：{eq[0]:.0f}Hz・{eq[1]}オクターブ・{eq[2]:+.1f}dB（compress のあと・声だけ）" if eq else "声の EQ：なし")
     for cid, _ in cuts:
         p = audio / f"{cid}.wav"
         if not p.exists():
@@ -639,7 +681,7 @@ def main(head=None, out_name="mix.wav", duck=True, bgm="auto"):
             continue
         # ★カットごとに圧縮する。34分をまとめて掛けると、静かなカットの
         #   ノイズまで持ち上がる（カット間の無音はここには入っていない）。
-        a = compress(read_wav(p)) * V_NARR
+        a = voice_chain(read_wav(p)) * V_NARR
         # 🔴 12本目から：章の頭のカットは扉（S.card_of）のぶん声を後ろへ（映像の中身と同じずらし）
         i = int((starts[cid] + S.LEAD + S.card_of(cid)) * SR)
         mix[i:i + len(a)] += a[:max(0, n - i)]
