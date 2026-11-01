@@ -1,0 +1,11 @@
+{
+ "Q1": {"url": "https://share.timescar.jp/news/2026/0925/1814.html", "after": 300, "head": "「タイムズカーWebサイト」", "tail": "2026年9月25日、当社が運営"},
+ "Q2": {"url": "https://share.timescar.jp/news/2026/0928/1815.html", "head": "3. 現時点で漏えいした", "tail": "対象者により異なりますが"},
+ "Q3": {"url": "https://share.timescar.jp/news/2026/0929/1816.html", "head": "1. 本人確認書類情報", "tail": "本日より本人確認書類"},
+ "Q4": {"url": "https://share.timescar.jp/news/2026/1016/1826.html", "head": "1. タイムズカーにおける", "tail": "当社は、タイムズカーへの会員ご登録時に"},
+ "Q5": {"url": "https://share.timescar.jp/news/2026/1023/1825.html", "head": "2. 漏えいまたは", "tail": "※1 タイムズビジネスサービス"},
+ "FSA": {"url": "https://www.fsa.go.jp/news/r8/sonota/20261009/20261009.html", "after": 300, "head": "令和８年10月９日", "tail": "なお、金融機関が非対面"},
+ "MIE": {"url": "https://www.police.pref.mie.jp/licence/licence_R8.9_saikohu.html", "after": 200, "head": "タイムズカーの個人情報流出", "tail": "令和８年９月", "x0": 0, "x1": 1100},
+ "FUK": {"url": "https://www.police.pref.fukuoka.jp/kotsu/unshi/taimuzuka-.html", "after": 200, "head": "タイムズカーの個人情報流出", "tail": "お問合せ先", "y1": 830},
+ "KANTEI": {"url": "https://www.kantei.go.jp/jp/105/actions/202610/26kaigi_cyber.html", "note": "画面なしの Chrome には Not Found を返す＝内蔵ブラウザの普通の表示を撮った（pageshot28 の shot は使わない）"}
+}

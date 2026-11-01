@@ -342,10 +342,17 @@ def selftest():
     WIDE = "keybridge/kb_p061_fig23.png"     # 縦横比 3.26 ＝ 横が 45% 切れる
     FIT = "keybridge/kb_p064_fig27.png"      # 縦横比 1.77 ＝ 画面とほぼ同じ
     try:
-        chk(f"陽性対照：横長すぎる図（{_crop_loss(WIDE) * 100:.0f}%切れ）を全画面にしたら鳴る",
-            check(spec={"a1": dict(photo=WIDE), "a2": dict(photo=FIT),
-                        "a3": dict(fig=("panel", {})), "a4": dict(fig=("panel", {}))},
-                  broken={}, want=want)[1] == 2)
+        # 🔴 2026-11-01（28本目 ⑤b-2）：上限 CROP_MAX は回の束で動く（27本目 PANEL_AR 0.93＝47.7%・28本目 0.97＝45.4%）＝この図（45%）が上限の内側に入り、
+        #    陽性が黙って落ちた（27本目から）。検算は「その回の束」でなく「道具」を試す＝この陽性だけ上限を 40% に固定して回す
+        _keep = globals()["CROP_MAX"]
+        globals()["CROP_MAX"] = 0.40
+        try:
+            _rang = check(spec={"a1": dict(photo=WIDE), "a2": dict(photo=FIT),
+                                "a3": dict(fig=("panel", {})), "a4": dict(fig=("panel", {}))},
+                          broken={}, want=want)[1] == 2
+        finally:
+            globals()["CROP_MAX"] = _keep
+        chk(f"陽性対照：横長すぎる図（{_crop_loss(WIDE) * 100:.0f}%切れ）を全画面にしたら鳴る", _rang)
         chk("陰性対照：同じ図でも panel なら鳴らない",
             check(spec={"a1": dict(photo=WIDE, panel=True), "a2": dict(photo=FIT),
                         "a3": dict(fig=("panel", {})), "a4": dict(fig=("panel", {}))},

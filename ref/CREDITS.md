@@ -3271,3 +3271,77 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 
 ### 2. 地図の衛星写真（Google マップ）
 - G1・G2・G3・G7・G9（9カット）＝Google マップの衛星写真＋描き足し（束の外＝`cuts/ss.SAT`・⑤b-4 で撮る）。出典は画面の地図の右下の帰属の行（Google の地図の利用）。🔴 PNG は公開リポに置かない（git の外・Modal の保管庫）
+
+## タイムズカー情報漏えい（2026-09-25・28本目）
+
+※2026-11-01（⑤b-2）。`qa_out/ep28_assets.py credits --write` が書く（手で直さない）。写真と紙面は映像方針の一覧 `ref/ep28/eizou_list28.md`（了承② 2026-11-01）。
+🔴 会社の事件の回（ルール §B2-11）＝会員・SNS の投稿者・役員・弁護士の名前は書かない・攻撃した者は「第三者」「攻撃した者」・会社を犯人と言わない。
+
+### 0. 会社の頁・適時開示と公的な機関の頁
+- 会社（タイムズモビリティの新着情報・パーク24 の適時開示）＝規約は私的利用だけで引用に触れない＝著作権法32条の引用の型（出典・日付・語りが主・話している秒だけ・無加工の額装・頁の頭と代表者名を写さない）。🔴 **公開リポに置かない**（`ep28/police/`＝git の外・Modal の保管庫）。⚠️ 法律の助言ではない＝こちらの読み
+- 公的な機関（2026-11-01 に各頁で規約を読んだ）＝金融庁・個人情報保護委員会・首相官邸・国家サイバー統括室・e-Gov＝公共データ利用規約 PDL1.0／福岡県警＝政府標準利用規約（CC BY 4.0 互換）＝出典と編集の断り（「／改変：切出」）で利用する・ロゴは写さない・公開リポに置く。三重県警＝規約の頁が見つからない＝引用の型・`ep28/police/`
+
+### 1. 写真と紙面（Commons の CC BY・BY-SA・CC0・PD・会社の引用・公的な機関の頁）
+- CC BY・BY-SA＝「写真：{作者}／Wikimedia Commons（ライセンス）」。🔴 撮影者の名前はこのリポに書かない＝`ref/ep28/credits.json` は印 `{作者}` だけ・焼くときに git の外の表 `ref/ep28/src/credits_private.tsv` から足す（`tools/scene_jiko.ep28_credit`）。CC0・PD＝「Wikimedia Commons（CC0／パブリックドメイン）」
+- BY-SA＝額装（無加工・1点1カット・升目もかけない＝人とナンバーが写っていない点だけ）。CC BY・CC0・PD の私人の顔とナンバーは升目（「／改変：…にモザイク」）。色は原本のまま
+- 説明カットの地（「地 c…」）＝CC BY・CC0・PD の写真を暗くするだけ（字と地の比 8:1 が下限・出典の行は「地の写真：…／改変：明るさ」）
+- 撮影年＝Commons の頁の撮影日・文書の日付（sources28 の時期の欄）
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `cm001` | c401（地 c402 c403 c617） | 2009 | CC0（この回の土地と物・ナンバーに升目） | 表示は任意（CC0・PD） | Commons（記号 CM001＝git の外の目録 `src/commons/geo28.json`） |
+| `cm005` | c608 | 2015 | CC BY-SA 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM005＝git の外の目録 `src/commons/geo28.json`） |
+| `cm006` | c204（地 c207） | 2015 | PD（この回の土地と物・ナンバーに升目） | 表示は任意（CC0・PD） | Commons（記号 CM006＝git の外の目録 `src/commons/geo28.json`） |
+| `cm007` | c104（地 c105 c305 c616） | 2011 | PD（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM007＝git の外の目録 `src/commons/geo28.json`） |
+| `cm008` | c417（地 c209 c308 c618） | 2024 | CC BY 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM008＝git の外の目録 `src/commons/geo28.json`） |
+| `cm009` | c101（地 c405 c604） | 2024 | CC BY 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM009＝git の外の目録 `src/commons/geo28.json`） |
+| `cm011` | c208 | 2017 | CC BY-SA 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM011＝git の外の目録 `src/commons/geo28.json`） |
+| `cm023` | c619 | 2022 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM023＝git の外の目録 `src/commons/geo28.json`） |
+| `cm029` | c304 | 2017 | CC BY 2.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM029＝git の外の目録 `src/commons/geo28.json`） |
+| `cm030` | c315 | 2016 | CC BY 2.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM030＝git の外の目録 `src/commons/geo28.json`） |
+| `cm034` | c517 | 2015 | CC BY 3.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM034＝git の外の目録 `src/commons/geo28.json`） |
+| `cm036` | c602 | 2015 | CC BY 3.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM036＝git の外の目録 `src/commons/geo28.json`） |
+| `cm039` | c317 | 2015 | CC BY 3.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM039＝git の外の目録 `src/commons/geo28.json`） |
+| `cm040` | c211 | 2015 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM040＝git の外の目録 `src/commons/geo28.json`） |
+| `cm041` | c413 | 2015 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM041＝git の外の目録 `src/commons/geo28.json`） |
+| `cm044` | c410 | 2015 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM044＝git の外の目録 `src/commons/geo28.json`） |
+| `cm045` | c615 | 2015 | CC BY 3.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM045＝git の外の目録 `src/commons/geo28.json`） |
+| `cm046` | c706 | 2015 | CC BY 3.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM046＝git の外の目録 `src/commons/geo28.json`） |
+| `cm047` | c605（地 c607 c610） | 2015 | CC BY 3.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM047＝git の外の目録 `src/commons/geo28.json`） |
+| `cm048` | c611 | 2015 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM048＝git の外の目録 `src/commons/geo28.json`） |
+| `cm049` | c418 | 2015 | CC BY 3.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM049＝git の外の目録 `src/commons/geo28.json`） |
+| `cm051` | c216（地 c302 c409 c603） | 2015 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM051＝git の外の目録 `src/commons/geo28.json`） |
+| `cm052` | c421 | 2015 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM052＝git の外の目録 `src/commons/geo28.json`） |
+| `cm053` | c412（地 c414 c612） | 2015 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM053＝git の外の目録 `src/commons/geo28.json`） |
+| `cm054` | c613（地 c614） | 2015 | CC BY 3.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM054＝git の外の目録 `src/commons/geo28.json`） |
+| `cm056` | c514 | 2015 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM056＝git の外の目録 `src/commons/geo28.json`） |
+| `cm057` | c704 | 2015 | CC BY 3.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM057＝git の外の目録 `src/commons/geo28.json`） |
+| `cm058` | c217 | 2015 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM058＝git の外の目録 `src/commons/geo28.json`） |
+| `cm062` | c106 c705 | 2021 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM062＝git の外の目録 `src/commons/geo28.json`） |
+| `cm063` | c107 c406（地 c202 c203 c407 c513 c701） | 2021 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM063＝git の外の目録 `src/commons/geo28.json`） |
+| `cm064` | c212 c620（地 c215） | 2021 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM064＝git の外の目録 `src/commons/geo28.json`） |
+| `cm065` | c310 c503（地 c311 c312 c314） | 2021 | CC0（この回の土地と物・顔とナンバーに升目） | 表示は任意（CC0・PD） | Commons（記号 CM065＝git の外の目録 `src/commons/geo28.json`） |
+| `cm071` | c306 c416 | 不明 | PD（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM071＝git の外の目録 `src/commons/geo28.json`） |
+| `cm093` | c307 | 2020 | CC BY-SA 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM093＝git の外の目録 `src/commons/geo28.json`） |
+| `cm108` | c103 c422 | 2025 | CC BY 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM108＝git の外の目録 `src/commons/geo28.json`） |
+| `cm114` | （地 c507） | 2017 | PD（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM114＝git の外の目録 `src/commons/geo28.json`） |
+| `cm115` | （地 c512） | 2011 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM115＝git の外の目録 `src/commons/geo28.json`） |
+| `cm126` | c423（地 c501 c504） | 2024 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM126＝git の外の目録 `src/commons/geo28.json`） |
+| `cm129` | （地 c420） | 2015 | PD（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM129＝git の外の目録 `src/commons/geo28.json`） |
+| `egov` | c505 | 2025 | PDL1.0 か政府標準利用規約（2026-11-01 に各頁で読んだ）＝出典と編集の断り（公的な機関の頁） | 各機関（国・県） | https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000294591 |
+| `fsa` | c506 | 2026 | PDL1.0 か政府標準利用規約（2026-11-01 に各頁で読んだ）＝出典と編集の断り（公的な機関の頁） | 各機関（国・県） | https://fsa.go.jp/news/r8/sonota/20261009/20261009.html |
+| `fuk` | c509 | 2026 | PDL1.0 か政府標準利用規約（2026-11-01 に各頁で読んだ）＝出典と編集の断り（公的な機関の頁） | 各機関（国・県） | https://police.pref.fukuoka.jp/kotsu/unshi/taimuzuka-.html |
+| `kantei` | c516 | 2026 | PDL1.0 か政府標準利用規約（2026-11-01 に各頁で読んだ）＝出典と編集の断り（公的な機関の頁） | 各機関（国・県） | https://kantei.go.jp/jp/105/actions/202610/26kaigi_cyber.html |
+| `nisc` | c515 | 2026 | PDL1.0 か政府標準利用規約（2026-11-01 に各頁で読んだ）＝出典と編集の断り（公的な機関の頁） | 各機関（国・県） | https://cyber.go.jp/pdf/press/taiou.pdf |
+| `d0928` | c205 | 2026 | 引用（著作権法32条・会社の規約は私的利用だけ・引用に触れない）（引用・非公開） | パーク24 | tdnet:140120260928540919.pdf |
+| `d1023a` | c601 | 2026 | 引用（著作権法32条・会社の規約は私的利用だけ・引用に触れない）（引用・非公開） | パーク24 | tdnet:140120261023555158.pdf |
+| `d1023b` | c606 | 2026 | 引用（著作権法32条・会社の規約は私的利用だけ・引用に触れない）（引用・非公開） | パーク24 | tdnet:140120261023555076.pdf |
+| `mie` | c508 | 2026 | 引用（著作権法32条・頁に規約が見つからない）（引用・非公開） | 各機関（国・県） | https://police.pref.mie.jp/licence/licence_R8.9_saikohu.html |
+| `q1` | c201 | 2026 | 引用（著作権法32条・会社の規約は私的利用だけ・引用に触れない）（引用・非公開） | タイムズモビリティ | https://share.timescar.jp/news/2026/0925/1814.html |
+| `q2` | c102 | 2026 | 引用（著作権法32条・会社の規約は私的利用だけ・引用に触れない）（引用・非公開） | タイムズモビリティ | https://share.timescar.jp/news/2026/0928/1815.html |
+| `q3` | c206 | 2026 | 引用（著作権法32条・会社の規約は私的利用だけ・引用に触れない）（引用・非公開） | タイムズモビリティ | https://share.timescar.jp/news/2026/0929/1816.html |
+| `q4` | c404 | 2026 | 引用（著作権法32条・会社の規約は私的利用だけ・引用に触れない）（引用・非公開） | タイムズモビリティ | https://share.timescar.jp/news/2026/1016/1826.html |
+| `q5` | c301 | 2026 | 引用（著作権法32条・会社の規約は私的利用だけ・引用に触れない）（引用・非公開） | タイムズモビリティ | https://share.timescar.jp/news/2026/1023/1825.html |
+| `ppc` | c411 | 2026 | PDL1.0 か政府標準利用規約（2026-11-01 に各頁で読んだ）＝出典と編集の断り（公的な機関の頁） | 各機関（国・県） | https://ppc.go.jp/files/pdf/261007_houdou.pdf |
+
+### 2. イメージ（Pexels の映像）＝⑤b-3 で足す（clips.json）
