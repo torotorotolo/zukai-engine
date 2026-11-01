@@ -20,16 +20,21 @@
   E 同じ写真（全面・額装）を3回以上／同じ写真に別の副題／写真と紙面が 20% 未満／図の型（模式・SNS を除く）を3回以上
   ⚠️ 同じ写真を2回・2回が8カットより近い／同じ群の写真（駐車場・本社など）が3つ続く／続く図で型が同じ／写真の無い画面が5つ以上続く／
      4:3・縦長の写真を全面（切り出しが大きい）／人・ナンバーの印（⑤b で原寸）
-秒＝台本の句読点なしの字数÷365 の見込み（⑤a のあと音の実測に替える）。
+  🆕 ⑤b-1：E 映像の区間＋止めがカットの中身（扉を除いた秒）に足りない・素材の実の長さをこえる／⚠️ まだ区間を書いていない映像（要る秒つき）・等速でない・止めが区間の半分をこえる
+秒＝audio/narration.json の実測（⑤b-1 から・27本目 measured() の型）。narration.json が28本目の台本と合わないときは ÷365 の見込みのまま。
 """
+import json
 import os
 import re
+import subprocess
 import sys
 from collections import Counter, defaultdict
 
 sys.stdout.reconfigure(encoding='utf-8')
 HERE = os.path.dirname(os.path.abspath(__file__))
 EP = os.path.dirname(HERE)
+REPO = os.path.dirname(os.path.dirname(EP))
+NARR = os.path.join(REPO, 'audio', 'narration.json')
 DAIHON = os.path.join(EP, 'daihon_v2.md')
 OUT_MD = os.path.join(EP, 'eizou_list28.md')
 OUT_TSV = os.path.join(HERE, 'list28.tsv')
@@ -111,9 +116,81 @@ def read_cuts(path):
     for c in cuts:
         n = len(PUNCT.sub('', ''.join(c['lines'])))
         c['chars'], c['start'], c['sec'] = n, t, n * 60 / RATE
+        c['cont'], c['card'] = c['sec'], 0.0
         c['head'] = ''.join(c['lines'])[:22]
         t += c['sec']
     return cuts
+
+
+def measured(cuts, narr=NARR):
+    """🆕 ⑤b-1（11-01）：秒を audio/narration.json の実測に（27本目 make_list27.measured() の型）。28本目の台本と合わないときは ÷365 の見込みのまま。
+    start＝扉こみの頭・sec＝扉＋中身・cont＝扉を除いた中身（声＋LEAD＋TAIL＝映像の区間と比べる秒）。扉は check_script.door_key（28本目は INNER_CARDS なし）"""
+    if not os.path.exists(narr):
+        return '÷365 の見込み（narration.json が無い）'
+    dur = json.load(open(narr, encoding='utf-8')).get('durations', {})
+    if [c['cid'] for c in cuts] != [k for k in dur if k != 'ed01']:
+        return '÷365 の見込み（narration.json は28本目の台本と合わない）'
+    sys.path.insert(0, os.path.join(REPO, 'tools'))
+    import check_script as CSC
+    t, prev = 0.0, None
+    for c in cuts:
+        key = CSC.door_key(c['cid'], slug='ep28')
+        c['card'] = CSC.CARD_SEC if (prev is not None and key != prev) else 0.0
+        prev = key
+        c['start'] = t
+        c['cont'] = dur[c['cid']] + CSC.LEAD + CSC.TAIL
+        c['sec'] = c['cont'] + c['card']
+        t += c['sec']
+    return 'audio/narration.json の実測'
+
+
+def video_window(motion):
+    """「映像 22.7〜29.9秒（＋止め 1.0秒）（0.8倍速）」→ (22.7, 29.9, 1.0, 0.8)。区間を書いていなければ None"""
+    m = re.search(r'映像\s*([\d.]+)〜([\d.]+)秒(?:（＋止め\s*([\d.]+)秒）)?(?:（([\d.]+)倍速）)?', motion or '')
+    if not m:
+        return None
+    return float(m.group(1)), float(m.group(2)), float(m.group(3) or 0), float(m.group(4) or 1.0)
+
+
+def media_len(path):
+    """手元の素材（ref/ep28 からの道）の実の長さ（ffprobe）。道が無い・読めないなら None。置き場の欄の注は読まない（拡張子までの頭の道だけ）"""
+    m = re.match(r'[\w./\-]+\.(?:mp4|webm|mkv|mov)', path or '')
+    p = os.path.join(EP, m.group(0)) if m else ''
+    if not p or not os.path.exists(p):
+        return None
+    out = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', p], capture_output=True, text=True)
+    try:
+        return float(out.stdout.strip())
+    except ValueError:
+        return None
+
+
+def gate_video(cuts, A, S, E, W, length=media_len):
+    """🆕 ⑤b-1：映像の長さの門番（23〜27本目 ⑤b-1 の型）。動きの欄が「映像」で始まるカット（28本目はイメージ15＝Pexels）。
+    区間（秒）×速さ＋止め ≧ 扉を除いた中身（cont）か・素材の実の長さの内か。区間を書く前は ⚠️（要る秒つき）＝取ったら動きの欄に「映像 a〜b秒」と書く。
+    音は全部使わない（-an＝合成の側）。等速が基本。"""
+    for c in cuts:
+        a = A.get(c['cid'])
+        if not a or not a['motion'].startswith('映像'):
+            continue
+        cid, need, code = c['cid'], c.get('cont', c['sec']), base(a['main'])
+        vw = video_window(a['motion'])
+        if not vw:
+            W.append('%s 映像の区間が未定（%s・要る秒 %.2f）' % (cid, code, need))
+            continue
+        st, en, hold, rate = vw
+        span = (en - st) / rate
+        if span + hold + 0.005 < need:
+            E.append('%s 映像の区間 %.2f〜%.2f秒（%.2f倍速）＋止め %.2f秒＝%.2f秒が中身 %.2f秒に足りない' % (cid, st, en, rate, hold, span + hold, need))
+        if hold > span / 2:
+            W.append('%s 止め %.2f秒が区間 %.2f秒の半分をこえる' % (cid, hold, span))
+        if rate != 1.0:
+            W.append('%s 映像が等速でない（%.2f倍速）' % (cid, rate))
+        real = length(S[code]['file']) if code in S else None
+        if real is None:
+            W.append('%s 素材 %s の実の長さを測れない（手元に無い）' % (cid, code))
+        elif en > real + 0.05:
+            E.append('%s 映像の区間の尻 %.2f秒が素材 %s の実の長さ %.2f秒をこえる' % (cid, en, code, real))
 
 
 def base(code):
@@ -276,7 +353,7 @@ def fmt(t):
     return '%d:%04.1f' % (int(t // 60), t % 60)
 
 
-def build(cuts, A, S, E, W):
+def build(cuts, A, S, E, W, tnote='÷365 の見込み'):
     order = [c['cid'] for c in cuts]
     total = sum(c['sec'] for c in cuts)
     kinds = Counter(A[c]['kind'] for c in order if c in A)
@@ -298,7 +375,7 @@ def build(cuts, A, S, E, W):
     L = ['---', 'title: 28本目 場面ごとの映像・写真の一覧（生成物）', 'created: 2026-11-01', 'tags: [project/jiko-kensho, ep28]', '---', '',
          '# 28本目 場面ごとの映像・写真の一覧（%dカット・映像方針）' % len(order), '',
          '> **生成物＝手で直さない**。作り方＝`python -P ref/ep28/eizou_build/make_list28.py`（入力＝台本 第2版 `daihon_v2.md` §4・当て方 `eizou_build/assign28.psv`・出どころ `eizou_build/sources28.psv`・決め `eizou_build/decisions28.md`）。直すのは入力。',
-         '> 秒＝台本の句読点なしの字数÷365 の見込み（⑤a のあと音の実測に替える）。🔧＝台本の画の欄から替えたカット（⑤b はこの一覧に従う・台本は直さない）。色味は原本（10-07）・写真は画面いっぱい（10-11）・全面にできない点（4:3・縦長の BY-SA と引用・頁）は**高さいっぱいの額＋地は同じ絵のぼかし**（10-30）・額装はどれも静止（10-26）。説明カットの地＝CC BY・CC0・PD の写真を暗くするだけ・静止（§5b-117）。見た画像の記録＝`src/seen_log.tsv`（映像方針の印）。🔴 撮影者の名前はここに書かない（`{作者}`＝git の外の `src/credits_private.tsv` から ⑤b で差し込む）。',
+         '> 秒＝' + tnote + '（扉こみの頭・扉を除いた中身と扉を足した秒）。🔧＝台本の画の欄から替えたカット（⑤b はこの一覧に従う・台本は直さない）。色味は原本（10-07）・写真は画面いっぱい（10-11）・全面にできない点（4:3・縦長の BY-SA と引用・頁）は**高さいっぱいの額＋地は同じ絵のぼかし**（10-30）・額装はどれも静止（10-26）。説明カットの地＝CC BY・CC0・PD の写真を暗くするだけ・静止（§5b-117）。見た画像の記録＝`src/seen_log.tsv`（映像方針の印）。🔴 撮影者の名前はここに書かない（`{作者}`＝git の外の `src/credits_private.tsv` から ⑤b で差し込む）。',
          '', '## §0 数', '', '| 物差し | 値 | 決まり |', '|---|---|---|',
          '| この事件の写真と紙面（Commons の実写＋会社の頁の引用＋公的な機関の頁） | **%d カット＝%.1f%%**（実写 %d・引用 %d・公的 %d・秒 %.0f＝%.1f%%） | 20%%以上 ✅ |' % (
              n_cnt, 100.0 * n_cnt / len(order), kinds['実写'], kinds['引用'], kinds['公的'], sec_cnt, 100.0 * sec_cnt / total),
@@ -309,7 +386,7 @@ def build(cuts, A, S, E, W):
          '| 写真の動き | %s | 額装と引用・頁は動かさない・全面は寄る／流す |' % '・'.join('%s %d' % kv for kv in motions.most_common()),
          '| 🔧 台本の画の欄から替えたカット | %d | 台本は直さない＝⑤b はこの一覧に従う |' % fixed,
          '| 種類 | %s | — |' % '・'.join('%s %d' % kv for kv in kinds.most_common()),
-         '| 合計 | %d カット・%s（÷365） | — |' % (len(order), fmt(total)), '',
+         '| 合計 | %d カット・%s（%s・ed01 を除く） | — |' % (len(order), fmt(total), tnote.split('（')[0]), '',
          '### 写真の使い回し（全面・額装で2回以上＝地は数えない）', '']
     rep = [(k, v) for k, v in use.items() if len(v) >= 2]
     L += ['- %s（%s）＝%s' % (k, S[k]['title'] if k in S else '?', ' '.join(v)) for k, v in sorted(rep)] or ['- なし']
@@ -349,12 +426,14 @@ def build(cuts, A, S, E, W):
         L += [ln.rstrip('\n') for ln in open(DECIDE, encoding='utf-8')]
     open(OUT_MD, 'w', encoding='utf-8', newline='\n').write('\n'.join(L) + '\n')
     with open(OUT_TSV, 'w', encoding='utf-8', newline='\n') as f:
-        f.write('cid\tchap\tstart\tsec\tkind\tmain\tji\tframe\tsub\tmotion\tfixed\n')
+        # 🆕 ⑤b-1：mark・card・cont を足した（門番 check_ground._sns_cuts が mark＝SNS のカットを読む＝列が無いと止まる・27本目の list27.tsv と同じ名）
+        f.write('cid\tchap\tstart\tsec\tkind\tmain\tji\tframe\tsub\tmotion\tfixed\tmark\tcard\tcont\n')
         for c in cuts:
             a = A.get(c['cid'], {})
-            f.write('%s\t%s\t%.1f\t%.1f\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' % (
+            f.write('%s\t%s\t%.2f\t%.2f\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%.2f\t%.2f\n' % (
                 c['cid'], c['chap'], c['start'], c['sec'], a.get('kind', ''), a.get('main', ''), a.get('ji', ''), a.get('frame', ''),
-                a.get('sub', ''), a.get('motion', ''), '🔧' if a.get('ga_new', '').startswith('🔧') else ''))
+                a.get('sub', ''), a.get('motion', ''), '🔧' if a.get('ga_new', '').startswith('🔧') else '',
+                'SNS' if a.get('kind') == 'SNS' else a.get('mark', ''), c.get('card', 0.0), c.get('cont', c['sec'])))
     return n_cnt, len(order)
 
 
@@ -412,7 +491,27 @@ def selftest():
             good = any(want in e for e in E)
         bad += 0 if good else 1
         print('%s %s → E %d%s' % ('OK' if good else 'NG', name, len(E), ('（' + E[0][:50] + '）') if E and not good else ''))
-    print('SELFTEST %s（%d 件）' % ('PASS' if not bad else 'FAIL', len(cases)))
+    # 🆕 ⑤b-1：映像の長さの門番（中身 10.00秒・素材の実の長さ 12秒）
+    S_v = {'X1': dict(S['X1'], file='stock/x1.mp4')}
+    cuts_v = [dict(cid='c301', cont=10.0, sec=12.0)]
+
+    def run_v(motion, length=lambda p: 12.0):
+        E_, W_ = [], []
+        gate_video(cuts_v, {'c301': dict(zip(KEYS, ['c301', 'イメージ', 'X1', '', '全面', 'イメージ：通路', motion, '', '', '', '']))}, S_v, E_, W_, length)
+        return E_, W_
+    vcases = [('陰性：区間が中身に足りる', '映像 1.0〜11.0秒', None, None),
+              ('陽性：区間が中身に足りない', '映像 1.0〜10.5秒', '足りない', None),
+              ('陰性：止めで足りる', '映像 1.0〜10.5秒（＋止め 0.5秒）', None, None),
+              ('陽性：素材の実の長さをこえる', '映像 3.0〜13.0秒', '実の長さ', None),
+              ('陽性：区間が未定＝⚠️（要る秒つき）', '映像', None, '要る秒 10.00'),
+              ('陽性：等速でない＝⚠️', '映像 1.0〜9.0秒（0.8倍速）', None, '等速でない'),
+              ('陽性：止めが区間の半分をこえる＝⚠️', '映像 1.0〜7.0秒（＋止め 4.0秒）', None, '半分をこえる')]
+    for name, motion, want_e, want_w in vcases:
+        E_, W_ = run_v(motion)
+        good = (any(want_e in e for e in E_) if want_e else not E_) and (not want_w or any(want_w in w for w in W_))
+        bad += 0 if good else 1
+        print('%s %s → E %d・⚠️ %d' % ('OK' if good else 'NG', name, len(E_), len(W_)))
+    print('SELFTEST %s（%d 件）' % ('PASS' if not bad else 'FAIL', len(cases) + len(vcases)))
     return 1 if bad else 0
 
 
@@ -420,13 +519,17 @@ def main():
     if '--selftest' in sys.argv:
         return selftest()
     cuts = read_cuts(DAIHON)
+    tnote = measured(cuts)
     arows, abad = load_psv(ASSIGN, KEYS)
     srows, sbad = load_psv(SOURCES, SKEYS)
     A = {r['cid']: r for r in arows}
     S = {r['code']: r for r in srows}
     E, W = gates(cuts, A, S, names())
     E = abad + sbad + E
-    n_cnt, n = build(cuts, A, S, E, W)
+    gate_video(cuts, A, S, E, W)
+    n_cnt, n = build(cuts, A, S, E, W, tnote)
+    print('秒＝%s・c103 の終わり %.1f・c107 の終わり %.1f・合計 %s' % (
+        tnote, sum(c['sec'] for c in cuts if c['cid'] <= 'c103'), sum(c['sec'] for c in cuts if c['cid'] <= 'c107'), fmt(sum(c['sec'] for c in cuts))))
     print('カット %d・写真と紙面 %d（%.1f%%）・E %d・⚠️ %d → %s' % (n, n_cnt, 100.0 * n_cnt / max(n, 1), len(E), len(W), OUT_MD))
     for x in E:
         print('E', x)

@@ -181,6 +181,18 @@
   🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep27）。
   26本目の型の値（ss.py の後半・門番の記録の表 REC_M26・REC_K26・K26_CUTS）は selftest の見本 `tools/fixture_ep26.py` へ移した。
   検算：⑤b-1 の終わりは `len(PLAN)` が **107**・`len(SPEC)` は ed01（と字幕の試しのカット）だけ。書き終えたら **108**。
+
+■ 🔴🔴 2026-11-01（28本目 タイムズカー情報漏えい ⑤b-1）：**28本目へ差し替え。**
+  27本目の章ファイル（c1〜c7）は git の `b62a7f94` にある。28本目も **7の区切り**（つかみ c101〜c107＝c1＋台本の第1〜6章＝
+  c2〜c7＝c101〜c706 の106カット）＋共通の末尾 `ed01`＝`CHAPTER_FILES` は27本目のまま。pr と ep のカットは無い。
+  つかみ c1 は章の印なし・扉は c201〜c701 の頭の6枚（`check_script.door_key`＝28本目は INNER_CARDS なし）。
+  PLAN＝`ref/ep28/make_plan28.py` が映像方針の一覧（`ref/ep28/eizou_build/make_list28.py`＝了承②ずみ・E 0・秒は narration.json の実測・扉6枚）と
+  台本 第2版 §4 の**出典の欄だけ**から機械で組んだ（🔴 台本の画の欄は写さない）＝写真57（実写42＝Commons の写真・引用8＝会社の頁と適時開示・公的7＝公的な機関の頁）・
+  フリー素材15（Pexels の映像＝未取得）・図解34（模式8・SNS のカード3 ほか・地はすべて CC BY・CC0・PD の写真を暗くするだけ）・🔧65。文字だけ0・決め所0・再現イラスト0・地図0（ss.SAT_NONE）。
+  🔴 会社の事件の回（ルール §B2-11）＝会員・SNS の投稿者・役員・弁護士の名前は書かない・攻撃した者は「第三者」「攻撃した者」・会社を犯人と言わない。
+  🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep28）。
+  27本目の型の値（ss.py の後半・門番の記録の表 REC_M27・REC_SAT_NUM）は selftest の見本 `tools/fixture_ep27.py` へ移した。
+  検算：⑤b-1 の終わりは `len(PLAN)` が **106**・`len(SPEC)` は ed01（と字幕の試しのカット）だけ。書き終えたら **107**。
 """
 import importlib
 import sys
