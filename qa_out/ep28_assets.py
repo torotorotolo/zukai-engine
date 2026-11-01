@@ -23,10 +23,13 @@ git の外の作者の表 `src/credits_private.tsv`〈列 code・作者〉）に
 """
 import csv
 import hashlib
+import io
 import json
 import re
+import subprocess
 import sys
 import unicodedata
+import urllib.request
 from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8")
@@ -43,6 +46,11 @@ NAME_FILES = (SRC / "names_private.txt", SRC / "names_commons.txt")   # 🔴 git
 DB = EPD / "assets.json"
 CREDITS_JSON = EPD / "credits.json"
 CREDITS_MD = HERE / "ref" / "CREDITS.md"
+CLIPS = EPD / "clips.json"
+SHOTS = EPD / "shots.json"
+FOOTAGE = HERE / "tools" / "footage.py"
+STILL_BELOW = 0.6            # rate がこれを下回る欄は動画にせず止め絵（footage.py の注）
+UA = "zukai-engine/1.0 (accident-documentary research; https://github.com/torotorotolo/zukai-engine)"
 SCRATCH = HERE / "out" / "ep28_look"          # look・crop の出力（out/ は git の外）
 # 🔴 見出しは `check_credits.SECTION` と1字も違わない行（門番は**この回の節の中だけ**で表を探す＝§5b-82②・0b-34④）
 CREDITS_HEAD = "## タイムズカー情報漏えい（2026-09-25・28本目）"
@@ -686,6 +694,11 @@ def cmd_credits(write=False):
     if not write:
         return 0
     CREDITS_JSON.write_text(json.dumps(cj, ensure_ascii=False, indent=1), encoding="utf-8")
+    film_rows = []
+    if CLIPS.exists():
+        films = _film_codes()
+        for k, v in json.loads(CLIPS.read_text(encoding="utf-8")).items():
+            film_rows.append(f"| `{k}` | {' '.join(films.get(k, []))} | {v['credit']} | {v['license']} | {v['url']} | {v['got']} |")
     md = CREDITS_MD.read_text(encoding="utf-8")
     block = "\n".join([
         CREDITS_HEAD, "",
@@ -707,7 +720,12 @@ def cmd_credits(write=False):
         "",
         "| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |",
         "|---|---|---|---|---|---|", *rows, "",
-        "### 2. イメージ（Pexels の映像）＝⑤b-3 で足す（clips.json）",
+        "### 2. イメージ（Pexels の映像）＝clips.json",
+        "- フリー素材（Pexels・生成AI は使わない）＝画面の左上に「イメージ」・出典の行は「イメージ（Pexels）」だけ（クレジットは任意＝投稿者の名前は書かない・概要欄にも書かない）。"
+        "20% に数えない。🔴 映像そのものもひかえの静止画も git に入れない（19本目 決め⑨）",
+        "",
+        "| 記号 | 使うカット | 画面の出典 | ライセンス | 頁 | 取った日 |",
+        "|---|---|---|---|---|---|", *film_rows,
         ""])
     if CREDITS_HEAD in md:
         pre, rest = md.split(CREDITS_HEAD, 1)
@@ -720,9 +738,240 @@ def cmd_credits(write=False):
     return 0
 
 
+# ── 🆕 ⑤b-3（11-02）：イメージ（Pexels の映像）＝台帳 clips.json・ショット shots.json・見取り図・USE・ひかえ（26本目の型）──────────
+def _film_codes():
+    """映像の記号 → 使うカット（一覧の順）"""
+    src = _sources()
+    out = {}
+    for r in _list():
+        code = _code_of(r["main"])
+        if src.get(code, {}).get("type") in STOCK_TYPES:
+            out.setdefault(code, []).append(r["cid"])
+    return out
+
+
+def _probe(p):
+    r = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
+                        "stream=width,height,r_frame_rate,sample_aspect_ratio:format=duration", "-of", "json", str(p)],
+                       capture_output=True, text=True, timeout=120)
+    if r.returncode:
+        raise SystemExit(f"🔴 ffprobe が読めない：{p}（{r.stderr[-200:]}）")
+    j = json.loads(r.stdout)
+    st = j["streams"][0]
+    a, b = st["r_frame_rate"].split("/")
+    return dict(w=int(st["width"]), h=int(st["height"]), fps=round(int(a) / int(b), 3),
+                sar=st.get("sample_aspect_ratio") or "1:1", sec=float(j["format"]["duration"]))
+
+
+def _head(u):
+    req = urllib.request.Request(u, method="HEAD", headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return r.status, int(r.headers.get("Content-Length") or 0), r.headers.get("Content-Type") or ""
+
+
+def _stock_page(code, s):
+    """頁の URL＝sources28 の basis の頭（13列のまま＝get は直リンクが持つ）"""
+    m = re.match(r"https://www\.pexels\.com/video/\S+?/(?=[（ ]|$)", s["basis"])
+    if not m:
+        raise SystemExit(f"🔴 {code}: basis の頭に Pexels の頁の URL が無い（{s['basis'][:60]}）")
+    return m.group(0)
+
+
+def cmd_clips():
+    """clips.json＝イメージ（Pexels）。手元の映像の md5 を取得の記録（fetch28.tsv）と照らし、記録の直リンクを HEAD で引いて大きさが手元と同じか見る"""
+    src, fet = _sources(), _fetched()
+    out = {}
+    for code, cuts in _film_codes().items():
+        s = src[code]
+        p = EPD / s["file"]
+        r = fet.get(code) or {}
+        rec = r.get("出どころ") or ""
+        if not p.exists() or not r or md5(p) != r["md5"] or not rec.startswith("stock:http") or rec != s["get"]:
+            raise SystemExit(f"🔴 {code}: 手元の映像が無いか、md5 か直リンクが取得のときと違う（{s['file']}）＝fetch28.py stock で取る")
+        size, media = p.stat().st_size, rec[6:]
+        try:
+            st, n, ct = _head(media)
+        except Exception as e:                               # noqa: BLE001
+            raise SystemExit(f"🔴 {code}: 記録の直リンクを引けない（{media}・{e}）")
+        if st != 200 or n != size or not ct.startswith("video/"):
+            raise SystemExit(f"🔴 {code}: 記録の直リンクが手元と違う（http {st}・{n} B／手元 {size} B・{ct}）")
+        loc = _probe(p)
+        out[code] = dict(url=_stock_page(code, s), media=media, stock=True, file=f"ep28/{s['file']}", credit="イメージ（Pexels）", src="stock",
+                         at=0.0, what=s["title"][:60], got=r["取った日"], w=loc["w"], h=loc["h"], fps=loc["fps"], sar=loc["sar"], sec=round(loc["sec"], 3),
+                         size=size, md5=r["md5"], dispw=loc["w"], decoded=[loc["w"], loc["h"]], license="Pexels License",
+                         license_url="https://www.pexels.com/license/", site="Pexels")
+        print(f"  {code:5} {loc['w']}x{loc['h']} {loc['fps']}fps {loc['sec']:7.2f}秒 {size / 1e6:.1f}MB  {' '.join(cuts)}  HEAD {st}")
+    CLIPS.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"→ ref/ep28/clips.json（{len(out)}本）")
+    return 0
+
+
+# フリー素材で、動きの速い素材の隣の1秒の差がしきい値を超えて出た「境目」を、根拠つきで1ショットに直す（25・26本目 SHOT_ONE の型）
+#   根拠＝境目の前後の全コマの隣の差に、1コマに集まる跳ねが無い（切り替わりなら1コマに集まる）。⚠️ 記号は素材を替えても同じ＝替えたら測り直す
+#   ⑤b-3（11-02）に 10コマ/秒の隣の差を測った（scratchpad clip_probe.py）・コマを並べて同じカメラの1回の撮影と見た（動きの速い手・足で 1秒の差が超えた）
+SHOT_ONE = {
+    "X214": "同じ構図の手元の撮影・差の山 28.2（15.5秒）27.6（2.3秒）はどちらも区間 3.00〜11.70 の外",
+    "X313": "同じ構図の手元の撮影・差の山 21.7（3.3秒）16.6（11.1秒）はどちらも区間 11.50〜18.10 の外",
+    "X510": "固定のカメラの前を足が横切る撮影・差の山 60.6（9.7秒）55.1（8.4秒）は手前を足が通る＝前後のコマの路面は同じ",
+    "X609": "同じ部屋を横へ流す1回の撮影・隣の差の最大 16.0（3.4秒）は 2.8〜3.4秒に続く＝動きで、1コマの跳ねでない（中央値 5.21）",
+    "X703": "同じ手持ちの撮影・隣の差の最大 4.0（中央値 1.98）＝切り替わりの跳ねが無い",
+}
+
+
+def cmd_shots():
+    """shots.json＝tools/shots.shots_of（1秒1コマ）"""
+    sys.path.insert(0, str(HERE / "tools"))
+    import shots as SH
+    src = _sources()
+    out = {}
+    for code in _film_codes():
+        s = src[code]
+        p = EPD / s["file"]
+        if not p.exists():
+            print(f"  ⚠️ {code}: 手元に無い")
+            continue
+        sh, dur = SH.shots_of(p)
+        how = "1秒1コマで tools/shots.shots_of（28本目・フリー素材）"
+        if code in SHOT_ONE:
+            sh = [dict(start=0.0, until=float(sh[-1]["until"]), motion=max(x["motion"] for x in sh))]
+            how += f"・🔧 1ショットに直した（{SHOT_ONE[code]}）"
+        out[code] = dict(src=_stock_page(code, s), scan=f"ref/ep28/{s['file']}", dur=round(dur, 1), how=how, shots=sh)
+        print(f"  {code:5} {dur:6.1f}秒  ショット {len(sh)}：" + " ".join(f"{x['start']:g}〜{x['until']:g}" for x in sh))
+    SHOTS.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"→ ref/ep28/shots.json（{len(out)}本）")
+    return 0
+
+
+def cmd_frames(code, step=1.0, width=384, cols=5):
+    """映像の step 秒ごとのコマを並べた見取り図（秒の札つき）＝区間を選ぶとき（out/ep28_look/frames_<記号>.jpg）"""
+    from PIL import Image, ImageDraw
+    p = EPD / _sources()[code]["file"]
+    loc = _probe(p)
+    hh = round(width * loc["h"] / loc["w"])
+    r = subprocess.run(["ffmpeg", "-v", "error", "-i", str(p), "-vf", f"fps=1/{step},scale={width}:{hh}", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"],
+                       capture_output=True, timeout=600)
+    n = len(r.stdout) // (width * hh * 3)
+    rows = (n + cols - 1) // cols
+    sheet = Image.new("RGB", (cols * width + (cols - 1) * 4, rows * hh + (rows - 1) * 4), (30, 30, 30))
+    for i in range(n):
+        im = Image.frombytes("RGB", (width, hh), r.stdout[i * width * hh * 3:(i + 1) * width * hh * 3])
+        d = ImageDraw.Draw(im)
+        d.rectangle((0, 0, 70, 20), fill=(0, 0, 0))
+        d.text((4, 4), f"{i * step + step / 2:5.1f}s", fill=(255, 255, 0))
+        sheet.paste(im, ((i % cols) * (width + 4), (i // cols) * (hh + 4)))
+    SCRATCH.mkdir(parents=True, exist_ok=True)
+    out = SCRATCH / f"frames_{code}.jpg"
+    sheet.save(out, quality=88)
+    print(f"→ {out}（{n}コマ・{sheet.size[0]}x{sheet.size[1]}・{loc['sec']:.2f}秒）")
+    return 0
+
+
+def _write_block(tag, lines):
+    txt = FOOTAGE.read_bytes().decode("utf-8")
+    nl = "\r\n" if "\r\n" in txt else "\n"              # 🔴 25本目 ⑤b-1 の落とし穴＝改行を見分ける
+    m = re.search(rf"(    # {tag}>>> ここから[^\n]*\n)(.*?)(    # {tag}>>> ここまで)", txt, re.S)
+    if not m:
+        raise SystemExit(f"🔴 footage.py に {tag} の目印が無い")
+    FOOTAGE.write_bytes((txt[:m.start(2)] + "".join(x + nl for x in lines) + txt[m.end(2):]).encode("utf-8"))
+
+
+# 寄せ（footage.USE の zoom・bias・xbias）＝写したくない物を窓の外へ（🔴 区間は一覧 list28.tsv の動きの欄「映像 a〜b秒」から読む＝手で写さない）
+STOCK_GEOM = {
+    "c309": dict(zoom=1.12, bias=1.0, xbias=0.5),      # 奥の看板の字（5秒すぎ・上の約1割）を窓の外へ
+    "c419": dict(zoom=1.2, bias=1.0, xbias=0.2),       # 右上の頭の一部（上の約2割・右の約2割）を窓の外へ
+    "c502": dict(zoom=1.3, bias=1.0, xbias=1.0),       # 左上の顔と髪（左の約2割・上の約4割）を窓の外へ
+}
+
+
+def cmd_use(only=None, all_=False):
+    """footage.USE の28本目の欄。区間と速さは一覧 list28.tsv の動きの欄「映像 a〜b秒（＋止め n秒）（r倍速）」から読む（make_list28 の門番 gate_video と同じ物差し）。
+    区間は1つのショットに収める。🔴 章ファイルに `ss.vid` を書いたカットだけ（`only` は書く前の鶏と卵を割るため）"""
+    sys.path.insert(0, str(HERE / "tools"))
+    sys.path.insert(0, str(BUILD))
+    import make_list28 as ML
+    if only:
+        spec = {}
+    else:
+        import scene_jiko as S
+        spec = S.SPEC
+    sd = json.loads(SHOTS.read_text(encoding="utf-8"))
+    lines, skip = [], []
+    films = _film_codes()
+    for r in _list():
+        code = _code_of(r["main"])
+        if code not in films:
+            continue
+        cid = r["cid"]
+        wrote = str((spec.get(cid) or {}).get("photo") or "").endswith(f"fb_{cid}.jpg")
+        if not (all_ or wrote or (only and cid in only)):
+            skip.append(cid)
+            continue
+        vw = ML.video_window(r["motion"])
+        if not vw:
+            raise SystemExit(f"🔴 {cid}: 一覧の動きの欄に区間「映像 a〜b秒」が無い（{r['motion']}）")
+        a, b, hold, rate = vw
+        if hold:
+            raise SystemExit(f"🔴 {cid}: イメージの映像に止めを書かない（{r['motion']}）")
+        need = float(r["cont"])
+        hit = [x for x in sd[code]["shots"] if x["start"] <= a < x["until"]]
+        if len(hit) != 1 or b > hit[0]["until"] + 1e-6:
+            raise SystemExit(f"🔴 {cid}: 区間 {a}〜{b} が1つのショットに収まらない（{[(x['start'], x['until']) for x in hit]}）")
+        if rate < STILL_BELOW:
+            raise SystemExit(f"🔴 {cid}: 倍速 {rate}＜{STILL_BELOW}（止め絵になる）")
+        sh = hit[0]
+        geo = "".join(f", {k}={v}" for k, v in STOCK_GEOM.get(cid, {}).items())
+        lines.append(f'    "{cid}": dict(clip="{code}", start={a:.2f}, until={b:.2f}, rate={rate}{geo}),   '
+                     f'# ショット {sh["start"]:g}〜{sh["until"]:g}秒・使う {b - a:.2f}秒／要る {need:.2f}秒')
+    _write_block("EP28_USE", lines)
+    print(f"→ tools/footage.py USE {len(lines)}欄")
+    for x in lines:
+        print(x.strip())
+    if skip:
+        print(f"・章ファイルにまだ映像を書いていない：{' '.join(skip)}")
+    return 0
+
+
+def cmd_fb(only=None):
+    """ひかえの静止画（映像のコマが切り出せなかったときだけ出る絵）＝区間の頭のコマを 1920×1080 に（寄せは USE と同じ式）＝`ref/ep28/stock/fb_<cid>.jpg`（🔴 git に入れない＝決め⑨）"""
+    sys.path.insert(0, str(HERE / "tools"))
+    import footage as FO
+    from PIL import Image
+    bad = 0
+    (EPD / "stock").mkdir(exist_ok=True)
+    for cid, u in FO.USE.items():
+        if only and cid not in only:
+            continue
+        c = FO.CLIPS.get(u["clip"]) or {}
+        if not c.get("stock"):
+            continue
+        p = HERE / "ref" / c["file"]
+        raw = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{float(u['start']):.3f}", "-i", str(p), "-frames:v", "1",
+                              "-f", "image2pipe", "-vcodec", "png", "-"], capture_output=True).stdout
+        if not raw:
+            print(f"🔴 {cid}: コマが取れない")
+            bad += 1
+            continue
+        im = Image.open(io.BytesIO(raw)).convert("RGB")
+        sw, sh_ = im.size
+        z = max(1920 / sw, 1080 / sh_) * float(u.get("zoom", 1.0))
+        cw, ch = min(sw, 1920 / z), min(sh_, 1080 / z)
+        lft, top = (sw - cw) * float(u.get("xbias", 0.5)), (sh_ - ch) * float(u.get("bias", 0.5))
+        im = im.crop((round(lft), round(top), round(lft + cw), round(top + ch))).resize((1920, 1080), Image.LANCZOS)
+        dst = EPD / "stock" / f"fb_{cid}.jpg"
+        im.save(dst, quality=92)
+        print(f"✓ {cid:5} {u['clip']:5} {float(u['start']):6.2f}秒 {sw}x{sh_} → {dst.relative_to(HERE).as_posix()}")
+    return 1 if bad else 0
+
+
 if __name__ == "__main__":
     a = sys.argv[1:]
-    cmds = {"build": cmd_build, "panel": cmd_panel, "edges": cmd_edges}
+    cmds = {"build": cmd_build, "panel": cmd_panel, "edges": cmd_edges, "clips": cmd_clips, "shots": cmd_shots}
+    if a and a[0] == "fb":
+        sys.exit(cmd_fb(set(a[1:]) or None))
+    if a and a[0] == "use":
+        sys.exit(cmd_use(set(x for x in a[1:] if not x.startswith("--")) or None, "--all" in a))
+    if a and a[0] == "frames":
+        sys.exit(cmd_frames(a[1], float(a[2]) if len(a) > 2 else 1.0))
     if a and a[0] == "credits":
         sys.exit(cmd_credits("--write" in a))
     if a and a[0] == "pdflines":

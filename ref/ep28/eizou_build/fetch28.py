@@ -4,7 +4,8 @@
   python -P ref/ep28/eizou_build/fetch28.py look CM008 CM009 ...           → Commons の標準の縮小版（幅960）を src/look_eizou/ へ（見本帳用）
   python -P ref/ep28/eizou_build/fetch28.py look1920 CM063                 → 同じく幅1920（地の暗さの見本用）
   python -P ref/ep28/eizou_build/fetch28.py final CM008 ...                → 本番＝幅1920（画像が1920以下なら原本）を src/eizou/ へ（了承②のあと）
-  （Pexels の lookpx・finalpx は27本目のまま残す＝28本目のフリー素材は ⑤b で1本ずつ探す）
+  python -P ref/ep28/eizou_build/fetch28.py stock [記号…]                  → 🆕 ⑤b-3：Pexels の映像（get＝stock:<直リンク>）を src/eizou/<記号>.mp4 へ
+  （Pexels の lookpx・finalpx は27本目のまま残す＝写真の道・28本目のフリー素材は ⑤b-3 で映像を1本ずつ探した）
 
 作法（記憶 reference-commons-standard-thumbnail-sizes）：Commons は原本をまとめて取ると 429 → 標準の大きさ（960・1280・1920・3840）の縮小版だけ・5秒あけ・429 は120秒以上待つ。
 縮小版の URL は原本の URL から組む（API の thumburl は画像が小さいと原本に化ける）。落としかけを測らない＝md5 を2回（取った直後と読み直し）。
@@ -65,8 +66,54 @@ def log(row):
         f.write('\t'.join(str(x) for x in row) + '\n')
 
 
+def stock(only=None):
+    """🆕 ⑤b-3（11-02）：Pexels の映像（sources28 の get＝stock:<置き場の直リンク>・了承②）＝幅1920の版を src/eizou/<記号>.mp4 へ。
+    HEAD で大きさ → 流しながら GET（丸ごとメモリに載せない）→ 長さの照合 → md5 を2回 → fetch28.tsv の 出どころ＝`stock:<直リンク>`
+    （ep28_assets.py clips がこの URL を HEAD で照らす）。⚠️ 記号は素材を替えても同じ＝記録の直リンクと違えば取り直す（記録は足すだけ・最後の行が効く）"""
+    rows = [ln.rstrip('\n') for ln in open(os.path.join(HERE, 'sources28.psv'), encoding='utf-8') if ln.strip() and not ln.startswith('#')]
+    head = rows[0].split('|')
+    done = {}
+    with open(LOG, encoding='utf-8') as f:
+        for ln in f:
+            c = ln.rstrip('\n').split('\t')
+            if len(c) >= 8 and c[2] == 'stock':
+                done[c[1]] = c[7]
+    bad = 0
+    for r in rows[1:]:
+        d = dict(zip(head, r.split('|')))
+        if d['type'] != 'stock' or not d['get'].startswith('stock:http') or done.get(d['code']) == d['get'] or (only and d['code'] not in only):
+            continue
+        url = d['get'][6:]
+        path = os.path.join(EP, d['file'])
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, method='HEAD', headers=UA), timeout=60) as h:
+                want, ct = int(h.headers.get('Content-Length') or 0), h.headers.get('Content-Type') or ''
+            if not ct.startswith('video/') or not want:
+                raise RuntimeError('HEAD が映像でない（%s・%d B）' % (ct, want))
+            n = 0
+            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=300) as g, open(path, 'wb') as f:
+                for b in iter(lambda: g.read(1 << 20), b''):
+                    f.write(b)
+                    n += len(b)
+            if n != want or os.path.getsize(path) != want:
+                raise RuntimeError('大きさが HEAD と違う（%d / %d）' % (os.path.getsize(path), want))
+            m1, m2 = md5(path), md5(path)
+            log([datetime.date.today().isoformat(), d['code'], 'stock', n, m1, m2, d['file'], 'stock:' + url])
+            print('%s %.1fMB md5 %s %s' % (d['code'], n / 1e6, m1[:8], 'md5x2一致' if m1 == m2 else '🔴md5不一致'), flush=True)
+            bad += m1 != m2
+        except Exception as e:      # noqa: BLE001
+            bad += 1
+            print('%s ✗ %s' % (d['code'], e), flush=True)
+        time.sleep(3)
+    print('おわり＝失敗 %d' % bad)
+    return 1 if bad else 0
+
+
 def main():
     mode, items = sys.argv[1], sys.argv[2:]
+    if mode == 'stock':
+        return stock(set(items) or None)
     geo = json.load(open(GEO, encoding='utf-8')) if os.path.exists(GEO) else {}
     outdir = os.path.join(EP, 'src', 'eizou' if mode.startswith('final') else 'look_eizou')
     os.makedirs(outdir, exist_ok=True)

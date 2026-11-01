@@ -2107,7 +2107,9 @@ def full_top(cid, spec):
     else:
         g.append(J.title(spec["t"], spec.get("s", "")))
     ch = chapter_of(cid)
-    if ch:
+    # 🆕 28本目 ⑤b-3（2026-11-02）：高さいっぱいの額（ptall＝上の端 24px〜）は右上の章の札（x1378〜・y56〜158）と重なる＝額の中に字が入る
+    #    （BY-SA・引用は「無加工」・写真に字を重ねない）＝札を出さない。27本目は章の札の無いつかみだけで使っていた（門番 check_box が初めて鳴った）
+    if ch and not spec.get("ptall"):
         g.append(J.chapter(ch[0], NCH, ch[1]))
     # 🔴 出典の置き場所。全画面写真は写真の上（y=872）でよいが、
     #    額装は写真の外に地が見えているので、**図解カットと同じ右上**へ置く。

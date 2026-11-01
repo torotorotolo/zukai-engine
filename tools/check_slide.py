@@ -91,6 +91,9 @@ def ocr_json():
 
 
 OCR_JSON = ocr_json()
+# 🆕 2026-11-02（28本目 ⑤b-3）：公開リポに置かない点（`ref/<回>/police/`＝会社の頁・県警の素材）の読み置きは git の外へ分ける
+#    ＝頁の字を公開リポに増やさない。回のフォルダの読み置きに police/ の点が混ざっていたら load_ocr が止める
+OCR_PRIVATE = OCR_JSON.parent / "police" / "ocr_slides.json"
 W, H = 1920, 1080
 BAND_TOP = 210          # 見出し帯の下端（jiko_style.BAND_T）
 BAND_BOT = 900          # 字幕帯の上端（ルール §6）
@@ -334,6 +337,12 @@ def load_ocr():
     if not OCR_JSON.exists():
         raise SystemExit(f"🔴 {OCR_JSON.name} が無い。先に `python tools/check_slide.py --ocr`")
     data = json.loads(OCR_JSON.read_text(encoding="utf-8"))
+    pdir = OCR_PRIVATE.parent
+    mixed = sorted(n for n in data if (pdir / n).exists() and not (OCR_JSON.parent / n).exists())
+    if mixed:
+        raise SystemExit(f"🔴 公開リポの読み置き {OCR_JSON.name} に police/ の点が入っている（{' '.join(mixed)}）。`python tools/check_slide.py --ocr` で分け直す")
+    if OCR_PRIVATE.exists():
+        data.update(json.loads(OCR_PRIVATE.read_text(encoding="utf-8")))
     _DROPPED.clear()
     for name, v in data.items():
         # 🔴 2026-10-02（16本目 ⑤c'）：落とす前の全行も持つ＝G-09（写し）だけはこちらと比べる。標識・看板の大きな字は行の高さが
@@ -1452,7 +1461,12 @@ if __name__ == "__main__":
         files = sorted({HERE / "ref" / p for p in _po.values()})
         files = [f for f in files if f.exists()]
         data = run_ocr(files)
-        OCR_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=1),
+        private = {f.name for f in files if f.parent == OCR_PRIVATE.parent}
+        if private:
+            OCR_PRIVATE.write_text(json.dumps({k: v for k, v in data.items() if k in private}, ensure_ascii=False, indent=1),
+                                   encoding="utf-8")
+            print(f"✓ 公開リポに置かない点 {len(private)} ファイル → {OCR_PRIVATE.relative_to(HERE)}（git の外）")
+        OCR_JSON.write_text(json.dumps({k: v for k, v in data.items() if k not in private}, ensure_ascii=False, indent=1),
                             encoding="utf-8")
         n = sum(len(v["lines"]) for v in data.values())
         print(f"✓ OCR {len(data)} ファイル・{n} 行 → {OCR_JSON.relative_to(HERE)}")

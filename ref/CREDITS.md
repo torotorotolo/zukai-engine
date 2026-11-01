@@ -3344,4 +3344,23 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `q5` | c301 | 2026 | 引用（著作権法32条・会社の規約は私的利用だけ・引用に触れない）（引用・非公開） | タイムズモビリティ | https://share.timescar.jp/news/2026/1023/1825.html |
 | `ppc` | c411 | 2026 | PDL1.0 か政府標準利用規約（2026-11-01 に各頁で読んだ）＝出典と編集の断り（公的な機関の頁） | 各機関（国・県） | https://ppc.go.jp/files/pdf/261007_houdou.pdf |
 
-### 2. イメージ（Pexels の映像）＝⑤b-3 で足す（clips.json）
+### 2. イメージ（Pexels の映像）＝clips.json
+- フリー素材（Pexels・生成AI は使わない）＝画面の左上に「イメージ」・出典の行は「イメージ（Pexels）」だけ（クレジットは任意＝投稿者の名前は書かない・概要欄にも書かない）。20% に数えない。🔴 映像そのものもひかえの静止画も git に入れない（19本目 決め⑨）
+
+| 記号 | 使うカット | 画面の出典 | ライセンス | 頁 | 取った日 |
+|---|---|---|---|---|---|
+| `X210` | c210 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/database-storage-of-a-server-5028622/ | 2026-11-02 |
+| `X214` | c214 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/person-fixing-electronics-7057342/ | 2026-11-02 |
+| `X303` | c303 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/video-of-a-digital-art-8817471/ | 2026-11-02 |
+| `X309` | c309 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-closed-gate-with-a-chain-and-a-padlock-3999371/ | 2026-11-02 |
+| `X313` | c313 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/fingers-typing-on-laptop-in-office-setting-33748966/ | 2026-11-02 |
+| `X316` | c316 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/blue-colored-cables-1085656/ | 2026-11-02 |
+| `X408` | c408 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-card-catalog-at-a-library-6550428/ | 2026-11-02 |
+| `X415` | c415 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/hard-disk-drive-19285752/ | 2026-11-02 |
+| `X419` | c419 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/people-signing-a-document-8440643/ | 2026-11-02 |
+| `X502` | c502 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-person-holding-a-card-while-texting-6771532/ | 2026-11-02 |
+| `X510` | c510 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/people-walking-on-concrete-road-2847933/ | 2026-11-02 |
+| `X511` | c511 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/close-up-of-hands-holding-a-smartphone-6186015/ | 2026-11-02 |
+| `X609` | c609 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/an-empty-conference-room-6951393/ | 2026-11-02 |
+| `X702` | c702 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/man-scrolling-on-mobile-phone-screen-6611954/ | 2026-11-02 |
+| `X703` | c703 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/close-up-view-of-a-person-using-cellphone-5321400/ | 2026-11-02 |

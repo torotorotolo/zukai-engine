@@ -1,0 +1,232 @@
+{
+ "X210": {
+  "src": "https://www.pexels.com/video/database-storage-of-a-server-5028622/",
+  "scan": "ref/ep28/src/eizou/X210.mp4",
+  "dur": 32.0,
+  "how": "1秒1コマで tools/shots.shots_of（28本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 12.0,
+    "motion": 17.47
+   },
+   {
+    "start": 12.0,
+    "until": 22.0,
+    "motion": 15.48
+   },
+   {
+    "start": 22.0,
+    "until": 32.0,
+    "motion": 12.32
+   }
+  ]
+ },
+ "X214": {
+  "src": "https://www.pexels.com/video/person-fixing-electronics-7057342/",
+  "scan": "ref/ep28/src/eizou/X214.mp4",
+  "dur": 25.0,
+  "how": "1秒1コマで tools/shots.shots_of（28本目・フリー素材）・🔧 1ショットに直した（同じ構図の手元の撮影・差の山 28.2（15.5秒）27.6（2.3秒）はどちらも区間 3.00〜11.70 の外）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 25.0,
+    "motion": 42.57
+   }
+  ]
+ },
+ "X303": {
+  "src": "https://www.pexels.com/video/video-of-a-digital-art-8817471/",
+  "scan": "ref/ep28/src/eizou/X303.mp4",
+  "dur": 21.0,
+  "how": "1秒1コマで tools/shots.shots_of（28本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 21.0,
+    "motion": 8.04
+   }
+  ]
+ },
+ "X309": {
+  "src": "https://www.pexels.com/video/a-closed-gate-with-a-chain-and-a-padlock-3999371/",
+  "scan": "ref/ep28/src/eizou/X309.mp4",
+  "dur": 14.0,
+  "how": "1秒1コマで tools/shots.shots_of（28本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 14.0,
+    "motion": 7.07
+   }
+  ]
+ },
+ "X313": {
+  "src": "https://www.pexels.com/video/fingers-typing-on-laptop-in-office-setting-33748966/",
+  "scan": "ref/ep28/src/eizou/X313.mp4",
+  "dur": 20.0,
+  "how": "1秒1コマで tools/shots.shots_of（28本目・フリー素材）・🔧 1ショットに直した（同じ構図の手元の撮影・差の山 21.7（3.3秒）16.6（11.1秒）はどちらも区間 11.50〜18.10 の外）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 20.0,
+    "motion": 16.39
+   }
+  ]
+ },
+ "X316": {
+  "src": "https://www.pexels.com/video/blue-colored-cables-1085656/",
+  "scan": "ref/ep28/src/eizou/X316.mp4",
+  "dur": 24.0,
+  "how": "1秒1コマで tools/shots.shots_of（28本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 24.0,
+    "motion": 0.47
+   }
+  ]
+ },
+ "X408": {
+  "src": "https://www.pexels.com/video/a-card-catalog-at-a-library-6550428/",
+  "scan": "ref/ep28/src/eizou/X408.mp4",
+  "dur": 20.0,
+  "how": "1秒1コマで tools/shots.shots_of（28本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 20.0,
+    "motion": 5.44
+   }
+  ]
+ },
+ "X415": {
+  "src": "https://www.pexels.com/video/hard-disk-drive-19285752/",
+  "scan": "ref/ep28/src/eizou/X415.mp4",
+  "dur": 25.0,
+  "how": "1秒1コマで tools/shots.shots_of（28本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 25.0,
+    "motion": 0.45
+   }
+  ]
+ },
+ "X419": {
+  "src": "https://www.pexels.com/video/people-signing-a-document-8440643/",
+  "scan": "ref/ep28/src/eizou/X419.mp4",
+  "dur": 27.0,
+  "how": "1秒1コマで tools/shots.shots_of（28本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 2.0,
+    "motion": 47.13
+   },
+   {
+    "start": 2.0,
+    "until": 8.0,
+    "motion": 16.21
+   },
+   {
+    "start": 8.0,
+    "until": 20.0,
+    "motion": 8.14
+   },
+   {
+    "start": 20.0,
+    "until": 27.0,
+    "motion": 8.0
+   }
+  ]
+ },
+ "X502": {
+  "src": "https://www.pexels.com/video/a-person-holding-a-card-while-texting-6771532/",
+  "scan": "ref/ep28/src/eizou/X502.mp4",
+  "dur": 28.0,
+  "how": "1秒1コマで tools/shots.shots_of（28本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 3.0,
+    "motion": 8.37
+   },
+   {
+    "start": 3.0,
+    "until": 8.0,
+    "motion": 9.37
+   },
+   {
+    "start": 8.0,
+    "until": 28.0,
+    "motion": 3.91
+   }
+  ]
+ },
+ "X510": {
+  "src": "https://www.pexels.com/video/people-walking-on-concrete-road-2847933/",
+  "scan": "ref/ep28/src/eizou/X510.mp4",
+  "dur": 18.0,
+  "how": "1秒1コマで tools/shots.shots_of（28本目・フリー素材）・🔧 1ショットに直した（固定のカメラの前を足が横切る撮影・差の山 60.6（9.7秒）55.1（8.4秒）は手前を足が通る＝前後のコマの路面は同じ）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 18.0,
+    "motion": 59.18
+   }
+  ]
+ },
+ "X511": {
+  "src": "https://www.pexels.com/video/close-up-of-hands-holding-a-smartphone-6186015/",
+  "scan": "ref/ep28/src/eizou/X511.mp4",
+  "dur": 15.0,
+  "how": "1秒1コマで tools/shots.shots_of（28本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 15.0,
+    "motion": 7.35
+   }
+  ]
+ },
+ "X609": {
+  "src": "https://www.pexels.com/video/an-empty-conference-room-6951393/",
+  "scan": "ref/ep28/src/eizou/X609.mp4",
+  "dur": 14.0,
+  "how": "1秒1コマで tools/shots.shots_of（28本目・フリー素材）・🔧 1ショットに直した（同じ部屋を横へ流す1回の撮影・隣の差の最大 16.0（3.4秒）は 2.8〜3.4秒に続く＝動きで、1コマの跳ねでない（中央値 5.21））",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 14.0,
+    "motion": 36.14
+   }
+  ]
+ },
+ "X702": {
+  "src": "https://www.pexels.com/video/man-scrolling-on-mobile-phone-screen-6611954/",
+  "scan": "ref/ep28/src/eizou/X702.mp4",
+  "dur": 22.0,
+  "how": "1秒1コマで tools/shots.shots_of（28本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 22.0,
+    "motion": 3.09
+   }
+  ]
+ },
+ "X703": {
+  "src": "https://www.pexels.com/video/close-up-view-of-a-person-using-cellphone-5321400/",
+  "scan": "ref/ep28/src/eizou/X703.mp4",
+  "dur": 11.0,
+  "how": "1秒1コマで tools/shots.shots_of（28本目・フリー素材）・🔧 1ショットに直した（同じ手持ちの撮影・隣の差の最大 4.0（中央値 1.98）＝切り替わりの跳ねが無い）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 11.0,
+    "motion": 16.98
+   }
+  ]
+ }
+}
