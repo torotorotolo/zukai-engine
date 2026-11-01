@@ -1,0 +1,4 @@
+取った日	記号	種類	bytes	md5	md5（読み直し）	ファイル	出どころ	備考
+2026-11-01	D0928	company-pdf	122119	c15b007af1a7a2a6af303f0635dace47	c15b007af1a7a2a6af303f0635dace47	src/company/D0928.pdf	https://www.release.tdnet.info/inbs/140120260928540919.pdf	了承②（11-01）・② の写しと md5 が同じ（materials §2）
+2026-11-01	D1023a	company-pdf	433542	05803af62bf9a477c301eb2e98213dc8	05803af62bf9a477c301eb2e98213dc8	src/company/D1023a.pdf	https://www.release.tdnet.info/inbs/140120261023555158.pdf	同上
+2026-11-01	D1023b	company-pdf	192155	e8c8c6be15effffc2b20e82116cb5f53	e8c8c6be15effffc2b20e82116cb5f53	src/company/D1023b.pdf	https://www.release.tdnet.info/inbs/140120261023555076.pdf	同上（直前の HEAD は 403＝一時的・GET は 200）

@@ -1,0 +1,75 @@
+# 28本目 映像方針：素材の出どころ（2026-11-01・チャット5・手で書く入力）。区切りは「|」・13列＝code|type|grp|title|get|dims|rights|basis|credit|era|people|file|note
+# type：commons-photo（Commons＝了承②で幅1920を取る）／company-page（会社の新着情報の頁＝引用・⑤b で撮る）／company-pdf（パーク24 の適時開示＝引用・了承②で取り直す）／public-page・public-pdf（公的な機関＝許可不要・頁の規約は ⑤b）／stock（フリー素材＝⑤b で1本ずつ探して原寸で見てから取る）
+# grp：car（カーシェアの車とステーション）／key（鍵）／hq（本社ビル）／license（免許証の見本）／center（免許センター）／parking（タイムズの駐車場）／company／public／stock＝make_list28 が「同じ群の写真が3つ続く」を見る
+# title＝見て確かめた中身（2026-11-01 に 640px の見本帳で見た＝src/seen_log.tsv の「映像方針」）。credit＝画面の出典の行の型。{作者}＝撮影者の名前（git の外の src/credits_private.tsv から ⑤b で差し込む）
+# 🔴 撮影者・作者の個人名はここに書かない。名前の網＝python -P ref/ep28/v2_build/namecheck28.py <ファイル>
+code|type|grp|title|get|dims|rights|basis|credit|era|people|file|note
+CM001|commons-photo|car|夕方のカーシェア24 の区画（青いデミオ1台・「カーシェア24」と「Times」の看板・地面に「カーシェア」の字）|commons:CM001|4224x2376|CC0|Commons の札 CC0（撮った人の宣言）|Wikimedia Commons（CC0）|2009年10月（旧タイムズ蔵前4丁目駐車場＝説明文・座標も蔵前）|ナンバーは看板でほぼ隠れる（⑤b で原寸）|src/eizou/CM001.jpg|呼び名の時代＝カーシェア24（2005〜2010-06）→ いまのタイムズカー（materials §4）
+CM005|commons-photo|car|タイムズカープラスの車（デミオ）の後ろ・「Times Car PLUS」のシール・後ろの窓の内側にカードの読み取り機（「TOUCH」）|commons:CM005|3072x2304|CC BY-SA 4.0|BY-SA＝額装・無加工・1点1カット（§5b-52）|写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）|2015年2月|なし（ナンバーは画面の外＝⑤b で原寸）|src/eizou/CM005.jpg|—
+CM006|commons-photo|car|タイムズカープラスのステーション（青いカーシェアの札・赤いミニと青いトヨタの車ほか）|commons:CM006|3072x2304|PD|Commons の札 PD（撮った人の宣言＝根拠 B）|Wikimedia Commons（パブリックドメイン）|2015年2月（渋谷・ドコモタワーのそば＝説明文）|🔴 青い車のナンバーが読める＝モザイク（PD は可）|src/eizou/CM006.jpg|—
+CM007|commons-photo|car|屋根の下のタイムズプラスのステーション（青いデミオと黒いミニ・車の前にカーシェアの札）|commons:CM007|2592x1936|PD|Commons の札 PD（撮った人の宣言＝根拠 B）|Wikimedia Commons（パブリックドメイン）|2011年2月（座標＝東京・中野）|ナンバーは札で隠れる（⑤b で原寸）|src/eizou/CM007.jpg|—
+CM008|commons-photo|key|車の中の黄色い鍵の箱（タイムズカーの鍵の箱）|commons:CM008|4032x3024|CC BY 4.0|Commons の札 CC BY 4.0|写真：{作者}／Wikimedia Commons（CC BY 4.0）|2024年5月|なし|src/eizou/CM008.jpg|—
+CM009|commons-photo|key|日産の車の鍵と「Times」の黄色い札（黒い革の上）|commons:CM009|3024x4032|CC BY 4.0|Commons の札 CC BY 4.0|写真：{作者}／Wikimedia Commons（CC BY 4.0）|2024年5月|なし|src/eizou/CM009.jpg|縦長＝c101 は下の札と輪の寄り（全面＝改変：切出）
+CM011|commons-photo|car|「タイムズカー プラス 専用」と書かれた区画と青いカーシェアの札（車なし）|commons:CM011|768x1024|CC BY-SA 4.0|BY-SA＝額装・無加工・1点1カット|写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）|2017年4月|なし|src/eizou/CM011.jpg|縦長・幅768＝高さいっぱいの額で約1.1倍
+CM023|commons-photo|parking|ビルの前のタイムズの看板と料金の板（釧路）|commons:CM023|4320x2432|CC0|Commons の札 CC0|Wikimedia Commons（CC0）|2022年9月（説明文＝釧路の旧百貨店の建物）|下に車2台（ナンバー＝⑤b で原寸）|src/eizou/CM023.jpg|—
+CM029|commons-photo|parking|「Times 24h」の白い大きな看板と「タイムズ地下鉄五条駅前」の札（京都）|commons:CM029|3900x2925|CC BY 2.0|Commons の札 CC BY 2.0|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2017年5月|奥に車（小さい・⑤b で原寸）|src/eizou/CM029.jpg|—
+CM030|commons-photo|parking|「タイムズ清水道第2」の白い看板・精算機・自動販売機のある駐車場の入口（京都）|commons:CM030|1800x1013|CC BY 2.0|Commons の札 CC BY 2.0|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2016年7月|右にワゴン車の一部（⑤b で原寸）|src/eizou/CM030.jpg|題名の「白黒」は看板の色＝写真は色つき（台本 §0-4 c315 の答え）
+CM034|commons-photo|parking|「Times 24h」の白い看板と「タイムズ ポート北仲通」の札・奥に横浜の高いビル|commons:CM034|1920x1080|CC BY 3.0|Commons の札 CC BY 3.0（panoramio から）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2015年2月|🔴 手前の車のナンバーの一部＝モザイク（⑤b で原寸）|src/eizou/CM034.jpg|—
+CM036|commons-photo|parking|黄色い「Times 24h」の看板と「タイムズ新横浜第18」の札|commons:CM036|4592x3448|CC BY 3.0|Commons の札 CC BY 3.0（panoramio から）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2015年8月|🔴 左下の車のナンバーの一部＝モザイク（⑤b で原寸）|src/eizou/CM036.jpg|—
+CM039|commons-photo|parking|「タイムズ新横浜第22」の看板と、柵の「タイムズでカーシェア Times Car PLUS」の案内の板|commons:CM039|4592x3448|CC BY 3.0|Commons の札 CC BY 3.0（panoramio から）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2015年8月|奥に車（小さい・⑤b で原寸）|src/eizou/CM039.jpg|駐車場の写真でカーシェアが写る点
+CM040|commons-photo|parking|黄色い「Times 24h」の看板の寄りと「タマパーク原町田第26」の札|commons:CM040|4592x3448|CC BY 3.0|Commons の札 CC BY 3.0（panoramio から）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2015年9月|なし|src/eizou/CM040.jpg|—
+CM041|commons-photo|parking|黄色い「Times 24h」の看板と「タイムズ神田神保町第4」の札・料金の板|commons:CM041|4592x3448|CC BY 3.0|Commons の札 CC BY 3.0（panoramio から）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2015年6月|奥に青い車（⑤b で原寸）|src/eizou/CM041.jpg|—
+CM044|commons-photo|parking|下から見上げた黄色い「Times 24h」の看板と「タイムズ神田錦町第8」の札|commons:CM044|4592x3448|CC BY 3.0|Commons の札 CC BY 3.0（panoramio から）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2015年6月|なし|src/eizou/CM044.jpg|—
+CM045|commons-photo|parking|黄色い「Times 24h」の看板と「タイムズ高尾駅前第2」の札・下に車|commons:CM045|4592x3448|CC BY 3.0|Commons の札 CC BY 3.0（panoramio から）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2015年8月|🔴 下の車のナンバーの一部＝モザイク（⑤b で原寸）|src/eizou/CM045.jpg|—
+CM046|commons-photo|parking|曇りの日の広い駐車場（車3台・自動販売機・「Times」の看板）|commons:CM046|1920x1080|CC BY 3.0|Commons の札 CC BY 3.0（panoramio から）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2015年5月|車のナンバー（小さい・⑤b で原寸）|src/eizou/CM046.jpg|—
+CM047|commons-photo|parking|曇りの日の駐車場の入口（「Times」の看板・自動販売機）|commons:CM047|1920x1080|CC BY 3.0|Commons の札 CC BY 3.0（panoramio から）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2015年5月|奥に車（小さい・⑤b で原寸）|src/eizou/CM047.jpg|—
+CM048|commons-photo|parking|青い料金の看板「タイムズ お茶の水クリスチャンセンター 最大料金 2,300円」|commons:CM048|4592x3448|CC BY 3.0|Commons の札 CC BY 3.0（panoramio から）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2015年6月|なし|src/eizou/CM048.jpg|字が多い＝地にしない
+CM049|commons-photo|parking|「タマパーク原町田第21」の看板・自動販売機・止まった車|commons:CM049|4592x3448|CC BY 3.0|Commons の札 CC BY 3.0（panoramio から）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2015年9月|車のナンバー（⑤b で原寸）|src/eizou/CM049.jpg|—
+CM051|commons-photo|parking|車の無い駐車場（番号2〜5の区画・精算機・自動販売機）|commons:CM051|1920x1080|CC BY 3.0|Commons の札 CC BY 3.0（panoramio から）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2015年3月|なし|src/eizou/CM051.jpg|静かな絵＝地に向く
+CM052|commons-photo|parking|夕方の「タイムズ東上野2丁目」の看板と、下の「タイムズでカーシェア」の案内の札|commons:CM052|1920x1080|CC BY 3.0|Commons の札 CC BY 3.0（panoramio から）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2015年3月|なし|src/eizou/CM052.jpg|—
+CM053|commons-photo|parking|夕方の「タイムズ東上野第11」の看板と赤い車（横から）|commons:CM053|1920x1080|CC BY 3.0|Commons の札 CC BY 3.0（panoramio から）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2015年3月|赤い車は横向き（ナンバー＝⑤b で原寸）|src/eizou/CM053.jpg|—
+CM054|commons-photo|parking|夕方の駐車場（赤いプリウス・家・自動販売機・「Times」の看板）|commons:CM054|1920x1080|CC BY 3.0|Commons の札 CC BY 3.0（panoramio から）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2015年3月|🔴 車のナンバー（⑤b で原寸＝モザイク）|src/eizou/CM054.jpg|—
+CM056|commons-photo|parking|明かりのついた「タイムズ東上野第30」の看板と、下の「タイムズでカーシェア Times Car」の看板|commons:CM056|1920x1080|CC BY 3.0|Commons の札 CC BY 3.0（panoramio から）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2015年3月|奥に車（⑤b で原寸）|src/eizou/CM056.jpg|駐車場の写真でカーシェアが写る点
+CM057|commons-photo|parking|通りに面した駐車場（料金の看板「3,400円」・白い軽自動車ほか）|commons:CM057|1920x1080|CC BY 3.0|Commons の札 CC BY 3.0（panoramio から）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2015年3月|🔴 白い車のナンバー（⑤b で原寸＝モザイク）|src/eizou/CM057.jpg|—
+CM058|commons-photo|parking|明かりのついた「タイムズ東上野第32」の看板の寄り・自動販売機|commons:CM058|1920x1080|CC BY 3.0|Commons の札 CC BY 3.0（panoramio から）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2015年3月|奥に車（⑤b で原寸）|src/eizou/CM058.jpg|—
+CM062|commons-photo|hq|夜のパーク24 グループの本社ビル（上に「PARK24」の明かり）|commons:CM062|3024x4032|CC0|Commons の札 CC0|Wikimedia Commons（CC0）|2021年3月（座標＝西五反田）|なし|src/eizou/CM062.jpg|縦長＝高さいっぱいの額
+CM063|commons-photo|hq|パーク24 グループの本社ビル（入口・タイムズの旗と案内）|commons:CM063|4608x3456|CC0|Commons の札 CC0|Wikimedia Commons（CC0）|2021年3月（座標＝西五反田）|人は見えない（⑤b で原寸）|src/eizou/CM063.jpg|—
+CM064|commons-photo|hq|下から見上げたパーク24 グループの本社ビル|commons:CM064|3456x4608|CC0|Commons の札 CC0|Wikimedia Commons（CC0）|2021年3月|なし|src/eizou/CM064.jpg|縦長＝高さいっぱいの額
+CM065|commons-photo|hq|通りから見たパーク24 グループの本社ビル（横断歩道を渡る人）|commons:CM065|4608x3456|CC0|Commons の札 CC0|Wikimedia Commons（CC0）|2021年3月|🔴 中景に歩く人4〜5人と自転車の人＝顔にモザイク（CC0 は可・⑤b で原寸）|src/eizou/CM065.jpg|—
+CM071|commons-photo|license|運転免許証の裏面（備考・臓器提供の意思の欄・何も書いていない）|commons:CM071|1052x685|PD|Commons の札 PD|Wikimedia Commons（パブリックドメイン）|撮影日なし|なし|src/eizou/CM071.jpg|個人の情報なし
+CM093|commons-photo|license|運転免許証の見本（「見本」の字・顔は絵・名前は「SURNAME NAME」・欄ごとに赤い枠と番号）|commons:CM093|1504x974|CC BY-SA 4.0|BY-SA＝額装・無加工・1点1カット|写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）|2020年9月|なし（絵の顔）|src/eizou/CM093.jpg|番号の札は元の画像のまま（無加工）
+CM108|commons-photo|license|運転免許証の見本（「見本」の字・名前「日本花子」・顔は絵）|commons:CM108|681x432|CC BY 4.0|Commons の札 CC BY 4.0|写真：{作者}／Wikimedia Commons（CC BY 4.0）|2025年3月|なし（絵の顔）|src/eizou/CM108.jpg|🔴 冒頭の引き＝「見本」の字があり実在の人でないことを確かめた（11-01）。幅681＝高さいっぱいの額で約1.85倍＝⑤b で柔らかさを原寸で見る
+CM114|commons-photo|center|長野の中南信運転免許センターの入口（並木の道）|commons:CM114|2560x1920|PD|Commons の札 PD|Wikimedia Commons（パブリックドメイン）|2017年9月|なし|src/eizou/CM114.jpg|地だけ（名指しと読めない地）
+CM115|commons-photo|center|愛媛県運転免許センターの建物と道路の案内の標識|commons:CM115|1600x1200|CC BY 3.0|Commons の札 CC BY 3.0（panoramio から）|写真：{作者}／Wikimedia Commons（CC BY 3.0）|2011年7月|なし|src/eizou/CM115.jpg|地だけ
+CM126|commons-photo|center|宮城県運転免許センターの建物と木（晴れ）|commons:CM126|4003x3001|CC0|Commons の札 CC0|Wikimedia Commons（CC0）|2024年6月（説明文＝仙台市泉区）|なし|src/eizou/CM126.jpg|—
+CM129|commons-photo|center|栃木県運転免許センターの建物|commons:CM129|3648x2736|PD|Commons の札 PD|Wikimedia Commons（パブリックドメイン）|2015年10月|なし|src/eizou/CM129.jpg|地だけ
+Q1|company-page|company|タイムズモビリティの第1報の頁（題と本文の「漏えいした可能性」の文）|web:share.timescar.jp/news/2026/0925/1814.html（⑤b で撮る・撮った日時を残す）|—|引用（著作権法32条）|会社の規約は私的利用だけ・引用には触れない＝引用の型（materials §1-2）|出典：タイムズモビリティ 第1報（2026-09-25）|2026年9月（のちに追記あり）|なし|（⑤b で撮る）|頁の頭は写さない・話している秒だけ・無加工
+Q2|company-page|company|タイムズモビリティの第2報の頁（「3. 現時点で漏えいしたアカウント数および対象となる方」の欄＝約660万件）|web:share.timescar.jp/news/2026/0928/1815.html（⑤b で撮る）|—|引用（著作権法32条）|同上|出典：タイムズモビリティ 第2報（2026-09-28）|2026年9月|なし|（⑤b で撮る）|同上
+Q3|company-page|company|タイムズモビリティの第3報の頁（「1. 本人確認書類情報が漏えいしたアカウント数について」の欄＝約160万件）|web:share.timescar.jp/news/2026/0929/1816.html（⑤b で撮る）|—|引用（著作権法32条）|同上|出典：タイムズモビリティ 第3報（2026-09-29）|2026年9月|なし|（⑤b で撮る）|同上
+Q4|company-page|company|タイムズモビリティの第4報の頁（「1. タイムズカーにおける本人確認書類の画像保有ルールの見直し」の表＝現会員と退会会員）|web:share.timescar.jp/news/2026/1016/1826.html（⑤b で撮る）|—|引用（著作権法32条）|同上|出典：タイムズモビリティ 第4報（2026-10-16）|2026年10月|なし|（⑤b で撮る）|🔴 第3章の物証
+Q5|company-page|company|タイムズモビリティの第5報の頁（「2. 漏えいまたは漏えいのおそれが確認された情報」の表＝①〜⑤）|web:share.timescar.jp/news/2026/1023/1825.html（⑤b で撮る）|—|引用（著作権法32条）|同上|出典：タイムズモビリティ 第5報（2026-10-23）|2026年10月|なし|（⑤b で撮る）|🔴 第2章の物証
+D0928|company-pdf|company|パーク24 の適時開示（9月28日）の1頁目の経緯の段落|tdnet:140120260928540919.pdf（了承②で取り直す＝TDnet に無ければパーク24 の IR の頁）|2頁・122KB|引用（著作権法32条）|パーク24 の規約も私的利用だけ＝引用の型|出典：パーク24 適時開示『連結子会社における不正アクセスの発生および個人情報漏えいに関するお知らせ』2026-09-28|2026年9月|なし|src/company/D0928.pdf|頁の頭の代表者名と問合せ先の欄は写さない
+D1023a|company-pdf|company|パーク24 の適時開示（10月23日・調査結果）の見舞金の段|tdnet:140120261023555158.pdf（了承②で取り直す）|6頁・434KB|引用（著作権法32条）|同上|出典：パーク24 適時開示『不正アクセスに関する調査結果および今後の対応に関するお知らせ』2026-10-23|2026年10月|なし|src/company/D1023a.pdf|同上
+D1023b|company-pdf|company|パーク24 の適時開示（10月23日・特別損失）の表|tdnet:140120261023555076.pdf（了承②で取り直す）|1頁・192KB|引用（著作権法32条）|同上|出典：パーク24 適時開示『特別損失の計上および通期連結業績予想の修正に関するお知らせ』2026-10-23|2026年10月|なし|src/company/D1023b.pdf|🔴 第5章の物証
+PPC|public-pdf|public|個人情報保護委員会の注意喚起（PDF 21頁）の「３ 不要となった個人データの消去」の頁|web:ppc.go.jp/files/pdf/261007_houdou.pdf（② で取得ずみ＝md5 78d228ea）|21頁・1.6MB|公的な機関（頁の規約は ⑤b で読む）|許可不要（10-25 カズヤくん）|出典：個人情報保護委員会『大規模な漏えい等事案を踏まえた対応について（注意喚起）』2026-10-07|2026年10月|なし|src/public/ppc_261007_houdou.pdf|社名は無い
+EGOV|public-pdf|public|e-Gov パブリック・コメントの結果（犯罪収益移転防止法施行規則の改正・警察庁）の本文の PDF|web:public-comment.e-gov.go.jp/pcm/download?seqNo=0000294592（② で取得ずみ＝md5 f65efda2）|254KB|公的な機関|許可不要|出典：e-Gov パブリック・コメント 結果（警察庁）2025年6月|2025年6月|なし|src/public/egov_pcm_0000294592_honbun.pdf|結果の公示の日を ⑤b で頁から当て直す（頁の画面か本文の PDF かも ⑤b で）
+FSA|public-page|public|金融庁の注意喚起の頁（金融機関等あて）の見出しと本文|web:fsa.go.jp/news/r8/sonota/20261009/20261009.html|—|公的な機関|許可不要|出典：金融庁『現下の情勢を踏まえたサイバーセキュリティ対策の強化と各種取引申込等における対応について（注意喚起）』2026-10-09|2026年10月|なし|（⑤b で撮る）|タイムズカーの名は無い・c507（記の1）は図に替えた
+MIE|public-page|public|三重県警察の運転免許証の再交付の案内の頁（「本人が希望する場合には、免許証番号の末尾を変更」）|web:police.pref.mie.jp/licence/licence_R8.9_saikohu.html|—|公的な機関（頁の規約は ⑤b で読む）|許可不要|出典：三重県警察 ホームページ（2026-10 閲覧＝⑤b で撮った日に直す）|2026年|なし|（⑤b で撮る）|頁の題に「流出」の字＝頁はそのまま映す・副題と札と語りには使わない
+FUK|public-page|public|福岡県警察の運転免許証の再交付の案内の頁（希望すれば番号の末尾を変える段）|web:police.pref.fukuoka.jp/kotsu/unshi/taimuzuka-.html|—|公的な機関（頁の規約は ⑤b で読む）|許可不要|出典：福岡県警察 ホームページ（2026-10 閲覧＝⑤b で撮った日に直す）|2026年|なし|（⑤b で撮る）|同上
+NISC|public-pdf|public|内閣官房 国家サイバー統括室の文書の1頁目|web:cyber.go.jp/pdf/press/taiou.pdf（② で取得ずみ＝md5 f6110a56）|417KB|公的な機関|許可不要|出典：内閣官房 国家サイバー統括室『不正アクセスによる漏えい等の事案を踏まえた対応について』2026-10-09|2026年10月|なし|src/public/nco_taiou_20261009.pdf|会議（10月8日）の翌日の文書。⚠️ ② の記録は「WebFetch の写し」＝⑤b で開けるかと頁の数を確かめる
+KANTEI|public-page|public|首相官邸の頁「サイバーセキュリティに関する関係閣僚会議」|web:kantei.go.jp/jp/105/actions/202610/26kaigi_cyber.html|—|公的な機関（写真の人は公人＝頁の規約は ⑤b で読む）|許可不要|出典：首相官邸『サイバーセキュリティに関する関係閣僚会議』2026-10-26|2026年10月|公人（首相・閣僚）|（⑤b で撮る）|—
+X210|stock|stock|イメージ：データセンターの通路とサーバーの灯（人なし）|pexels:⑤b（1本ずつ探して原寸で見てから取る）|—|Pexels License（⑤b で頁を確かめる）|頁で商用可・クレジット不要を確かめる・credits に頁の URL と取った日|イメージ（Pexels）|イメージ|なし|（⑤b）|映像を先に探す・無ければ写真
+X214|stock|stock|イメージ：基板とケーブルを調べる手元（顔なし）|pexels:⑤b|—|Pexels License（⑤b で頁を確かめる）|同上|イメージ（Pexels）|イメージ|手元だけ|（⑤b）|同上
+X303|stock|stock|イメージ：光の線が流れるネットワークの絵|pexels:⑤b|—|Pexels License（⑤b で頁を確かめる）|同上|イメージ（Pexels）|イメージ|なし|（⑤b）|生成 AI の絵でないこと
+X309|stock|stock|イメージ：錠前と鍵|pexels:⑤b|—|Pexels License（⑤b で頁を確かめる）|同上|イメージ（Pexels）|イメージ|なし|（⑤b）|—
+X313|stock|stock|イメージ：パスワードの入力欄（中身は黒丸）|pexels:⑤b|—|Pexels License（⑤b で頁を確かめる）|同上|イメージ（Pexels）|イメージ|なし|（⑤b）|読める画面の字なし
+X316|stock|stock|イメージ：暗い画面に流れる文字（読める字なし）|pexels:⑤b|—|Pexels License（⑤b で頁を確かめる）|同上|イメージ（Pexels）|イメージ|なし|（⑤b）|—
+X408|stock|stock|イメージ：書類の棚とファイル（人なし）|pexels:⑤b|—|Pexels License（⑤b で頁を確かめる）|同上|イメージ（Pexels）|イメージ|なし|（⑤b）|—
+X415|stock|stock|イメージ：データを消す画面の進み具合のバー|pexels:⑤b|—|Pexels License（⑤b で頁を確かめる）|同上|イメージ（Pexels）|イメージ|なし|（⑤b）|読める画面の字なし
+X419|stock|stock|イメージ：レンタカーの受付のカウンター（顔なし・店の名前なし）|pexels:⑤b|—|Pexels License（⑤b で頁を確かめる）|同上|イメージ（Pexels）|イメージ|顔なし|（⑤b）|特定の会社に見えないこと
+X502|stock|stock|イメージ：スマホのカメラで本人確認をする手元（券面は映さない）|pexels:⑤b|—|Pexels License（⑤b で頁を確かめる）|同上|イメージ（Pexels）|イメージ|手元だけ|（⑤b）|—
+X510|stock|stock|イメージ：窓口に並ぶ人の足元と床（顔なし・場所が分からない）|pexels:⑤b|—|Pexels License（⑤b で頁を確かめる）|同上|イメージ（Pexels）|イメージ|足元だけ|（⑤b）|報道に場所の字が無い＝場所を足さない
+X511|stock|stock|イメージ：スマホの申し込み画面（中身は読めない）|pexels:⑤b|—|Pexels License（⑤b で頁を確かめる）|同上|イメージ（Pexels）|イメージ|手元だけ|（⑤b）|—
+X609|stock|stock|イメージ：会見の場の机とマイク（人なし）|pexels:⑤b|—|Pexels License（⑤b で頁を確かめる）|同上|イメージ（Pexels）|イメージ|なし|（⑤b）|会見の写真・報道の写真は使わない（§B2-11 ③）
+X702|stock|stock|イメージ：スマホで会員のページを開く手元（中身は読めない）|pexels:⑤b|—|Pexels License（⑤b で頁を確かめる）|同上|イメージ（Pexels）|イメージ|手元だけ|（⑤b）|—
+X703|stock|stock|イメージ：スマホに届くメッセージの通知（中身は読めない）|pexels:⑤b|—|Pexels License（⑤b で頁を確かめる）|同上|イメージ（Pexels）|イメージ|手元だけ|（⑤b）|—
