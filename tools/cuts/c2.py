@@ -95,13 +95,14 @@ SPEC.update({
     # c208＝BY-SA＝額装・無加工
     "c208": dict(photo=_CM011, panel=True, ptall=True, ground=dict(photo=_CM011), color=1.0,
                  t="退会した人へ", s="タイムズカープラス（いまのタイムズカー）専用の区画〈2017年〉"),
-    "c211": dict(photo=_CM040, **ss.mvz(_CM040, (0.5, 0.47, 1.0), (0.5, 0.36, 1.15)), side="none", color=1.0,
+    # c211・c217＝看板の字を字幕の帯（画面の下 1/6）で切らない窓（⑤b-3 の試し焼きで直した）。c217 は寄って店名の札を帯の下へ隠す
+    "c211": dict(photo=_CM040, **ss.mvz(_CM040, (0.5, 0.43, 1.0), (0.5, 0.42, 1.1)), side="none", color=1.0,
                  t="手口は公表せず", s="タイムズの駐車場の看板〈東京・町田・2015年〉"),
     "c212": dict(photo=_CM064, panel=True, ptall=True, ground=dict(photo=_CM064), color=1.0,
                  t="入られた時期", s="パーク24 グループの本社を見上げる〈東京・五反田・2021年〉"),
     "c216": dict(photo=_CM051, **ss.mv(_CM051, "r", fy=0.55), side="none", color=1.0,
                  t="調べの期限", s="タイムズの駐車場〈東京・上野・2015年〉"),
-    "c217": dict(photo=_CM058, **ss.mv(_CM058, "in", fx=0.55, fy=0.57), side="none", color=1.0,
+    "c217": dict(photo=_CM058, **ss.mvz(_CM058, (0.55, 0.44, 1.12), (0.55, 0.4, 1.25)), side="none", color=1.0,
                  t="10月23日", s="タイムズの駐車場の看板〈東京・上野・2015年〉"),
     # フリー素材（Pexels・イメージ）＝`ss.vid`（見出し・副題は書かない＝左上の「イメージ」と出典だけ）。区間は一覧の動きの欄 → `qa_out/ep28_assets.py use`
     "c210": ss.vid("c210"),

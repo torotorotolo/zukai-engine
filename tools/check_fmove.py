@@ -79,6 +79,24 @@ def judge(S, L, cid, spec):
     return bad, n
 
 
+def judge_frame(S, L, cid, spec):
+    """🆕 28本目 ⑤b-3（2026-11-02）：止まった額（panel）に、そのカットの文字（見出し・副題・章の札・出典）と見出しの下の罫がかからないか。
+    高さいっぱいの額（ptall＝左端 x717〜）は長い副題（c102・c606・c608）・右上の章の札と重なる＝額の中に字が入る（BY-SA・引用は「無加工」）。
+    試し焼きの 640px の並べで見つけた＝門番 layout も box も副題の重なりを見ていなかった"""
+    x, y, w, h = S.photo_box(spec)
+    e = S.FRAME_SW * 1.5
+    x0, y0, x1, y1 = x - e, y - e, x + w + e, y + h + e
+    bad = []
+    for tx0, ty0, tx1, ty1, t, *_ in L.boxes(S.full_top(cid, spec), f"{cid}_lab"):
+        if x0 < tx1 + GAP and tx0 < x1 + GAP and y0 < ty1 + GAP and ty0 < y1 + GAP:
+            bad.append(f"額の箱 ({x0:.0f},{y0:.0f})-({x1:.0f},{y1:.0f}) に文字「{t[:24]}」({tx0:.0f},{ty0:.0f})-({tx1:.0f},{ty1:.0f}) が {GAP}px より近い")
+    # 見出しの下の罫（jiko_style.title＝x72 から 40＋字数×62・y134）は文字の箱に入らない
+    rule_x1 = S.J.MG + min(S.J.RIGHT - S.J.MG, 40 + len(spec.get("t") or "") * 62)
+    if spec.get("t") and y0 < 134 + GAP and x0 < rule_x1 + GAP:
+        bad.append(f"見出しの下の罫の右端 x{rule_x1} が額の左端 x{x0:.0f} に {GAP}px より近い")
+    return bad
+
+
 # ── 🆕 26本目 ⑤b-1：額装の写真は静止（絵で測る） ─────────────────
 STILL_AT = (0.25, 0.95)          # 尺のこの2つの割合の時刻で scene() を回して比べる（頭の 0.15〜0.65秒の見出しのフェードは文字の層＝空にしてある）
 
@@ -168,6 +186,15 @@ def run():
     import scene_jiko as S
     import check_layout as L
     nstill, _ = run_still(S)
+    # 🆕 28本目 ⑤b-3：止まった額と文字の重なり（🔴 26本目までの回は測らない＝FRAME_STILL の回と同じ分け方・公開ずみ＝直さない）
+    still_panels = [(cid, s) for cid, s in sorted(S.SPEC.items()) if s.get("panel") and not s.get("fmove")]
+    nfr = 0
+    for cid, s in still_panels:
+        for why in judge_frame(S, L, cid, s):
+            print(f"  🔴 {cid}：{why}")
+            nfr += 1
+    print(f"{'🔴' if nfr else '✓'} 止まった額 {len(still_panels)} 個と文字の重なり {nfr} 件")
+    nstill += nfr
     items = [(cid, s) for cid, s in sorted(S.SPEC.items()) if s.get("fmove")]
     print(f"■ 額ごと動かすカット {len(items)} 欄（SPEC の fmove）を、頭・真ん中・終わりの額の箱で測る")
     if not items:
@@ -298,6 +325,11 @@ def selftest():
     for k in ("in", "out", "r", "l", "u", "d"):
         b, _ = judge(S, L, "c102", dict(base, fmove=ss.fm(k)))
         chk(f"ss.fm('{k}') は通る（{len(b)}件）", not b)
+    # 🆕 28本目 ⑤b-3：止まった額と文字の重なり
+    tall = dict(base, ptall=True, t="短い見出し", s="短い副題")
+    chk("止まった額：短い副題 → 鳴らない", not judge_frame(S, L, "cz90", tall))
+    chk("止まった額：長い副題が高さいっぱいの額にかかる → 鳴る", bool(judge_frame(S, L, "cz90", dict(tall, s="あ" * 45))))
+    chk("止まった額：長い見出しの罫が額にかかる → 鳴る", bool(judge_frame(S, L, "cz90", dict(tall, t="あ" * 12))))
     # 🆕 26本目 ⑤b-1：額装の静止（絵で測る）
     print("■ 額装の静止（本物の scene()・tail_frame() で2つの時刻を比べる）")
     ok &= selftest_still(S, L, base)

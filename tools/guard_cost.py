@@ -111,6 +111,10 @@ def parse(txt: str):
     credits = pick("Credits")
     if credits is None:
         credits = pick("Free Storage")
+    # 🆕 2026-11-02（modal の実物＝月の頭で使用 0）：Metered Cost 0.00 と Billed Cost $0.00 の2行だけ＝充当の行が出ない月の頭。
+    #    使用が 0 のときだけ充当 0 と読む（使用があるのに充当の行が無い形は今までどおり None）
+    if credits is None and pick("Metered Cost") == 0:
+        credits = 0.0
     vals = (pick("Metered Cost"), credits, pick("Billed Cost"))
     return None if any(v is None for v in vals) else vals
 
@@ -139,6 +143,7 @@ def selftest() -> int:
                     "| Billed Cost: | $1,204.50 |\n", (1234.50, -30.0, 1204.50)),
         ("マイナスの$（-$10.00）", "Metered Cost: 5.00\nCredits: -$5.00\nBilled Cost: $0.00\n",
          (5.0, -5.0, 0.0)),
+        ("月の頭で使用 0（2026-11-02 の実物）", "Metered Cost:    0.00  \n  Billed Cost:    $0.00  \n", (0.0, 0.0, 0.0)),
         ("🔴 読めない形 → None（0で埋めない）", "Something went wrong\n", None),
         ("🔴 項目が欠けた形 → None", "| Metered Cost: | 1.83 |\n| Billed Cost: | $0.00 |\n", None),
     ]

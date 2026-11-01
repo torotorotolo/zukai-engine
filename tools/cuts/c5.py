@@ -92,7 +92,8 @@ SPEC.update({
                  t="再交付の受付", s="三重県警察の再交付の案内"),
     "c509": dict(photo=_FUK, panel=True, ptall=True, ground=dict(photo=_FUK), color=1.0,
                  t="県警の案内", s="福岡県警察の再交付の案内"),
-    "c514": dict(photo=_CM056, **ss.mv(_CM056, "in", fx=0.45, fy=0.45), side="none", color=1.0,
+    # c514＝店名の札（y.66〜.77）を字幕の帯の上に保つ窓（⑤b-3 の試し焼きで直した）
+    "c514": dict(photo=_CM056, **ss.mvz(_CM056, (0.5, 0.5, 1.0), (0.45, 0.47, 1.1)), side="none", color=1.0,
                  t="レンタカーの業界へ", s="タイムズの駐車場とカーシェアの看板〈東京・上野・2015年〉"),
     "c515": dict(photo=_NISC, panel=True, pw=1776, ground=dict(photo=_NISC), color=1.0,
                  t="政府の会議", s="国家サイバー統括室の文書〈2026年10月9日〉"),

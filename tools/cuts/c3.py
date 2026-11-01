@@ -83,7 +83,8 @@ SPEC.update({
     # c301＝第5報の頁（2節の頭〜表①の 6,628,007件＋注1）＝引用
     "c301": dict(photo=_Q5, panel=True, pw=1776, ground=dict(photo=_Q5), color=1.0, card_mix=0,
                  t="最終とした件数", s="タイムズモビリティの知らせ（第5報）〈2026年10月23日〉"),
-    "c304": dict(photo=_CM029, **ss.mvz(_CM029, (0.5, 0.46, 1.0), (0.5, 0.34, 1.15)), side="none", color=1.0,
+    # c304＝看板の字を字幕の帯で切らない窓（⑤b-3 の試し焼きで直した）
+    "c304": dict(photo=_CM029, **ss.mvz(_CM029, (0.5, 0.425, 1.0), (0.5, 0.406, 1.15)), side="none", color=1.0,
                  t="駐車場だけの契約", s="タイムズの駐車場の看板〈京都・2017年〉"),
     "c306": dict(photo=_CM071, panel=True, ptall=True, ground=dict(photo=_CM071), color=1.0,
                  t="アクセスだけの画像", s="運転免許証の裏面"),
