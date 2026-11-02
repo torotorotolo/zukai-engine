@@ -5192,3 +5192,13 @@ def m26(view, steps, **kw):
 def m27(view, steps, **kw):
     import mech27 as _m
     return _m.m27(view, steps, **kw)
+
+
+# ── ㉓ 28本目 ⑤b-4（2026-11-02）：図解（図34＝3つの数・経緯の表・2つの時計・知らせの階段・説明の3段・暦・6つの情報・縦の棒・2つの言葉・もう1つのシステム・
+#      カードの絵・直された数・横の棒・4つの箱・4つの目的・問答2・条文2・年表と表・銀行・4つのおそれ・注意喚起・5日の帯・線引き・式・もうけの棒・金額の棒・
+#      弁護士の言葉・2つを並べる・SNS の札3・窓口）＝`tools/mech28.py`（門番 check_mech の judge_m28）。
+#      🔴 地は写真（cuts.ss.gr＝暗くするだけ）・字は暗い縁取り・人は描かない・会社を犯人と言わない ──
+#   `fig=("m28", dict(view=…, steps=[…], rel=[…], note="…", src=…))`
+def m28(view, steps, **kw):
+    import mech28 as _m
+    return _m.m28(view, steps, **kw)

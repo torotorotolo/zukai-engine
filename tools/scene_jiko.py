@@ -1632,10 +1632,13 @@ def ep7_credit(name):
 def ground_credit(cid, spec):
     """🆕 27本目 ⑤b-4：説明カットの地の写真の出典の行＝「地の写真：…／改変：切出・明るさ」（了承② 決め1）。
     束の出典（credits.json）の頭「写真：」を「地の写真：」に・改変の欄の尻に「明るさ」を足す（画面いっぱいに敷く＝切出は束の書きのまま）。
-    CC0 は改変を書かない（PD と同じ＝表示の義務の無い物に義務があるように見せない・6本目 ⑤c' の注）"""
+    CC0 は改変を書かない（PD と同じ＝表示の義務の無い物に義務があるように見せない・6本目 ⑤c' の注）
+    🆕 28本目 ⑤b-4：PD の地も同じ（`ss.GROUND_LIC` に PD を足した）＝モザイクの断りが束の書きにあれば、そのまま残る"""
     cr = credit_of(cid, spec)
     body = re.sub(r"^(写真|出典)：", "", cr)
-    if "（CC0）" not in body:
+    # 🆕 28本目 ⑤b-4：束で切らなかった CC BY の写真（CM115＝「／改変なし」）も、地は 4:3 を画面いっぱいに切る＝切出と明るさの2つ
+    body = body.replace("／改変なし", "／改変：切出")
+    if "（CC0）" not in body and "（パブリックドメイン）" not in body:
         if "／改変：" not in body:
             raise ValueError(f"{cid}: 地の写真 {spec.get('photo')} の出典に改変の欄が無い（CC BY は改変の旨が要る）＝{cr}")
         body += "・明るさ"
@@ -2975,7 +2978,7 @@ def build_layers(allow_missing=False):
     #    その字を読む行の字幕を消す（記憶 feedback-no-subtitle-when-onscreen「その言葉が出ているあいだ、字幕は消す」）
     for c in spans:
         fig = (SPEC.get(c) or {}).get("fig")
-        if fig and fig[0] == "m27" and fig[1].get("mute"):
+        if fig and fig[0] in ("m27", "m28") and fig[1].get("mute"):
             n = len(SUBS.get(c) or [])
             bad = [i for i in fig[1]["mute"] if not 0 <= int(i) < n]
             if bad:

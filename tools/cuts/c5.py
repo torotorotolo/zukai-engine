@@ -106,3 +106,38 @@ SPEC.update({
     "c510": ss.vid("c510"),
     "c511": ss.vid("c511"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-11-02）：図5（`tools/mech28.py`・地は写真＝`ss.gr`・動かさない）
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c501（3行）＝1行目 札 → 2行目 詐欺・なりすまし → 3行目 勧誘・悪用。言葉は会社の字のまま
+    # 🔴 CM126・CM115 は bias=0.40＝看板の字の行（既定の切り口では y888〜906・875〜907）を字幕の帯の下へ完全に外す（門番 edges＝帯の縁が行を横に切らない）
+    "c501": dict(
+        **ss.gr("cm126"), bias=0.40, t="起こりうること", s="会社が挙げた4つ",
+        fig=("m28", dict(view="risk4", steps=[dict(state=dict(head="on")), dict(state=dict(a="on")), dict(state=dict(b="on"))], rel=[],
+                         note="模式（言葉は会社の文のまま）", src="タイムズモビリティ 第5報（2026-10-23）"))),
+    # c504（3行）＝国の決まり → 法の名 → 施行規則の改正と附則。地に本社の絵を重ねない（CM126＝免許センター）
+    "c504": dict(
+        **ss.gr("cm126"), bias=0.40, t="決まりの改正", s="改正の中身",
+        fig=("m28", dict(view="law_kyc", steps=[dict(state=dict(kuni="on")), dict(state=dict(law="on")), dict(state=dict(rule="on"))],
+                         rel=[dict(t="2027年", src="e-Gov")],
+                         note="", src="e-Gov パブリック・コメント 結果（警察庁）"))),
+    # c507（2行）＝1行目（聞き役・金融庁 → 金融機関は頭から）→ 2行目 記の1の言葉。「委託」の字は文書に無い・タイムズカーの名も無い
+    "c507": dict(
+        **ss.gr("cm114"), t="国からの文書", s="銀行などへの呼びかけ",
+        fig=("m28", dict(view="fsa_check", steps=[dict(state={}), dict(state=dict(q="on"))],
+                         rel=[dict(t="2026年10月9日", src="金融庁 2026-10-09")],
+                         note="模式（タイムズカーの名は文書に無い）", src="金融庁（2026-10-09）"))),
+    # c512（2行）＝1行目 JICC → 2行目 5日の帯。理由の札「お申込みの集中」は 10月1日だけ・因果を言い切らない
+    "c512": dict(
+        **ss.gr("cm115"), bias=0.40, t="JICC の5日間", s="受け付けの止まり方",
+        fig=("m28", dict(view="jicc5", steps=[dict(state=dict(who="on")), dict(state=dict(bar="on"))],
+                         rel=[dict(t="10月1日", src="JICC 2026-10-01"), dict(t="2日", src="JICC 2026-10-02"), dict(t="3日", src="JICC 2026-10-02"), dict(t="4日", src="JICC 2026-10-02"), dict(t="5日", src="JICC 2026-10-05")],
+                         note="帯の長さは日にち（2日の境は「夜から」の目安）", src="JICC のお知らせ（2026-10-01・10-02・10-05）"))),
+    # c513（3行）＝1行目（聞き役）→ 2行目 効果の保証 → 3行目 預金口座
+    "c513": dict(
+        **ss.gr("cm063"), t="届け出の効果", s="会社のご質問と回答",
+        fig=("m28", dict(view="qa12", steps=[dict(state=dict(q="on")), dict(state=dict(a="on")), dict(state=dict(b="on"))], rel=[],
+                         note="", src="タイムズモビリティ『ご質問と回答』Q12（2026-10-23 更新）"))),
+})

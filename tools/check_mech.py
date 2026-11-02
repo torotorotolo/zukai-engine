@@ -6150,8 +6150,208 @@ def _selftest_m27(ok):
     return ok
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 28本目 ⑤b-4（2026-11-02）：図解 m28（`tools/mech28.py`・図34）の記録＝門番の側（§5b-88）。
+#    ①誰か・何かの名と色（同じ画面で色が重ならない） ②値・比例（量は p＝p0＋v×k・日は p＝p0＋日×k）・会社と法令と弁護士の言葉は原文の字のまま・SNS の札は原文どおり・電話番号
+#    ③画面の全部の字の数を rel で・rel の出どころの記号・出さない言葉（「犯人」「加害者」「流出」「ハッカー」＝SNS の札の原文だけ例外＝ルール §B2-11）
+#    ④SNS の画面に注釈（cuts.ss.SNS_NOTE）＝置き場と焼いた絵の字は check_ground の②
+#    値の出どころ＝第1〜5報・適時開示・Q&A・法令は `ref/ep28/sources.md` §1〜§4b（2026-10-31 に原文で読んだ）・SNS は 11-02 に投稿の頁と並べて確かめた（`src/sns/sns_posts_verified_20261031.tsv`＝git の外）。
+#    🔴 §0b（題材を替えるとき）：次の回の ⑤b-1 で REC_M28 を見本 fixture_ep28 へ移す（REC_M27 と同じ形）
+# ══════════════════════════════════════════════════════════
+REC_M28 = dict(
+    src=dict(company=("会社", "uscg"), attacker=("攻撃した者", "company"), lawyer=("弁護士", "DOC"), kuni=("国", "tsb"), bank=("銀行", "ship"),
+             jicc=("信用情報機関", "ntsb"), member=("会員", "bldg_a"), sns=("SNS の声", "SUB")),
+    views=dict(
+        three=dict(val=("146万4800件", "3000円分", "10万人超")),
+        flow8=dict(val=(("不正アクセスを検知", "問い合わせ窓口開設", "調査開始", "対象サーバーを隔離", "不正アクセス経路を遮断",
+                         "外部専門機関によるフォレンジック調査を開始", "個人情報保護委員会へ報告", "第1報を公表"), (3, 4, 6))),
+        clock2=dict(val=(("9月25日", 9, 7), ("9月26日", 7, 25)), hands=((273.5, 42.0), (222.5, 150.0))),
+        reports=dict(val=(("第1報〈9月25日〉", (), "「可能性」"), ("第2報〈9月28日〉", (), "約660万件"),
+                          ("第3報〈9月29日〉", ("画像が漏えいしたアカウント",), "約160万件"), ("第5報〈10月23日〉", (), "調査の結果"))),
+        cal4w=dict(val=((("第1報", "2026-09-25", "9月25日", (0, 5)), ("第2報", "2026-09-28", "9月28日", (1, 1)), ("第3報", "2026-09-29", "9月29日", (1, 2)),
+                         ("第4報", "2026-10-16", "10月16日", (3, 5)), ("第5報", "2026-10-23", "10月23日", (4, 5))), 28)),
+        six=dict(val=("氏名", "住所", "生年月日", "電話番号", "メールアドレス", "運転免許情報")),
+        bars2=dict(val=(1600000, 1464800, 891602, 2356402), pv=(1600000, 1464800, 2356402)),
+        words2=dict(val=("直ちに画像内容が閲覧可能な状態になったことを意味するものではありません", "将来的な復号の可能性を完全に否定できるものではありません")),
+        club=dict(val=(("氏名・住所・生年月日・運転免許情報", "5件"), ("タイムズクラブカードの番号", "1万9510件"), ("ほかの会社のサービスとつなぐ番号", "13万5436件"))),
+        ccard=dict(val=("一切保持していない", "28件")),
+        fixn=dict(val=("計9件", "4件", "0件")),
+        unit2=dict(val=(400.0, 662.8007), pv=(400.0, 662.8007)),
+        inside=dict(val=(520.0, 120.0)),
+        purpose4=dict(val=("会員登録時の本人確認手続き", "不正利用が疑われる事案への対応", "お問い合わせ対応", "各種の本人確認業務")),
+        qa7=dict(val=("運転免許情報および画像は、なりすまし対策やお問い合わせ対応のため、7年間保管していました",)),
+        law22=dict(val=("利用する必要がなくなったときは、当該個人データを遅滞なく消去するよう努めなければならない。",)),
+        rule_oct=dict(val=((("9月25日", "検知"), ("10月16日", "決まりを改める"), ("10月末", "今ある画像を消す〈予定〉")),
+                           (("今の会員", "会員の間は保有", "登録確認完了後、即時削除"), ("退会した人", "退会後7年間保有", "保有しない"))),
+                      d0="2026-09-25", pd=("2026-09-25", "2026-10-16", "2026-10-31")),
+        risk4=dict(val=("フィッシングメールやフィッシングサイトによる詐欺", "なりすましによる各種申込みや問い合わせ", "不正勧誘", "個人情報の悪用")),
+        law_kyc=dict(val=("この命令は、令和九年四月一日から施行する。",)),
+        fsa_check=dict(val=("「サードパーティリスク管理やインシデントが起きた場合の対応態勢も含めた」",)),
+        jicc5=dict(val=(("10月1日", "2日", "3日", "4日", "5日"), ((0.0, 1.0, True), (1.0, 1.72, False), (1.72, 4.0, True), (4.0, 5.0, False)), "「お申込みの集中」")),
+        qa12=dict(val=("信用情報機関が悪用の防止効果を保証するものではありません", "預金口座の開設時には利用されません")),
+        cutoff=dict(val=("完全に切り捨てられている",)),
+        formula=dict(val=(1464800, 3000, 44)),
+        profit=dict(val=((440, 385), (44000, 38500, 411000), 12.5), pv=(440, 385)),
+        damages=dict(val=((30000, "3万円"), (50000, "5万円"), (3000, "3000円")), pv=(30000, 50000, 3000)),
+        quote3000=dict(val=("「3000円という金額を見たとき、非常に低すぎるのではないか」",)),
+        two_claims=dict(val=("「勝手にローンを組まれた」", "「売買・公開されたことを示す事実は確認されておりません」")),
+        contact=dict(val=("0120-25-8924", "share.timescar.jp/inquiry.html")),
+    ),
+    # SNS の札の原文（投稿の頁の字＝控え ref/ep28/src/sns/sns_posts_verified_20261031.tsv〈git の外〉・アカウント名は持たない）
+    sns=dict(k2=("…退会後どれくらいで必ず削除するというのも追加されればいいのにね。タイムズカーの免許証の画像７年保管してたのも、本当おかしいし。", "X の投稿（2026年10月31日）"),
+             k1a=("…ここはしっかり対応してるのでそこは素晴らしい。", "X の投稿（2026年10月29日）"),
+             k1b=("個人的には3000円貰ってそれでOK派なんだけど、あえて集団訴訟のサイトにも申し込んでおいた。", "X の投稿（2026年10月29日）"),
+             k3a=("タイムズカーじゃなくて、ハッカーたちが犯人だよね？", "X の投稿（2026年10月27日）"),
+             k3b=("保管する必要のない画像を保管し続け、脆弱性のあるシステムで流出させたことは非難されても仕方ないですが、その後の犯罪の責任まで負わせる必要はあるのでしょうか？", "X の投稿（2026年10月17日）")),
+    ng=("犯人", "加害者", "流出", "ハッカー"),
+    note="※SNS の投稿。事実かは確かめられていません",      # 了承②の文言＝描く側の cuts.ss.SNS_NOTE と別に持つ
+    rel_src=r"^(第[1-5]報|Q&A|e-Gov|開示 2026-(09-28|10-23)|金融庁 2026-10-09|JICC 2026-10-0[125]|PR 2026-08-17|弁護士ドットコム 2026-10-26|ABEMA 2026-10-26|三井住友銀行 2026-10-23|X 2026-10-\d{2}|計算|時点 2026-10-31)$",
+)
+SNS_VIEWS28 = ("sns2", "sns1b", "sns3")
+
+
+def judge_m28(f):
+    """28本目 図解：①名と色 ②値・比例・原文 ③全部の字の数を rel で・出どころ・出さない言葉 ④SNS の注釈。"""
+    import datetime as dt
+    import jiko_style as J
+    import cuts.ss as ss
+    bad, n = [], 0
+    m = f.mech
+    g, view = m["geo"], m["view"]
+    R = REC_M28
+    if not R:
+        return ["記録の表 REC_M28 が空（その回の値を入れるまで、m28 のカットは止まる）"], 1
+
+    def need(cond, msg):
+        nonlocal n
+        n += 1
+        if not cond:
+            bad.append(msg)
+
+    def col(name):
+        return (J.ROLE.get(name) or getattr(J, name)).lower()
+
+    def prop(a, b):
+        return abs(a - b) < 0.5
+
+    Rv = R["views"].get(view) or {}
+    need({k: (t, col(r)) for k, (t, r) in g["src"].items()} == {k: (t, col(r)) for k, (t, r) in R["src"].items()},
+         "① 誰か・何かの名か色が記録（会社＝青・攻撃した者＝橙・弁護士＝茶・国＝紫・銀行＝水色・信用情報機関＝緑・会員＝桃）と違う")
+    cs = [col(R["src"][k][1]) for k in g["vsrc"]]
+    need(len(set(cs)) == len(cs), f"① 同じ画面の鍵 {g['vsrc']} の色が重なる")
+    if "val" in Rv:
+        need(tuple(g.get("val", ())) == tuple(Rv["val"]), f"② {view} の値 {g.get('val')} が記録と違う")
+    if "hands" in Rv:
+        need(tuple(g.get("hands", ())) == tuple(Rv["hands"]), f"② {view} の時計の針 {g.get('hands')} が時刻の記録と違う")
+    if "pv" in Rv:
+        px, lins = tuple(g.get("px", ())), tuple(g.get("lins", ()))
+        need(len(px) == len(Rv["pv"]) == len(lins) and all(prop(p, p0 + (float(v) - v0) * k) for p, (p0, k, v0), v in zip(px, lins, Rv["pv"])),
+             f"② {view} の画素が値に比例していない（記録の値 {Rv['pv']}）")
+    if "pd" in Rv:
+        px, lins = tuple(g.get("pxx", ())), tuple(g.get("linx", ()))
+        d0 = dt.date.fromisoformat(Rv["d0"])
+        ds = [(dt.date.fromisoformat(d) - d0).days for d in Rv["pd"]]
+        need(len(px) == len(ds) == len(lins) and all(prop(p, p0 + (d - v0) * k) for p, (p0, k, v0), d in zip(px, lins, ds)),
+             f"② {view} の画素が日に比例していない（記録の日 {Rv['pd']}）")
+    if view in SNS_VIEWS28:
+        got = {k: ("".join(lines), src) for k, lines, src in g.get("val", ())}
+        need(got == {k: tuple(v) for k, v in R["sns"].items()}, "② SNS の札の字が原文の記録（REC_M28 の sns）と違う")
+    texts = list(m["texts_all"])
+    cards = {ln for _k, (lines, _s) in __import__("mech28").SNS_CARDS.items() for ln in lines} if view in SNS_VIEWS28 else set()
+    ngs = [(t, w) for t in texts for w in R["ng"] if w in t and t not in cards]
+    need(not ngs, f"③ 画面の字「{ngs[0][0]}」に出さない言葉「{ngs[0][1]}」がある（§B2-11・SNS の原文の札だけ例外）" if ngs else "")
+    said = [r.get("t", "") for r in m["rel"]]
+    for t in texts:
+        for mm in NUM_M17.finditer(t):
+            tok = mm.group(0)
+            need(any(tok in s for s in said), f"③ 画面の字「{t}」の数「{tok}」が rel（記録の値の宣言）に無い")
+    for r in m["rel"]:
+        need(bool(re.match(R["rel_src"], str(r.get("src", "")))), f"③ rel「{r.get('t')}」の出どころ「{r.get('src')}」が記号の形（第5報・Q&A・e-Gov・開示 日付・報道 日付・X 日付ほか）でない")
+    if view in SNS_VIEWS28:
+        need(R["note"] in texts, f"④ SNS の画面に注釈「{R['note']}」（了承② の文言）が無い")
+        need(ss.SNS_NOTE == R["note"], f"④ 描く側の注釈の文言 cuts.ss.SNS_NOTE「{ss.SNS_NOTE}」が了承② の文言と違う")
+    elif any(R["note"] in t for t in texts):
+        need(False, "④ SNS の画面でないのに注釈がある")
+    return bad, n
+
+
+def _selftest_m28(ok):
+    """🆕 28本目 ⑤b-4：本番の m28 が全部通り、描く側の定数を壊すと**狙った理由で**鳴るか（陽性対照）。型の例外で止まった対照は鳴ったと数えない。"""
+    import mech28 as M
+    import cuts
+    good = {c: s["fig"][1] for c, s in cuts.SPEC.items() if s.get("fig") and s["fig"][0] == "m28"}
+    if not good:
+        print("  🔴 NG 28本目 m28 のカットが SPEC に無い＝検算できない")
+        return False
+    for cid, kw in sorted(good.items()):
+        bad, _ = judge("m28", kw)
+        if bad:
+            ok = False
+            print(f"  🔴 NG 28本目 m28 の本番 {cid} が落ちた: {bad[0]}")
+    print(f"  {'OK' if ok else '🔴 NG'} 28本目 m28 の本番 {len(good)}カット")
+    by_view = {kw["view"]: kw for kw in good.values()}
+
+    def control(label, view, mutate, restore, want):
+        nonlocal ok
+        mutate()
+        try:
+            bad, _ = judge("m28", by_view[view])
+        except Exception as e:                       # noqa: BLE001
+            bad = [f"（型の例外 {e}）"]
+        finally:
+            restore()
+        g_ = any(b.startswith(want) for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 28本目 陽性対照：{label}: {'不合格' if bad else '合格'}（不合格のはず・理由「{want}」）")
+
+    v = M.BR_V
+    control("棒の値を 146万4800 → 150万", "bars2", lambda: setattr(M, "BR_V", (v[0], 1500000, v[2])), lambda: setattr(M, "BR_V", v), "②")
+    y_ = M.br_y
+    control("棒の比例を崩す（9月の棒だけ 30px 高く）", "bars2", lambda: setattr(M, "br_y", lambda x: y_(x) - (30 if x == 1600000 else 0)), lambda: setattr(M, "br_y", y_), "②")
+    ro = M.ro_x
+    control("年表の位置を日に比例させない（10月16日を 40px ずらす）", "rule_oct",
+            lambda: setattr(M, "ro_x", lambda d: ro(d) + (40 if d.day == 16 else 0)), lambda: setattr(M, "ro_x", ro), "②")
+    ck = M.CK_T
+    control("時計の時刻を 7:25 → 7:52", "clock2", lambda: setattr(M, "CK_T", (ck[0], ("9月26日", 7, 52))), lambda: setattr(M, "CK_T", ck), "②")
+    a = M.FM_A
+    control("式の件数を 146万5349（使わない数）に", "formula", lambda: setattr(M, "FM_A", 1465349), lambda: setattr(M, "FM_A", a), "②")
+    cards = dict(M.SNS_CARDS)
+    control("SNS の札の字を1字かえる", "sns3", lambda: M.SNS_CARDS.__setitem__("k3a", (("タイムズカーじゃなくて、ハッカーたちが犯人だろ？",), cards["k3a"][1])),
+            lambda: M.SNS_CARDS.update(cards), "②")
+    q = M.WD_B
+    control("会社の言葉を言い換える", "words2", lambda: setattr(M, "WD_B", ("将来的な復号の可能性も", "否定はできない", "ものではありません")), lambda: setattr(M, "WD_B", q), "②")
+    tel = M.CT_TEL
+    control("窓口の番号を1桁かえる", "contact", lambda: setattr(M, "CT_TEL", "0120-25-8925"), lambda: setattr(M, "CT_TEL", tel), "②")
+    src = dict(M.SRC)
+    control("会社の色を緑に", "contact", lambda: M.SRC.__setitem__("company", ("会社", "ntsb")), lambda: M.SRC.update(src), "①")
+    vs = dict(M.VIEW_SRC)
+    control("同じ画面に同じ色の鍵", "club", lambda: M.VIEW_SRC.__setitem__("club", ("company", "company")), lambda: M.VIEW_SRC.update(vs), "①")
+    old = M.VIEWS["six"]["stage"]
+    control("「犯人」の字を足す", "six", lambda: M.VIEWS["six"].__setitem__("stage", lambda p, s, _o=old: _o(p, s) + [M._t(960, 800, "犯人の手がかり")]),
+            lambda: M.VIEWS["six"].__setitem__("stage", old), "③")
+    old2 = M.VIEWS["inside"]["stage"]
+    control("「流出」の字を足す", "inside", lambda: M.VIEWS["inside"].__setitem__("stage", lambda p, s, _o=old2: _o(p, s) + [M._t(960, 820, "流出した人")]),
+            lambda: M.VIEWS["inside"].__setitem__("stage", old2), "③")
+    kw = dict(by_view["three"], rel=[r for r in by_view["three"]["rel"] if "146万" not in r["t"]])
+    bad, _ = judge("m28", kw)
+    g_ = any(b.startswith("③") and "146" in b for b in bad)
+    ok &= g_
+    print(f"  {'OK' if g_ else '🔴 NG'} 28本目 陽性対照：rel から「146万4800件」を抜く: {'不合格' if bad else '合格'}（不合格のはず・理由「③」）")
+    kw = dict(by_view["three"], rel=[dict(r, src="どこか") for r in by_view["three"]["rel"]])
+    bad, _ = judge("m28", kw)
+    g_ = any(b.startswith("③") and "出どころ" in b for b in bad)
+    ok &= g_
+    print(f"  {'OK' if g_ else '🔴 NG'} 28本目 陽性対照：rel の出どころを記号でない形に: {'不合格' if bad else '合格'}（不合格のはず・理由「③」）")
+    import cuts.ss as ss
+    note = ss.SNS_NOTE
+    control("SNS の注釈の文言が無い（別の文に）", "sns2", lambda: setattr(ss, "SNS_NOTE", "※注"), lambda: setattr(ss, "SNS_NOTE", note), "④")
+    return ok
+
+
 def judge(kind, kw):
     f = getattr(F, kind)(**kw)
+    if kind == "m28":
+        return judge_m28(f)
     if kind == "m27":
         return judge_m27(f)
     if kind == "m26":
@@ -6622,12 +6822,17 @@ def main():
         print("selftest（m27）: 🔴 落ちた")
         return 2
     print("selftest（m27）: 通った")
+    # 🆕 28本目 ⑤b-4：m28 の検算（本番の表と本番の章ファイルのまま）。m28 のカットが SPEC に無ければ「検算できない」で落ちる
+    if not _selftest_m28(True):
+        print("selftest（m28）: 🔴 落ちた")
+        return 2
+    print("selftest（m28）: 通った")
     if "--selftest" in sys.argv:
         return 0
     import cuts
     targets = {c: s["fig"] for c, s in sorted(cuts.SPEC.items())
                if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash", "tail", "mod", "bolt", "vsec", "lv", "m18",
-                                                   "m19", "m20", "m21", "m22", "m23", "m17", "m24", "m25", "m26", "m27")}
+                                                   "m19", "m20", "m21", "m22", "m23", "m17", "m24", "m25", "m26", "m27", "m28")}
     if not targets:
         print("⚠️ latch・section・hull・lash・tail・mod・bolt のカットが0件（この回に仕組みの模式図が無いなら正しい。"
               "**0件を調べて合格**にしていないか確かめる）")
@@ -6643,7 +6848,7 @@ def main():
             n += 1
             vb = view_dir_check17(cuts.PLAN.get(cid, {}).get("plan", ""), F.m17(**kw).mech["lab"])
             bad = list(bad) + ([f"② {vb}"] if vb else [])
-        if kind in ("m24", "m25", "m26", "m27"):  # 🆕 24本目 ⑤b-4・25本目 ⑤b-5・26本目 ⑤b-5・27本目 ⑤b-4：見る向きの合図（PLAN の「見る向き：」× 左上の札）
+        if kind in ("m24", "m25", "m26", "m27", "m28"):  # 🆕 24本目 ⑤b-4・25本目 ⑤b-5・26本目 ⑤b-5・27本目 ⑤b-4・28本目 ⑤b-4：見る向きの合図（PLAN の「見る向き：」× 左上の札）
             n += 1
             vb = view_dir_check17(cuts.PLAN.get(cid, {}).get("plan", ""), getattr(F, kind)(**kw).mech["lab"])
             bad = list(bad) + ([f"② {vb}"] if vb else [])

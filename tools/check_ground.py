@@ -354,6 +354,28 @@ def selftest():
         say(tuple(int(v) for v in g) == (100, 50, 25), "ground_dim は色相を変えない（各色に同じ掛け算）")
     except Exception as e:                           # noqa: BLE001
         say(False, f"build_jiko.ground_dim を呼べない: {e}")
+    # 🆕 28本目 ⑤b-4：地に使える権利と出典の行（PD は CC0 と同じく改変を書かない・BY-SA は止まる・CC BY は改変の欄が要る）
+    import cuts.ss as ss_
+    say("PD" in ss_.GROUND_LIC and "CC0" in ss_.GROUND_LIC and not any("SA" in x for x in ss_.GROUND_LIC), "地に使える権利＝CC BY・CC0・PD（BY-SA は入らない）")
+    import scene_jiko as S_
+    keep_cr = S_.credit_of
+    try:
+        S_.credit_of = lambda c, s: "Wikimedia Commons（パブリックドメイン）"
+        say(S_.ground_credit("x", {}) == "地の写真：Wikimedia Commons（パブリックドメイン）", "陰性 PD の地の出典の行に改変を足さない")
+        S_.credit_of = lambda c, s: "Wikimedia Commons（パブリックドメイン）／改変：ナンバーにモザイク"
+        say(S_.ground_credit("x", {}) == "地の写真：Wikimedia Commons（パブリックドメイン）／改変：ナンバーにモザイク", "陰性 PD のモザイクの断りはそのまま残る")
+        S_.credit_of = lambda c, s: "写真：作者／Wikimedia Commons（CC BY 4.0）／改変：切出"
+        say(S_.ground_credit("x", {}).endswith("／改変：切出・明るさ"), "陰性 CC BY は改変の欄に「明るさ」を足す")
+        S_.credit_of = lambda c, s: "写真：作者／Wikimedia Commons（CC BY 3.0）／改変なし"
+        say(S_.ground_credit("x", {}).endswith("／改変：切出・明るさ") and "改変なし" not in S_.ground_credit("x", {}), "陰性 束で切らなかった CC BY（改変なし）も地では切出・明るさ")
+        S_.credit_of = lambda c, s: "写真：作者／Wikimedia Commons（CC BY 4.0）"
+        try:
+            S_.ground_credit("x", {})
+            say(False, "陽性 CC BY で改変の欄が無いと止まる（止まらなかった）")
+        except ValueError:
+            say(True, "陽性 CC BY で改変の欄が無いと止まる")
+    finally:
+        S_.credit_of = keep_cr
     # suggest の二分探索：一様な地 v で 8:1 の境の k
     v = 180.0
     lo, hi = 0.05, 1.0

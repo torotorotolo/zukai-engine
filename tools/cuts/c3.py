@@ -102,3 +102,45 @@ SPEC.update({
     "c313": ss.vid("c313"),
     "c316": ss.vid("c316"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-11-02）：図6（`tools/mech28.py`・地は写真＝`ss.gr`・動かさない）
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c302（2行）＝6つ（第5報の言葉）→ 「アクセス＋外へ送られた跡」
+    "c302": dict(
+        **ss.gr("cm051"), t="何が送られたか", s="会社の表の6つの項目",
+        fig=("m28", dict(view="six", steps=[dict(state=dict(all="on")), dict(state=dict(out="on"))], rel=[],
+                         note="第5報の表の言葉", src="タイムズモビリティ 第5報（2026-10-23）"))),
+    # c305（2行）＝左の棒（9月＝アカウントの数）→ 右の棒（10月＝画像の数）と「数えたものが違う」＝「減った」と読ませない（台本 §0-4）
+    "c305": dict(
+        **ss.gr("cm007"), t="2つの数", s="9月の知らせと10月の知らせ",
+        fig=("m28", dict(view="bars2", steps=[dict(state=dict(left="on")), dict(state=dict(right="on"))],
+                         rel=[dict(t="約160万件", src="第3報"), dict(t="9月の第3報", src="第3報"), dict(t="146万4800件", src="第5報"),
+                              dict(t="89万1602件", src="第5報"), dict(t="10月の第5報", src="第5報")],
+                         note="棒の高さは件数に比例（数えたものは左右で違う）", src="タイムズモビリティ 第3報（2026-09-29）・第5報（2026-10-23）"))),
+    # c308（2行）＝いま → この先（第5報 ※3 は1つの注の2文＝並べて出す・「この先」は次の c309 の語り）
+    "c308": dict(
+        **ss.gr("cm008"), t="会社の説明", s="暗号化して保管していた画像",
+        fig=("m28", dict(view="words2", steps=[dict(state=dict(now="on")), dict(state=dict(next="on"))],
+                         rel=[dict(t="第5報 ※3", src="第5報")],
+                         note="", src="タイムズモビリティ 第5報 ※3（2026-10-23）"))),
+    # c311（3行）＝1行目「もう1つの」→ 2行目「入られていた」→ 3行目「数」
+    "c311": dict(
+        **ss.gr("cm065"), t="もう1つの入り口", s="別の会員サービス",
+        fig=("m28", dict(view="club", steps=[dict(state=dict(box="on")), dict(state=dict(hit="on")), dict(state=dict(rows="on"))],
+                         rel=[dict(t="5件", src="第5報"), dict(t="1万9510件", src="第5報"), dict(t="13万5436件", src="第5報")],
+                         note="第5報の表の主な3項目", src="タイムズモビリティ 第5報（2026-10-23）"))),
+    # c312（2行）＝全部の桁を持たない → 下4桁 28件。札は全編2回まで（c105・c312）
+    "c312": dict(
+        **ss.gr("cm065"), t="決済の情報", s="クレジットカードの扱い",
+        fig=("m28", dict(view="ccard", steps=[dict(state=dict(keep="on")), dict(state=dict(leak="on"))],
+                         rel=[dict(t="番号の下4桁", src="第5報"), dict(t="28件", src="第5報")],
+                         note="桁の絵は模式（実際の番号ではない）", src="タイムズモビリティ 第5報（2026-10-23）"))),
+    # c314（3行）＝1行目「直された数」→ 2行目「JR西日本の会員サービス」→ 3行目「9月 → 10月 0件」
+    "c314": dict(
+        **ss.gr("cm065"), t="直された数", s="ほかのサービスとつなぐ番号",
+        fig=("m28", dict(view="fixn", steps=[dict(state=dict(old="on")), dict(state=dict(wester="on")), dict(state=dict(new="on"))],
+                         rel=[dict(t="9月の第2報", src="第2報"), dict(t="計9件", src="第2報"), dict(t="10月の第5報", src="第5報"), dict(t="4件", src="第5報"), dict(t="0件", src="第5報")],
+                         note="模式（数の直し）", src="タイムズモビリティ 第2報（2026-09-28）・第5報 ※2（2026-10-23）"))),
+})

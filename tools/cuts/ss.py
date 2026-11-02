@@ -1386,15 +1386,18 @@ QWHO = {}
 #      50〜1800px）で決まる。見本B（CM254 ×0.32）はこの物差しで c405 のいちばん悪い升 7.1:1（mock27 は字の箱の中を縮めて測った＝8.2:1）＝見本より約1割暗い。
 #      了承② の「字と図の線の周りで 8:1」をそのまま守った値＝⑤c で「何の写真か分かるか」を目で見る（暗すぎるなら地の写真か字の置き場を替える）
 #   🔴 2026-11-01（28本目 ⑤b-1・§0b）：27本目の17点は見本 `tools/fixture_ep27.py` の GROUND へ移した（git の `b62a7f94`）。28本目の図34を書くチャットで `--suggest` で測って写す
-GROUND = {}
-GROUND_LIC =("CC BY 2.0", "CC BY 3.0", "CC BY 4.0", "CC0")
+#   🆕 2026-11-02（28本目 ⑤b-4）：PD も地に使える（了承②「CC BY・CC0・PD の写真だけ」・地 CM006・CM007・CM114・CM129＝6カット）。出典の行は CC0 と同じく改変を書かない
+#      （表示の義務の無い物に義務があるように見せない＝`scene_jiko.ground_credit`）。BY-SA と引用は今までどおり止まる
+GROUND = {"cm001": 0.28, "cm006": 0.28, "cm007": 0.28, "cm008": 0.31, "cm009": 0.28, "cm047": 0.29, "cm051": 0.28, "cm053": 0.28,
+          "cm054": 0.29, "cm063": 0.28, "cm064": 0.30, "cm065": 0.28, "cm114": 0.28, "cm115": 0.29, "cm126": 0.28, "cm129": 0.28}
+GROUND_LIC = ("CC BY 2.0", "CC BY 3.0", "CC BY 4.0", "CC0", "PD")
 
 
 def gr(name):
     """説明カットの地の写真（暗くするだけ・静止・原色）＝SPEC に `**ss.gr("cm044")` と書く。"""
     lic = (_assets().get(name) or {}).get("lic")
     if lic not in GROUND_LIC:
-        raise ValueError(f"{name}（{lic}）: 説明カットの地は CC BY・CC0 の写真だけ（BY-SA・引用・衛星写真・フリー素材は地にしない＝§5b-117）")
+        raise ValueError(f"{name}（{lic}）: 説明カットの地は CC BY・CC0・PD の写真だけ（BY-SA・引用・衛星写真・フリー素材は地にしない＝§5b-117）")
     if name not in GROUND:
         raise KeyError(f"{name}: 地の写真の明るさが GROUND に無い（`python -P tools/check_ground.py --suggest` で測って写す）")
     return dict(photo=P(name), dim=float(GROUND[name]), color=1.0)
