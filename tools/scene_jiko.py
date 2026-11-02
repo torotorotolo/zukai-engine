@@ -3390,6 +3390,9 @@ def report():
 if __name__ == "__main__":
     if "--report" in sys.argv:
         sys.exit(0 if report() else 1)
+    # 🆕 28本目 ⑤b-4（2026-11-02）：`--only=c105,c202`（複数のカット）・`--workers=1`（Chrome を1本ずつ）。既定の4本のまま（Actions は変えない）。
+    #    🔴 手元は `--workers=1`＝並列4本はコミットの空きが足りないと 120 秒で固まって1枚も焼けない（実測：4本で空き 672MB → 183MB・1本なら 1.4秒/枚・187枚 344秒）
+    _only = next((a.split("=")[1] for a in sys.argv if a.startswith("--only=")), None)
     render_all(force="--force" in sys.argv,
-               only=next((a.split("=")[1] for a in sys.argv if a.startswith("--only=")),
-                         None))
+               only=tuple(_only.split(",")) if _only and "," in _only else _only,
+               jobs_workers=int(next((a.split("=")[1] for a in sys.argv if a.startswith("--workers=")), 4)))
