@@ -374,7 +374,9 @@ def six_stage(prev, st):
             s.append(_panel(x - SX["w"] / 2, y - SX["h"] / 2, SX["w"], SX["h"], J.ALERT if i == 5 else sc("member"), sw=5))
             s.append(_t(x, y + 16, t, 44, INK, "middle", SX["w"] - 40))
     if _on(prev, st, "out"):
-        s.append(_arrow(CX, 546.0, CX, 650.0, J.ALERT, 8, 30))
+        # 語り「どれも」＝矢印は6つを囲む枠から出す（真ん中の下の箱からにしない＝⑤c'）
+        s.append(F.rect(132.0, 272.0, 1656.0, 281.0, "none", J.ALERT, 6, rx=18))
+        s.append(_arrow(CX, 553.0, CX, 650.0, J.ALERT, 8, 30))
         s.append(_tag(CX, 700.0, "アクセス＋外へ送られた跡", J.ALERT, 40, INK))
     return s
 
@@ -582,7 +584,7 @@ def _in_box(i, a, b=None):
     g = _panel(x - IN["bw"] / 2, y - IN["bh"] / 2, IN["bw"], IN["bh"], sc("member"), sw=5)
     if b:
         return g + _t(x, y - 6, a, 46, INK, "middle", IN["bw"] - 40) + _t(x, y + 42, b, 28, J.TICK, "middle", IN["bw"] - 40)
-    return g + _t(x, y + 19, a, 54, INK, "middle", IN["bw"] - 30)
+    return g + _t(x, y + 16, a, 46, INK, "middle", IN["bw"] - 40)     # ⑤c'：54 だと「入会が済まなかった人」が箱いっぱいに縮む＝4つを 46 に揃える
 
 
 def inside_base(st0):
@@ -702,8 +704,6 @@ def rule_oct_base(st0):
         ax = x + 60 if i == 2 else (x - 60 if i == 0 else x)
         g.append(_t(ax, y - 34, day, 40, J.AMBER, anc, 460))
         g.append(_t(ax, y + 60, what, 32, INK if i == 1 else J.TICK, anc, 560))
-    for x, t in ((720.0, "いままで"), (1320.0, "変えたあと")):
-        g.append(_t(x, 520.0, t, 30, J.TICK, "middle", 500))
     return g
 
 
@@ -719,6 +719,9 @@ def _ro_row(i, y):
 def rule_oct_stage(prev, st):
     s = []
     if _on(prev, st, "now"):
+        # ⑤c'：列の名は表の1行目と一緒に出す（字だけ先に 3.85秒浮かせない）
+        for x, t in ((720.0, "いままで"), (1320.0, "変えたあと")):
+            s.append(_t(x, 520.0, t, 30, J.TICK, "middle", 500))
         s.append(_ro_row(0, 590.0))
     if _on(prev, st, "left"):
         s.append(_ro_row(1, 710.0))
@@ -774,8 +777,8 @@ def _rk_card(i):
     g = _panel(x - w / 2, y - h / 2, w, h, J.ALERT, sw=5) + ic(x - w / 2 + 88, y, 0.72 if i == 1 else 1.0, J.ALERT)
     lines = RK_V[i]
     if len(lines) == 2:
-        return g + _t(tx, y - 10, lines[0], 38, INK, "start", w - 190) + _t(tx, y + 48, lines[1], 38, INK, "start", w - 190)
-    return g + _t(x + 70, y + 26, lines[0], 72, INK, "middle", w - 190)     # 短い言葉は大きく（札の余白＝門番 box）
+        return g + _t(tx, y - 10, lines[0], 40, INK, "start", w - 190) + _t(tx, y + 48, lines[1], 40, INK, "start", w - 190)
+    return g + _t(x + 70, y + 21, lines[0], 58, INK, "middle", w - 190)     # ⑤c'：並列の札＝38 と 72（1.9倍）→ 40 と 58（1.45倍）・余白＝門番 box
 
 
 def risk4_base(st0):
@@ -1061,7 +1064,7 @@ def quote3000_stage(prev, st):
 #  two_claims（c614）＝並べて置く2つ（§B2-11 ⑦＝言い切らない）：左 弁護士に寄せられた相談／右 会社の言葉
 # ══════════════════════════════════════════════════════════
 TC_A = "「勝手にローンを組まれた」"
-TC_B = ("「売買・公開されたことを", "示す事実は確認されて", "おりません」")
+TC_B = ("「売買・公開されたことを", "示す事実は", "確認されておりません」")
 
 
 def two_claims_base(st0):
@@ -1228,7 +1231,9 @@ QUOTE_VIEWS = dict(sns2=("k2",), sns1b=("k1a", "k1b"), sns3=("k3a", "k3b"))
 
 
 def lab_of(view, st0):
-    return VIEWS[view]["lab"]
+    # ⑤c'：抽象の図に「正面から見た○○」は中学生に通じない・見る向きの門番は PLAN に「見る向き：」が無ければ見ない＝左上に出さない
+    lab = VIEWS[view]["lab"]
+    return "" if lab.startswith("正面から見た") else lab
 
 
 def _states(view, start, steps):
@@ -1290,7 +1295,8 @@ def m28(view, steps, start=None, rel=(), note="", src="", mute=()):
     st0, states = _states(view, start, steps)
     g = _base(view, st0)
     lab = lab_of(view, st0)
-    g.append(F.txtfit(F.BX0 + 8, F.BY0 + 36, lab + ("・模式" if view in SCHEMATIC else ""), 1000, cap=30, col=J.TICK, ol=OL))
+    lab_t = "・".join(x for x in (lab, "模式" if view in SCHEMATIC else "") if x)
+    g.append(F.txtfit(F.BX0 + 8, F.BY0 + 36, lab_t, 1000, cap=30, col=J.TICK, ol=OL) if lab_t else "")
     g.append(F.txtfit(F.BX0, F.BY1 - 6, note + (f"　出典：{src}" if src else ""), F.BW * 0.60 if view in SNS_VIEWS else F.BW,
                       cap=26, col=J.TICK, ol=OL))
     stages = _stage_svgs(view, steps, st0, states)

@@ -877,7 +877,6 @@ def _write_block(tag, lines):
 
 # 寄せ（footage.USE の zoom・bias・xbias）＝写したくない物を窓の外へ（🔴 区間は一覧 list28.tsv の動きの欄「映像 a〜b秒」から読む＝手で写さない）
 STOCK_GEOM = {
-    "c309": dict(zoom=1.12, bias=1.0, xbias=0.5),      # 奥の看板の字（5秒すぎ・上の約1割）を窓の外へ
     "c419": dict(zoom=1.2, bias=1.0, xbias=0.2),       # 右上の頭の一部（上の約2割・右の約2割）を窓の外へ
     "c502": dict(zoom=1.3, bias=1.0, xbias=1.0),       # 左上の顔と髪（左の約2割・上の約4割）を窓の外へ
 }

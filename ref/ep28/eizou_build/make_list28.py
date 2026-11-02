@@ -53,6 +53,7 @@ PICTURE = ('実写', '引用', '公的', 'イメージ')
 COUNTED = ('実写', '引用', '公的')          # 20% に数える＝この事件に関わる物と場所の写真・会社と機関の紙面
 FIGS = ('模式', '流れ', '時計', '並べ', '比べ', '棒', '箱', '札', '暦', '年表', '問答', '条文', '言葉', '式', '窓口', 'SNS')
 FIG_FREE = ('模式', 'SNS')                  # 3回以上でもよい型（台本 §0 の数えと同じ）
+FIG_CONT = ('c309',)                        # 前のカットと同じ図の続き（⑤c 直し＝c308 の「比べ」の2枚目）＝型の回数に数えない
 JI_OK = ('CC BY 2.0', 'CC BY 3.0', 'CC BY 4.0', 'CC0', 'PD')
 BAD_WORDS = ('犯人', '加害者', '流出', '真相')
 KEYS = ['cid', 'kind', 'main', 'ji', 'frame', 'sub', 'motion', 'look', 'ga_new', 'note', 'mark']
@@ -317,7 +318,7 @@ def gates(cuts, A, S, name_list=()):
     n_photo = sum(1 for cid in order if A.get(cid, {}).get('kind') in COUNTED)
     if order and n_photo / len(order) < PHOTO_LO:
         E.append('写真と紙面が %.1f%%（20%% 以上）' % (100.0 * n_photo / len(order)))
-    cnt = Counter(A[c]['kind'] for c in order if c in A and A[c]['kind'] in FIGS)
+    cnt = Counter(A[c]['kind'] for c in order if c in A and A[c]['kind'] in FIGS and c not in FIG_CONT)
     for t, n in sorted(cnt.items()):
         if t not in FIG_FREE and n > 2:
             E.append('図の型「%s」を %d 回（全編で2回まで）' % (t, n))

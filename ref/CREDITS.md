@@ -3289,12 +3289,12 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 
 | 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
 |---|---|---|---|---|---|
-| `cm001` | c401（地 c402 c403 c617） | 2009 | CC0（この回の土地と物・ナンバーに升目） | 表示は任意（CC0・PD） | Commons（記号 CM001＝git の外の目録 `src/commons/geo28.json`） |
+| `cm001` | c401（地 c402 c403 c405 c617） | 2009 | CC0（この回の土地と物・ナンバーに升目） | 表示は任意（CC0・PD） | Commons（記号 CM001＝git の外の目録 `src/commons/geo28.json`） |
 | `cm005` | c608 | 2015 | CC BY-SA 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM005＝git の外の目録 `src/commons/geo28.json`） |
-| `cm006` | c204（地 c207） | 2015 | PD（この回の土地と物・ナンバーに升目） | 表示は任意（CC0・PD） | Commons（記号 CM006＝git の外の目録 `src/commons/geo28.json`） |
-| `cm007` | c104（地 c105 c305 c616） | 2011 | PD（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM007＝git の外の目録 `src/commons/geo28.json`） |
-| `cm008` | c417（地 c209 c308 c618） | 2024 | CC BY 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM008＝git の外の目録 `src/commons/geo28.json`） |
-| `cm009` | c101（地 c405 c604） | 2024 | CC BY 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM009＝git の外の目録 `src/commons/geo28.json`） |
+| `cm006` | c204 c611（地 c207） | 2015 | PD（この回の土地と物・ナンバーに升目） | 表示は任意（CC0・PD） | Commons（記号 CM006＝git の外の目録 `src/commons/geo28.json`） |
+| `cm007` | c104（地 c105 c305 c308 c309 c616） | 2011 | PD（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM007＝git の外の目録 `src/commons/geo28.json`） |
+| `cm008` | c417（地 c618） | 2024 | CC BY 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM008＝git の外の目録 `src/commons/geo28.json`） |
+| `cm009` | c101 | 2024 | CC BY 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM009＝git の外の目録 `src/commons/geo28.json`） |
 | `cm011` | c208 | 2017 | CC BY-SA 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM011＝git の外の目録 `src/commons/geo28.json`） |
 | `cm023` | c619 | 2022 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM023＝git の外の目録 `src/commons/geo28.json`） |
 | `cm029` | c304 | 2017 | CC BY 2.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM029＝git の外の目録 `src/commons/geo28.json`） |
@@ -3307,18 +3307,17 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `cm044` | c410 | 2015 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM044＝git の外の目録 `src/commons/geo28.json`） |
 | `cm045` | c615 | 2015 | CC BY 3.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM045＝git の外の目録 `src/commons/geo28.json`） |
 | `cm046` | c706 | 2015 | CC BY 3.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM046＝git の外の目録 `src/commons/geo28.json`） |
-| `cm047` | c605（地 c607 c610） | 2015 | CC BY 3.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM047＝git の外の目録 `src/commons/geo28.json`） |
-| `cm048` | c611 | 2015 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM048＝git の外の目録 `src/commons/geo28.json`） |
+| `cm047` | c605（地 c604 c607 c610） | 2015 | CC BY 3.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM047＝git の外の目録 `src/commons/geo28.json`） |
 | `cm049` | c418 | 2015 | CC BY 3.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM049＝git の外の目録 `src/commons/geo28.json`） |
 | `cm051` | c216（地 c302 c409 c603） | 2015 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM051＝git の外の目録 `src/commons/geo28.json`） |
 | `cm052` | c421 | 2015 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM052＝git の外の目録 `src/commons/geo28.json`） |
-| `cm053` | c412（地 c414 c612） | 2015 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM053＝git の外の目録 `src/commons/geo28.json`） |
+| `cm053` | c412（地 c612） | 2015 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM053＝git の外の目録 `src/commons/geo28.json`） |
 | `cm054` | c613（地 c614） | 2015 | CC BY 3.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM054＝git の外の目録 `src/commons/geo28.json`） |
 | `cm056` | c514 | 2015 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM056＝git の外の目録 `src/commons/geo28.json`） |
 | `cm057` | c704 | 2015 | CC BY 3.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM057＝git の外の目録 `src/commons/geo28.json`） |
 | `cm058` | c217 | 2015 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep28/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM058＝git の外の目録 `src/commons/geo28.json`） |
 | `cm062` | c106 c705 | 2021 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM062＝git の外の目録 `src/commons/geo28.json`） |
-| `cm063` | c107 c406（地 c202 c203 c407 c513 c701） | 2021 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM063＝git の外の目録 `src/commons/geo28.json`） |
+| `cm063` | c107 c406（地 c202 c203 c209 c407 c414 c513 c701） | 2021 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM063＝git の外の目録 `src/commons/geo28.json`） |
 | `cm064` | c212 c620（地 c215） | 2021 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM064＝git の外の目録 `src/commons/geo28.json`） |
 | `cm065` | c310 c503（地 c311 c312 c314） | 2021 | CC0（この回の土地と物・顔とナンバーに升目） | 表示は任意（CC0・PD） | Commons（記号 CM065＝git の外の目録 `src/commons/geo28.json`） |
 | `cm071` | c306 c416 | 不明 | PD（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM071＝git の外の目録 `src/commons/geo28.json`） |
@@ -3352,7 +3351,6 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `X210` | c210 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/database-storage-of-a-server-5028622/ | 2026-11-02 |
 | `X214` | c214 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/person-fixing-electronics-7057342/ | 2026-11-02 |
 | `X303` | c303 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/video-of-a-digital-art-8817471/ | 2026-11-02 |
-| `X309` | c309 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-closed-gate-with-a-chain-and-a-padlock-3999371/ | 2026-11-02 |
 | `X313` | c313 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/fingers-typing-on-laptop-in-office-setting-33748966/ | 2026-11-02 |
 | `X316` | c316 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/blue-colored-cables-1085656/ | 2026-11-02 |
 | `X408` | c408 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-card-catalog-at-a-library-6550428/ | 2026-11-02 |

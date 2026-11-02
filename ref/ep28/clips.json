@@ -77,32 +77,6 @@
   "license_url": "https://www.pexels.com/license/",
   "site": "Pexels"
  },
- "X309": {
-  "url": "https://www.pexels.com/video/a-closed-gate-with-a-chain-and-a-padlock-3999371/",
-  "media": "https://videos.pexels.com/video-files/3999371/3999371-hd_1920_1080_24fps.mp4",
-  "stock": true,
-  "file": "ep28/src/eizou/X309.mp4",
-  "credit": "イメージ（Pexels）",
-  "src": "stock",
-  "at": 0.0,
-  "what": "イメージ：鎖と錠前",
-  "got": "2026-11-02",
-  "w": 1280,
-  "h": 720,
-  "fps": 24.0,
-  "sar": "1:1",
-  "sec": 13.93,
-  "size": 3086066,
-  "md5": "c8151aa40f3cebdffc419c8366bd2eb7",
-  "dispw": 1280,
-  "decoded": [
-   1280,
-   720
-  ],
-  "license": "Pexels License",
-  "license_url": "https://www.pexels.com/license/",
-  "site": "Pexels"
- },
  "X313": {
   "url": "https://www.pexels.com/video/fingers-typing-on-laptop-in-office-setting-33748966/",
   "media": "https://videos.pexels.com/video-files/33748966/14327998_1920_1080_30fps.mp4",
