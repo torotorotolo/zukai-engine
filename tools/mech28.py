@@ -461,13 +461,15 @@ def club_stage(prev, st):
         s.append(_panel(x, y, w, h, sc("company"), sw=6))
         s.append(_t(x + w / 2, y + 52, "タイムズクラブWebシステム", 42, sc("company"), "middle", w - 60))
         s.append(_t(x + w / 2, y + 94, "送られた跡の数", 28, J.TICK, "middle", w - 60))
+        # 項目の名は枠と一緒に出す（語りの頭で枠の中が空のまま3秒続かない）・数は3行目で
+        for (lab, _v), yy in zip(CB_V, CB["ys"]):
+            s.append(F.line(x + 40, yy - 58, x + w - 40, yy - 58, J.LINE_DIM, 3))
+            s.append(_t(x + 50, yy + 14, lab, 32, INK, "start", 700))
     if _on(prev, st, "hit"):
         s.append(_arrow(170.0, 560.0, x - 16, 560.0, sc("attacker"), 8, 30))
         s.append(_t(370.0, 530.0, "不正アクセス", 34, sc("attacker"), "middle", 420))
     if _on(prev, st, "rows"):
-        for (lab, v), yy in zip(CB_V, CB["ys"]):
-            s.append(F.line(x + 40, yy - 58, x + w - 40, yy - 58, J.LINE_DIM, 3))
-            s.append(_t(x + 50, yy + 14, lab, 32, INK, "start", 700))
+        for (_lab, v), yy in zip(CB_V, CB["ys"]):
             s.append(_t(x + w - 50, yy + 20, v, 56, J.AMBER, "end", 380))
     return s
 
@@ -499,7 +501,7 @@ def ccard_stage(prev, st):
     if _on(prev, st, "leak"):
         gx = CC["gx"][3]
         y = CC["y"]
-        s.append(F.rect(gx - 12, y + 262, 142, 56, "none", J.AMBER, 6, rx=8))
+        s.append(F.rect(gx - 7, y + 262, 137, 56, "none", J.AMBER, 6, rx=8))
         s.append(_arrow(gx + 136, y + 262, 880.0, 660.0, J.AMBER, 6, 24))
         s.append(_panel(880.0, 570.0, 920.0, 200.0, J.AMBER, sw=5))
         s.append(_t(1340.0, 628.0, "番号の下4桁（タイムズクラブ側）", 34, INK, "middle", 860))
@@ -666,10 +668,10 @@ def law22_base(st0):
 def law22_stage(prev, st):
     s = []
     if _on(prev, st, "head"):
-        s.append(_panel(220.0, 300.0, 1480.0, 480.0, sc("kuni"), sw=5))
+        # 頭は法の名だけ（語りの頭で大きな枠の中が空のまま3秒続かない）・枠と条文は2行目で
         s.append(_t(CX, 376.0, "個人情報の保護に関する法律 第22条（後半）", 38, sc("kuni"), "middle", 1400))
-        s.append(F.line(280.0, 412.0, 1640.0, 412.0, J.LINE_DIM, 3))
     if _on(prev, st, "text"):
+        s.append(_panel(220.0, 412.0, 1480.0, 368.0, sc("kuni"), sw=5))
         # 地 CM051 の看板の字（y526〜552）の高さに行を載せない＝門番 slide G-14
         s.append(_lines(CX, 510.0, L22[:2], 50, INK, "middle", 1400, 98.0))
         s.append(_t(CX, 700.0, L22[2], 64, J.AMBER, "middle", 1400))
@@ -859,8 +861,8 @@ def jicc5_base(st0):
     g = []
     for i, t in enumerate(JC_D):
         g.append(_t(jc_x(i) + JC["w"] / 2, y - 66, t, 36, J.AMBER, "middle", JC["w"] - 10))
-        g.append(F.line(jc_x(i), y - 50, jc_x(i), y + JC["h"] / 2 + 12, J.LINE_DIM, 3))
-    g.append(F.line(jc_x(5), y - 50, jc_x(5), y + JC["h"] / 2 + 12, J.LINE_DIM, 3))
+        g.append(F.line(jc_x(i), y - JC["h"] / 2 - 22, jc_x(i), y - JC["h"] / 2 - 2, J.LINE_DIM, 3))     # 目盛りは帯の上で止める（帯の字の下を通さない＝geom_gap）
+    g.append(F.line(jc_x(5), y - JC["h"] / 2 - 22, jc_x(5), y - JC["h"] / 2 - 2, J.LINE_DIM, 3))
     return g
 
 
