@@ -1,0 +1,2 @@
+取った日	記号	種類	bytes	md5	md5（読み直し）	ファイル	出どころ	備考
+2026-11-03	D1028	company-pdf	316006	be84a985d7ad16a8882c00938fa71ace	be84a985d7ad16a8882c00938fa71ace	src/company/gmointernet_j_disclose_20261028.pdf	https://internet.gmo/ir/pdf/irlibrary/gmointernet_j_disclose_20261028.pdf	了承ずみ5本の内（① の決めること6）・② の写しと md5 の頭が同じ（be84a985）・robots.txt は全部許可・curl の既定の名乗り・HEAD は 200
