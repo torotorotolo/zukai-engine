@@ -2,9 +2,9 @@
 
 ## build（exit=0）
 ```
-当てた 234・二重なので当てない 0・当て損ない 0／直したカット 88／v2_head.md を差した
+当てた 237・二重なので当てない 0・当て損ない 0／直したカット 88／v2_head.md を差した
 第1版 md5 a6f57d5624a829ab765afab4b4d05b8e → a6f57d5624a829ab765afab4b4d05b8e （同じ）
-書いた C:\Users\konar\Desktop\zukai-engine\ref\ep29\daihon_v2.md d42617359ec721b06802a963f4dc034f
+書いた C:\Users\konar\Desktop\zukai-engine\ref\ep29\daihon_v2.md dd3397960f362ee1b653a6557fec1e1e
 🔧 c103 c104 c105 c106 c107 c201 c202 c205 c207 c208 c211 c212 c213 c214 c215 c217 c218 c219 c301 c303 c306 c307 c308 c309 c310 c311 c312 c313 c314 c315 c316 c317 c318 c319 c320 c402 c404 c406 c408 c409 c410 c412 c413 c414 c415 c416 c417 c418 c420 c501 c502 c503 c504 c505 c506 c507 c508 c509 c510 c511 c512 c513 c514 c517 c518 c519 c520 c601 c602 c603 c604 c605 c606 c608 c609 c610 c611 c612 c613 c614 c615 c616 c617 c618 c620 c703 c704 c705
 ```
 
@@ -91,7 +91,7 @@ E 0件（形）・聞き役 E 0件・W 26件・言わない語 0件
 ## namecheck（exit=0）
 ```
 網＝names_private.txt
-名前の網 17語 × 28ファイル → 0件
+名前の網 17語 × 29ファイル → 0件
 ```
 
 ## check_script（exit=1）
