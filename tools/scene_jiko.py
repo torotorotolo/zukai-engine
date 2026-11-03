@@ -168,13 +168,19 @@ CSS = ""
 #    （c1〜c7＝106カット）＝`cuts/__init__.CHAPTER_FILES`・`NCH` はそのまま。つかみ（c1＝c101〜c107）は章の札なし。
 #    扉は c201〜c701 の6枚（音の側と同じ＝check_script.door_key・28本目は INNER_CARDS なし）。
 #    ⚠️ 長い章名（第4章「免許証の情報が漏えいすると」＝13字・第5章「3000円と10万人」）は右上の章の札の幅を焼いた絵で見る
+# 🔴 2026-11-03（29本目 ⑤b-1）：GMO不正アクセス問題へ差し替え。28本目の章名は git の `6fb3d0fc`。
+#    正本＝repo `ref/ep29/daihon_v2.md` §4 の `### 第N章　…`（`（` の手前まで）＝映像方針の一覧（`make_list29.py` の chap）。**29本目も つかみ＋6章**
+#    （c1〜c7＝113カット）＝`cuts/__init__.CHAPTER_FILES`・`NCH` はそのまま。つかみ（c1＝c101〜c107）は章の札なし。
+#    扉は c201〜c701 の6枚（音の側と同じ＝check_script.door_key・29本目は INNER_CARDS なし）。
+#    ⚠️ 長い章名（第5章「5,000円と、上限300万円」＝15字・第1章「10月19日の問い合わせ」＝12字）は右上の章の札の幅を焼いた絵で見る。
+#    ⚠️ 第5章の「5,000円」は台本の章見出しのまま＝語りと図は「5000円」（28本目は ⑤c' で章名を語りの書き方に揃えた＝台本・narration.py の見出しも一緒に＝29本目は ⑤b の図のチャットで決める）
 CHAPTERS = {
-    "c2": (1, "9月25日の朝"),
-    "c3": (2, "662万件の中身"),
-    "c4": (3, "退会して7年"),
-    "c5": (4, "免許証の情報が漏えいすると"),
-    "c6": (5, "3000円と10万人"),
-    "c7": (6, "いま、できること"),
+    "c2": (1, "10月19日の問い合わせ"),
+    "c3": (2, "正午までに"),
+    "c4": (3, "8月5日"),
+    "c5": (4, "2年前の報告会"),
+    "c6": (5, "5,000円と、上限300万円"),
+    "c7": (6, "見に行かない、広めない"),
 }
 NCH = 6
 
@@ -299,13 +305,15 @@ def chapter_of(cid):
 # 🔴 2026-11-01（28本目 ⑤b-1）：27本目の6件（git の `b62a7f94`）から差し替えた＝6章（つかみ c101〜c107 は章が無い＝navy）。
 #    Claude の推奨（カズヤくんに見せて変えてよい）。選び方は25〜27本目と同じ＝章の中身で4色から選び、隣の章の差が DE_MIN 13 以上（🔴 セピアと白黒 6.5＝隣に置けない＝間に紺）。
 #    ⚠️ 説明カットの地の写真の層（SPEC の dim）は章の色に置き換えない（`pal_of_layer`）＝章の色が効くのは扉と章の札ほか。写真の色味は原本のまま（ep28＝1.0）
+# 🔴 2026-11-03（29本目 ⑤b-1）：28本目の6件（git の `6fb3d0fc`）から差し替えた＝6章（つかみは navy）。Claude の推奨（カズヤくんに見せて変えてよい）。選び方は25〜28本目と同じ。
+#    写真の色味は原本のまま（ep29＝1.0）
 CHAPTER_PALETTE = {
-    "9月25日の朝": "copper",                   # 不正なアクセスに気づいた朝・止めた＝失う
-    "662万件の中身": "navy",                   # 件数と画像の数＝図解
-    "退会して7年": "sepia",                    # 7年の保管の経過＝記録
-    "免許証の情報が漏えいすると": "navy",      # 広がった影響と制度＝図解（セピアと白黒のあいだ）
-    "3000円と10万人": "mono",                 # 見舞金の知らせと弁護士側の話＝書類
-    "いま、できること": "navy",                # 窓口と注意＝図解
+    "10月19日の問い合わせ": "copper",          # 問い合わせから異変に気づく＝失う
+    "正午までに": "navy",                      # 予告の時刻と知らせの時刻＝図解
+    "8月5日": "sepia",                         # 侵入からの経過＝記録
+    "2年前の報告会": "navy",                   # 説明会と2年前の指摘＝図解（セピアと白黒のあいだ）
+    "5,000円と、上限300万円": "mono",          # 見舞金と補償の制度・知らせ＝書類
+    "見に行かない、広めない": "navy",          # 窓口と注意＝図解
 }
 
 
@@ -885,6 +893,60 @@ def ep19_credit(name):
         u = _FO.USE.get(m.group(1))
         return _FO.CLIPS[u["clip"]]["credit"] if u else None
     return EP19_CREDIT.get(name)
+
+
+# ══════════════════════════════════════════════════════════
+#  29本目（GMO不正アクセス問題）── `ref/ep29/`（2026-11-03 ⑤b-1）
+# ══════════════════════════════════════════════════════════
+#   ep29/<欄の名>.jpg … 写真と紙面（Commons の実写＝CC BY・BY-SA・CC0・PD・会社の頁と開示の PDF の引用・公的な機関の頁）＝映像方針の一覧 `ref/ep29/eizou_list29.md`（了承②）。
+#                        説明カットの地の写真も同じ表（「地の写真：…／改変：切出・明るさ」）
+#   ep29/stock/…      … イメージ（この事件の物でないフリー素材＝Pexels の映像18カット・20% に数えない・概要欄にクレジットを書かない）＝出典は `footage.CLIPS`（`ref/ep29/clips.json`）の credit
+# 🔴 表はファイルから読む（ルール 0b-34①）。`ref/ep29/credits.json` は写真の束のチャット（⑤b-2 以降）で書く（無いあいだは空＝当たらない）。
+#    ⚠️ 名前が当たらないときは None → 最後の `PHOTO_CREDIT[...]` で KeyError（fail closed）。
+#    🔴 事件の回（ルール §B2-11・§B2-11b）＝顧客・公開された人・SNS の投稿者・役員・記者の名前は出典の行にも出さない。🔴 `internet.gmo` の頁は出典の行に URL まで（§2-36）。
+#    🔴 作者の名前（CC BY・BY-SA の Commons の撮影者）は git の外の表 `ref/ep29/src/credits_private.tsv`（映像方針で作った＝`eizou_build/authors29.py`・
+#       列＝code・author〈頭の行は `#` の注〉・行の鍵＝sources29.psv の記号 CM…）＝credits.json に印 `{作者}` だけを書き、焼くときに足す（17・23〜28本目の型）。
+#       束の名（`ref/ep29/assets.json`＝⑤b-2 で作る）の code から引く
+_EP29_CREDITS = HERE / "ref" / "ep29" / "credits.json"
+EP29_CREDIT = (json.loads(_EP29_CREDITS.read_text(encoding="utf-8"))
+               if _EP29_CREDITS.exists() else {})
+_EP29_AUTHOR = "{作者}"
+_EP29_PRIVATE = HERE / "ref" / "ep29" / "src" / "credits_private.tsv"
+
+
+def _ep29_author(name):
+    import csv
+    import os
+    if not _EP29_PRIVATE.exists():
+        if os.environ.get("GITHUB_ACTIONS") == "true":
+            return EP23_AUTHOR_STANDIN                  # 検品の試し焼きだけ（本編は Modal＝表を保管庫から取る）
+        raise RuntimeError(f"{name}: 出典の行に作者の名前が要るのに git の外の表 ref/ep29/src/credits_private.tsv が無い"
+                           "（Modal は保管庫 jiko-assets の ref/ep29/src/ に置く）＝印のまま焼かない")
+    code = json.loads((HERE / "ref" / "ep29" / "assets.json").read_text(encoding="utf-8"))[name[len("ep29/"):-len(".jpg")]]["code"]
+    rows = [r for r in csv.reader(_EP29_PRIVATE.open(encoding="utf-8"), delimiter="\t") if r and not r[0].startswith("#")]
+    row = {r[0]: r for r in rows[1:] if len(r) >= 2}.get(code) or []
+    who = " ".join((row[1] if len(row) >= 2 else "").split())
+    if not who:
+        raise RuntimeError(f"{name}（{code}）: git の外の表に {code} の作者欄が無い")
+    if re.search(r"[<>&]", who) or len(who) > 24:
+        raise RuntimeError(f"{name}（{code}）: 作者欄が SVG にそのまま書けないか長すぎる（{len(who)}字）＝焼かない")
+    return who
+
+
+def ep29_credit(name):
+    """`ref/ep29/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if not name.startswith("ep29/"):
+        return None
+    # 映像のひかえの静止画＝出典は映像と同じ（19本目 ⑤b-2 の型）。公開リポに置かない置き場（`police/fb_<cid>.jpg`）も同じ形
+    m = re.fullmatch(r"ep29/(?:stock/|police/)?fb_(c[0-9a-f]{3}(?:~t)?)\.jpg", name)
+    if m:
+        import footage as _FO
+        u = _FO.USE.get(m.group(1))
+        return _FO.CLIPS[u["clip"]]["credit"] if u else None
+    v = EP29_CREDIT.get(name)
+    if v and _EP29_AUTHOR in v:
+        v = v.replace(_EP29_AUTHOR, _ep29_author(name))
+    return v
 
 
 # ══════════════════════════════════════════════════════════
@@ -1674,7 +1736,7 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep28_credit(spec["photo"]) or ep27_credit(spec["photo"]) or ep26_credit(spec["photo"]) or ep25_credit(spec["photo"]) or ep24_credit(spec["photo"]) or ep17_credit(spec["photo"]) or ep23_credit(spec["photo"]) or ep22_credit(spec["photo"]) or ep21_credit(spec["photo"]) or ep20_credit(spec["photo"]) or ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
+    cr = (ep29_credit(spec["photo"]) or ep28_credit(spec["photo"]) or ep27_credit(spec["photo"]) or ep26_credit(spec["photo"]) or ep25_credit(spec["photo"]) or ep24_credit(spec["photo"]) or ep17_credit(spec["photo"]) or ep23_credit(spec["photo"]) or ep22_credit(spec["photo"]) or ep21_credit(spec["photo"]) or ep20_credit(spec["photo"]) or ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
           or ep14_credit(spec["photo"])
           or ep13_credit(spec["photo"])
           or ep12_credit(spec["photo"])
