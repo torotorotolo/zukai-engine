@@ -98,6 +98,9 @@ PHOTO_KEEP_EP = {"ep17": 1.0, "ep20": 1.0, "ep21": 1.0, "ep22": 1.0, "ep23": 1.0
 #       27本目の額装＝BY-SA の写真（無加工・1点1カット）・県警と警察庁の引用（YT の動画の区間は額の中で流れる＝映像の中身の動きは止めない・額と額の中の寄りは止める）・衛星写真の地図
 #    🔴 2026-11-01（28本目 ⑤b-1）："ep28" を足した。28本目の額装＝BY-SA の写真・縦長の見本（高さいっぱい・地は同じ写真のぼかし）・会社の頁と適時開示の引用・公的な機関の頁
 FRAME_STILL_EP = {"ep26", "ep27", "ep28"}
+# 🆕 2026-11-03（28本目 ⑥ の通し検品）：前のカットと同じ図の続きのカットは、骨格（lab）を描き直さず頭から出しておく（回の名で引く）
+#    c308 の終わりに出ていた「いま」の箱が c309 の頭で一度消え、約1秒かけて左から描き直された（コマで見た）。回を替えたら空でよい
+LAB_HOLD_EP = {"ep28": ("c309",)}
 
 
 def _photo_keep_default():
@@ -110,8 +113,14 @@ def _frame_still_default():
     return el_script.SLUG in FRAME_STILL_EP
 
 
+def _lab_hold_default():
+    import el_script
+    return LAB_HOLD_EP.get(el_script.SLUG, ())
+
+
 PHOTO_KEEP = _photo_keep_default()
 FRAME_STILL = _frame_still_default()
+LAB_HOLD = _lab_hold_default()
 
 
 def framed(box):
@@ -671,7 +680,7 @@ def scene(cut, t, dur, lay, photos, meta):
     # 図の骨格は前半で手早く描く（骨格が未完成のまま段が乗ると図が壊れて見える）
     if f"{cut}_lab" in lay:
         wipe(fr, lay[f"{cut}_lab"],
-             min(1.0, max(0.0, (t - 0.15) / (dur * meta[cut]["labk"]))), span=span)
+             1.0 if cut in LAB_HOLD else min(1.0, max(0.0, (t - 0.15) / (dur * meta[cut]["labk"]))), span=span)
     if il:
         # 14本目 ⑤b-2：2つの問いのパネルに小さく戻す絵（骨格の枠のあと・段の札の前＝「再現イラスト」の札が絵の上に来る）
         fr = illu_minis(fr, cut, t, lay, meta)
