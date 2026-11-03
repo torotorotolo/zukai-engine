@@ -1,0 +1,14 @@
+{
+ "Q1": {"url": "https://www.onamae.com/news/article/11584", "from": "このたび、お名前", "to": "詳細な情報については調査を継続", "x0": 56, "x1": 800},
+ "Q4": {"url": "https://group.gmo/info/alert/20261024/", "from": "2026年10月24日 11:50時点", "to": "これまでの調査により", "x0": 326, "x1": 1054},
+ "Q7": {"url": "https://group.gmo/info/alert/2026102602/", "from": "2026年10月26日23:10時点", "to": "お客様への説明を最優先にすべき", "x0": 326, "x1": 1054},
+ "Q8": {"url": "https://group.gmo/info/alert/20261027/", "from": "12時に予告されている攻撃に備え", "to": "バックアップを取得したうえで", "x0": 326, "x1": 1054, "ng": ["ご協力いただいている企業", "セキュリティ企業や"]},
+ "Q10": {"url": "https://group.gmo/info/alert/2026102703/", "from": "1．攻撃者とみられる者による情報の公開", "to": "ランサムウェア攻撃については、10月27日 13:55時点", "x0": 326, "x1": 1054},
+ "Q12": {"url": "https://group.gmo/info/alert/2026102705/", "from": "■①今後の対応方針", "to": "犯人の要求に応じても", "x0": 326, "x1": 1054},
+ "Q13": {"url": "https://group.gmo/info/alert/20261028/", "from": "■①【ご報告】犯人サイトのドメイン", "to": "その結果、日本時間", "x0": 326, "x1": 1054},
+ "Q14": {"url": "https://group.gmo/info/alert/2026102802/", "from": "■③犯人による攻撃に関する現状のご報告", "to": "再度ご利用になる際は", "x0": 326, "x1": 1054},
+ "PB213": {"url": "https://www.mof.go.jp/public_relations/conference/my20261027.html", "view_w": 700,"from": "【冒頭発言】", "cut_after": "顧客取引のモニタリング強化などの必要な対応を要請してまいりました。", "ng": ["本日までにＦＸ業者"]},
+ "PB317": {"url": "https://www.soumu.go.jp/menu_news/kaiken/01koho01_02001587.html", "from": "問：", "after": 2000, "to": "個別のやり取りの逐一について", "x0": 180, "x1": 800, "ng": ["ブロッキング要請"]},
+ "PB613": {"url": "https://www.digital.go.jp/speech/minister-261027-01", "view_w": 800, "from": "（答）御指摘のGMOインターネットグループ", "to": "（答）御指摘のGMOインターネットグループ"},
+ "PB704": {"url": "https://www.cyber.go.jp/tokusetsu/contactpoint_advisory_hub/index.html", "note": "画面なしの Chrome には Not Found を返す＝内蔵ブラウザの普通の表示を撮った（pageshot29 の shot は使わない）"}
+}

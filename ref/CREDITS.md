@@ -3362,3 +3362,73 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `X609` | c609 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/an-empty-conference-room-6951393/ | 2026-11-02 |
 | `X702` | c702 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/man-scrolling-on-mobile-phone-screen-6611954/ | 2026-11-02 |
 | `X703` | c703 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/close-up-view-of-a-person-using-cellphone-5321400/ | 2026-11-02 |
+
+## GMO不正アクセス問題（2026-10-20・29本目）
+
+※2026-11-03（⑤b-2）。`qa_out/ep29_assets.py credits --write` が書く（手で直さない）。写真と紙面は映像方針の一覧 `ref/ep29/eizou_list29.md`（了承② 2026-11-03）。
+🔴 事件の回（ルール §B2-11・§B2-11b）＝顧客・公開された人・SNS の投稿者・役員・記者の名前は書かない・攻撃した者は「第三者」「攻撃した者」・会社を犯人と言わない・公開された情報は一切出さない。
+
+### 0. 会社の頁・開示と公的な機関の頁
+- 会社（GMOインターネットグループの重要なお知らせ・お名前.com の第1報・GMOインターネットの開示）＝サイトポリシーは引用を禁止の外に置く・`internet.gmo` は引用でもサイト名と URL を明記・お名前.com の頁にサイトの著作権の文は無い＝同じ条件で読む（2026-11-03 に `onamae.com/agreement/`・`/sitemap/` で確かめた）＝著作権法32条の引用の型（出典・日付・語りが主・話している秒だけ・無加工の額装・頁の頭と代表者名を写さない）。🔴 **公開リポに置かない**（`ep29/police/`＝git の外・Modal の保管庫）。⚠️ 法律の助言ではない＝こちらの読み
+- 公的な機関（2026-11-03 に各頁で規約を読んだ）＝財務省・デジタル庁＝公共データ利用規約 PDL1.0／総務省・国家サイバー統括室＝PDL1.0 に準拠＝出典と編集の断り（「／改変：切出」）で利用する・ロゴは写さない・公開リポに置く
+
+### 1. 写真と紙面（Commons の CC BY・BY-SA・CC0・PD・会社の引用・公的な機関の頁）
+- CC BY・BY-SA＝「写真：{作者}／Wikimedia Commons（ライセンス）」。🔴 撮影者の名前はこのリポに書かない＝`ref/ep29/credits.json` は印 `{作者}` だけ・焼くときに git の外の表 `ref/ep29/src/credits_private.tsv` から足す（`tools/scene_jiko.ep29_credit`）。CC0・PD＝「Wikimedia Commons（CC0／パブリックドメイン）」
+- BY-SA＝額装（無加工・1点1カット・升目もかけない＝人とナンバーが写っていない点だけ）。CC BY・CC0・PD の私人の顔とナンバーは升目（「／改変：…にモザイク」）。色は原本のまま
+- 説明カットの地（「地 c…」）＝CC BY・CC0・PD の写真を暗くするだけ（字と地の比 8:1 が下限・出典の行は「地の写真：…／改変：明るさ」）
+- 撮影年＝Commons の頁の撮影日・文書の日付（sources29 の時期の欄）
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `cm003` | c508（地 c511 c703） | 2019 | CC BY 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM003＝git の外の目録 `src/commons/geo29.json`） |
+| `cm004` | c104 c514（地 c105 c701） | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM004＝git の外の目録 `src/commons/geo29.json`） |
+| `cm021` | c309 c512 | 2015 | PD（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM021＝git の外の目録 `src/commons/geo29.json`） |
+| `cm027` | c410（地 c306 c415） | 2021 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM027＝git の外の目録 `src/commons/geo29.json`） |
+| `cm028` | c210 | 2021 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM028＝git の外の目録 `src/commons/geo29.json`） |
+| `cm030` | c408 c620（地 c409） | 2007 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM030＝git の外の目録 `src/commons/geo29.json`） |
+| `cm031` | c607 | 2017 | CC BY 2.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM031＝git の外の目録 `src/commons/geo29.json`） |
+| `cm032` | c301（地 c619） | 2022 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM032＝git の外の目録 `src/commons/geo29.json`） |
+| `cm046` | c413 | 2011 | CC BY-SA 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM046＝git の外の目録 `src/commons/geo29.json`） |
+| `cm048` | c209 c610 | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM048＝git の外の目録 `src/commons/geo29.json`） |
+| `cm049` | c106 c520（地 c407 c417 c419 c513） | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM049＝git の外の目録 `src/commons/geo29.json`） |
+| `cm050` | c518 | 2023 | CC BY 2.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM050＝git の外の目録 `src/commons/geo29.json`） |
+| `cm052` | c506 | 2014 | CC BY-SA 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM052＝git の外の目録 `src/commons/geo29.json`） |
+| `cm055` | c401（地 c205 c402 c618） | 2007 | CC BY 2.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM055＝git の外の目録 `src/commons/geo29.json`） |
+| `cm056` | c212 c517（地 c307 c502 c603 c617） | 2010 | CC BY 2.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM056＝git の外の目録 `src/commons/geo29.json`） |
+| `cm057` | c219 c516（地 c507 c609 c616） | 2014 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM057＝git の外の目録 `src/commons/geo29.json`） |
+| `cm059` | c107 c705（地 c503） | 2024 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM059＝git の外の目録 `src/commons/geo29.json`） |
+| `cm095` | c320 c706 | 2025 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM095＝git の外の目録 `src/commons/geo29.json`） |
+| `cm096` | c303 | 2019 | CC BY 4.0（この回の土地と物・顔とナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM096＝git の外の目録 `src/commons/geo29.json`） |
+| `cm102` | c501 | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM102＝git の外の目録 `src/commons/geo29.json`） |
+| `cm103` | c312 | 2022 | CC BY 2.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM103＝git の外の目録 `src/commons/geo29.json`） |
+| `cm105` | c418 | 2025 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM105＝git の外の目録 `src/commons/geo29.json`） |
+| `cm107` | c509（地 c606） | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM107＝git の外の目録 `src/commons/geo29.json`） |
+| `cm119` | c215 | 2021 | CC BY 2.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM119＝git の外の目録 `src/commons/geo29.json`） |
+| `cm207` | c611 | 2020 | CC BY 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM207＝git の外の目録 `src/commons/geo29.json`） |
+| `p0010` | c411 | 2014 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 P0010＝git の外の目録 `src/commons/geo29.json`） |
+| `p0047` | （地 c319） | 2012 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 P0047＝git の外の目録 `src/commons/geo29.json`） |
+| `p1573` | c214 | 2008 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 P1573＝git の外の目録 `src/commons/geo29.json`） |
+| `pb213` | c213 | 2026 | PDL1.0 かそれに準拠（2026-11-03 に各頁で読んだ）＝出典と編集の断り（公的な機関の頁） | 各機関（国） | https://mof.go.jp/public_relations/conference/my20261027.html |
+| `pb317` | c317 | 2026 | PDL1.0 かそれに準拠（2026-11-03 に各頁で読んだ）＝出典と編集の断り（公的な機関の頁） | 各機関（国） | https://soumu.go.jp/menu_news/kaiken/01koho01_02001587.html |
+| `pb612` | c612 | 2026 | PDL1.0 かそれに準拠（2026-11-03 に各頁で読んだ）＝出典と編集の断り（公的な機関の頁） | 各機関（国） | https://cyber.go.jp/pdf/press/houdou_20261001.pdf |
+| `pb613` | c613 | 2026 | PDL1.0 かそれに準拠（2026-11-03 に各頁で読んだ）＝出典と編集の断り（公的な機関の頁） | 各機関（国） | https://digital.go.jp/speech/minister-261027-01 |
+| `pb704` | c704 | 2026 | PDL1.0 かそれに準拠（2026-11-03 に各頁で読んだ）＝出典と編集の断り（公的な機関の頁） | 各機関（国） | https://cyber.go.jp/tokusetsu/contactpoint_advisory_hub/index.html |
+| `d1028` | c601 | 2026 | 引用（著作権法32条・会社のサイトポリシーは引用を禁止の外に置く＝ルール §2-36）（引用・非公開） | GMOインターネット | https://internet.gmo/ir/pdf/irlibrary/gmointernet_j_disclose_20261028.pdf |
+| `q1` | c207 | 2026 | 引用（著作権法32条・会社のサイトポリシーは引用を禁止の外に置く＝ルール §2-36）（引用・非公開） | GMOインターネットグループ・GMOインターネット（お名前.com） | https://onamae.com/news/article/11584 |
+| `q10` | c310 | 2026 | 引用（著作権法32条・会社のサイトポリシーは引用を禁止の外に置く＝ルール §2-36）（引用・非公開） | GMOインターネットグループ・GMOインターネット（お名前.com） | `group.gmo/info/alert/2026102703/` |
+| `q12` | c314 | 2026 | 引用（著作権法32条・会社のサイトポリシーは引用を禁止の外に置く＝ルール §2-36）（引用・非公開） | GMOインターネットグループ・GMOインターネット（お名前.com） | `group.gmo/info/alert/2026102705/` |
+| `q13` | c316 | 2026 | 引用（著作権法32条・会社のサイトポリシーは引用を禁止の外に置く＝ルール §2-36）（引用・非公開） | GMOインターネットグループ・GMOインターネット（お名前.com） | `group.gmo/info/alert/20261028/` |
+| `q14` | c416 | 2026 | 引用（著作権法32条・会社のサイトポリシーは引用を禁止の外に置く＝ルール §2-36）（引用・非公開） | GMOインターネットグループ・GMOインターネット（お名前.com） | `group.gmo/info/alert/2026102802/` |
+| `q4` | c217 | 2026 | 引用（著作権法32条・会社のサイトポリシーは引用を禁止の外に置く＝ルール §2-36）（引用・非公開） | GMOインターネットグループ・GMOインターネット（お名前.com） | `group.gmo/info/alert/20261024/` |
+| `q7` | c304 | 2026 | 引用（著作権法32条・会社のサイトポリシーは引用を禁止の外に置く＝ルール §2-36）（引用・非公開） | GMOインターネットグループ・GMOインターネット（お名前.com） | `group.gmo/info/alert/2026102602/` |
+| `q8` | c101 | 2026 | 引用（著作権法32条・会社のサイトポリシーは引用を禁止の外に置く＝ルール §2-36）（引用・非公開） | GMOインターネットグループ・GMOインターネット（お名前.com） | `group.gmo/info/alert/20261027/` |
+| `t229` | c206 c608（地 c218 c315 c403 c404 c405 c406 c412） | 2023 | CC0（この回の土地と物・ナンバーに升目） | 表示は任意（CC0・PD） | Commons（記号 T229＝git の外の目録 `src/commons/geo29.json`） |
+| `t230` | c313 c604（地 c208 c305 c519） | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 T230＝git の外の目録 `src/commons/geo29.json`） |
+| `t231` | c420 | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 T231＝git の外の目録 `src/commons/geo29.json`） |
+| `t232` | c201 c605（地 c202 c505 c615） | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 T232＝git の外の目録 `src/commons/geo29.json`） |
+
+### 2. イメージ（Pexels の映像）＝clips.json
+- フリー素材（Pexels・生成AI は使わない）＝画面の左上に「イメージ」・出典の行は「イメージ（Pexels）」だけ（クレジットは任意＝投稿者の名前は書かない・概要欄にも書かない）。20% に数えない。🔴 映像そのものもひかえの静止画も git に入れない（19本目 決め⑨）
+
+| 記号 | 使うカット | 画面の出典 | ライセンス | 頁 | 取った日 |
+|---|---|---|---|---|---|
