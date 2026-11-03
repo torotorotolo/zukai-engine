@@ -3380,8 +3380,8 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 
 | 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
 |---|---|---|---|---|---|
-| `cm003` | c508（地 c511 c703） | 2019 | CC BY 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM003＝git の外の目録 `src/commons/geo29.json`） |
-| `cm004` | c104 c514（地 c105 c701） | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM004＝git の外の目録 `src/commons/geo29.json`） |
+| `cm003` | c104 c508（地 c511 c703） | 2019 | CC BY 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM003＝git の外の目録 `src/commons/geo29.json`） |
+| `cm004` | （地 c105 c701） | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM004＝git の外の目録 `src/commons/geo29.json`） |
 | `cm021` | c309 c512 | 2015 | PD（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM021＝git の外の目録 `src/commons/geo29.json`） |
 | `cm027` | c410（地 c306 c415） | 2021 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM027＝git の外の目録 `src/commons/geo29.json`） |
 | `cm028` | c210 | 2021 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM028＝git の外の目録 `src/commons/geo29.json`） |
@@ -3403,7 +3403,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `cm103` | c312 | 2022 | CC BY 2.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM103＝git の外の目録 `src/commons/geo29.json`） |
 | `cm105` | c418 | 2025 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM105＝git の外の目録 `src/commons/geo29.json`） |
 | `cm107` | c509（地 c606） | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM107＝git の外の目録 `src/commons/geo29.json`） |
-| `cm119` | c215 | 2021 | CC BY 2.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM119＝git の外の目録 `src/commons/geo29.json`） |
+| `cm119` | c215 c514 | 2021 | CC BY 2.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM119＝git の外の目録 `src/commons/geo29.json`） |
 | `cm207` | c611 | 2020 | CC BY 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM207＝git の外の目録 `src/commons/geo29.json`） |
 | `p0010` | c411 | 2014 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 P0010＝git の外の目録 `src/commons/geo29.json`） |
 | `p0047` | （地 c319） | 2012 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 P0047＝git の外の目録 `src/commons/geo29.json`） |

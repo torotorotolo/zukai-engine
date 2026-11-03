@@ -4,8 +4,8 @@
 # title＝見て確かめた中身（2026-11-03 に 640px の見本帳で見た＝src/seen_log.tsv の「映像方針」）。credit＝画面の出典の行の型。{作者}＝撮影者の名前（git の外の src/credits_private.tsv から ⑤b で差し込む）
 # 🔴 撮影者・作者の個人名はここに書かない。名前の網＝python -P ref/ep29/v2_build/namecheck29.py <ファイル>
 code|type|grp|title|get|dims|rights|basis|credit|era|people|file|note
-CM003|commons-photo|lobby|GMO のロビー（青い「GMO」の字・天井の輪の明かり・手前の案内の札と灯り・人なし）|commons:CM003|4032x3024|CC BY 4.0|Commons の札 CC BY 4.0|写真：{作者}／Wikimedia Commons（CC BY 4.0）|2019-12|なし|src/eizou/CM003.jpg|④ の札の「人の顔」は当たらなかった（幅960で見た）。c703 の地にも
-CM004|commons-photo|lobby|GMO のロビー（青い「GMO」の字が真ん中・天井の輪の明かり・人なし）|commons:CM004|4080x3072|CC0|Commons の札 CC0（撮った人の宣言）|写真：{作者}／Wikimedia Commons（CC0）|2023-11-21|なし|src/eizou/CM004.jpg|魚眼ぎみ＝端が流れる＝字を中心に寄る
+CM003|commons-photo|lobby|GMO のロビー（青い「GMO」の字・天井の輪の明かり・手前の案内の札と灯り・人なし）|commons:CM003|4032x3024|CC BY 4.0|Commons の札 CC BY 4.0|写真：{作者}／Wikimedia Commons（CC BY 4.0）|2019-12|なし|src/eizou/CM003.jpg|④ の札の「人の顔」は当たらなかった（幅960で見た）。c703 の地にも。⑤b-2 に原寸で見た＝鮮明・手前の札に「関係者専用入口」と施設の名（役員の名前なし）
+CM004|commons-photo|lobby|GMO のロビー（青い「GMO」の字が真ん中・天井の輪の明かり・人なし）|commons:CM004|4080x3072|CC0|Commons の札 CC0（撮った人の宣言）|写真：{作者}／Wikimedia Commons（CC0）|2023-11-21|なし|src/eizou/CM004.jpg|🔴 原寸はピンぼけ（⑤b-2 に試し焼きで見た）＝全面に使わない・暗くする地だけ（c105・c701）
 CM021|commons-photo|tower|昼のセルリアンタワーの全身（青空・下の丸い棟まで）|commons:CM021|2209x3762|PD|隠しカテゴリ PD-self＝撮った人の宣言・FoP-Japan（根拠 B＝ルール §2-10）|写真：{作者}／Wikimedia Commons（PD）|2015-12-26|なし|src/eizou/CM021.jpg|縦長＝高さいっぱいの額
 CM027|commons-photo|city|渋谷駅の工事の鉄骨（奥にセルリアンタワー・曇り）|commons:CM027|4032x3024|CC0|Commons の札 CC0|写真：{作者}／Wikimedia Commons（CC0）|2021-07-05|なし|src/eizou/CM027.jpg|CM028 と同じ日・同じ工事＝離して使う
 CM028|commons-photo|city|渋谷駅の工事の広い景色（鉄骨・遠くにセルリアンタワー・魚眼ぎみ）|commons:CM028|4608x3456|CC0|Commons の札 CC0|写真：{作者}／Wikimedia Commons（CC0）|2021-07-05|なし|src/eizou/CM028.jpg|CM027 と同じ日・同じ工事
