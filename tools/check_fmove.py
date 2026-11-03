@@ -314,16 +314,16 @@ def selftest():
         ("陽性：cam と一緒", dict(base, cam="pan_r", fmove=dict(frm=(0, 0, 0.9), to=(0, 0, 1.0))), True),
     ]
     for what, spec, want in cases:
-        b, _ = judge(S, L, "c102", spec)
+        b, _ = judge(S, L, "cz90", spec)   # 🔧 29本目 ⑤b-3：どの回にも無いカットID（c102 がフリー素材の回は full_top が見出しで止まる）
         chk(f"{what} → {'鳴る' if want else '鳴らない'}（{len(b)}件{'：' + b[0][:60] if b else ''}）", bool(b) == want)
     # 見出しの副題の箱が本当に拾えているか（物差しの確かめ＝文字の箱が0なら 3 は空の合格）
-    tb = L.boxes(S.full_top("c102", base), "c102_lab")
+    tb = L.boxes(S.full_top("cz90", base), "cz90_lab")
     chk(f"文字の箱を拾えている（{len(tb)}個＝見出し・副題・出典・章の札）", len(tb) >= 3)
     # ss.fm の6つの型が本物の箱で通る（書き方の見本が門番に止められない）
     import importlib
     ss = importlib.import_module("cuts.ss")
     for k in ("in", "out", "r", "l", "u", "d"):
-        b, _ = judge(S, L, "c102", dict(base, fmove=ss.fm(k)))
+        b, _ = judge(S, L, "cz90", dict(base, fmove=ss.fm(k)))
         chk(f"ss.fm('{k}') は通る（{len(b)}件）", not b)
     # 🆕 28本目 ⑤b-3：止まった額と文字の重なり
     tall = dict(base, ptall=True, t="短い見出し", s="短い副題")
