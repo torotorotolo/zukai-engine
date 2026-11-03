@@ -1,0 +1,296 @@
+{
+ "X102": {
+  "src": "https://www.pexels.com/video/blue-colored-cables-1085656/",
+  "scan": "ref/ep29/src/eizou/X102.mp4",
+  "dur": 24.0,
+  "how": "1秒1コマで tools/shots.shots_of（29本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 24.0,
+    "motion": 0.47
+   }
+  ]
+ },
+ "X103": {
+  "src": "https://www.pexels.com/video/analyzing-stock-market-trading-charts-30289537/",
+  "scan": "ref/ep29/src/eizou/X103.mp4",
+  "dur": 17.0,
+  "how": "1秒1コマで tools/shots.shots_of（29本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.0,
+    "motion": 20.03
+   },
+   {
+    "start": 4.0,
+    "until": 17.0,
+    "motion": 10.57
+   }
+  ]
+ },
+ "X203": {
+  "src": "https://www.pexels.com/video/real-time-stock-market-chart-analysis-footage-30289541/",
+  "scan": "ref/ep29/src/eizou/X203.mp4",
+  "dur": 27.0,
+  "how": "1秒1コマで tools/shots.shots_of（29本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 27.0,
+    "motion": 6.37
+   }
+  ]
+ },
+ "X204": {
+  "src": "https://www.pexels.com/video/close-up-video-of-a-person-typing-on-a-keyboard-5611429/",
+  "scan": "ref/ep29/src/eizou/X204.mp4",
+  "dur": 36.0,
+  "how": "1秒1コマで tools/shots.shots_of（29本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 2.0,
+    "motion": 46.13
+   },
+   {
+    "start": 2.0,
+    "until": 6.0,
+    "motion": 2.22
+   },
+   {
+    "start": 6.0,
+    "until": 18.0,
+    "motion": 29.18
+   },
+   {
+    "start": 18.0,
+    "until": 30.0,
+    "motion": 30.4
+   },
+   {
+    "start": 30.0,
+    "until": 36.0,
+    "motion": 13.17
+   }
+  ]
+ },
+ "X211": {
+  "src": "https://www.pexels.com/video/close-up-video-of-a-person-using-a-cellphone-8275994/",
+  "scan": "ref/ep29/src/eizou/X211.mp4",
+  "dur": 17.0,
+  "how": "1秒1コマで tools/shots.shots_of（29本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 17.0,
+    "motion": 7.48
+   }
+  ]
+ },
+ "X216": {
+  "src": "https://www.pexels.com/video/person-typing-on-a-mobile-phone-4671883/",
+  "scan": "ref/ep29/src/eizou/X216.mp4",
+  "dur": 11.0,
+  "how": "1秒1コマで tools/shots.shots_of（29本目・フリー素材）・🔧 1ショットに直した（指の動き（上位 7.8秒 24.5／3.8秒 24.5＝中央値 7.4 の 3.3倍））",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 11.0,
+    "motion": 27.65
+   }
+  ]
+ },
+ "X220": {
+  "src": "https://www.pexels.com/video/an-empty-gaming-chair-8128278/",
+  "scan": "ref/ep29/src/eizou/X220.mp4",
+  "dur": 8.0,
+  "how": "1秒1コマで tools/shots.shots_of（29本目・フリー素材）・🔧 1ショットに直した（カメラの動き（上位 0.4秒 14.2・0.5秒 10.5＝中央値 3.5 の 4.0倍））",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 8.0,
+    "motion": 10.29
+   }
+  ]
+ },
+ "X318": {
+  "src": "https://www.pexels.com/video/female-hands-typing-on-laptop-5716890/",
+  "scan": "ref/ep29/src/eizou/X318.mp4",
+  "dur": 17.0,
+  "how": "1秒1コマで tools/shots.shots_of（29本目・フリー素材）・🔧 1ショットに直した（打つ手（上位 2.0秒 12.3・1.8秒 11.5＝中央値 4.5 の 2.7倍））",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 17.0,
+    "motion": 15.21
+   }
+  ]
+ },
+ "X302": {
+  "src": "https://www.pexels.com/video/person-closing-a-laptop-6889425/",
+  "scan": "ref/ep29/src/eizou/X302.mp4",
+  "dur": 15.0,
+  "how": "1秒1コマで tools/shots.shots_of（29本目・フリー素材）・🔧 1ショットに直した（ふたを閉じる手（上位 9.0秒 9.3・8.8秒 8.9＝中央値 1.9 の 4.8倍））",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 15.0,
+    "motion": 18.15
+   }
+  ]
+ },
+ "X308": {
+  "src": "https://www.pexels.com/video/a-ticking-clock-7033607/",
+  "scan": "ref/ep29/src/eizou/X308.mp4",
+  "dur": 33.0,
+  "how": "1秒1コマで tools/shots.shots_of（29本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 33.0,
+    "motion": 0.94
+   }
+  ]
+ },
+ "X311": {
+  "src": "https://www.pexels.com/video/a-person-getting-a-smartphone-8946457/",
+  "scan": "ref/ep29/src/eizou/X311.mp4",
+  "dur": 79.0,
+  "how": "1秒1コマで tools/shots.shots_of（29本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 12.0,
+    "motion": 3.85
+   },
+   {
+    "start": 12.0,
+    "until": 28.0,
+    "motion": 1.74
+   },
+   {
+    "start": 28.0,
+    "until": 42.0,
+    "motion": 1.47
+   },
+   {
+    "start": 42.0,
+    "until": 55.0,
+    "motion": 2.96
+   },
+   {
+    "start": 55.0,
+    "until": 64.0,
+    "motion": 6.57
+   },
+   {
+    "start": 64.0,
+    "until": 75.0,
+    "motion": 3.69
+   },
+   {
+    "start": 75.0,
+    "until": 79.0,
+    "motion": 15.19
+   }
+  ]
+ },
+ "X414": {
+  "src": "https://www.pexels.com/video/a-computer-component-in-operation-3289569/",
+  "scan": "ref/ep29/src/eizou/X414.mp4",
+  "dur": 50.0,
+  "how": "1秒1コマで tools/shots.shots_of（29本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 50.0,
+    "motion": 0.78
+   }
+  ]
+ },
+ "X504": {
+  "src": "https://www.pexels.com/video/close-up-of-programming-13522169/",
+  "scan": "ref/ep29/src/eizou/X504.mp4",
+  "dur": 12.0,
+  "how": "1秒1コマで tools/shots.shots_of（29本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 12.0,
+    "motion": 0.76
+   }
+  ]
+ },
+ "X510": {
+  "src": "https://www.pexels.com/video/close-up-of-a-panel-with-blinking-luminous-buttons-13550579/",
+  "scan": "ref/ep29/src/eizou/X510.mp4",
+  "dur": 11.0,
+  "how": "1秒1コマで tools/shots.shots_of（29本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 11.0,
+    "motion": 2.73
+   }
+  ]
+ },
+ "X515": {
+  "src": "https://www.pexels.com/video/close-up-view-of-a-person-putting-down-his-stethoscope-while-using-a-laptop-5030431/",
+  "scan": "ref/ep29/src/eizou/X515.mp4",
+  "dur": 11.0,
+  "how": "1秒1コマで tools/shots.shots_of（29本目・フリー素材）・🔧 1ショットに直した（聴診器を持つ手（上位 1.8秒 36.5・1.9秒 30.5＝中央値 6.9 の 5.3倍））",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 11.0,
+    "motion": 33.53
+   }
+  ]
+ },
+ "X602": {
+  "src": "https://www.pexels.com/video/person-typing-on-laptop-6611946/",
+  "scan": "ref/ep29/src/eizou/X602.mp4",
+  "dur": 21.0,
+  "how": "1秒1コマで tools/shots.shots_of（29本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 21.0,
+    "motion": 0.81
+   }
+  ]
+ },
+ "X614": {
+  "src": "https://www.pexels.com/video/digital-code-rain-animation-10532470/",
+  "scan": "ref/ep29/src/eizou/X614.mp4",
+  "dur": 15.0,
+  "how": "1秒1コマで tools/shots.shots_of（29本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 8.0,
+    "motion": 20.1
+   },
+   {
+    "start": 8.0,
+    "until": 15.0,
+    "motion": 21.55
+   }
+  ]
+ },
+ "X702": {
+  "src": "https://www.pexels.com/video/a-mobile-phone-on-the-table-6278820/",
+  "scan": "ref/ep29/src/eizou/X702.mp4",
+  "dur": 12.0,
+  "how": "1秒1コマで tools/shots.shots_of（29本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 12.0,
+    "motion": 4.86
+   }
+  ]
+ }
+}

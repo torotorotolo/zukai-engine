@@ -3432,3 +3432,21 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 
 | 記号 | 使うカット | 画面の出典 | ライセンス | 頁 | 取った日 |
 |---|---|---|---|---|---|
+| `X102` | c102 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/blue-colored-cables-1085656/ | 2026-11-04 |
+| `X103` | c103 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/analyzing-stock-market-trading-charts-30289537/ | 2026-11-04 |
+| `X203` | c203 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/real-time-stock-market-chart-analysis-footage-30289541/ | 2026-11-04 |
+| `X204` | c204 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/close-up-video-of-a-person-typing-on-a-keyboard-5611429/ | 2026-11-04 |
+| `X211` | c211 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/close-up-video-of-a-person-using-a-cellphone-8275994/ | 2026-11-04 |
+| `X216` | c216 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/person-typing-on-a-mobile-phone-4671883/ | 2026-11-04 |
+| `X220` | c220 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/an-empty-gaming-chair-8128278/ | 2026-11-04 |
+| `X318` | c318 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/female-hands-typing-on-laptop-5716890/ | 2026-11-04 |
+| `X302` | c302 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/person-closing-a-laptop-6889425/ | 2026-11-04 |
+| `X308` | c308 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-ticking-clock-7033607/ | 2026-11-04 |
+| `X311` | c311 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-person-getting-a-smartphone-8946457/ | 2026-11-04 |
+| `X414` | c414 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-computer-component-in-operation-3289569/ | 2026-11-04 |
+| `X504` | c504 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/close-up-of-programming-13522169/ | 2026-11-04 |
+| `X510` | c510 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/close-up-of-a-panel-with-blinking-luminous-buttons-13550579/ | 2026-11-04 |
+| `X515` | c515 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/close-up-view-of-a-person-putting-down-his-stethoscope-while-using-a-laptop-5030431/ | 2026-11-04 |
+| `X602` | c602 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/person-typing-on-laptop-6611946/ | 2026-11-04 |
+| `X614` | c614 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/digital-code-rain-animation-10532470/ | 2026-11-04 |
+| `X702` | c702 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-mobile-phone-on-the-table-6278820/ | 2026-11-04 |

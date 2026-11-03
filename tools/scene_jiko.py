@@ -1733,7 +1733,8 @@ def credit_of(cid, spec):
         import footage as FO
         c = FO.credit_of(cid)
         if c and FO.have(cid):
-            return c
+            # 🆕 29本目 ⑤b-3（2026-11-04）：冒頭の映像の題の字の出どころ（c103＝SPEC の credit_add「／語り：イザ（2026-11-02）」）
+            return c + spec.get("credit_add", "")
     except Exception:                                    # noqa: BLE001
         pass
     cr = (ep29_credit(spec["photo"]) or ep28_credit(spec["photo"]) or ep27_credit(spec["photo"]) or ep26_credit(spec["photo"]) or ep25_credit(spec["photo"]) or ep24_credit(spec["photo"]) or ep17_credit(spec["photo"]) or ep23_credit(spec["photo"]) or ep22_credit(spec["photo"]) or ep21_credit(spec["photo"]) or ep20_credit(spec["photo"]) or ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
@@ -1788,7 +1789,7 @@ def credit_of(cid, spec):
     kt = kotowari_of(cid.split("~")[0])
     if kt and kt not in cr:
         cr += "／" + kt
-    return cr
+    return cr + spec.get("credit_add", "")
 
 
 def kotowari_of(cid):
@@ -2169,8 +2170,17 @@ def full_top(cid, spec):
         if spec.get("t"):
             raise SystemExit(f"{cid}: フリー素材のカットに見出し（t）は書かない（左上の「イメージ」と出典だけ）")
         g.append(stock_chip())
+        # 🆕 29本目 ⑤b-3（2026-11-04）：冒頭の映像の題の字（c102・c103＝了承②「画面に『イメージ』・題の字で数字」）＝語りと同じ数だけを「イメージ」の札の下へ。
+        #    見出し（t）とは別＝写っている物の名乗りではない
+        if spec.get("cap"):
+            g.append(J.title(spec["cap"], "", y=150))
+        _sp_y = ILLU.CHIP[1] + ILLU.CHIP[3] + 10
     else:
         g.append(J.title(spec["t"], spec.get("s", "")))
+        _sp_y = 200
+    # 🆕 29本目 ⑤b-3：役職の札（第4章の9カット＝了承②）。見出しと副題の下（フリー素材は「イメージ」の札の下）
+    if spec.get("speaker"):
+        g.append(speaker_chip(spec["speaker"], _sp_y))
     ch = chapter_of(cid)
     # 🆕 28本目 ⑤b-3（2026-11-02）：高さいっぱいの額（ptall＝上の端 24px〜）は右上の章の札（x1378〜・y56〜158）と重なる＝額の中に字が入る
     #    （BY-SA・引用は「無加工」・写真に字を重ねない）＝札を出さない。27本目は章の札の無いつかみだけで使っていた（門番 check_box が初めて鳴った）
@@ -2799,6 +2809,18 @@ def stock_chip():
             f'stroke="{ILLU.CHIP_FG}" stroke-width="2"/>'
             f'<text x="{x + w / 2:.0f}" y="{y + 35}" font-family="Noto" font-size="28" fill="{ILLU.CHIP_FG}" '
             f'text-anchor="middle">イメージ</text>')
+
+
+def speaker_chip(who, y):
+    """🆕 29本目 ⑤b-3（2026-11-04）：役職の札「話した人：役職」（SPEC の speaker＝第4章の9カット＝了承②・語りに役職が続いて耳で保ちにくい）。
+    「イメージ」の札と同じ形。名前は書かない＝役職だけ（§B2-11 ⑥）"""
+    x, _, _, h = ILLU.CHIP
+    t = f"話した人：{who}"
+    w = round(fm.width(t, 28, "Noto")) + 32
+    return (f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="6" fill="{ILLU.CHIP_BG}" fill-opacity="0.62" '
+            f'stroke="{ILLU.CHIP_FG}" stroke-width="2"/>'
+            f'<text x="{x + w / 2:.0f}" y="{y + 35}" font-family="Noto" font-size="28" fill="{ILLU.CHIP_FG}" '
+            f'text-anchor="middle">{t}</text>')
 
 
 def head_top(cid, spec):
