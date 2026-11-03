@@ -1,0 +1,544 @@
+✓ Initialized. View run at 
+https://modal.com/apps/torotorotolo/main/ap-wXF7cmlvIOBI4kIkeL8tFR
+✓ Created objects.
+├── 🔨 Created mount C:\Users\konar\Desktop\zukai-engine\modal_app.py
+├── 🔨 Created function full.
+├── 🔨 Created function qa.
+├── 🔨 Created function check.
+└── 🔨 Created function layer_hash.
+BGM … /assets/bgm.mp3 / 3.20 MB
+
+$ git clone --depth 1 https://github.com/torotorotolo/zukai-engine.git /work/zukai-engine
+Cloning into '/work/zukai-engine'...
+Updating files:  28% (1588/5667)
+[1AUpdating files:  29% (1644/5667)
+[1AUpdating files:  30% (1701/5667)
+[1AUpdating files:  31% (1757/5667)
+[1AUpdating files:  32% (1814/5667)
+[1AUpdating files:  33% (1871/5667)
+[1AUpdating files:  34% (1927/5667)
+[1AUpdating files:  35% (1984/5667)
+[1AUpdating files:  36% (2041/5667)
+[1AUpdating files:  36% (2052/5667)
+[1AUpdating files:  37% (2097/5667)
+[1AUpdating files:  38% (2154/5667)
+[1AUpdating files:  39% (2211/5667)
+[1AUpdating files:  40% (2267/5667)
+[1AUpdating files:  41% (2324/5667)
+[1AUpdating files:  42% (2381/5667)
+[1AUpdating files:  43% (2437/5667)
+[1AUpdating files:  44% (2494/5667)
+[1AUpdating files:  45% (2551/5667)
+[1AUpdating files:  46% (2607/5667)
+[1AUpdating files:  47% (2664/5667)
+[1AUpdating files:  48% (2721/5667)
+[1AUpdating files:  49% (2777/5667)
+[1AUpdating files:  50% (2834/5667)
+[1AUpdating files:  51% (2891/5667)
+[1AUpdating files:  52% (2947/5667)
+[1AUpdating files:  53% (3004/5667)
+[1AUpdating files:  54% (3061/5667)
+[1AUpdating files:  55% (3117/5667)
+[1AUpdating files:  55% (3142/5667)
+[1AUpdating files:  56% (3174/5667)
+[1AUpdating files:  57% (3231/5667)
+[1AUpdating files:  58% (3287/5667)
+[1AUpdating files:  59% (3344/5667)
+[1AUpdating files:  60% (3401/5667)
+[1AUpdating files:  61% (3457/5667)
+[1AUpdating files:  62% (3514/5667)
+[1AUpdating files:  63% (3571/5667)
+[1AUpdating files:  64% (3627/5667)
+[1AUpdating files:  65% (3684/5667)
+[1AUpdating files:  66% (3741/5667)
+[1AUpdating files:  67% (3797/5667)
+[1AUpdating files:  68% (3854/5667)
+[1AUpdating files:  69% (3911/5667)
+[1AUpdating files:  70% (3967/5667)
+[1AUpdating files:  71% (4024/5667)
+[1AUpdating files:  72% (4081/5667)
+[1AUpdating files:  73% (4137/5667)
+[1AUpdating files:  74% (4194/5667)
+[1AUpdating files:  75% (4251/5667)
+[1AUpdating files:  75% (4275/5667)
+[1AUpdating files:  76% (4307/5667)
+[1AUpdating files:  77% (4364/5667)
+[1AUpdating files:  78% (4421/5667)
+[1AUpdating files:  79% (4477/5667)
+[1AUpdating files:  80% (4534/5667)
+[1AUpdating files:  81% (4591/5667)
+[1AUpdating files:  82% (4647/5667)
+[1AUpdating files:  83% (4704/5667)
+[1AUpdating files:  84% (4761/5667)
+[1AUpdating files:  85% (4817/5667)
+[1AUpdating files:  85% (4860/5667)
+[1AUpdating files:  86% (4874/5667)
+[1AUpdating files:  87% (4931/5667)
+[1AUpdating files:  88% (4987/5667)
+[1AUpdating files:  89% (5044/5667)
+[1AUpdating files:  90% (5101/5667)
+[1AUpdating files:  91% (5157/5667)
+[1AUpdating files:  92% (5214/5667)
+[1AUpdating files:  93% (5271/5667)
+[1AUpdating files:  94% (5327/5667)
+[1AUpdating files:  95% (5384/5667)
+[1AUpdating files:  95% (5401/5667)
+[1AUpdating files:  96% (5441/5667)
+[1AUpdating files:  97% (5497/5667)
+[1AUpdating files:  98% (5554/5667)
+[1AUpdating files:  99% (5611/5667)
+[1AUpdating files: 100% (5667/5667)Updating files: 100% (5667/5667), done.
+  (62秒 / 終了コード 0)
+
+$ git fetch --depth 50 origin 1bc894b6ea5f12f3d55e645d124e4eaf7c8b4f6c
+From https://github.com/torotorotolo/zukai-engine
+ * branch            1bc894b6ea5f12f3d55e645d124e4eaf7c8b4f6c -> FETCH_HEAD
+  (4秒 / 終了コード 0)
+
+$ git checkout 1bc894b6ea5f12f3d55e645d124e4eaf7c8b4f6c
+Note: switching to '1bc894b6ea5f12f3d55e645d124e4eaf7c8b4f6c'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 1bc894b 28本目 ⑥ c309: 前のカットと同じ図の続きは骨格を描き直さない（LAB_HOLD_EP）
+  (1秒 / 終了コード 0)
+
+$ git log --oneline -1
+1bc894b 28本目 ⑥ c309: 前のカットと同じ図の続きは骨格を描き直さない（LAB_HOLD_EP）
+  (0秒 / 終了コード 0)
+
+$ cp -rv /assets/ref/. /work/zukai-engine/ref/
+'/assets/ref/./ep17/photo' -> '/work/zukai-engine/ref/./ep17/photo'
+'/assets/ref/./ep17/photo/g1.png' -> '/work/zukai-engine/ref/./ep17/photo/g1.png'
+'/assets/ref/./ep17/photo/g2.png' -> '/work/zukai-engine/ref/./ep17/photo/g2.png'
+'/assets/ref/./ep17/photo/g3.png' -> '/work/zukai-engine/ref/./ep17/photo/g3.png'
+'/assets/ref/./ep17/photo/g5.png' -> '/work/zukai-engine/ref/./ep17/photo/g5.png'
+'/assets/ref/./ep17/photo/g6.png' -> '/work/zukai-engine/ref/./ep17/photo/g6.png'
+'/assets/ref/./ep17/src' -> '/work/zukai-engine/ref/./ep17/src'
+'/assets/ref/./ep17/src/credits_private.tsv' -> '/work/zukai-engine/ref/./ep17/src/credits_private.tsv'
+'/assets/ref/./ep17/stock' -> '/work/zukai-engine/ref/./ep17/stock'
+'/assets/ref/./ep17/stock/fb_c203.jpg' -> '/work/zukai-engine/ref/./ep17/stock/fb_c203.jpg'
+'/assets/ref/./ep17/stock/fb_c207.jpg' -> '/work/zukai-engine/ref/./ep17/stock/fb_c207.jpg'
+'/assets/ref/./ep17/stock/fb_c215.jpg' -> '/work/zukai-engine/ref/./ep17/stock/fb_c215.jpg'
+'/assets/ref/./ep17/stock/fb_c323.jpg' -> '/work/zukai-engine/ref/./ep17/stock/fb_c323.jpg'
+'/assets/ref/./ep17/stock/fb_c811.jpg' -> '/work/zukai-engine/ref/./ep17/stock/fb_c811.jpg'
+'/assets/ref/./ep17/stock/fb_c814.jpg' -> '/work/zukai-engine/ref/./ep17/stock/fb_c814.jpg'
+'/assets/ref/./ep17/stock/fb_ca13.jpg' -> '/work/zukai-engine/ref/./ep17/stock/fb_ca13.jpg'
+'/assets/ref/./ep17/stock/fb_cb13.jpg' -> '/work/zukai-engine/ref/./ep17/stock/fb_cb13.jpg'
+'/assets/ref/./ep17/stock/xf1.jpg' -> '/work/zukai-engine/ref/./ep17/stock/xf1.jpg'
+'/assets/ref/./ep17/stock/xg1.jpg' -> '/work/zukai-engine/ref/./ep17/stock/xg1.jpg'
+'/assets/ref/./ep17/stock/xg2.jpg' -> '/work/zukai-engine/ref/./ep17/stock/xg2.jpg'
+'/assets/ref/./ep17/stock/xh1.jpg' -> '/work/zukai-engine/ref/./ep17/stock/xh1.jpg'
+'/assets/ref/./ep22/photo' -> '/work/zukai-engine/ref/./ep22/photo'
+'/assets/ref/./ep22/photo/gmap_g01_north_america.png' -> '/work/zukai-engine/ref/./ep22/photo/gmap_g01_north_america.png'
+'/assets/ref/./ep22/photo/gmap_g02_newfoundland_site.png' -> '/work/zukai-engine/ref/./ep22/photo/gmap_g02_newfoundland_site.png'
+'/assets/ref/./ep22/photo/gmap_g03_buffalo_newfoundland.png' -> '/work/zukai-engine/ref/./ep22/photo/gmap_g03_buffalo_newfoundland.png'
+'/assets/ref/./ep22/photo/gmap_g04_north_atlantic.png' -> '/work/zukai-engine/ref/./ep22/photo/gmap_g04_north_atlantic.png'
+'/assets/ref/./ep22/photo/gmap_g05_bahamas.png' -> '/work/zukai-engine/ref/./ep22/photo/gmap_g05_bahamas.png'
+'/assets/ref/./ep22/photo/gmap_g06_stjohns_harbour.png' -> '/work/zukai-engine/ref/./ep22/photo/gmap_g06_stjohns_harbour.png'
+'/assets/ref/./ep22/photo/gmap_g06_stjohns_pier14.png' -> '/work/zukai-engine/ref/./ep22/photo/gmap_g06_stjohns_pier14.png'
+'/assets/ref/./ep23/photo' -> '/work/zukai-engine/ref/./ep23/photo'
+'/assets/ref/./ep23/photo/gmap_g01_sampoong_site.png' -> '/work/zukai-engine/ref/./ep23/photo/gmap_g01_sampoong_site.png'
+'/assets/ref/./ep23/photo/gmap_g02_seoul_seocho.png' -> '/work/zukai-engine/ref/./ep23/photo/gmap_g02_seoul_seocho.png'
+'/assets/ref/./ep23/src' -> '/work/zukai-engine/ref/./ep23/src'
+'/assets/ref/./ep23/src/credits_private.tsv' -> '/work/zukai-engine/ref/./ep23/src/credits_private.tsv'
+'/assets/ref/./ep24/src' -> '/work/zukai-engine/ref/./ep24/src'
+'/assets/ref/./ep24/src/credits_private.tsv' -> '/work/zukai-engine/ref/./ep24/src/credits_private.tsv'
+'/assets/ref/./ep26/photo' -> '/work/zukai-engine/ref/./ep26/photo'
+'/assets/ref/./ep26/photo/gmap_g01_atlantic.png' -> '/work/zukai-engine/ref/./ep26/photo/gmap_g01_atlantic.png'
+'/assets/ref/./ep26/photo/gmap_g02_ice.png' -> '/work/zukai-engine/ref/./ep26/photo/gmap_g02_ice.png'
+'/assets/ref/./ep26/photo/gmap_g03_titanic.png' -> '/work/zukai-engine/ref/./ep26/photo/gmap_g03_titanic.png'
+'/assets/ref/./ep26/photo/gmap_g04_californian.png' -> '/work/zukai-engine/ref/./ep26/photo/gmap_g04_californian.png'
+'/assets/ref/./ep26/src' -> '/work/zukai-engine/ref/./ep26/src'
+'/assets/ref/./ep26/src/credits_private.tsv' -> '/work/zukai-engine/ref/./ep26/src/credits_private.tsv'
+'/assets/ref/./ep27/photo' -> '/work/zukai-engine/ref/./ep27/photo'
+'/assets/ref/./ep27/photo/gmap_g1_route.png' -> '/work/zukai-engine/ref/./ep27/photo/gmap_g1_route.png'
+'/assets/ref/./ep27/photo/gmap_g2n_noguchibaru.png' -> '/work/zukai-engine/ref/./ep27/photo/gmap_g2n_noguchibaru.png'
+'/assets/ref/./ep27/photo/gmap_g2w_noguchibaru.png' -> '/work/zukai-engine/ref/./ep27/photo/gmap_g2w_noguchibaru.png'
+'/assets/ref/./ep27/photo/gmap_g3_aoyama.png' -> '/work/zukai-engine/ref/./ep27/photo/gmap_g3_aoyama.png'
+'/assets/ref/./ep27/photo/gmap_g7n_yacht.png' -> '/work/zukai-engine/ref/./ep27/photo/gmap_g7n_yacht.png'
+'/assets/ref/./ep27/photo/gmap_g7w_bay.png' -> '/work/zukai-engine/ref/./ep27/photo/gmap_g7w_bay.png'
+'/assets/ref/./ep27/photo/gmap_g9_japan.png' -> '/work/zukai-engine/ref/./ep27/photo/gmap_g9_japan.png'
+'/assets/ref/./ep27/police' -> '/work/zukai-engine/ref/./ep27/police'
+'/assets/ref/./ep27/police/npa01.jpg' -> '/work/zukai-engine/ref/./ep27/police/npa01.jpg'
+'/assets/ref/./ep27/police/sketch2.jpg' -> '/work/zukai-engine/ref/./ep27/police/sketch2.jpg'
+'/assets/ref/./ep27/police/sketch6.jpg' -> '/work/zukai-engine/ref/./ep27/police/sketch6.jpg'
+'/assets/ref/./ep27/police/xpost1.jpg' -> '/work/zukai-engine/ref/./ep27/police/xpost1.jpg'
+'/assets/ref/./ep27/police/yta026.jpg' -> '/work/zukai-engine/ref/./ep27/police/yta026.jpg'
+'/assets/ref/./ep27/police/yta034.jpg' -> '/work/zukai-engine/ref/./ep27/police/yta034.jpg'
+'/assets/ref/./ep27/police/yta094.jpg' -> '/work/zukai-engine/ref/./ep27/police/yta094.jpg'
+'/assets/ref/./ep27/police/yta165.jpg' -> '/work/zukai-engine/ref/./ep27/police/yta165.jpg'
+'/assets/ref/./ep27/src' -> '/work/zukai-engine/ref/./ep27/src'
+'/assets/ref/./ep27/src/credits_private.tsv' -> '/work/zukai-engine/ref/./ep27/src/credits_private.tsv'
+'/assets/ref/./ep27/src/police_yt' -> '/work/zukai-engine/ref/./ep27/src/police_yt'
+'/assets/ref/./ep27/src/police_yt/20251211_zj9LhnLb1So.mp4' -> '/work/zukai-engine/ref/./ep27/src/police_yt/20251211_zj9LhnLb1So.mp4'
+'/assets/ref/./ep28/police' -> '/work/zukai-engine/ref/./ep28/police'
+'/assets/ref/./ep28/police/d0928.jpg' -> '/work/zukai-engine/ref/./ep28/police/d0928.jpg'
+'/assets/ref/./ep28/police/d1023a.jpg' -> '/work/zukai-engine/ref/./ep28/police/d1023a.jpg'
+'/assets/ref/./ep28/police/d1023b.jpg' -> '/work/zukai-engine/ref/./ep28/police/d1023b.jpg'
+'/assets/ref/./ep28/police/mie.jpg' -> '/work/zukai-engine/ref/./ep28/police/mie.jpg'
+'/assets/ref/./ep28/police/q1.jpg' -> '/work/zukai-engine/ref/./ep28/police/q1.jpg'
+'/assets/ref/./ep28/police/q2.jpg' -> '/work/zukai-engine/ref/./ep28/police/q2.jpg'
+'/assets/ref/./ep28/police/q3.jpg' -> '/work/zukai-engine/ref/./ep28/police/q3.jpg'
+'/assets/ref/./ep28/police/q4.jpg' -> '/work/zukai-engine/ref/./ep28/police/q4.jpg'
+'/assets/ref/./ep28/police/q5.jpg' -> '/work/zukai-engine/ref/./ep28/police/q5.jpg'
+'/assets/ref/./ep28/src' -> '/work/zukai-engine/ref/./ep28/src'
+'/assets/ref/./ep28/src/credits_private.tsv' -> '/work/zukai-engine/ref/./ep28/src/credits_private.tsv'
+  (0秒 / 終了コード 0)
+
+$ python3 tools/footage.py
+■ 動画を当てるカット 14 件（うち頭の差し込み 0 件・＋静止画で受ける 0 件: ）
+  c210  尺 8.36s  ← X210 1.5〜9.9秒（1.00倍速）
+  c214  尺 8.54s  ← X214 3.0〜11.5秒（1.00倍速）
+  c303  尺 8.54s  ← X303 6.0〜14.5秒（1.00倍速）
+  c313  尺 6.48s  ← X313 11.5〜18.0秒（1.00倍速）
+  c316  尺 8.87s  ← X316 0.5〜9.4秒（1.00倍速）
+  c408  尺 8.55s  ← X408 5.5〜14.1秒（1.00倍速）
+  c415  尺 9.12s  ← X415 8.0〜17.1秒（1.00倍速）
+  c419  尺 9.46s  ← X419 9.0〜18.5秒（1.00倍速）
+  c502  尺10.82s  ← X502 16.0〜26.8秒（1.00倍速）
+  c510  尺12.98s  ← X510 0.3〜7.0秒（0.52倍速）
+  c511  尺 8.50s  ← X511 3.0〜11.5秒（1.00倍速）
+  c609  尺12.73s  ← X609 0.5〜13.2秒（1.00倍速）
+  c702  尺11.09s  ← X702 4.0〜15.1秒（1.00倍速）
+  c703  尺 9.85s  ← X703 0.7〜10.5秒（1.00倍速）
+✓ 全 14 欄に until= があり、尻のはみ出しも ショットまたぎも無く、使ってはいけない秒にも掛かっておらず、素材の黒帯も残らない（実測ショット 22 本と照合）
+  c210: X210 の 1.5秒目から切り出す
+     ✓ 媒体を手元に落とした（18.8MB・289c6f836150.mp4）
+     → 253コマ（要 253）
+  c214: X214 の 3.0秒目から切り出す
+     ✓ 媒体を手元に落とした（9.6MB・8ef442e2896e.mp4）
+     → 258コマ（要 258）
+  c303: X303 の 6.0秒目から切り出す
+     ✓ 媒体を手元に落とした（5.8MB・6acac90eb8d2.mp4）
+     → 258コマ（要 258）
+  c313: X313 の 11.5秒目から切り出す
+     ✓ 媒体を手元に落とした（6.7MB・44203f2a85ba.mp4）
+     → 196コマ（要 196）
+  c316: X316 の 0.5秒目から切り出す
+     ✓ 媒体を手元に落とした（15.4MB・da22936c7d65.mp4）
+     → 268コマ（要 268）
+  c408: X408 の 5.5秒目から切り出す
+     ✓ 媒体を手元に落とした（9.4MB・0fb13bf62762.mp4）
+     → 258コマ（要 258）
+  c415: X415 の 8.0秒目から切り出す
+     ✓ 媒体を手元に落とした（6.9MB・c691a44cd95a.mp4）
+     → 276コマ（要 276）
+  c419: X419 の 9.0秒目から切り出す
+     ✓ 媒体を手元に落とした（12.9MB・98f594bb8dad.mp4）
+     → 286コマ（要 286）
+  c502: X502 の 16.0秒目から切り出す
+     ✓ 媒体を手元に落とした（10.2MB・146307ca0e2a.mp4）
+     → 327コマ（要 327）
+  c510: X510 の 0.3秒目から切り出す
+     ✓ 媒体を手元に落とした（13.4MB・533718bb3b58.mp4）
+     → 391コマ（要 391）
+  c511: X511 の 3.0秒目から切り出す
+     ✓ 媒体を手元に落とした（4.5MB・671f038bb73e.mp4）
+     → 257コマ（要 257）
+  c609: X609 の 0.5秒目から切り出す
+     ✓ 媒体を手元に落とした（2.2MB・72070e46aebd.mp4）
+     → 384コマ（要 384）
+  c702: X702 の 4.0秒目から切り出す
+     ✓ 媒体を手元に落とした（4.9MB・9f16276324c5.mp4）
+     → 335コマ（要 335）
+  c703: X703 の 0.7秒目から切り出す
+     ✓ 媒体を手元に落とした（3.4MB・052120559043.mp4）
+     → 298コマ（要 298）
+✓ 切り出し完了 14/14 カット: c210、c214、c303、c313、c316、c408、c415、c419、c502、c510、c511、c609、c702、c703
+  ✓ c210: フリー素材のひかえの静止画をコマの1枚目から作った（ref/ep28/stock/fb_c210.jpg）
+  ✓ c214: フリー素材のひかえの静止画をコマの1枚目から作った（ref/ep28/stock/fb_c214.jpg）
+  ✓ c303: フリー素材のひかえの静止画をコマの1枚目から作った（ref/ep28/stock/fb_c303.jpg）
+  ✓ c313: フリー素材のひかえの静止画をコマの1枚目から作った（ref/ep28/stock/fb_c313.jpg）
+  ✓ c316: フリー素材のひかえの静止画をコマの1枚目から作った（ref/ep28/stock/fb_c316.jpg）
+  ✓ c408: フリー素材のひかえの静止画をコマの1枚目から作った（ref/ep28/stock/fb_c408.jpg）
+  ✓ c415: フリー素材のひかえの静止画をコマの1枚目から作った（ref/ep28/stock/fb_c415.jpg）
+  ✓ c419: フリー素材のひかえの静止画をコマの1枚目から作った（ref/ep28/stock/fb_c419.jpg）
+  ✓ c502: フリー素材のひかえの静止画をコマの1枚目から作った（ref/ep28/stock/fb_c502.jpg）
+  ✓ c510: フリー素材のひかえの静止画をコマの1枚目から作った（ref/ep28/stock/fb_c510.jpg）
+  ✓ c511: フリー素材のひかえの静止画をコマの1枚目から作った（ref/ep28/stock/fb_c511.jpg）
+  ✓ c609: フリー素材のひかえの静止画をコマの1枚目から作った（ref/ep28/stock/fb_c609.jpg）
+  ✓ c702: フリー素材のひかえの静止画をコマの1枚目から作った（ref/ep28/stock/fb_c702.jpg）
+  ✓ c703: フリー素材のひかえの静止画をコマの1枚目から作った（ref/ep28/stock/fb_c703.jpg）
+  (19秒 / 終了コード 0)
+
+$ python3 tools/scene_jiko.py --report
+カット 107 ／ 完成尺 971.0秒 = 16分11.0秒
+字幕 264 枚
+実写 71 ／ ★写真を地に敷いた図解 35
+図の種類:
+   photo         71
+   m28+写真        35
+   ending         1
+
+⚠️ cuts/__init__.py が**中身ごと上書き**しているカット（0件）:
+   
+   章ファイルの fig / ann を直すときは、ここに載っていないか必ず見ること。
+
+🔴 章の名前（題材を替えたら必ず書き換える／6章）:
+   1/6  9月25日の朝
+   2/6  662万件の中身
+   3/6  退会して7年
+   4/6  免許証の情報が漏えいすると
+   5/6  3000円と10万人
+   6/6  いま、できること
+   ↑ これは**いま作っている動画の章名**か？ 前作のままなら止めて直す。
+   県警の引用 9件は git の外（保管庫から・有る無しと md5 は build_jiko.drop_missing_private）＝ここで数えない 0件（動画のひかえ 0・Actions の束 0）
+   （上流が無いので push の検査は飛ばす）
+  (0秒 / 終了コード 0)
+
+$ python3 tools/check_layout.py
+── 画面から出ている文字（306レイヤー） ──
+  ✓ 全部おさまっている
+
+── フォントに無い字（豆腐になる） ──
+  ✓ 無い字は無い
+
+── 小さい Dela に漢字の句が入っている ──
+  ✓ つぶれる大きさの Dela に漢字の句は無い
+
+── 同じカットで重なっている文字 ──
+  ✓ 重なりなし
+
+── 再現イラストの札どうしが触れる（すき間 6px 未満） ──
+  ✓ 触れている札は無い
+
+── 図形が文字を横切っている ──
+  ✓ 横切っている図形は無い
+
+✓ 机上の検算はすべて通った（画面外 0件・重なり 0件・札が触れる 0件・豆腐 0件・図形が横切る 0件／フォントは実測）
+  (33秒 / 終了コード 0)
+
+$ python3 tools/check_echo.py
+
+✓ 複写は無い（複写 0件・見出し/副題の同文 0件・見出しの近さ 6件）
+   （見出しの近さは --all で出る。0.80 未満は「話題を出す場所」として黙る）
+  (9秒 / 終了コード 0)
+
+$ python3 tools/audio_pack.py check
+台本 107 カット ／ audio/opus 107 本
+✓ 過不足なし
+✓ 全 0 本の尺が一致
+  (0秒 / 終了コード 0)
+
+$ python3 tools/audio_pack.py unpack
+✓ 107 カットを wav に戻した（既存 0 本はそのまま）
+  (22秒 / 終了コード 0)
+
+$ python3 tools/check_mask.py
+BGM「bgm.mp3」133秒を 1 回つないだ（継ぎ目 3秒の重ね・実効 -36.0 dBFS）
+ドローンの寝床（80〜400Hz・いちばん膨らむ瞬間）= -50.5 dB
+行 264 ／ 🔴消える(<6.0dB) 0 ／ ⚠️弱い(6.0〜10.0dB) 0 ／ ✓聞こえる 264
+中央値 38.2 dB
+
+   余裕dB  カット     語尾（発話の最後 0.18 秒）
+   33.7   c207    …そう。調べが進むごとに、中身が足されていった。
+   33.7   c609    …東京地方裁判所へ、損害賠償を求める方針を示した。
+   33.8   c313    …外へ送られた跡があったのは、4件だった。
+   33.8   c411    …、国の個人情報保護委員会も、10月7日に挙げた。
+   33.9   c205    …決まった形のお知らせを出した。
+   33.9   c402    …いまはもう会員ではない人の分も、入っていた。
+   33.9   c103    …証の画像を、退会してから7年間、持ち続けていた。
+   33.9   c706    …ありますか。よければ、コメントで教えてください。
+   34.0   c312    …ドの番号の全部の桁を、持たない仕組みにしていた。
+   34.0   c311    …の番号が1万9510件、外へ送られた跡があった。
+   34.0   c421    …ーの会社も、画像を持つことに伴うリスクを考えて、
+   34.1   c419    …同じころ、画像を預かるのをやめる会社も出てきた。
+   34.1   c206    …漏えいしたアカウントは、約160万件だとした。
+   34.2   c615    …「3000円では不安も不満も消えない」と語った。
+   34.2   c403    …約した人。どの人の情報も、同じシステムにあった。
+   34.3   c422    …のために、持っていた画像。その画像が漏えいして、
+   34.4   c216    …を、10月16日の知らせで、23日まで延ばした。
+   34.4   c508    …の件を理由に、再交付を受け付ける県警が出てきた。
+   34.4   c512    …の1つ、JICCは、届け出などが集中したとして、
+   34.5   c104    …係を、いま分かっている中で一番強い争点だとした。
+   34.5   c515    …各府省を集めて会議を開いた。
+   34.5   c311    …タイムズクラブにも入られていた。
+   34.6   c405    …問い合わせに答えることなどだった。
+   34.6   c305    …られた跡がある画像は、146万4800件だった。
+   34.6   c515    …相次ぐ不正アクセスを受けて、政府も動いた。
+   34.6   c403    …た人。入会を申し込んだが、入会が済まなかった人。
+   34.7   c609    …0月26日、訴えを準備する弁護士が会見を開いた。
+   34.8   c305    …像が漏えいしたアカウントは、約160万件だった。
+   34.8   c413    …いま分かっている中で、一番強い争点だと説明した。
+   34.8   c415    …10月末までに消すとした。
+（悪い順に 30 行だけ表示。全部見るなら --all）
+  (4秒 / 終了コード 0)
+
+$ ZUKAI_WORKERS=8 python3 tools/scene_jiko.py --force
+書き出すレイヤー 424 枚（並列 4）
+  50/424
+  100/424
+  150/424
+  200/424
+  250/424
+  300/424
+  350/424
+  400/424
+⚠️ 字幕の層の書き出しの欠け 1 枚（1回目）: sub_c102 2行目の字の2段目（基線 y144）: 字の画素 0＝行がまるごと描かれていない
+✓ 字幕の層 1 枚に書き出しの欠けなし（tools/sub_layer_check.py）
+done 424
+  (176秒 / 終了コード 0)
+
+$ python3 tools/layer_hash.py
+レイヤー 424 枚 ／ 合計 35.5 MB
+★全体の指紋  8360ced6afc396417162741eb7c2c8c8b94538b22382ce3e5ccda339ece2eda1
+
+代表（ずれたときに場所を絞るため）
+  _empty           d0634a2abbcd31f0882b9e94ad72430c
+  c101_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c101_lab         3993453f9b97fe6a50fa997389673b51
+  c104_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c104_lab         d77168f18a9d791ff0bea312b57e2557
+  c201_bg          4c76b50e9abb27e7e2a4ba2e2045bf73
+  c201_lab         71d46f6e78d38c698f67e4bb048ffc91
+  c209_a1          7450167cc2fdb44652c96c45782451ed
+  c209_a2          2cdad512d2c4b8ab06a33f2a2b7265bf
+  c301_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c301_lab         f2657983cb783b17676bcd431266bc86
+  c309_a1          788ae0147bdf979a6575938ca2d7d440
+  c309_a2          defec99dd6b6288e6038a2ccc12bdeb7
+  c401_bg          860e8e8b5d3e99af136877458628391c
+  c401_lab         c68227cd14c5594abe55b92c828bcf67
+  c412_bg          860e8e8b5d3e99af136877458628391c
+  c412_lab         40b02f659dddb6bf1692dbe34f30e3c3
+  c501_a1          bece944645eee87d631e8de538709177
+  c501_a2          2207c0de7a8f591b93d068853a2640b2
+  c509_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c509_lab         3e87a3ee440701365fd9fc88c5f0c9d9
+  c601_bg          7da1dd042b656f7d203a0c95245d3302
+  c601_lab         a7a9450204e7b00ecb1cc139161a536d
+  c611_bg          7da1dd042b656f7d203a0c95245d3302
+  c611_lab         b0a84f20a4e37da82e89457b87274ddd
+  sub_c101         b657e1f1838f173fe8ca2b5e86d570b9
+  sub_c102         babebf64cc7174ffba637c168bfd017a
+  sub_c103         27959b602cc510b35a6e9afd9c1d32d4
+
+⚠️ Actions と Modal で**★全体の指紋が一致すれば**、9巡の検品はそのまま生きている。
+  (20秒 / 終了コード 0)
+
+$ ZUKAI_WORKERS=8 python3 tools/build_jiko.py full
+図が動かない最長区間 = 2.20秒
+✓ 図が 5.0秒以上止まるカットは無い
+（参考）最長の字幕 = 5.50秒「10月23日、会社は、見舞金を出すと発表した。300」 ／ 字幕の枚数 264
+検品画像 107 カット
+mp4 を 8 並列で焼く（107カット）
+  20/107  5257コマ
+  40/107  10359コマ
+  60/107  15997コマ
+  80/107  21438コマ
+  100/107  27150コマ
+  107/107  29129コマ
+wrote /work/zukai-engine/out/jiko/titan.mp4 971.0 sec
+  (378秒 / 終了コード 0)
+
+$ ls -la /assets/ || true
+total 3131
+drwxr-xr-x 1 root root      10 Jan  1  1970 .
+drwxr-xr-x 4 root root      72 Nov  3 03:10 ..
+-rw-r--r-- 1 root root 3204163 Sep 20 23:26 bgm.mp3
+drwxr-xr-x 1 root root      28 Nov  1 14:09 ref
+  (0秒 / 終了コード 0)
+
+$ python3 tools/audio_mix.py --bgm=music
+BGM「bgm.mp3」133秒を 8 回つないだ（継ぎ目 3秒の重ね・実効 -36.0 dBFS）
+声の EQ：3000Hz・1.0オクターブ・-4.0dB（compress のあと・声だけ）
+サイドチェイン：話している時間 97% ／ 最大 7.0dB 下げた
+  1周目：利得 +0.0dB → 実測 -12.9 LUFS ／ ピーク 0.970
+  2周目：利得 -2.1dB → 実測 -14.8 LUFS ／ ピーク 0.970
+wrote /work/zukai-engine/out/jiko/mix.wav  971.0秒  ピーク 0.970
+  (19秒 / 終了コード 0)
+
+$ ffmpeg -y -hide_banner -loglevel error -i out/jiko/titan.mp4 -i out/jiko/mix.wav -c:v copy -c:a aac -b:a 192k -shortest out/jiko/titan_audio.mp4
+  (26秒 / 終了コード 0)
+
+$ cp out/jiko/titan_audio.mp4 /vol/titan_audio-ep28-r02.mp4
+  (1秒 / 終了コード 0)
+
+$ ffprobe -v error -show_entries format=duration -of default=nw=1 /vol/titan_audio-ep28-r02.mp4
+duration=970.966667
+  (0秒 / 終了コード 0)
+
+$ ls -la /vol/
+total 11100633
+drwxr-xr-x 1 root root      1276 Nov  3 03:23 .
+drwxr-xr-x 4 root root        72 Nov  3 03:10 ..
+drwxr-xr-x 1 root root       932 Oct 21 02:23 qa-ep17_b7b
+drwxr-xr-x 1 root root       678 Oct 14 13:53 qa-ep22_b3_fix1
+drwxr-xr-x 1 root root      1139 Oct 14 13:41 qa-ep22_b3_map
+drwxr-xr-x 1 root root       313 Oct 15 09:19 qa-ep22_c2_map
+drwxr-xr-x 1 root root      1139 Oct 15 07:32 qa-ep22_c_map
+drwxr-xr-x 1 root root       776 Oct 27 13:04 qa-ep26_b3_map
+drwxr-xr-x 1 root root      1425 Oct 30 02:45 qa-ep27_b3_police
+drwxr-xr-x 1 root root     12904 Oct 30 06:52 qa-ep27_b5_full
+drwxr-xr-x 1 root root      2384 Oct 30 06:20 qa-ep27_b5_sat
+drwxr-xr-x 1 root root      4063 Oct 30 09:01 qa-ep27_c2
+drwxr-xr-x 1 root root      1179 Nov  1 23:33 qa-ep28_b3_private
+drwxr-xr-x 1 root root       300 Nov  2 00:02 qa-ep28_b3_private2
+drwxr-xr-x 1 root root     12912 Nov  2 04:17 qa-ep28_b4_full
+drwxr-xr-x 1 root root      5039 Nov  2 13:42 qa-ep28_c2
+-rw-r--r-- 1 root root 148820698 Sep 20 22:47 titan_audio-ep10-r03.mp4
+-rw-r--r-- 1 root root 158714884 Sep 21 00:45 titan_audio-ep10-r04.mp4
+-rw-r--r-- 1 root root 151307126 Sep 21 02:53 titan_audio-ep10-r05.mp4
+-rw-r--r-- 1 root root 151362224 Sep 21 03:54 titan_audio-ep10-r06.mp4
+-rw-r--r-- 1 root root 189964855 Sep 22 07:58 titan_audio-ep11-r04.mp4
+-rw-r--r-- 1 root root 190246914 Sep 22 11:16 titan_audio-ep11-r05.mp4
+-rw-r--r-- 1 root root 291824115 Sep 23 23:14 titan_audio-ep12-r04.mp4
+-rw-r--r-- 1 root root 257241688 Sep 24 03:54 titan_audio-ep12-r05.mp4
+-rw-r--r-- 1 root root 257241111 Sep 24 04:38 titan_audio-ep12-r06.mp4
+-rw-r--r-- 1 root root 257251819 Sep 24 09:30 titan_audio-ep12-r07.mp4
+-rw-r--r-- 1 root root 159763234 Sep 25 12:57 titan_audio-ep13-r09.mp4
+-rw-r--r-- 1 root root 120025493 Sep 29 10:37 titan_audio-ep14-r01.mp4
+-rw-r--r-- 1 root root 124719250 Sep 29 14:25 titan_audio-ep14-r02.mp4
+-rw-r--r-- 1 root root 115904396 Sep 30 12:30 titan_audio-ep15-r01.mp4
+-rw-r--r-- 1 root root 118027575 Sep 30 14:03 titan_audio-ep15-r02.mp4
+-rw-r--r-- 1 root root 197478270 Oct  2 06:40 titan_audio-ep16-r01.mp4
+-rw-r--r-- 1 root root 362580491 Oct 21 06:50 titan_audio-ep17-r01.mp4
+-rw-r--r-- 1 root root 267830844 Oct  5 07:05 titan_audio-ep18-r01.mp4
+-rw-r--r-- 1 root root 352743019 Oct  7 07:13 titan_audio-ep19-r01.mp4
+-rw-r--r-- 1 root root 277480864 Oct 11 07:33 titan_audio-ep20-r01.mp4
+-rw-r--r-- 1 root root 331423882 Oct 13 05:22 titan_audio-ep21-r01.mp4
+-rw-r--r-- 1 root root 258958863 Oct 15 11:33 titan_audio-ep22-r01.mp4
+-rw-r--r-- 1 root root 328736553 Oct 19 08:08 titan_audio-ep23-r01.mp4
+-rw-r--r-- 1 root root 377375342 Oct 24 08:32 titan_audio-ep24-r01.mp4
+-rw-r--r-- 1 root root 377403089 Oct 24 09:17 titan_audio-ep24-r02.mp4
+-rw-r--r-- 1 root root 453239209 Oct 28 10:57 titan_audio-ep26-r01.mp4
+-rw-r--r-- 1 root root 209767587 Oct 30 09:58 titan_audio-ep27-r01.mp4
+-rw-r--r-- 1 root root 209969758 Oct 30 12:40 titan_audio-ep27-r02.mp4
+-rw-r--r-- 1 root root 210227248 Oct 30 13:45 titan_audio-ep27-r03.mp4
+-rw-r--r-- 1 root root 259061960 Nov  2 14:05 titan_audio-ep28-r01.mp4
+-rw-r--r-- 1 root root 258972236 Nov  3 03:23 titan_audio-ep28-r02.mp4
+-rw-r--r-- 1 root root 276059930 Sep 14 02:22 titan_audio-ep7-r03.mp4
+-rw-r--r-- 1 root root 275765238 Sep 14 11:24 titan_audio-ep7-r04.mp4
+-rw-r--r-- 1 root root 226651875 Sep 15 14:20 titan_audio-ep8-r01.mp4
+-rw-r--r-- 1 root root 226802671 Sep 16 02:51 titan_audio-ep8-r02.mp4
+-rw-r--r-- 1 root root 305455259 Sep 17 04:13 titan_audio-ep9-r03.mp4
+-rw-r--r-- 1 root root 305247998 Sep 17 14:30 titan_audio-ep9-r04.mp4
+-rw-r--r-- 1 root root 455907358 Sep 11 04:48 titan_audio-kb-r09.mp4
+-rw-r--r-- 1 root root 123761860 Aug  1 04:21 titan_audio-r11.mp4
+-rw-r--r-- 1 root root 123147684 Aug  1 11:39 titan_audio-r13.mp4
+-rw-r--r-- 1 root root 172258222 Aug  6 00:05 titan_audio-r14.mp4
+-rw-r--r-- 1 root root 172202839 Aug  6 13:11 titan_audio-r15.mp4
+-rw-r--r-- 1 root root 204664596 Aug 10 02:12 titan_audio-r28.mp4
+-rw-r--r-- 1 root root 155390866 Aug  2 09:33 titan_audio-r29.mp4
+-rw-r--r-- 1 root root 204252885 Aug 16 06:24 titan_audio-r30.mp4
+-rw-r--r-- 1 root root 413714501 Sep  7 23:04 titan_audio-sl1r03.mp4
+-rw-r--r-- 1 root root 300035704 Sep  6 08:31 titan_audio-ss.mp4
+  (0秒 / 終了コード 0)
+
+✓ 焼けた → modal volume get jiko-out titan_audio-ep28-r02.mp4 out/jiko/
+✓ App completed. View run at 
+https://modal.com/apps/torotorotolo/main/ap-wXF7cmlvIOBI4kIkeL8tFR

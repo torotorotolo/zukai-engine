@@ -1,0 +1,37 @@
+地の写真のカット 35・測れた 0・測れない 35
+  🔴 c105: 層か写真が読めない（c105: 焼いた層が無い ['c105_a1', 'c105_a2', 'c105_base']（`python tools/scene_jiko.py --only=c105` か Actions の層の段））
+  🔴 c202: 層か写真が読めない（c202: 焼いた層が無い ['c202_a1', 'c202_a2', 'c202_a3']（`python tools/scene_jiko.py --only=c202` か Actions の層の段））
+  🔴 c203: 層か写真が読めない（c203: 焼いた層が無い ['c203_a1', 'c203_a2', 'c203_a3']（`python tools/scene_jiko.py --only=c203` か Actions の層の段））
+  🔴 c207: 層か写真が読めない（c207: 焼いた層が無い ['c207_a1', 'c207_a2', 'c207_base']（`python tools/scene_jiko.py --only=c207` か Actions の層の段））
+  🔴 c209: 層か写真が読めない（c209: 焼いた層が無い ['c209_a1', 'c209_a2', 'c209_base']（`python tools/scene_jiko.py --only=c209` か Actions の層の段））
+  🔴 c215: 層か写真が読めない（c215: 焼いた層が無い ['c215_a1', 'c215_a2', 'c215_a3']（`python tools/scene_jiko.py --only=c215` か Actions の層の段））
+  🔴 c302: 層か写真が読めない（c302: 焼いた層が無い ['c302_a1', 'c302_a2', 'c302_base']（`python tools/scene_jiko.py --only=c302` か Actions の層の段））
+  🔴 c305: 層か写真が読めない（c305: 焼いた層が無い ['c305_a1', 'c305_a2', 'c305_base']（`python tools/scene_jiko.py --only=c305` か Actions の層の段））
+  🔴 c308: 層か写真が読めない（c308: 焼いた層が無い ['c308_a1', 'c308_a2', 'c308_base']（`python tools/scene_jiko.py --only=c308` か Actions の層の段））
+  🔴 c309: 層か写真が読めない（c309: 焼いた層が無い ['c309_a1', 'c309_a2', 'c309_a3']（`python tools/scene_jiko.py --only=c309` か Actions の層の段））
+  🔴 c311: 層か写真が読めない（c311: 焼いた層が無い ['c311_a1', 'c311_a2', 'c311_a3']（`python tools/scene_jiko.py --only=c311` か Actions の層の段））
+  🔴 c312: 層か写真が読めない（c312: 焼いた層が無い ['c312_a1', 'c312_a2', 'c312_base']（`python tools/scene_jiko.py --only=c312` か Actions の層の段））
+  🔴 c314: 層か写真が読めない（c314: 焼いた層が無い ['c314_a1', 'c314_a2', 'c314_a3']（`python tools/scene_jiko.py --only=c314` か Actions の層の段））
+  🔴 c402: 層か写真が読めない（c402: 焼いた層が無い ['c402_a1', 'c402_a2', 'c402_a3']（`python tools/scene_jiko.py --only=c402` か Actions の層の段））
+  🔴 c403: 層か写真が読めない（c403: 焼いた層が無い ['c403_a1', 'c403_a2', 'c403_a3']（`python tools/scene_jiko.py --only=c403` か Actions の層の段））
+  🔴 c405: 層か写真が読めない（c405: 焼いた層が無い ['c405_a1', 'c405_a2', 'c405_a3']（`python tools/scene_jiko.py --only=c405` か Actions の層の段））
+  🔴 c407: 層か写真が読めない（c407: 焼いた層が無い ['c407_a1', 'c407_a2', 'c407_a3']（`python tools/scene_jiko.py --only=c407` か Actions の層の段））
+  🔴 c409: 層か写真が読めない（c409: 焼いた層が無い ['c409_a1', 'c409_a2', 'c409_base']（`python tools/scene_jiko.py --only=c409` か Actions の層の段））
+  🔴 c414: 層か写真が読めない（c414: 焼いた層が無い ['c414_a1', 'c414_a2', 'c414_a3']（`python tools/scene_jiko.py --only=c414` か Actions の層の段））
+  🔴 c420: 層か写真が読めない（c420: 焼いた層が無い ['c420_a1', 'c420_a2', 'c420_a3']（`python tools/scene_jiko.py --only=c420` か Actions の層の段））
+  🔴 c501: 層か写真が読めない（c501: 焼いた層が無い ['c501_a1', 'c501_a2', 'c501_a3']（`python tools/scene_jiko.py --only=c501` か Actions の層の段））
+  🔴 c504: 層か写真が読めない（c504: 焼いた層が無い ['c504_a1', 'c504_a2', 'c504_a3']（`python tools/scene_jiko.py --only=c504` か Actions の層の段））
+  🔴 c507: 層か写真が読めない（c507: 焼いた層が無い ['c507_a1', 'c507_a2', 'c507_base']（`python tools/scene_jiko.py --only=c507` か Actions の層の段））
+  🔴 c512: 層か写真が読めない（c512: 焼いた層が無い ['c512_a1', 'c512_a2', 'c512_base']（`python tools/scene_jiko.py --only=c512` か Actions の層の段））
+  🔴 c513: 層か写真が読めない（c513: 焼いた層が無い ['c513_a1', 'c513_a2', 'c513_a3']（`python tools/scene_jiko.py --only=c513` か Actions の層の段））
+  🔴 c603: 層か写真が読めない（c603: 焼いた層が無い ['c603_a1', 'c603_a2', 'c603_base']（`python tools/scene_jiko.py --only=c603` か Actions の層の段））
+  🔴 c604: 層か写真が読めない（c604: 焼いた層が無い ['c604_a1', 'c604_a2', 'c604_a3']（`python tools/scene_jiko.py --only=c604` か Actions の層の段））
+  🔴 c607: 層か写真が読めない（c607: 焼いた層が無い ['c607_a1', 'c607_a2', 'c607_a3']（`python tools/scene_jiko.py --only=c607` か Actions の層の段））
+  🔴 c610: 層か写真が読めない（c610: 焼いた層が無い ['c610_a1', 'c610_a2', 'c610_base']（`python tools/scene_jiko.py --only=c610` か Actions の層の段））
+  🔴 c612: 層か写真が読めない（c612: 焼いた層が無い ['c612_a1', 'c612_a2', 'c612_base']（`python tools/scene_jiko.py --only=c612` か Actions の層の段））
+  🔴 c614: 層か写真が読めない（c614: 焼いた層が無い ['c614_a1', 'c614_a2', 'c614_a3']（`python tools/scene_jiko.py --only=c614` か Actions の層の段））
+  🔴 c616: 層か写真が読めない（c616: 焼いた層が無い ['c616_a1', 'c616_a2', 'c616_base']（`python tools/scene_jiko.py --only=c616` か Actions の層の段））
+  🔴 c617: 層か写真が読めない（c617: 焼いた層が無い ['c617_a1', 'c617_a2', 'c617_a3']（`python tools/scene_jiko.py --only=c617` か Actions の層の段））
+  🔴 c618: 層か写真が読めない（c618: 焼いた層が無い ['c618_a1', 'c618_a2', 'c618_a3']（`python tools/scene_jiko.py --only=c618` か Actions の層の段））
+  🔴 c701: 層か写真が読めない（c701: 焼いた層が無い ['c701_a1', 'c701_a2', 'c701_base']（`python tools/scene_jiko.py --only=c701` か Actions の層の段））
+→ C:\Users\konar\Desktop\zukai-engine\qa_out\ep28_r01\ground_cred_halo3.tsv
