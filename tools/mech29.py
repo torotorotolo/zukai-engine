@@ -982,7 +982,7 @@ def resil_stage(prev, st):
         s.append(F.poly([(x0, top), (t0, top), (t0 + 70, top + 150), (t0 + 200, top + 150), (t0 + 360, top + 8), (x1, top + 8)], "none", J.AMBER, 10))
         s.append(_t(x1, top + 66, "早く食い止めて回復する", 40, J.AMBER, "end", 620))
     if _on(prev, st, "late"):
-        s.append(_tag(530.0, 620.0, "この変化が遅れた", J.ALERT, 42, INK))
+        s.append(_tag(470.0, 620.0, "この変化が遅れた", J.ALERT, 42, INK))
     return s
 
 
