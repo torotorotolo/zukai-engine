@@ -54,7 +54,7 @@ SPEC = {}
 _Q8, _CM003, _CM049, _CM059 = P("police/q8"), P("cm003"), P("cm049"), P("cm059")
 SPEC.update({
     # c101＝第8報の頁「12時に予告されている攻撃に備え…」の欄＝引用（話している秒だけ・無加工・頁の頭と 2. の協力企業の社名は切り口の外）
-    "c101": dict(photo=_Q8, panel=True, pw=1776, ground=dict(photo=_Q8), color=1.0,
+    "c101": dict(photo=_Q8, panel=True, pw=1776, ground=dict(photo=_Q8, blur=ss.PAGE_BLUR), color=1.0,
                  t="正午までに", s="GMOインターネットグループ 第8報〈10月27日〉"),
     # c104＝ロビーの青い字へゆっくり寄る。🔴 CM004 は原寸でピンぼけ＝同じロビーの CM003（試し焼きで見た）。手前の札と灯りは窓の中に残る
     "c104": dict(photo=_CM003, **ss.mvz(_CM003, (0.5, 0.5, 1.0), (0.6, 0.55, 1.25)), side="none", color=1.0,

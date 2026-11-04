@@ -22,8 +22,8 @@ PLAN = {
     'c301': dict(kind='写真',
                plan='🔧 CM032｜一覧の種類：実写｜見せ方：全面｜副題：渋谷ストリームから見た渋谷駅の再開発〈2022年〉｜動き：ゆっくり引く｜権利：CC0｜時期：2022-01-17｜人：なし｜出典の行：写真：{作者}／Wikimedia Commons（CC0）｜注：魚眼ぎみ｜新しい画（映像方針）：🔧 CM107 → CM032（広い景色＝章の頭）｜台本の画＝台本 §4・一覧 eizou_list29.md（写さない）',
                src='東洋経済 10-30（24日に100万ドル）・ITmedia NEWS 10-27（自身のサイト・100万ドル・日付なし）'),
-    'c318': dict(kind='フリー素材',
-               plan='X318｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：メールの受信箱の一覧｜動き：映像｜権利：Pexels License（⑤b で頁を読む）｜時期：イメージ｜人：なし（人なし）｜出典の行：イメージ（Pexels）｜注：中身は読めない｜🔴 イメージ＝Pexels の映像を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・生成 AI の絵が無いこと）・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list29.md（写さない）',
+    'c318': dict(kind='写真',
+               plan='🔧 CM102｜一覧の種類：実写｜見せ方：全面｜副題：「GMO」の字が見える渋谷フクラス〈2023年〉｜動き：ゆっくり寄る｜権利：CC0｜時期：2023-11-19｜人：なし（下に小さな人影・読めない）｜出典の行：写真：{作者}／Wikimedia Commons（CC0）｜注：⑤c直し＝暗い手元の映像 X318 から替えた（語りが攻撃した者の行で、手が攻撃した者に見える）｜台本の画＝台本 §4・一覧 eizou_list29.md（写さない）',
                src='質疑前 33:19（`10月23日、え、20時40分以降人からの連絡は窓口には入っておりません`＝字幕の字）'),
     'c302': dict(kind='フリー素材',
                plan='X302｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：ノートパソコンを閉じて箱に収める手元｜動き：映像｜権利：Pexels License（⑤b で頁を読む）｜時期：イメージ｜人：なし（手元だけ）｜出典の行：イメージ（Pexels）｜注：顔なし｜🔴 イメージ＝Pexels の映像を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・生成 AI の絵が無いこと）・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list29.md（写さない）',
@@ -88,38 +88,41 @@ SPEC = {}
 # ══════════════════════════════════════════════════════════
 #   🔴 公開された情報は一切出さない（§B2-11b）＝頁の切り口にサイトの名前と URL は無い（Q10）・見出しで中身に触れない
 _CM032, _CM096, _Q7, _CM021, _Q10, _CM103, _T230 = P("cm032"), P("cm096"), P("police/q7"), P("cm021"), P("police/q10"), P("cm103"), P("t230")
-_Q12, _Q13, _PB317, _CM095 = P("police/q12"), P("police/q13"), P("pb317"), P("cm095")
+_Q12, _Q13, _PB317, _CM095, _CM102 = P("police/q12"), P("police/q13"), P("pb317"), P("cm095"), P("cm102")
 SPEC.update({
     # c301＝章の頭。🔴 左下にガラスの縁＝窓を右上寄りに（引いた側でも y 0.66 より下は字幕の帯の裏）
     "c301": dict(photo=_CM032, **ss.mvz(_CM032, (0.6, 0.4, 1.25), (0.54, 0.42, 1.06)), side="none", color=1.0,
                  t="100万ドルへ", s="渋谷ストリームから見た渋谷駅の再開発〈2022年〉"),
     "c303": dict(photo=_CM096, **ss.mvz(_CM096, (0.5, 0.48, 1.0), (0.55, 0.45, 1.15)), side="none", color=1.0,
                  t="手元の確認", s="渋谷フクラスの1階〈2019年〉"),
-    "c304": dict(photo=_Q7, panel=True, pw=1776, ground=dict(photo=_Q7), color=1.0,
+    "c304": dict(photo=_Q7, panel=True, pw=1776, ground=dict(photo=_Q7, blur=ss.PAGE_BLUR), color=1.0,
                  t="12時の予告", s="GMOインターネットグループ 第7報〈10月26日〉"),
     "c309": dict(photo=_CM021, panel=True, ptall=True, ground=dict(photo=_CM021), color=1.0,
                  t="12時30分", s="グループ本社が入るセルリアンタワー〈2015年〉"),
     # c310＝第10報「情報と称するもの」の欄＝サイトの名前と URL の行は切り口の外。🔧 副題は額の左の幅に収めた（会社の名は出典の行にある）
-    "c310": dict(photo=_Q10, panel=True, ptall=True, ground=dict(photo=_Q10), color=1.0,
+    "c310": dict(photo=_Q10, panel=True, ptall=True, ground=dict(photo=_Q10, blur=ss.PAGE_BLUR), color=1.0,
                  t="第10報の言葉", s="グループの第10報〈10月27日〉"),
     "c312": dict(photo=_CM103, panel=True, ptall=True, ground=dict(photo=_CM103), color=1.0,
                  t="報道の話", s="東京・渋谷駅の西口〈2022年〉"),
     "c313": dict(photo=_T230, **ss.mvz(_T230, (0.5, 0.5, 1.0), (0.66, 0.52, 1.25)), side="none", color=1.0,
                  t="説明会の言葉", s="GMOの看板が見える渋谷の夜〈2023年〉"),
-    "c314": dict(photo=_Q12, panel=True, pw=1776, ground=dict(photo=_Q12), color=1.0,
+    "c314": dict(photo=_Q12, panel=True, pw=1776, ground=dict(photo=_Q12, blur=ss.PAGE_BLUR), color=1.0,
                  t="「永久に」", s="GMOインターネットグループ 第12報〈10月27日〉"),
-    "c316": dict(photo=_Q13, panel=True, pw=1776, ground=dict(photo=_Q13), color=1.0,
+    "c316": dict(photo=_Q13, panel=True, pw=1776, ground=dict(photo=_Q13, blur=ss.PAGE_BLUR), color=1.0,
                  t="ドメインの停止", s="GMOインターネットグループ 第13報〈10月28日〉"),
     # c317＝問いと答えの段だけ（頁の題の大臣の名前と段の見出しは切り口の外）
-    "c317": dict(photo=_PB317, panel=True, pw=1776, ground=dict(photo=_PB317), color=1.0,
+    "c317": dict(photo=_PB317, panel=True, pw=1776, ground=dict(photo=_PB317, blur=ss.PAGE_BLUR), color=1.0,
                  t="総務省の動き", s="総務大臣の会見の概要〈2026年10月30日〉"),
-    "c320": dict(photo=_CM095, **ss.mvz(_CM095, (0.5, 0.5, 1.0), (0.46, 0.45, 1.15)), side="none", color=1.0,
+    # c318＝🔧 ⑤c直し：映像 X318（暗い手元＝語りが攻撃した者の行で、その手に見える）から夜の「GMO」の字へ寄る（c501 は同じ写真の額装）
+    "c318": dict(photo=_CM102, **ss.mvz(_CM102, (0.5, 0.42, 1.0), (0.5, 0.38, 1.15)), side="none", color=1.0,
+                 t="窓口への連絡", s="「GMO」の字が見える渋谷フクラス〈2023年〉"),
+    # c320＝🔧 ⑤c直し：左の広告（人の顔・缶・題が乗って読めない）を窓の外へ＝右寄りの窓で寄る
+    "c320": dict(photo=_CM095, **ss.mvz(_CM095, (0.59, 0.5, 1.2), (0.62, 0.42, 1.3)), side="none", color=1.0,
                  t="語られた時期", s="東京・渋谷駅の周り〈2025年〉"),
     # フリー素材（Pexels・イメージ）＝`ss.vid`（左上の「イメージ」と出典だけ）
     "c302": ss.vid("c302"),
     "c308": ss.vid("c308"),
     "c311": ss.vid("c311"),
-    "c318": ss.vid("c318"),
 })
 
 # ══════════════════════════════════════════════════════════

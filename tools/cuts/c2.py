@@ -98,7 +98,7 @@ SPEC.update({
     "c206": dict(photo=_T229, **ss.mv(_T229, "r", fy=0.45), side="none", color=1.0,
                  t="全プランの停止", s="渋谷の首都高と国道246号の夜〈2023年〉"),
     # c207＝第1報の頁（26,739件と「悪用された事実は確認されておりません」まで）＝引用（話している秒だけ・無加工）
-    "c207": dict(photo=_Q1, panel=True, ptall=True, ground=dict(photo=_Q1), color=1.0,
+    "c207": dict(photo=_Q1, panel=True, ptall=True, ground=dict(photo=_Q1, blur=ss.PAGE_BLUR), color=1.0,
                  t="2万6739件", s="お名前.com の第1報〈10月21日〉"),
     "c209": dict(photo=_CM048, panel=True, ptall=True, ground=dict(photo=_CM048), color=1.0,
                  t="脅迫のメール", s="夜のセルリアンタワー〈東京・渋谷・2023年〉"),
@@ -108,14 +108,14 @@ SPEC.update({
     "c212": dict(photo=_CM056, **ss.mvz(_CM056, (0.5, 0.5, 1.0), (0.62, 0.5, 1.2)), side="none", color=1.0,
                  t="報じられた例", s="セルリアンタワーから見た渋谷〈2010年〉"),
     # c213＝財務大臣の会見の冒頭発言（公的な機関の頁・FX 業者の社名の文は隠した切り口）
-    "c213": dict(photo=_PB213, panel=True, pw=1776, ground=dict(photo=_PB213), color=1.0,
+    "c213": dict(photo=_PB213, panel=True, pw=1776, ground=dict(photo=_PB213, blur=ss.PAGE_BLUR), color=1.0,
                  t="金融庁の要請", s="財務大臣の会見の概要〈2026年10月27日〉"),
     "c214": dict(photo=_P1573, panel=True, ptall=True, ground=dict(photo=_P1573), color=1.0,
                  t="担当の外", s="金融庁が入る中央合同庁舎第7号館西館〈東京・霞が関〉"),
     # c215＝🔴「GMO」の札（束の x 0.14〜0.227）を窓から出さない＝窓の左の辺が 0.14 を超えない範囲で右へ
     "c215": dict(photo=_CM119, **ss.mvz(_CM119, (0.356, 0.5, 1.0), (0.49, 0.5, 1.0)), side="none", color=1.0,
                  t="第2報", s="渋谷フクラスから見た街とGMOの看板〈2021年〉"),
-    "c217": dict(photo=_Q4, panel=True, pw=1776, ground=dict(photo=_Q4), color=1.0,
+    "c217": dict(photo=_Q4, panel=True, pw=1776, ground=dict(photo=_Q4, blur=ss.PAGE_BLUR), color=1.0,
                  t="持ち出しを確認", s="GMOインターネットグループ 第4報〈10月24日〉"),
     "c219": dict(photo=_CM057, **ss.mvz(_CM057, (0.5, 0.45, 1.0), (0.6, 0.35, 1.2)), side="none", color=1.0,
                  t="会社の方針", s="セルリアンタワーからの眺め〈2014年〉"),
@@ -146,7 +146,8 @@ SPEC.update({
     # c208（2行）＝語りと図が同じ字＝字幕を重ねない（台本 §7 の⑧）
     "c208": dict(
         **ss.gr("t230"), t="この数は何か", s="会社がのちに書いた説明",
-        fig=("m29", dict(view="num26739", steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))], mute=[0, 1],
+        # 🔧 ⑤c直し：段を3つに＝札 b は行0 の「数だ。」のころ（行0 と行1 の真ん中＝`stage_times`）に出る。語りの「不正アクセス」は音声で 3.47秒から（段が2つだと 5.51秒＝約2秒ぶん字が無い）
+        fig=("m29", dict(view="num26739", steps=[dict(state=dict(a="on")), dict(state=dict(b="on")), dict(state={})], mute=[0, 1],
                          rel=[dict(t="26,739件", src="第3報"), dict(t="第3報（2026年10月23日）", src="第3報")],
                          note="", src="第3報（2026-10-23）"))),
     # c218（2行）＝第1報の字は縮めた（語りは約6秒＝全文は c207 で見せた）

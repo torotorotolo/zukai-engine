@@ -90,7 +90,7 @@ _D1028, _T230, _T232, _CM031, _T229, _CM048, _CM207, _PB612, _PB613, _CM030 = (
     P("police/d1028"), P("t230"), P("t232"), P("cm031"), P("t229"), P("cm048"), P("cm207"), P("pb612"), P("pb613"), P("cm030"))
 SPEC.update({
     # c601＝章の頭＝額装だけの点は扉の地に混ぜない（card_mix=0）。開示 p.2〜3 の金額の表（表の線の y で切った＝役員の名前と問合せ先は写らない）
-    "c601": dict(photo=_D1028, panel=True, ptall=True, ground=dict(photo=_D1028), color=1.0, card_mix=0,
+    "c601": dict(photo=_D1028, panel=True, ptall=True, ground=dict(photo=_D1028, blur=ss.PAGE_BLUR), color=1.0, card_mix=0,
                  t="金額の表", s="GMOインターネットの開示〈10月28日〉"),
     "c604": dict(photo=_T230, **ss.mv(_T230, "r", fy=0.5), side="none", color=1.0,
                  t="全額の補償", s="GMOの看板が見える渋谷の夜〈2023年〉"),
@@ -106,9 +106,9 @@ SPEC.update({
     # c611＝束の幅 1520（1.26倍）＝寄りを小さく
     "c611": dict(photo=_CM207, **ss.mvz(_CM207, (0.5, 0.5, 1.0), (0.5, 0.48, 1.12)), side="none", color=1.0,
                  t="国への求め", s="総理大臣官邸〈東京・永田町・2020年ごろ〉"),
-    "c612": dict(photo=_PB612, panel=True, pw=1776, ground=dict(photo=_PB612), color=1.0,
+    "c612": dict(photo=_PB612, panel=True, pw=1776, ground=dict(photo=_PB612, blur=ss.PAGE_BLUR), color=1.0,
                  t="10月1日 一部施行", s="国家サイバー統括室の発表〈2026年10月1日〉"),
-    "c613": dict(photo=_PB613, panel=True, pw=1776, ground=dict(photo=_PB613), color=1.0,
+    "c613": dict(photo=_PB613, panel=True, pw=1776, ground=dict(photo=_PB613, blur=ss.PAGE_BLUR), color=1.0,
                  t="大臣の答え", s="担当大臣の記者会見〈2026年10月27日〉"),
     "c620": dict(photo=_CM030, **ss.mvz(_CM030, (0.6, 0.45, 1.2), (0.5, 0.5, 1.0)), side="none", color=1.0,
                  t="まだ無い答え", s="セルリアンタワーを見上げる〈2007年〉"),

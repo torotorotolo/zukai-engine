@@ -3380,17 +3380,17 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 
 | 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
 |---|---|---|---|---|---|
-| `cm003` | c104 c508（地 c511 c703） | 2019 | CC BY 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM003＝git の外の目録 `src/commons/geo29.json`） |
+| `cm003` | c104 c508（地 c511 c513 c703） | 2019 | CC BY 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM003＝git の外の目録 `src/commons/geo29.json`） |
 | `cm004` | （地 c105 c701） | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM004＝git の外の目録 `src/commons/geo29.json`） |
 | `cm021` | c309 c512 | 2015 | PD（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM021＝git の外の目録 `src/commons/geo29.json`） |
-| `cm027` | c410（地 c306 c415） | 2021 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM027＝git の外の目録 `src/commons/geo29.json`） |
+| `cm027` | c410（地 c306 c415 c417） | 2021 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM027＝git の外の目録 `src/commons/geo29.json`） |
 | `cm028` | c210 | 2021 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM028＝git の外の目録 `src/commons/geo29.json`） |
-| `cm030` | c408 c620（地 c409） | 2007 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM030＝git の外の目録 `src/commons/geo29.json`） |
+| `cm030` | c408 c620（地 c409 c419） | 2007 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM030＝git の外の目録 `src/commons/geo29.json`） |
 | `cm031` | c607 | 2017 | CC BY 2.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM031＝git の外の目録 `src/commons/geo29.json`） |
 | `cm032` | c301（地 c619） | 2022 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM032＝git の外の目録 `src/commons/geo29.json`） |
 | `cm046` | c413 | 2011 | CC BY-SA 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM046＝git の外の目録 `src/commons/geo29.json`） |
 | `cm048` | c209 c610 | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM048＝git の外の目録 `src/commons/geo29.json`） |
-| `cm049` | c106 c520（地 c407 c417 c419 c513） | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM049＝git の外の目録 `src/commons/geo29.json`） |
+| `cm049` | c106 c520 | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM049＝git の外の目録 `src/commons/geo29.json`） |
 | `cm050` | c518 | 2023 | CC BY 2.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM050＝git の外の目録 `src/commons/geo29.json`） |
 | `cm052` | c506 | 2014 | CC BY-SA 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM052＝git の外の目録 `src/commons/geo29.json`） |
 | `cm055` | c401（地 c205 c402 c618） | 2007 | CC BY 2.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM055＝git の外の目録 `src/commons/geo29.json`） |
@@ -3399,9 +3399,9 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `cm059` | c107 c705（地 c503） | 2024 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM059＝git の外の目録 `src/commons/geo29.json`） |
 | `cm095` | c320 c706 | 2025 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM095＝git の外の目録 `src/commons/geo29.json`） |
 | `cm096` | c303 | 2019 | CC BY 4.0（この回の土地と物・顔とナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM096＝git の外の目録 `src/commons/geo29.json`） |
-| `cm102` | c501 | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM102＝git の外の目録 `src/commons/geo29.json`） |
+| `cm102` | c318 c501 | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM102＝git の外の目録 `src/commons/geo29.json`） |
 | `cm103` | c312 | 2022 | CC BY 2.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM103＝git の外の目録 `src/commons/geo29.json`） |
-| `cm105` | c418 | 2025 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM105＝git の外の目録 `src/commons/geo29.json`） |
+| `cm105` | c418 | 2025 | CC0（この回の土地と物・顔に升目） | 表示は任意（CC0・PD） | Commons（記号 CM105＝git の外の目録 `src/commons/geo29.json`） |
 | `cm107` | c509（地 c606） | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 CM107＝git の外の目録 `src/commons/geo29.json`） |
 | `cm119` | c215 c514 | 2021 | CC BY 2.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM119＝git の外の目録 `src/commons/geo29.json`） |
 | `cm207` | c611 | 2020 | CC BY 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep29/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | Commons（記号 CM207＝git の外の目録 `src/commons/geo29.json`） |
@@ -3422,7 +3422,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `q4` | c217 | 2026 | 引用（著作権法32条・会社のサイトポリシーは引用を禁止の外に置く＝ルール §2-36）（引用・非公開） | GMOインターネットグループ・GMOインターネット（お名前.com） | `group.gmo/info/alert/20261024/` |
 | `q7` | c304 | 2026 | 引用（著作権法32条・会社のサイトポリシーは引用を禁止の外に置く＝ルール §2-36）（引用・非公開） | GMOインターネットグループ・GMOインターネット（お名前.com） | `group.gmo/info/alert/2026102602/` |
 | `q8` | c101 | 2026 | 引用（著作権法32条・会社のサイトポリシーは引用を禁止の外に置く＝ルール §2-36）（引用・非公開） | GMOインターネットグループ・GMOインターネット（お名前.com） | `group.gmo/info/alert/20261027/` |
-| `t229` | c206 c608（地 c218 c315 c403 c404 c405 c406 c412） | 2023 | CC0（この回の土地と物・ナンバーに升目） | 表示は任意（CC0・PD） | Commons（記号 T229＝git の外の目録 `src/commons/geo29.json`） |
+| `t229` | c206 c608（地 c218 c315 c403 c404 c405 c406 c407 c412） | 2023 | CC0（この回の土地と物・ナンバーに升目） | 表示は任意（CC0・PD） | Commons（記号 T229＝git の外の目録 `src/commons/geo29.json`） |
 | `t230` | c313 c604（地 c208 c305 c519） | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 T230＝git の外の目録 `src/commons/geo29.json`） |
 | `t231` | c420 | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 T231＝git の外の目録 `src/commons/geo29.json`） |
 | `t232` | c201 c605（地 c202 c505 c615） | 2023 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | Commons（記号 T232＝git の外の目録 `src/commons/geo29.json`） |
@@ -3439,7 +3439,6 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `X211` | c211 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/close-up-video-of-a-person-using-a-cellphone-8275994/ | 2026-11-04 |
 | `X216` | c216 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/person-typing-on-a-mobile-phone-4671883/ | 2026-11-04 |
 | `X220` | c220 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/an-empty-gaming-chair-8128278/ | 2026-11-04 |
-| `X318` | c318 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/female-hands-typing-on-laptop-5716890/ | 2026-11-04 |
 | `X302` | c302 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/person-closing-a-laptop-6889425/ | 2026-11-04 |
 | `X308` | c308 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-ticking-clock-7033607/ | 2026-11-04 |
 | `X311` | c311 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-person-getting-a-smartphone-8946457/ | 2026-11-04 |

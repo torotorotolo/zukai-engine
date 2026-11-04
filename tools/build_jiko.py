@@ -242,16 +242,17 @@ def ground_of(img, cut, meta):
 #    冒頭は実写か実写を地にした画面（10-06）＝c106 の付図29 の欄を、c105 の操縦室の写真（同じ寄せ）を地にして額装する（映像方針 §2）。
 #    地は**止める**（額の中の頁が主役・動く地は読みにくい）・ぼかし GROUND_PHOTO_BLUR・暗さ GROUND_PHOTO_K（額の頁の字と競わない）。
 #    🔴 出典の行に地の写真の出典も出す（`scene_jiko.credit_of`＝「／地の写真：…・ぼかし」）。BY-SA の点は地にできない（`cuts.ss.check_frame_only`）
+#    🆕 2026-11-04（29本目 ⑤c直し）：`ground=dict(photo=…, blur=半径)`＝カットごとのぼかし（書かなければ今までの GROUND_PHOTO_BLUR）。頁の見出しの大きな字は半径 6 で読める（`cuts.ss.PAGE_BLUR`）
 GROUND_PHOTO_BLUR = 6.0
 GROUND_PHOTO_K = 0.45
 _GROUND_PH = {}
 
 
 def ground_photo(g, cut, meta):
-    key = (g["photo"], float(g.get("xbias", 0.5)), float(g.get("bias", 0.5)), float(g.get("zoom", 1.0)))
+    key = (g["photo"], float(g.get("xbias", 0.5)), float(g.get("bias", 0.5)), float(g.get("zoom", 1.0)), float(g.get("blur", GROUND_PHOTO_BLUR)))
     if key not in _GROUND_PH:
         src = load_photo(g["photo"], S.PHOTO_FULL)
-        ph = fit(src, S.PHOTO_FULL, 0.0, key[2], key[1], key[3]).convert("RGB").filter(ImageFilter.GaussianBlur(GROUND_PHOTO_BLUR))
+        ph = fit(src, S.PHOTO_FULL, 0.0, key[2], key[1], key[3]).convert("RGB").filter(ImageFilter.GaussianBlur(key[4]))
         _GROUND_PH[key] = ph
     g2 = tone(_GROUND_PH[key], cut, meta).convert("RGB")
     return Image.blend(Image.new("RGB", (S.W, S.H), (0, 0, 0)), g2, GROUND_PHOTO_K).convert("RGBA")

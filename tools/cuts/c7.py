@@ -47,12 +47,13 @@ SPEC = {}
 _PB704, _CM059, _CM095 = P("pb704"), P("cm059"), P("cm095")
 SPEC.update({
     # c704＝🔧 副題は額の左の幅に収めた（機関の名は出典の行にある）
-    "c704": dict(photo=_PB704, panel=True, ptall=True, ground=dict(photo=_PB704), color=1.0,
-                 t="相談の窓口", s="国の特設サイト〈2026年10月30日 開設〉"),
+    "c704": dict(photo=_PB704, panel=True, ptall=True, ground=dict(photo=_PB704, blur=ss.PAGE_BLUR), color=1.0,
+                 t="国の案内", s="国の特設サイト〈2026年10月30日 開設〉"),
     # c705＝c107 と同じ景色（別の窓から引く）
     "c705": dict(photo=_CM059, **ss.mvz(_CM059, (0.4, 0.5, 1.15), (0.5, 0.52, 1.0)), side="none", color=1.0,
                  t="今後の検証", s="グループ第2本社が入る渋谷フクラス〈2024年〉"),
-    "c706": dict(photo=_CM095, **ss.mv(_CM095, "r", fy=0.45), side="none", color=1.0,
+    # c706＝🔧 ⑤c直し：左の広告（人の顔・缶・題が乗って読めない）を窓の外へ＝c320 と同じ右寄りの窓で流す
+    "c706": dict(photo=_CM095, **ss.mvz(_CM095, (0.555, 0.42, 1.3), (0.62, 0.42, 1.3)), side="none", color=1.0,
                  t="あなたなら", s="東京・渋谷駅の周り〈2025年〉"),
     # フリー素材（Pexels・イメージ）＝`ss.vid`（左上の「イメージ」と出典だけ）
     "c702": ss.vid("c702"),

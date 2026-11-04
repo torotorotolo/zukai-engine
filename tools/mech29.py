@@ -440,7 +440,7 @@ def bounty_stage(prev, st):
     if _on(prev, st, "b"):
         s.append(_no_tag(560.0, 720.0, "身代金", 620.0))
         s.append(_no_tag(1360.0, 720.0, "情報の買い取り", 620.0))
-        s.append(_t(CX, 826.0, "要求の額とは別", 36, J.TICK, "middle", 900))
+        s.append(_t(CX, 826.0, "要求の額とは別", 36, INK, "middle", 900))
     return s
 
 
@@ -478,7 +478,7 @@ def tips_stage(prev, st):
             s.append(_t(x, y0 + 46, lab, 34, INK if last else J.TICK, "middle", 210))
         s.append(_t(tp_x(_d(2026, 10, 31)) + TP["dx"] / 2, y0 + 46, "土日は更新なし", 28, J.TICK, "middle", 400))
     if _on(prev, st, "none"):
-        s.append(_tag(1300.0, 310.0, "さらなる公開の報道なし（11月3日の時点）", J.AMBER, 32, INK))
+        s.append(_tag(1300.0, 310.0, "さらなる公開の報道は見つからず（11月3日の時点）", J.AMBER, 32, INK))
     return s
 
 
@@ -605,7 +605,7 @@ def in4_stage(prev, st):
             for x in IN4["xs"]:
                 s.append(_server(x, y, IN4["s"], sc("user")))
     if _on(prev, st, "mal"):
-        s.append(_tag(790.0, 440.0, "マルウェア", J.ALERT, 38, INK))
+        s.append(_tag(745.0, 378.0, "マルウェア", J.ALERT, 38, INK))
     if _on(prev, st, "max"):
         s.append(_t(1420.0, 742.0, "対象となり得た数", 34, INK, "middle", 620))
         s.append(_t(1420.0, 816.0, "最大 26,739台", 64, J.AMBER, "middle", 700))
@@ -766,7 +766,7 @@ def qa_route_stage(prev, st):
     s = []
     if _on(prev, st, "q"):
         s.append(_panel(130.0, 290.0, 760.0, 410.0, sc("press"), sw=5))
-        s.append(_t(510.0, 358.0, "記者の問い", 38, sc("press"), "middle", 700))
+        s.append(_t(510.0, 358.0, "記者の問い〈要旨〉", 38, sc("press"), "middle", 700))
         s.append(_lines(510.0, 462.0, QR_Q, 50, INK, "middle", 700, 76.0))
     if _on(prev, st, "a"):
         s.append(_arrow(910.0, 495.0, 1010.0, 495.0, J.AMBER, 9, 32))
@@ -1083,7 +1083,7 @@ def ai_say_base(st0):
 def ai_say_stage(prev, st):
     s = []
     if _on(prev, st, "q"):
-        s.append(_tag(CX, 330.0, "問い：今回、AIは使われたのか", sc("press"), 40, INK))
+        s.append(_tag(CX, 330.0, "問い：AIが使われた証拠は？", sc("press"), 40, INK))
     if _on(prev, st, "a"):
         s.append(_quote_card(CX, 510.0, 1560.0, 230.0, (AI_Q,), sc("company"), 62, "グループの代表の答え〈要旨〉"))
     if _on(prev, st, "b"):

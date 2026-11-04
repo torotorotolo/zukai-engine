@@ -181,32 +181,6 @@
   "license_url": "https://www.pexels.com/license/",
   "site": "Pexels"
  },
- "X318": {
-  "url": "https://www.pexels.com/video/female-hands-typing-on-laptop-5716890/",
-  "media": "https://videos.pexels.com/video-files/5716890/5716890-hd_1920_1080_25fps.mp4",
-  "stock": true,
-  "file": "ep29/src/eizou/X318.mp4",
-  "credit": "イメージ（Pexels）",
-  "src": "stock",
-  "at": 0.0,
-  "what": "イメージ：ノートパソコンの手元（中身は読めない）",
-  "got": "2026-11-04",
-  "w": 1920,
-  "h": 1080,
-  "fps": 25.0,
-  "sar": "1:1",
-  "sec": 17.24,
-  "size": 6912199,
-  "md5": "2124a5200cf481db98dc5f75da4142ce",
-  "dispw": 1920,
-  "decoded": [
-   1920,
-   1080
-  ],
-  "license": "Pexels License",
-  "license_url": "https://www.pexels.com/license/",
-  "site": "Pexels"
- },
  "X302": {
   "url": "https://www.pexels.com/video/person-closing-a-laptop-6889425/",
   "media": "https://videos.pexels.com/video-files/6889425/6889425-hd_1920_1080_25fps.mp4",
