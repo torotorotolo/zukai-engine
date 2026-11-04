@@ -35,7 +35,7 @@ import speaker  # noqa: E402
 
 MD = ROOT / "ref" / "ep29" / "daihon_v2.md"
 NARR = ROOT / "tools" / "narration.py"
-WANT = {"cuts": 113, "lines": 247, "chars": 6998, "quotes": 0, "q_lines": 30}
+WANT = {"cuts": 113, "lines": 248, "chars": 7023, "quotes": 0, "q_lines": 30}   # 🔧 ⑥（11-04）c620 を2行に＝+1行・+25字
 TAIL = ("ed01",)            # el_script.COMMON_TAIL と同じ（el_script は narration を import するのでここでは読まない）
 TAIL_MARK = "    # ── 共通エンディング"
 
