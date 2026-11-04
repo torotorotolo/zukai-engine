@@ -109,3 +109,71 @@ SPEC.update({
     # フリー素材（Pexels・イメージ）＝`ss.vid`（左上の「イメージ」と出典だけ）
     "c414": ss.vid("c414"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-11-04）：図（c402〜c407・c409・c412・c415・c417・c419）＝`tools/mech29.py`・門番 check_mech の judge_m29
+# ══════════════════════════════════════════════════════════
+#   🔴 手口の絵は描かない＝説明会で会社が言った順番だけ。c403〜c406 は同じ暗い地 T229 で絵を変える
+_SRC_KAI = "説明会（2026-11-02）"
+_SRC_QA = "説明会の質疑（2026-11-02）"
+SPEC.update({
+    # c402（2行）＝聞き役の行は線と点だけ → 「こうだ」で字
+    "c402": dict(
+        **ss.gr("cm055"), t="会社が示した順番", s="8月から10月の流れ",
+        fig=("m29", dict(view="order4", steps=[dict(state={}), dict(state=dict(lab="on"))],
+                         rel=[dict(t="8月5日", src="説明会 2026-11-02"), dict(t="8月17日", src="説明会 2026-11-02"), dict(t="9月20日", src="説明会 2026-11-02"), dict(t="10月14日", src="説明会 2026-11-02"),
+                              dict(t="10月20日", src="説明会 2026-11-02")],
+                         note="位置は日に比例", src=_SRC_KAI))),
+    # c403（2行）＝🆕 札〈利用者が借りる1台〉（台本 §7 の⑦）。語りの字は変えない
+    "c403": dict(
+        **ss.gr("t229"), t="最初の侵入", s="入られた場所",
+        fig=("m29", dict(view="in1", steps=[dict(state=dict(who="on")), dict(state=dict(**{"in": "on"}))],
+                         rel=[dict(t="8月5日", src="説明会 2026-11-02"), dict(t="1台", src="説明会 2026-11-02")],
+                         note="模式", src=_SRC_KAI))),
+    "c404": dict(
+        **ss.gr("t229"), t="奪われたもの", s="VPSの中で",
+        fig=("m29", dict(view="in2", steps=[dict(state=dict(key="on")), dict(state=dict(power="on"))], rel=[], note="模式", src=_SRC_KAI))),
+    "c405": dict(
+        **ss.gr("t229"), t="次の一歩", s="権限を使った先",
+        fig=("m29", dict(view="in3", steps=[dict(state=dict(go="on")), dict(state=dict(side="on"))],
+                         rel=[dict(t="8月17日", src="説明会 2026-11-02")], note="模式", src=_SRC_KAI))),
+    "c406": dict(
+        **ss.gr("t229"), t="配られた先", s="多くのVPSへ",
+        fig=("m29", dict(view="in4", steps=[dict(state=dict(fan="on")), dict(state=dict(mal="on")), dict(state=dict(max="on"))],
+                         rel=[dict(t="9月20日", src="説明会 2026-11-02"), dict(t="10月14日", src="説明会 2026-11-02"), dict(t="26,739台", src="説明会 2026-11-02")],
+                         note="模式（描いた台の数は実際の数ではない）", src=_SRC_KAI))),
+    # c407（2行）＝帯2本（位置は日に比例・10月20日で止まる）・c105 と別の絵
+    "c407": dict(
+        **ss.gr("cm049"), t="気づくまでの長さ", s="2つの起点から数える",
+        fig=("m29", dict(view="gap2", steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))],
+                         rel=[dict(t="8月5日から", src="説明会 2026-11-02"), dict(t="8月17日から", src="説明会 2026-11-02"), dict(t="10月20日", src="説明会 2026-11-02"),
+                              dict(t="76日", src="計算"), dict(t="64日", src="計算")],
+                         note="日数はこちらの計算", src=_SRC_KAI))),
+    # c409（3行）＝問いは要旨・答えは字幕の字のまま（11-04 カズヤくんが耳で確かめた）。語りと図が同じ字＝字幕を重ねない
+    "c409": dict(
+        **ss.gr("cm030"), t="質疑の答え", s="問いと答え",
+        fig=("m29", dict(view="qa_why", steps=[dict(state=dict(q="on")), dict(state=dict(a="on")), dict(state=dict(next="on"))], mute=[0, 1],
+                         rel=[dict(t="10月20日", src="質疑 2026-11-02")],
+                         note="問いは要旨", src=_SRC_QA))),
+    # c412（3行）＝聞き役の行は2台だけ → 共有の線 → オン
+    "c412": dict(
+        **ss.gr("t229"), t="手元とつなぐ機能", s="会社の説明から",
+        fig=("m29", dict(view="drive", steps=[dict(state={}), dict(state=dict(line="on")), dict(state=dict(on="on"))], rel=[], note="模式", src=_SRC_KAI))),
+    # c415（2行）＝どれも要旨。bias＝地 CM027 の看板の字を画面の外へ（c306 と同じ）
+    "c415": dict(
+        **ss.gr("cm027"), bias=0.25, t="言い方の違い", s="2つの場面の言葉",
+        fig=("m29", dict(view="two_says", steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))], rel=[],
+                         note="どれも要旨", src="説明会と質疑（2026-11-02）"))),
+    # c417（3行）＝分かる／明らかでない／時点の札
+    "c417": dict(
+        **ss.gr("cm049"), t="分けて見る", s="会社の説明の範囲",
+        fig=("m29", dict(view="know", steps=[dict(state=dict(a="on")), dict(state=dict(b="on")), dict(state=dict(when="on"))],
+                         rel=[dict(t="76日", src="計算"), dict(t="2026年11月3日の時点", src="時点 2026-11-03")],
+                         note="", src="説明会と質疑（2026-11-02）"))),
+    # c419（3行）＝語りと図が同じ字＝字幕を重ねない。🔴 2年前の指摘と今回の侵入を結びつけない
+    "c419": dict(
+        **ss.gr("cm049"), t="2年前との関係", s="質疑のやり取り",
+        fig=("m29", dict(view="qa_route", steps=[dict(state=dict(q="on")), dict(state=dict(a="on")), dict(state=dict(unk="on"))], mute=[0, 1],
+                         rel=[dict(t="2年前", src="質疑 2026-11-02"), dict(t="11月3日の時点", src="時点 2026-11-03")],
+                         note="答えは要旨", src=_SRC_QA))),
+})

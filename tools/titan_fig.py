@@ -5202,3 +5202,11 @@ def m27(view, steps, **kw):
 def m28(view, steps, **kw):
     import mech28 as _m
     return _m.m28(view, steps, **kw)
+
+
+# ── ㉔ 29本目 ⑤b-4（2026-11-04）：図解（図38＝帯2・模式8・暦2・札2・比べ2・年表2・問答2・並べ2・言葉2・箱2・窓口2・SNS 5・時計・棒・流れ・式・割合）＝
+#      `tools/mech29.py`（門番 check_mech の judge_m29）。🔴 地は写真（cuts.ss.gr＝暗くするだけ）・字は暗い縁取り・人は描かない・会社を犯人と言わない ──
+#   `fig=("m29", dict(view=…, steps=[…], rel=[…], note="…", src=…))`
+def m29(view, steps, **kw):
+    import mech29 as _m
+    return _m.m29(view, steps, **kw)

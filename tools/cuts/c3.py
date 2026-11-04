@@ -121,3 +121,40 @@ SPEC.update({
     "c311": ss.vid("c311"),
     "c318": ss.vid("c318"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-11-04）：図（c305・c306・c307・c315・c319）＝`tools/mech29.py`・門番 check_mech の judge_m29
+# ══════════════════════════════════════════════════════════
+#   🔴 カットの順は台本どおり（c307 は c309 の後ろ・c318 は c301 の後ろ）＝並べ直さない。CUTS の順で決まる＝ここの順は関係しない
+SPEC.update({
+    # c305（2行）＝語の補足。特定の製品や別の事件の絵は使わない
+    "c305": dict(
+        **ss.gr("t230"), t="この語の意味", s="データと金の関係",
+        fig=("m29", dict(view="ransom", steps=[dict(state=dict(lock="on")), dict(state=dict(ask="on"))], rel=[], note="模式", src="語の説明（こちらでまとめた）"))),
+    # c306（2行）＝図は12:00まで（針は時刻の式）。bias＝地 CM027 の看板の字（既定の切り口では y1021〜1070）を画面の外へ（門番 slide G-13）
+    "c306": dict(
+        **ss.gr("cm027"), bias=0.25, t="第8報の朝", s="正午の予告までの時間",
+        fig=("m29", dict(view="clock_noon", steps=[dict(state=dict(both="on")), dict(state=dict(ask="on"))],
+                         rel=[dict(t="10月27日", src="第8報"), dict(t="9:58", src="第8報"), dict(t="12:00", src="第8報"), dict(t="第8報", src="第8報")],
+                         note="", src="第8報（2026-10-27）"))),
+    # c307（2行）＝世間の声（§B2-9）。原文を読む2行とも字幕を消す
+    "c307": dict(
+        **ss.gr("cm056"), t="正午への声", s="呼びかけをあとから知った投稿",
+        fig=("m29", dict(view="sns307", steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))], mute=[0, 1],
+                         rel=[dict(t="X の投稿（2026年10月27日）", src="X 2026-10-27")],
+                         note="原文どおりの字（アカウント名は出さない）", src="X の投稿（2026年10月27日）"))),
+    # c315（2行）＝懸賞金。専用サイトの画面は出さない。要求の額と混ぜない（言い方 §5-10）
+    "c315": dict(
+        **ss.gr("t229"), t="もう1つの対応", s="第12報で決めたこと",
+        fig=("m29", dict(view="bounty", steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))],
+                         rel=[dict(t="100万米ドル", src="第12報"), dict(t="10月28日 12:00 から受付", src="第12報")],
+                         note="", src="第12報（2026-10-27）"))),
+    # c319（3行）＝捜査本部 → 累計の棒（🔴 日付の間隔どおり・語るのは 735 だけ）→ 時点
+    "c319": dict(
+        **ss.gr("p0047"), t="捜査と情報提供", s="情報提供の累計",
+        fig=("m29", dict(view="tips", steps=[dict(state=dict(police="on")), dict(state=dict(bars="on")), dict(state=dict(none="on"))],
+                         rel=[dict(t="約70人（報道・10月29日）", src="ANN 2026-10-29"), dict(t="113", src="第16報"), dict(t="321", src="第16報"), dict(t="428", src="第16報"),
+                              dict(t="735件", src="第16報"), dict(t="10月28日", src="第16報"), dict(t="29日", src="第16報"), dict(t="30日", src="第16報"),
+                              dict(t="11月2日", src="第16報"), dict(t="11月3日の時点", src="時点 2026-11-03")],
+                         note="どれも18:00の時点", src="第16報・ANN（2026-10-29）"))),
+})

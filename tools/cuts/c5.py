@@ -119,3 +119,45 @@ SPEC.update({
     "c510": ss.vid("c510", speaker="運営会社の副社長"),
     "c515": ss.vid("c515", speaker="グループの代表"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-11-04）：図（c502・c503・c505・c507・c511・c513・c519）＝`tools/mech29.py`・門番 check_mech の judge_m29
+# ══════════════════════════════════════════════════════════
+#   🔴 今回の侵入は年表に乗せない（関係が分かっていない）。役職だけ（名前は書かない）。c505・c511・c513 は図に役職がある＝speaker の札は付けない
+_SRC_KAI5 = "説明会（2026-11-02）"
+_SRC_QA5 = "説明会の質疑（2026-11-02）"
+SPEC.update({
+    "c502": dict(
+        **ss.gr("cm056"), t="グループのセキュリティ", s="会社が説明した歩み",
+        fig=("m29", dict(view="hist", steps=[dict(state=dict(a="on")), dict(state=dict(word="on"))],
+                         rel=[dict(t="2022年2月", src="説明会 2026-11-02"), dict(t="2024年4月24日", src="説明会 2026-11-02"), dict(t="4月26日から5月20日", src="説明会 2026-11-02"),
+                              dict(t="4回", src="説明会 2026-11-02"), dict(t="2025年2月", src="説明会 2026-11-02")],
+                         note="位置は日に比例", src=_SRC_KAI5))),
+    "c503": dict(
+        **ss.gr("cm059"), t="報告会の日", s="説明会の説明から",
+        fig=("m29", dict(view="cal24", steps=[dict(state=dict(day="on"))],
+                         rel=[dict(t="2024年4月24日", src="説明会 2026-11-02"), dict(t="2024年4月の暦 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 25 26 27 28 29 30", src="計算")],
+                         note="曜日は日付から", src=_SRC_KAI5))),
+    # c505（2行）＝語りと図が同じ字＝言葉を読む行の字幕を消す
+    "c505": dict(
+        **ss.gr("t232"), t="指摘のあと", s="運営の側の対応",
+        fig=("m29", dict(view="deep_fast", steps=[dict(state=dict(m4="on")), dict(state=dict(say="on"))], mute=[1],
+                         rel=[dict(t="4月26日", src="説明会 2026-11-02"), dict(t="5月20日", src="説明会 2026-11-02"), dict(t="4回", src="説明会 2026-11-02"), dict(t="説明会（2026年11月2日）", src="説明会 2026-11-02")],
+                         note="", src=_SRC_KAI5))),
+    "c507": dict(
+        **ss.gr("cm057"), t="順番の決め方", s="副社長の説明の語から",
+        fig=("m29", dict(view="sort5", steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))], rel=[], note="模式", src=_SRC_QA5))),
+    # c511（3行）＝役職だけ・当時の役職つき。「ここで止まる・届かず」は語りより強いので描かない
+    "c511": dict(
+        **ss.gr("cm003"), t="報告の行き先", s="質疑の説明から",
+        fig=("m29", dict(view="report_flow", steps=[dict(state=dict(**{"from": "on"})), dict(state=dict(two="on")), dict(state=dict(then="on"))], rel=[],
+                         note="模式", src=_SRC_QA5 + "・有価証券報告書"))),
+    # c513（2行）＝法務部長の答えは次の c514 の語り（同じ画面に並べる＝食い違いのまま）
+    "c513": dict(
+        **ss.gr("cm049"), t="報告の基準", s="2人の答え",
+        fig=("m29", dict(view="two_ans", steps=[dict(state={}), dict(state=dict(say="on"))], rel=[], note="どちらも要旨", src=_SRC_QA5))),
+    "c519": dict(
+        **ss.gr("t230"), t="代表の反省", s="2つの考え方",
+        fig=("m29", dict(view="resil", steps=[dict(state=dict(a="on")), dict(state=dict(b="on")), dict(state=dict(late="on"))], rel=[],
+                         note="模式（線の高さは数ではない）", src=_SRC_KAI5))),
+})

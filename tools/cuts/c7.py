@@ -57,3 +57,19 @@ SPEC.update({
     # フリー素材（Pexels・イメージ）＝`ss.vid`（左上の「イメージ」と出典だけ）
     "c702": ss.vid("c702"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-11-04）：図（c701・c703）＝`tools/mech29.py`・門番 check_mech の judge_m29
+# ══════════════════════════════════════════════════════════
+#   🔴 窓口の字は ⑥ の直前に頁で当て直す。group.gmo はリンクに事前の連絡が要る＝字のまま。c703 の専用サイトの画面は出さない
+SPEC.update({
+    "c701": dict(
+        **ss.gr("cm004"), t="相談の窓口", s="第16報の案内",
+        fig=("m29", dict(view="contact", steps=[dict(state=dict(tel="on")), dict(state=dict(form="on"))],
+                         rel=[dict(t="03-5456-2560", src="第16報"), dict(t="24時間", src="第16報")],
+                         note="", src="第16報（2026-10-29）"))),
+    # c703（2行）＝会社の言葉を読む行の字幕を消す。出典の行は2行（mech29.TL_SRC）
+    "c703": dict(
+        **ss.gr("cm003"), t="情報の提供", s="どこへ送るか",
+        fig=("m29", dict(view="tipline", steps=[dict(state=dict(where="on")), dict(state=dict(ask="on"))], mute=[1], rel=[], note="", src="第16報（2026-10-29）"))),
+})

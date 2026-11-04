@@ -126,3 +126,33 @@ SPEC.update({
     "c216": ss.vid("c216"),
     "c220": ss.vid("c220"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-11-04）：図（c202・c205・c208・c218）＝`tools/mech29.py`・門番 check_mech の judge_m29
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c202（2行）＝語の補足。特定の製品の画面は描かない
+    "c202": dict(
+        **ss.gr("t232"), t="VPSとは", s="借りた1台を動かす形",
+        fig=("m29", dict(view="vps", steps=[dict(state=dict(vps="on")), dict(state=dict(rd="on"))],
+                         rel=[dict(t="1台ぶん", src="説明会 2026-11-02")],
+                         note="模式", src="説明会（2026-11-02）"))),
+    # c205（2行）＝暦3枚。21日は次の c206 の語り（第3報の経緯の順に見せる）
+    "c205": dict(
+        **ss.gr("cm055"), t="10月の3日間", s="第3報の経緯の順",
+        fig=("m29", dict(view="cal3", steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))],
+                         rel=[dict(t="10月19日", src="第3報"), dict(t="20日", src="第3報"), dict(t="21日 午前4時", src="第3報"), dict(t="第1報", src="第3報")],
+                         note="曜日は日付から", src="第3報（2026-10-23）の経緯"))),
+    # c208（2行）＝語りと図が同じ字＝字幕を重ねない（台本 §7 の⑧）
+    "c208": dict(
+        **ss.gr("t230"), t="この数は何か", s="会社がのちに書いた説明",
+        fig=("m29", dict(view="num26739", steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))], mute=[0, 1],
+                         rel=[dict(t="26,739件", src="第3報"), dict(t="第3報（2026年10月23日）", src="第3報")],
+                         note="", src="第3報（2026-10-23）"))),
+    # c218（2行）＝第1報の字は縮めた（語りは約6秒＝全文は c207 で見せた）
+    "c218": dict(
+        **ss.gr("t229"), t="知らせの変わり方", s="2つの知らせの字",
+        fig=("m29", dict(view="two_reports", steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))],
+                         rel=[dict(t="第1報〈10月21日〉", src="第1報"), dict(t="第4報〈10月24日〉", src="第4報"), dict(t="3日", src="計算")],
+                         note="第1報は途中を「…」で縮めた", src="第1報（2026-10-21）・第4報（2026-10-24）"))),
+})

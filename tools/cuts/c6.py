@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""第5章　5,000円と、上限300万円 c601–c620（20カット）。29本目（GMO不正アクセス問題・2026-10-20 に異変を確認・GMOインターネットへの不正アクセス）。
+"""第5章　5000円と、上限300万円 c601–c620（20カット）。29本目（GMO不正アクセス問題・2026-10-20 に異変を確認・GMOインターネットへの不正アクセス）。
 
 ■ 🔴 2026-11-03（⑤b-1）：28本目（タイムズカー情報漏えい）の中身を空にした＝git の `6fb3d0fc`（`git show 6fb3d0fc:tools/cuts/c6.py`）。
 ■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep29/make_plan29.py` で
@@ -115,4 +115,55 @@ SPEC.update({
     # フリー素材（Pexels・イメージ）＝`ss.vid`（左上の「イメージ」と出典だけ）
     "c602": ss.vid("c602"),
     "c614": ss.vid("c614"),
+})
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-11-04）：図（c603・c618・c606・c609・c615・c616・c617・c619）＝`tools/mech29.py`・門番 check_mech の judge_m29
+# ══════════════════════════════════════════════════════════
+#   🔴 カットの順は台本どおり（c618 は c605 の後ろ）。SNS は世間の声（§B2-9）＝注釈つき・投稿者の名前なし・原文を読む行の字幕を消す
+_SNS_NOTE6 = "原文どおりの字（アカウント名は出さない）"
+SPEC.update({
+    "c603": dict(
+        **ss.gr("cm056"), t="損失の補償", s="どこまでが対象か",
+        fig=("m29", dict(view="scope", steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))], rel=[], note="", src="開示（2026-10-24）"))),
+    # c618（3行）＝1行目 → 2行目 読む（字幕を消す）→ 3行目 個人の申告の札
+    "c618": dict(
+        **ss.gr("cm055"), t="解約のあと", s="ある投稿から",
+        fig=("m29", dict(view="sns618", steps=[dict(state={}), dict(state=dict(a="on")), dict(state=dict(b="on"))], mute=[1],
+                         rel=[dict(t="9月末で 1度も", src="X 2026-11-03"), dict(t="X の投稿（2026年11月3日）", src="X 2026-11-03"), dict(t="11月3日の時点", src="時点 2026-11-03")],
+                         note=_SNS_NOTE6, src="X の投稿（2026年11月3日）"))),
+    # c606（2行）＝公開された情報の中身には触れない。🔴 合計は図に出さない（c607 の語り）
+    "c606": dict(
+        **ss.gr("cm107"), t="特別見舞金", s="第12報の表の3つ",
+        fig=("m29", dict(view="sum3", steps=[dict(state=dict(who="on")), dict(state=dict(cards="on"))],
+                         rel=[dict(t="10,000円", src="第12報"), dict(t="15,000円", src="第12報"), dict(t="25,000円", src="第12報")],
+                         note="", src="第12報（2026-10-27）"))),
+    # c609（2行）＝🔴 開示の表は名前があるので出さない＝こちらで組む（「役員4名」だけ）
+    "c609": dict(
+        **ss.gr("cm057"), t="役員の報酬", s="開示の内容",
+        fig=("m29", dict(view="paycut", steps=[dict(state=dict(cut="on")), dict(state=dict(next="on"))],
+                         rel=[dict(t="30%", src="開示 2026-11-02"), dict(t="3カ月", src="開示 2026-11-02"), dict(t="12月支給分から", src="開示 2026-11-02"), dict(t="役員4名", src="開示 2026-11-02")],
+                         note="帯の長さは割合に比例", src="開示（2026-11-02）・説明会（2026-11-02）"))),
+    # c615（3行）＝問い → 言葉（要旨・読む行の字幕を消す）→ 3つの札。c505 と別の絵
+    "c615": dict(
+        **ss.gr("t232"), t="AIの話", s="問われたことと答え",
+        fig=("m29", dict(view="ai_say", steps=[dict(state=dict(q="on")), dict(state=dict(a="on")), dict(state=dict(b="on"))], mute=[1], rel=[],
+                         note="答えは要旨", src="説明会の質疑（2026-11-02）"))),
+    "c616": dict(
+        **ss.gr("cm057"), t="AIへの声", s="話がすり替わったという投稿",
+        fig=("m29", dict(view="sns616", steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))], mute=[0, 1],
+                         rel=[dict(t="X の投稿（2026年11月3日）", src="X 2026-11-03")],
+                         note=_SNS_NOTE6, src="X の投稿（2026年11月3日）"))),
+    # c617（2行）＝カードは投稿の文の途中から＝頭に「…」・読む2行目の字幕を消す
+    "c617": dict(
+        **ss.gr("cm056"), t="聞きたいこと", s="理由を問う投稿",
+        fig=("m29", dict(view="sns617", steps=[dict(state={}), dict(state=dict(a="on"))], mute=[1],
+                         rel=[dict(t="今年の8月 10月まで", src="X 2026-11-02"), dict(t="X の投稿（2026年11月2日）", src="X 2026-11-02")],
+                         note=_SNS_NOTE6, src="X の投稿（2026年11月2日）"))),
+    # c619（2行）＝カードは投稿の文の途中から＝頭に「…」・2文は投稿の中で続いている。原文の「犯人」は札の中だけ
+    "c619": dict(
+        **ss.gr("cm032"), t="順番への声", s="両方に触れた投稿",
+        fig=("m29", dict(view="sns619", steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))], mute=[0, 1],
+                         rel=[dict(t="2カ月半", src="X 2026-11-03"), dict(t="X の投稿（2026年11月3日）", src="X 2026-11-03")],
+                         note=_SNS_NOTE6, src="X の投稿（2026年11月3日）"))),
 })
