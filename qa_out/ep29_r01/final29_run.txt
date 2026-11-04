@@ -1,0 +1,2 @@
+build=0  roles=0  m29v2_selftest=0  m29v2=0  namecheck=0  check_script=0  check_script_diff=0  check_facts=0  sou=0  internal=0  band=0  make_diff=0
+→ C:\Users\konar\Desktop\zukai-engine\ref\ep29\v2_build\gates.md

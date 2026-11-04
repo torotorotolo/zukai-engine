@@ -1,0 +1,10 @@
+videoId DXoUA2S6omY  https://youtu.be/DXoUA2S6omY
+✓ 題: 62字
+✓ 説明: 3849字
+✓ タグ: 16個
+✓ 子ども向けでない: self=False made=False
+✓ 公開設定: private
+✓ 処理: succeeded
+✓ 画質: hd
+✓ 尺: PT17M13S（手元 17分12.2秒）
+✓ サムネ: maxres 1280x720：平均の差 1.17（8 未満）・鮮明さの比 1.12（0.95 以上）

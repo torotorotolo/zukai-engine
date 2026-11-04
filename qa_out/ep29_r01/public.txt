@@ -1,0 +1,6 @@
+メタ: meta_ep29.json
+サムネの門番:
+  ✓ maxres 1280x720：平均の差 1.17（8 未満）・鮮明さの比 1.12（0.95 以上）
+公開した: https://youtu.be/DXoUA2S6omY
+  題　　: GMOへの不正アクセス事件、なぜ76日も気づけなかったのか。まとめ完全版（2026年11月時点）【事件検証】【ゆっくり解説】
+  確認  : https://studio.youtube.com/video/DXoUA2S6omY/edit
