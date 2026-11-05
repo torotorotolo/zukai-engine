@@ -994,7 +994,8 @@ def _write_block(tag, lines):
 
 
 # 寄せ（footage.USE の zoom・bias・xbias）＝写したくない物を窓の外へ（🔴 区間は一覧 list30.tsv の動きの欄「映像 a〜b秒」から読む＝手で写さない）
-STOCK_GEOM = {"c204": dict(zoom=1.06, xbias=0.0)}   # c204＝ホームの右端の人を画面の外へ（⑤b-3 に 640px で見た）
+STOCK_GEOM = {"c204": dict(zoom=1.06, xbias=0.0),    # c204＝ホームの右端の人を画面の外へ（⑤b-3 に 640px で見た）
+              "cb20": dict(zoom=1.4, bias=0.0)}      # cb20＝柵の張り紙（駅名と時刻が読める）を画面の外へ（⑤b-3 に焼いた絵の原寸で見た）
 # 🆕 防衛省の記録の6カット（4:3 を横いっぱいに＝footage.PILLAR）。`edit=True`＝元の映像の編集のまま場面をまたぐ（footage.outside_shot の注）。
 #    窓＝既定の真ん中（⑤b-2 に場面ごとのコマに窓の線を引いて見た＝駅の札・焼き込みの字幕・足元が窓の内側）。c107 だけ上へ（1073.5〜 の防護マスクの寄りの顔が切れる）
 M6_GEOM = {"c107": dict(bias=0.3)}
