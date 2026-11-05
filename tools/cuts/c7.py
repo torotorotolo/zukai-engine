@@ -158,3 +158,19 @@ SPEC.update({
             note="点は一般の座標"),
         t="隊員の行き先", s="東京の中央区（現在の衛星写真）"),
 })
+
+# 🆕 ⑤b-4（2026-11-05）：札の型＝表 `mech30.FU`・門番 check_mech の judge_m30
+from mech30 import fu_spec  # noqa: E402
+
+SPEC.update({
+    "c701": fu_spec("c701", ss.gr("p66")),
+    "c709": fu_spec("c709", ss.gr("stock/x708")),
+    "c711": fu_spec("c711", ss.gr("kod")),
+    "c712": fu_spec("c712", ss.gr("kod")),
+    "c722": fu_spec("c722", ss.gr("p66")),
+    "c724": fu_spec("c724", ss.gr("tse")),
+    "c725": fu_spec("c725", ss.gr("tse")),
+    "c727": fu_spec("c727", ss.gr("hb")),
+    "c732": fu_spec("c732", ss.gr("p68")),
+    "c735": fu_spec("c735", ss.gr("p78")),
+})

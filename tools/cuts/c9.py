@@ -97,3 +97,12 @@ SPEC.update({
             note="点は一般の座標・矢印は向きだけ（道すじではない）"),
         t="防護服で歩く", s="東京・霞が関（現在の衛星写真）"),
 })
+
+# 🆕 ⑤b-4（2026-11-05）：札の型＝表 `mech30.FU`・門番 check_mech の judge_m30
+from mech30 import fu_spec  # noqa: E402
+
+SPEC.update({
+    "c901": fu_spec("c901", ss.gr("mt")),
+    "c904": fu_spec("c904", ss.gr("stock/x809")),
+    "c910": fu_spec("c910", ss.gr("p80")),
+})

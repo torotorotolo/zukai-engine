@@ -87,3 +87,16 @@ SPEC.update({
     "cc04": dict(photo=_Xc04, **ss.mvz(_Xc04, (0.6, 0.6, 1.0), (0.65, 0.62, 1.12)), side="none", color=1.0, t="", s=""),
     "cc17": ss.vid("cc17"),
 })
+
+# 🆕 ⑤b-4（2026-11-05）：札の型＝表 `mech30.FU`・門番 check_mech の judge_m30
+from mech30 import fu_spec  # noqa: E402
+
+SPEC.update({
+    "cc03": fu_spec("cc03", ss.gr("stock/xc02")),
+    "cc05": fu_spec("cc05", ss.gr("kg1")),
+    "cc10": fu_spec("cc10", ss.gr("ks2")),
+    "cc11": fu_spec("cc11", ss.gr("stock/gpc")),
+    "cc12": fu_spec("cc12", ss.gr("stock/gpc")),
+    "cc14": fu_spec("cc14", ss.gr("stock/gpc")),
+    "cc15": fu_spec("cc15", ss.gr("kg1")),
+})

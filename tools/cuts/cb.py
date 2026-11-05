@@ -106,3 +106,16 @@ SPEC.update({
             note=ss.SAT_LINE_NOTE + "・点は一般の座標"),
         t="県の境の向こう", s="山梨県と東京都（現在の衛星写真）"),
 })
+
+# 🆕 ⑤b-4（2026-11-05）：札の型＝表 `mech30.FU`・門番 check_mech の judge_m30
+from mech30 import fu_spec  # noqa: E402
+
+SPEC.update({
+    "cb03": fu_spec("cb03", ss.gr("kg1")),
+    "cb04": fu_spec("cb04", ss.gr("kg1")),
+    "cb06": fu_spec("cb06", ss.gr("kg2")),
+    "cb10": fu_spec("cb10", ss.gr("diet")),
+    "cb13": fu_spec("cb13", ss.gr("kg1")),
+    "cb15": fu_spec("cb15", ss.gr("kg1")),
+    "cb18": fu_spec("cb18", ss.gr("stock/x803")),
+})

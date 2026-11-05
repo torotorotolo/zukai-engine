@@ -162,8 +162,8 @@ def check_ledger(S, idx):
         sp = S.SPEC[c]
         name = sp["photo"][len(ss.EP):-len(".jpg")] if sp["photo"].startswith(ss.EP) else sp["photo"]
         lic = (ss._assets().get(name) or {}).get("lic")
-        if lic not in ss.GROUND_LIC:
-            bad.append(f"{c}: 地の写真 {name} の権利 {lic}＝CC BY・CC0 だけ（§5b-117）")
+        if not ss.ground_lic_ok(lic):
+            bad.append(f"{c}: 地の写真 {name} の権利 {lic}＝CC BY・CC0・PD・PDL1.0・Pexels だけ（§5b-117）")
         if name not in ss.GROUND:
             bad.append(f"{c}: 地の写真 {name} が ss.GROUND に無い")
         elif abs(float(ss.GROUND[name]) - float(sp["dim"])) > 1e-9:

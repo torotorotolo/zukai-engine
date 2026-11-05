@@ -101,3 +101,19 @@ SPEC.update({
             note="点は一般の座標"),
         t="5日前の駅", s="東京・霞が関（現在の衛星写真）"),
 })
+
+# 🆕 ⑤b-4（2026-11-05）：札の型＝表 `mech30.FU`・門番 check_mech の judge_m30
+from mech30 import fu_spec  # noqa: E402
+
+SPEC.update({
+    "c602": fu_spec("c602", ss.gr("stock/x520")),
+    "c604": fu_spec("c604", ss.gr("stock/x520")),
+    "c605": fu_spec("c605", ss.gr("stock/x520")),
+    "c606": fu_spec("c606", ss.gr("stock/x512")),
+    "c608": fu_spec("c608", ss.gr("stock/x512")),
+    "c612": fu_spec("c612", ss.gr("stock/x609")),
+    "c615": fu_spec("c615", ss.gr("stock/x618")),
+    "c616": fu_spec("c616", ss.gr("sc")),
+    "c617": fu_spec("c617", ss.gr("kg1")),
+    "c619": fu_spec("c619", ss.gr("stock/x618")),
+})

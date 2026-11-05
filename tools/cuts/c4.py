@@ -113,3 +113,24 @@ SPEC.update({
             note="点は一般の座標（地区の代表点）"),
         t="山梨の村", s="本栖湖の南の高原（現在の衛星写真）"),
 })
+
+# 🆕 ⑤b-4（2026-11-05）：札の型＝表 `mech30.FU`・門番 check_mech の judge_m30
+from mech30 import fu_spec  # noqa: E402
+
+SPEC.update({
+    "c402": fu_spec("c402", ss.gr("mt")),
+    # 🔧 地 X404 → 松本の街（夜の暗い絵は暗くすると黒＝何の写真か分からない）＝c405・c406・c408・c420（⑤b-6 の c419 も）
+    "c405": fu_spec("c405", ss.gr("mt")),
+    "c406": fu_spec("c406", ss.gr("mt")),
+    "c408": fu_spec("c408", ss.gr("mt")),
+    "c409": fu_spec("c409", ss.gr("stock/ga2")),
+    "c410": fu_spec("c410", ss.gr("stock/ga2")),
+    "c412": fu_spec("c412", ss.gr("diet")),
+    "c413": fu_spec("c413", ss.gr("diet")),
+    "c414": fu_spec("c414", ss.gr("diet")),
+    "c416": fu_spec("c416", ss.gr("mt")),
+    "c417": fu_spec("c417", ss.gr("mt")),
+    "c418": fu_spec("c418", ss.gr("stock/x512")),
+    "c420": fu_spec("c420", ss.gr("mt")),
+    "c421": fu_spec("c421", ss.gr("stock/x803")),
+})

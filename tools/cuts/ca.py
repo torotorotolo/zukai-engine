@@ -71,3 +71,19 @@ PLAN = {
 }
 
 SPEC = {}
+
+# 🆕 ⑤b-4（2026-11-05）：札の型＝表 `mech30.FU`・門番 check_mech の judge_m30
+from mech30 import fu_spec  # noqa: E402
+
+SPEC.update({
+    "ca02": fu_spec("ca02", ss.gr("kg1")),
+    "ca03": fu_spec("ca03", ss.gr("diet")),
+    "ca04": fu_spec("ca04", ss.gr("diet")),
+    "ca06": fu_spec("ca06", ss.gr("kg2")),
+    "ca07": fu_spec("ca07", ss.gr("sc")),
+    "ca08": fu_spec("ca08", ss.gr("sc")),
+    "ca09": fu_spec("ca09", ss.gr("stock/x618")),
+    "ca10": fu_spec("ca10", ss.gr("sc")),
+    "ca12": fu_spec("ca12", ss.gr("stock/x618")),
+    "ca15": fu_spec("ca15", ss.gr("kg2")),
+})

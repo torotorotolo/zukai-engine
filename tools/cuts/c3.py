@@ -93,3 +93,15 @@ SPEC.update({
             note=ss.SAT_LINE_NOTE),
         t="県ごとの警察", s="熊本から山梨・長野・神奈川まで（現在の衛星写真）"),
 })
+
+# 🆕 ⑤b-4（2026-11-05）：札の型＝表 `mech30.FU`・門番 check_mech の judge_m30
+from mech30 import fu_spec  # noqa: E402
+
+SPEC.update({
+    "c305": fu_spec("c305", ss.gr("stock/ga1")),
+    "c306": fu_spec("c306", ss.gr("stock/ga1")),
+    "c308": fu_spec("c308", ss.gr("stock/ga1")),
+    "c310": fu_spec("c310", ss.gr("stock/gk1")),
+    "c312": fu_spec("c312", ss.gr("stock/gf1")),
+    "c313": fu_spec("c313", ss.gr("kg1")),
+})

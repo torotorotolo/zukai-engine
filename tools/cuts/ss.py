@@ -846,6 +846,8 @@ SLIDE_NOT_MOUNT: dict[str, str] = {
 OCR_NOT_TEXT: dict[str, list] = {}
 # 🆕 ⑤b-3（2026-11-05）：イメージの写真＝原寸で見た（線路と草＝字でない）
 OCR_NOT_TEXT["xc02.jpg"] = [((1200, 1030, 1235, 1070), "線路と草"), ((1745, 1020, 1790, 1040), "線路と草")]
+# 🆕 ⑤b-4（2026-11-05）：地に使う警視庁の写真＝原寸で見た（庁舎の窓の並び＝字でない）
+OCR_NOT_TEXT["ks2.jpg"] = [((1285, 550, 1540, 695), "庁舎の窓の並び")]
 
 # 🔴 2026-09-29（14本目 ⑤b-7a）：**切り出し（`TRIM`）で外した私人の範囲**（元画像の割合 x0,y0,x1,y1・何か）。
 #    門番 photomask が「その写真を使う全カットの窓（`trim` か `TRIM`・冒頭の写真は切らない＝全体）がこの範囲に
@@ -1462,17 +1464,26 @@ QWHO = {}
 #   🔴 2026-11-05（30本目 ⑤b-1・§0b）：29本目の14点は見本 `tools/fixture_ep29.py` の GROUND へ移した（git の `dc72dd8a`）。30本目の図を書くチャットで `--suggest` で測って写す
 #   🆕 2026-11-05（30本目 ⑤b-1）：地に使える権利に **PDL1.0**（陸上自衛隊の写真＝公共データ利用規約・出典の行に「加工して作成」）・**CC BY 2.5**（KG1・HB・KAS）・**Pexels**（イメージの地＝同じ章のイメージと同じ絵）を足した（了承② 11-05・一覧 §5-6）。
 #      BY-SA と引用は今までどおり止まる。⚠️ `scene_jiko.ground_credit` の「改変の欄が要る」は束の書き（credits.json）で満たす＝PDL1.0 は「／改変：切出」＋「加工して作成」の形を束のチャットで決める
-GROUND = {}
+#   🆕 2026-11-05（30本目 ⑤b-4）：札の型の地。`--suggest` の値を写す
+GROUND = {"diet": 0.29, "hb": 0.28, "kas": 0.28, "kg1": 0.28, "kg2": 0.28, "kod": 0.28, "ks2": 0.28, "mt": 0.29, "p66": 0.28, "p68": 0.28, "p75": 0.29, "p78": 0.28, "p80": 0.28,
+          "sc": 0.30, "slh": 0.28, "stock/ga1": 0.29, "stock/ga2": 0.29, "stock/gf1": 0.29, "stock/gk1": 0.28, "stock/gpc": 0.29, "stock/x503": 0.40,
+          "stock/x512": 0.29, "stock/x520": 0.41, "stock/x609": 0.28, "stock/x618": 0.30, "stock/x708": 0.30, "stock/x803": 0.28, "stock/x806": 0.29, "stock/x809": 0.28,
+          "stock/x812": 0.28, "stock/x813": 0.35, "stock/xc02": 0.30, "tse": 0.28}
 GROUND_LIC = ("CC BY 2.0", "CC BY 2.5", "CC BY 3.0", "CC BY 4.0", "CC0", "PD", "PDL1.0", "Pexels")
 # 🆕 2026-11-04（29本目 ⑤c直し）：額装の頁の地（同じ頁のぼかし）のぼかしの半径＝`ground=dict(photo=…, blur=PAGE_BLUR)`。写真の額装は今までの 6（`build_jiko.GROUND_PHOTO_BLUR`）のまま
 #    半径 6 は頁の見出しの大きな字が読める（c316「犯人サイトのドメイ…」が題の真後ろ）。半径 14 はまだ字の形が見える・22 で読めない（c316・c613・c704 を原寸で見た）
 PAGE_BLUR = 22.0
 
 
+def ground_lic_ok(lic):
+    """🆕 30本目 ⑤b-4：陸上自衛隊の写真の権利の欄は「PDL1.0 の読み（…）」（国＝第三者の外の読みまで書いてある）＝頭の語で見る。"""
+    return lic in GROUND_LIC or str(lic).startswith("PDL1.0 の読み")
+
+
 def gr(name):
     """説明カットの地の写真（暗くするだけ・静止・原色）＝SPEC に `**ss.gr("cm044")` と書く。"""
     lic = (_assets().get(name) or {}).get("lic")
-    if lic not in GROUND_LIC:
+    if not ground_lic_ok(lic):
         raise ValueError(f"{name}（{lic}）: 説明カットの地は CC BY・CC0・PD・PDL1.0・Pexels の写真だけ（BY-SA・引用・Google の衛星写真は地にしない＝§5b-117）")
     if name not in GROUND:
         raise KeyError(f"{name}: 地の写真の明るさが GROUND に無い（`python -P tools/check_ground.py --suggest` で測って写す）")

@@ -179,6 +179,11 @@ def exempt_strings(spec):
         import mech29
         for q in mech29.quote_lines(fig[1].get("view", "")):
             out.add(norm(q))
+    if fig and fig[0] == "m30":
+        # 🆕 30本目 ⑤b-4：札の型の原文どおりの字（mute のあるカットだけ＝その行の字幕は消える）
+        import mech30
+        for q in mech30.quote_lines(fig[1].get("view", "")):
+            out.add(norm(q))
     if fig and fig[0] == "trace":
         # 🔴 12本目から：報告書の実物をなぞる型。和訳（phrase）は**決め所**＝quote の phrase と同じ役目
         #    （声と同時に出し、その行の字幕は消える＝SUB_MUTE）。出どころ（doc）も同じく免除
