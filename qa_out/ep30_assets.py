@@ -573,9 +573,39 @@ def cmd_build(nopages=False):
                         masked_before=None, era=s["era"], people=s["people"], private=private, shot=shot)
         print(f"✓ {code:7} {name:14} {w}x{h:<5} 主 {' '.join(u['main']) or '—':14} 地 {' '.join(u['ji']) or '—':26} {_lic(code, s)[:12]}"
               f"{'  額装だけ' if frame else ''}{'  🔒非公開' if private else ''}  {'・'.join(notes)[:50]}")
+    # 🆕 ⑤b-3：イメージの写真（Pexels・地だけの点も）＝取ったファイルそのまま `ref/ep30/stock/<名>.jpg`（🔴 git に入れない＝19本目 決め⑨）。
+    #    Actions・Modal は `footage.stock_photos` が台帳の media から取り直して md5 を照らす（23本目の型）
+    (EPD / "stock").mkdir(exist_ok=True)
+    rows = _list()
+    for code, s in sorted(src.items()):
+        if s["type"] not in STOCK_TYPES or not s["file"].endswith(".jpg"):
+            continue
+        r = fet.get(code) or {}
+        p = EPD / s["file"]
+        if not p.exists() or not r or md5(p) != r["md5"] or r.get("出どころ") != s["get"]:
+            print(f"🔴 {code}: 手元の写真が無いか、md5 か直リンクが取得のときと違う（{s['file']}）＝fetch30e.py stock で取る")
+            bad += 1
+            continue
+        main = [x["cid"] for x in rows if _code_of(x["main"]) == code]
+        ji = [x["cid"] for x in rows if _code_of(x["ji"]) == code]
+        if not main and not ji:
+            print(f"🔴 {code}: イメージの写真をどのカットにも当てていない")
+            bad += 1
+            continue
+        name = f"stock/{code.lower()}"
+        dst = EPD / f"{name}.jpg"
+        dst.write_bytes(p.read_bytes())
+        with Image.open(dst) as im:
+            w, h = im.size
+        db[name] = dict(code=code, part="", file=s["file"], cut=" ".join(main), ji=" ".join(ji), credit="イメージ（Pexels）", who="投稿者（クレジットは任意＝書かない）",
+                        note=s["note"][:200], box=[0.0, 0.0, 1.0, 1.0], crop_px=[0, 0, w, h], w=w, h=h, md5=r["md5"], src_md5=r["md5"], lic="Pexels", frame=False,
+                        ground=s["rights"], url=_stock_page(code, s), blur=[], how=f"取ったファイルそのまま（{w}x{h}）", year=None, year_why="この事件の物でない（イメージ）",
+                        stock=True, page=False, related=False, quote_page=False, named=False, mosaic=None, name_mosaic=None, masked_before=None, era=s["era"], people=s["people"],
+                        private=False, shot=None, media=s["get"][len("stock:"):])
+        print(f"✓ {code:7} {name:14} {w}x{h:<5} 主 {' '.join(main) or '—':14} 地 {' '.join(ji) or '—':26} Pexels（git に入れない）")
     DB.write_text(json.dumps(db, ensure_ascii=False, indent=1), encoding="utf-8")
     tot = sum((EPD / f"{n}.jpg").stat().st_size for n in db)
-    pub = [n for n, r in db.items() if not r["private"]]
+    pub = [n for n, r in db.items() if not r["private"] and not r["stock"]]
     print(f"→ ref/ep30/assets.json（{len(db)}点＝公開リポに入る {len(pub)}・🔒非公開 {sum(r['private'] for r in db.values())}"
           f"・額装だけ {sum(1 for r in db.values() if r['frame'])}・作者の印 {sum(1 for r in db.values() if r['named'])}・升目 {sum(1 for r in db.values() if r['mosaic'])}"
           f"・地に使う {sum(1 for r in db.values() if r['ji'])}・束の大きさ {tot / 1e6:.1f}MB／公開リポの分 "
@@ -779,6 +809,11 @@ def cmd_credits(write=False):
         "- 防衛省・自衛隊『平成6年防衛庁記録』（CC BY 3.0＝公式の YouTube の表示と Commons の札）＝章「地下鉄サリン事件」の昼の区間だけ・上下を切って全面・音は使わない。夜の群衆と夜の消防は使わない",
         "- フリー素材（Pexels・AI で作った絵は使わない）＝画面の左上に「イメージ」・出典の行は「イメージ（Pexels）」だけ（クレジットは任意＝投稿者の名前は書かない・概要欄にも書かない）。"
         "20% に数えない。🔴 映像そのものもひかえの静止画も git に入れない（19本目 決め⑨）",
+        "- イメージの写真（Pexels・地だけの点も）＝表 1 の `x…`・`g…`（`ep30/stock/`）。🔴 git に入れない＝焼くときに台帳の直リンクから取り直して md5 を照らす（`footage.stock_photos`・23本目の型）",
+        "",
+        "### 3. 地図の描き足し（⑤b-3）",
+        "- 衛星写真＝Google マップ（帰属は地図の右下・PNG は公開リポに置かない＝保管庫）。路線の線と県の境＝「国土数値情報（鉄道データ・行政区域データ）」（国土交通省 https://nlftp.mlit.go.jp/ksj/）をもとに作成"
+        "（データの頁の許諾＝オープンデータ CC BY 4.0・サイトの規約 PDL1.0・2026-11-05 に読んだ）。札の場所＝同じ鉄道データの駅・国土地理院の住所検索（`cuts/ss.GEO`）",
         "",
         "| 記号 | 使うカット | 画面の出典 | ライセンス | 頁 | 取った日 |",
         "|---|---|---|---|---|---|", *film_rows,
@@ -806,12 +841,13 @@ M6_EDGES = (1042.4, 1049.6, 1051.2, 1056.7, 1062.7, 1073.5, 1076.46, 1079.2, 108
 
 
 def _film_codes():
-    """映像の記号 → 使うカット（一覧の順）"""
+    """映像の記号 → 使うカット（一覧の順）。イメージの写真（src/stock/*.jpg）は映像でない＝束の `stock/`（cmd_build）"""
     src = _sources()
     out = {}
     for r in _list():
         code = _code_of(r["main"])
-        if src.get(code, {}).get("type") in STOCK_TYPES + ("commons-video",):
+        s = src.get(code, {})
+        if s.get("type") == "commons-video" or (s.get("type") in STOCK_TYPES and s.get("file", "").endswith(".mp4")):
             out.setdefault(code, []).append(r["cid"])
     return out
 
@@ -837,7 +873,7 @@ def _head(u):
 
 def _stock_page(code, s):
     """頁の URL＝sources30 の basis の頭（13列のまま＝get は直リンクが持つ）"""
-    m = re.match(r"https://www\.pexels\.com/video/\S+?/(?=[（ ]|$)", s["basis"])
+    m = re.match(r"https://www\.pexels\.com/(?:video|photo)/\S+?/(?=[（ ]|$)", s["basis"])
     if not m:
         raise SystemExit(f"🔴 {code}: basis の頭に Pexels の頁の URL が無い（{s['basis'][:60]}）")
     return m.group(0)
@@ -889,7 +925,8 @@ def cmd_clips():
 # フリー素材で、動きの速い素材の隣の1秒の差がしきい値を超えて出た「境目」を、根拠つきで1ショットに直す（25・26本目 SHOT_ONE の型）
 #   根拠＝境目の前後の全コマの隣の差に、1コマに集まる跳ねが無い（切り替わりなら1コマに集まる）。⚠️ 記号は素材を替えても同じ＝替えたら測り直す
 #   ⑤b-3（11-02）に 10コマ/秒の隣の差を測った（scratchpad clip_probe.py）・コマを並べて同じカメラの1回の撮影と見た（動きの速い手・足で 1秒の差が超えた）
-SHOT_ONE = {}
+#   30本目 ⑤b-3（11-05）＝同じ物差し（隣の差の最大÷中央値 X703 1.6・X710 1.3・Xc17 3.0＝前後のコマも高い）。頭・真ん中・尻を 640px で見て同じカメラの1回の撮影
+SHOT_ONE = {"X703": "手持ちで通路を歩く1回の撮影", "X710": "前面の1回の撮影（速い）", "Xc17": "据えたカメラの長時間露光（人の流れの量で差が動く）"}
 
 
 def cmd_shots():
@@ -957,7 +994,7 @@ def _write_block(tag, lines):
 
 
 # 寄せ（footage.USE の zoom・bias・xbias）＝写したくない物を窓の外へ（🔴 区間は一覧 list30.tsv の動きの欄「映像 a〜b秒」から読む＝手で写さない）
-STOCK_GEOM = {}
+STOCK_GEOM = {"c204": dict(zoom=1.06, xbias=0.0)}   # c204＝ホームの右端の人を画面の外へ（⑤b-3 に 640px で見た）
 # 🆕 防衛省の記録の6カット（4:3 を横いっぱいに＝footage.PILLAR）。`edit=True`＝元の映像の編集のまま場面をまたぐ（footage.outside_shot の注）。
 #    窓＝既定の真ん中（⑤b-2 に場面ごとのコマに窓の線を引いて見た＝駅の札・焼き込みの字幕・足元が窓の内側）。c107 だけ上へ（1073.5〜 の防護マスクの寄りの顔が切れる）
 M6_GEOM = {"c107": dict(bias=0.3)}

@@ -98,3 +98,22 @@ PLAN = {
 }
 
 SPEC = {}
+# 🆕 ⑤b-3（2026-11-05）：イメージの写真（Pexels）。c803＝左上の札は窓の外・c809＝灯の腕の社名は窓の外・c813＝上の窓と扉は窓の外（閉じた部屋の語り）・c826＝電話の社名の札は窓の外
+_X803, _X806, _X809, _X812, _X813, _X816, _X826 = (P("stock/x803"), P("stock/x806"), P("stock/x809"), P("stock/x812"), P("stock/x813"), P("stock/x816"), P("stock/x826"))
+SPEC.update({
+    "c803": dict(photo=_X803, **ss.mvz(_X803, (0.58, 0.55, 1.2), (0.6, 0.55, 1.32)), side="none", color=1.0, t="", s=""),
+    "c806": dict(photo=_X806, **ss.mvz(_X806, (0.5, 0.45, 1.0), (0.55, 0.4, 1.12)), side="none", color=1.0, t="", s=""),
+    "c809": dict(photo=_X809, **ss.mvz(_X809, (0.4, 0.45, 1.25), (0.38, 0.42, 1.38)), side="none", color=1.0, t="", s=""),
+    "c812": dict(photo=_X812, **ss.mvz(_X812, (0.5, 0.5, 1.0), (0.45, 0.48, 1.1)), side="none", color=1.0, t="", s=""),
+    "c813": dict(photo=_X813, **ss.mvz(_X813, (0.55, 0.7, 1.4), (0.5, 0.72, 1.5)), side="none", color=1.0, t="", s=""),
+    "c816": dict(photo=_X816, **ss.mvz(_X816, (0.5, 0.55, 1.08), (0.56, 0.55, 1.18)), side="none", color=1.0, t="", s=""),
+    "c826": dict(photo=_X826, **ss.mvz(_X826, (0.5, 0.35, 1.5), (0.52, 0.34, 1.6)), side="none", color=1.0, t="", s=""),
+    # c801＝衛星写真（額装・静止）。札は築地駅・築地本願寺・聖路加国際病院だけ
+    "c801": dict(
+        **ss.sat("G09", steps=[
+            [dict(k="pt", at="tsukiji", c="AMBER", t="築地駅", lab=(-24, -24, "end")),
+             dict(k="pt", at="hongwanji", c="INK_W", t="築地本願寺", lab=(-24, 44, "end"))],
+            [dict(k="pt", at="luke", role="ship", t="聖路加国際病院", lab=(24, -24, "start"))]],
+            note="点は一般の座標"),
+        card_mix=0, t="駅と病院", s="東京の中央区（現在の衛星写真）"),
+})

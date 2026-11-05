@@ -180,6 +180,50 @@ def m6():
     return 0 if m1 == m2 else 1
 
 
+def stock(only=None):
+    """⑤b-3：Pexels の映像と写真（sources30 の get＝stock:<置き場の直リンク>・了承②）＝src/eizou/<記号>.mp4・src/stock/<記号>.jpg へ。
+    HEAD で大きさ → 流しながら GET → 長さの照合 → md5 を2回 → fetch30.tsv の 出どころ＝`stock:<直リンク>`
+    ⚠️ 記号は素材を替えても同じ＝記録の直リンクと違えば取り直す（記録は足すだけ・最後の行が効く）。写真は HEAD に長さが無いことがある＝そのときは md5 だけ"""
+    rows = [ln.rstrip('\n') for ln in open(os.path.join(HERE, 'sources30.psv'), encoding='utf-8') if ln.strip() and not ln.startswith('#')]
+    head = rows[0].split('|')
+    done = {}
+    with open(LOG, encoding='utf-8') as f:
+        for ln in f:
+            c = ln.rstrip('\n').split('\t')
+            if len(c) >= 8 and c[2] == 'stock':
+                done[c[1]] = c[7]
+    bad = 0
+    for r in rows[1:]:
+        d = dict(zip(head, r.split('|')))
+        if d['type'] != 'stock' or not d['get'].startswith('stock:http') or done.get(d['code']) == d['get'] or (only and d['code'] not in only):
+            continue
+        url = d['get'][6:]
+        path = os.path.join(EP, d['file'])
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, method='HEAD', headers=UA), timeout=60) as h:
+                want, ct = int(h.headers.get('Content-Length') or 0), h.headers.get('Content-Type') or ''
+            if not ct.startswith(('video/', 'image/')):
+                raise RuntimeError('HEAD が映像でも写真でもない（%s・%d B）' % (ct, want))
+            n = 0
+            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=300) as g, open(path, 'wb') as f:
+                for b in iter(lambda: g.read(1 << 20), b''):
+                    f.write(b)
+                    n += len(b)
+            if want and (n != want or os.path.getsize(path) != want):
+                raise RuntimeError('大きさが HEAD と違う（%d / %d）' % (os.path.getsize(path), want))
+            m1, m2 = md5(path), md5(path)
+            log([datetime.date.today().isoformat(), d['code'], 'stock', n, m1, m2, d['file'], 'stock:' + url])
+            print('%s %.2fMB md5 %s %s' % (d['code'], n / 1e6, m1[:8], 'md5x2一致' if m1 == m2 else '🔴md5不一致'), flush=True)
+            bad += m1 != m2
+        except Exception as e:      # noqa: BLE001
+            bad += 1
+            print('%s ✗ %s' % (d['code'], e), flush=True)
+        time.sleep(1.5)
+    print('おわり＝失敗 %d' % bad)
+    return 1 if bad else 0
+
+
 def main():
     mode = sys.argv[1]
     if mode == 'check':
@@ -188,6 +232,8 @@ def main():
         return commons()
     if mode == 'm6':
         return m6()
+    if mode == 'stock':
+        return stock(set(sys.argv[2:]) or None)
     return 2
 
 

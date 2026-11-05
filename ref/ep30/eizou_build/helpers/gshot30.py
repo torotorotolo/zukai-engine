@@ -34,6 +34,17 @@ CW, CH, DPR = 1280, 720, 1.5
 CAP_DPR = 2
 GMAP = {
     'G01': dict(ll=(36.238, 137.972), z=11, file='ref/ep30/photo/gmap_g01_matsumoto.png'),
+    # ⑤b-3（2026-11-05）：残り10画（11カット＝G03 は c203 と c607）。🔴 ズームは住宅が特定できない高さ・第一通報者の家も事件の路上も役場も示さない（中心は市や区の引き）
+    'G02': dict(ll=(35.685, 139.735), z=12, file='ref/ep30/photo/gmap_g02_tokyo.png'),            # c201 東京都心（3路線が額に入る引き）
+    'G03': dict(ll=(35.6745, 139.7505), z=15, file='ref/ep30/photo/gmap_g03_kasumigaseki.png'),   # c203・c607 霞が関
+    'G04': dict(ll=(34.75, 135.1), z=7, file='ref/ep30/photo/gmap_g04_japan.png'),                # c314 熊本から長野・神奈川まで
+    'G05': dict(ll=(36.238, 137.972), z=13, file='ref/ep30/photo/gmap_g05_matsumoto_city.png'),   # c401 松本市街（横 約20キロ）
+    'G06': dict(ll=(35.49, 138.62), z=12, file='ref/ep30/photo/gmap_g06_fujigamine.png'),         # c423 富士ヶ嶺の引き（🔧 頂上の絵の乱れ〈まぶしい放射〉は額の外へ＝北へずらした）
+    'G07': dict(ll=(35.625, 139.72), z=12, file='ref/ep30/photo/gmap_g07_tokyo_south.png'),       # c601 東京（札は「東京都」だけ）
+    'G08': dict(ll=(35.6745, 139.7777), z=15, file='ref/ep30/photo/gmap_g08_hatchobori.png'),     # c726 八丁堀
+    'G09': dict(ll=(35.6675, 139.7745), z=16, file='ref/ep30/photo/gmap_g09_tsukiji.png'),        # c801 築地と聖路加
+    'G10': dict(ll=(35.6755, 139.7515), z=17, file='ref/ep30/photo/gmap_g10_walk.png'),           # c908 霞が関の歩く道
+    'G11': dict(ll=(35.57, 138.97), z=10, file='ref/ep30/photo/gmap_g11_yamanashi_tokyo.png'),    # cb05 山梨と東京（県境）
 }
 
 

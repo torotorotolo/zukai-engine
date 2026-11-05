@@ -3527,6 +3527,37 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `p7` | ca05 | 1990 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 地元の個人（名前は git の外 `ref/ep30/src/credits_quote_private.tsv` の記号の行＝資料館の表示のとおり画面は焼くときに足す） | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 7） |
 | `sc` | ca16（地 c210 c616 ca07 ca08 ca10） | 2010 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:Supreme court - panoramio.jpg |
 | `slh` | c737 cb17（地 c802 c811 c825 c903） | 2008 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:20080312-StLukesInternationalHospital.jpg |
+| `ga1` | （地 c305 c306 c307 c308 c315 c316 c511） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/tokyo-covered-with-fog-15275312/ |
+| `ga2` | （地 c409 c410） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/japanese-residential-rooftops-in-urban-setting-34940112/ |
+| `gf1` | （地 c312 c504） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/scenic-view-of-mountain-under-blue-sky-with-white-clouds-6504525/ |
+| `gk1` | （地 c310） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/green-trees-on-mountains-12610181/ |
+| `gpc` | （地 cc11 cc12 cc13 cc14） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/laptop-with-blank-mockup-screen-on-wooden-table-6372917/ |
+| `x304` | c304 | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/modern-apartment-buildings-in-tokyo-japan-37760474/ |
+| `x317` | c317 | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/quiet-night-street-in-osaka-japan-30388051/ |
+| `x403` | c403 | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/scenic-rural-landscape-in-hokkaido-japan-at-sunset-38116208/ |
+| `x404` | c404（地 c405 c406 c407 c408 c419 c420） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/quiet-night-street-in-kyoto-japan-30962637/ |
+| `x411` | c411 | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/close-up-of-stack-of-newspapers-5505718/ |
+| `x502` | c502 | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/gray-concrete-road-near-green-trees-and-mountain-8747702/ |
+| `x503` | c503（地 c505 c506 c507） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/close-up-photo-of-green-leaves-8244083/ |
+| `x512` | c512（地 c418 c606 c608） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/folded-newspapers-5505690/ |
+| `x513` | c513（地 c514 c517） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/snow-capped-peaks-at-tateyama-toyama-japan-34787574/ |
+| `x516` | c516 | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/cityscape-of-kobe-17274539/ |
+| `x520` | c520（地 c602 c604 c605） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/orang-light-on-utility-pole-under-the-sky-5976782/ |
+| `x609` | c609（地 c610 c611 c612） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/highway-at-night-117831/ |
+| `x618` | c618（地 c614 c615 c619 c620 ca09 ca12） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/night-skyline-view-of-tokyo-cityscape-40437973/ |
+| `x705` | c705（地 c707） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/telephone-and-document-organizer-laying-on-office-desk-10347148/ |
+| `x708` | c708（地 c709） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/dimly-lit-subway-platform-in-kyoto-japan-30617584/ |
+| `x713` | c713 | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/emergency-ambulance-with-red-siren-light-in-city-36698627/ |
+| `x803` | c803（地 c421 c804 c805 cb18） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/white-tiled-hallway-5894937/ |
+| `x806` | c806（地 c807 c808） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/a-wheeled-stretcher-8943273/ |
+| `x809` | c809（地 c810 c818 c819 c904） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/lamps-in-operating-room-19563295/ |
+| `x812` | c812（地 c814 c824） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/hospital-beds-in-the-hallway-11660581/ |
+| `x813` | c813（地 c823） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/brown-wooden-pews-in-a-church-7219504/ |
+| `x816` | c816 | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/facade-of-a-traditional-japanese-house-19701869/ |
+| `x826` | c826 | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/beige-and-black-corded-home-phone-3339216/ |
+| `x905` | c905（地 c906） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/empty-bed-in-hospital-12081340/ |
+| `xc02` | cc02（地 cc03） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/trees-and-utility-poles-behind-train-windows-16922545/ |
+| `xc04` | cc04 | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/a-subway-station-with-stairs-and-a-metal-railing-27806687/ |
 | `tks` | ca11 | 2005 | CC BY-SA 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:Tokyokotosaibansho.jpg |
 | `tse` | （地 c724 c725） | 2014 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:Tsukiji station - exit - rainy day - nov 2014.jpg |
 | `w5` | cb01 | 1996 | PDL1.0（警察庁の利用規約 npa.go.jp/rules/ を 2026-11-05 に読んだ）＝出典と URL と編集の断り（公的な機関の頁） | 各機関（国） | https://www.npa.go.jp/hakusyo/h08/h080105.html |
@@ -3534,7 +3565,16 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 ### 2. 動く映像＝clips.json（防衛省の記録・イメージの Pexels）
 - 防衛省・自衛隊『平成6年防衛庁記録』（CC BY 3.0＝公式の YouTube の表示と Commons の札）＝章「地下鉄サリン事件」の昼の区間だけ・上下を切って全面・音は使わない。夜の群衆と夜の消防は使わない
 - フリー素材（Pexels・AI で作った絵は使わない）＝画面の左上に「イメージ」・出典の行は「イメージ（Pexels）」だけ（クレジットは任意＝投稿者の名前は書かない・概要欄にも書かない）。20% に数えない。🔴 映像そのものもひかえの静止画も git に入れない（19本目 決め⑨）
+- イメージの写真（Pexels・地だけの点も）＝表 1 の `x…`・`g…`（`ep30/stock/`）。🔴 git に入れない＝焼くときに台帳の直リンクから取り直して md5 を照らす（`footage.stock_photos`・23本目の型）
+
+### 3. 地図の描き足し（⑤b-3）
+- 衛星写真＝Google マップ（帰属は地図の右下・PNG は公開リポに置かない＝保管庫）。路線の線と県の境＝「国土数値情報（鉄道データ・行政区域データ）」（国土交通省 https://nlftp.mlit.go.jp/ksj/）をもとに作成（データの頁の許諾＝オープンデータ CC BY 4.0・サイトの規約 PDL1.0・2026-11-05 に読んだ）。札の場所＝同じ鉄道データの駅・国土地理院の住所検索（`cuts/ss.GEO`）
 
 | 記号 | 使うカット | 画面の出典 | ライセンス | 頁 | 取った日 |
 |---|---|---|---|---|---|
 | `M6` | c101 c102 c107 c720 c731 cb14 | 出典：防衛省・自衛隊『平成6年防衛庁記録』（CC BY 3.0）・改変：切出・再生速度 | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:%E5%B9%B3%E6%88%90%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm | 2026-11-05 |
+| `X204` | c204 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-subway-train-is-moving-through-a-tunnel-18657034/ | 2026-11-05 |
+| `X703` | c703 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-subway-station-entrance-4625080/ | 2026-11-05 |
+| `X710` | c710 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/speedy-tunnel-vision-in-underground-train-ride-31435017/ | 2026-11-05 |
+| `Xb20` | cb20 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/high-speed-train-in-tokyo-station-34777715/ | 2026-11-05 |
+| `Xc17` | cc17 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-blurry-photo-of-people-walking-through-a-train-station-26575728/ | 2026-11-05 |

@@ -816,6 +816,17 @@ SLIDE_MOUNT: dict[str, str] = {}
 #       台紙の縁のある写真があれば SLIDE_MOUNT を、無ければ暗い帯のある点を SLIDE_NOT_MOUNT に理由つきで書く（鍵は `P("名")`）
 #    🔴 2026-11-05（30本目 ⑤b-2）：`qa_out/ep30_assets.py edges` の4点を 640px の並べで見た＝どれも写真の中身＝台紙の縁は0点
 SLIDE_NOT_MOUNT: dict[str, str] = {
+    # 🆕 ⑤b-3（2026-11-05）：イメージの写真（Pexels）の暗い帯＝どれも写真の中身（夜の空や暗い壁・窓の外の暗さ・640px で見た）
+    P("stock/x317"): "夜の路地の暗い四辺（写真の中身）",
+    P("stock/x404"): "夜の道の暗い四辺（写真の中身）",
+    P("stock/x502"): "左の木の陰（写真の中身）",
+    P("stock/x609"): "夜の暗い四辺（写真の中身）",
+    P("stock/x618"): "夜空と手前の暗い街（写真の中身）",
+    P("stock/x708"): "ホームの暗い天井（写真の中身）",
+    P("stock/x816"): "軒の影（写真の中身）",
+    P("stock/x826"): "暗い部屋の背景（写真の中身）",
+    P("stock/xc02"): "電車の中の暗さ（写真の中身）",
+    P("stock/xc04"): "地下の暗い天井と壁（写真の中身）",
     P("diet"): "右端の黒＝手前の電柱（写真の中身）",
     P("ks1"): "左端の黒＝手前の木の陰（写真の中身）",
     P("ks2"): "右端の黒＝手前の並木の陰（写真の中身）",
@@ -833,6 +844,8 @@ SLIDE_NOT_MOUNT: dict[str, str] = {
 #    🔴 2026-10-30（27本目 ⑤b-1・§0b）：26本目の1点（`s5_362.jpg`＝1912年の本の頁の氷原の写真〈c318・c817〉の手前の暗い海面の網点＝⑤b-7 に原寸で見た）は
 #       見本 `tools/fixture_ep26.py` の OCR_NOT_TEXT へ移した（値は1つも変えていない＝git の `54b15e5e`）。27本目で字でない範囲を決めたら、ここに足す
 OCR_NOT_TEXT: dict[str, list] = {}
+# 🆕 ⑤b-3（2026-11-05）：イメージの写真＝原寸で見た（線路と草＝字でない）
+OCR_NOT_TEXT["xc02.jpg"] = [((1200, 1030, 1235, 1070), "線路と草"), ((1745, 1020, 1790, 1040), "線路と草")]
 
 # 🔴 2026-09-29（14本目 ⑤b-7a）：**切り出し（`TRIM`）で外した私人の範囲**（元画像の割合 x0,y0,x1,y1・何か）。
 #    門番 photomask が「その写真を使う全カットの窓（`trim` か `TRIM`・冒頭の写真は切らない＝全体）がこの範囲に
@@ -1033,10 +1046,30 @@ GEO = {}
 # 🆕 2026-11-05（30本目 ⑤b-2）：G01＝c105（`ref/ep30/eizou_build/helpers/gshot30.py`・2回撮って gseam22 で線なし）。残り11画は ⑤b-3。🔴 PNG は git の外＝保管庫 jiko-assets
 SAT.update({
     "G01": dict(file="ep30/photo/gmap_g01_matsumoto.png", ll=(36.238, 137.972), z=11, md5="0ca1afa753378ead5e611dee75a33498", credit=SAT_CREDIT),
+    # 🆕 ⑤b-3：残り10画（11カット＝G03 は c203 と c607）。2回撮って gseam22 で比べた。中心とズームの理由は gshot30 の表
+    "G02": dict(file="ep30/photo/gmap_g02_tokyo.png", ll=(35.685, 139.735), z=12, md5="0af038b46bf0f866145bc556580c5564", credit=SAT_CREDIT),
+    "G03": dict(file="ep30/photo/gmap_g03_kasumigaseki.png", ll=(35.6745, 139.7505), z=15, md5="995f22de27c822fac311650b34c9ed53", credit=SAT_CREDIT),
+    "G04": dict(file="ep30/photo/gmap_g04_japan.png", ll=(34.75, 135.1), z=7, md5="83b6c94eb56b65e798f636c92ab834c2", credit=SAT_CREDIT),
+    "G05": dict(file="ep30/photo/gmap_g05_matsumoto_city.png", ll=(36.238, 137.972), z=13, md5="91ac60035fd37c60d4676c12af0ae19c", credit=SAT_CREDIT),
+    "G06": dict(file="ep30/photo/gmap_g06_fujigamine.png", ll=(35.49, 138.62), z=12, md5="798a254cfbf064dde9f87b7696585115", credit=SAT_CREDIT),
+    "G07": dict(file="ep30/photo/gmap_g07_tokyo_south.png", ll=(35.625, 139.72), z=12, md5="3de50e3d2916386554b23ecf614f6dc1", credit=SAT_CREDIT),
+    "G08": dict(file="ep30/photo/gmap_g08_hatchobori.png", ll=(35.6745, 139.7777), z=15, md5="a0a2f6c18b74300b893ad898bbd639cc", credit=SAT_CREDIT),
+    "G09": dict(file="ep30/photo/gmap_g09_tsukiji.png", ll=(35.6675, 139.7745), z=16, md5="386bbf13541bedec6dccf490b1923e46", credit=SAT_CREDIT),
+    "G10": dict(file="ep30/photo/gmap_g10_walk.png", ll=(35.6755, 139.7515), z=17, md5="cf3162a1487bc727b0ece88270f8248a", credit=SAT_CREDIT),
+    "G11": dict(file="ep30/photo/gmap_g11_yamanashi_tokyo.png", ll=(35.57, 138.97), z=10, md5="237641824679f9a37de1290209c8d698", credit=SAT_CREDIT),
 })
 GEO.update({
     # 🔴 札は「長野県松本市」だけ・点は市の代表点（第一通報者の家も事件の現場も示さない）
     "matsumoto": dict(ll=(36.238, 137.97197), src="公安調査庁 アーカイブ（`1994.6.27松本サリン事件`）", how="一般の座標（Wikidata Q213324＝市）"),
+    # 🆕 ⑤b-3：札の場所（語りに出る公の場所だけ）。🔴 第一通報者の家・事件の路上・役場は置かない。駅＝国土数値情報 N02-24 の駅の線の真ん中・公の建物＝国土地理院の住所検索
+    "kasumigaseki": dict(ll=(35.67355, 139.75183), src="国土数値情報（鉄道）N02-24", how="一般の座標（駅の線の真ん中＝3路線の平均）"),
+    "hatchobori": dict(ll=(35.67551, 139.77742), src="国土数値情報（鉄道）N02-24", how="一般の座標（駅の線の真ん中）"),
+    "tsukiji": dict(ll=(35.66799, 139.77255), src="国土数値情報（鉄道）N02-24", how="一般の座標（駅の線の真ん中）"),
+    "keishicho": dict(ll=(35.676193, 139.751129), src="国土地理院の住所検索（千代田区霞が関二丁目1番）", how="一般の座標（住所の点）"),
+    "hongwanji": dict(ll=(35.666466, 139.772446), src="国土地理院の住所検索（中央区築地三丁目15番）", how="一般の座標（住所の点）"),
+    "luke": dict(ll=(35.667965, 139.776779), src="国土地理院の住所検索（中央区明石町9番1号）", how="一般の座標（住所の点）"),
+    "court": dict(ll=(36.239697, 137.969406), src="国土地理院の住所検索（松本市丸の内10番35号＝長野地裁松本支部）", how="一般の座標（住所の点）"),
+    "fujigamine": dict(ll=(35.414104, 138.626892), src="国土地理院の住所検索（富士河口湖町富士ヶ嶺＝当時の上九一色村）", how="一般の座標（地区の代表点＝施設の位置ではない）"),
 })
 # 🔴 2026-10-27（26本目 ⑤b-1・§0b）：25本目の表（SAT＝G01〜G05 の Google の衛星写真5点〈c101・c328・c517・ca23・cb03〉・GEO＝site・itami・mitejima・kashima の4点・
 #    SAT_LINES＝地理院地図Vector の線路の線4本〈fuku・tozai_under・tozai_surface・kashima_curve〉・SAT_LINE_NOTE＝線の出典の断り）は selftest の見本
@@ -1057,6 +1090,9 @@ GEO.update({
 #    28本目は地図のカットが無い（下の SAT_NONE）＝SAT・GEO は空のまま
 SAT_LINES = {}
 SAT_LINE_NOTE = ""
+# 🆕 2026-11-05（30本目 ⑤b-3）：路線3本と県の境＝国土数値情報（`ref/ep30/eizou_build/helpers/lines30.py` → `ref/ep30/sat_lines30.json`）。🔴 路線は線だけ（区間の細部を足さない＝§B2-12）
+SAT_LINES.update({k: tuple(tuple(p) for p in v) for k, v in json.loads((HERE / "ref" / "ep30" / "sat_lines30.json").read_text(encoding="utf-8")).items()})
+SAT_LINE_NOTE = "線：「国土数値情報」（国土交通省）をもとに作成"
 # 🆕 2026-10-23（24本目 ⑤b-6）：**この回は衛星写真の地図なし**の言い分（理由の文）。地図2つ（c203・c713）は描く＝`tools/mech24.py` の ussr・japan
 #    （国の形＝Natural Earth の切り出し `ref/ep24/make_map24.py`＝国の境・1986年の色・北方領土を描き分けるため。衛星写真には国の境が写らない）。
 #    門番 check_sat は、この文があるときだけ「地図のカット0」を通す（地図のカットが1つでもあれば、言い分と食い違う＝鳴る）。

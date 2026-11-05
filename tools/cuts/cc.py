@@ -80,3 +80,10 @@ PLAN = {
 }
 
 SPEC = {}
+# 🆕 ⑤b-3（2026-11-05）：イメージ（Pexels）。cc17＝長時間露光で人がぶれる（顔が分からない）
+_Xc02, _Xc04 = P("stock/xc02"), P("stock/xc04")
+SPEC.update({
+    "cc02": dict(photo=_Xc02, **ss.mvz(_Xc02, (0.45, 0.45, 1.05), (0.5, 0.45, 1.18)), side="none", color=1.0, t="", s=""),
+    "cc04": dict(photo=_Xc04, **ss.mvz(_Xc04, (0.6, 0.6, 1.0), (0.65, 0.62, 1.12)), side="none", color=1.0, t="", s=""),
+    "cc17": ss.vid("cc17"),
+})

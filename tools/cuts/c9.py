@@ -83,3 +83,17 @@ PLAN = {
 }
 
 SPEC = {}
+# 🆕 ⑤b-3（2026-11-05）：イメージの写真（Pexels）
+_X905 = P("stock/x905")
+SPEC.update({
+    "c905": dict(photo=_X905, **ss.mvz(_X905, (0.55, 0.6, 1.1), (0.58, 0.62, 1.2)), side="none", color=1.0, t="", s=""),
+    # c908＝衛星写真（額装・静止）。札は警視庁と霞ケ関駅＋歩く向きの矢印（道すじは描かない＝語りは「歩いて向かった」まで）
+    "c908": dict(
+        **ss.sat("G10", steps=[
+            [dict(k="pt", at="keishicho", role="ship", t="警視庁", lab=(24, -24, "start"))],
+            [],
+            [dict(k="pt", at="kasumigaseki", c="AMBER", t="霞ケ関駅", lab=(24, 44, "start")),
+             dict(k="arrow", fr="keishicho", to="kasumigaseki", c="AMBER")]],
+            note="点は一般の座標・矢印は向きだけ（道すじではない）"),
+        t="防護服で歩く", s="東京・霞が関（現在の衛星写真）"),
+})

@@ -83,3 +83,21 @@ PLAN = {
 }
 
 SPEC = {}
+# イメージの写真（Pexels）
+_X609, _X618 = P("stock/x609"), P("stock/x618")
+SPEC.update({
+    "c609": dict(photo=_X609, **ss.mvz(_X609, (0.5, 0.5, 1.0), (0.5, 0.52, 1.12)), side="none", color=1.0, t="", s=""),
+    "c618": dict(photo=_X618, **ss.mvz(_X618, (0.5, 0.55, 1.0), (0.62, 0.45, 1.14)), side="none", color=1.0, t="", s=""),
+    # c601・c607＝衛星写真（額装・静止）。🔴 c601＝札は「東京都」だけ＝事件の路上と役場を示さない（点も置かない）
+    "c601": dict(
+        **ss.sat("G07", steps=[
+            [dict(k="txt", at=(35.66, 139.70), c="AMBER", t="東京都", lab=(0, 0, "middle"))],
+            []],
+            note=""),
+        card_mix=0, t="事務長の事件", s="東京（現在の衛星写真）"),
+    "c607": dict(
+        **ss.sat("G03", steps=[
+            [dict(k="pt", at="kasumigaseki", c="AMBER", t="霞ケ関駅", lab=(24, 44, "start"))]],
+            note="点は一般の座標"),
+        t="5日前の駅", s="東京・霞が関（現在の衛星写真）"),
+})

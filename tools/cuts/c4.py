@@ -92,3 +92,24 @@ PLAN = {
 }
 
 SPEC = {}
+# イメージの写真（Pexels）。c411＝上の端の新聞の題字（読める字）は窓の外
+_X403, _X404, _X411 = P("stock/x403"), P("stock/x404"), P("stock/x411")
+SPEC.update({
+    "c403": dict(photo=_X403, **ss.mvz(_X403, (0.5, 0.55, 1.0), (0.45, 0.62, 1.12)), side="none", color=1.0, t="", s=""),
+    "c404": dict(photo=_X404, **ss.mvz(_X404, (0.5, 0.5, 1.0), (0.46, 0.5, 1.12)), side="none", color=1.0, t="", s=""),
+    "c411": dict(photo=_X411, **ss.mvz(_X411, (0.5, 0.62, 1.12), (0.46, 0.66, 1.22)), side="none", color=1.0, t="", s=""),
+    # c401・c423＝衛星写真（額装・静止）。🔴 札は市の名と裁判所だけ（第一通報者の家も事件の路上も示さない・住宅が特定できない高さ）。c423＝点は地区の代表点（施設の位置でない）
+    "c401": dict(
+        **ss.sat("G05", steps=[
+            [dict(k="txt", at="matsumoto", c="AMBER", t="長野県松本市", lab=(0, -170, "middle"))],
+            [],
+            [dict(k="pt", at="court", role="ship", t="裁判所", lab=(26, 12, "start"))]],
+            note="点は一般の座標"),
+        card_mix=0, t="土地の争い", s="松本の市街（現在の衛星写真）"),
+    "c423": dict(
+        **ss.sat("G06", steps=[
+            [dict(k="pt", at="fujigamine", c="AMBER", t="上九一色村（当時）", lab=(-24, -24, "end"))],
+            []],
+            note="点は一般の座標（地区の代表点）"),
+        t="山梨の村", s="本栖湖の南の高原（現在の衛星写真）"),
+})

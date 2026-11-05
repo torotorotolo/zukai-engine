@@ -74,3 +74,22 @@ PLAN = {
 }
 
 SPEC = {}
+# イメージの写真（Pexels＝`stock/`・git に入れない・焼くときに取り直して md5 を照らす）＝全面・ゆっくり寄る・見出しと副題なし・原色
+_X304, _X317 = P("stock/x304"), P("stock/x317")
+SPEC.update({
+    "c304": dict(photo=_X304, **ss.mvz(_X304, (0.5, 0.5, 1.0), (0.42, 0.46, 1.12)), side="none", color=1.0, t="", s=""),
+    "c317": dict(photo=_X317, **ss.mvz(_X317, (0.5, 0.45, 1.02), (0.48, 0.42, 1.14)), side="none", color=1.0, t="", s=""),
+    # c314＝衛星写真（額装・静止）。県の境＝国土数値情報。札は県の名だけ（県の内側の位置＝場所の点ではない）
+    "c314": dict(
+        **ss.sat("G04", steps=[
+            [dict(k="line", path=ss.SAT_LINES["pref_kanagawa"], c="AMBER"),
+             dict(k="txt", at=(35.2, 139.6), c="AMBER", t="神奈川県警", lab=(24, 40, "start"))],
+            [dict(k="line", path=ss.SAT_LINES["pref_kumamoto"], c="AMBER"),
+             dict(k="txt", at=(32.6, 130.8), c="AMBER", t="熊本県警", lab=(30, 10, "start")),
+             dict(k="line", path=ss.SAT_LINES["pref_yamanashi"], c="INK_W"),
+             dict(k="txt", at=(35.6, 138.6), c="INK_W", t="山梨", lab=(0, 12, "middle"), size=28),
+             dict(k="line", path=ss.SAT_LINES["pref_nagano"], c="INK_W"),
+             dict(k="txt", at=(36.25, 138.03), c="INK_W", t="長野", lab=(0, 12, "middle"))]],
+            note=ss.SAT_LINE_NOTE),
+        t="県ごとの警察", s="熊本から山梨・長野・神奈川まで（現在の衛星写真）"),
+})

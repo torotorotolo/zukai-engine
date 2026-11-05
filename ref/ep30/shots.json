@@ -61,5 +61,80 @@
     "motion": 0.0
    }
   ]
+ },
+ "X204": {
+  "src": "https://www.pexels.com/video/a-subway-train-is-moving-through-a-tunnel-18657034/",
+  "scan": "ref/ep30/src/eizou/X204.mp4",
+  "dur": 43.0,
+  "how": "1秒1コマで tools/shots.shots_of（30本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 26.0,
+    "motion": 26.69
+   },
+   {
+    "start": 26.0,
+    "until": 43.0,
+    "motion": 40.25
+   }
+  ]
+ },
+ "X703": {
+  "src": "https://www.pexels.com/video/a-subway-station-entrance-4625080/",
+  "scan": "ref/ep30/src/eizou/X703.mp4",
+  "dur": 10.0,
+  "how": "1秒1コマで tools/shots.shots_of（30本目・フリー素材）・🔧 1ショットに直した（手持ちで通路を歩く1回の撮影）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 33.36
+   }
+  ]
+ },
+ "X710": {
+  "src": "https://www.pexels.com/video/speedy-tunnel-vision-in-underground-train-ride-31435017/",
+  "scan": "ref/ep30/src/eizou/X710.mp4",
+  "dur": 10.0,
+  "how": "1秒1コマで tools/shots.shots_of（30本目・フリー素材）・🔧 1ショットに直した（前面の1回の撮影（速い））",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 25.81
+   }
+  ]
+ },
+ "Xb20": {
+  "src": "https://www.pexels.com/video/high-speed-train-in-tokyo-station-34777715/",
+  "scan": "ref/ep30/src/eizou/Xb20.mp4",
+  "dur": 22.0,
+  "how": "1秒1コマで tools/shots.shots_of（30本目・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 12.0,
+    "motion": 19.81
+   },
+   {
+    "start": 12.0,
+    "until": 22.0,
+    "motion": 29.59
+   }
+  ]
+ },
+ "Xc17": {
+  "src": "https://www.pexels.com/video/a-blurry-photo-of-people-walking-through-a-train-station-26575728/",
+  "scan": "ref/ep30/src/eizou/Xc17.mp4",
+  "dur": 20.0,
+  "how": "1秒1コマで tools/shots.shots_of（30本目・フリー素材）・🔧 1ショットに直した（据えたカメラの長時間露光（人の流れの量で差が動く））",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 20.0,
+    "motion": 11.86
+   }
+  ]
  }
 }

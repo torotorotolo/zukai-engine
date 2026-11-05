@@ -62,3 +62,24 @@ PLAN = {
 }
 
 SPEC = {}
+SPEC.update({
+    # c204＝Pexels の映像（トンネルから来る電車の灯・着く前まで）。左上「イメージ」・見出しも副題も書かない（`ss.vid` が止める）
+    "c204": ss.vid("c204"),
+    # c201・c203＝衛星写真（額装・静止）。🔴 路線は線だけ＝札は路線名と霞ケ関だけ（区間の細部・駅の点を足さない＝§B2-12）。色＝日比谷線は銀（白）・丸ノ内線は赤・千代田線は緑
+    "c201": dict(
+        **ss.sat("G02", steps=[
+            [],
+            [dict(k="line", path=ss.SAT_LINES["hibiya"], c="INK_W", t="日比谷線", u=1.0, lab=(-8, 44, "end")),
+             dict(k="line", path=ss.SAT_LINES["marunouchi"], c="ALERT", t="丸ノ内線", u=1.0, lab=(0, -24, "middle")),
+             dict(k="line", path=ss.SAT_LINES["chiyoda"], role="ntsb", t="千代田線", u=1.0, lab=(-14, -24, "end")),
+             dict(k="line", path=ss.SAT_LINES["chiyoda1"], role="ntsb")],
+            [dict(k="pt", at="kasumigaseki", c="AMBER", t="霞ケ関", lab=(26, 72, "start"))]],
+            note=ss.SAT_LINE_NOTE + "・点は一般の座標"),
+        card_mix=0, t="3つの路線", s="東京都心（現在の衛星写真）"),
+    "c203": dict(
+        **ss.sat("G03", steps=[
+            [dict(k="pt", at="kasumigaseki", c="AMBER", t="霞ケ関駅", lab=(24, 44, "start"))],
+            [dict(k="pt", at="keishicho", role="ship", t="警視庁", lab=(24, -24, "start"))]],
+            note="点は一般の座標"),
+        t="駅のそばの庁舎", s="東京・霞が関（現在の衛星写真）"),
+})

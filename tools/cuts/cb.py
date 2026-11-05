@@ -89,3 +89,20 @@ SPEC.update({
     # cb14＝車内の2人 → 足元（語りは「あの朝の問いの答え」）
     "cb14": ss.vid("cb14", t="あの朝の問い", s="除染（当日）〈防衛省の記録映像〉"),
 })
+
+# 🆕 ⑤b-3（2026-11-05）：イメージ（Pexels の映像＝走っている頭だけ・車内の人はぶれて顔が分からない）
+SPEC.update({
+    "cb20": ss.vid("cb20"),
+})
+
+# 🆕 ⑤b-3（2026-11-05）：cb05＝衛星写真（額装・静止）。県の境＝国土数値情報（山梨県の外周＝東京都との境を含む）。点は地区の代表点と警視庁
+SPEC.update({
+    "cb05": dict(
+        **ss.sat("G11", steps=[
+            [],
+            [dict(k="pt", at="keishicho", role="ship", t="警視庁", lab=(-22, -24, "end"))],
+            [*[dict(k="line", path=v, c="INK_W") for k, v in ss.SAT_LINES.items() if k.startswith("yamanashi_w")],
+             dict(k="pt", at="fujigamine", c="AMBER", t="上九一色村（当時）", lab=(24, -26, "start"))]],
+            note=ss.SAT_LINE_NOTE + "・点は一般の座標"),
+        t="県の境の向こう", s="山梨県と東京都（現在の衛星写真）"),
+})

@@ -83,3 +83,13 @@ PLAN = {
 }
 
 SPEC = {}
+# イメージの写真（Pexels）。c516＝左下の手すりは窓の外（震災の写真ではない＝今の街）
+_X502, _X503, _X512, _X513, _X516, _X520 = P("stock/x502"), P("stock/x503"), P("stock/x512"), P("stock/x513"), P("stock/x516"), P("stock/x520")
+SPEC.update({
+    "c502": dict(photo=_X502, **ss.mvz(_X502, (0.5, 0.55, 1.0), (0.5, 0.6, 1.12)), side="none", color=1.0, t="", s=""),
+    "c503": dict(photo=_X503, **ss.mvz(_X503, (0.5, 0.5, 1.0), (0.55, 0.45, 1.12)), side="none", color=1.0, t="", s=""),
+    "c512": dict(photo=_X512, **ss.mvz(_X512, (0.62, 0.55, 1.0), (0.68, 0.55, 1.14)), side="none", color=1.0, t="", s=""),
+    "c513": dict(photo=_X513, **ss.mvz(_X513, (0.5, 0.62, 1.0), (0.5, 0.68, 1.1)), side="none", color=1.0, t="", s=""),
+    "c516": dict(photo=_X516, **ss.mvz(_X516, (0.55, 0.45, 1.15), (0.58, 0.42, 1.26)), side="none", color=1.0, t="", s=""),
+    "c520": dict(photo=_X520, **ss.mvz(_X520, (0.55, 0.55, 1.02), (0.6, 0.62, 1.14)), side="none", color=1.0, t="", s=""),
+})
