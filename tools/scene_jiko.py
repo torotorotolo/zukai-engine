@@ -174,15 +174,25 @@ CSS = ""
 #    扉は c201〜c701 の6枚（音の側と同じ＝check_script.door_key・29本目は INNER_CARDS なし）。
 #    ⚠️ 長い章名（第5章「5000円と、上限300万円」＝14字・第1章「10月19日の問い合わせ」＝12字）は右上の章の札の幅を焼いた絵で見る。
 #    🔧 11-04（⑤b-4）：第5章の章名を語りと図の書き方「5000円」に揃えた（28本目と同じ＝台本は patches29.json の H-001〜004・narration.py の見出しも一緒に）
+# 🔴 2026-11-05（30本目 ⑤b-1）：地下鉄サリン事件へ差し替え。29本目の章名は git の `dc72dd8a`。
+#    正本＝repo `ref/ep30/daihon_v2.md` §4 の `### 第N章　…`（`（` の手前まで）＝映像方針の一覧（`make_list30.py` の chap）。**30本目は つかみ＋11章**
+#    （c1〜c9・ca〜cc＝238カット）＝`cuts/__init__.CHAPTER_FILES`・`NCH` を一緒に直した。つかみ（c1＝c101〜c108）は章の札なし。
+#    扉は c201〜cc01 の11枚（音の側と同じ＝check_script.door_key・30本目は INNER_CARDS なし）。
+#    ⚠️ 長い章名（第10章「なぜ止められなかったのか」＝12字）は右上の章の札の幅を焼いた絵で見る。第8章はカギかっこごと章名（台本の見出しのまま）
 CHAPTERS = {
-    "c2": (1, "10月19日の問い合わせ"),
-    "c3": (2, "正午までに"),
-    "c4": (3, "8月5日"),
-    "c5": (4, "2年前の報告会"),
-    "c6": (5, "5000円と、上限300万円"),
-    "c7": (6, "見に行かない、広めない"),
+    "c2": (1, "3路線5本の電車"),
+    "c3": (2, "教団と最初の捜査"),
+    "c4": (3, "松本の夜"),
+    "c5": (4, "土の中の手がかり"),
+    "c6": (5, "20日間"),
+    "c7": (6, "8時、爆発の知らせ"),
+    "c8": (7, "病院の朝"),
+    "c9": (8, "「サリンと推定」"),
+    "ca": (9, "裁き"),
+    "cb": (10, "なぜ止められなかったのか"),
+    "cc": (11, "事件は終わったのか"),
 }
-NCH = 6
+NCH = 11
 
 
 def chapter_of(cid):
@@ -307,13 +317,20 @@ def chapter_of(cid):
 #    ⚠️ 説明カットの地の写真の層（SPEC の dim）は章の色に置き換えない（`pal_of_layer`）＝章の色が効くのは扉と章の札ほか。写真の色味は原本のまま（ep28＝1.0）
 # 🔴 2026-11-03（29本目 ⑤b-1）：28本目の6件（git の `6fb3d0fc`）から差し替えた＝6章（つかみは navy）。Claude の推奨（カズヤくんに見せて変えてよい）。選び方は25〜28本目と同じ。
 #    写真の色味は原本のまま（ep29＝1.0）
+# 🔴 2026-11-05（30本目 ⑤b-1）：29本目の6件（git の `dc72dd8a`）から差し替えた＝11章（つかみは navy）。Claude の推奨（カズヤくんに見せて変えてよい）。選び方は25〜29本目と同じ＝隣の章と同じ色にしない。
+#    写真の色味は原本のまま（ep30＝1.0）
 CHAPTER_PALETTE = {
-    "10月19日の問い合わせ": "copper",          # 問い合わせから異変に気づく＝失う
-    "正午までに": "navy",                      # 予告の時刻と知らせの時刻＝図解
-    "8月5日": "sepia",                         # 侵入からの経過＝記録
-    "2年前の報告会": "navy",                   # 説明会と2年前の指摘＝図解（セピアと白黒のあいだ）
-    "5000円と、上限300万円": "mono",           # 見舞金と補償の制度・知らせ＝書類
-    "見に行かない、広めない": "navy",          # 窓口と注意＝図解
+    "3路線5本の電車": "copper",                # その朝に起きたこと＝失う
+    "教団と最初の捜査": "sepia",               # 1980年代からの経過＝記録
+    "松本の夜": "copper",                      # 松本の被害＝失う
+    "土の中の手がかり": "mono",                # 検出の鑑定と報道＝書類
+    "20日間": "navy",                          # 暦と捜査の段取り＝図解
+    "8時、爆発の知らせ": "sepia",              # 無線と指令の時刻＝朝の経過の記録
+    "病院の朝": "copper",                      # 運ばれる人と治療＝失う
+    "「サリンと推定」": "navy",                # 知らせが届くまでの時間の帯＝図解
+    "裁き": "mono",                            # 判決＝書類
+    "なぜ止められなかったのか": "copper",      # 検証の重い問い＝失う（信頼）
+    "事件は終わったのか": "navy",              # 今の処分と窓口＝図解
 }
 
 
@@ -893,6 +910,60 @@ def ep19_credit(name):
         u = _FO.USE.get(m.group(1))
         return _FO.CLIPS[u["clip"]]["credit"] if u else None
     return EP19_CREDIT.get(name)
+
+
+# ══════════════════════════════════════════════════════════
+#  30本目（地下鉄サリン事件）── `ref/ep30/`（2026-11-05 ⑤b-1）
+# ══════════════════════════════════════════════════════════
+#   ep30/<欄の名>.jpg … 写真と紙面（陸上自衛隊の写真＝PDL1.0・第三者の写真の引用＝東京消防庁・東京地下鉄・地元の個人・Commons の場所の写真＝CC BY・BY-SA・CC0・PD・公的な機関の紙面）＝
+#                        映像方針の一覧 `ref/ep30/eizou_list30.md`（了承②）。説明カットの地の写真も同じ表（「地の写真：…／改変：切出・明るさ」）
+#   ep30/stock/…      … イメージ（この事件の物でないフリー素材＝Pexels・20% に数えない・概要欄にクレジットを書かない）＝映像は `footage.CLIPS`（`ref/ep30/clips.json`）の credit
+# 🔴 表はファイルから読む（ルール 0b-34①）。`ref/ep30/credits.json` は写真の束のチャット（⑤b-2）で書く（無いあいだは空＝当たらない）。
+#    ⚠️ 名前が当たらないときは None → 最後の `PHOTO_CREDIT[...]` で KeyError（fail closed）。
+#    🔴 事件の回（ルール §B2-11・§B2-12）＝語りと画面に出す名前は教祖だけ＝出典の行にも私人の名前を出さない（Commons の撮影者と資料館の個人の提供者は git の外の表から差す）。
+#    🔴 git の外の表は2つ＝`ref/ep30/src/credits_private.tsv`（Commons の撮影者・頭の行なし・列＝code・file・author…）と `ref/ep30/src/credits_quote_private.tsv`（個人の提供者・頭の行「記号」・列＝code・name）
+#       ＝credits.json に印 `{作者}`・`{個人}` だけを書き、焼くときに足す（17・23〜29本目の型）。束の名（`ref/ep30/assets.json`＝⑤b-2 で作る）の code から引く
+_EP30_CREDITS = HERE / "ref" / "ep30" / "credits.json"
+EP30_CREDIT = (json.loads(_EP30_CREDITS.read_text(encoding="utf-8"))
+               if _EP30_CREDITS.exists() else {})
+_EP30_PRIVATE = {"{作者}": (HERE / "ref" / "ep30" / "src" / "credits_private.tsv", 2), "{個人}": (HERE / "ref" / "ep30" / "src" / "credits_quote_private.tsv", 1)}
+
+
+def _ep30_person(name, mark):
+    import csv
+    import os
+    path, col = _EP30_PRIVATE[mark]
+    if not path.exists():
+        if os.environ.get("GITHUB_ACTIONS") == "true":
+            return EP23_AUTHOR_STANDIN                  # 検品の試し焼きだけ（本編は Modal＝表を保管庫から取る）
+        raise RuntimeError(f"{name}: 出典の行に名前が要るのに git の外の表 ref/ep30/src/{path.name} が無い"
+                           "（Modal は保管庫 jiko-assets の ref/ep30/src/ に置く）＝印のまま焼かない")
+    code = json.loads((HERE / "ref" / "ep30" / "assets.json").read_text(encoding="utf-8"))[name[len("ep30/"):-len(".jpg")]]["code"]
+    rows = [r for r in csv.reader(path.open(encoding="utf-8"), delimiter="\t") if r and not r[0].startswith("#")]
+    row = {r[0]: r for r in rows if len(r) > col}.get(code) or []
+    who = " ".join((row[col] if len(row) > col else "").split())
+    if not who:
+        raise RuntimeError(f"{name}（{code}）: git の外の表 {path.name} に {code} の名前の欄が無い")
+    if re.search(r"[<>&]", who) or len(who) > 24:
+        raise RuntimeError(f"{name}（{code}）: 名前の欄が SVG にそのまま書けないか長すぎる（{len(who)}字）＝焼かない")
+    return who
+
+
+def ep30_credit(name):
+    """`ref/ep30/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if not name.startswith("ep30/"):
+        return None
+    # 映像のひかえの静止画＝出典は映像と同じ（19本目 ⑤b-2 の型）
+    m = re.fullmatch(r"ep30/(?:stock/|police/)?fb_(c[0-9a-c][0-9]{2}(?:~t)?)\.jpg", name)
+    if m:
+        import footage as _FO
+        u = _FO.USE.get(m.group(1))
+        return _FO.CLIPS[u["clip"]]["credit"] if u else None
+    v = EP30_CREDIT.get(name)
+    for mark in _EP30_PRIVATE:
+        if v and mark in v:
+            v = v.replace(mark, _ep30_person(name, mark))
+    return v
 
 
 # ══════════════════════════════════════════════════════════
@@ -1737,7 +1808,7 @@ def credit_of(cid, spec):
             return c + spec.get("credit_add", "")
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep29_credit(spec["photo"]) or ep28_credit(spec["photo"]) or ep27_credit(spec["photo"]) or ep26_credit(spec["photo"]) or ep25_credit(spec["photo"]) or ep24_credit(spec["photo"]) or ep17_credit(spec["photo"]) or ep23_credit(spec["photo"]) or ep22_credit(spec["photo"]) or ep21_credit(spec["photo"]) or ep20_credit(spec["photo"]) or ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
+    cr = (ep30_credit(spec["photo"]) or ep29_credit(spec["photo"]) or ep28_credit(spec["photo"]) or ep27_credit(spec["photo"]) or ep26_credit(spec["photo"]) or ep25_credit(spec["photo"]) or ep24_credit(spec["photo"]) or ep17_credit(spec["photo"]) or ep23_credit(spec["photo"]) or ep22_credit(spec["photo"]) or ep21_credit(spec["photo"]) or ep20_credit(spec["photo"]) or ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
           or ep14_credit(spec["photo"])
           or ep13_credit(spec["photo"])
           or ep12_credit(spec["photo"])

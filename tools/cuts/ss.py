@@ -130,8 +130,8 @@ from functools import lru_cache
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parents[2]
-REF = HERE / "ref" / "ep29"        # 🔴 §0b：回の名に結んだ束の置き場（2026-10-25 25本目 ⑤b-1 で ep24 → ep25・2026-10-27 26本目 ⑤b-1 で ep25 → ep26・2026-10-30 27本目 ⑤b-1 で ep26 → ep27・2026-11-01 28本目 ⑤b-1 で ep27 → ep28・2026-11-03 29本目 ⑤b-1 で ep28 → ep29）
-EP = "ep29/"
+REF = HERE / "ref" / "ep30"        # 🔴 §0b：回の名に結んだ束の置き場（2026-10-25 25本目 ⑤b-1 で ep24 → ep25・2026-10-27 26本目 ⑤b-1 で ep25 → ep26・2026-10-30 27本目 ⑤b-1 で ep26 → ep27・2026-11-01 28本目 ⑤b-1 で ep27 → ep28・2026-11-03 29本目 ⑤b-1 で ep28 → ep29・2026-11-05 30本目 ⑤b-1 で ep29 → ep30）
+EP = "ep30/"
 W, H = 1920, 1080
 # 🆕 2026-10-30（27本目 ⑤b-3）：**公開リポに置かない県警・警察庁の引用**の置き場（束の `police/`＝台帳 assets.json の `private`・
 #    県警の動画のひかえの静止画 `police/fb_<cid>.jpg`）＝git の外・Modal の保管庫 jiko-assets の同じ道（`modal_app.pull_private`）。
@@ -264,6 +264,8 @@ SCREEN_AR = W / H
 #       `qa_out/ep29_assets.py panel` のいちばん大きな切れ目から取り直す（上の 0.97 の理由の注は28本目の束の写真のこと）
 #    🔴 2026-11-03（29本目 ⑤b-2）：束46点で取り直した＝いちばん大きな切れ目 1.015（police/d1028＝開示の表の2頁）→ 1.288（police/q10）の 27.4ポイント＝中点 1.15。
 #       全画面にする写真はどれも 1.328 以上（縦長の写真 0.587〜0.753 は額装）。WIDE_AR は 2.75 に動く＝これを超えるのは会社と公的な機関の頁だけ（どれも額装で panel=True）
+#    🔴 2026-11-05（30本目 ⑤b-1）：29本目の束から決めた 1.15 のまま残した（見本に入れない＝16〜29本目と同じ）＝30本目の束で
+#       `qa_out/ep30_assets.py panel` のいちばん大きな切れ目から取り直す（上の 1.15 の理由の注は29本目の束の写真のこと）
 PANEL_AR = 1.15                 # これ未満＝縦長すぎ（上下が切れる）
 WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝2.75（29本目の束から）。これ超＝横長すぎ
 
@@ -724,12 +726,11 @@ NG_PHOTOS: dict[str, str] = {}
 #    🔴 2026-11-03（29本目 ⑤b-2）：一覧 §3 の人の欄の点を 640px の並べ＋原寸（2〜3倍・10px の目盛り）で見た＝3点に升目（範囲は `qa_out/ep29_assets.py` の MASK）。
 #       束の段で切り落とした点（PRE_CROP）＝CM031・CM095（人の列）・CM107（看板の顔）・CM119（貸金の看板）・T230（手前の車）。升目にしない点の理由は MASK の上。
 #       🔴 BY-SA の CM046・CM052 は読める顔もナンバーも無い（原寸で見た）＝そのまま額装で使える
-NEEDS_MASK: dict[str, str] = {
-    P("cm096"): "渋谷フクラス1階の通路（c303）＝奥から歩いてくる人の顔5つとバスのナンバー（CC BY 4.0）",
-    P("cm103"): "渋谷駅西口の道路（c312）＝タクシーのナンバーとドアの車番・バス2台のナンバー（CC BY 2.0）",
-    P("t229"): "夜の首都高と国道246号（c206・c608・地8カット）＝車のナンバー9台（CC0）",
-    P("cm105"): "渋谷駅の工事（c418）＝額の下の人の顔1つ（CC0）",
-}
+#    🔴 2026-11-05（30本目 ⑤b-1・§0b）：29本目の4点は見本 `tools/fixture_ep29.py` の NEEDS_MASK へ移した
+#       （`ep29/` の名を文字で書いた・説明は1字も変えていない＝git の `dc72dd8a`。範囲は `qa_out/ep29_assets.py` の MASK）。
+#       ⚠️ 空のあいだ門番 check_photo_mask は「NEEDS_MASK が空」の注意を出す＝30本目の束のチャットで、隠す点（了承②＝公的な任務の顔はそのまま・
+#       場所の写真の私人の顔とナンバーは CC BY・CC0・PD で升目・BY-SA の TKS に顔があれば別の点に＝一覧 `ref/ep30/eizou_list30.md` §3 の人の欄を原寸で）を `P("名")` で書く（EP が追う）
+NEEDS_MASK: dict[str, str] = {}
 
 # 🆕 2026-10-13（21本目 ⑤b-7）：**スライドの台紙の黒い縁がある写真**（名 → 何か）。全画面で流す・寄る窓が縁に入らないかを門番
 #    `tools/check_photo_edge.py` が測る（縁の幅は**絵から毎回測る**＝ここには書かない）。夜空など縁でない暗い所の写真は入れない。
@@ -802,16 +803,10 @@ SLIDE_MOUNT: dict[str, str] = {}
 #       ⚠️ SLIDE_MOUNT も SLIDE_NOT_MOUNT も空のあいだ、門番 check_photo_edge は「SLIDE_MOUNT が空」で止まる（fail closed）＝29本目の束のチャットで、
 #       台紙の縁のある写真があれば SLIDE_MOUNT を、無ければ暗い帯のある点を SLIDE_NOT_MOUNT に理由つきで書く（鍵は `P("名")`）
 #    🔴 2026-11-03（29本目 ⑤b-2）：`qa_out/ep29_assets.py edges` の8点を 640px の並べ（紙面は原寸）で見た＝どれも写真の中身（夜の空・暗いビル・木の陰）か表の外の余白＝スライドの台紙は無い
-SLIDE_NOT_MOUNT: dict[str, str] = {
-    P("cm021"): "昼のセルリアンタワー＝下の帯は建物の暗い足もと（額装）",
-    P("cm049"): "夜のセルリアンタワーの上の階＝左・上・下の帯は夜の空（c106・c520 は全面）",
-    P("cm102"): "夜の渋谷フクラス＝上の帯は夜の空（額装）",
-    P("p0010"): "お濠と警視庁＝右の帯は手前の木の陰（c411 は全面）",
-    P("p0047"): "警視庁の本部＝左の帯は手前の木の陰（地だけ）",
-    P("police/d1028"): "開示の表の2頁＝左右の帯は表の罫線の外の余白（額装・引用）",
-    P("t229"): "夜の首都高＝上の帯は夜の空（c206・c608 は全面）",
-    P("t232"): "夜の首都高と GMO の看板＝左の帯は暗いビル（c201・c605 は全面）",
-}
+#    🔴 2026-11-05（30本目 ⑤b-1・§0b）：29本目の8点は見本 `tools/fixture_ep29.py` の SLIDE_NOT_MOUNT へ移した（`ep29/` の名を文字で書いた・説明は1字も変えていない＝git の `dc72dd8a`）。
+#       ⚠️ SLIDE_MOUNT も SLIDE_NOT_MOUNT も空のあいだ、門番 check_photo_edge は「SLIDE_MOUNT が空」で止まる（fail closed）＝30本目の束のチャットで、
+#       台紙の縁のある写真があれば SLIDE_MOUNT を、無ければ暗い帯のある点を SLIDE_NOT_MOUNT に理由つきで書く（鍵は `P("名")`）
+SLIDE_NOT_MOUNT: dict[str, str] = {}
 
 # 🆕 2026-10-13（21本目 ⑤b-7）：**原寸で見て字でないと決めた OCR の範囲**（OCR の読み置きのファイル名 → [((x0, y0, x1, y1)＝束の画素, 何か)]）。
 #    `check_slide.load_ocr` がこの中に真ん中のある行を外す（外した行は「文字行と見なさなかった」の表に理由つきで出る）。
@@ -1052,7 +1047,8 @@ SAT_LINE_NOTE = ""
 #    🔴 §0b：次の回で None に戻す（27本目の None は見本 `tools/fixture_ep27.py`）
 # ✅ 2026-11-03（29本目 ⑤b-1）：**29本目も地図なしの回**（映像方針の一覧＝地図の種類 0・了承② 11-03）＝文だけ29本目に替えた（28本目の文は見本 `tools/fixture_ep28.py`）。
 #    🔴 §0b：次の回で地図があれば None に戻す
-SAT_NONE = "29本目は地図のカットが無い（映像方針の一覧・了承② 11-03＝会社のシステムへの不正アクセスの回で、場所を見せる話が無い）"
+# 🔴 2026-11-05（30本目 ⑤b-1・§0b）：**None に戻した**（29本目の文は見本 `tools/fixture_ep29.py`）。30本目は衛星写真の地図の回＝全面の額 12画（一覧 `ref/ep30/eizou_list30.md`・了承② 11-05）＝未撮影のあいだ check_sat は止まる（fail closed）
+SAT_NONE = None
 
 
 def sat(code, steps, note="", **kw):
@@ -1111,7 +1107,9 @@ def sat(code, steps, note="", **kw):
 #    REC_PAGES の道は28本目（`ref/ep28/src/ep28_pages.txt`＝まだ無い）
 # ✅ 2026-11-03（29本目 ⑤b-1）：28本目も案C の表は空のままだった（見本 `tools/fixture_ep28.py` も空の状態を持つ）。29本目も再現イラスト0（映像方針）＝空のまま。
 #    REC_PAGES の道は29本目（`ref/ep29/src/ep29_pages.txt`＝まだ無い）
-REC_PAGES = REF / "src" / "ep29_pages.txt"      # 部品の出典（`rec=`）を当てる原文（git の外＝手元だけ）
+# ✅ 2026-11-05（30本目 ⑤b-1）：29本目も案C の表は空のままだった（見本 `tools/fixture_ep29.py` も空の状態を持つ）。30本目も再現イラスト0（映像方針）＝空のまま。
+#    REC_PAGES の道は30本目（`ref/ep30/src/ep30_pages.txt`＝まだ無い）
+REC_PAGES = REF / "src" / "ep30_pages.txt"      # 部品の出典（`rec=`）を当てる原文（git の外＝手元だけ）
 REC_DOCS = {}                               # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
 ILLU_SPLIT_TIMES = ()                       # 割れる時刻（2つの資料で時刻が割れる所＝札は秒で見る）
 ILLU_CROWD_UNTIL = None                     # 群れを描いてよい場面の時刻の上限（None＝群れを描かない）
@@ -1403,9 +1401,11 @@ QWHO = {}
 #   🆕 2026-11-02（28本目 ⑤b-4）：PD も地に使える（了承②「CC BY・CC0・PD の写真だけ」・地 CM006・CM007・CM114・CM129＝6カット）。出典の行は CC0 と同じく改変を書かない
 #      （表示の義務の無い物に義務があるように見せない＝`scene_jiko.ground_credit`）。BY-SA と引用は今までどおり止まる
 #   🔴 2026-11-03（29本目 ⑤b-1・§0b）：28本目の16点は見本 `tools/fixture_ep28.py` の GROUND へ移した（git の `6fb3d0fc`）。29本目の図38を書くチャットで `--suggest` で測って写す
-GROUND = {"cm003": 0.28, "cm004": 0.28, "cm027": 0.29, "cm030": 0.31, "cm032": 0.28, "cm055": 0.30, "cm056": 0.28, "cm057": 0.28,
-          "cm059": 0.28, "cm107": 0.28, "p0047": 0.28, "t229": 0.28, "t230": 0.28, "t232": 0.28}      # 🆕 29本目 ⑤b-4（2026-11-04）：`--suggest` の写し＝14点（⑤c直しで CM049 を外した＝端の輝度 3〜4）
-GROUND_LIC = ("CC BY 2.0", "CC BY 3.0", "CC BY 4.0", "CC0", "PD")
+#   🔴 2026-11-05（30本目 ⑤b-1・§0b）：29本目の14点は見本 `tools/fixture_ep29.py` の GROUND へ移した（git の `dc72dd8a`）。30本目の図を書くチャットで `--suggest` で測って写す
+#   🆕 2026-11-05（30本目 ⑤b-1）：地に使える権利に **PDL1.0**（陸上自衛隊の写真＝公共データ利用規約・出典の行に「加工して作成」）・**CC BY 2.5**（KG1・HB・KAS）・**Pexels**（イメージの地＝同じ章のイメージと同じ絵）を足した（了承② 11-05・一覧 §5-6）。
+#      BY-SA と引用は今までどおり止まる。⚠️ `scene_jiko.ground_credit` の「改変の欄が要る」は束の書き（credits.json）で満たす＝PDL1.0 は「／改変：切出」＋「加工して作成」の形を束のチャットで決める
+GROUND = {}
+GROUND_LIC = ("CC BY 2.0", "CC BY 2.5", "CC BY 3.0", "CC BY 4.0", "CC0", "PD", "PDL1.0", "Pexels")
 # 🆕 2026-11-04（29本目 ⑤c直し）：額装の頁の地（同じ頁のぼかし）のぼかしの半径＝`ground=dict(photo=…, blur=PAGE_BLUR)`。写真の額装は今までの 6（`build_jiko.GROUND_PHOTO_BLUR`）のまま
 #    半径 6 は頁の見出しの大きな字が読める（c316「犯人サイトのドメイ…」が題の真後ろ）。半径 14 はまだ字の形が見える・22 で読めない（c316・c613・c704 を原寸で見た）
 PAGE_BLUR = 22.0
@@ -1415,7 +1415,7 @@ def gr(name):
     """説明カットの地の写真（暗くするだけ・静止・原色）＝SPEC に `**ss.gr("cm044")` と書く。"""
     lic = (_assets().get(name) or {}).get("lic")
     if lic not in GROUND_LIC:
-        raise ValueError(f"{name}（{lic}）: 説明カットの地は CC BY・CC0・PD の写真だけ（BY-SA・引用・衛星写真・フリー素材は地にしない＝§5b-117）")
+        raise ValueError(f"{name}（{lic}）: 説明カットの地は CC BY・CC0・PD・PDL1.0・Pexels の写真だけ（BY-SA・引用・Google の衛星写真は地にしない＝§5b-117）")
     if name not in GROUND:
         raise KeyError(f"{name}: 地の写真の明るさが GROUND に無い（`python -P tools/check_ground.py --suggest` で測って写す）")
     return dict(photo=P(name), dim=float(GROUND[name]), color=1.0)

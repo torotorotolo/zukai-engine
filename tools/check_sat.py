@@ -46,7 +46,9 @@ REC_SAT_NUM = {}
 #    REC_SAT_PAGES の道は28本目（`ref/ep28/src/news_frag_v2.txt`＝④' の抜き書き・git の外）。28本目は地図のカットが無い（ss.SAT_NONE）＝使わない見込み
 # ✅ 2026-11-03（29本目 ⑤b-1・§0b）：28本目は REC_SAT_NUM が空のまま（地図なし）＝見本 `tools/fixture_ep28.py` は空の状態と28本目の道を持つ。
 #    REC_SAT_PAGES の道は29本目（`ref/ep29/src/news_frag_v2.txt`＝④' の抜き書き・git の外）。29本目も地図のカットが無い（ss.SAT_NONE）＝使わない見込み
-REC_SAT_PAGES = Path(__file__).resolve().parent.parent / "ref" / "ep29" / "src" / "news_frag_v2.txt"
+# ✅ 2026-11-05（30本目 ⑤b-1・§0b）：29本目も REC_SAT_NUM は空のまま（地図なし）＝見本 `tools/fixture_ep29.py` は空の状態と29本目の道を持つ。
+#    REC_SAT_PAGES の道は30本目（`ref/ep30/src/news_frag_v2.txt`＝まだ無い）。30本目は衛星写真の地図 12画＝数字を含む札を置くときに記録と原文の置き場を決める（⑤b の衛星写真のチャット）
+REC_SAT_PAGES = Path(__file__).resolve().parent.parent / "ref" / "ep30" / "src" / "news_frag_v2.txt"
 _NUM = __import__("re").compile(r"[0-9０-９]")
 _SAT_PAGES = {}
 

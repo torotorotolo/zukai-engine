@@ -19,17 +19,22 @@
   E 同じ映像の区間を2回（『70年の歩み』は『平成6年』と同じ撮影＝使わない）
   E 同じ写真を3回以上・同じ写真に別の副題・この事件の写真と映像が 20% 未満
   E 書かない名前（src/names_private.txt）・線の語（src/line_words.txt）が副題と備考に
-  ⚠️ 同じ写真を2回・2回が8カットより近い／写真の無い画面が5つ以上続く／札以外の図の型が続く／人の印（⑤b で原寸）／映像の区間と語りの秒の差
-秒＝÷365 の見込み（⑤a のあと audio/narration.json の実測に替える＝make_list29.measured の型を ⑤b-1 で足す）。
+  E 映像の長さ（⑤b-1＝gate_video）：区間×速さ＋止め ＜ 扉を除いた中身／『平成6年』の区間が使える秒（17:22.5〜18:23.7）の外／素材の実の長さをこえる
+  ⚠️ 同じ写真を2回・2回が8カットより近い／写真の無い画面が5つ以上続く／札以外の図の型が続く／人の印（⑤b で原寸）／映像の区間が未定（要る秒つき）／止めが長い
+秒＝audio/narration.json の実測（⑤b-1＝make_list29.measured の型）。台本と合わないときは ÷365 の見込みのまま（どちらかは一覧の頭に出す）。
 """
+import json
 import os
 import re
+import subprocess
 import sys
 from collections import Counter, defaultdict
 
 sys.stdout.reconfigure(encoding='utf-8')
 HERE = os.path.dirname(os.path.abspath(__file__))
 EP = os.path.dirname(HERE)
+REPO = os.path.dirname(os.path.dirname(EP))
+NARR = os.path.join(REPO, 'audio', 'narration.json')
 DAIHON = os.path.join(EP, 'daihon_v2.md')
 OUT_MD = os.path.join(EP, 'eizou_list30.md')
 OUT_TSV = os.path.join(HERE, 'list30.tsv')
@@ -40,8 +45,11 @@ NAME_FILE = os.path.join(EP, 'src', 'names_private.txt')
 LINE_FILE = os.path.join(EP, 'src', 'line_words.txt')
 PUNCT = re.compile(r'[、。，．,.「」『』（）()？！?!…・\s　〈〉：:"“”]')
 CUT = re.compile(r'^\*\*(c[0-9a-c]\d\d)\*\*(.*)$')
-OPENING = ['c10%d' % i for i in range(1, 8)]
+OPENING = ['c10%d' % i for i in range(1, 9)]      # 🔧 ⑤a-2：c108 を足した（c104 の1文を移した＝カズヤくん 11-05 案1）
 RATE = 365.0
+# 『平成6年防衛庁記録』の使える秒（⑤b-1 に灰色の差と見本帳で測った）＝前は夜の群衆の場面（〜17:22.4）・後ろは夜の消防（18:23.7〜）。Commons の本物と手元の M6.webm の切れ目は 0.04秒以内で一致
+M6_OK = (1042.5, 1103.7)
+M6_OFF = 1034.6                                     # 手元の M6.webm の秒＝映像の秒−1034.6
 PHOTO_LO = 0.20
 GAP_MIN = 8
 EVENT = ('陸自', '引用', '映像', '公立')      # この事件の写真と映像（20% に数える）
@@ -221,8 +229,83 @@ def assemble(cuts, over):
 
 
 def windows(motion):
-    """「映像 17:43〜17:49＋17:57〜18:03」→ [(1063, 1069), (1077, 1083)]。区間を書いていなければ空"""
-    return [(int(a) * 60 + int(b), int(c) * 60 + int(d)) for a, b, c, d in re.findall(r'(\d+):(\d\d)〜(\d+):(\d\d)', motion or '')]
+    """「映像 1051.26〜1060.79秒」→ [(1051.26, 1060.79)]（素材の秒）。区間を書いていなければ空"""
+    return [(float(a), float(b)) for a, b in re.findall(r'([\d.]+)〜([\d.]+)秒', motion or '')]
+
+
+def measured(cuts, narr=NARR):
+    """⑤b-1：秒を audio/narration.json の実測に（make_list29.measured の型）。30本目の台本と合わないときは ÷365 の見込みのまま。
+    start＝扉こみの頭・sec＝扉＋中身・cont＝扉を除いた中身（声＋LEAD＋TAIL＝映像の区間と比べる秒）。扉は check_script.door_key"""
+    if not os.path.exists(narr):
+        return '÷365 の見込み（narration.json が無い）'
+    dur = json.load(open(narr, encoding='utf-8')).get('durations', {})
+    if [c['cid'] for c in cuts] != [k for k in dur if k != 'ed01']:
+        return '÷365 の見込み（narration.json は30本目の台本と合わない）'
+    sys.path.insert(0, os.path.join(REPO, 'tools'))
+    import check_script as CSC
+    t, prev = 0.0, None
+    for c in cuts:
+        key = CSC.door_key(c['cid'], slug='ep30')
+        c['card'] = CSC.CARD_SEC if (prev is not None and key != prev) else 0.0
+        prev = key
+        c['start'] = t
+        c['cont'] = dur[c['cid']] + CSC.LEAD + CSC.TAIL
+        c['sec'] = c['cont'] + c['card']
+        t += c['sec']
+    return 'audio/narration.json の実測'
+
+
+def video_opts(motion):
+    """動きの欄の止めと速さ「（＋止め 1.0秒）（0.8倍速）」→ (止め, 速さ)"""
+    h = re.search(r'＋止め\s*([\d.]+)秒', motion or '')
+    r = re.search(r'（([\d.]+)倍速）', motion or '')
+    return float(h.group(1)) if h else 0.0, float(r.group(1)) if r else 1.0
+
+
+def media_len(path):
+    """手元の素材（ref/ep30 からの道）の実の長さ（ffprobe）。道が無い・読めないなら None"""
+    p = os.path.join(EP, path or '')
+    if not path or not os.path.isfile(p):
+        return None
+    r = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', p], capture_output=True, text=True)
+    try:
+        return float(r.stdout.strip())
+    except ValueError:
+        return None
+
+
+def gate_video(cuts, A, S, E, W, length=media_len):
+    """⑤b-1：映像の長さの門番（23〜29本目 ⑤b-1 の型）。動きの欄が「映像」で始まるカット（防衛省の記録 M6・イメージ＝Pexels）。
+    区間（秒）×速さ＋止め ≧ 扉を除いた中身（cont）か・『平成6年』は使える秒の内か・素材の実の長さの内か。
+    区間を書く前は ⚠️（要る秒つき）＝取ったら動きの欄に「映像 a〜b秒」と書く。音は全部使わない（-an）。等速が基本"""
+    for c in cuts:
+        a = A.get(c['cid'])
+        if not a or not a['motion'].startswith('映像'):
+            continue
+        cid, need, code = c['cid'], c.get('cont', c['sec']), base(a['main'])
+        win = windows(a['motion'])
+        if not win:
+            W.append('%s 映像の区間が未定（%s・要る秒 %.2f）' % (cid, code, need))
+            continue
+        hold, rate = video_opts(a['motion'])
+        span = sum(w[1] - w[0] for w in win) / rate
+        if span + hold + 0.005 < need:
+            E.append('%s 映像の区間 %.2f秒（%.2f倍速）＋止め %.2f秒＝%.2f秒が中身 %.2f秒に足りない' % (cid, sum(w[1] - w[0] for w in win), rate, hold, span + hold, need))
+        if hold > span / 2:
+            W.append('%s 止め %.2f秒が区間 %.2f秒の半分をこえる' % (cid, hold, span))
+        if rate != 1.0:
+            W.append('%s 映像が等速でない（%.2f倍速）' % (cid, rate))
+        if code == 'M6':
+            if min(w[0] for w in win) < M6_OK[0] or max(w[1] for w in win) > M6_OK[1]:
+                E.append('%s 『平成6年』の区間が使える秒 %.1f〜%.1f の外（夜の群衆か夜の消防が入る）' % (cid, M6_OK[0], M6_OK[1]))
+            offset = M6_OFF
+        else:
+            offset = 0.0
+        real = length(S[code]['file']) if code in S else None
+        if real is None:
+            W.append('%s 素材 %s の実の長さを測れない（手元に無い）' % (cid, code))
+        elif max(w[1] for w in win) - offset > real + 0.05:
+            E.append('%s 映像の区間の尻が素材 %s の実の長さ %.2f秒をこえる' % (cid, code, real))
 
 
 def stock_rows(A, S):
@@ -287,18 +370,7 @@ def gates(cuts, A, S, name_list=(), line_list=()):
         if cid in OPENING and k not in REAL:
             E.append('%s 冒頭は実写だけ（%s）' % (cid, k))
         if k == '映像':
-            win = windows(motion)
-            if not win:
-                W.append('%s 映像の区間が未定（%s）' % (cid, code))
-            else:
-                spans += [(cid, w) for w in win]
-                rate = re.search(r'（([\d.]+)倍速）', motion)
-                length = sum(w[1] - w[0] for w in win) / (float(rate.group(1)) if rate else 1.0)
-                need = byid[cid]['sec']
-                if length + 0.5 < need:
-                    W.append('%s 映像の区間 %.1f秒が語り %.1f秒より短い（止めるか別の区間を足す＝⑤b-1）' % (cid, length, need))
-                if rate:
-                    W.append('%s 映像が等速でない（%s倍速）' % (cid, rate.group(1)))
+            spans += [(cid, w) for w in windows(motion)]         # 長さは gate_video（⑤b-1）
         for fld in ('sub', 'note', 'ga_new'):
             for nm in name_list:
                 if nm and nm in a[fld]:
@@ -314,7 +386,7 @@ def gates(cuts, A, S, name_list=(), line_list=()):
     spans.sort(key=lambda x: x[1][0])
     for (c1, s1), (c2, s2) in zip(spans, spans[1:]):
         if s2[0] < s1[1] - 0.5:
-            E.append('映像の区間が重なる（同じ撮影）: %s %d〜%d と %s %d〜%d' % (c1, s1[0], s1[1], c2, s2[0], s2[1]))
+            E.append('映像の区間が重なる（同じ撮影）: %s %.2f〜%.2f と %s %.2f〜%.2f' % (c1, s1[0], s1[1], c2, s2[0], s2[1]))
     for code, cids in use.items():
         s = S[code]
         if s['type'].startswith(('stock', 'public-page', 'public-pdf', 'google')) or code.startswith(('M6', 'M70')):
@@ -352,7 +424,7 @@ def fmt(t):
     return '%d:%04.1f' % (int(t // 60), t % 60)
 
 
-def build(cuts, A, S, E, W):
+def build(cuts, A, S, E, W, tnote='÷365 の見込み'):
     order = [c['cid'] for c in cuts]
     total = sum(c['sec'] for c in cuts)
     kinds = Counter(A[c]['kind'] for c in order)
@@ -373,7 +445,8 @@ def build(cuts, A, S, E, W):
     L = ['---', 'title: 30本目 場面ごとの映像・写真の一覧（機械で組む）', 'created: 2026-11-05', 'tags: [project/jiko-kensho, ep30]', '---', '',
          '# 30本目 場面ごとの映像・写真の一覧（%dカット・映像方針）' % len(order), '',
          '> **機械で組む一覧＝手で直さない**。作り方＝`python -P ref/ep30/eizou_build/make_list30.py`（入力＝台本 第2版 `daihon_v2.md` §4 の画の欄＝土台・差し替え `eizou_build/over30.psv`・出どころ `eizou_build/sources30.psv`・決め `eizou_build/decisions30.md`）。直すのは入力。',
-         '> 秒＝÷365 の見込み（⑤a のあと実測に替える）。🔧＝台本の画の欄から替えたカット（⑤b はこの一覧に従う・台本は直さない）。色味は原本（10-07）・写真は画面いっぱい（10-11）・全面にできない点（引用・縦長・4:3 の映像）は**高さいっぱいの額＋地は同じ絵のぼかし**（10-30）・額装はどれも静止（10-26）。説明カットの地＝写真を暗くするだけ・静止（§5b-117）。見た画像の記録＝`src/seen_log.tsv`（映像方針の印）。🔴 撮影者と提供者の個人名はここに書かない（`{作者}`・`{個人}`＝git の外の `src/credits_private.tsv` から ⑤b で差し込む）。',
+         '> 秒＝%s（扉こみの頭・カッコは扉＋中身）。🔧＝台本の画の欄から替えたカット' % tnote +
+         '（⑤b はこの一覧に従う・台本は直さない）。色味は原本（10-07）・写真は画面いっぱい（10-11）・全面にできない点（引用・縦長・4:3 の映像）は**高さいっぱいの額＋地は同じ絵のぼかし**（10-30）・額装はどれも静止（10-26）。説明カットの地＝写真を暗くするだけ・静止（§5b-117）。見た画像の記録＝`src/seen_log.tsv`（映像方針の印）。🔴 撮影者と提供者の個人名はここに書かない（`{作者}`・`{個人}`＝git の外の `src/credits_private.tsv` から ⑤b で差し込む）。',
          '', '## §0 数', '', '| 物差し | 値 | 決まり |', '|---|---|---|',
          '| この事件の写真と映像 | **%d カット＝%.1f%%**（陸自 %d・引用 %d・映像 %d・公立 %d・秒 %.0f＝%.1f%%） | 20%%以上 ✅ |' % (
              n_event, 100.0 * n_event / len(order), kinds['陸自'], kinds['引用'], kinds['映像'], kinds['公立'], sec_event, 100.0 * sec_event / total),
@@ -386,13 +459,13 @@ def build(cuts, A, S, E, W):
          '| 写真の動き | %s | 全面は寄る／流す |' % '・'.join('%s %d' % kv for kv in motions.most_common()),
          '| 🔧 台本の画の欄から替えたカット | %d | 台本は直さない＝⑤b はこの一覧に従う |' % fixed,
          '| 種類 | %s | — |' % '・'.join('%s %d' % kv for kv in kinds.most_common()),
-         '| 合計 | %d カット・%s（÷365・ed01 を除く） | — |' % (len(order), fmt(total)), '',
+         '| 合計 | %d カット・%s（%s・ed01 を除く） | — |' % (len(order), fmt(total), tnote), '',
          '### 写真の使い回し（全面・額装で2回以上＝地は数えない）', '']
     rep = [(k, v) for k, v in use.items() if len(v) >= 2 and not k.startswith(('M6', 'M70'))]
     L += ['- %s（%s）＝%s' % (k, S[k]['title'] if k in S else '?', ' '.join(v)) for k, v in sorted(rep)] or ['- なし']
     L += ['', '### 地に使った写真（説明カットの背景＝暗くするだけ）', '']
     L += ['- %s（%s）＝%s' % (k, S[k]['title'] if k in S else '?', ' '.join(v)) for k, v in sorted(ji_use.items())]
-    L += ['', '## §1 冒頭（c101〜c107）＝実写だけ（最初に設計した）', '', '| カット | 秒 | 語りの頭 | 画 |', '|---|---|---|---|']
+    L += ['', '## §1 冒頭（c101〜c108）＝実写だけ（最初に設計した）', '', '| カット | 秒 | 語りの頭 | 画 |', '|---|---|---|---|']
     byid = {c['cid']: c for c in cuts}
     for cid in OPENING:
         c, a = byid[cid], A[cid]
@@ -421,10 +494,10 @@ def build(cuts, A, S, E, W):
         L += [ln.rstrip('\n') for ln in open(DECIDE, encoding='utf-8')]
     open(OUT_MD, 'w', encoding='utf-8', newline='\n').write('\n'.join(L) + '\n')
     with open(OUT_TSV, 'w', encoding='utf-8', newline='\n') as f:
-        f.write('cid\tchap\tstart\tsec\tkind\tmain\tji\tframe\tsub\tmotion\tfixed\tmark\n')
+        f.write('cid\tchap\tstart\tsec\tkind\tmain\tji\tframe\tsub\tmotion\tfixed\tmark\tcard\tcont\n')      # 列の名は list29.tsv と同じ（check_ground が mark を読む）
         for c in cuts:
             a = A[c['cid']]
-            f.write('%s\t%s\t%.2f\t%.2f\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' % (c['cid'], c['chap'], c['start'], c['sec'], a['kind'], a['main'], a['ji'], a['frame'], a['sub'], a['motion'], '🔧' if a['ga_new'].startswith('🔧') else '', a['mark']))
+            f.write('%s\t%s\t%.2f\t%.2f\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%.2f\t%.2f\n' % (c['cid'], c['chap'], c['start'], c['sec'], a['kind'], a['main'], a['ji'], a['frame'], a['sub'], a['motion'], '🔧' if a['ga_new'].startswith('🔧') else '', a['mark'], c.get('card', 0.0), c.get('cont', c['sec'])))
     return n_event, len(order)
 
 
@@ -481,14 +554,34 @@ def selftest():
         print(('OK  ' if hit else 'NG  ') + label + ('' if hit else ' → %s' % E[:3]))
         bad += 0 if hit else 1
     # 映像の区間の重なり（同じ素材を2回）＝陽性と、離れていれば鳴らない陰性
-    for label, second, want in (('陽性 映像の区間が重なる', '映像 17:40〜17:46', True), ('陰性 映像の区間が離れている', '映像 18:03〜18:12', False)):
+    for label, second, want in (('陽性 映像の区間が重なる', '映像 1060.00〜1066.00秒', True), ('陰性 映像の区間が離れている', '映像 1083.00〜1092.00秒', False)):
         cuts, A = setup(['c702'])
-        A['c101'] = dict(photo, cid='c101', kind='映像', main='M6', frame='全面', motion='映像 17:35〜17:43')
+        A['c101'] = dict(photo, cid='c101', kind='映像', main='M6', frame='全面', motion='映像 1055.00〜1063.00秒')
         A['c702'] = dict(photo, cid='c702', kind='映像', main='M6', frame='全面', motion=second)
         E = gates(cuts, A, S)[0]
         hit = any('重なる' in x for x in E) == want
         print(('OK  ' if hit else 'NG  ') + label + ('' if hit else ' → %s' % E[:3]))
         bad += 0 if hit else 1
+    # 映像の長さの門番（⑤b-1）＝足りない・使える秒の外・実の長さの外で鳴り、足りていれば鳴らない
+    for label, motion, cont, want in (
+            ('陰性 映像の長さ 足りる', '映像 1051.00〜1060.00秒', 9.0, None),
+            ('陰性 映像の長さ 止めで足りる', '映像 1051.00〜1059.50秒（＋止め 0.5秒）', 9.0, None),
+            ('陽性 映像の長さ 足りない', '映像 1051.00〜1059.00秒', 9.0, '足りない'),
+            ('陽性 夜の群衆の秒', '映像 1040.00〜1049.00秒', 9.0, '使える秒'),
+            ('陽性 夜の消防の秒', '映像 1098.00〜1104.00秒（＋止め 3.0秒）', 9.0, '使える秒')):
+        c1 = dict(cut('c701'), cont=cont)
+        A1 = {'c701': dict(photo, cid='c701', kind='映像', main='M6', frame='全面', motion=motion)}
+        E1, W1 = [], []
+        gate_video([c1], A1, {'M6': dict(S['M6'], file='x.webm')}, E1, W1, length=lambda p: 71.4)
+        hit = any(want in x for x in E1) if want else not E1
+        print(('OK  ' if hit else 'NG  ') + label + ('' if hit else ' → %s' % E1[:3]))
+        bad += 0 if hit else 1
+    E1, W1 = [], []
+    gate_video([dict(cut('c701'), cont=9.0)], {'c701': dict(photo, cid='c701', kind='映像', main='M6', frame='全面', motion='映像 1051.00〜1060.00秒')},
+               {'M6': dict(S['M6'], file='x.webm')}, E1, W1, length=lambda p: 20.0)
+    hit = any('実の長さ' in x for x in E1)
+    print(('OK  ' if hit else 'NG  ') + '陽性 素材の実の長さをこえる' + ('' if hit else ' → %s' % E1[:3]))
+    bad += 0 if hit else 1
     print('selftest %s' % ('ok' if not bad else 'NG %d' % bad))
     return 1 if bad else 0
 
@@ -508,9 +601,12 @@ def main():
     S = {s['code']: s for s in src}
     A, bad3 = assemble(cuts, over)
     stock_rows(A, S)
+    tnote = measured(cuts)
     E, W = gates(cuts, A, S, words(NAME_FILE), words(LINE_FILE))
+    gate_video(cuts, A, S, E, W)
     E = bad1 + bad2 + bad3 + E
-    n, m = build(cuts, A, S, E, W)
+    n, m = build(cuts, A, S, E, W, tnote)
+    print('秒＝%s／合計 %s' % (tnote, fmt(sum(c['sec'] for c in cuts))))
     print('カット %d／この事件の写真と映像 %d（%.1f%%）／E %d ／⚠️ %d → %s' % (m, n, 100.0 * n / m, len(E), len(W), OUT_MD))
     for x in E[:40]:
         print('E ', x)
