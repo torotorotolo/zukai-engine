@@ -942,6 +942,8 @@ def _ep30_person(name, mark):
     rows = [r for r in csv.reader(path.open(encoding="utf-8"), delimiter="\t") if r and not r[0].startswith("#")]
     row = {r[0]: r for r in rows if len(r) > col}.get(code) or []
     who = " ".join((row[col] if len(row) > col else "").split())
+    # 🔧 ⑤b-2：個人の提供者の表は資料館の表示のまま「提供：○○氏」＝出典の行の「（提供：{個人}）」と重ねない（Modal の焼きで「提供：提供：」と出た＝c106）
+    who = who.removeprefix("提供：")
     if not who:
         raise RuntimeError(f"{name}（{code}）: git の外の表 {path.name} に {code} の名前の欄が無い")
     if re.search(r"[<>&]", who) or len(who) > 24:

@@ -961,6 +961,8 @@ STOCK_GEOM = {}
 # 🆕 防衛省の記録の6カット（4:3 を横いっぱいに＝footage.PILLAR）。`edit=True`＝元の映像の編集のまま場面をまたぐ（footage.outside_shot の注）。
 #    窓＝既定の真ん中（⑤b-2 に場面ごとのコマに窓の線を引いて見た＝駅の札・焼き込みの字幕・足元が窓の内側）。c107 だけ上へ（1073.5〜 の防護マスクの寄りの顔が切れる）
 M6_GEOM = {"c107": dict(bias=0.3)}
+# 🔴 タンクの手書きの字（全面だと数字に百分率の記号が付いたように読める）＝この回の線と混同されないよう写さない。⑤b-2 に焼いた絵で見て決めた（1059.3 から薄く読める・1062.7 で場面が替わる）
+M6_NOGO = (1059.1, 1062.75, "タンクの手書きの字が読める")
 
 
 def cmd_use(only=None, all_=False):
@@ -1010,7 +1012,8 @@ def cmd_use(only=None, all_=False):
         lines.append(f'    "{cid}": dict(clip="{code}", start={a:.2f}, until={b:.2f}, rate={rate}{geo}),   '
                      f'# ショット {sh["start"]:g}〜{sh["until"]:g}秒・使う {b - a:.2f}秒／要る {need:.2f}秒')
     _write_block("EP30_USE", lines)
-    print(f"→ tools/footage.py USE {len(lines)}欄")
+    _write_block("EP30_NOGO", [f'    "M6": [{M6_NOGO!r}],'])
+    print(f"→ tools/footage.py USE {len(lines)}欄・NOGO 1欄")
     for x in lines:
         print(x.strip())
     if skip:
