@@ -3449,3 +3449,92 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `X602` | c602 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/person-typing-on-laptop-6611946/ | 2026-11-04 |
 | `X614` | c614 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/digital-code-rain-animation-10532470/ | 2026-11-04 |
 | `X702` | c702 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-mobile-phone-on-the-table-6278820/ | 2026-11-04 |
+
+## 地下鉄サリン事件（1995-03-20・30本目）
+
+※2026-11-05（⑤b-2）。`qa_out/ep30_assets.py credits --write` が書く（手で直さない）。写真と紙面は映像方針の一覧 `ref/ep30/eizou_list30.md`（了承② 2026-11-05）。
+🔴 事件の回（ルール §B2-11・§B2-12）＝被害者・遺族・第一通報者・手記の筆者・刑を終えた人の名前は書かない。教団の宣伝物・報道の写真と映像・被害者が写る絵は使わない。この回の線の細部は台本にも画面にも書かない。
+
+### 0. 資料館の写真の読み（公安調査庁 オウム真理教問題デジタルアーカイブ・ルール §2-39）
+- 提供が国の機関（陸上自衛隊）・提供の表示なし＝公安調査庁のコピーライトポリシーの PDL1.0 の読み（法務省の頁と PDL1.0 は第三者＝国以外の者）＝全面の切り出し可・出典の行に「加工して作成」・公開リポに置く
+- 提供が東京都の機関・会社・個人＝第三者＝引用の形（著作権法32条・無加工の額・出典・語りが主・話している秒だけ・本編だけ・サムネに使わない）。東京消防庁と東京メトロの頁は引用を禁止の外に置く。🔴 **公開リポに置かない**（`ep30/police/`＝git の外・Modal の保管庫）。⚠️ 法律の助言ではない＝こちらの読み
+- 公的な機関の紙面＝各頁の規約を読んで切り出す（名前の行とこの回の線の行を切り口に入れない）・出典の行に URL と「／改変：切出」・ロゴは写さない・判決は著作権の対象外（著作権法13条の読み）
+
+### 1. 写真と紙面（国の写真・第三者の引用・Commons の CC BY・BY-SA・CC0・PD・公的な機関の頁）
+- CC BY・BY-SA＝「写真：{作者}／Wikimedia Commons（ライセンス）」。🔴 撮影者と個人の提供者の名前はこのリポに書かない＝`ref/ep30/credits.json` は印 `{作者}`・`{個人}` だけ・焼くときに git の外の表 `ref/ep30/src/credits_private.tsv`・`credits_quote_private.tsv` から足す（`tools/scene_jiko.ep30_credit`）
+- BY-SA＝額装（無加工・1点1カット・升目もかけない＝人とナンバーが写っていない点だけ）。CC BY・CC0・PD の私人の顔とナンバーは升目（「／改変：…にモザイク」）。公的な任務の顔はそのまま。色は原本のまま
+- 説明カットの地（「地 c…」）＝CC BY・CC0・PD・PDL1.0 の写真を暗くするだけ（字と地の比 8:1 が下限・出典の行は「地の写真：…／改変：切出・明るさ」・PDL1.0 は「加工して作成」）
+- 撮影年＝資料館の表示・Commons の頁の撮影日・文書の日付（sources30 の時期の欄）。表示に年の無い点は「不明」＝副題に年を書かない
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `diet` | cb09（地 c412 c413 c414 ca03 ca04 cb10） | 2023 | CC BY 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:日本・国会議事堂.jpg |
+| `fd1` | c820 | 不明 | PDL1.0（消防庁のリンク・著作権等について fdma.go.jp/about/others/post3.html を 2026-11-05 に読んだ）＝出典と URL と編集の断り（公的な機関の頁） | 各機関（国） | https://www.fdma.go.jp/singi_kento/kento/items/kento088_74_shiryo4.pdf |
+| `hb` | （地 c727） | 不明 | CC BY 2.5（この回の土地と物・顔に升目） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:TokyoMetro-hatchobori-A1-entrance.jpg |
+| `ins1` | cc08 | 2018 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 各機関（国） | commons:PSIA Aum Shinrikyo facility inspection 01.jpg |
+| `ins2` | ca14 | 2018 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 各機関（国） | commons:PSIA Aum Shinrikyo facility inspection 02.jpg |
+| `jc` | c212 | 2002 | 裁判所の判決＝著作権の対象外（著作権法13条の読み）（公的な機関の頁） | 各機関（国） | https://www.courts.go.jp/assets/hanrei/hanrei-pdf-5817.pdf |
+| `kas` | （地 c202 c206 c207 c704） | 2006 | CC BY 2.5（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:TokyoMetro-kasumigaseki-platform-hibiya-line.jpg |
+| `kg1` | （地 c313 c510 c617 ca02 cb02 cb03 cb04 cb11 cb13 cb15 cc05 cc15） | 2007 | CC BY 2.5（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:Kasumigaseki1chome Tokyo01bs3600.jpg |
+| `kg2` | （地 ca06 ca13 ca15 cb06 cb07 cb08 cb12） | 2010 | PD（この回の土地と物） | 表示は任意（CC0・PD） | commons:Kasumigaseki 1 and 2 chome, Chiyoda.jpg |
+| `kod` | （地 c711 c712 c718） | 2024 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | commons:Kodemmacho-STA Platform1.jpg |
+| `ks1` | c509 c902（地 c714 c715 c716） | 2012 | CC BY 3.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:警視庁 - panoramio.jpg |
+| `ks2` | c108 c518（地 c519 cc07 cc10） | 2014 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:Keishicho - mpd headquarters - October 2014.jpg |
+| `mt` | c415（地 c402 c416 c417 c901） | 2025 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | commons:Matsumoto Castle - Matsumoto6549.jpg |
+| `p62` | c916 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 62） |
+| `p65` | c104 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 65） |
+| `p66` | c702（地 c701 c721 c722 c736） | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 66） |
+| `p67` | c907 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 67） |
+| `p68` | c914（地 c732 c733） | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 68） |
+| `p69` | c913 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 69） |
+| `p70` | c918 | 不明 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 70） |
+| `p71` | c917 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 71） |
+| `p72` | c919 | 不明 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 72） |
+| `p73` | c208 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 73） |
+| `p74` | cb19 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 74） |
+| `p75` | cc16（地 c209 c729 c730） | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 75） |
+| `p76` | c717（地 c719） | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 76） |
+| `p77` | c915 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 77） |
+| `p78` | cb16（地 c205 c734 c735 c815） | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 78） |
+| `p79` | c920 | 不明 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 79） |
+| `p80` | c909（地 c910） | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 80） |
+| `p81` | c911 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 81） |
+| `p83` | c912 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 83） |
+| `p84` | cc19 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 84） |
+| `p99` | cc01 | 不明 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 各機関（国） | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 99） |
+| `pa1` | c211 | 不明 | PDL1.0（公安調査庁のコピーライトポリシー moj.go.jp/psia/copyright-policy）＝出典と編集の断り（公的な機関の頁） | 各機関（国） | https://www.moj.go.jp/psia/aumarchive/timeline/ |
+| `pa2` | cc06 | 2026 | PDL1.0（公安調査庁のコピーライトポリシー moj.go.jp/psia/copyright-policy）＝出典と編集の断り（公的な機関の頁） | 各機関（国） | https://www.moj.go.jp/psia/aum.top/index.html |
+| `pa3` | cc09 | 2026 | PDL1.0（公安調査庁のコピーライトポリシー moj.go.jp/psia/copyright-policy）＝出典と編集の断り（公的な機関の頁） | 各機関（国） | https://www.moj.go.jp/psia/aum-202611kansatsushobun.html |
+| `pa4` | cc18 | 不明 | PDL1.0（公安調査庁のコピーライトポリシー moj.go.jp/psia/copyright-policy）＝出典と編集の断り（公的な機関の頁） | 各機関（国） | https://www.moj.go.jp/psia/aumarchive/ |
+| `p14` | c311 | 1992 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 地元の個人（名前は git の外 `ref/ep30/src/credits_quote_private.tsv` の記号の行＝資料館の表示のとおり画面は焼くときに足す） | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 14） |
+| `p17` | c301 | 1994 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 地元の個人（名前は git の外 `ref/ep30/src/credits_quote_private.tsv` の記号の行＝資料館の表示のとおり画面は焼くときに足す） | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 17） |
+| `p18` | c501 | 1994 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 地元の個人（名前は git の外 `ref/ep30/src/credits_quote_private.tsv` の記号の行＝資料館の表示のとおり画面は焼くときに足す） | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 18） |
+| `p19` | c515 | 1994 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 地元の個人（名前は git の外 `ref/ep30/src/credits_quote_private.tsv` の記号の行＝資料館の表示のとおり画面は焼くときに足す） | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 19） |
+| `p21` | c603 | 1994 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 地元の個人（名前は git の外 `ref/ep30/src/credits_quote_private.tsv` の記号の行＝資料館の表示のとおり画面は焼くときに足す） | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 21） |
+| `p22` | c613 | 1994 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 地元の個人（名前は git の外 `ref/ep30/src/credits_quote_private.tsv` の記号の行＝資料館の表示のとおり画面は焼くときに足す） | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 22） |
+| `p23` | c303 | 1994 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 地元の個人（名前は git の外 `ref/ep30/src/credits_quote_private.tsv` の記号の行＝資料館の表示のとおり画面は焼くときに足す） | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 23） |
+| `p24` | c106 | 1995 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 地元の個人（名前は git の外 `ref/ep30/src/credits_quote_private.tsv` の記号の行＝資料館の表示のとおり画面は焼くときに足す） | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 24） |
+| `p25` | ca01 | 1995 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 地元の個人（名前は git の外 `ref/ep30/src/credits_quote_private.tsv` の記号の行＝資料館の表示のとおり画面は焼くときに足す） | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 25） |
+| `p26` | c213 | 1995 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 地元の個人（名前は git の外 `ref/ep30/src/credits_quote_private.tsv` の記号の行＝資料館の表示のとおり画面は焼くときに足す） | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 26） |
+| `p27` | c508 | 1995 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 地元の個人（名前は git の外 `ref/ep30/src/credits_quote_private.tsv` の記号の行＝資料館の表示のとおり画面は焼くときに足す） | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 27） |
+| `p39` | c422 | 不明 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 地元の個人（名前は git の外 `ref/ep30/src/credits_quote_private.tsv` の記号の行＝資料館の表示のとおり画面は焼くときに足す） | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 39） |
+| `p4` | c302 | 1990 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 地元の個人（名前は git の外 `ref/ep30/src/credits_quote_private.tsv` の記号の行＝資料館の表示のとおり画面は焼くときに足す） | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 4） |
+| `p44` | c822 | 1995 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 東京地下鉄 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 44） |
+| `p45` | c723 | 1995 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 東京地下鉄 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 45） |
+| `p5` | c309 | 1990 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 地元の個人（名前は git の外 `ref/ep30/src/credits_quote_private.tsv` の記号の行＝資料館の表示のとおり画面は焼くときに足す） | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 5） |
+| `p60` | c103 c728 | 1995 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 東京消防庁 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 60） |
+| `p61` | c821 | 1995 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 東京消防庁 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 61） |
+| `p7` | ca05 | 1990 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 地元の個人（名前は git の外 `ref/ep30/src/credits_quote_private.tsv` の記号の行＝資料館の表示のとおり画面は焼くときに足す） | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 7） |
+| `sc` | ca16（地 c210 c616 ca07 ca08 ca10） | 2010 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:Supreme court - panoramio.jpg |
+| `slh` | c737 cb17（地 c802 c811 c825 c903） | 2008 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:20080312-StLukesInternationalHospital.jpg |
+| `tks` | ca11 | 2005 | CC BY-SA 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:Tokyokotosaibansho.jpg |
+| `tse` | （地 c724 c725） | 2014 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:Tsukiji station - exit - rainy day - nov 2014.jpg |
+| `w5` | cb01 | 1996 | PDL1.0（警察庁の利用規約 npa.go.jp/rules/ を 2026-11-05 に読んだ）＝出典と URL と編集の断り（公的な機関の頁） | 各機関（国） | https://www.npa.go.jp/hakusyo/h08/h080105.html |
+
+### 2. 動く映像＝clips.json（防衛省の記録・イメージの Pexels）
+- 防衛省・自衛隊『平成6年防衛庁記録』（CC BY 3.0＝公式の YouTube の表示と Commons の札）＝章「地下鉄サリン事件」の昼の区間だけ・上下を切って全面・音は使わない。夜の群衆と夜の消防は使わない
+- フリー素材（Pexels・AI で作った絵は使わない）＝画面の左上に「イメージ」・出典の行は「イメージ（Pexels）」だけ（クレジットは任意＝投稿者の名前は書かない・概要欄にも書かない）。20% に数えない。🔴 映像そのものもひかえの静止画も git に入れない（19本目 決め⑨）
+
+| 記号 | 使うカット | 画面の出典 | ライセンス | 頁 | 取った日 |
+|---|---|---|---|---|---|
+| `M6` | c101 c102 c107 c720 c731 cb14 | 出典：防衛省・自衛隊『平成6年防衛庁記録』（CC BY 3.0）・改変：切出 | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:%E5%B9%B3%E6%88%90%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm | 2026-11-05 |

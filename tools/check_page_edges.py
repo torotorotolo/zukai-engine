@@ -136,8 +136,14 @@ def scan(spec_map, ocr, photo_of, box_of, skip, sides=False):
 def pick_control(spec_map, ocr, photo_of, box_of, skip):
     """合成の対照に使う (カット, SPEC, 行)。本番の頁のカットのうち、trim の内側でいちばん幅の広い字の行。"""
     best = None
+    import cuts.ss as _ss
+    _rec = _ss._assets() if (_ss.REF / "assets.json").exists() else {}
     for cid in S.ORDER:
         spec = spec_map.get(cid) or {}
+        # 🆕 2026-11-05（30本目 ⑤b-2）：写真の額装（第三者の引用）も対照に使わない＝OCR が拾うのは写真の模様の幻の行（c103「価 ー ー い」＝左上の建物）で、
+        #    trim を行の真ん中へ動かすと額に合わせて横が切られ、行が窓の外へ出る（下の地図と同じ）。頁のカットが無ければ合成の頁で回す＝物差しの検算として同じ
+        if _rec.get(str(photo_of.get(cid, ""))[len(_ss.EP):-len(".jpg")], {}).get("page") is False:
+            continue
         # 🆕 2026-10-27（26本目 ⑤b-3）：地図のカット（衛星写真＝`sat`）は対照に使わない。頁のカットがまだ無い回で、Google の地名の行
         #    （c218「オランダ ベルリン ポーランド」）がいちばん幅の広い行として選ばれ、陽性①②が「出ない」で止まった＝trim を行の真ん中へ動かすと
         #    額（16:9）に合わせて横が切られ、右寄りの地名の行が窓の外へ出る（地図は本番で trim も寄りも無い＝rects_of の1点だけ）

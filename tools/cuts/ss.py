@@ -266,8 +266,11 @@ SCREEN_AR = W / H
 #       全画面にする写真はどれも 1.328 以上（縦長の写真 0.587〜0.753 は額装）。WIDE_AR は 2.75 に動く＝これを超えるのは会社と公的な機関の頁だけ（どれも額装で panel=True）
 #    🔴 2026-11-05（30本目 ⑤b-1）：29本目の束から決めた 1.15 のまま残した（見本に入れない＝16〜29本目と同じ）＝30本目の束で
 #       `qa_out/ep30_assets.py panel` のいちばん大きな切れ目から取り直す（上の 1.15 の理由の注は29本目の束の写真のこと）
-PANEL_AR = 1.15                 # これ未満＝縦長すぎ（上下が切れる）
-WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝2.75（29本目の束から）。これ超＝横長すぎ
+#    🔴 2026-11-05（30本目 ⑤b-2）：束62点で取り直した＝いちばん大きな切れ目 1.034（slh）→ 1.332（tks）の 29.8ポイント＝中点 1.18。
+#       全画面にする写真はどれも 1.332 以上（縦長の p73・p39・hb・p99 と、ほぼ正方形の slh は kind() では額装）。⚠️ 一覧は slh（c737・cb17）を全面と書いた＝⑤b-7 で何が残るかを見て決める。
+#       WIDE_AR は 2.67 に動く＝これを超えるのは公的な機関の紙面だけ（どれも額装で panel=True）
+PANEL_AR = 1.18                 # これ未満＝縦長すぎ（上下が切れる）
+WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝2.67（30本目の束から）。これ超＝横長すぎ
 
 # 報告書の頁から切る図の矩形（写真と頁の束のチャットで作る `ref/<回>/pages.json`＝15本目は `ref/ep15/pages.json`）。
 _PAGES_FILE = REF / "pages.json"
@@ -730,7 +733,12 @@ NG_PHOTOS: dict[str, str] = {}
 #       （`ep29/` の名を文字で書いた・説明は1字も変えていない＝git の `dc72dd8a`。範囲は `qa_out/ep29_assets.py` の MASK）。
 #       ⚠️ 空のあいだ門番 check_photo_mask は「NEEDS_MASK が空」の注意を出す＝30本目の束のチャットで、隠す点（了承②＝公的な任務の顔はそのまま・
 #       場所の写真の私人の顔とナンバーは CC BY・CC0・PD で升目・BY-SA の TKS に顔があれば別の点に＝一覧 `ref/ep30/eizou_list30.md` §3 の人の欄を原寸で）を `P("名")` で書く（EP が追う）
-NEEDS_MASK: dict[str, str] = {}
+#    🔴 2026-11-05（30本目 ⑤b-2）：場所の写真13点を 640px の並べ＋疑いの所を等倍で見た＝2点に升目（範囲は `qa_out/ep30_assets.py` の MASK・升目にしない点の理由もそこ）。
+#       束の段で切り落とした点（PRE_CROP）＝P62（上＝写真を構える人と見物の人の列）。🔴 BY-SA の TKS は人もナンバーも無い。第三者の引用は加工しない
+NEEDS_MASK: dict[str, str] = {
+    P("ks1"): "左のワゴンのナンバー（c509・c902・地 c714〜c716）",
+    P("hb"): "左の人と奥の人の列の顔（約15〜20px・投稿者がぼかしていない人）＝地 c727",
+}
 
 # 🆕 2026-10-13（21本目 ⑤b-7）：**スライドの台紙の黒い縁がある写真**（名 → 何か）。全画面で流す・寄る窓が縁に入らないかを門番
 #    `tools/check_photo_edge.py` が測る（縁の幅は**絵から毎回測る**＝ここには書かない）。夜空など縁でない暗い所の写真は入れない。
@@ -806,7 +814,13 @@ SLIDE_MOUNT: dict[str, str] = {}
 #    🔴 2026-11-05（30本目 ⑤b-1・§0b）：29本目の8点は見本 `tools/fixture_ep29.py` の SLIDE_NOT_MOUNT へ移した（`ep29/` の名を文字で書いた・説明は1字も変えていない＝git の `dc72dd8a`）。
 #       ⚠️ SLIDE_MOUNT も SLIDE_NOT_MOUNT も空のあいだ、門番 check_photo_edge は「SLIDE_MOUNT が空」で止まる（fail closed）＝30本目の束のチャットで、
 #       台紙の縁のある写真があれば SLIDE_MOUNT を、無ければ暗い帯のある点を SLIDE_NOT_MOUNT に理由つきで書く（鍵は `P("名")`）
-SLIDE_NOT_MOUNT: dict[str, str] = {}
+#    🔴 2026-11-05（30本目 ⑤b-2）：`qa_out/ep30_assets.py edges` の4点を 640px の並べで見た＝どれも写真の中身＝台紙の縁は0点
+SLIDE_NOT_MOUNT: dict[str, str] = {
+    P("diet"): "右端の黒＝手前の電柱（写真の中身）",
+    P("ks1"): "左端の黒＝手前の木の陰（写真の中身）",
+    P("ks2"): "右端の黒＝手前の並木の陰（写真の中身）",
+    P("police/p25"): "上下の黒＝夜明け前の空と手前の地面（写真の中身・額装＝窓で切らない）",
+}
 
 # 🆕 2026-10-13（21本目 ⑤b-7）：**原寸で見て字でないと決めた OCR の範囲**（OCR の読み置きのファイル名 → [((x0, y0, x1, y1)＝束の画素, 何か)]）。
 #    `check_slide.load_ocr` がこの中に真ん中のある行を外す（外した行は「文字行と見なさなかった」の表に理由つきで出る）。
@@ -1016,6 +1030,14 @@ SAT_CREDIT = "地図：Google マップの衛星写真（帰属は地図の右�
 #    ⚠️ 門番 check_sat の本番（`main()`）は地図のカットが0件のとき exit 1 を返す（24本目に地図があるかは未定）＝地図の無い回なら門番の側を直す
 SAT = {}
 GEO = {}
+# 🆕 2026-11-05（30本目 ⑤b-2）：G01＝c105（`ref/ep30/eizou_build/helpers/gshot30.py`・2回撮って gseam22 で線なし）。残り11画は ⑤b-3。🔴 PNG は git の外＝保管庫 jiko-assets
+SAT.update({
+    "G01": dict(file="ep30/photo/gmap_g01_matsumoto.png", ll=(36.238, 137.972), z=11, md5="0ca1afa753378ead5e611dee75a33498", credit=SAT_CREDIT),
+})
+GEO.update({
+    # 🔴 札は「長野県松本市」だけ・点は市の代表点（第一通報者の家も事件の現場も示さない）
+    "matsumoto": dict(ll=(36.238, 137.97197), src="公安調査庁 アーカイブ（`1994.6.27松本サリン事件`）", how="一般の座標（Wikidata Q213324＝市）"),
+})
 # 🔴 2026-10-27（26本目 ⑤b-1・§0b）：25本目の表（SAT＝G01〜G05 の Google の衛星写真5点〈c101・c328・c517・ca23・cb03〉・GEO＝site・itami・mitejima・kashima の4点・
 #    SAT_LINES＝地理院地図Vector の線路の線4本〈fuku・tozai_under・tozai_surface・kashima_curve〉・SAT_LINE_NOTE＝線の出典の断り）は selftest の見本
 #    `tools/fixture_ep25.py` へ移した（値は1つも変えていない＝git の `5f692aab`。`file` は `ep25/…` の名を文字のまま・SAT.update／GEO.update の4文もそのまま）。

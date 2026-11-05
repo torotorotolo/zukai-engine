@@ -235,6 +235,9 @@ CLIPS = json.loads(_CLIPS_JSON.read_text(encoding="utf-8")) if _CLIPS_JSON.exist
 #    ⚠️ **名目の寸法は黒帯の有無を教えない**（SL-1 も 1920×1080 と名乗って中身は 1440）。
 #    → ⑤で切り出したコマを `measure_pillar(cid)` で1本ずつ測ってから、必要な欄だけここに書く。
 PILLAR = {
+    # 🆕 2026-11-05（30本目 ⑤b-2）：防衛省の記録 M6（17本目の V1 と同じファイル）＝手元の写しの 31コマの列の中央値の95分位で中身 x 249〜1668（幅 1420・真ん中 958.5）。
+    #   真ん中が 1.5px 左へ寄る＝幅 1420 では右に約 1px の黒が残る＝V1 と同じ 1416/1920（横いっぱい・左右が 2〜9px 外へ）。🔴 §0b：次の回の ⑤b-1 で空にする
+    "M6": 1416 / 1920,
     # 🆕 2026-10-20（17本目 ⑤b-2）：記録映像 V1（平成6年防衛庁記録）＝器 1920×1080 の中に 4:3 の中身 x 250〜1666（幅 1416＝0.7375）を
     #   757.5・761.5・774・783秒のコマで測った（`qa_out/ep17_assets.py` の clips の注）。了承② 決め7＝**横いっぱい**（上を残して下を切る）
     #   ＝USE の zoom は字幕の帯から逃がす足しだけ（1.04）・bias 0。🔴 §0b：次の回の ⑤b-1 で空にする（鍵は回の素材の記号）
@@ -447,6 +450,12 @@ def outside_shot(use=None):
         sh = shot_of(clip, a)
         if sh is None:
             out.append((cid, clip, a, b, None))
+        elif u.get("edit") and not (CLIPS.get(clip) or {}).get("stock"):
+            # 🆕 2026-11-05（30本目 ⑤b-2）：`edit=True`＝**元の記録映画の編集のまま**場面をまたぐ欄（防衛省の記録 M6＝1つの章の連続した区間を6カットに割った・
+            #    副題「除染」がどの場面にも当たると絵で見た）。2区間のつなぎはしない＝見る側には記録映画そのままの編集。
+            #    尻も実測の表の中にあることだけ見る（表の外＝夜の場面へ出る＝止める）。フリー素材は効かない（selftest）
+            if shot_of(clip, b - 1e-6) is None:
+                out.append((cid, clip, a, b, sh))
         elif b > sh[1] + TOL:
             out.append((cid, clip, a, b, sh))
     return out
@@ -682,6 +691,12 @@ USE = {
     #   取ったら `over30.psv` の動きの欄に「映像 a〜b秒」と書いて `make_list30.py` の門番（区間＋止め ≧ 中身・素材の実の長さ）を通してから、欄は束のチャットで道具から書き出す
     #   （手で書かない）＝下の印のあいだ。等速が基本・音は使わない（-an）
     # EP30_USE>>> ここから（手で書かない）
+    "c101": dict(clip="M6", start=1051.26, until=1060.79, rate=1.0, edit=True),   # 使う 9.53秒／要る 9.52秒・元の編集の切れ目 1056.7
+    "c102": dict(clip="M6", start=1042.52, until=1051.18, rate=1.0, edit=True),   # 使う 8.66秒／要る 8.65秒・元の編集の切れ目 1049.6
+    "c107": dict(clip="M6", start=1069.02, until=1076.42, rate=1.0, bias=0.3, edit=True),   # 使う 7.40秒／要る 7.40秒・元の編集の切れ目 1073.5
+    "c720": dict(clip="M6", start=1076.50, until=1089.38, rate=1.0, edit=True),   # 使う 12.88秒／要る 12.87秒・元の編集の切れ目 1079.2 1086.8
+    "c731": dict(clip="M6", start=1091.62, until=1103.30, rate=1.0, edit=True),   # 使う 11.68秒／要る 11.67秒・元の編集の切れ目 1096.8
+    "cb14": dict(clip="M6", start=1060.39, until=1069.02, rate=1.0, edit=True),   # 使う 8.63秒／要る 8.63秒・元の編集の切れ目 1062.7
     # EP30_USE>>> ここまで
 }
 # ⚠️ 2026-09-23（12本目 ⑤c' 直しE）：ここにあった前の回の注（9.11 の c621・c712／6本目キー橋の「まだ決まっていない
@@ -857,6 +872,17 @@ def selftest():
             True)
         chk("ショット表の無いクリップは対象外（fail open にしない＝黙る）",
             bool(outside_shot({"x03": dict(clip="sl1_ph12", start=12.0, until=25.0)})), False)
+        # 🆕 30本目 ⑤b-2：`edit=True`＝元の記録映画の編集のまま場面をまたぐ欄
+        chk("陰性対照：edit=True は表の中なら場面をまたいでよい（12.0〜25.0）",
+            bool(outside_shot({"x04": dict(clip="t_clip", start=12.0, until=25.0, edit=True)})), False)
+        chk("陽性対照：edit=True でも尻が実測の表の外なら止める（夜の場面へ出る）",
+            bool(outside_shot({"x05": dict(clip="t_clip", start=12.0, until=9999.0, edit=True)})), True)
+        chk("陽性対照：edit=True でも頭が実測の表の外なら止める",
+            bool(outside_shot({"x06": dict(clip="t_clip", start=5.0, until=12.0, edit=True)})), True)
+        SHOTS["t_stock_edit"], CLIPS["t_stock_edit"] = [(0.0, 10.0, 0.0), (10.0, 20.0, 0.0)], dict(stock=True)
+        chk("陽性対照：フリー素材に edit=True を書いてもまたぎを止める",
+            bool(outside_shot({"x07": dict(clip="t_stock_edit", start=5.0, until=15.0, edit=True)})), True)
+        del SHOTS["t_stock_edit"], CLIPS["t_stock_edit"]
 
         # ④ 🔴 in_nogo：**書いた数は正しいのに、実際に読む秒が禁止の秒に掛かる**
         #    （2026-09-07・pr01 がその実例。until はショットの終わりとして正しかった）

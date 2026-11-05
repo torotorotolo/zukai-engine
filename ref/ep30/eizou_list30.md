@@ -435,8 +435,8 @@ tags: [project/jiko-kensho, ep30]
 | P27 | quote-photo | shisetsu | 空からの施設群（同じ4棟を別の向きから） | moj:museum/27 | 1920x1342 | 引用 | 同上 | 同上（提供：{個人}） | 1995 | なし | src/eizou/P27.jpg | c508 | 約400px で見た |
 | P39 | quote-photo | shisetsu | 富士山を背に立て看板「地域住民の所有地を踏み荒したり侵奪するな」（縦） | moj:museum/39 | 1920x2742 | 引用 | 同上 | 同上（提供：{個人}） | 表示に年なし | なし | src/eizou/P39.jpg | c422 | ⚠️ 266px の第一次だけ＝⑤b で字を等倍で（名前が写るなら別の点に） |
 | P99 | public-photo | ireihi | 富士ヶ嶺公園の慰霊碑・木と山・階段（縦） | moj:museum/99 | 1440x1920（ファイルは 1920x1440＋EXIF で回転） | PDL1.0 | 資料館の表示に提供なし＝権利表記なし＝PDL1.0 の読み | 出典：公安調査庁 オウム真理教問題デジタルアーカイブ・PDL1.0 | 撮影の年は表示なし | なし | src/eizou/P99.jpg | cc01 | 🔴 EXIF の向き 6＝束の段で回して保存（横倒しで焼かない） |
-| INS1 | public-photo | ins | 立入検査＝緑の塀の前に公安調査庁の職員たち（Commons の日時 2018-04） | commons:PSIA Aum Shinrikyo facility inspection 01.jpg（元＝法務省 キッズルーム・いまの頁は幅800に縮んだ別の点） | 4896x3672 | PDL1.0 | 法務省の写真の写し＝元の頁に権利表記なし＝PDL1.0 の読み（Commons の札は CC BY 4.0） | 出典：法務省 キッズルーム（公安調査庁の写真）／Wikimedia Commons・加工して作成 | 2018（Commons の日時＝⑤b で EXIF を見る） | 公的な任務の顔＝可 | src/eizou/INS1.jpg | cc08 | — |
-| INS2 | public-photo | ins | 立入検査＝「公安調査庁」の背中の職員たち（Commons の日時 2018-07） | commons:PSIA Aum Shinrikyo facility inspection 02.jpg（元＝法務省 キッズルーム） | 1460x1041 | PDL1.0 | 同上 | 出典：法務省 キッズルーム（公安調査庁の写真）／Wikimedia Commons・加工して作成 | 2018（同上） | なし（背中） | src/eizou/INS2.jpg | ca14 | 幅1460＝全面は柔らかい＝⑤b で見る |
+| INS1 | public-photo | ins | 立入検査＝緑の塀の前に公安調査庁の職員たち（Commons の日時 2018-04） | commons:PSIA Aum Shinrikyo facility inspection 01.jpg（元＝法務省 キッズルーム・いまの頁は幅800に縮んだ別の点） | 4896x3672 | PDL1.0 | 法務省の写真の写し＝元の頁に権利表記なし＝PDL1.0 の読み（Commons の札は CC BY 4.0） | 出典：法務省 キッズルーム（公安調査庁の写真）／Wikimedia Commons・加工して作成 | 2018-04-12（EXIF） | 公的な任務の顔＝可 | src/eizou/INS1.jpg | cc08 | — |
+| INS2 | public-photo | ins | 立入検査＝「公安調査庁」の背中の職員たち（Commons の日時 2018-07） | commons:PSIA Aum Shinrikyo facility inspection 02.jpg（元＝法務省 キッズルーム） | 1460x1041 | PDL1.0 | 同上 | 出典：法務省 キッズルーム（公安調査庁の写真）／Wikimedia Commons・加工して作成 | 2018-07-06（EXIF） | なし（背中） | src/eizou/INS2.jpg | ca14 | 幅1460＝全面は柔らかい＝⑤b で見る |
 | M6 | commons-video | mod | 『平成6年防衛庁記録』の章「地下鉄サリン事件」17:23〜18:24＝築地駅の札→トラック→出入口→霞ケ関駅の札→車内→タンク→足元→防護マスクの寄り→ホーム→通路→エスカレーター（🌙 18:24〜 は夜＝使わない） | Commons の変換版 1080p（全体 561.7MB＝ffmpeg で要る区間だけ） | 4:3 を 3840x2160 に収めた器・上下を切って全面 | CC BY 3.0 | 防衛省 YouTube の表示 CC BY＋Commons の札 | 出典：防衛省・自衛隊『平成6年防衛庁記録』（CC BY 3.0）・改変：切出 | 1995-03-20 | 防護マスク。⚠️ 17:36 の駅の札のコマの上の端に通行人（上下を切ると外れる＝⑤b-1 で確かめる） | src/footage/M6.webm | c101 c102 c107 c720 c731 cb14 | 音は使わない・焼き込みの字幕「平成7年3月20日 都内地下鉄でサリン事件発生」17:28〜17:35 あり。手元の M6.webm は 71.4秒＝🔴 手元の秒＝映像の秒−1034.6（t=21.4 が 17:36 の霞ケ関駅の札＝絵で確かめた）。実効の幅 1420×1076（x=248・cropdetect）＝【映像あり】の幅1280 は満たす・柔らかさは ⑤b-1 で見る |
 | SAT:松本 | google | map | 長野県松本市の引き＝住宅が特定できない高さ・第一通報者の家を示さない | ⑤b-1 に画面ありの Chrome で撮る | 額 1152x648 | Google | Geo Guidelines（教育・ドキュメンタリー可）＝帰属を絵の近くに出し続ける・色を変えない | 地図データ ©Google・画像 ©提供元 | 現在 | なし | — | c105 | 撮った PNG は公開リポに置かない |
 | SAT:東京都心 | google | map | 霞が関を含む引き＋3路線の線＝札は路線名と霞ケ関だけ | ⑤b-1 | 額 1152x648 | Google | 同上 | 地図データ ©Google・画像 ©提供元 | 現在 | なし | — | c201 | — |
@@ -452,14 +452,14 @@ tags: [project/jiko-kensho, ep30]
 | KS1 | commons-photo | place | 警視庁の本部を道路から（青空） | commons:警視庁 - panoramio.jpg | 5184x3456 | CC BY 3.0 | Commons の札（panoramio） | 写真：{作者}／Wikimedia Commons（CC BY 3.0） | 2012-10-20 | なし | src/eizou/KS1.jpg | c509 c714 c715 c716 c902 | 500px で見た＝⑤b で原寸 |
 | KS2 | commons-photo | place | お堀の向こうの警視庁と霞が関のビル（曇り） | commons:Keishicho - mpd headquarters - October 2014.jpg | 2592x1936 | CC BY 3.0 | 同上 | 写真：{作者}／Wikimedia Commons（CC BY 3.0） | 2014-10-13 | なし | src/eizou/KS2.jpg | c108 c518 c519 cc07 cc10 | — |
 | KG1 | commons-photo | place | 霞が関の広い通りと官庁のビル | commons:Kasumigaseki1chome Tokyo01bs3600.jpg | 3600x2400 | CC BY 2.5 | 同上 | 写真：{作者}／Wikimedia Commons（CC BY 2.5） | 2007-06-02 | なし | src/eizou/KG1.jpg | c313 c510 c617 ca02 cb02 cb03 cb04 cb11 cb13 cb15 cc05 cc15 | 地に使う＝⚠️ ss.GROUND_LIC に CC BY 2.5 を足す（⑤b-1） |
-| KG2 | commons-photo | place | 霞が関の通りの両側の庁舎（青空） | commons:Kasumigaseki 1 and 2 chome, Chiyoda.jpg | 2304x1728 | PD | Commons の札 PD＝⑤b で根拠を読む | 写真：{作者}／Wikimedia Commons（PD） | 2010-12-11 | なし | src/eizou/KG2.jpg | ca06 ca13 ca15 cb06 cb07 cb08 cb12 | 地に使う |
+| KG2 | commons-photo | place | 霞が関の通りの両側の庁舎（青空） | commons:Kasumigaseki 1 and 2 chome, Chiyoda.jpg | 2304x1728 | PD | Commons の札 {{PD-self}}＝撮影者自身が PD にした（⑤b-1 に読んだ） | 写真：{作者}／Wikimedia Commons（パブリックドメイン） | 2010-12-11 | なし | src/eizou/KG2.jpg | ca06 ca13 ca15 cb06 cb07 cb08 cb12 | 地に使う |
 | DIET | commons-photo | place | 国会議事堂の正面（曇り） | commons:日本・国会議事堂.jpg | 2304x1536 | CC BY 4.0 | 同上 | 写真：{作者}／Wikimedia Commons（CC BY 4.0） | 2023-03-23 | なし | src/eizou/DIET.jpg | c412 c413 c414 ca03 ca04 cb09 cb10 | 地に使う（国会の答弁と批判のカード） |
 | SC | commons-photo | place | 最高裁判所の石の壁と松 | commons:Supreme court - panoramio.jpg | 3648x2736 | CC BY 3.0 | 同上 | 写真：{作者}／Wikimedia Commons（CC BY 3.0） | 2010-07-24 | なし | src/eizou/SC.jpg | c210 c616 ca07 ca08 ca10 ca16 | — |
 | SLH | commons-photo | place | 聖路加国際病院の旧館の塔と本館（枝の手前） | commons:20080312-StLukesInternationalHospital.jpg | 2176x2104 | CC BY 3.0 | 同上 | 写真：{作者}／Wikimedia Commons（CC BY 3.0） | 2008-03-12 | なし | src/eizou/SLH.jpg | c737 c802 c811 c825 c903 cb17 | ほぼ正方形＝全面は上下を切る＝⑤b で何が残るか |
 | TSE | commons-photo | place | 築地駅の出入口と札（雨・傘の人の背中） | commons:Tsukiji station - exit - rainy day - nov 2014.jpg | 2592x1936 | CC BY 3.0 | 同上 | 写真：{作者}／Wikimedia Commons（CC BY 3.0） | 2014-11-29 | なし（背中） | src/eizou/TSE.jpg | c724 c725 | 地に使う |
 | HB | commons-photo | place | 八丁堀駅の出入口と札（縦・人の背中） | commons:TokyoMetro-hatchobori-A1-entrance.jpg | 2112x2816 | CC BY 2.5 | 同上 | 写真：{作者}／Wikimedia Commons（CC BY 2.5） | 撮影日は頁で確かめる | なし（背中） | src/eizou/HB.jpg | c727 | 地に使う・ナンバーは ⑤b で原寸 |
 | KOD | commons-photo | place | 小伝馬町駅のホーム（人なし） | commons:Kodemmacho-STA Platform1.jpg | 5438x3625 | CC0 | 同上 | 写真：{作者}／Wikimedia Commons（CC0） | 2024-04-23 | なし | src/eizou/KOD.jpg | c711 c712 c718 | 地に使う |
-| KAS | commons-photo | place | 霞ケ関駅のホーム（日比谷線・人は小さい） | commons:TokyoMetro-kasumigaseki-platform-hibiya-line.jpg | 2816x2112 | CC BY 2.5 | 同上 | 写真：{作者}／Wikimedia Commons（CC BY 2.5） | 2000年代 | 小さい人＝⑤b で原寸 | src/eizou/KAS.jpg | c202 c206 c207 c704 | 地に使う |
+| KAS | commons-photo | place | 霞ケ関駅のホーム（日比谷線・人は小さい） | commons:TokyoMetro-kasumigaseki-platform-hibiya-line.jpg | 2816x2112 | CC BY 2.5 | 同上 | 写真：{作者}／Wikimedia Commons（CC BY 2.5） | 2006-12-20 | 小さい人＝⑤b で原寸 | src/eizou/KAS.jpg | c202 c206 c207 c704 | 地に使う |
 | MT | commons-photo | place | 松本の街と北アルプス（秋・手前に家並み） | commons:Matsumoto Castle - Matsumoto6549.jpg | 4967x3541 | CC0 | 同上 | 写真：{作者}／Wikimedia Commons（CC0） | 2025-11-03 | なし（家は引き） | src/eizou/MT.jpg | c402 c415 c416 c417 c901 | 🔴 題名は「城」だが絵は街と山＝副題は絵のとおり |
 | TKS | commons-photo | place | 東京地方裁判所などが入る合同庁舎（青空） | commons:Tokyokotosaibansho.jpg | 2307x1731 | CC BY-SA 3.0 | Commons の札＝額装・無加工・1点1カット（§5b-52） | 写真：{作者}／Wikimedia Commons（CC BY-SA 3.0） | 2005-12 | なし | src/eizou/TKS.jpg | ca11 | — |
 | GA1 | stock | stock | イメージ：朝の街の遠景 | ⑤b で Pexels | — | Pexels | 頁を credits に | イメージ（Pexels） | 現在 | なし | — | c305 c306 c307 c308 c315 c316 c511 | 地 |
@@ -467,13 +467,13 @@ tags: [project/jiko-kensho, ep30]
 | GF1 | stock | stock | イメージ：初夏の富士山のふもとの朝 | ⑤b で Pexels | — | Pexels | 頁を credits に | イメージ（Pexels） | 現在 | なし | — | c312 c504 | 地 |
 | GK1 | stock | stock | イメージ：山林の遠景 | ⑤b で Pexels | — | Pexels | 頁を credits に | イメージ（Pexels） | 現在 | なし | — | c310 | 地 |
 | GPC | stock | stock | イメージ：夜の机の上のノートパソコン（画面の字なし） | ⑤b で Pexels | — | Pexels | 頁を credits に | イメージ（Pexels） | 現在 | なし | — | cc11 cc12 cc13 cc14 | 地 |
-| W5 | public-page | paper | 警察白書 平成8年 第5節「反省教訓」の見出しの段 | ⑤b（警察庁の頁） | — | PDL1.0 | 警察庁の頁（⑤b で規約を読む） | 出典：警察白書 平成8年 | 1996 | なし | — | cb01 | — |
-| JC | public-page | paper | 判決 判C「したがって」で始まる「強制捜査を一時しのぎ的に回避すること」の1文だけ | ⑤b（裁判所の頁の PDF） | — | 公的 | 裁判所の判決＝著作権の対象外（著作権法13条の読み） | 出典：裁判所 判決（判C） | — | なし | — | c212 | 🔴 前の文の弁護側の主張と線の行を画面に入れない＝親が絵を見て切る |
-| FD1 | public-page | paper | 消防庁の検討会の資料「消防職員135人も負傷した」の1文だけ | ⑤b（消防庁の PDF） | — | 公的 | 消防庁の頁（⑤b で規約を読む） | 出典：消防庁 資料 | — | なし | — | c820 | — |
-| PA1 | public-page | paper | 公安調査庁 アーカイブ「時系列で見る」2018年の欄（執行された人の名前の行を入れない） | ⑤b（内蔵ブラウザで撮る） | — | PDL1.0 | 公安調査庁のコピーライトポリシー | 出典：公安調査庁 オウム真理教問題デジタルアーカイブ | — | なし | — | c211 | — |
-| PA2 | public-page | paper | 公安調査庁 特集ページ「賠償逃れを企図」の段（名前の行と家族の行を入れない） | ⑤b（内蔵ブラウザで撮る） | — | PDL1.0 | 同上 | 出典：公安調査庁 オウム真理教特集ページ | 2026-11 | なし | — | cc06 | 公開の直前に当て直す |
-| PA3 | public-page | paper | 公安調査庁「観察処分の期間の更新請求（9回目）について」2026-11-02 の頁（アレフ以外の団体名の行を入れない） | ⑤b（内蔵ブラウザで撮る） | — | PDL1.0 | 同上 | 出典：公安調査庁 2026年11月2日 | 2026-11-02 | なし | — | cc09 | 公開の直前に当て直す |
-| PA4 | public-page | paper | 公安調査庁「オウム真理教問題デジタルアーカイブ」の入口の頁 | ⑤b（内蔵ブラウザで撮る） | — | PDL1.0 | 同上 | 出典：公安調査庁 | — | なし | — | cc18 | — |
+| W5 | public-page | paper | 警察白書 平成8年 第5節「反省教訓」の見出しの段 | web:www.npa.go.jp/hakusyo/h08/h080105.html | — | PDL1.0 | PDL1.0（警察庁の利用規約 npa.go.jp/rules/ を 2026-11-05 に読んだ）＝出典と URL と編集の断り | 出典：警察白書 平成8年 npa.go.jp/hakusyo/h08/h080105.html | 1996 | なし | — | cb01 | — |
+| JC | public-pdf | paper | 判決 判C「したがって」で始まる「強制捜査を一時しのぎ的に回避すること」の1文だけ | pdf:www.courts.go.jp/assets/hanrei/hanrei-pdf-5817.pdf | — | 著作権の対象外 | 裁判所の判決＝著作権の対象外（著作権法13条の読み） | 出典：東京地裁 平成14年6月26日判決（裁判所ウェブサイト） | 2002-06-26 | なし | — | c212 | 🔴 前の文の弁護側の主張と線の行を画面に入れない＝親が絵を見て切った（ep30_assets.PDF_CROP） |
+| FD1 | public-pdf | paper | 消防庁の検討会の資料「消防職員135人も負傷した」の1文だけ | pdf:www.fdma.go.jp/singi_kento/kento/items/kento088_74_shiryo4.pdf | — | PDL1.0 | PDL1.0（消防庁のリンク・著作権等について fdma.go.jp/about/others/post3.html を 2026-11-05 に読んだ）＝出典と URL と編集の断り | 出典：消防庁 検討会の資料 fdma.go.jp/singi_kento/kento/items/kento088_74_shiryo4.pdf | — | なし | — | c820 | 🔴 次の文は切り口の外 |
+| PA1 | public-page | paper | 公安調査庁 アーカイブ「時系列で見る」2018年の欄（2018.1.25〜2018.7.26 の3行）＝🔴 注の行（執行された人の名前）と本名は隠した | web:www.moj.go.jp/psia/aumarchive/timeline/ | — | PDL1.0 | PDL1.0（公安調査庁のコピーライトポリシー moj.go.jp/psia/copyright-policy）＝出典と編集の断り | 出典：公安調査庁 アーカイブ年表 moj.go.jp/psia/aumarchive/timeline/ | — | なし | — | c211 | 🔴 ここだけ「／改変：切出・名前を隠した」（screen_credit の HIDDEN） |
+| PA2 | public-page | paper | 公安調査庁 特集ページ「賠償逃れを企図」の見出しと段＝🔴 なお書きの文（家族の行）は隠した | web:www.moj.go.jp/psia/aum.top/index.html | — | PDL1.0 | 同上 | 出典：公安調査庁 オウム真理教特集ページ moj.go.jp/psia/aum.top/index.html | 2026-11 | なし | — | cc06 | 公開の直前に当て直す。🔴「／改変：切出・文を隠した」（screen_credit の HIDDEN） |
+| PA3 | public-page | paper | 公安調査庁「観察処分の期間の更新請求（9回目）について」2026-11-02 の頁の題と日付と第1段（アレフ以外の団体名は切り口に無い） | web:www.moj.go.jp/psia/aum-202611kansatsushobun.html | — | PDL1.0 | 同上 | 出典：公安調査庁 2026年11月2日 moj.go.jp/psia/aum-202611kansatsushobun.html | 2026-11-02 | なし | — | cc09 | 公開の直前に当て直す |
+| PA4 | public-page | paper | 公安調査庁「オウム真理教問題デジタルアーカイブ」の入口の頁の「当サイトについて」＝🔴 入口の絵の語の壁は線の数字が入る＝写さない | web:www.moj.go.jp/psia/aumarchive/ | — | PDL1.0 | 同上 | 出典：公安調査庁 オウム真理教問題デジタルアーカイブ moj.go.jp/psia/aumarchive/ | — | なし | — | cc18 | — |
 | X204 | stock | stock | イメージ：朝の地下鉄のホームと電車 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c204 | — |
 | X304 | stock | stock | イメージ：1980年代らしい団地の外観の遠景 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c304 | — |
 | X317 | stock | stock | イメージ：夜の住宅地の遠景 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c317 | — |
@@ -600,6 +600,15 @@ tags: [project/jiko-kensho, ep30]
   c102 1042.52〜1051.18／c101 1051.26〜1060.79（頭に焼き込みの字幕）／cb14 1060.39〜1069.02／c107 1069.02〜1076.42（防護マスクで終わる）／c720 1076.50〜1089.38／c731 1091.62〜1103.30（防護服の場面＝語りの「防毒マスク」）。
   2区間のつなぎは要らなくなった（`footage` はつなぎに対応していない）。c101 と cb14 は約0.4秒重なる（離れた章）。Commons の本物と手元の M6.webm の切れ目は 0.04秒以内で一致（2か所で測った）
 - 🟡 **除染の映像（公安調査庁 4:17）と無線の音はまた 403**（11-05 同じ取り方・映像は 18% で・音はすぐ）＝`--test` は先頭だけなので通っても取れない。取り方は替えない＝カズヤくんの保存待ち。音と映像が無くても一覧はこのまま成り立つ
+
+### 5-7c. ⑤b-2 で決めたこと（2026-11-05・束と冒頭）
+- 🔴 **防衛省の記録の6カットは元の編集のまま場面をまたぐ**＝`footage.USE` の `edit=True`（尻も実測の表の中＝夜の場面へ出ない・フリー素材には効かない）。窓は真ん中・c107 だけ上へ（防護マスクの顔）
+- **M6 の原寸で見る3点**＝①タンクの手書きの数字（1059.5〜1062.7）＝単位なしの備品の番号の見た目＝この回の線（§B2-12）の話には読めない＝残す ②1049.8 の「右下の乗用車」は自衛隊の車のボンネット＝ナンバーなし ③1069.5 の左下の黒い機材＝字なし＝残す
+- **人とナンバー**＝升目2点（KS1 ナンバー・HB 顔）・切り落とし1点（P62 の上＝写真を構える人と見物の人）。BY-SA の TKS は人もナンバーも無い。⚠️ P5 のバイクの札は読める＝上の段が読めず地名が無い＝引用は加工しない＝そのまま（⑤c で額の大きさで見る）。⚠️ P39 の右下の小さい札の字は途中で切れている＝人の名か読めない＝⑤c で見る
+- 🔴 **紙面の切り口**（親が絵を見た）＝PA1 は年表の3行＋🔴 注の行（執行された人の名前）と本名を隠した／PA2 は🔴 なお書きの文（教祖の家族）を隠した／PA4 は🔴 入口の絵の語の壁を写さない（線の数字が入る）＝「当サイトについて」の段に／JC は1文だけ（前の文を白で消す）／FD1 は1文だけ（次の文を白で消す）
+- 🔴 **内蔵ブラウザの中で紙面を2倍に描いた**（`moj.go.jp` は画面なしの Chrome も 403＝取り方は替えない・内蔵ブラウザの画面写しは 800px まで）＝頁の要素を計算済みの字の形ごと写して SVG の foreignObject → canvas → PNG。隠すのはここで
+- **PANEL_AR 1.18**＝SLH（1.034）は kind() では額装＝一覧の「全面」と食い違う＝⑤b-7 で何が残るかを見て決める
+- 出典の行＝国の写真は「加工して作成」が編集の記載＝地でも「／改変：」を重ねない（`ground_credit`）
 
 ### 5-8. 語りと絵の時刻（語りが朝で絵が除染）
 - 陸自の写真は午後と夜の除染（要請は 12:50 と 17:00）。第6章の朝の語りには全面の陸自を c702・c717 だけ置き、副題「〈当日〉」で断る。地は第6章の中で語りの場所が撮れている所を実写へ替えた（c704・c711・c712・c714〜c716・c718・c724・c725・c727）

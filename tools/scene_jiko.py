@@ -953,6 +953,10 @@ def ep30_credit(name):
     """`ref/ep30/` の名前から出典表記を作る。当てはまらなければ None。"""
     if not name.startswith("ep30/"):
         return None
+    if name.startswith("ep30/photo/gmap_"):
+        # 衛星写真（地図のカット）＝出典の行は表 `cuts/ss.SAT` の credit（25〜27本目の枝と同じ）。帰属の行そのものは地図の右下
+        import cuts.ss as _ss
+        return next((v["credit"] for v in getattr(_ss, "SAT", {}).values() if v["file"] == name), None)
     # 映像のひかえの静止画＝出典は映像と同じ（19本目 ⑤b-2 の型）
     m = re.fullmatch(r"ep30/(?:stock/|police/)?fb_(c[0-9a-c][0-9]{2}(?:~t)?)\.jpg", name)
     if m:
@@ -1771,6 +1775,9 @@ def ground_credit(cid, spec):
     body = re.sub(r"^(写真|出典)：", "", cr)
     # 🆕 28本目 ⑤b-4：束で切らなかった CC BY の写真（CM115＝「／改変なし」）も、地は 4:3 を画面いっぱいに切る＝切出と明るさの2つ
     body = body.replace("／改変なし", "／改変：切出")
+    # 🆕 30本目 ⑤b-2：国の写真（PDL1.0）＝出典の行の「加工して作成」が編集の記載そのもの（切り出しも明るさも含む）＝「／改変：」を重ねない（字幅も 56.5 に収まる）
+    if "PDL1.0" in body and "加工して作成" in body:
+        return "地の写真：" + body
     if "（CC0）" not in body and "（パブリックドメイン）" not in body:
         if "／改変：" not in body:
             raise ValueError(f"{cid}: 地の写真 {spec.get('photo')} の出典に改変の欄が無い（CC BY は改変の旨が要る）＝{cr}")

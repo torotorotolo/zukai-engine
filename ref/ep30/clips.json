@@ -1,0 +1,30 @@
+{
+ "M6": {
+  "url": "https://commons.wikimedia.org/wiki/File:%E5%B9%B3%E6%88%90%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm",
+  "media": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9d/%E5%B9%B3%E6%88%90%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm/%E5%B9%B3%E6%88%90%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm.1080p.vp9.webm",
+  "credit": "出典：防衛省・自衛隊『平成6年防衛庁記録』（CC BY 3.0）・改変：切出",
+  "src": "mod",
+  "at": 0.0,
+  "date": "1995-03-20",
+  "stock": false,
+  "what": "平成6年防衛庁記録（章「地下鉄サリン事件」の昼の区間 17:23〜18:23）",
+  "got": "2026-11-05",
+  "w": 1920,
+  "h": 1080,
+  "fps": 29.97,
+  "sar": "1:1",
+  "sec": 1254.286,
+  "size": 561682293,
+  "dispw": 1920,
+  "decoded": [
+   1920,
+   1080
+  ],
+  "license": "CC BY 3.0",
+  "rights": "CC BY 3.0（防衛省・自衛隊の YouTube 公式・Commons の同じ版）",
+  "scan": "ref/ep30/src/footage/M6.webm",
+  "md5_scan": "ef9495a9d65ff4704fe8e97234a32b3b",
+  "local_off": 1034.6,
+  "note": "音は使わない。手元の写しの秒＝素材の秒−local_off（⑤b-1 に Commons の本物と 0.04秒以内で一致を2か所で確かめた）"
+ }
+}
