@@ -6,9 +6,9 @@
 
 29本目の `ref/ep29/script_copy.py` を写した（28本目・27本目・26本目・25本目・24本目・17本目・23本目…13本目の `qa_out/ep13_script_copy.py` が元）。
 変えたのは3点:
-  ① 台本の md ＝ `ref/ep30/daihon_v2.md`（第2版・11-05 承認①＝`860195c4`・映像方針 `d04c51fc` は台本を変えていない＝
-     md5 ed70f962…〈LF〉）
-  ② 期待値（237カット／539行／14,945字／決め所0・聞き役71＝⑤a-1 で check_script と final30 を自分で回した値。字は印を除く）
+  ① 台本の md ＝ `ref/ep30/daihon_v2.md`（第2版・11-05 承認①＝`860195c4`・映像方針 `d04c51fc` は台本を変えていない。
+     ⑤a-2 で c104 の1文を新しいカット c108 へ移した＝`v2_build/patches_r.json` の Q-090〜Q-097・カズヤくん 11-05 案1）
+  ② 期待値（238カット／540行／14,945字／決め所0・聞き役71＝⑤a-2 で check_script と final30 を自分で回した値。字は印を除く）
   ③ 🔴 事件の回（ルール §B2-11・§B2-12）＝語りに出すのは教祖だけ・ほかは立場だけ＝置き場の読み替え（22本目の MD_SUBS）は要らない
      ＝語りの行に〈…〉があれば止める
 以下は17本目の注のまま:
@@ -35,7 +35,7 @@ import speaker  # noqa: E402
 
 MD = ROOT / "ref" / "ep30" / "daihon_v2.md"
 NARR = ROOT / "tools" / "narration.py"
-WANT = {"cuts": 237, "lines": 539, "chars": 14945, "quotes": 0, "q_lines": 71}
+WANT = {"cuts": 238, "lines": 540, "chars": 14945, "quotes": 0, "q_lines": 71}
 TAIL = ("ed01",)            # el_script.COMMON_TAIL と同じ（el_script は narration を import するのでここでは読まない）
 TAIL_MARK = "    # ── 共通エンディング"
 
