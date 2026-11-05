@@ -363,7 +363,7 @@ tags: [project/jiko-kensho, ep30]
 | cb17 | 33:21.8（11.3） | あとから、備えができていったんだね。そう | 場所 | SLH | — | 全面 | 聖路加国際病院〈東京・2008年〉 | 右へ流す | 🔧 #62 → 聖路加国際病院（語りは松本から病院へ届いた話） | c737 と2回目＝同じ副題 |
 | cb18 | 33:33.2（9.6） | 院長は、第一報の「爆発火災」から、最初の | 札 | — | X803 | — | 院長の手記の言葉の札＝「先入観をもたないこと」・立場だけ | — | — | — |
 | cb19 | 33:42.7（10.5） | 現場の人たちは、分からないまま動いていた | 陸自 | P74 | — | 全面 | 除染を行う〈当日・提供：陸上自衛隊〉 | ゆっくり寄る | — | — |
-| cb20 | 33:53.2（6.2） | では、この事件は、もう終わったのか。最後 | イメージ | Xb20 | — | 全面 | イメージ：現在の地下鉄のホームと走る電車 | 映像 0.05〜6.23秒 | 🔧 走っている頭だけ（車内の人がぶれて顔が分からない秒）・柵の張り紙の駅名は寄せて窓の外（STOCK_GEOM） | — |
+| cb20 | 33:53.2（6.2） | では、この事件は、もう終わったのか。最後 | イメージ | Xb20 | — | 全面 | イメージ：現在の地下鉄の走る電車の上半分 | 映像 0.05〜6.23秒 | 🔧 寄せて柵の張り紙の駅名と車内の人を窓の外へ（STOCK_GEOM・幅2560の版） | — |
 
 ### 第11章　事件は終わったのか（19カット）
 
@@ -494,7 +494,7 @@ tags: [project/jiko-kensho, ep30]
 | X816 | stock | stock | イメージ：町の小さな建物の入口 | stock:https://images.pexels.com/photos/19701869/pexels-photo-19701869.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/facade-of-a-traditional-japanese-house-19701869/（同上） | イメージ（Pexels） | イメージ | なし | src/stock/X816.jpg | c816 | — |
 | X826 | stock | stock | イメージ：古い固定電話の寄り | stock:https://images.pexels.com/photos/3339216/pexels-photo-3339216.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x1617 | Pexels | https://www.pexels.com/photo/beige-and-black-corded-home-phone-3339216/（同上） | イメージ（Pexels） | イメージ | なし | src/stock/X826.jpg | c826 | 🔴 本体の社名の札は窓の外へ |
 | X905 | stock | stock | イメージ：点滴台と空のベッド | stock:https://images.pexels.com/photos/12081340/pexels-photo-12081340.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1410 | Pexels | https://www.pexels.com/photo/empty-bed-in-hospital-12081340/（同上） | イメージ（Pexels） | イメージ | なし | src/stock/X905.jpg | c905 c906 | 地 |
-| Xb20 | stock | stock | イメージ：現在の地下鉄のホームと走る電車 | stock:https://videos.pexels.com/video-files/34777715/14743907_1920_1080_30fps.mp4 | 1920x1080 | Pexels | https://www.pexels.com/video/high-speed-train-in-tokyo-station-34777715/（同上） | イメージ（Pexels） | イメージ | ⑤b で見る | src/eizou/Xb20.mp4 | cb20 | — |
+| Xb20 | stock | stock | イメージ：現在の地下鉄のホームと走る電車 | stock:https://videos.pexels.com/video-files/34777715/14743908_2560_1440_30fps.mp4 | 2560x1440 | Pexels | https://www.pexels.com/video/high-speed-train-in-tokyo-station-34777715/（同上） | イメージ（Pexels） | イメージ | ⑤b で見る | src/eizou/Xb20.mp4 | cb20 | — |
 | Xc02 | stock | stock | イメージ：電車の窓から見た木と街 | stock:https://images.pexels.com/photos/16922545/pexels-photo-16922545.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/trees-and-utility-poles-behind-train-windows-16922545/（同上） | イメージ（Pexels） | イメージ | なし | src/stock/Xc02.jpg | cc02 cc03 | 地 |
 | Xc04 | stock | stock | イメージ：人のいない駅の階段 | stock:https://images.pexels.com/photos/27806687/pexels-photo-27806687.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/a-subway-station-with-stairs-and-a-metal-railing-27806687/（同上） | イメージ（Pexels） | イメージ | なし | src/stock/Xc04.jpg | cc04 | — |
 | Xc17 | stock | stock | イメージ：駅の広間の人の流れ（長時間露光でぶれて顔は分からない） | stock:https://videos.pexels.com/video-files/26575728/11962862_1920_1080_30fps.mp4 | 1920x1080 | Pexels | https://www.pexels.com/video/a-blurry-photo-of-people-walking-through-a-train-station-26575728/（同上） | イメージ（Pexels） | イメージ | ぶれて顔は分からない | src/eizou/Xc17.mp4 | cc17 | 🔧 5848336 は尻の6秒で顔が写る |
@@ -615,7 +615,7 @@ tags: [project/jiko-kensho, ep30]
 - ✅ **衛星写真の額の地＝方眼のまま**（11-05 カズヤくん「方眼のまま」）＝`ss.sat` の既定のまま・`satmap` に地のぼかしを足さない・動画と写真の額はぼかしのまま（Google の原文＝見た目を大きく変えない）
 - **Pexels 36本**（写真26＋映像5＋地だけ5）＝検索の頁の JSON の license＝Pexels・AI の語のタグ 0。⚠️ 2025〜2026年の頁の絵は AI で作ったかどうかの証拠が無い＝絵で崩れは見えない（推測で「違う」と言い切らない）
 - 🔧 **替えた絵**（一覧の字面から）＝c520 空と電柱（東京の路上の絵は店の名前が読める）・c713 昼の赤色灯（路面に映る赤の絵が無い＝灯そのもの）・c806 救急車の中の寄り（外観は外国の字とナンバー）・c809 無影灯（機器の画面の字を避けた）・c813 木の長椅子（窓は窓の外）・c816 小さな建物の入口（医院と読める札の絵が無い＝外国の札か店）
-- 🔧 **取って見て外した映像**＝X204 の第1候補（ホームの柵に別の街の駅名が読める・車内の人の顔）・Xc17 の第1候補（尻の秒で顔が写る）。cb20 は走っている頭だけ（車内の人がぶれる秒）・🔴 柵の張り紙の駅名と時刻は焼いた絵の原寸で読めた＝寄せて外した。🔴 cc17 は頭の 11 秒に立ち止まった親子と人の背中がくっきり写る＝焼いた絵で気づいて後ろの秒へ（0.74倍速）
+- 🔧 **取って見て外した映像**＝X204 の第1候補（ホームの柵に別の街の駅名が読める・車内の人の顔）・Xc17 の第1候補（尻の秒で顔が写る）。🔴 cb20 は柵の張り紙の駅名と時刻が焼いた絵の原寸で読めた・車内の人も残った＝幅2560の版で 1.7倍に寄せて電車の上半分だけ（車内は字幕の帯の裏）。🔴 cc17 は頭の 11 秒に立ち止まった親子と人の背中がくっきり写る＝焼いた絵で気づいて後ろの秒へ（0.74倍速）
 - 🔴 **窓の外へ出した字**（`ss.mvz`）＝c411 新聞の題字・c708 駅名の札と広告・c713 車体の字・c803 札・c809 灯の社名・c826 電話の社名。地だけの GA2 は左下に撮影者の字（真ん中で切れば出ない＝⑤b-4 で地を書くときに見る）
 - **地図の線**＝路線と県の境は国土数値情報（鉄道 N02-24・行政区域 N03-2025・オープンデータ CC BY 4.0＋サイトの規約 PDL1.0）＝`helpers/lines30.py`。🔴 路線は線だけ＝区間の細部も駅の点も足さない（札は路線名と霞ケ関だけ）。札の場所＝国土地理院の住所検索・国土数値情報の駅の線の真ん中（一般の座標＝note に断り）
 

@@ -107,7 +107,7 @@
  },
  "Xb20": {
   "url": "https://www.pexels.com/video/high-speed-train-in-tokyo-station-34777715/",
-  "media": "https://videos.pexels.com/video-files/34777715/14743907_1920_1080_30fps.mp4",
+  "media": "https://videos.pexels.com/video-files/34777715/14743908_2560_1440_30fps.mp4",
   "stock": true,
   "file": "ep30/src/eizou/Xb20.mp4",
   "credit": "イメージ（Pexels）",
@@ -115,17 +115,17 @@
   "at": 0.0,
   "what": "イメージ：現在の地下鉄のホームと走る電車",
   "got": "2026-11-05",
-  "w": 1920,
-  "h": 1080,
+  "w": 2560,
+  "h": 1440,
   "fps": 29.97,
   "sar": "1:1",
   "sec": 21.588,
-  "size": 19354146,
-  "md5": "ca1f289c44b2e64bb96c3b3b4e776aea",
-  "dispw": 1920,
+  "size": 32558543,
+  "md5": "3c8e4712e4e3cc88862928805297b8bf",
+  "dispw": 2560,
   "decoded": [
-   1920,
-   1080
+   2560,
+   1440
   ],
   "license": "Pexels License",
   "license_url": "https://www.pexels.com/license/",
