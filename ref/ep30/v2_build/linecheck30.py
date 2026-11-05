@@ -30,7 +30,10 @@ def main(files):
             for k, w in enumerate(words):
                 if w and w in ln:
                     hits += 1
-                    print('%s:%d に線の語 #%d（行の頭 %s）' % (os.path.basename(f), i, k + 1, ln[:14].replace('`', '')))
+                    head = ln[:14].replace('`', '')
+                    if any(x in head for x in words):     # 出力は gates.md としてリポへ入る＝行の頭に線の語があれば伏せる
+                        head = '伏せた'
+                    print('%s:%d に線の語 #%d（行の頭 %s）' % (os.path.basename(f), i, k + 1, head))
     print('線の語の網 %d語 × %dファイル → %d件' % (len(words), len(files), hits))
     return 1 if hits else 0
 
