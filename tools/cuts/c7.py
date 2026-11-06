@@ -162,16 +162,18 @@ SPEC.update({
 # 🆕 ⑤b-4（2026-11-05）：札の型＝表 `mech30.FU`・門番 check_mech の judge_m30
 from mech30 import fu_spec  # noqa: E402
 
+# 🔧 ⑤c'（2026-11-06）：朝の語りの地に陸自の隊員を見せない（decisions30 §5-8 の続き）＝c701 c736 → KAS・c721 c732 c733 → KS1（無線）・
+#    c722 → KS2（警部補の手記）・c719 → DIET（国会議事堂前）
 SPEC.update({
-    "c701": fu_spec("c701", ss.gr("p66")),
+    "c701": fu_spec("c701", ss.gr("kas")),
     "c709": fu_spec("c709", ss.gr("stock/x708")),
     "c711": fu_spec("c711", ss.gr("kod")),
     "c712": fu_spec("c712", ss.gr("kod")),
-    "c722": fu_spec("c722", ss.gr("p66")),
+    "c722": fu_spec("c722", ss.gr("ks2")),
     "c724": fu_spec("c724", ss.gr("tse")),
     "c725": fu_spec("c725", ss.gr("tse")),
     "c727": fu_spec("c727", ss.gr("hb")),
-    "c732": fu_spec("c732", ss.gr("p68")),
+    "c732": fu_spec("c732", ss.gr("ks1")),
     "c735": fu_spec("c735", ss.gr("p78")),
 })
 
@@ -183,9 +185,9 @@ SPEC.update({
     "c715": zu_spec("c715", ss.gr("ks1")),
     "c716": zu_spec("c716", ss.gr("ks1")),
     "c718": zu_spec("c718", ss.gr("kod")),
-    "c721": zu_spec("c721", ss.gr("p66")),
+    "c721": zu_spec("c721", ss.gr("ks1")),
     "c730": zu_spec("c730", ss.gr("p75")),
-    "c733": zu_spec("c733", ss.gr("p68")),
+    "c733": zu_spec("c733", ss.gr("ks1")),
     "c734": zu_spec("c734", ss.gr("p78")),
 })
 
@@ -195,9 +197,9 @@ SPEC.update({
     "c704": zu_spec("c704", ss.gr("kas")),
     "c706": zu_spec("c706", ss.gr("kas")),
     "c707": zu_spec("c707", ss.gr("stock/x705")),
-    "c719": zu_spec("c719", ss.gr("p76")),
+    "c719": zu_spec("c719", ss.gr("diet")),
     "c729": zu_spec("c729", ss.gr("p75")),
-    "c736": zu_spec("c736", ss.gr("p66")),
+    "c736": zu_spec("c736", ss.gr("kas")),
 })
 
 # 🆕 ⑤b-7（2026-11-06）：写真（c2.py の型）。🔴 第6章の朝の語りに全面の陸自は c702・c717 だけ＝副題「〈当日〉」で断る（decisions30 §5-8）

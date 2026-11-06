@@ -130,7 +130,7 @@ SPEC.update({
     "c810": fu_spec("c810", ss.gr("stock/x809")),
     "c811": fu_spec("c811", ss.gr("slh")),
     "c814": fu_spec("c814", ss.gr("stock/x812")),
-    "c815": fu_spec("c815", ss.gr("p78")),
+    "c815": fu_spec("c815", ss.gr("slh")),   # 🔧 ⑤c'：地 P78（陸自の手袋の手）→ 聖路加国際病院（院長の手記）
     "c818": fu_spec("c818", ss.gr("stock/x809")),
     "c823": fu_spec("c823", ss.gr("stock/x813")),
     "c824": fu_spec("c824", ss.gr("stock/x812")),

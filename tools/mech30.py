@@ -793,8 +793,10 @@ FU["cc05"] = _f(2, "遺族の手記", "代表の言葉", [
 ], src=S_S, mute=(1,))
 # 🔴 cc10 の時点は ⑥ の頭と公開の直前に当て直す（台本 §0-5）
 FU["cc10"] = _f(2, "いまの処分", "公安審査委員会の決定", [
-    _c(0, U, big="2026年11月4日", bcap=50, lines=("請求は出た", "決定はまだ"), cap=44, cell=(0, 0)),
-    _c(1, U, big="2026年9月4日", bcap=50, lines=("再発防止処分", "の決定"), cap=44, cell=(1, 0)),
+    # 🔧 ⑤c'（2026-11-06）：「時点」を足した（11月4日に請求が出たと読めた＝請求は11月2日・cc09）・手で切った行の頭の「の」をやめた。
+    #    数の字に「時点」を付けると12字（F1＝11字まで）・語りの「…の時点で」の写し（echo）＝頭の小さい字へ
+    _c(0, U, head="時点", big="2026年11月4日", bcap=50, lines=("請求は出た", "決定はまだ"), cap=44, cell=(0, 0)),
+    _c(1, U, big="2026年9月4日", bcap=50, lines=("再発防止処分が", "決定"), cap=44, cell=(1, 0)),
 ], src=S_U)
 FU["cc11"] = _f(3, "いまの勧誘", "公安調査庁の説明", [
     _c(1, U, head="主に30歳以下", lines=("名前を隠した", "サークル"), cap=46, cell=(0, 0)),
@@ -1222,7 +1224,8 @@ C611 = [dict(c, at=0, dim=True) for c in C610] + [
     _at(_c(1, U, head="提案した幹部", big="1995年4月", lines=("亡くなり", "裁判なし"), cap=44, bcap=58), 1650, 520),
 ]
 VIEWS["c611"] = _z(2, "教祖の答え", "提案のその後", C611, [
-    _p(0, _car), _p(0, lambda: _tail(C611[2], 300.0, 676.0, rc(SRC[U][1]))),
+    # 🔧 ⑤c'（2026-11-06）：尾の先が「教祖」の字の 3.2px 上に来た（geom_gap）＝尾を字の上の高さへ向ける
+    _p(0, _car), _p(0, lambda: _tail(C611[2], 300.0, 662.0, rc(SRC[U][1]))),
 ], src=S_U, note="模式", mute=(0,), schem=True)
 
 
@@ -1300,7 +1303,8 @@ VIEWS["c704"] = _z(3, "ホームの上で", "霞ケ関駅の朝", C704, [_p(0, _
 def _c706_board(blur=False):
     x0, y0, w, h = 1000.0, 300.0, 700.0, 500.0
     if blur:
-        g = F.rect(x0 + 6, y0 + 92, w - 12, h - 98, J.BG, None, None, rx=8, op=0.62)
+        # 🔧 ⑤c'（2026-11-06）：膜 0.62・にじみ ±9px・粒 0.2 では「光る丸い粒」に見え、1段目より明るく見えた（⑤c' r12）＝暗く・広くにじませる
+        g = F.rect(x0 + 6, y0 + 92, w - 12, h - 98, J.BG, None, None, rx=8, op=0.85)
     else:
         g = F.rect(x0, y0, w, h, J.BG2, INK, 6, rx=12, op=0.92) + _t(x0 + w / 2, y0 + 58, "時刻表", 44, INK, "middle", 400)
         g += F.line(x0 + 20, y0 + 86, x0 + w - 20, y0 + 86, J.TICK, 4)
@@ -1308,7 +1312,7 @@ def _c706_board(blur=False):
         y = y0 + 130 + r * 62
         for cx, cw in [(x0 + 40, 56.0)] + [(x0 + 150 + i * 104, 64.0) for i in range(5)]:
             if blur:
-                g += "".join(F.rect(cx + dx, y - 14 + dy, cw, 28, INK, None, None, rx=14, op=0.2) for dx, dy in ((-9, -4), (8, 5), (0, 0), (-4, 8), (6, -7)))
+                g += "".join(F.rect(cx + dx, y - 14 + dy, cw, 28, INK, None, None, rx=14, op=0.12) for dx, dy in ((-16, -7), (14, 9), (0, 0), (-7, 14), (11, -12)))
             else:
                 g += F.rect(cx, y - 12, cw, 24, INK, None, None, rx=12, op=0.85)
     return g
@@ -1358,8 +1362,9 @@ def _c719_glow():
 def _c719_station(ring=False):
     (x1, y1), (x2, y2) = KOK
     if ring:
+        # 🔧 ⑤c'（2026-11-06）：半径 112・164 の2つの丸は札「国会議事堂前」「ホームに3人」の字を通った（geom_gap 0px）＝字まで 106px の内の1つに
         mx, my = (x1 + x2) / 2, (y1 + y2) / 2
-        return F.circ(mx, my, 112, "none", J.AMBER, 6, op=0.75) + F.circ(mx, my, 164, "none", J.AMBER, 4, op=0.45)
+        return F.circ(mx, my, 88, "none", J.AMBER, 6, op=0.75)
     return F.line(x1, y1, x2, y2, J.BG, 46) + F.line(x1, y1, x2, y2, INK, 30)
 
 
@@ -1622,7 +1627,8 @@ def _cb11_zoom():
 
 EVB11 = ((1, YB11, "1994年6月", "松本", _yd(1994, 6), H, True, False), (1, YB11, "11月", "土の鑑定", _yd(1994, 11), H, True, False),
          (2, YB11, "2月28日", "事務長の事件", _yd(1995, 2, 28), H, True, False),
-         (2, ZB11, "3月18日", "車の中", _yd(1995, 3, 18), None, False, True), (2, ZB11, "3月20日", "地下鉄", _yd(1995, 3, 20), None, True, False),
+         # 🔧 ⑤c'（2026-11-06）：3月20日は線の下へ（上だと「地下鉄」の字が拡大の左の破線に 1.1px＝geom_gap）
+         (2, ZB11, "3月18日", "車の中", _yd(1995, 3, 18), None, False, True), (2, ZB11, "3月20日", "地下鉄", _yd(1995, 3, 20), None, False, False),
          (2, ZB11, "3月22日", "一斉捜索", _yd(1995, 3, 22), H, False, False))
 VIEWS["cb11"] = _z(3, "1本に並べる", "日付の順に", CB11, [_p(0, _cb11_top), _p(1, _cb11_band), _p(2, _cb11_zoom)] + [
     _p(at, lambda d=d, v=v, dt=dt, w=w, who=who, up=up, dim=dim: _ev(d, v, dt, w, sc(who) if who else None, up, dim)) for at, d, dt, w, v, who, up, dim in EVB11],
@@ -1676,7 +1682,8 @@ VIEWS["c206"] = _z(3, "亡くなった方の数", "資料で変わる数", C206,
                    src="国会会議録 平成7年3月24日・4月19日")
 
 # ── c620 1995年3月の暦（曜日は式＝門番 ⑤ cal が datetime で照らす・日曜はじまり）
-CAL = dict(y=1995, m=3, x0=300.0, dx=124.0, y0=400.0, dy=92.0)
+# 🔧 ⑤c'（2026-11-06）：段の高さ 92 → 106・印の札を日の下 +46 → +68＝丸の下の線が札の字の頭にかかった（geom_gap 0px・⑤c' r12）
+CAL = dict(y=1995, m=3, x0=300.0, dx=124.0, y0=400.0, dy=106.0)
 MARK620 = {18: (0, "防護服", S), 19: (0, "爆発物", H), 20: (1, "地下鉄", None), 22: (1, "捜索", K)}
 
 
@@ -1688,7 +1695,7 @@ def _cal_cells():
 
 
 def _c620_cal():
-    g = F.rect(CAL["x0"] - 72, 276.0, 7 * CAL["dx"] + 20, 540.0, J.BG2, None, None, rx=16, op=0.6)
+    g = F.rect(CAL["x0"] - 72, 276.0, 7 * CAL["dx"] + 20, 590.0, J.BG2, None, None, rx=16, op=0.6)
     g += _t(CAL["x0"] - 50, 262.0, "1995年3月", 44, INK, "start", 400)
     g += "".join(_t(CAL["x0"] + i * CAL["dx"], 326.0, "日月火水木金土"[i], 36, J.TICK, "middle", 100) for i in range(7))
     return g + "".join(_t(x, y + 6, str(d), 40, INK, "middle", 100) for d, x, y in _cal_cells())
@@ -1700,7 +1707,7 @@ def _c620_mark(at):
         if d in MARK620 and MARK620[d][0] == at:
             _a, w, who = MARK620[d]
             col = sc(who) if who else J.AMBER
-            g += F.circ(x, y - 8, 38, "none", col, 6 if who else 9) + _t(x, y + 46, w, 32, col, "middle", 120)
+            g += F.circ(x, y - 8, 38, "none", col, 6 if who else 9) + _t(x, y + 68, w, 32, col, "middle", 120)
     return g
 
 

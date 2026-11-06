@@ -3468,24 +3468,24 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 
 | 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
 |---|---|---|---|---|---|
-| `diet` | cb09（地 c412 c413 c414 ca03 ca04 cb10） | 2023 | CC BY 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:日本・国会議事堂.jpg |
+| `diet` | cb09（地 c412 c413 c414 c719 ca03 ca04 cb10） | 2023 | CC BY 4.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:日本・国会議事堂.jpg |
 | `fd1` | c820 | 不明 | PDL1.0（消防庁のリンク・著作権等について fdma.go.jp/about/others/post3.html を 2026-11-05 に読んだ）＝出典と URL と編集の断り（公的な機関の頁） | 各機関（国） | https://www.fdma.go.jp/singi_kento/kento/items/kento088_74_shiryo4.pdf |
 | `hb` | （地 c727） | 不明 | CC BY 2.5（この回の土地と物・顔に升目） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:TokyoMetro-hatchobori-A1-entrance.jpg |
 | `ins1` | cc08 | 2018 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 各機関（国） | commons:PSIA Aum Shinrikyo facility inspection 01.jpg |
 | `ins2` | ca14 | 2018 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 各機関（国） | commons:PSIA Aum Shinrikyo facility inspection 02.jpg |
 | `jc` | c212 | 2002 | 裁判所の判決＝著作権の対象外（著作権法13条の読み）（公的な機関の頁） | 各機関（国） | https://www.courts.go.jp/assets/hanrei/hanrei-pdf-5817.pdf |
-| `kas` | （地 c202 c206 c207 c704） | 2006 | CC BY 2.5（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:TokyoMetro-kasumigaseki-platform-hibiya-line.jpg |
+| `kas` | c909（地 c202 c206 c207 c701 c704 c706 c736） | 2006 | CC BY 2.5（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:TokyoMetro-kasumigaseki-platform-hibiya-line.jpg |
 | `kg1` | （地 c313 c510 c617 ca02 cb02 cb03 cb04 cb11 cb13 cb15 cc05 cc15） | 2007 | CC BY 2.5（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:Kasumigaseki1chome Tokyo01bs3600.jpg |
 | `kg2` | （地 ca06 ca13 ca15 cb06 cb07 cb08 cb12） | 2010 | PD（この回の土地と物） | 表示は任意（CC0・PD） | commons:Kasumigaseki 1 and 2 chome, Chiyoda.jpg |
-| `kod` | （地 c711 c712 c718） | 2024 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | commons:Kodemmacho-STA Platform1.jpg |
-| `ks1` | c509 c902（地 c714 c715 c716） | 2012 | CC BY 3.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:警視庁 - panoramio.jpg |
-| `ks2` | c108 c518（地 c519 cc07 cc10） | 2014 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:Keishicho - mpd headquarters - October 2014.jpg |
-| `mt` | c415（地 c402 c416 c417 c901） | 2025 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | commons:Matsumoto Castle - Matsumoto6549.jpg |
+| `kod` | cb20（地 c711 c712 c718） | 2024 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | commons:Kodemmacho-STA Platform1.jpg |
+| `ks1` | c509 c902（地 c714 c715 c716 c721 c732 c733） | 2012 | CC BY 3.0（この回の土地と物・ナンバーに升目） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:警視庁 - panoramio.jpg |
+| `ks2` | c108 c518（地 c519 c722 c910 cc07 cc10） | 2014 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:Keishicho - mpd headquarters - October 2014.jpg |
+| `mt` | c415（地 c402 c405 c406 c407 c408 c416 c417 c419 c420 c901） | 2025 | CC0（この回の土地と物） | 表示は任意（CC0・PD） | commons:Matsumoto Castle - Matsumoto6549.jpg |
 | `p62` | c916 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 62） |
 | `p65` | c104 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 65） |
-| `p66` | c702（地 c701 c721 c722 c736） | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 66） |
+| `p66` | c702 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 66） |
 | `p67` | c907 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 67） |
-| `p68` | c914（地 c732 c733） | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 68） |
+| `p68` | c914 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 68） |
 | `p69` | c913 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 69） |
 | `p70` | c918 | 不明 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 70） |
 | `p71` | c917 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 71） |
@@ -3493,11 +3493,10 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `p73` | c208 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 73） |
 | `p74` | cb19 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 74） |
 | `p75` | cc16（地 c209 c729 c730） | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 75） |
-| `p76` | c717（地 c719） | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 76） |
+| `p76` | c717 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 76） |
 | `p77` | c915 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 77） |
-| `p78` | cb16（地 c205 c734 c735 c815） | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 78） |
+| `p78` | cb16（地 c205 c734 c735） | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 78） |
 | `p79` | c920 | 不明 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 79） |
-| `p80` | c909（地 c910） | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 80） |
 | `p81` | c911 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 81） |
 | `p83` | c912 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 83） |
 | `p84` | cc19 | 1995 | PDL1.0 の読み（公安調査庁のコピーライトポリシー＋法務省の「第三者＝国以外」＝ルール §2-39）（この回の土地と物） | 陸上自衛隊 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 84） |
@@ -3526,7 +3525,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `p61` | c821 | 1995 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 東京消防庁 | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 61） |
 | `p7` | ca05 | 1990 | 引用（著作権法32条・東京消防庁と東京メトロの頁は引用を禁止の外に置く・個人は資料館の表示のまま＝ルール §2-39）（引用・非公開） | 地元の個人（名前は git の外 `ref/ep30/src/credits_quote_private.tsv` の記号の行＝資料館の表示のとおり画面は焼くときに足す） | https://www.moj.go.jp/psia/aumarchive/museum/（資料館の番号 7） |
 | `sc` | ca16（地 c210 c616 ca07 ca08 ca10） | 2010 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:Supreme court - panoramio.jpg |
-| `slh` | c737 cb17（地 c802 c811 c825 c903） | 2008 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:20080312-StLukesInternationalHospital.jpg |
+| `slh` | c737 cb17（地 c802 c811 c815 c825 c903） | 2008 | CC BY 3.0（この回の土地と物） | Commons の撮影者（名前は git の外 `ref/ep30/src/credits_private.tsv` の記号の行＝画面は焼くときに足す） | commons:20080312-StLukesInternationalHospital.jpg |
 | `ga1` | （地 c305 c306 c307 c308 c315 c316 c511） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/tokyo-covered-with-fog-15275312/ |
 | `ga2` | （地 c409 c410） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/japanese-residential-rooftops-in-urban-setting-34940112/ |
 | `gf1` | （地 c312 c504） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/scenic-view-of-mountain-under-blue-sky-with-white-clouds-6504525/ |
@@ -3535,7 +3534,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `x304` | c304 | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/modern-apartment-buildings-in-tokyo-japan-37760474/ |
 | `x317` | c317 | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/quiet-night-street-in-osaka-japan-30388051/ |
 | `x403` | c403 | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/scenic-rural-landscape-in-hokkaido-japan-at-sunset-38116208/ |
-| `x404` | c404（地 c405 c406 c407 c408 c419 c420） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/quiet-night-street-in-kyoto-japan-30962637/ |
+| `x404` | c404 | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/quiet-night-street-in-kyoto-japan-30962637/ |
 | `x411` | c411 | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/close-up-of-stack-of-newspapers-5505718/ |
 | `x502` | c502 | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/gray-concrete-road-near-green-trees-and-mountain-8747702/ |
 | `x503` | c503（地 c505 c506 c507） | 不明 | Pexels（この回の土地と物） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/close-up-photo-of-green-leaves-8244083/ |
@@ -3576,5 +3575,4 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `X204` | c204 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-subway-train-is-moving-through-a-tunnel-18657034/ | 2026-11-05 |
 | `X703` | c703 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-subway-station-entrance-4625080/ | 2026-11-05 |
 | `X710` | c710 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/speedy-tunnel-vision-in-underground-train-ride-31435017/ | 2026-11-05 |
-| `Xb20` | cb20 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/high-speed-train-in-tokyo-station-34777715/ | 2026-11-05 |
 | `Xc17` | cc17 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-blurry-photo-of-people-walking-through-a-train-station-26575728/ | 2026-11-05 |
