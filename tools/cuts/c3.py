@@ -114,3 +114,21 @@ SPEC.update({
     "c315": zu_spec("c315", ss.gr("stock/ga1")),
     "c316": zu_spec("c316", ss.gr("stock/ga1")),
 })
+
+# 🆕 ⑤b-7（2026-11-06）：写真（c2.py の型）＝個人の提供の引用は高さいっぱいの額・静止・地は同じ写真のぼかし
+_P5, _P17, _P4, _P23, _P14 = P("police/p5"), P("police/p17"), P("police/p4"), P("police/p23"), P("police/p14")
+SPEC.update({
+    # c301＝章の頭＝引用は章の扉の地に混ぜない（card_mix=0）
+    "c301": dict(photo=_P17, panel=True, ptall=True, ground=dict(photo=_P17), color=1.0, card_mix=0,
+                 t="教団の始まり", s="山梨県の教団の施設〈1994年〉"),
+    "c302": dict(photo=_P4, panel=True, ptall=True, ground=dict(photo=_P4), color=1.0,
+                 t="上九一色村", s="工事中の教団の施設〈山梨県・1990年9月〉"),
+    "c303": dict(photo=_P23, panel=True, ptall=True, ground=dict(photo=_P23), color=1.0,
+                 t="約1万人", s="空から見た教団の施設〈山梨県・1994年〉"),
+    # c311＝#14 の看板（住民の反対の字・名前なし＝映像方針 §5-5 の6）
+    "c311": dict(photo=_P14, panel=True, ptall=True, ground=dict(photo=_P14), color=1.0,
+                 t="反対の声", s="反対の立て看板〈1992年12月〉"),
+    # c309＝個人の提供 #5（熊本の件の強制捜査・公的な任務の顔）＝引用（加工しない）
+    "c309": dict(photo=_P5, panel=True, ptall=True, ground=dict(photo=_P5), color=1.0,
+                 t="熊本の強制捜査", s="熊本の件の強制捜査〈1990年10月22日〉"),
+})

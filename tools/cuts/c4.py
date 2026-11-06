@@ -146,3 +146,14 @@ SPEC.update({
 SPEC.update({
     "c419": fu_spec("c419", ss.gr("mt")),
 })
+
+# 🆕 ⑤b-7（2026-11-06）：写真（c2.py の型）
+_P39, _MT = P("police/p39"), P("mt")
+SPEC.update({
+    # c415＝松本の街と山（題名は「城」だが絵は街と山＝副題は絵のとおり）
+    "c415": dict(photo=_MT, **ss.mv(_MT, "r"), side="none", color=1.0,
+                 t="2つの言い分", s="松本の街と山〈2025年〉"),
+    # c422＝個人の提供 #39（縦長の立て看板）＝引用（高さいっぱいの額・加工しない）
+    "c422": dict(photo=_P39, panel=True, ptall=True, ground=dict(photo=_P39), color=1.0,
+                 t="山梨の村の匂い", s="教団に反対する立て看板〈富士山のふもと・年は不明〉"),
+})

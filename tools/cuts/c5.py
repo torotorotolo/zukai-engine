@@ -118,3 +118,20 @@ SPEC.update({
 SPEC.update({
     "c517": zu_spec("c517", ss.gr("stock/x513")),
 })
+
+# 🆕 ⑤b-7（2026-11-06）：写真（c2.py の型）
+_KS1, _P18, _P27, _P19, _KS2 = P("ks1"), P("police/p18"), P("police/p27"), P("police/p19"), P("ks2")
+SPEC.update({
+    # c501・c508・c515＝個人の提供の施設の写真＝引用（高さいっぱいの額・静止・加工しない）
+    "c501": dict(photo=_P18, panel=True, ptall=True, ground=dict(photo=_P18), color=1.0, card_mix=0,
+                 t="2回の異臭", s="細長い棟の教団の施設〈山梨県・1994年〉"),
+    "c508": dict(photo=_P27, panel=True, ptall=True, ground=dict(photo=_P27), color=1.0,
+                 t="踏み込む資料", s="空から見た教団の施設〈山梨県・1995年〉"),
+    "c515": dict(photo=_P19, panel=True, ptall=True, ground=dict(photo=_P19), color=1.0,
+                 t="証拠を消す方へ", s="密に並ぶ教団の建物〈山梨県・1994年〉"),
+    "c518": dict(photo=_KS2, **ss.mv(_KS2, "l"), side="none", color=1.0,
+                 t="管轄の外", s="お堀の向こうの警視庁〈東京・2014年〉"),
+    # c509＝警視庁の本部（左下のナンバーは束の升目＝ep30_assets.MASK）
+    "c509": dict(photo=_KS1, **ss.mv(_KS1, "in"), side="none", color=1.0,
+                 t="防護服の開発", s="警視庁の本部〈東京・2012年〉"),
+})

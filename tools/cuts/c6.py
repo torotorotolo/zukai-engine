@@ -131,3 +131,12 @@ SPEC.update({
     "c614": zu_spec("c614", ss.gr("stock/x618")),
     "c620": zu_spec("c620", ss.gr("stock/x618")),
 })
+
+# 🆕 ⑤b-7（2026-11-06）：写真（c2.py の型）＝個人の提供の施設の写真＝引用（高さいっぱいの額・静止・加工しない）
+_P21, _P22 = P("police/p21"), P("police/p22")
+SPEC.update({
+    "c603": dict(photo=_P21, panel=True, ptall=True, ground=dict(photo=_P21), color=1.0,
+                 t="翌3月1日", s="山梨県の教団の施設の全景〈1994年〉"),
+    "c613": dict(photo=_P22, panel=True, ptall=True, ground=dict(photo=_P22), color=1.0,
+                 t="18日の朝", s="教団の施設の一部〈山梨県・1994年〉"),
+})

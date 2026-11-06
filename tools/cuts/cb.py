@@ -20,7 +20,7 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'cb01': dict(kind='写真',
+    'cb01': dict(kind='文字の頁',
                plan='W5｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜副題：警察白書 平成8年｜動き：静止｜権利：PDL1.0｜時期：1996｜人：なし｜出典の行：出典：警察白書 平成8年｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 公的な機関の紙面＝規約を読んでから・額装・無加工・🔴 名前の行と線の行を入れない＝親が絵を見て切る（台本 §0-4）｜台本の画＝台本 §4・一覧 eizou_list30.md（写さない）',
                src='白5（`オウム真理教関連事件における反省教訓`）'),
     'cb02': dict(kind='図解',
@@ -129,4 +129,22 @@ SPEC.update({
     "cb08": zu_spec("cb08", ss.gr("kg2")),
     "cb11": zu_spec("cb11", ss.gr("kg1")),
     "cb12": zu_spec("cb12", ss.gr("kg2")),
+})
+
+# 🆕 ⑤b-7（2026-11-06）：写真と紙面（c2.py の型）。🔴 紙面は PLAN の kind を「文字の頁」に
+_W5, _DIET, _P78, _SLH, _P74 = P("w5"), P("diet"), P("p78"), P("slh"), P("p74")
+SPEC.update({
+    # cb01＝警察白書 第5節の題・1 の題・第1段
+    "cb01": dict(photo=_W5, panel=True, pw=1776, ground=dict(photo=_W5, blur=ss.PAGE_BLUR), color=1.0, card_mix=0,
+                 t="反省教訓", s="警察白書の第5節〈1996年〉"),
+    # cb09＝国会の写真を全面に（図が8カット続くのを切る＝映像方針 §5-5 の4）
+    "cb09": dict(photo=_DIET, **ss.mv(_DIET, "in"), side="none", color=1.0,
+                 t="別の見方", s="国会議事堂〈東京・2023年〉"),
+    "cb16": dict(photo=_P78, **ss.mv(_P78, "in"), side="none", color=1.0,
+                 t="整ってきた体制", s="サリンを検知する〈当日・提供：陸上自衛隊〉"),
+    # cb17＝c737 と同じ点。🔴 下の病院の札がまるごと入る高さで流す（門番 edges）
+    "cb17": dict(photo=_SLH, **ss.mv(_SLH, "r", fy=0.53), side="none", color=1.0,
+                 t="病院へ届いた手がかり", s="聖路加国際病院〈東京・2008年〉"),
+    "cb19": dict(photo=_P74, **ss.mv(_P74, "in"), side="none", color=1.0,
+                 t="隠した跡の有無", s="除染を行う〈当日・提供：陸上自衛隊〉"),
 })

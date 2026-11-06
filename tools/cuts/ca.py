@@ -94,3 +94,21 @@ from mech30 import zu_spec  # noqa: E402
 SPEC.update({
     "ca13": zu_spec("ca13", ss.gr("kg2")),
 })
+
+# 🆕 ⑤b-7（2026-11-06）：写真（c2.py の型）
+_INS2, _P25, _P7, _TKS, _SC = P("ins2"), P("police/p25"), P("police/p7"), P("tks"), P("sc")
+SPEC.update({
+    # ca01・ca05＝個人の提供＝引用（高さいっぱいの額・静止・加工しない）
+    "ca01": dict(photo=_P25, panel=True, ptall=True, ground=dict(photo=_P25), color=1.0, card_mix=0,
+                 t="25か所に一斉に", s="強制捜査〈1995年3月22日〉"),
+    "ca05": dict(photo=_P7, panel=True, ptall=True, ground=dict(photo=_P7), color=1.0,
+                 t="5月16日", s="1990年10月22日の記者会見"),
+    # ca11＝CC BY-SA＝額装だけ（切らない・寄らない・高さいっぱい・地は同じ写真のぼかし）
+    "ca11": dict(photo=_TKS, panel=True, ptall=True, ground=dict(photo=_TKS), color=1.0,
+                 t="判決の確定", s="東京地方裁判所などが入る庁舎〈2005年〉"),
+    "ca16": dict(photo=_SC, **ss.mv(_SC, "in"), side="none", color=1.0,
+                 t="判決の問い", s="最高裁判所〈東京・2010年〉"),
+    # ca14＝立入検査（背中）。幅 1460＝全面で 1.3倍＝寄りは浅く
+    "ca14": dict(photo=_INS2, **ss.mv(_INS2, "in", z=1.06), side="none", color=1.0,
+                 t="観察処分", s="背中に公安調査庁の字の職員たち〈立入検査・2018年〉"),
+})
