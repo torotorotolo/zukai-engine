@@ -1,0 +1,21 @@
+メタ: meta_ep30.json
+接続先: ゆっくり調査ノート（@chosanote／動画16本）
+動画: titan_audio-ep30-r01.mp4（435.4 MB）
+題　: 【映像あり】地下鉄サリン事件の真相。前の年に松本で同じ毒が使われ、4か月前には土から手がかりが出ていた。【事件検証】【ゆっくり解説】
+非公開で上げる（予約はあとで `schedule`）
+  1%  3%  5%  7%  9%  11%  13%  15%  17%  19%  21%  23%  25%  26%  28%  30%  32%  34%  36%  38%  40%  42%  44%  46%  48%  50%  52%  53%  55%  57%  59%  61%  63%  65%  67%  69%  71%  73%  75%  77%  78%  80%  82%  84%  86%  88%  90%  92%  94%  96%  98%
+上がった: https://youtu.be/TskxystRBiU
+管理　　: https://studio.youtube.com/video/TskxystRBiU/edit
+処理が終わるのを待つ（サムネは hd になってから貼る）
+  処理 processing・画質 sd（0秒）
+  処理 processing・画質 sd（20秒）
+  処理 processing・画質 sd（40秒）
+  処理 processing・画質 hd（60秒）
+  処理 processing・画質 hd（81秒）
+  処理 processing・画質 hd（101秒）
+  処理 succeeded・画質 hd（121秒）
+サムネを貼った: ep30_T_HinvA65b.png
+  ✓ maxres 1280x720：平均の差 3.80（8 未満）・鮮明さの比 1.11（0.95 以上）
+✓ サムネは高解像度で貼れている
+
+次: python tools/upload_jiko.py schedule TskxystRBiU --at "…+09:00"（または public）

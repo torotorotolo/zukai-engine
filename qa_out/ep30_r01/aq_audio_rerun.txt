@@ -1,0 +1,5 @@
+Warning: ONNX Runtime is not installed. Nani prediction will be disabled.
+Please install ONNX Runtime by `pip install pyopenjtalk-plus[onnxruntime]`
+行 543（語り 472・聞き役 71）／声の高さの中心 語り 235Hz・聞き役 308Hz（差 72）／音量 語り -13.0・聞き役 -12.4 dBFS
+（参考）アプリの出力の中で上限に届く標本 658個・301行＝アプリの既定の音に元からある
+E 0件 / W 0件

@@ -1,0 +1,6 @@
+メタ: meta_ep30.json
+サムネの門番:
+  ✓ maxres 1280x720：平均の差 3.80（8 未満）・鮮明さの比 1.11（0.95 以上）
+公開した: https://youtu.be/TskxystRBiU
+  題　　: 【映像あり】地下鉄サリン事件の真相。前の年に松本で同じ毒が使われ、4か月前には土から手がかりが出ていた。【事件検証】【ゆっくり解説】
+  確認  : https://studio.youtube.com/video/TskxystRBiU/edit
