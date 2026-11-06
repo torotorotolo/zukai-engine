@@ -20,7 +20,7 @@ tags: [project/jiko-kensho, ep30]
 | 文字だけ | 0 カット（紙面 7 は語りが資料を名指しする所だけ） | 2割まで・3つ続けない |
 | 見せ方（写真と紙面） | 全面 61・額装（高さいっぱい） 30・額装（衛星） 12・全面（上下を切る） 6 | 額装は静止 |
 | 写真の動き | ゆっくり寄る 47・静止 42・映像 11・右へ流す 4・左へ流す 3・静止に近い寄り 2 | 全面は寄る／流す |
-| 🔧 台本の画の欄から替えたカット | 110 | 台本は直さない＝⑤b はこの一覧に従う |
+| 🔧 台本の画の欄から替えたカット | 111 | 台本は直さない＝⑤b はこの一覧に従う |
 | 種類 | 札 76・イメージ 31・引用 20・陸自 20・模式 20・衛星 12・言葉 11・場所 10・無線帯 8・公的 7・映像 6・公立 3・箱 2・帯 2・並べ 2・棒 2・年表 2・表 1・暦 1・比べ 1・窓口 1 | — |
 | 合計 | 238 カット・37:02.3（audio/narration.json の実測・ed01 を除く） | — |
 
@@ -47,7 +47,7 @@ tags: [project/jiko-kensho, ep30]
 - KOD（小伝馬町駅のホーム（人なし））＝c711 c712 c718
 - KS1（警視庁の本部を道路から（青空））＝c714 c715 c716
 - KS2（お堀の向こうの警視庁と霞が関のビル（曇り））＝c519 cc07 cc10
-- MT（松本の街と北アルプス（秋・手前に家並み））＝c402 c405 c406 c408 c416 c417 c419 c420 c901
+- MT（松本の街と北アルプス（秋・手前に家並み））＝c402 c405 c406 c407 c408 c416 c417 c419 c420 c901
 - P66（車内の防護マスクの隊員・足元に水・中吊り広告が写る）＝c701 c721 c722 c736
 - P68（ホームと電車の隙間に検知の紙を当てる隊員）＝c732 c733
 - P75（床の足跡と検知の紙・長靴の足元）＝c209 c729 c730
@@ -57,7 +57,6 @@ tags: [project/jiko-kensho, ep30]
 - SC（最高裁判所の石の壁と松）＝c210 c616 ca07 ca08 ca10
 - SLH（聖路加国際病院の旧館の塔と本館（枝の手前））＝c802 c811 c825 c903
 - TSE（築地駅の出入口と札（雨・傘の人の背中））＝c724 c725
-- X404（イメージ：夜の暗い道と建物）＝c407
 - X503（イメージ：緑の葉の寄り）＝c505 c506 c507
 - X512（イメージ：折った新聞の寄り（字が読めない））＝c418 c606 c608
 - X513（イメージ：冬の晴れた雪山の遠景）＝c514 c517
@@ -154,7 +153,7 @@ tags: [project/jiko-kensho, ep30]
 | c404 | 6:07.6（6.3） | 午後10時30分すぎ。宿舎の近くの駐車場 | イメージ | X404 | — | 全面 | イメージ：夜の暗い道と建物 | ゆっくり寄る | 🔧 字面 | — |
 | c405 | 6:14.0（11.1） | どのくらいの人が被害に遭ったの？判決の時 | 札 | — | MT | — | 数の札＝判決の時点で7人・のちに8人・負傷 白書144人・公安調査庁 約140人＝資料の名前を同じ行に・人の形は使わない | — | 🔧 ⑤b-4 地 X404 → 松本の街（夜の暗い絵は暗くすると黒） | — |
 | c406 | 6:25.1（9.2） | 白書は、世界で初めてサリンが犯罪の手段に | 札 | — | MT | — | 地球の略図に「世界で初めて犯罪の手段として」の札＝白書の言葉と分かる形 | — | 🔧 ⑤b-4 地 X404 → 松本の街 | — |
-| c407 | 6:34.3（9.1） | 警察庁の局長の答弁では、午後11時30分 | 模式 | — | X404 | — | 夜から朝への時間の線＝23:30 消防から松本署へ・翌朝 7:00 に310人の体制＝時刻は「23:30」の形・字なし〉を暗く | — | — | — |
+| c407 | 6:34.3（9.1） | 警察庁の局長の答弁では、午後11時30分 | 模式 | — | MT | — | 夜から朝への時間の線＝23:30 消防から松本署へ・翌朝 7:00 に310人の体制＝時刻は「23:30」の形 | — | 🔧 ⑤b-5 地 X404 → 松本の街・副題の切れ端（台本の地の注の残り）を外した | — |
 | c408 | 6:43.4（8.0） | 白書では、事件の数日後、毒はサリンの可能 | 札 | — | MT | — | 判断の札＝「サリンである可能性が極めて高い」＝白書の言葉と分かる形・虫めがねの印・人の形は描かない | — | 🔧 ⑤b-4 地 X404 → 松本の街 | — |
 | c409 | 6:51.3（8.0） | 事件を最初に通報した人の家と、そのすぐ近 | 札 | — | GA2 | — | 「第一通報者」の札と「被害者」の札＝1人の人に2つの札が付く形・顔と名前と家を描かない | — | — | — |
 | c410 | 6:59.4（10.9） | 警察は令状を取り、被疑者不詳、つまり容疑 | 札 | — | GA2 | — | 「令状」「被疑者不詳」「捜索と検証」の3つの札が順に並ぶ＝家の絵を描かない・名前なし | — | — | — |
@@ -460,7 +459,7 @@ tags: [project/jiko-kensho, ep30]
 | HB | commons-photo | place | 八丁堀駅の出入口と札（縦・人の背中） | commons:TokyoMetro-hatchobori-A1-entrance.jpg | 2112x2816 | CC BY 2.5 | 同上 | 写真：{作者}／Wikimedia Commons（CC BY 2.5） | 撮影日は頁で確かめる | なし（背中） | src/eizou/HB.jpg | c727 | 地に使う・ナンバーは ⑤b で原寸 |
 | KOD | commons-photo | place | 小伝馬町駅のホーム（人なし） | commons:Kodemmacho-STA Platform1.jpg | 5438x3625 | CC0 | 同上 | 写真：{作者}／Wikimedia Commons（CC0） | 2024-04-23 | なし | src/eizou/KOD.jpg | c711 c712 c718 | 地に使う |
 | KAS | commons-photo | place | 霞ケ関駅のホーム（日比谷線・人は小さい） | commons:TokyoMetro-kasumigaseki-platform-hibiya-line.jpg | 2816x2112 | CC BY 2.5 | 同上 | 写真：{作者}／Wikimedia Commons（CC BY 2.5） | 2006-12-20 | 小さい人＝⑤b で原寸 | src/eizou/KAS.jpg | c202 c206 c207 c704 | 地に使う |
-| MT | commons-photo | place | 松本の街と北アルプス（秋・手前に家並み） | commons:Matsumoto Castle - Matsumoto6549.jpg | 4967x3541 | CC0 | 同上 | 写真：{作者}／Wikimedia Commons（CC0） | 2025-11-03 | なし（家は引き） | src/eizou/MT.jpg | c402 c405 c406 c408 c415 c416 c417 c419 c420 c901 | 🔴 題名は「城」だが絵は街と山＝副題は絵のとおり |
+| MT | commons-photo | place | 松本の街と北アルプス（秋・手前に家並み） | commons:Matsumoto Castle - Matsumoto6549.jpg | 4967x3541 | CC0 | 同上 | 写真：{作者}／Wikimedia Commons（CC0） | 2025-11-03 | なし（家は引き） | src/eizou/MT.jpg | c402 c405 c406 c407 c408 c415 c416 c417 c419 c420 c901 | 🔴 題名は「城」だが絵は街と山＝副題は絵のとおり |
 | TKS | commons-photo | place | 東京地方裁判所などが入る合同庁舎（青空） | commons:Tokyokotosaibansho.jpg | 2307x1731 | CC BY-SA 3.0 | Commons の札＝額装・無加工・1点1カット（§5b-52） | 写真：{作者}／Wikimedia Commons（CC BY-SA 3.0） | 2005-12 | なし | src/eizou/TKS.jpg | ca11 | — |
 | GA1 | stock | stock | イメージ：霧の朝の街の遠景と遠くの山 | stock:https://images.pexels.com/photos/15275312/pexels-photo-15275312.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1080 | Pexels | https://www.pexels.com/photo/tokyo-covered-with-fog-15275312/（2026-11-05 に検索の頁の JSON の license＝Pexels・https://www.pexels.com/license/＝無料・クレジット不要・改変可を読んだ） | イメージ（Pexels） | イメージ | なし | src/stock/GA1.jpg | c305 c306 c307 c308 c315 c316 c511 | 地 |
 | GA2 | stock | stock | イメージ：屋根の並ぶ住宅地の遠景 | stock:https://images.pexels.com/photos/34940112/pexels-photo-34940112.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1282 | Pexels | https://www.pexels.com/photo/japanese-residential-rooftops-in-urban-setting-34940112/（同上） | イメージ（Pexels） | イメージ | なし | src/stock/GA2.jpg | c409 c410 | 地・🔴 左下の撮影者の字は地の切り口の外（真ん中で切る＝下 8% を出さない） |
@@ -471,7 +470,7 @@ tags: [project/jiko-kensho, ep30]
 | X304 | stock | stock | イメージ：古い団地の外観の遠景 | stock:https://images.pexels.com/photos/37760474/pexels-photo-37760474.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/modern-apartment-buildings-in-tokyo-japan-37760474/（同上） | イメージ（Pexels） | イメージ | なし | src/stock/X304.jpg | c304 | — |
 | X317 | stock | stock | イメージ：夜の路地の家並み | stock:https://images.pexels.com/photos/30388051/pexels-photo-30388051.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1200 | Pexels | https://www.pexels.com/photo/quiet-night-street-in-osaka-japan-30388051/（同上） | イメージ（Pexels） | イメージ | なし | src/stock/X317.jpg | c317 | — |
 | X403 | stock | stock | イメージ：夕暮れの田畑と山あいの道 | stock:https://images.pexels.com/photos/38116208/pexels-photo-38116208.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/scenic-rural-landscape-in-hokkaido-japan-at-sunset-38116208/（同上） | イメージ（Pexels） | イメージ | なし | src/stock/X403.jpg | c403 | — |
-| X404 | stock | stock | イメージ：夜の暗い道と建物 | stock:https://images.pexels.com/photos/30962637/pexels-photo-30962637.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1200 | Pexels | https://www.pexels.com/photo/quiet-night-street-in-kyoto-japan-30962637/（同上） | イメージ（Pexels） | イメージ | なし | src/stock/X404.jpg | c404 c407 | 地 |
+| X404 | stock | stock | イメージ：夜の暗い道と建物 | stock:https://images.pexels.com/photos/30962637/pexels-photo-30962637.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1200 | Pexels | https://www.pexels.com/photo/quiet-night-street-in-kyoto-japan-30962637/（同上） | イメージ（Pexels） | イメージ | なし | src/stock/X404.jpg | c404 | 地 |
 | X411 | stock | stock | イメージ：積まれた新聞の束の寄り（字が読めない） | stock:https://images.pexels.com/photos/5505718/pexels-photo-5505718.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/close-up-of-stack-of-newspapers-5505718/（同上） | イメージ（Pexels） | イメージ | なし | src/stock/X411.jpg | c411 | — |
 | X502 | stock | stock | イメージ：山あいの道と雑木の遠景 | stock:https://images.pexels.com/photos/8747702/pexels-photo-8747702.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/gray-concrete-road-near-green-trees-and-mountain-8747702/（同上） | イメージ（Pexels） | イメージ | なし | src/stock/X502.jpg | c502 | — |
 | X503 | stock | stock | イメージ：緑の葉の寄り | stock:https://images.pexels.com/photos/8244083/pexels-photo-8244083.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/close-up-photo-of-green-leaves-8244083/（同上） | イメージ（Pexels） | イメージ | なし | src/stock/X503.jpg | c503 c505 c506 c507 | 地 |
@@ -625,6 +624,16 @@ tags: [project/jiko-kensho, ep30]
 - 🔧 **地 X404 を外した**（c405・c406・c408・c420＋⑤b-6 の c419）＝夜の暗い道は 0.29 倍で平均 5.4／255＝真っ黒に見えた → 松本の街 MT。⚠️ X609（c612）は平均 3.5 でも光の筋が見える＝残した＝⑤c で見る
 - 🔧 **cc11 の字**＝一覧の「勉強会」は資料に無い語＝資料の字（名前を隠したサークル→人間関係を深める→団体へ入会）に
 - ⚠️ **c619 の札は c618 の札が無い**（c618 は全面のイメージ）＝c619 の中で爆発物と火炎びんを影の札にした。⚠️ **c420・c615・c616・cb03・cb04 は「前のカットの図の続き」が前提の字面**だったが、前の図（c419・c614・cb02）は ⑤b-6 で描く＝札の型の側は単独で読める形にした（cb03〜cb06 の上の3つの箱＝cb02 と同じ3つの名）。⑤b-6 で c419・cb02 の字を「知識不足・情報不足・権限の制限」に合わせる
+
+### 5-7f. ⑤b-5 で決めたこと（2026-11-06・無線帯 8＋模式の前半 11）
+- **見え方の表 `mech30.VIEWS`**＝札の型と同じ部品で1行1カット（置き場は座標）・入口は同じ `m30`（view＝「zu_714」）・章ファイルは `zu_spec`。門番 judge_m30・check_fuda・check_echo がそのまま測る
+- **無線帯**＝描き手1つ（`_rb_view`）。左に帯（前の段は時刻と短い語・その段は時刻だけ黄色）＋右にその段の札（橙）＋時刻から札へ線＝語は右の札だけ（同じ画面に同じ語を2度出さない）。c733 は 8:53 の札を 8:58 の左に並べた。左下の注＝「語は公開の音声を機械で書き起こしたもの・時刻は音声の時報から」（「字幕」の語は門番 dup の制作の用語に当たる）
+- **時間の線**（c307 年・c407 時刻・c514 月）＝比例＝模式と書かない・門番 judge_m30 ⑤（字の値と置いた位置）。c307 の「1995年」は年の真ん中（月は書かない＝推測の月を描かない）・判決の札は線の下（上の段だと 1989〜1995年のあいだの出来事に見えた）
+- **c202**＝駅の点を描かない・電車の印5つは線の上に置かない（どの線に何本かを絵で言わない＝資料は「3路線5方面」まで）・線の色はいまの東京メトロの色・左上に模式
+- **c315・c316**＝どこの県とも書かない（自分の県／ほかの県）・c316 は同じ絵で札を影に、県境と矢印を光らせる。**c519**＝札は地名だけ（山梨・東京）・矢印が県境で止まる。県境はどれも模式の波線
+- **c505・c506**＝土を取る道具の形と枯れた葉・土の断面と虫めがね（手・顔・化学式なし）。c506 の札は白書の原文「サリンが分解した際にもできる化学物質」
+- **c610・c611**＝車は外の形だけ・話す人は「教祖」「幹部」の字だけ・吹き出しの尾は短く（長い三角は光の筋に見えた）。c611 の答えは公安調査庁のまとめの原文（字幕は消す）
+- 🔧 地＝c407 は X404 → MT（over30.psv）・ks1（CC BY 3.0・ナンバーを隠した写し）と x513（Pexels）を足した・x503 は c505 の札の周りで 0.40 → 0.37（同じ写真の c507 も）
 
 ### 5-8. 語りと絵の時刻（語りが朝で絵が除染）
 - 陸自の写真は午後と夜の除染（要請は 12:50 と 17:00）。第6章の朝の語りには全面の陸自を c702・c717 だけ置き、副題「〈当日〉」で断る。地は第6章の中で語りの場所が撮れている所を実写へ替えた（c704・c711・c712・c714〜c716・c718・c724・c725・c727）

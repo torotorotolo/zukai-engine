@@ -93,3 +93,10 @@ SPEC.update({
     "c209": fu_spec("c209", ss.gr("p75")),
     "c210": fu_spec("c210", ss.gr("sc")),
 })
+
+# 🆕 ⑤b-5（2026-11-06）：見え方の表 `mech30.VIEWS`（模式＝c202 路線の模式）
+from mech30 import zu_spec  # noqa: E402
+
+SPEC.update({
+    "c202": zu_spec("c202", ss.gr("kas")),
+})

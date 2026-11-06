@@ -105,3 +105,12 @@ SPEC.update({
     "c312": fu_spec("c312", ss.gr("stock/gf1")),
     "c313": fu_spec("c313", ss.gr("kg1")),
 })
+
+# 🆕 ⑤b-5（2026-11-06）：見え方の表 `mech30.VIEWS`（c307 年の線・c315 と c316 県境の模式＝c316 は c315 の続き）
+from mech30 import zu_spec  # noqa: E402
+
+SPEC.update({
+    "c307": zu_spec("c307", ss.gr("stock/ga1")),
+    "c315": zu_spec("c315", ss.gr("stock/ga1")),
+    "c316": zu_spec("c316", ss.gr("stock/ga1")),
+})

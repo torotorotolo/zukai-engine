@@ -117,3 +117,11 @@ SPEC.update({
     "c617": fu_spec("c617", ss.gr("kg1")),
     "c619": fu_spec("c619", ss.gr("stock/x618")),
 })
+
+# 🆕 ⑤b-5（2026-11-06）：見え方の表 `mech30.VIEWS`（c610・c611 車の中の話の模式＝顔と名前なし・c611 は c610 の続き）
+from mech30 import zu_spec  # noqa: E402
+
+SPEC.update({
+    "c610": zu_spec("c610", ss.gr("stock/x609")),
+    "c611": zu_spec("c611", ss.gr("stock/x609")),
+})

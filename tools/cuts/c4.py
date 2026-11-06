@@ -134,3 +134,10 @@ SPEC.update({
     "c420": fu_spec("c420", ss.gr("mt")),
     "c421": fu_spec("c421", ss.gr("stock/x803")),
 })
+
+# 🆕 ⑤b-5（2026-11-06）：見え方の表 `mech30.VIEWS`（c407 夜から朝の時刻の線）。🔴 地 X404 は暗くすると黒＝松本の街 MT（over30.psv）
+from mech30 import zu_spec  # noqa: E402
+
+SPEC.update({
+    "c407": zu_spec("c407", ss.gr("mt")),
+})

@@ -20,9 +20,16 @@
     cell  … 格子の場所（列, 行）・span＝（列の数, 行の数）。列の幅と行の高さは中身の字で決まる（枠の中を空けない＝門番 box）
     mute  … 札の原文を読む行（字幕を消す＝feedback-no-subtitle-when-onscreen）。mute があるカットの `q=True` の字だけ門番 echo の例外
   SPEC は `"c305": fu_spec("c305", ss.gr("stock/ga1"))`。
+
+■ 🆕 ⑤b-5（2026-11-06）：見え方の表 `VIEWS`（札の型の表に無いカット＝無線帯 8・模式の前半 11）
+  1行が1カット＝札（`_c` のまま・置き場は格子でなく真ん中の座標 `_at`）＋絵の部品（`_p`＝その段から出て残る）。描く部品も門番が測る形も札の型と同じ。
+  無線帯（c714〜c734）は描き手1つ（`_rb_view`）＝同じ帯が段ごとに伸びる・前の段は時刻と短い語で残る・その段の時刻から右の札へ線。
+  模式（`schem=True`）は左上に「模式」・note にも「模式」。時間の線（c307・c407・c514）は比例＝門番 judge_m30 の ⑤ が位置と字の値を測る。
+  SPEC は `"c714": zu_spec("c714", ss.gr("ks1"))`。
 """
 from __future__ import annotations
 
+import math
 import re
 
 import jiko_style as J
@@ -797,12 +804,414 @@ FU["cc15"] = _f(3, "ここまでの答え", "毒と資料と反省", [
 ], src=S_H)
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5（2026-11-06）：見え方の表 VIEWS＝札の型の表 FU に無いカット（無線帯 8・模式の前半 11＝映像方針 §5-4）
+#    札は札の型と同じ部品（`_draw_card`・`_rows`・`_size`）＝門番が測る形（`geo_of`）も同じ＝judge_m30・check_fuda・check_echo がそのまま測る。
+#    🔴 人の形・家・顔は描かない（車は外の形だけ・話す人は立場の字だけ）・この回の線の語は札にも絵にも出さない（c202 は駅の点を描かない・c506 は化学式なし）。
+# ══════════════════════════════════════════════════════════
+def _at(c, x, y):
+    """札をその座標（札の真ん中）に置く。"""
+    return dict(c, pos=(float(x), float(y)))
+
+
+def _p(at, fn, arrow=False):
+    """絵の部品（段 at から出て残る）。fn() が SVG の字を返す。arrow＝矢印（門番 check_fuda の本数に数える）。"""
+    return dict(at=at, fn=fn, arrow=arrow)
+
+
+def _z(n, t, s, cards=(), parts=(), src="", note="", mute=(), schem=False, band=(), tl=None):
+    """1カット。band＝無線帯の行（時刻, 語, 字の大きさ）・tl＝時間の線（門番 ⑤＝dict(kind, ax, pts)）。"""
+    cs = tuple(dict(c, id="abcdefgh"[i]) for i, c in enumerate(cards))
+    ps = tuple(dict(p, id=f"p{i}") for i, p in enumerate(parts))
+    return dict(n=n, t=t, s=s, cards=cs, parts=ps, src=src, note=note, mute=tuple(mute), schem=schem, band=tuple(band), tl=tl)
+
+
+def _zbox(c):
+    w, h = _size(c)
+    x, y = c["pos"]
+    return (x - w / 2, y - h / 2, w, h)
+
+
+def _lead(c, x, y):
+    """札の上か下の辺から、線の上の点へ（細い線と点）。"""
+    bx, by, bw, bh = _zbox(c)
+    x0 = min(max(x, bx + 24), bx + bw - 24)
+    y0 = by + bh + 8 if y > by + bh else by - 8
+    return F.line(x0, y0, x, y, J.TICK, 4) + F.circ(x, y, 12, INK)
+
+
+def _rot(pts, cx, cy, a):
+    ca, sa = math.cos(math.radians(a)), math.sin(math.radians(a))
+    return [(cx + x * ca - y * sa, cy + x * sa + y * ca) for x, y in pts]
+
+
+def _mix(c1, c2, t):
+    a = [int(c1[i:i + 2], 16) for i in (1, 3, 5)]
+    b = [int(c2[i:i + 2], 16) for i in (1, 3, 5)]
+    return "#" + "".join(f"{round(x + (y - x) * t):02x}" for x, y in zip(a, b))
+
+
+def _wavy(xb, y0, y1, amp=22.0, per=190.0):
+    """県境の線（模式＝ゆるい波・実際の形ではない）。"""
+    n = int((y1 - y0) / 10)
+    return [(xb + amp * math.sin(i * 10.0 / per * 2 * math.pi), y0 + i * 10.0) for i in range(n + 1)]
+
+
+def _border(xb, y0, y1, hi=False):
+    pts = _wavy(xb, y0, y1)
+    if hi:
+        return F.poly(pts, "none", J.AMBER, 18, op=0.45) + F.poly(pts, "none", J.AMBER, 7)
+    return F.poly(pts, "none", J.BG, 14) + F.poly(pts, "none", INK, 6)
+
+
+# ── 無線帯（c714・c715・c716・c718・c721・c730・c733・c734）＝描き手1つ。同じ帯が段ごとに伸びる・前の段は時刻と短い語で残る・
+#    その段の時刻は明るく、右の札へ線でつなぐ（語は右の札だけ＝同じ画面に同じ語を2度出さない）。
+#    時刻は音声の時報から（±数十秒＝ref/ep30/sources.md §2）・語は公開の音声を機械で書き起こしたもの（耳で未確認＝了承②）＝「」の札と note で断る
+RB = (("8:21", "病人2名"), ("8:23", "同じ件かも"), ("8:24", "ガソリンの匂い"), ("8:31", "目が見えない"), ("8:39", "爆発物"),
+      ("8:44", "同時多発"), ("8:53", "防毒マスク"), ("8:58", "また爆発物"), ("9:04", "毒ガス"))
+RBX = dict(x=152.0, head=272.0, y0=342.0, dy=58.0, tx=184.0, kx=300.0, kx1=660.0, cap=38.0, ccap=46.0)
+S_RB = "公安調査庁 オウム真理教問題デジタルアーカイブの無線指令音声記録"
+N_RB = "語は公開の音声を機械で書き起こしたもの・時刻は音声の時報から"
+
+
+def _rb_y(i):
+    return RBX["y0"] + RBX["dy"] * i
+
+
+def _rb_head():
+    col = sc(R)
+    return (_icon(dict(icon="radio", cross=False), RBX["x"] + 4, RBX["head"] - 6, col, 0.42)
+            + _t(RBX["x"] + 44, RBX["head"] + 13, "警視庁の無線", 36, col, "start", 460))
+
+
+def _rb_row(i, cur, frm):
+    """帯の1段。cur＝このカットで出た段（時刻だけ明るく）。frm＝縦の線をどの段からつなぐか（-1＝見出し・None＝つながない）。"""
+    x, y, col = RBX["x"], _rb_y(i), sc(R)
+    g = ""
+    if frm is not None:
+        g += F.line(x, (_rb_y(frm) if frm >= 0 else RBX["head"] + 30) + 14, x, y - 14, col, 6)
+    if cur:
+        return g + F.circ(x, y, 14, J.AMBER) + _t(RBX["tx"], y + RBX["ccap"] * 0.36, RB[i][0], RBX["ccap"], J.AMBER, "start", 130)
+    return (g + F.circ(x, y, 9, col) + _t(RBX["tx"], y + RBX["cap"] * 0.36, RB[i][0], RBX["cap"], J.TICK, "start", 110)
+            + _t(RBX["kx"], y + RBX["cap"] * 0.36, RB[i][1], RBX["cap"], INK, "start", 340))
+
+
+def _rb_link(i, c):
+    """その段の時刻から右の札の左の辺へ（帯の語の列の右までは横に引く）。"""
+    y = _rb_y(i)
+    bx, by, bw, bh = _zbox(c)
+    x0, x1, y1 = RBX["tx"] + 120, bx - 14, by + bh / 2
+    mid = min(RBX["kx1"], x1)
+    return F.poly([(x0, y), (mid, y), (x1, y1)], "none", sc(R), 4) + F.circ(x1, y1, 7, sc(R))
+
+
+def _rb_view(n, t, s, past, new, cards, mute=(), head_at=0):
+    """無線帯の1カット。past＝前のカットまでの段（頭から出る）・new＝((段, 出る段, 札の番号, 縦の線をつなぐ段), …)。"""
+    parts = [_p(head_at, _rb_head)]
+    last = -1
+    for i in past:
+        parts.append(_p(0, lambda i=i, f=last: _rb_row(i, False, f)))
+        last = i
+    for i, at, ci, frm in new:
+        parts.append(_p(at, lambda i=i, f=frm: _rb_row(i, True, f)))
+        parts.append(_p(at, lambda i=i, c=cards[ci]: _rb_link(i, c)))
+    band = tuple((RB[i][0], RB[i][1], RBX["cap"]) for i in past) + tuple((RB[i][0], "", RBX["ccap"]) for i, _a, _c2, _f in new)
+    return _z(n, t, s, cards, parts, src=S_RB, note=N_RB, mute=mute, band=band)
+
+
+_X = 1250.0                 # 無線帯の札の真ん中（右の区画）
+VIEWS = {}
+VIEWS["c714"] = _rb_view(3, "無線の記録", "あの朝の順番", (), ((0, 2, 1, -1),), [
+    _at(_c(1, R, icon="radio", lines=("音声に", "時報が入る"), cap=48), _X, 372),
+    _at(_c(2, R, head="八丁堀駅へ", lines="病人2名", q=True, sub=("事件事故かも", "詳細は不明"), cap=64), _X, 640),
+], head_at=1)
+VIEWS["c715"] = _rb_view(2, "2つ目の駅", "同じ線の別の駅", (0,), ((1, 0, 0, 0),), [
+    _at(_c(0, R, head="小伝馬町駅", lines="八丁堀の件と同じかも", cap=56), _X, 430),
+    _at(_c(1, R, lines="病人は4人ぐらい", cap=54), _X, 640),
+])
+VIEWS["c716"] = _rb_view(2, "匂いの知らせ", "3つ目の駅", (0, 1), ((2, 0, 0, 1),), [
+    _at(_c(0, R, head="築地駅", lines="ガソリンの匂い", q=True, sub="電車が止まっている", cap=62), _X, 450),
+    _at(_c(1, R, lines="最優先で調査せよ", q=True, cap=58), _X, 680),
+])
+VIEWS["c718"] = _rb_view(2, "苦しむ人", "ホームの様子", (0, 1, 2), ((3, 0, 0, 2),), [
+    _at(_c(0, R, lines="小伝馬町駅の駅員から", cap=50), _X, 400),
+    _at(_c(1, R, lines="目が見えない", q=True, cap=60), _X, 560),
+    _at(_c(1, R, lines="苦しがってる人がいる", q=True, cap=60), _X, 710),
+], mute=(1,))
+VIEWS["c721"] = _rb_view(2, "爆発物の語", "8時40分の手前", (0, 1, 2, 3), ((4, 0, 0, 3),), [
+    _at(_c(0, R, head="本部から各局へ", lines="爆発物を使用した…事件", q=True, cap=70), 1230, 470),
+    _at(_c(1, R, icon="speaker", lines="全部の局へ", cap=56), 1230, 700),
+])
+VIEWS["c730"] = _rb_view(2, "知らせが重なる", "同じ線の駅で", (0, 1, 2, 3, 4), ((5, 0, 0, 4),), [
+    _at(_c(0, R, head="日比谷線の各駅で", lines="同時多発", q=True, cap=76), _X, 480),
+    _at(_c(1, R, lines="各駅を調べる指示", cap=52), _X, 700),
+])
+VIEWS["c733"] = _rb_view(2, "2つの指示", "ほぼ同じころに", (0, 1, 2, 3, 4, 5), ((7, 0, 0, 5), (6, 1, 2, None)), [
+    _at(_c(0, R, head="本部から各局へ", lines=("爆発物使用の", "…事件"), q=True, cap=52), 1500, 470),
+    _at(_c(1, R, lines=("23区内に", "全体の配備"), cap=46), 1500, 720),
+    _at(_c(1, R, head="本部の指示", lines="防毒マスク", q=True, sub="むやみに中へ入らない", cap=56), 950, 380),
+])
+VIEWS["c734"] = _rb_view(2, "毒ガスの語", "9時をすぎて", (0, 1, 2, 3, 4, 5, 6, 7), ((8, 0, 0, 7),), [
+    _at(_c(0, R, head="本部の指示", lines="毒ガス事案", q=True, cap=76), _X, 450),
+    _at(_c(1, R, lines="手で触ることなく", q=True, sub="マスクは完全に着ける", cap=56), _X, 690),
+])
+
+
+# ── c202 路線の模式＝3つの線が霞ケ関で交わる（角度と長さは模式・駅の点は描かない＝どの駅でまいたかを描かない）・電車の印5つ
+MET = (("日比谷線", "#b5b5ac", 62.0, -1), ("丸ノ内線", "#f62e36", -14.0, 1), ("千代田線", "#00bb85", -58.0, 1))   # 名・線の色（いまの東京メトロの色）・角度・名を書く端
+MC, MR = (1250.0, 540.0), 330.0
+
+
+def _met_lines():
+    g = ""
+    for _n, col, a, _e in MET:
+        dx, dy = MR * math.cos(math.radians(a)), MR * math.sin(math.radians(a))
+        g += F.line(MC[0] - dx, MC[1] - dy, MC[0] + dx, MC[1] + dy, J.BG, 32) + F.line(MC[0] - dx, MC[1] - dy, MC[0] + dx, MC[1] + dy, col, 18)
+    return (g + F.circ(MC[0], MC[1], 30, J.BG2, INK, 8)
+            + _t(MC[0] + 141, MC[1] + 51 + 17, "霞ケ関", 48, INK, "middle", 200))
+
+
+def _met_names():
+    g = ""
+    for name, col, a, e in MET:
+        x, y = MC[0] + e * MR * math.cos(math.radians(a)), MC[1] + e * MR * math.sin(math.radians(a))
+        g += _t(x + 22 * e, y + 15, name, 42, col, "start" if e > 0 else "end", 220)
+    return g
+
+
+def _train(cx, cy, col):
+    """電車の印（横から見た四角と窓3つ）。"""
+    return F.rect(cx - 34, cy - 20, 68, 40, J.BG2, col, 5, rx=9) + "".join(F.rect(cx - 25 + i * 18, cy - 11, 12, 12, col, None, None, rx=2) for i in range(3))
+
+
+VIEWS["c202"] = _z(2, "3つの路線", "当時の地下鉄", [
+    _at(_c(0, None, lines="営団地下鉄", sub="いまの東京メトロ", cap=60), 480, 380),
+    _at(_c(1, None, head="電車", big="5本", bcap=96), 480, 620),
+], [_p(0, _met_lines), _p(1, _met_names), _p(1, lambda: "".join(_train(480 + (i - 2) * 86.0, 790.0, INK) for i in range(5)))],
+    src=S_U, note="模式・路線の形と長さは実際と違う", schem=True)
+
+
+# ── 時間の線（比例）＝c307 年・c407 時刻・c514 月。位置は値の式（門番 judge_m30 ⑤ が字の値と位置を照らす）
+def _lin(d, v):
+    return d["x0"] + (v - d["v0"]) * (d["x1"] - d["x0"]) / (d["v1"] - d["v0"])
+
+
+def _axis(d, ticks, col=None):
+    g = F.line(d["x0"], d["y"], d["x1"], d["y"], col or J.TICK, 4)
+    return g + "".join(F.line(_lin(d, v), d["y"] - 14, _lin(d, v), d["y"] + 14, col or J.TICK, 4) for v in ticks)
+
+
+def _bar(d, v0, v1, col, h=52.0):
+    x0, x1 = _lin(d, v0), _lin(d, v1)
+    return F.rect(x0, d["y"] - h / 2, x1 - x0, h, col, None, None, rx=10, op=0.88)
+
+
+Y307 = dict(x0=300.0, x1=1620.0, y=560.0, v0=1989.0, v1=1996.0)            # 年（1989年の頭 → 1996年の頭）
+V307 = (1989 + 10.5 / 12, 1995.5)                                           # 1989年11月（月の真ん中）・1995年（年の真ん中＝月は書かない）
+C307 = [
+    _at(_c(0, None, big="1989年11月", lines="弁護士の一家の事件", cap=44, bcap=58), 480, 380),
+    _at(_c(1, K, head="局長の答弁", big="5年あまり", bcap=84), 900, 720),
+    _at(_c(1, None, big="1995年", lines="検挙", cap=44, bcap=58), 1510, 380),
+    # 判決の札は線の下（上の段に置くと 1989年と1995年のあいだの出来事に見えた＝手元の重ね絵）
+    _at(_c(2, T, head="判決", lines="一家3人は殺害されていた", cap=44), 1480, 720),
+]
+VIEWS["c307"] = _z(3, "検挙まで", "長くかかった捜査", C307, [
+    _p(0, lambda: _axis(Y307, range(1989, 1997))),
+    _p(0, lambda: _lead(C307[0], _lin(Y307, V307[0]), Y307["y"])),
+    _p(1, lambda: _bar(Y307, *V307, rc(SRC[K][1])) + _lead(C307[2], _lin(Y307, V307[1]), Y307["y"])),
+], src="国会会議録 平成7年10月12日・" + S_T,
+    tl=dict(kind="ym", ax=((Y307["v0"], Y307["x0"]), (Y307["v1"], Y307["x1"])), pts=(("1989年11月", _lin(Y307, V307[0])), ("1995年", _lin(Y307, V307[1])))))
+
+Y407 = dict(x0=250.0, x1=1670.0, y=600.0, v0=23 * 60.0, v1=31 * 60.0 + 30)   # 分（6月27日 23:00 → 28日 7:30）
+V407 = (23 * 60.0 + 30, 31 * 60.0)                                          # 23:30・翌朝 7:00
+C407 = [
+    _at(_c(0, K, big="23:30ごろ", lines="消防から松本署へ", cap=46, bcap=66), 430, 400),
+    _at(_c(1, K, head="翌朝", big="7:00", lines="310人の体制", cap=52, bcap=76), 1480, 400),
+]
+
+
+def _night():
+    d, n = Y407, 40
+    w = (d["x1"] - d["x0"]) / n
+    g = "".join(F.rect(d["x0"] + i * w, d["y"] - 30, w + 1, 60, _mix("#2c3e6b", "#f2d48a", i / (n - 1)), None, None, op=0.92) for i in range(n))
+    g += "".join(F.line(_lin(d, v), d["y"] - 44, _lin(d, v), d["y"] + 44, J.TICK, 6 if v == 24 * 60 else 3) for v in range(24 * 60, 32 * 60, 60))
+    mx, my, r = d["x0"] + 30, d["y"] + 110, 30
+    moon = [(mx + r * math.cos(math.radians(a)), my + r * math.sin(math.radians(a))) for a in range(40, 321, 10)]
+    moon += [(mx + 0.42 * r + 0.78 * r * math.cos(math.radians(a)), my + 0.78 * r * math.sin(math.radians(a))) for a in range(-40, 41, 10)][::-1]
+    sx, sy = d["x1"] - 30, d["y"] + 110
+    sun = F.circ(sx, sy, 22, "#f2d48a") + "".join(F.line(sx + 32 * math.cos(math.radians(a)), sy + 32 * math.sin(math.radians(a)),
+                                                         sx + 46 * math.cos(math.radians(a)), sy + 46 * math.sin(math.radians(a)), "#f2d48a", 6) for a in range(0, 360, 45))
+    return g + F.poly(moon, "#cfd8e3", None, close=True) + sun
+
+
+VIEWS["c407"] = _z(2, "その夜の動き", "翌朝までの体制", C407, [
+    _p(0, _night),
+    _p(0, lambda: _lead(C407[0], _lin(Y407, V407[0]), Y407["y"])),
+    _p(1, lambda: _lead(C407[1], _lin(Y407, V407[1]), Y407["y"])),
+], src="国会会議録 平成7年12月1日",
+    tl=dict(kind="hm", ax=((Y407["v0"], Y407["x0"]), (Y407["v1"], Y407["x1"])), pts=(("23:30", _lin(Y407, V407[0])), ("7:00", _lin(Y407, V407[1])))))
+
+Y514 = dict(x0=300.0, x1=1620.0, y=520.0, v0=1994 + 5 / 12, v1=1995 + 3 / 12)   # 月（1994年6月の頭 → 1995年4月の頭）
+V514 = (1994 + 5.5 / 12, 1995 + 2.5 / 12)                                       # 1994年6月・1995年3月（月の真ん中）
+C514 = [
+    _at(_c(0, None, big="1994年6月", lines="松本", cap=44, bcap=58), 400, 700),
+    _at(_c(0, S, head="母親の手記", lines="捜査の進展はなく", q=True, cap=60), 960, 330),
+    _at(_c(1, None, big="1995年3月", lines="地下鉄", cap=44, bcap=58), 1530, 700),
+]
+VIEWS["c514"] = _z(2, "手記の言葉", "その後の月日", C514, [
+    _p(0, lambda: _axis(Y514, [Y514["v0"] + i / 12 for i in range(11)])),
+    _p(0, lambda: _bar(Y514, *V514, rc(SRC[S][1]), h=44) + _lead(C514[0], _lin(Y514, V514[0]), Y514["y"])),
+    _p(1, lambda: _lead(C514[2], _lin(Y514, V514[1]), Y514["y"])),
+], src="公安調査庁 デジタルアーカイブの遺族の手記",
+    tl=dict(kind="ym", ax=((Y514["v0"], Y514["x0"]), (Y514["v1"], Y514["x1"])), pts=(("1994年6月", _lin(Y514, V514[0])), ("1995年3月", _lin(Y514, V514[1])))))
+
+
+# ── 県境の模式＝c315・c316（どこの県とも書かない）・c519（山梨と東京＝札は地名だけ）。県境の形は模式
+def _c315_art(hi=False):
+    g = _border(1000.0, 262.0, 840.0)
+    g += _t(500, 314, "自分の県", 42, J.TICK, "middle", 300) + _t(1500, 314, "ほかの県", 42, J.TICK, "middle", 300)
+    return g
+
+
+def _c315_arrow(hi=False):
+    """県の外への矢印と「？」。hi＝c316 で上に重ねる明るい線だけ（「？」は足さない＝2つ重なると門番 layout が鳴る）。"""
+    if hi:
+        return _arrow(640.0, 640.0, 1400.0, 640.0, J.AMBER, 10, 34)
+    return _arrow(640.0, 640.0, 1400.0, 640.0, INK, 8, 34, "22 14") + _qmark(1000.0, 586.0, 76, J.AMBER)
+
+
+C315 = [
+    _at(_c(0, H, lines="県の警察は県の中", cap=56), 500, 440),
+    _at(_c(1, H, head="当時の法律", lines="外で動くには理由が要る", cap=48), 1000, 760),
+]
+VIEWS["c315"] = _z(2, "県ごとの警察", "動ける範囲", C315, [_p(0, _c315_art), _p(1, _c315_arrow, arrow=True)], src=S_H,
+                   note="模式・県境の形は実際と違う", schem=True)
+VIEWS["c316"] = _z(1, "あとで効く決まり", "県の外へ出るとき", [dict(c, at=0, dim=True) for c in C315], [
+    _p(0, _c315_art), _p(0, _c315_arrow, arrow=True),
+    _p(0, lambda: _border(1000.0, 262.0, 840.0, hi=True) + _c315_arrow(hi=True), arrow=False),
+], src=S_H, note="模式・県境の形は実際と違う", schem=True)
+
+C519 = [_at(_c(0, None, lines="山梨", cap=72), 480, 430), _at(_c(0, None, lines="東京", cap=72), 1440, 430)]
+
+
+def _c519_stop():
+    return (_arrow(1290.0, 610.0, 1000.0, 610.0, INK, 9, 34) + F.line(976.0, 548.0, 976.0, 672.0, J.BG, 22) + F.line(976.0, 548.0, 976.0, 672.0, J.ALERT, 12))
+
+
+VIEWS["c519"] = _z(2, "県の外へ出るには", "白書の書き方", C519, [
+    _p(0, lambda: _border(960.0, 262.0, 840.0)), _p(0, _c519_stop, arrow=True),
+    _p(1, lambda: F.circ(1440.0, 690.0, 104, "none", J.AMBER, 8) + _qmark(1440.0, 690.0, 110, J.AMBER)),
+], src=S_H, note="模式・県境の形は実際と違う", schem=True)
+
+
+# ── 土の模式＝c505（土を取る＝道具の形だけ・手は描かない）・c506（土の断面と虫めがね＝化学式を書かない）
+SOIL = ("#6b4b30", "#584029", "#46331f")
+LEAF = ("#b07a3a", "#8f5f2c", "#c4934a")
+
+
+def _leaf(cx, cy, a, col):
+    """枯れた葉の形（とがった楕円と葉脈）。"""
+    pts = [(-46, 0), (-30, -15), (0, -21), (30, -15), (46, 0), (30, 15), (0, 21), (-30, 15)]
+    p1, p2 = _rot([(-40, 0), (40, 0)], cx, cy, a)
+    return F.poly(_rot(pts, cx, cy, a), col, J.BG, 3, close=True) + F.line(*p1, *p2, J.BG, 3)
+
+
+def _trowel(cx, cy, a, col):
+    """土を取る道具の形（刃と柄だけ・手は描かない）。"""
+    p1, p2 = _rot([(52, 0), (160, 0)], cx, cy, a)
+    return F.line(*p1, *p2, col, 18) + F.poly(_rot([(-70, 0), (-20, -34), (40, -24), (52, 0), (40, 24), (-20, 34)], cx, cy, a), J.BG2, col, 6, close=True)
+
+
+def _c505_soil():
+    y = 640.0
+    top = [(860.0 + i * 20, y + 8 * math.sin(i * 0.7)) for i in range(41)]
+    g = F.poly(top + [(1660.0, 790.0), (860.0, 790.0)], SOIL[1], None, close=True, op=0.92) + F.poly(top, "none", SOIL[0], 6)
+    for i, (lx, la) in enumerate(((930, 12), (1010, -20), (1100, 34), (1420, -8), (1500, 26), (1590, -30), (1190, -14))):
+        g += _leaf(lx, y - 12, la, LEAF[i % 3])
+    g += _trowel(1300.0, 590.0, -32.0, INK) + "".join(F.circ(1290 + dx, 590 + dy, 8, SOIL[0]) for dx, dy in ((-20, -6), (6, 4), (-2, -18), (22, -10)))
+    return g
+
+
+C505 = [
+    _at(_c(0, K, lines="長野県警", sub="松本の捜査の経験", cap=60), 520, 350),
+    _at(_c(0, K, lines="山梨", cap=60), 1400, 350),
+    _at(_c(1, K, lines=("枯れた葉の辺り", "その土を採取"), cap=50), 520, 650),
+]
+VIEWS["c505"] = _z(2, "山梨の土", "県をまたいだ捜査", C505, [
+    _p(0, lambda: F.poly(_wavy(1000.0, 262.0, 440.0), "none", J.TICK, 5, dash="14 10")),
+    _p(0, lambda: _arrow(_zbox(C505[0])[0] + _zbox(C505[0])[2] + 14, 350.0, _zbox(C505[1])[0] - 14, 350.0, INK, 8, 30), arrow=True),
+    _p(1, _c505_soil),
+], src="国会会議録 平成7年10月12日", note="模式", schem=True)
+
+
+def _c506_layers():
+    g = ""
+    for i, (y0, y1) in enumerate(((470.0, 560.0), (560.0, 660.0), (660.0, 790.0))):
+        g += F.rect(880.0, y0, 820.0, y1 - y0, SOIL[i], None, None, op=0.92)
+    for lx, la in ((940, 10), (1080, -24), (1560, 18), (1650, -12)):
+        g += _leaf(lx, 458.0, la, LEAF[lx % 3])
+    return g
+
+
+def _c506_glass():
+    cx, cy, r = 1270.0, 610.0, 105.0
+    dots = "".join(F.circ(cx + dx, cy + dy, 5, J.AMBER) for dx, dy in ((-30, -12), (18, 22), (34, -28), (-8, 36), (-40, 30)))
+    return (F.circ(cx, cy, r, J.BG2, None, None, op=0.55) + dots + F.circ(cx, cy, r, "none", INK, 10)
+            + F.line(cx + r * 0.72, cy + r * 0.72, cx + r * 1.55, cy + r * 1.55, INK, 18))
+
+
+C506 = [
+    _at(_c(0, H, big="1994年11月", lines="科学警察研究所の鑑定", cap=44, bcap=64), 520, 360),
+    _at(_c(1, H, lines=("サリンが分解した際にも", "できる化学物質"), q=True, cap=44), 520, 640),
+    _at(_c(1, K, lines="まことに微量", q=True, cap=50), 1560, 330),
+]
+VIEWS["c506"] = _z(2, "土の鑑定", "地下鉄の4か月前", C506, [_p(0, _c506_layers), _p(1, _c506_glass)],
+                   src=S_H + "・国会会議録 平成7年10月12日", note="模式", schem=True)
+
+
+# ── 車の中の話の模式＝c610・c611（車は外の形だけ・顔と名前なし・話す人は立場の字だけ・吹き出しは判決と公安調査庁のまとめの要旨と原文）
+CAR = (820.0, 540.0)
+
+
+def _car():
+    cx, cy = CAR
+    pts = [(cx - 600, cy + 205), (cx - 600, cy - 30), (cx - 470, cy - 60), (cx - 330, cy - 230), (cx + 330, cy - 230), (cx + 470, cy - 60),
+           (cx + 600, cy - 30), (cx + 600, cy + 205)]
+    g = F.poly(pts, "none", J.BG, 16, close=True) + F.poly(pts, "none", INK, 7, close=True)
+    g += F.circ(cx - 380, cy + 215, 52, J.BG2, INK, 7) + F.circ(cx + 380, cy + 215, 52, J.BG2, INK, 7)
+    return g + _t(300.0, 716.0, "教祖", 44, INK, "middle", 200) + _t(1330.0, 716.0, "幹部", 44, INK, "middle", 200)
+
+
+def _tail(c, x, y, col, n=64.0):
+    """吹き出しの尾（札の下の角から、話す人の字の向きへ短く＝長い三角は光の筋に見えた＝手元の重ね絵）。"""
+    bx, by, bw, bh = _zbox(c)
+    ax, ay = (bx + 30 if x < bx else bx + bw - 30), by + bh - 6
+    d = math.hypot(x - ax, y - ay) or 1.0
+    return F.poly([(ax - 18, ay), (ax + 18, ay), (ax + (x - ax) / d * n, ay + (y - ay) / d * n)], J.BG2, col, 4, close=True, op=0.9)
+
+
+C610 = [
+    _at(_c(0, T, lines=("強制捜査に", "どうするか"), cap=44), 640, 410),
+    _at(_c(1, T, lines="地下鉄に…", cap=52), 1060, 500),
+]
+VIEWS["c610"] = _z(2, "車の中で", "教祖と幹部", C610, [
+    _p(0, _car), _p(0, lambda: _tail(C610[0], 312.0, 672.0, rc(SRC[T][1]))), _p(1, lambda: _tail(C610[1], 1316.0, 672.0, rc(SRC[T][1]))),
+], src=S_T, note="模式・吹き出しは判決の要旨", schem=True)
+C611 = [dict(c, at=0, dim=True) for c in C610] + [
+    _at(_c(0, U, lines=("それはパニックに", "なるかもしれないなあ"), q=True, cap=44), 610, 585),
+    _at(_c(1, U, head="提案した幹部", big="1995年4月", lines=("亡くなり", "裁判なし"), cap=44, bcap=58), 1650, 520),
+]
+VIEWS["c611"] = _z(2, "教祖の答え", "提案のその後", C611, [
+    _p(0, _car), _p(0, lambda: _tail(C611[2], 300.0, 676.0, rc(SRC[U][1]))),
+], src=S_U, note="模式", mute=(0,), schem=True)
+
+
 def _cid(view):
-    return "c" + view[3:] if view.startswith("fu_") else view
+    return "c" + view[3:] if view.startswith(("fu_", "zu_")) else view
 
 
 def _ids(fu):
-    return [c["id"] for c in fu["cards"]] + [a["id"] for a in fu["arrows"]]
+    return [c["id"] for c in fu["cards"]] + [a["id"] for a in fu.get("arrows", ())] + [p["id"] for p in fu.get("parts", ())]
 
 
 def fu(cid):
@@ -823,7 +1232,25 @@ def fu_spec(cid, ground, **kw):
     return dict(ground, t=d["t"], s=d["s"], fig=fu(cid), **kw)
 
 
+def zu(cid):
+    """🆕 ⑤b-5：見え方の表 VIEWS のカットの fig＝("m30", …)。段は札と部品の at から組む。view は「zu_714」の形（fu_ と同じ理由）。"""
+    d = VIEWS[cid]
+    steps = [dict(state={x["id"]: "on" for x in d["cards"] + d["parts"] if x["at"] == i}) for i in range(d["n"])]
+    return ("m30", dict(view="zu_" + cid[1:], steps=steps, note=d["note"], src=d["src"], mute=list(d["mute"])))
+
+
+def zu_spec(cid, ground, **kw):
+    """章ファイルの SPEC の1行＝`"c714": zu_spec("c714", ss.gr("ks1"))`。"""
+    d = VIEWS[cid]
+    return dict(ground, t=d["t"], s=d["s"], fig=zu(cid), **kw)
+
+
 def stage_art(view, prev, st):
+    if view in VIEWS:
+        # 部品（線・帯・印）が先・札が上
+        d = VIEWS[view]
+        s = [p["fn"]() for p in d["parts"] if _on(prev, st, p["id"])]
+        return s + [_draw_card(c, _zbox(c)) for c in d["cards"] if _on(prev, st, c["id"])]
     d = FU[view]
     boxes, _bb, k = layout(d)
     s = []
@@ -838,18 +1265,21 @@ def stage_art(view, prev, st):
 
 def quote_lines(view):
     """原文どおりに出す字（門番 echo の例外＝mute のあるカットだけ＝その行の字幕は消える）。"""
-    d = FU.get(_cid(view))
+    d = FU.get(_cid(view)) or VIEWS.get(_cid(view))
     if not d or not d["mute"]:
         return []
     return [ln for c in d["cards"] if c["q"] for ln in _qwrap(c["lines"])]
 
 
 def m30(view, steps, start=None, rel=(), note="", src="", mute=()):
-    """30本目 札の型。view は `fu()` の「fu_205」の形（表 FU の鍵はカットの番号）。steps＝語りの行ごとの段。"""
+    """30本目 札の型と見え方の表。view は `fu()` の「fu_205」か `zu()` の「zu_714」の形（表の鍵はカットの番号）。steps＝語りの行ごとの段。"""
     view = _cid(view)
-    if view not in FU:
-        raise ValueError(f"m30：表 FU に無い {view!r}")
-    d = FU[view]
+    if view not in FU and view not in VIEWS:
+        raise ValueError(f"m30：表 FU にも見え方の表 VIEWS にも無い {view!r}")
+    d = FU.get(view) or VIEWS[view]
+    zv = view in VIEWS
+    if zv and d["schem"] and "模式" not in note:
+        raise ValueError(f"m30：{view} は模式＝note に「模式」を書くこと（§5b-10 模式であることを札で断る）")
     ids = _ids(d)
     cur = {k: "off" for k in ids}
     st0 = dict(cur, **(start or {}))
@@ -860,10 +1290,19 @@ def m30(view, steps, start=None, rel=(), note="", src="", mute=()):
             if k not in ids or v not in ONOFF:
                 raise ValueError(f"m30：{view} の欄 {k}={v!r} は知らない")
         states.append(dict(c2))
-    _boxes, bb, _k = layout(d)
-    if bb[2] > AREA_W or bb[3] > AREA_H:
-        raise ValueError(f"m30：{view} の札が広すぎる（幅 {bb[2]:.0f}／{AREA_W:.0f}・高さ {bb[3]:.0f}／{AREA_H:.0f}）")
-    g = [F.txtfit(F.BX0, F.BY1 - 6, note + (f"　出典：{src}" if src else ""), F.BW, cap=26, col=J.TICK, ol=OL)]
+    g = []
+    if zv:
+        for c in d["cards"]:
+            x, y, w, h = _zbox(c)
+            if x < F.BX0 or x + w > F.BX1 or y < F.BY0 or y + h > F.BY1 - 34:
+                raise ValueError(f"m30：{view} の札 {c['id']} が本体の外（{x:.0f},{y:.0f}〜{x + w:.0f},{y + h:.0f}）")
+        if d["schem"]:
+            g.append(F.txtfit(F.BX0 + 8, F.BY0 + 36, "模式", 1000, cap=30, col=J.TICK, ol=OL))
+    else:
+        _boxes, bb, _k = layout(d)
+        if bb[2] > AREA_W or bb[3] > AREA_H:
+            raise ValueError(f"m30：{view} の札が広すぎる（幅 {bb[2]:.0f}／{AREA_W:.0f}・高さ {bb[3]:.0f}／{AREA_H:.0f}）")
+    g.append(F.txtfit(F.BX0, F.BY1 - 6, note + (f"　出典：{src}" if src else ""), F.BW, cap=26, col=J.TICK, ol=OL))
     stages, prev = [], st0
     for stt in states:
         stages.append("".join(stage_art(view, prev, stt)) or " ")
@@ -876,6 +1315,17 @@ def m30(view, steps, start=None, rel=(), note="", src="", mute=()):
 
 
 def geo_of(view):
+    if view in VIEWS:
+        # 🆕 ⑤b-5：札の型と同じ形＋無線帯の行（band）・時間の線（tl）。拡大率は 1（札の字の大きさは表に書いた値のまま）
+        d = VIEWS[view]
+        boxes = {c["id"]: _zbox(c) for c in d["cards"]}
+        x0 = min(b[0] for b in boxes.values())
+        y0 = min(b[1] for b in boxes.values())
+        bb = (x0, y0, max(b[0] + b[2] for b in boxes.values()) - x0, max(b[1] + b[3] for b in boxes.values()) - y0)
+        return dict(view=view, src={key: tuple(v) for key, v in SRC.items()}, vsrc=tuple(sorted({c["who"] for c in d["cards"] if c["who"]})),
+                    quotes=tuple("".join(c["lines"]) for c in d["cards"] if c["q"]), mute=d["mute"], n=d["n"],
+                    cards=tuple(dict(id=c["id"], who=c["who"], q=c["q"], dim=c["dim"], rows=tuple(_rows(c))) for c in d["cards"]),
+                    narrows=sum(1 for p in d["parts"] if p["arrow"]), bbox=bb, boxes=boxes, k=1.0, band=d["band"], tl=d["tl"], schem=d["schem"])
     d = FU[view]
     boxes, bb, k = layout(d)
     return dict(view=view, src={key: tuple(v) for key, v in SRC.items()}, vsrc=tuple(sorted({c["who"] for c in d["cards"] if c["who"]})),

@@ -103,3 +103,13 @@ SPEC.update({
     "c510": fu_spec("c510", ss.gr("kg1")),
     "c511": fu_spec("c511", ss.gr("stock/ga1")),
 })
+
+# 🆕 ⑤b-5（2026-11-06）：見え方の表 `mech30.VIEWS`（c505・c506 土の模式・c514 月の線・c519 県境の模式）
+from mech30 import zu_spec  # noqa: E402
+
+SPEC.update({
+    "c505": zu_spec("c505", ss.gr("stock/x503")),
+    "c506": zu_spec("c506", ss.gr("stock/x503")),
+    "c514": zu_spec("c514", ss.gr("stock/x513")),
+    "c519": zu_spec("c519", ss.gr("ks2")),
+})

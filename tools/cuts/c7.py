@@ -174,3 +174,17 @@ SPEC.update({
     "c732": fu_spec("c732", ss.gr("p68")),
     "c735": fu_spec("c735", ss.gr("p78")),
 })
+
+# 🆕 ⑤b-5（2026-11-06）：見え方の表 `mech30.VIEWS`（無線帯 8＝描き手1つ・同じ帯が段ごとに伸びる）
+from mech30 import zu_spec  # noqa: E402
+
+SPEC.update({
+    "c714": zu_spec("c714", ss.gr("ks1")),
+    "c715": zu_spec("c715", ss.gr("ks1")),
+    "c716": zu_spec("c716", ss.gr("ks1")),
+    "c718": zu_spec("c718", ss.gr("kod")),
+    "c721": zu_spec("c721", ss.gr("p66")),
+    "c730": zu_spec("c730", ss.gr("p75")),
+    "c733": zu_spec("c733", ss.gr("p68")),
+    "c734": zu_spec("c734", ss.gr("p78")),
+})

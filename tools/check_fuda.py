@@ -12,6 +12,8 @@
   F4 字の大きさ  …… 焼く大きさ（拡大率のあと）で本文 BODY_MIN・見出し札 HEAD_MIN・小さい字 SUB_MIN・黄色い数 BIG_MIN 以上
   F5 札と矢印の数 … 影の札を除いて CARDS_MAX 枚・矢印 ARROWS_MAX 本まで（映像方針 §5-4＝札1〜4枚＋矢印0〜2本・まとめの cc15 だけ5枚＝EXC）
   F6 段と行      …… 段の数 ≥ 語りの行の数・札と矢印の出る段が段の数の内・mute の行が語りの行にある
+  F7 無線帯の行  …… 🆕 ⑤b-5（2026-11-06）：見え方の表の無線帯（`mech30.VIEWS` の band）の前の段の語は BAND_MAX 字まで・字の大きさ BAND_MIN 以上
+                     （帯は前のカットのおさらい＝短い語で残す。札の字数と画面の字の秒には数えない＝影の札と同じ扱い）
 
 ■ しきい値の根拠
   ⚠️ 87カットの実測（2026-11-05）から Claude が置いた最初の値＝カズヤくんの見本の承認はまだ（⑤c で読めない札が出たら直す）。
@@ -34,6 +36,7 @@ CPS = 6.0
 BODY_MIN, HEAD_MIN, SUB_MIN, BIG_MIN = 44.0, 32.0, 32.0, 58.0
 CARDS_MAX, ARROWS_MAX = 4, 2
 EXC = {"cc15": dict(cards=5)}      # まとめのカット＝同じ型の小さな札が横に3枚並ぶ（一覧 cc15「反省は3つ」）
+BAND_MAX, BAND_MIN = 8, 34.0       # ⚠️ ⑤b-5 の最初の値（無線帯の語の実測は最大7字「ガソリンの匂い」・字は 38）
 
 
 def _len(t):
@@ -76,6 +79,11 @@ def judge(cid, geo, sec, nlines):
     for i in geo["mute"]:
         if not 0 <= int(i) < nlines:
             bad.append(f"F6 {cid} mute の行 {i} が語りの行（0〜{nlines - 1}）に無い")
+    for tm, kw, cap in geo.get("band", ()):
+        if _len(kw) > BAND_MAX:
+            bad.append(f"F7 {cid} 無線帯の {tm} の語「{kw}」が {_len(kw)}字（{BAND_MAX}字まで）")
+        if cap < BAND_MIN:
+            bad.append(f"F7 {cid} 無線帯の {tm} の字の大きさ {cap:.0f}（{BAND_MIN:.0f} 以上）")
     return bad, dict(worst, total=total, cps=total / max(sec, 0.1), cards=cards)
 
 
@@ -114,6 +122,8 @@ def selftest():
     control("矢印が多い", geo_of((("body", "ふつう", 56.0),), narrows=3), 10.0, 2, "F5")
     control("段が語りの行より少ない", geo_of((("body", "ふつう", 56.0),), n=1), 10.0, 2, "F6")
     control("mute の行が無い", dict(geo_of((("body", "ふつう", 56.0),)), mute=(5,)), 10.0, 2, "F6")
+    control("無線帯の語が長い", dict(geo_of((("body", "ふつう", 56.0),)), band=(("8:21", "あ" * 12, 38.0),)), 10.0, 2, "F7")
+    control("無線帯の字が小さい", dict(geo_of((("body", "ふつう", 56.0),)), band=(("8:21", "病人2名", 24.0),)), 10.0, 2, "F7")
     return ok
 
 
