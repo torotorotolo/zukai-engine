@@ -119,3 +119,14 @@ SPEC.update({
     "cb15": fu_spec("cb15", ss.gr("kg1")),
     "cb18": fu_spec("cb18", ss.gr("stock/x803")),
 })
+
+# 🆕 ⑤b-6（2026-11-06）：箱 cb02（札の型 FU）＋見え方の表 `mech30.VIEWS`（cb07 定員の枠・cb08 県境・cb12 天秤＝模式／cb11 1本に並べる＝門番 ⑤ ymd 2本）
+from mech30 import zu_spec  # noqa: E402
+
+SPEC.update({
+    "cb02": fu_spec("cb02", ss.gr("kg1")),
+    "cb07": zu_spec("cb07", ss.gr("kg2")),
+    "cb08": zu_spec("cb08", ss.gr("kg2")),
+    "cb11": zu_spec("cb11", ss.gr("kg1")),
+    "cb12": zu_spec("cb12", ss.gr("kg2")),
+})

@@ -188,3 +188,14 @@ SPEC.update({
     "c733": zu_spec("c733", ss.gr("p68")),
     "c734": zu_spec("c734", ss.gr("p78")),
 })
+
+# 🆕 ⑤b-6（2026-11-06）：模式の後半（c704 ホームの形・c706 時刻表・c707 メモ・c719 路線）＋型の図（c729 棒・c736 並べ）。
+#    🔧 c706 の地 X703 は映像（Pexels の動画）＝地にできない → 霞ケ関駅のホーム KAS（助役の語り・over30.psv）
+SPEC.update({
+    "c704": zu_spec("c704", ss.gr("kas")),
+    "c706": zu_spec("c706", ss.gr("kas")),
+    "c707": zu_spec("c707", ss.gr("stock/x705")),
+    "c719": zu_spec("c719", ss.gr("p76")),
+    "c729": zu_spec("c729", ss.gr("p75")),
+    "c736": zu_spec("c736", ss.gr("p66")),
+})

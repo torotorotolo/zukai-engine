@@ -26,9 +26,16 @@
   無線帯（c714〜c734）は描き手1つ（`_rb_view`）＝同じ帯が段ごとに伸びる・前の段は時刻と短い語で残る・その段の時刻から右の札へ線。
   模式（`schem=True`）は左上に「模式」・note にも「模式」。時間の線（c307・c407・c514）は比例＝門番 judge_m30 の ⑤ が位置と字の値を測る。
   SPEC は `"c714": zu_spec("c714", ss.gr("ks1"))`。
+
+■ 🆕 ⑤b-6（2026-11-06）：模式の後半 9＋型の図 14（箱 2 は FU・ほか 21 は VIEWS）
+  時間の線と棒と暦は `tl` に書く（1カットに2本なら tuple）＝門番 judge_m30 ⑤ が字を読んで位置を照らす：
+    ym＝月（月の真ん中＝(月−0.5)/12）・hm＝時刻（分）・🆕 ymd＝日の数で（日の真ん中・月だけなら月の真ん中・年の無い字は線の範囲で年を決める）・
+    🆕 num＝棒の長さ（「約13億円」「640人」の字を数に読む）・🆕 cal＝暦（曜日は datetime・日曜はじまり・暦の日の字は ③ の数に数えない）。
 """
 from __future__ import annotations
 
+import calendar as _cal
+import datetime as _dt
 import math
 import re
 
@@ -505,6 +512,10 @@ FU["c417"] = _f(2, "謝罪の時期", "警察庁の答弁", [
 FU["c418"] = _f(3, "訂正の時期", "局長の答弁", [
     _c(1, K, head="放送局の訂正まで", big="約1年", bcap=110, sub="松本の事件から", cell=(0, 0)),
 ], src="国会会議録 平成9年5月13日")
+# 🆕 ⑤b-6：箱 c419＝反省の3つの箱（cb02・cb03〜cb06 と同じ名）の1つ目だけ明るく＝cb02 の予告
+FU["c419"] = _f(2, "白書の反省", "最初に挙げた点", _strip(0) + [
+    _c(1, H, lines=("警察に戸惑いがあったことは", "否めない"), q=True, cap=52, cell=(0, 1), span=(3, 1)),
+], src=S_H, mute=(1,))
 FU["c420"] = _f(2, "白書の続き", "知識が十分でも", [
     _c(0, H, lines="即座に解決したとは断言できない", q=True, cap=60, cell=(0, 0)),
     _c(1, H, lines="一層効率的に推進し得たのではないか", q=True, cap=60, cell=(0, 1)),
@@ -733,6 +744,12 @@ FU["ca15"] = _f(2, "給付金", "対象の事件全体", [
     _c(1, D, big="約30億3千万円", bcap=66, cell=(1, 1)),
 ], src="犯罪被害者白書 平成24年版・" + S_U)
 # ── 第10章
+# 🆕 ⑤b-6：箱 cb02＝反省の3つの箱（c419・cb03〜cb06・cc15 と同じ名）。上の小さい字は何についての不足か
+FU["cb02"] = _f(2, "反省は3つ", "白書のまとめ", [
+    _c(0, H, head="サリン", lines="知識不足", cap=60, cell=(0, 0)),
+    _c(0, H, head="閉じた組織", lines="情報不足", cap=60, cell=(1, 0)),
+    _c(1, H, head="管轄の外", lines="権限の制限", cap=60, cell=(2, 0)),
+], src=S_H)
 FU["cb03"] = _f(2, "1つ目の反省", "松本の事件で", _strip(0) + [
     _c(0, H, lines="戸惑いがあった", q=True, cap=48, cell=(0, 1), span=(3, 1)),
     _c(1, H, lines="即座に解決したとは断言できない", q=True, cap=44, cell=(0, 2), span=(3, 1)),
@@ -962,18 +979,21 @@ MET = (("日比谷線", "#b5b5ac", 62.0, -1), ("丸ノ内線", "#f62e36", -14.0,
 MC, MR = (1250.0, 540.0), 330.0
 
 
-def _met_lines():
+def _met_lines(name=True):
+    """name=False は霞ケ関の字を書かない（c719＝駅の名は国会議事堂前だけ）。"""
     g = ""
     for _n, col, a, _e in MET:
         dx, dy = MR * math.cos(math.radians(a)), MR * math.sin(math.radians(a))
         g += F.line(MC[0] - dx, MC[1] - dy, MC[0] + dx, MC[1] + dy, J.BG, 32) + F.line(MC[0] - dx, MC[1] - dy, MC[0] + dx, MC[1] + dy, col, 18)
     return (g + F.circ(MC[0], MC[1], 30, J.BG2, INK, 8)
-            + _t(MC[0] + 141, MC[1] + 51 + 17, "霞ケ関", 48, INK, "middle", 200))
+            + (_t(MC[0] + 141, MC[1] + 51 + 17, "霞ケ関", 48, INK, "middle", 200) if name else ""))
 
 
-def _met_names():
+def _met_names(ends=None):
+    """ends＝線の名を書く端（MET の順・1 か -1）。無ければ MET のまま（c202）。"""
     g = ""
-    for name, col, a, e in MET:
+    for i, (name, col, a, e) in enumerate(MET):
+        e = ends[i] if ends else e
         x, y = MC[0] + e * MR * math.cos(math.radians(a)), MC[1] + e * MR * math.sin(math.radians(a))
         g += _t(x + 22 * e, y + 15, name, 42, col, "start" if e > 0 else "end", 220)
     return g
@@ -1204,6 +1224,502 @@ C611 = [dict(c, at=0, dim=True) for c in C610] + [
 VIEWS["c611"] = _z(2, "教祖の答え", "提案のその後", C611, [
     _p(0, _car), _p(0, lambda: _tail(C611[2], 300.0, 676.0, rc(SRC[U][1]))),
 ], src=S_U, note="模式", mute=(0,), schem=True)
+
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-11-06）：見え方の表 VIEWS の続き＝模式の後半 9（c704・c706・c707・c719・c819・c906・cb07・cb08・cb12）＋型の図 12
+#    （帯 c517・c903／並べ c614・c736／棒 c729・c825／年表 ca13・cb11／表 c206／暦 c620／比べ cc07／窓口 cc13）。箱の2つ（c419・cb02）は札の型 FU（_strip と同じ3つの名）。
+#    🔴 棒・年表・帯・暦は比例か式＝門番 judge_m30 ⑤（ymd＝日の数で・num＝棒の長さ・cal＝曜日を式で）。棒の長さは表に書いた数だけで決まる＝飾りの数を足さない。
+#    🔴 人の形・顔・家は描かない（目は模式の形だけ・天秤と時刻表とメモは物の形）。この回の線の語は札にも絵にも出さない（c704 はホームの形だけ＝位置と袋を描かない）。
+# ══════════════════════════════════════════════════════════
+def _rowmid(c):
+    """札の中の行の真ん中の高さ（_draw_card と同じ割り付け）＝[(種類, 字, y)]。"""
+    _x0, y, _w, h = _zbox(c)
+    rows = _rows(c)
+    yy = y + (h - sum(cap * LH[kd] for kd, _t2, cap in rows)) / 2
+    out = []
+    for kd, t, cap in rows:
+        out.append((kd, t, yy + cap * LH[kd] / 2))
+        yy += cap * LH[kd]
+    return out
+
+
+def _ring(c, col=None, pad=14.0):
+    """札を囲む明るい枠（その段で話している札）。"""
+    x, y, w, h = _zbox(c)
+    return F.rect(x - pad, y - pad, w + 2 * pad, h + 2 * pad, "none", col or J.AMBER, 7, rx=22)
+
+
+def _y0(y, m):
+    """その月の1日の頭＝年の小数（日の数で）。門番 judge_m30 ⑤ の ymd は同じ決めを自分で計算する（この関数を引かない）。"""
+    n = 366 if _cal.isleap(y) else 365
+    return y + (_dt.date(y, m, 1) - _dt.date(y, 1, 1)).days / n
+
+
+def _yd(y, m, d=None):
+    """日付の真ん中＝年の小数（日の数で）。日が無ければ月の真ん中（1日の頭と次の月の1日の頭のあいだ）。"""
+    n = 366 if _cal.isleap(y) else 365
+    if d is None:
+        a = (_dt.date(y, m, 1) - _dt.date(y, 1, 1)).days
+        b = (_dt.date(y + m // 12, m % 12 + 1, 1) - _dt.date(y, 1, 1)).days
+        return y + (a + b) / 2 / n
+    return y + ((_dt.date(y, m, d) - _dt.date(y, 1, 1)).days + 0.5) / n
+
+
+def _ev(d, v, date, word, col=None, up=True, dim=False):
+    """時間の線の上の出来事＝点・細い線・日付（黄）・語（誰の記録かの色）。up＝線の上に書く。dim＝語りに出ない（影の色・小さく）。"""
+    x, y = _lin(d, v), d["y"]
+    s = -1 if up else 1
+    cd, cw = (34, 38) if dim else (40, 44)
+    dc, wc = (J.TICK, J.TICK) if dim else (J.AMBER, col or INK)
+    g = F.line(x, y + s * 14, x, y + s * 48, J.TICK, 4) + F.circ(x, y, 9 if dim else 11, J.TICK if dim else INK)
+    if up:
+        return g + _t(x, y - 64, date, cd, dc, "middle", 360) + _t(x, y - 64 - cw * 1.25, word, cw, wc, "middle", 360)
+    yb = y + 64 + cd * 0.72
+    return g + _t(x, yb, date, cd, dc, "middle", 360) + _t(x, yb + cw * 1.25, word, cw, wc, "middle", 360)
+
+
+# ── c704 ホームの形だけ（横から見た板と線路）＝位置の印と袋は描かない
+def _c704_home():
+    g = F.rect(760.0, 560.0, 1020.0, 116.0, J.BG2, INK, 6, rx=10, op=0.9)
+    g += F.line(780.0, 664.0, 1760.0, 664.0, J.TICK, 6, dash="26 14")
+    g += "".join(F.rect(784.0 + i * 68, 742.0, 24.0, 58.0, J.TICK, None, None, rx=3, op=0.55) for i in range(15))
+    g += F.line(760.0, 754.0, 1780.0, 754.0, INK, 7) + F.line(760.0, 788.0, 1780.0, 788.0, INK, 7)
+    return g + _t(1270.0, 634.0, "ホーム", 44, J.TICK, "middle", 300)
+
+
+C704 = [
+    _at(_c(0, S, head="助役の手記", big="8:12", lines="第一報", cap=48, bcap=66), 430, 360),
+    _at(_c(1, S, lines=("サリンとは知らず、", "何か爆発物"), q=True, cap=50), 430, 640),
+    _at(_c(2, S, lines="ホームに置けない", cap=56), 1270, 420),
+]
+VIEWS["c704"] = _z(3, "ホームの上で", "霞ケ関駅の朝", C704, [_p(0, _c704_home)], src=S_S, note="模式・ホームの形だけ", mute=(1,), schem=True)
+
+
+# ── c706 時刻表の板の模式（数字は字にしない＝丸い棒で数の形だけ）・ぼやけは上がき（暗い膜＋にじんだ棒）
+def _c706_board(blur=False):
+    x0, y0, w, h = 1000.0, 300.0, 700.0, 500.0
+    if blur:
+        g = F.rect(x0 + 6, y0 + 92, w - 12, h - 98, J.BG, None, None, rx=8, op=0.62)
+    else:
+        g = F.rect(x0, y0, w, h, J.BG2, INK, 6, rx=12, op=0.92) + _t(x0 + w / 2, y0 + 58, "時刻表", 44, INK, "middle", 400)
+        g += F.line(x0 + 20, y0 + 86, x0 + w - 20, y0 + 86, J.TICK, 4)
+    for r in range(6):
+        y = y0 + 130 + r * 62
+        for cx, cw in [(x0 + 40, 56.0)] + [(x0 + 150 + i * 104, 64.0) for i in range(5)]:
+            if blur:
+                g += "".join(F.rect(cx + dx, y - 14 + dy, cw, 28, INK, None, None, rx=14, op=0.2) for dx, dy in ((-9, -4), (8, 5), (0, 0), (-4, 8), (6, -7)))
+            else:
+                g += F.rect(cx, y - 12, cw, 24, INK, None, None, rx=12, op=0.85)
+    return g
+
+
+C706 = [
+    _at(_c(1, S, head="助役の手記", lines="全く数字が見えない", q=True, cap=50), 500, 430),
+    _at(_c(2, S, head="指令", big="8:35", lines="日比谷線全線営業停止", q=True, cap=46, bcap=66), 500, 690),
+]
+VIEWS["c706"] = _z(3, "時刻表の数字", "その朝の駅で", C706, [_p(0, _c706_board), _p(1, lambda: _c706_board(blur=True))],
+                   src=S_S, note="模式・数字の形だけ", schem=True)
+
+
+# ── c707 メモ用紙の形と、書けずに震える線（字の形は描かない＝手記の字を写さない）
+def _c707_memo():
+    cx, cy, w, h, a = 1260.0, 540.0, 520.0, 400.0, -4.0
+    g = F.poly(_rot([(-w / 2, -h / 2), (w / 2, -h / 2), (w / 2, h / 2), (-w / 2, h / 2)], cx, cy, a), "#e9e4d6", None, close=True, op=0.92)
+    for i in range(5):
+        p1, p2 = _rot([(-w / 2 + 30, -h / 2 + 80 + i * 66), (w / 2 - 30, -h / 2 + 80 + i * 66)], cx, cy, a)
+        g += F.line(*p1, *p2, "#9fb2c4", 3)
+    return g
+
+
+def _c707_shake():
+    pts = [(-170 + i * 6.0, -40 + 26 * math.sin(i * 1.7) + 17 * math.sin(i * 4.3 + 1.0) + 9 * math.sin(i * 9.1)) for i in range(58)]
+    return F.poly(_rot(pts, 1260.0, 540.0, -4.0), "none", "#2a3440", 6)
+
+
+C707 = [
+    _at(_c(0, S, head="助役の手記", lines="メモに「8時」と", cap=50), 520, 400),
+    _at(_c(1, S, lines=("手が震えてしまって", "文字になりませんでした"), q=True, cap=48), 520, 650),
+]
+VIEWS["c707"] = _z(2, "書けなかったメモ", "震える線", C707, [_p(0, _c707_memo), _p(1, _c707_shake)], src=S_S, note="模式・字の形は描かない", mute=(1,), schem=True)
+
+
+# ── c719 路線の模式（c202 と同じ3つの線・駅の名は国会議事堂前だけ＝霞ケ関の字を出さない・日比谷線は光らせるだけ＝線の上に駅の印を置かない）
+#    国会議事堂前＝丸ノ内線と千代田線の両方の駅＝2本の線をつなぐ短い棒（位置は模式）
+KOK = tuple((MC[0] + 170.0 * math.cos(math.radians(a)), MC[1] + 170.0 * math.sin(math.radians(a))) for a in (-14.0, -58.0))
+
+
+def _c719_glow():
+    a = MET[0][2]
+    dx, dy = MR * math.cos(math.radians(a)), MR * math.sin(math.radians(a))
+    return F.line(MC[0] - dx, MC[1] - dy, MC[0] + dx, MC[1] + dy, J.AMBER, 40, op=0.35)
+
+
+def _c719_station(ring=False):
+    (x1, y1), (x2, y2) = KOK
+    if ring:
+        mx, my = (x1 + x2) / 2, (y1 + y2) / 2
+        return F.circ(mx, my, 112, "none", J.AMBER, 6, op=0.75) + F.circ(mx, my, 164, "none", J.AMBER, 4, op=0.45)
+    return F.line(x1, y1, x2, y2, J.BG, 46) + F.line(x1, y1, x2, y2, INK, 30)
+
+
+C719 = [
+    _at(_c(0, R, big="8:37ごろ", lines="国会議事堂前", sub="ホームに3人", cap=54, bcap=62), 1610, 330),
+    _at(_c(1, R, head="警視庁の無線", lines=("女性1名男性2名の", "3名が"), q=True, sub="日比谷線の外の駅", cap=48), 470, 560),
+]
+VIEWS["c719"] = _z(2, "ほかの線の駅", "知らせが広がる", C719, [
+    _p(0, lambda: _met_lines(False)), _p(0, _c719_glow), _p(0, lambda: _met_names((-1, -1, -1))), _p(0, _c719_station),
+    _p(0, lambda: _lead(C719[0], (KOK[0][0] + KOK[1][0]) / 2, (KOK[0][1] + KOK[1][1]) / 2)), _p(1, lambda: _c719_station(ring=True)),
+], src=S_RB, note="模式・路線の形は実際と違う・" + N_RB, schem=True)
+
+
+# ── c819 目の模式（目の形だけ＝顔を描かない）・瞳が小さくなる・縮瞳から松本へ
+EYE = (640.0, 560.0)
+
+
+def _c819_eye(small=False):
+    cx, cy = EYE
+    if small:
+        return (F.circ(cx, cy, 104, "#4f6f86", None, None) + F.circ(cx, cy, 15, "#0b0f14", None, None)
+                + "".join(F.line(cx + 62 * math.cos(math.radians(a)), cy + 62 * math.sin(math.radians(a)), cx + 30 * math.cos(math.radians(a)),
+                                 cy + 30 * math.sin(math.radians(a)), INK, 5) for a in range(0, 360, 60)))
+    up = [(cx - 250 + i * 12.5, cy - 150 * math.sin(math.pi * i / 40)) for i in range(41)]
+    lo = [(cx + 250 - i * 12.5, cy + 112 * math.sin(math.pi * i / 40)) for i in range(41)]
+    return (F.poly(up + lo, J.BG2, None, close=True, op=0.9) + F.circ(cx, cy, 104, "#4f6f86", None, None) + F.circ(cx, cy, 54, "#0b0f14", None, None)
+            + F.poly(up + lo, "none", INK, 7, close=True))
+
+
+C819 = [
+    _at(_c(1, None, lines="縮瞳", sub="瞳が小さくなる", cap=76), 1110, 400),
+    _at(_c(1, D, lines="松本を思い出す", cap=50), 1590, 400),
+    _at(_c(2, D, head="指導医の聞き取り", lines=("松本のあと", "医師は皆が勉強"), cap=48), 1340, 680),
+]
+VIEWS["c819"] = _z(3, "小さな瞳", "受けた知らせ", C819, [
+    _p(0, _c819_eye), _p(1, lambda: _c819_eye(small=True)),
+    _p(1, lambda: _arrow(_zbox(C819[0])[0] + _zbox(C819[0])[2] + 14, 400.0, _zbox(C819[1])[0] - 14, 400.0, INK, 8, 30), arrow=True),
+], src=S_O, note="模式・目の形だけ", schem=True)
+
+
+# ── c906 筋肉のけいれんの波が静まる（模式＝記録の波形ではない）・人の形なし
+def _c906_wave(part):
+    y = 610.0
+
+    def amp(i):
+        return 96 * math.sin(i * 1.3) * (0.7 + 0.3 * math.sin(i * 0.37))
+
+    if part == 0:
+        return F.poly([(260.0 + i * 8, y - amp(i)) for i in range(81)], "none", INK, 6) + _t(260.0, 470.0, "続くけいれん", 40, J.TICK, "start", 400)
+    x0 = 900.0
+    pts = [(x0 + i * 8, y - amp(i + 80) * math.exp(-i / 14.0)) for i in range(96)]
+    return F.line(x0, 450.0, x0, 770.0, J.TICK, 4, dash="14 10") + _t(x0, 436.0, "投与", 40, J.TICK, "middle", 200) + F.poly(pts, "none", INK, 6)
+
+
+C906 = [
+    _at(_c(1, S, head="院長の手記", lines="けいれんが収まった", cap=52), 1330, 350),
+    _at(_c(2, S, lines="薬が効いて良かった", q=True, cap=54), 1330, 798),
+]
+VIEWS["c906"] = _z(3, "けいれんの波", "投与のあと", C906, [_p(0, lambda: _c906_wave(0)), _p(1, lambda: _c906_wave(1))],
+                   src=S_S, note="模式・波の形は記録ではない", schem=True)
+
+
+# ── cb07 定員の枠（破線）をこえる捜査員の棒（模式＝長さは人数でない・数は書かない）
+def _cb07_bar():
+    g = F.rect(400.0, 430.0, 760.0, 150.0, "none", INK, 5, rx=10, dash="18 12") + _t(420.0, 414.0, "山梨県警の定員", 44, INK, "start", 500)
+    g += F.rect(400.0, 466.0, 760.0, 78.0, rc(SRC[K][1]), None, None, rx=8, op=0.85) + F.rect(1160.0, 466.0, 420.0, 78.0, J.ALERT, None, None, rx=8, op=0.85)
+    return g + _t(430.0, 520.0, "要る捜査員", 44, INK, "start", 400) + _t(1370.0, 520.0, "こえる分", 40, INK, "middle", 380)
+
+
+CB07 = [
+    _at(_c(0, K, head="警察庁の答弁", lines="山梨県警だけでは", cap=50), 1380, 320),
+    _at(_c(1, K, lines="もう少し早くから", q=True, sub="警視庁が参加できれば", cap=54), 1100, 730),
+]
+VIEWS["cb07"] = _z(2, "足りない人手", "県の警察だけでは", CB07, [_p(0, _cb07_bar)], src="国会会議録 平成8年5月23日", note="模式・長さは人数ではない", schem=True)
+
+# ── cb08 県境をこえる矢印（c315 と同じ県境の模式・c315 の「？」の破線はここでは描かない）
+CB08 = [
+    _at(_c(1, H, big="1996年6月", lines="警察法の改正", cap=52, bcap=64), 500, 560),
+    _at(_c(2, H, lines=("管轄区域外に", "権限を及ぼす"), q=True, sub="広域組織犯罪なら", cap=50), 1500, 560),
+]
+VIEWS["cb08"] = _z(3, "変わった決まり", "県の境をこえる", CB08, [
+    _p(0, _c315_art), _p(2, lambda: _arrow(640.0, 780.0, 1400.0, 780.0, J.AMBER, 10, 34), arrow=True),
+], src=S_H, note="模式・県境の形は実際と違う", schem=True)
+
+
+# ── cb12 天秤（竿は水平＝どちらにも傾けない）
+def _cb12_scale():
+    cx, by = 960.0, 470.0
+    g = F.line(cx, by, cx, 790.0, INK, 10) + F.poly([(cx - 130, 830.0), (cx + 130, 830.0), (cx + 60, 790.0), (cx - 60, 790.0)], J.BG2, INK, 6, close=True)
+    g += F.line(cx - 420, by, cx + 420, by, INK, 10) + F.circ(cx, by, 18, J.BG2, INK, 6)
+    for sx in (-420.0, 420.0):
+        px = cx + sx
+        g += F.line(px, by, px - 90, by + 190, J.TICK, 4) + F.line(px, by, px + 90, by + 190, J.TICK, 4)
+        g += F.poly([(px - 120, by + 190), (px + 120, by + 190), (px + 80, by + 236), (px - 80, by + 236)], J.BG2, INK, 6, close=True)
+    return g + _t(cx - 420, by + 300, "止められた", 48, INK, "middle", 400) + _t(cx + 420, by + 300, "止められなかった", 48, INK, "middle", 460)
+
+
+CB12 = [
+    _at(_c(1, None, head="今回読んだ公の記録", lines="白書・判決・国会・公安調査庁", cap=44), 560, 300),
+    _at(_c(2, None, lines="断じた文は、どちらも無い", cap=52), 1400, 300),
+]
+VIEWS["cb12"] = _z(3, "どちらとも言わない", "公の記録から", CB12, [_p(0, _cb12_scale)], src=S_H + "・" + S_T + "ほか・国会会議録・" + S_U,
+                   note="模式・竿は水平＝どちらにも傾けない", schem=True)
+
+# ── c614 判決ごとの言葉を並べる（教祖の判決を大きく・ほかの3つは右に縦に）＝誰の言葉かは色（判決＝紫・法律＝茶）
+C614 = [
+    _at(_c(0, T, head="教祖の判決", lines=("東京都心部を", "大混乱に"), q=True, cap=62), 560, 540),
+    _at(_c(0, T, head="別の判決", lines="一時しのぎ", q=True, cap=50), 1360, 330),
+    _at(_c(0, T, head="最高裁", lines="阻止，かく乱する目的", q=True, cap=50), 1360, 540),
+    _at(_c(0, D, head="給付金の法律", lines="テロ行為", q=True, cap=50), 1360, 750),
+]
+VIEWS["c614"] = _z(3, "判決ごとの言葉", "目的の書き方", C614, [_p(1, lambda: _ring(C614[0]))],
+                   src=S_T + "・東京地裁 平成14年6月26日判決・最高裁 平成23年11月18日判決・給付金の法律")
+
+# ── c736 同じ朝の言葉を3列に（駅の助役・消防の機関員＝手記の桃／警察の無線＝橙・上から時刻の順）
+C736 = [
+    _at(_c(0, S, head="駅の助役の手記", lines="爆発物", q=True, cap=64), 430, 380),
+    _at(_c(0, S, head="消防の機関員の手記", lines="爆発火災", q=True, cap=64), 960, 380),
+    _at(_c(2, R, head="警察の無線", lines=("病人", "ガソリン", "爆発物", "防毒マスク", "毒ガス"), sub="上から順に", cap=48), 1500, 560),
+]
+
+
+def _c736_dots():
+    c = C736[2]
+    bx = _zbox(c)[0]
+    ys = [y for kd, _t2, y in _rowmid(c) if kd == "body"]
+    return F.line(bx - 34, ys[0], bx - 34, ys[-1], sc(R), 5) + "".join(F.circ(bx - 34, y, 10, sc(R)) for y in ys)
+
+
+VIEWS["c736"] = _z(3, "ばらばらの言葉", "同じ朝の3つの記録", C736, [_p(2, _c736_dots)], src=S_S + "・" + S_RB, note=N_RB)
+
+# ── c729 救護した人の数（1本の棒・目盛りは 0〜200 人の比例）
+Y729 = dict(x0=520.0, x1=1600.0, y=540.0, v0=0.0, v1=200.0)
+
+
+def _c729_bar():
+    d = Y729
+    g = F.line(d["x0"], d["y"] - 70, d["x0"], d["y"] + 70, J.TICK, 4) + F.line(d["x0"], d["y"] + 70, d["x1"], d["y"] + 70, J.TICK, 4)
+    for v in (50, 100, 150, 200):
+        x = _lin(d, v)
+        g += F.line(x, d["y"] + 70, x, d["y"] + 86, J.TICK, 4) + _t(x, d["y"] + 124, str(v), 36, J.TICK, "middle", 120)
+    x1 = _lin(d, 196)
+    g += F.rect(d["x0"], d["y"] - 40, x1 - d["x0"], 80, sc(D), None, None, rx=8, op=0.9)
+    return g + _t(d["x0"] - 20, d["y"] + 16, "築地駅", 48, INK, "end", 300) + _t(x1, d["y"] - 56, "196人", 64, J.AMBER, "middle", 260)
+
+
+C729 = [
+    _at(_c(0, D, head="京橋消防署の記録", lines="消防が助けた人", cap=48), 760, 320),
+    _at(_c(1, D, head="東京消防庁の管内で", lines="いちばん多い", cap=56), 1300, 765),
+]
+# 見出しは札の字と重ねない（門番 dup＝「救護した人の数」は札「消防が救護した人」の写しだった）
+VIEWS["c729"] = _z(2, "救護の人数", "築地駅で", C729, [_p(0, _c729_bar)], src="京橋消防署の記録",
+                   tl=dict(kind="num", ax=((Y729["v0"], Y729["x0"]), (Y729["v1"], Y729["x1"])),
+                           pts=(("196人", _lin(Y729, 196)),) + tuple((str(v), _lin(Y729, v)) for v in (50, 100, 150, 200))))
+
+# ── c825 この病院の1日の人数（3本の棒・同じ物差し）。集中治療室と亡くなった方は札だけ（棒にしない）
+Y825 = dict(x0=560.0, x1=1680.0, v0=0.0, v1=700.0)
+R825 = (("診た患者", 640, 400.0), ("帰宅", 528, 520.0), ("入院", 107, 640.0))
+
+
+def _c825_bar(i):
+    name, v, y = R825[i]
+    x1 = _lin(Y825, v)
+    return (F.rect(Y825["x0"], y - 34, x1 - Y825["x0"], 68, sc(S), None, None, rx=8, op=0.9) + _t(Y825["x0"] - 20, y + 16, name, 46, INK, "end", 300)
+            + _t(x1 + 18, y + 22, f"{v}人", 60, J.AMBER, "start", 260))
+
+
+C825 = [
+    _at(_c(0, S, lines="院長の手記", cap=44), 1300, 282),
+    _at(_c(1, S, big="4人", lines="集中治療室", cap=48, bcap=64), 1000, 765),
+    _at(_c(1, S, big="1人", lines="救急外来で亡くなった", cap=48, bcap=64), 1500, 765),
+]
+VIEWS["c825"] = _z(2, "この日の患者", "受け入れた人", C825, [
+    _p(0, lambda: F.line(Y825["x0"], 340.0, Y825["x0"], 690.0, J.TICK, 4)), _p(0, lambda: _c825_bar(0) + _c825_bar(1)), _p(1, lambda: _c825_bar(2)),
+], src=S_S, tl=dict(kind="num", ax=((Y825["v0"], Y825["x0"]), (Y825["v1"], Y825["x1"])), pts=tuple((f"{v}人", _lin(Y825, v)) for _n, v, _y in R825)))
+
+# ── cc07 報告された資産の比べ（棒の長さの比は実物どおり＝約800万円は約13億円の 1/160 ほど）・公安調査庁の見方は破線の棒
+Y07 = dict(x0=560.0, x1=1640.0, v0=0.0, v1=14e8)
+R07 = (("2019年の報告", 13e8, "約13億円", 420.0), ("2024年の報告", 8e6, "約800万円", 550.0))
+
+
+def _cc07_bar(i):
+    if i == 2:
+        x1 = _lin(Y07, 7e8)
+        return (F.rect(Y07["x0"], 650.0, x1 - Y07["x0"], 60, "none", sc(U), 5, rx=8, dash="16 10") + _t(Y07["x0"] - 20, 695.0, "公安調査庁の見方", 40, sc(U), "end", 480)
+                + _t(x1 + 18, 698.0, "少なくとも7億円程度", 50, J.AMBER, "start", 560))
+    name, v, lab, y = R07[i]
+    x1 = _lin(Y07, v)
+    return (F.rect(Y07["x0"], y - 30, x1 - Y07["x0"], 60, INK, None, None, rx=min(8.0, (x1 - Y07["x0"]) / 2), op=0.85)
+            + _t(Y07["x0"] - 20, y + 15, name, 40, INK, "end", 480) + _t(x1 + 18, y + 20, lab, 56, J.AMBER, "start", 400))
+
+
+C07 = [_at(_c(1, U, lines="資産隠し", q=True, cap=60), 1420, 790)]
+VIEWS["cc07"] = _z(2, "報告された資産", "減った数と見方", C07, [
+    _p(0, lambda: F.line(Y07["x0"], 370.0, Y07["x0"], 720.0, J.TICK, 4)), _p(0, lambda: _cc07_bar(0) + _cc07_bar(1)), _p(1, lambda: _cc07_bar(2)),
+], src=S_U, tl=dict(kind="num", ax=((Y07["v0"], Y07["x0"]), (Y07["v1"], Y07["x1"])),
+                    pts=tuple((lab, _lin(Y07, v)) for _n, v, lab, _y in R07) + (("7億円程度", _lin(Y07, 7e8)),)))
+
+# ── ca13 教団のその後（年表・月の比例＝門番 ⑤ ym）
+Y13 = dict(x0=220.0, x1=1700.0, y=560.0, v0=1995 + 6 / 12, v1=1997 + 3 / 12)
+V13 = (1995 + 9.5 / 12, 1996 + 2.5 / 12, 1997 + 0.5 / 12)
+CA13 = [
+    _at(_c(0, U, lines="公安調査庁の年表", cap=46), 1450, 790),
+    _at(_c(0, U, big="1995年10月", lines="解散命令", sub="東京地裁", cap=52, bcap=64), 470, 380),
+    _at(_c(0, U, big="1996年3月", lines="破産の宣告", sub="東京地裁", cap=52, bcap=64), 820, 740),
+    _at(_c(1, U, head="破壊活動防止法", big="1997年1月", lines="解散の請求を退けた", sub="公安審査委員会", cap=50, bcap=64), 1450, 360),
+]
+VIEWS["ca13"] = _z(2, "教団のその後", "裁判所と委員会", CA13, [
+    _p(0, lambda: _axis(Y13, [Y13["v0"] + i / 4 for i in range(8)])),
+    _p(0, lambda: _lead(CA13[1], _lin(Y13, V13[0]), Y13["y"]) + _lead(CA13[2], _lin(Y13, V13[1]), Y13["y"])),
+    _p(1, lambda: _lead(CA13[3], _lin(Y13, V13[2]), Y13["y"])),
+], src=S_U, tl=dict(kind="ym", ax=((Y13["v0"], Y13["x0"]), (Y13["v1"], Y13["x1"])),
+                    pts=(("1995年10月", _lin(Y13, V13[0])), ("1996年3月", _lin(Y13, V13[1])), ("1997年1月", _lin(Y13, V13[2])))))
+
+# ── c517 横の帯（1994年6月〜1995年1月）と、帯の右端から 1995年3月22日の札へ（日の比例＝門番 ⑤ ymd）
+Y517 = dict(x0=240.0, x1=1680.0, y=560.0, v0=_y0(1994, 6), v1=_y0(1995, 4))
+EV517 = ((0, "1994年6月", "松本", _yd(1994, 6), H, True), (0, "7月", "異臭", _yd(1994, 7), H, False), (0, "11月", "土の鑑定", _yd(1994, 11), H, True),
+         (1, "1月1日", "報道", _yd(1995, 1, 1), T, False), (1, "1月17日", "震災", _yd(1995, 1, 17), None, True))
+V517 = _yd(1995, 3, 22)
+C517 = [_at(_c(1, H, big="1995年3月22日", lines="大規模な強制捜査", cap=44, bcap=58), 1590, 740)]
+
+
+def _c517_band():
+    d = Y517
+    xb = _lin(d, _y0(1995, 2))
+    return _axis(d, [_y0(1994, m) for m in range(6, 13)] + [_y0(1995, m) for m in range(1, 5)]) + F.rect(d["x0"], d["y"] - 24, xb - d["x0"], 48, J.TICK, None, None, rx=10, op=0.45)
+
+
+VIEWS["c517"] = _z(2, "並べた日付", "松本から捜査まで", C517, [_p(0, _c517_band)] + [
+    _p(at, lambda v=v, dt=dt, w=w, who=who, up=up: _ev(Y517, v, dt, w, sc(who) if who else None, up)) for at, dt, w, v, who, up in EV517] + [
+    _p(1, lambda: _arrow(_lin(Y517, _y0(1995, 2)), Y517["y"], _lin(Y517, V517) - 16, Y517["y"], J.AMBER, 6, 22, "14 10"), arrow=True),
+    _p(1, lambda: _lead(C517[0], _lin(Y517, V517), Y517["y"])),
+], src=S_H + "・" + S_T, tl=dict(kind="ymd", ax=((Y517["v0"], Y517["x0"]), (Y517["v1"], Y517["x1"])),
+                                pts=tuple((dt, _lin(Y517, v)) for _a, dt, _w, v, _who, _up in EV517) + (("1995年3月22日", _lin(Y517, V517)),)))
+
+# ── cb11 1本に並べる（上の線＝1994年6月〜1995年3月・下の線＝3月の10日間を拡大＝どちらも日の比例＝門番 ⑤ ymd が2本とも測る）
+YB11 = dict(x0=200.0, x1=1700.0, y=380.0, v0=_y0(1994, 6), v1=_y0(1995, 4))
+ZB11 = dict(x0=900.0, x1=1720.0, y=690.0, v0=_y0(1995, 3) + 14 / 365, v1=_y0(1995, 3) + 24 / 365)
+CB11 = [_at(_c(1, H, head="白書", lines="疑い", q=True, cap=54), 1000, 500)]
+
+
+def _cb11_top():
+    d = YB11
+    return _axis(d, [_y0(1994, m) for m in range(6, 13)] + [_y0(1995, m) for m in range(1, 5)])
+
+
+def _cb11_band():
+    d = YB11
+    x0, x1 = _lin(d, _yd(1994, 11)), _lin(d, _yd(1995, 3, 22))
+    return F.rect(x0, d["y"] - 20, x1 - x0, 40, sc(H), None, None, rx=10, op=0.6) + _lead(CB11[0], x0 + 90, d["y"] + 20)
+
+
+def _cb11_zoom():
+    d, z = YB11, ZB11
+    a, b = _lin(d, z["v0"]), _lin(d, z["v1"])
+    g = F.rect(a - 4, d["y"] - 30, b - a + 8, 60, "none", J.AMBER, 5, rx=6)
+    g += F.line(a, d["y"] + 30, z["x0"], z["y"] - 14, J.TICK, 3, dash="12 10") + F.line(b, d["y"] + 30, z["x1"], z["y"] - 14, J.TICK, 3, dash="12 10")
+    return g + _axis(z, [z["v0"] + i / 365 for i in range(11)])
+
+
+EVB11 = ((1, YB11, "1994年6月", "松本", _yd(1994, 6), H, True, False), (1, YB11, "11月", "土の鑑定", _yd(1994, 11), H, True, False),
+         (2, YB11, "2月28日", "事務長の事件", _yd(1995, 2, 28), H, True, False),
+         (2, ZB11, "3月18日", "車の中", _yd(1995, 3, 18), None, False, True), (2, ZB11, "3月20日", "地下鉄", _yd(1995, 3, 20), None, True, False),
+         (2, ZB11, "3月22日", "一斉捜索", _yd(1995, 3, 22), H, False, False))
+VIEWS["cb11"] = _z(3, "1本に並べる", "日付の順に", CB11, [_p(0, _cb11_top), _p(1, _cb11_band), _p(2, _cb11_zoom)] + [
+    _p(at, lambda d=d, v=v, dt=dt, w=w, who=who, up=up, dim=dim: _ev(d, v, dt, w, sc(who) if who else None, up, dim)) for at, d, dt, w, v, who, up, dim in EVB11],
+    src=S_H, tl=tuple(dict(kind="ymd", ax=((d["v0"], d["x0"]), (d["v1"], d["x1"])), pts=tuple((dt, _lin(d, v)) for _a, d2, dt, _w, v, _who, _up, _dim in EVB11 if d2 is d))
+                      for d in (YB11, ZB11)))
+
+# ── c903 時刻の帯（7:45〜12:00 の分の比例＝門番 ⑤ hm）・帯＝8:00ごろ〜11:30過ぎ・時刻の決まらない知らせは帯の下に時刻なしで
+Y903 = dict(x0=200.0, x1=1720.0, y=560.0, v0=7 * 60.0 + 45, v1=12 * 60.0)
+C903 = [
+    _at(_c(1, S, big="11:30過ぎ", lines="サリンと推定", cap=50, bcap=62), 1630, 340),
+    _at(_c(2, S, big="8:16", lines="爆発火災", cap=50, bcap=62), 420, 340),
+    _at(_c(2, D, big="11:00ごろ", lines="サリンの可能性", cap=50, bcap=62), 1170, 340),
+    _at(_c(2, D, lines="青酸ガス", q=True, sub="時刻は分からない", cap=52), 900, 760),
+]
+
+
+def _c903_axis():
+    d = Y903
+    x = _lin(d, 480.0)
+    return (_axis(d, [480.0, 540.0, 600.0, 660.0, 720.0]) + F.circ(x, d["y"], 11, INK)
+            + _t(x, d["y"] + 80, "8:00ごろ", 40, sc(H), "middle", 260))
+
+
+def _c903_band():
+    d = Y903
+    x0, x1 = _lin(d, 480.0), _lin(d, 690.0)
+    return F.rect(x0, d["y"] - 26, x1 - x0, 52, J.TICK, None, None, rx=10, op=0.55) + _t((x0 + x1) / 2, d["y"] + 92, "約3時間半", 52, J.AMBER, "middle", 400)
+
+
+VIEWS["c903"] = _z(3, "知らせの時刻", "まかれてから", C903, [
+    _p(0, _c903_axis), _p(1, _c903_band), _p(1, lambda: _lead(C903[0], _lin(Y903, 690.0), Y903["y"])),
+    _p(2, lambda: _lead(C903[1], _lin(Y903, 496.0), Y903["y"]) + _lead(C903[2], _lin(Y903, 660.0), Y903["y"])),
+], src=S_S + "・" + S_H + "・" + S_O, tl=dict(kind="hm", ax=((Y903["v0"], Y903["x0"]), (Y903["v1"], Y903["x1"])),
+                                             pts=(("8:00", _lin(Y903, 480.0)), ("8:16", _lin(Y903, 496.0)), ("11:00", _lin(Y903, 660.0)), ("11:30", _lin(Y903, 690.0)))))
+
+
+# ── c206 亡くなった方の数の表（日付・資料・数＝数の棒にしない）
+def _c206_grid():
+    g = "".join(F.line(260.0, y, 1660.0, y, J.TICK, 3) for y in (360.0, 565.0, 740.0)) + "".join(F.line(x, 290.0, x, 740.0, J.TICK, 3) for x in (715.0, 1205.0))
+    return g + "".join(_t(x, 334.0, s, 40, J.TICK, "middle", 300) for x, s in ((470.0, "日付"), (960.0, "資料"), (1450.0, "数")))
+
+
+def _c206_row(i):
+    y = (480.0, 650.0)[i]
+    dt, s, col = (("3月21日 正午", "消防庁の集計", sc(D)), ("3月24日", "国会で警察庁", sc(K)))[i]
+    return _t(470.0, y + 16, dt, 46, INK, "middle", 420) + _t(960.0, y + 16, s, 46, col, "middle", 440)
+
+
+C206 = [_at(_c(1, D, big="8人", bcap=80), 1450, 480), _at(_c(2, K, big="10人", bcap=80), 1450, 652)]
+VIEWS["c206"] = _z(3, "亡くなった方の数", "資料で変わる数", C206, [_p(0, _c206_grid), _p(1, lambda: _c206_row(0)), _p(2, lambda: _c206_row(1))],
+                   src="国会会議録 平成7年3月24日・4月19日")
+
+# ── c620 1995年3月の暦（曜日は式＝門番 ⑤ cal が datetime で照らす・日曜はじまり）
+CAL = dict(y=1995, m=3, x0=300.0, dx=124.0, y0=400.0, dy=92.0)
+MARK620 = {18: (0, "防護服", S), 19: (0, "爆発物", H), 20: (1, "地下鉄", None), 22: (1, "捜索", K)}
+
+
+def _cal_cells():
+    y, m = CAL["y"], CAL["m"]
+    first = (_dt.date(y, m, 1).weekday() + 1) % 7
+    return [(d, CAL["x0"] + ((_dt.date(y, m, d).weekday() + 1) % 7) * CAL["dx"], CAL["y0"] + ((d - 1 + first) // 7) * CAL["dy"])
+            for d in range(1, _cal.monthrange(y, m)[1] + 1)]
+
+
+def _c620_cal():
+    g = F.rect(CAL["x0"] - 72, 276.0, 7 * CAL["dx"] + 20, 540.0, J.BG2, None, None, rx=16, op=0.6)
+    g += _t(CAL["x0"] - 50, 262.0, "1995年3月", 44, INK, "start", 400)
+    g += "".join(_t(CAL["x0"] + i * CAL["dx"], 326.0, "日月火水木金土"[i], 36, J.TICK, "middle", 100) for i in range(7))
+    return g + "".join(_t(x, y + 6, str(d), 40, INK, "middle", 100) for d, x, y in _cal_cells())
+
+
+def _c620_mark(at):
+    g = ""
+    for d, x, y in _cal_cells():
+        if d in MARK620 and MARK620[d][0] == at:
+            _a, w, who = MARK620[d]
+            col = sc(who) if who else J.AMBER
+            g += F.circ(x, y - 8, 38, "none", col, 6 if who else 9) + _t(x, y + 46, w, 32, col, "middle", 120)
+    return g
+
+
+C620 = [
+    _at(_c(0, K, head="警察庁の答弁", lines="大規模な捜索の準備", cap=48), 1480, 380),
+    _at(_c(1, K, lines="準備が整って捜索", cap=52), 1480, 640),
+]
+VIEWS["c620"] = _z(2, "3月の暦", "準備と、その2日前", C620, [_p(0, _c620_cal), _p(0, lambda: _c620_mark(0)), _p(1, lambda: _c620_mark(1))],
+                   src="国会会議録 平成7年4月19日・" + S_S + "・" + S_H,
+                   tl=dict(kind="cal", y=CAL["y"], m=CAL["m"], x0=CAL["x0"], dx=CAL["dx"], y0=CAL["y0"], dy=CAL["dy"], row0=0,
+                           head=tuple(("日月火水木金土"[i], CAL["x0"] + i * CAL["dx"]) for i in range(7)), pts=tuple((str(d), x, y) for d, x, y in _cal_cells())))
+
+# ── cc13 相談の窓口（番号は ⑥ の直前に頁で当て直す＝ref/ep30/sources.md §5・受付の時間は出さない）。公安調査庁の窓口は次の cc14（札の型）
+CC13 = [
+    _at(_c(0, D, head="消費者ホットライン", big="188", bcap=80), 960, 310),
+    _at(_c(1, D, head="警察相談", big="#9110", bcap=80), 960, 505),
+    _at(_c(1, D, head="法テラス 犯罪被害者支援ダイヤル", big="0120-079714", bcap=72), 960, 700),
+]
+VIEWS["cc13"] = _z(2, "相談の窓口", "電話で相談できる所", CC13, [], src="消費者庁・警察庁・法テラスの頁")
 
 
 def _cid(view):

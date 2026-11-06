@@ -100,3 +100,11 @@ SPEC.update({
     "cc14": fu_spec("cc14", ss.gr("stock/gpc")),
     "cc15": fu_spec("cc15", ss.gr("kg1")),
 })
+
+# 🆕 ⑤b-6（2026-11-06）：見え方の表 `mech30.VIEWS`（cc07 比べ＝棒の長さの比は実物どおり・cc13 相談の窓口＝番号は ⑥ の直前に頁で当て直す）
+from mech30 import zu_spec  # noqa: E402
+
+SPEC.update({
+    "cc07": zu_spec("cc07", ss.gr("ks2")),
+    "cc13": zu_spec("cc13", ss.gr("stock/gpc")),
+})

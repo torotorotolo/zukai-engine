@@ -100,3 +100,8 @@ from mech30 import zu_spec  # noqa: E402
 SPEC.update({
     "c202": zu_spec("c202", ss.gr("kas")),
 })
+
+# 🆕 ⑤b-6（2026-11-06）：型の図＝c206 亡くなった方の数の表（日付・資料・数＝数の棒にしない）
+SPEC.update({
+    "c206": zu_spec("c206", ss.gr("kas")),
+})

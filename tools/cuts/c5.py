@@ -113,3 +113,8 @@ SPEC.update({
     "c514": zu_spec("c514", ss.gr("stock/x513")),
     "c519": zu_spec("c519", ss.gr("ks2")),
 })
+
+# 🆕 ⑤b-6（2026-11-06）：型の図＝c517 横の帯（日の比例＝門番 judge_m30 ⑤ ymd）
+SPEC.update({
+    "c517": zu_spec("c517", ss.gr("stock/x513")),
+})

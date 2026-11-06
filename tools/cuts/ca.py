@@ -87,3 +87,10 @@ SPEC.update({
     "ca12": fu_spec("ca12", ss.gr("stock/x618")),
     "ca15": fu_spec("ca15", ss.gr("kg2")),
 })
+
+# 🆕 ⑤b-6（2026-11-06）：見え方の表 `mech30.VIEWS`（ca13 教団のその後の年表＝門番 ⑤ ym）
+from mech30 import zu_spec  # noqa: E402
+
+SPEC.update({
+    "ca13": zu_spec("ca13", ss.gr("kg2")),
+})

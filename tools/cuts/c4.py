@@ -141,3 +141,8 @@ from mech30 import zu_spec  # noqa: E402
 SPEC.update({
     "c407": zu_spec("c407", ss.gr("mt")),
 })
+
+# 🆕 ⑤b-6（2026-11-06）：型の図＝c419 反省の3つの箱の1つ目（札の型 FU・cb02 と同じ3つの名）。地は MT（over30.psv）
+SPEC.update({
+    "c419": fu_spec("c419", ss.gr("mt")),
+})

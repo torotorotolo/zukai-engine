@@ -20,7 +20,7 @@ tags: [project/jiko-kensho, ep30]
 | 文字だけ | 0 カット（紙面 7 は語りが資料を名指しする所だけ） | 2割まで・3つ続けない |
 | 見せ方（写真と紙面） | 全面 61・額装（高さいっぱい） 30・額装（衛星） 12・全面（上下を切る） 6 | 額装は静止 |
 | 写真の動き | ゆっくり寄る 47・静止 42・映像 11・右へ流す 4・左へ流す 3・静止に近い寄り 2 | 全面は寄る／流す |
-| 🔧 台本の画の欄から替えたカット | 111 | 台本は直さない＝⑤b はこの一覧に従う |
+| 🔧 台本の画の欄から替えたカット | 112 | 台本は直さない＝⑤b はこの一覧に従う |
 | 種類 | 札 76・イメージ 31・引用 20・陸自 20・模式 20・衛星 12・言葉 11・場所 10・無線帯 8・公的 7・映像 6・公立 3・箱 2・帯 2・並べ 2・棒 2・年表 2・表 1・暦 1・比べ 1・窓口 1 | — |
 | 合計 | 238 カット・37:02.3（audio/narration.json の実測・ed01 を除く） | — |
 
@@ -41,7 +41,7 @@ tags: [project/jiko-kensho, ep30]
 - GK1（イメージ：緑の山林の遠景）＝c310
 - GPC（イメージ：薄暗い部屋のノートパソコン（画面は白く字なし））＝cc11 cc12 cc13 cc14
 - HB（八丁堀駅の出入口と札（縦・人の背中））＝c727
-- KAS（霞ケ関駅のホーム（日比谷線・人は小さい））＝c202 c206 c207 c704
+- KAS（霞ケ関駅のホーム（日比谷線・人は小さい））＝c202 c206 c207 c704 c706
 - KG1（霞が関の広い通りと官庁のビル）＝c313 c510 c617 ca02 cb02 cb03 cb04 cb11 cb13 cb15 cc05 cc15
 - KG2（霞が関の通りの両側の庁舎（青空））＝ca06 ca13 ca15 cb06 cb07 cb08 cb12
 - KOD（小伝馬町駅のホーム（人なし））＝c711 c712 c718
@@ -63,7 +63,6 @@ tags: [project/jiko-kensho, ep30]
 - X520（イメージ：夕方の空と電柱）＝c602 c604 c605
 - X609（イメージ：夜の道路の光の筋）＝c610 c611 c612
 - X618（イメージ：夜の東京の街の遠景）＝c614 c615 c619 c620 ca09 ca12
-- X703（イメージ：人のいない地下の通路）＝c706
 - X705（イメージ：事務の机の上の電話）＝c707
 - X708（イメージ：人のいない地下のホーム）＝c709
 - X803（イメージ：人のいない古い病院の廊下）＝c421 c804 c805 cb18
@@ -230,7 +229,7 @@ tags: [project/jiko-kensho, ep30]
 | c703 | 15:46.0（8.6） | 最初の記録は、霞ケ関駅の助役の手記である | イメージ | X703 | — | 全面 | イメージ：人のいない地下の通路 | 映像 0.40〜9.00秒 | 🔧 区間 | — |
 | c704 | 15:54.6（9.2） | 助役は同僚2人とホームで動く。手記はこう | 模式 | — | KAS | — | 手記の時刻の札「8:12」と「何か爆発物では」の札・ホームの形だけの略図＝どこの位置かは描かない・袋の形を描かない | — | 🔧 地 #80 → 霞ケ関駅のホーム（朝の語り） | — |
 | c705 | 16:03.8（7.1） | その物を3人で片づけ、下の階の事務室へ運 | イメージ | X705 | — | 全面 | イメージ：事務の机の上の電話 | ゆっくり寄る | 🔧 字面 | — |
-| c706 | 16:10.9（12.4） | 駅の人たちは、何が起きているか分かってい | 模式 | — | X703 | — | 時刻表の札の数字がぼやけていく模式・手記の時刻の札「8:35」＝誰の記録かの色 | — | — | — |
+| c706 | 16:10.9（12.4） | 駅の人たちは、何が起きているか分かってい | 模式 | — | KAS | — | 時刻表の札の数字がぼやけていく模式・手記の時刻の札「8:35」＝誰の記録かの色 | — | 🔧 ⑤b-6 地 X703 → 霞ケ関駅のホーム（X703 は映像＝説明カットの地は静止画だけ・語りは霞ケ関駅の助役） | — |
 | c707 | 16:23.3（6.0） | 助役は記録を残そうと、メモに「8時」と書 | 模式 | — | X705 | — | メモ用紙の形の枠に「8時」と書けずに線が震える模式＝手記の字を写さない | — | — | — |
 | c708 | 16:29.3（9.2） | 手記では、助役は倒れ、翌日の11時ごろ意 | イメージ | X708 | — | 全面 | イメージ：人のいない朝のホームの遠景 | ゆっくり寄る | — | — |
 | c709 | 16:38.5（7.8） | 助役は「サリンの対処法を勉強していれば」 | 言葉 | — | X708 | — | 「サリンの対処法を勉強していれば」＝助役の手記の言葉のカード・立場だけ | — | 🔧 #43 → 言葉のカード（#43 は手当てか片づけか分からない・被害を受けた職員の可能性） | 地は c708 のホーム |
@@ -458,7 +457,7 @@ tags: [project/jiko-kensho, ep30]
 | TSE | commons-photo | place | 築地駅の出入口と札（雨・傘の人の背中） | commons:Tsukiji station - exit - rainy day - nov 2014.jpg | 2592x1936 | CC BY 3.0 | 同上 | 写真：{作者}／Wikimedia Commons（CC BY 3.0） | 2014-11-29 | なし（背中） | src/eizou/TSE.jpg | c724 c725 | 地に使う |
 | HB | commons-photo | place | 八丁堀駅の出入口と札（縦・人の背中） | commons:TokyoMetro-hatchobori-A1-entrance.jpg | 2112x2816 | CC BY 2.5 | 同上 | 写真：{作者}／Wikimedia Commons（CC BY 2.5） | 撮影日は頁で確かめる | なし（背中） | src/eizou/HB.jpg | c727 | 地に使う・ナンバーは ⑤b で原寸 |
 | KOD | commons-photo | place | 小伝馬町駅のホーム（人なし） | commons:Kodemmacho-STA Platform1.jpg | 5438x3625 | CC0 | 同上 | 写真：{作者}／Wikimedia Commons（CC0） | 2024-04-23 | なし | src/eizou/KOD.jpg | c711 c712 c718 | 地に使う |
-| KAS | commons-photo | place | 霞ケ関駅のホーム（日比谷線・人は小さい） | commons:TokyoMetro-kasumigaseki-platform-hibiya-line.jpg | 2816x2112 | CC BY 2.5 | 同上 | 写真：{作者}／Wikimedia Commons（CC BY 2.5） | 2006-12-20 | 小さい人＝⑤b で原寸 | src/eizou/KAS.jpg | c202 c206 c207 c704 | 地に使う |
+| KAS | commons-photo | place | 霞ケ関駅のホーム（日比谷線・人は小さい） | commons:TokyoMetro-kasumigaseki-platform-hibiya-line.jpg | 2816x2112 | CC BY 2.5 | 同上 | 写真：{作者}／Wikimedia Commons（CC BY 2.5） | 2006-12-20 | 小さい人＝⑤b で原寸 | src/eizou/KAS.jpg | c202 c206 c207 c704 c706 | 地に使う |
 | MT | commons-photo | place | 松本の街と北アルプス（秋・手前に家並み） | commons:Matsumoto Castle - Matsumoto6549.jpg | 4967x3541 | CC0 | 同上 | 写真：{作者}／Wikimedia Commons（CC0） | 2025-11-03 | なし（家は引き） | src/eizou/MT.jpg | c402 c405 c406 c407 c408 c415 c416 c417 c419 c420 c901 | 🔴 題名は「城」だが絵は街と山＝副題は絵のとおり |
 | TKS | commons-photo | place | 東京地方裁判所などが入る合同庁舎（青空） | commons:Tokyokotosaibansho.jpg | 2307x1731 | CC BY-SA 3.0 | Commons の札＝額装・無加工・1点1カット（§5b-52） | 写真：{作者}／Wikimedia Commons（CC BY-SA 3.0） | 2005-12 | なし | src/eizou/TKS.jpg | ca11 | — |
 | GA1 | stock | stock | イメージ：霧の朝の街の遠景と遠くの山 | stock:https://images.pexels.com/photos/15275312/pexels-photo-15275312.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1080 | Pexels | https://www.pexels.com/photo/tokyo-covered-with-fog-15275312/（2026-11-05 に検索の頁の JSON の license＝Pexels・https://www.pexels.com/license/＝無料・クレジット不要・改変可を読んだ） | イメージ（Pexels） | イメージ | なし | src/stock/GA1.jpg | c305 c306 c307 c308 c315 c316 c511 | 地 |
@@ -480,7 +479,7 @@ tags: [project/jiko-kensho, ep30]
 | X520 | stock | stock | イメージ：夕方の空と電柱 | stock:https://images.pexels.com/photos/5976782/pexels-photo-5976782.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/orang-light-on-utility-pole-under-the-sky-5976782/（同上） | イメージ（Pexels） | イメージ | なし | src/stock/X520.jpg | c520 c602 c604 c605 | 地・🔧 東京の路上の絵は店の名前が読める＝空と電柱に |
 | X609 | stock | stock | イメージ：夜の道路の光の筋 | stock:https://images.pexels.com/photos/117831/pexels-photo-117831.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/highway-at-night-117831/（同上） | イメージ（Pexels） | イメージ | なし | src/stock/X609.jpg | c609 c610 c611 c612 | 地 |
 | X618 | stock | stock | イメージ：夜の東京の街の遠景 | stock:https://images.pexels.com/photos/40437973/pexels-photo-40437973.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/night-skyline-view-of-tokyo-cityscape-40437973/（同上） | イメージ（Pexels） | イメージ | なし | src/stock/X618.jpg | c614 c615 c618 c619 c620 ca09 ca12 | 地 |
-| X703 | stock | stock | イメージ：人のいない地下の通路 | stock:https://videos.pexels.com/video-files/4625080/4625080-hd_1920_1080_30fps.mp4 | 1920x1080 | Pexels | https://www.pexels.com/video/a-subway-station-entrance-4625080/（同上） | イメージ（Pexels） | イメージ | ⑤b で見る | src/eizou/X703.mp4 | c703 c706 | 地 |
+| X703 | stock | stock | イメージ：人のいない地下の通路 | stock:https://videos.pexels.com/video-files/4625080/4625080-hd_1920_1080_30fps.mp4 | 1920x1080 | Pexels | https://www.pexels.com/video/a-subway-station-entrance-4625080/（同上） | イメージ（Pexels） | イメージ | ⑤b で見る | src/eizou/X703.mp4 | c703 | 地 |
 | X705 | stock | stock | イメージ：事務の机の上の電話 | stock:https://images.pexels.com/photos/10347148/pexels-photo-10347148.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/telephone-and-document-organizer-laying-on-office-desk-10347148/（同上） | イメージ（Pexels） | イメージ | なし | src/stock/X705.jpg | c705 c707 | 地 |
 | X708 | stock | stock | イメージ：人のいない地下のホーム | stock:https://images.pexels.com/photos/30617584/pexels-photo-30617584.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x1800 | Pexels | https://www.pexels.com/photo/dimly-lit-subway-platform-in-kyoto-japan-30617584/（同上） | イメージ（Pexels） | イメージ | なし | src/stock/X708.jpg | c708 c709 | 地・🔴 左の駅名の札と広告は窓の外へ |
 | X710 | stock | stock | イメージ：地下鉄の前から見たトンネル | stock:https://videos.pexels.com/video-files/31435017/13407676_1920_1080_30fps.mp4 | 1920x1080 | Pexels | https://www.pexels.com/video/speedy-tunnel-vision-in-underground-train-ride-31435017/（同上） | イメージ（Pexels） | イメージ | なし | src/eizou/X710.mp4 | c710 | — |
@@ -634,6 +633,19 @@ tags: [project/jiko-kensho, ep30]
 - **c505・c506**＝土を取る道具の形と枯れた葉・土の断面と虫めがね（手・顔・化学式なし）。c506 の札は白書の原文「サリンが分解した際にもできる化学物質」
 - **c610・c611**＝車は外の形だけ・話す人は「教祖」「幹部」の字だけ・吹き出しの尾は短く（長い三角は光の筋に見えた）。c611 の答えは公安調査庁のまとめの原文（字幕は消す）
 - 🔧 地＝c407 は X404 → MT（over30.psv）・ks1（CC BY 3.0・ナンバーを隠した写し）と x513（Pexels）を足した・x503 は c505 の札の周りで 0.40 → 0.37（同じ写真の c507 も）
+
+### 5-7g. ⑤b-6 で決めたこと（2026-11-06・模式の後半 9＋型の図 14）
+- **箱の2つ（c419・cb02）は札の型 `FU`**（`_strip` と同じ3つの名＝知識不足・情報不足・権限の制限）。cb02 の上の小さい字＝サリン・閉じた組織・管轄の外。ほか21は見え方の表 `VIEWS`
+- 🔴 **比例と式の門番を広げた**＝judge_m30 ⑤ に **ymd**（日の数で・年の無い字は線の範囲の中の年＝c517・cb11）・**num**（棒の長さ＝「約13億円」「640人」の字を数に読む＝c729・c825・cc07）・**cal**（暦の曜日を datetime で・日曜はじまり＝c620）。1カットに線が2本なら tuple（cb11＝上の線と3月の拡大）
+- **c706 の地 X703 → KAS**（X703 は映像＝説明カットの地は静止画だけ・語りは霞ケ関駅の助役）＝`over30.psv`
+- **c719**＝駅の名は国会議事堂前だけ（霞ケ関の字を出さない）・丸ノ内線と千代田線をつなぐ短い棒（位置は模式）・日比谷線は光らせるだけ（線の上に駅の印を置かない）
+- **c614**＝教祖の判決を左に大きく・ほかの判決と法律を右に縦に（判決＝紫・給付金の法律＝茶）・語りの段で教祖の判決を枠で囲む
+- **cb11**＝語りに出る語だけ（松本・土の鑑定・「疑い」・事務長の事件・地下鉄・一斉捜索）＋影の「車の中」。🔧 一覧の異臭・報道・震災は c517 で出した＝cb11 では減らした（語りに無い）。3月18〜22日は上の線では 9px の幅＝**3月の10日間を下に拡大**（どちらも日の比例）
+- **cc07**＝棒の長さの比は実物どおり（約800万円＝約13億円の 1/160 ほど＝6px）・公安調査庁の見方「少なくとも7億円程度」は破線の棒（推定＝塗らない）
+- **cc13**＝番号の3つだけ（188・#9110・0120-079714）。🔧 一覧の「公安調査庁の情報提供の窓口」は次の cc14（札の型＝公安調査庁の窓口→説明欄へ）にある＝同じ物を2カット続けない。🔴 番号は ⑥ の直前に頁で当て直す（`sources.md` §5）
+- **c903**＝帯は 8:00ごろ（白書）〜11:30過ぎ（院長の手記）・時刻の分かる知らせは帯の上・「青酸ガス」は帯の下に時刻なしで（町の医院の医師の聞き取り＝茶）。11:00ごろ「サリンの可能性」も聞き取り（自動字幕＝機械で当てない）
+- **c825**＝棒は 640・528・107（同じ物差し）・集中治療室 4人と亡くなった方 1人は札だけ（528＋107＋4＋1＝640）。⚠️ 手記の OCR は「4 名カ圦院」と読み違える＝記録の片は「ICUには4名」
+- **c729**＝1本の棒（0〜200人の目盛り）・数は記録のとおり 196人
 
 ### 5-8. 語りと絵の時刻（語りが朝で絵が除染）
 - 陸自の写真は午後と夜の除染（要請は 12:50 と 17:00）。第6章の朝の語りには全面の陸自を c702・c717 だけ置き、副題「〈当日〉」で断る。地は第6章の中で語りの場所が撮れている所を実写へ替えた（c704・c711・c712・c714〜c716・c718・c724・c725・c727）

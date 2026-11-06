@@ -125,3 +125,9 @@ SPEC.update({
     "c610": zu_spec("c610", ss.gr("stock/x609")),
     "c611": zu_spec("c611", ss.gr("stock/x609")),
 })
+
+# 🆕 ⑤b-6（2026-11-06）：型の図＝c614 判決ごとの言葉を並べる（判決＝紫・法律＝茶）・c620 1995年3月の暦（曜日は式＝門番 ⑤ cal）
+SPEC.update({
+    "c614": zu_spec("c614", ss.gr("stock/x618")),
+    "c620": zu_spec("c620", ss.gr("stock/x618")),
+})

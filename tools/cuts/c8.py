@@ -135,3 +135,11 @@ SPEC.update({
     "c823": fu_spec("c823", ss.gr("stock/x813")),
     "c824": fu_spec("c824", ss.gr("stock/x812")),
 })
+
+# 🆕 ⑤b-6（2026-11-06）：見え方の表 `mech30.VIEWS`（c819 目の模式・c825 棒＝この病院の1日の人数）
+from mech30 import zu_spec  # noqa: E402
+
+SPEC.update({
+    "c819": zu_spec("c819", ss.gr("stock/x809")),
+    "c825": zu_spec("c825", ss.gr("slh")),
+})

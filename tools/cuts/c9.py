@@ -106,3 +106,11 @@ SPEC.update({
     "c904": fu_spec("c904", ss.gr("stock/x809")),
     "c910": fu_spec("c910", ss.gr("p80")),
 })
+
+# 🆕 ⑤b-6（2026-11-06）：見え方の表 `mech30.VIEWS`（c903 時刻の帯＝門番 ⑤ hm・c906 けいれんの波の模式）
+from mech30 import zu_spec  # noqa: E402
+
+SPEC.update({
+    "c903": zu_spec("c903", ss.gr("slh")),
+    "c906": zu_spec("c906", ss.gr("stock/x905")),
+})
