@@ -1,0 +1,17 @@
+取った日	記号	種類	bytes	md5	md5（読み直し）	縦横	ファイル	出どころ
+2026-11-08	A1	gsi-gazo1-z14-3x3	165784	e8b5fbc966d9ad5bdc72550f710ee7c9	e8b5fbc966d9ad5bdc72550f710ee7c9	768x768	src/gsi/tiles/gazo1/14/14617〜14619_6295〜6297.jpg（8枚・欠け 14619_6297（404））	gsi:https://cyberjapandata.gsi.go.jp/xyz/gazo1/14/{x}/{y}.jpg
+2026-11-08	A2	gsi-gazo1-z16-3x3	215301	7378d7800aca7050cb76489110c38bad	7378d7800aca7050cb76489110c38bad	768x768	src/gsi/tiles/gazo1/16/58435〜58437_24890〜24892.jpg（9枚）	gsi:https://cyberjapandata.gsi.go.jp/xyz/gazo1/16/{x}/{y}.jpg
+2026-11-08	A3	gsi-seamlessphoto-z16-3x3	130925	65af71942a4d385ae2b5889c46dd63ee	65af71942a4d385ae2b5889c46dd63ee	768x768	src/gsi/tiles/seamlessphoto/16/58435〜58437_24890〜24892.jpg（9枚）	gsi:https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/16/{x}/{y}.jpg
+2026-11-08	A6	gsi-gazo1-z15-3x3	285224	761f09b32c6cea3d7fabd6bcd41ee46e	761f09b32c6cea3d7fabd6bcd41ee46e	768x768	src/gsi/tiles/gazo1/15/29230〜29232_12439〜12441.jpg（9枚）	gsi:https://cyberjapandata.gsi.go.jp/xyz/gazo1/15/{x}/{y}.jpg
+2026-11-08	A7	gsi-gazo1-z15-3x3	240532	2306c3af7f9ad67c4bfbf1aedb4db7fd	2306c3af7f9ad67c4bfbf1aedb4db7fd	768x768	src/gsi/tiles/gazo1/15/29214〜29216_12440〜12442.jpg（9枚）	gsi:https://cyberjapandata.gsi.go.jp/xyz/gazo1/15/{x}/{y}.jpg
+2026-11-08	P1	commons-1920	591969	ca20cd7ca69fd9667edc056b6e20000a	ca20cd7ca69fd9667edc056b6e20000a	1920x1291	src/eizou/P1.jpg	commons:JA8329 Boeing 727-281 All Nippon Airways, Tokyo International, May 1971.jpg
+2026-11-08	P3	commons-原本	278202	c9cba912343db84992c7a07c7c151be6	c9cba912343db84992c7a07c7c151be6	1280x840	src/eizou/P3.jpg	commons:All Nippon Airways Boeing 727-200 JA8344.jpg
+2026-11-08	P5	commons-原本	125764	e588b6948b1c0fff0cbd728178f6dd0d	e588b6948b1c0fff0cbd728178f6dd0d	1000x780	src/eizou/P5.jpg	commons:F-86F-40 of JSDF.jpg
+2026-11-08	P6	commons-3840	1983864	fba9b0ad3dbae34357f8f633a2cc6476	fba9b0ad3dbae34357f8f633a2cc6476	3840x2560	src/eizou/P6.jpg	commons:North American F-86F-40-238 - F-86F-40-MIT Sabre - Kyokkō ‘865 - 82-7865’ (20810093715).jpg
+2026-11-08	P7	commons-3840	2035752	26a3d013b5815e8bc2d1b05dbc56ec86	26a3d013b5815e8bc2d1b05dbc56ec86	3840x2560	src/eizou/P7.jpg	commons:JASDF F-86F(62-7702) right front view at the Mitsubishi Heavy Industries Komaki Minami factory May 14, 2021.jpg
+2026-11-08	P10	commons-3840	1632111	1ebfdc50db5c1c07b0527e7a1671e27a	1ebfdc50db5c1c07b0527e7a1671e27a	3840x2560	src/eizou/P10.jpg	commons:North American F-86F-40-238 - F-86F-40-MIT Sabre - Kyokkō ‘865 - 82-7865’ (20810093720).jpg
+2026-11-08	L1	commons-1920	1007918	8ee4a53e7c39cece0fe8dee47b5cdf8d	8ee4a53e7c39cece0fe8dee47b5cdf8d	1920x1434	src/eizou/L1.jpg	commons:Saiko-saibansho - outside - October 2014.jpg
+2026-11-08	L1b	commons-1920	510299	97bb9799c89cc9f1603209fda54b6d44	97bb9799c89cc9f1603209fda54b6d44	1920x872	src/eizou/L1b.jpg	commons:Supreme Court of Japan (10357245203).jpg
+2026-11-08	L2	commons-1920	899378	02adbf3ec58d95445433d190e7a63b96	02adbf3ec58d95445433d190e7a63b96	1920x1389	src/eizou/L2.jpg	commons:Sendai High District Court.JPG
+2026-11-08	L3	commons-1920	1062293	06ebe114cc570a34680f3c95ad23b166	06ebe114cc570a34680f3c95ad23b166	1920x2868	src/eizou/L3.jpg	commons:Tokyo High Court Building01s3200.jpg
+2026-11-08	L4	commons-1920	1011480	63d208a0080c479bf1fa38323640d11e	63d208a0080c479bf1fa38323640d11e	1920x1440	src/eizou/L4.jpg	commons:Morioka District Court 1.jpg
