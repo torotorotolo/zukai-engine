@@ -2,9 +2,9 @@
 
 ## build（exit=0）
 ```
-当てた 237・二重なので当てない 0・当て損ない 0／直したカット 113／v2_head.md を差した
+当てた 239・二重なので当てない 0・当て損ない 0／直したカット 113／v2_head.md を差した
 第1版 md5 d3fa7fd0745ace6a55036701c918b464 → d3fa7fd0745ace6a55036701c918b464 （同じ）
-書いた C:\Users\konar\Desktop\zukai-engine\ref\ep31\daihon_v2.md 8495d45e364e9ab6c728c5024d57b4ae
+書いた C:\Users\konar\Desktop\zukai-engine\ref\ep31\daihon_v2.md 5678428826135c0a4448ee0794f801d9
 🔧 c106 c201 c204 c205 c206 c211 c212 c213 c216 c302 c303 c307 c309 c313 c316 c317 c318 c320 c321 c323 c325 c328 c401 c406 c407 c411 c412 c413 c415 c416 c417 c418 c502 c503 c504 c505 c506 c507 c509 c510 c511 c512 c514 c515 c516 c518 c519 c521 c524 c605 c609 c610 c613 c614 c616 c617 c619 c620 c621 c622 c624 c625 c626 c702 c706 c707 c709 c710 c713 c714 c715 c716 c718 c801 c802 c804 c805 c806 c811 c905 c906 c909 c911 c912 c913 c916 c919 c926 c928 c930 c931 c934 ca01 ca02 ca05 ca07 ca12 cb03 cb04 cb06 cb08 cb11 cb12 cb14 cb16 cb17 cb18 cc01 cc05 cc10 cc12 cc14 cc17
 ```
 
@@ -68,7 +68,7 @@ E 0件（形）・聞き役 E 0件・W 100件・言わない語 0件
 ## namecheck（exit=0）
 ```
 網＝names_private.txt・names_commons.txt
-名前の網 55語 × 50ファイル → 0件
+名前の網 55語 × 86ファイル → 0件
 ```
 
 ## check_script（exit=0）
