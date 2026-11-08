@@ -92,10 +92,61 @@ GSI_ONE_PHOTO = {"A2"}                 # 窓の中に青い写真（B−R＞15 �
 # PDF の切り口 {束の名: dict(code, page, head, tail, outside, white)}＝字の層の行で決める（head の行〜tail の行の外接＋余白）。outside＝切り口に入ってはいけない行の字（名前の行の目印）
 PDF_DPI_K = 3.0                        # 描く倍率（1pt＝3画素）
 PDF_FILES = {"JS": "hanrei/hanrei-pdf-58088.pdf"}
-PDF_LOG_MD5 = {}                       # ② に取った手元のファイル（git の外）＝取得の記録に無ければここに写す
-PDF_CROP = {}                          # ⑤b-2 の紙面の段で書く（カットごとに切り口が違う＝束の名は「記号_カット」）
+PDF_LOG_MD5 = {}                       # ② に取った手元のファイル（git の外）＝取得の記録に無ければここに写す（JS は ⑤b-2b に取り直して fetch31.tsv に書いた）
+# 🆕 ⑤b-2b（11-08）：判決の5カット＝台本の画の欄の段。🔴 判決の記号の字（Ｃ三佐・Ｄ三佐）は hide で白く・段の外の頭と尻は before／after で白く
+#    （描く前に「見える字」を組み直して、隠す字と名前の網の語が残れば止める＝`_hide_rects`）
+PDF_CROP = {
+    "JS_c307": dict(page=5, head="飛行班長補佐の役にあつた", tail="も何ら検討を加えることなく", hide=["Ｃ三佐", "Ｄ三佐"], after="承認した、",
+                    outside=["一か所を第四航空団で使用することが判明した", "機操縦課程の主任教官"]),
+    "JS_c313": dict(page=6, head="そして、臨時訓練空域の設定を立案した", tail="まつたく念頭になかつた旨述べており", hide=["Ｃ三佐"], after="述べており",
+                    outside=["被告人の第一審公判廷における供述は", "判廷における同証人の供述"]),
+    "JS_c909": dict(page=1, head="主　　　　文", tail="その一を被告人の負担とする", outside=["理　　　　由"]),
+    "JS_c917": dict(page=7, head="のであつて、飛行訓練計画の立案", tail="り、このような事故の発生は", before="飛行訓練計画の立案", after="り、",
+                    outside=["この点の落度を重くみて", "らに飛行訓練を行わせた右幹部らの怠慢"]),
+    "JS_c920": dict(page=7, head="以上のような諸事情を勘案すると", tail="なお酷に過ぎるというべきであつて",
+                    outside=["のである。", "第一審判決及びこれを維持した原判決の量刑"]),
+}
 PAGE_PAD = 24                          # 紙面の絵のまわりの白（束の画素）＝字が額の縁に触れない
-HIDDEN = {}                            # 紙面の中で隠した所の断り（束の名 → 「・名前を隠した」）
+
+# 🆕 ⑤b-2b（11-08）：国会会議録の紙面＝会議まるごとの PDF（`fetch31.tsv` の kokkai-pdf＝md5 を2回）の頁の絵（走査・字の層なし・縦書き4段組）から切る。
+#    {束の鍵: dict(page=PDF の頁＝写しの startPage, parts=[[x0,y0,x1,y1]…]＝段ごとの長方形（頁の画素）, white=[[x0,y0,x1,y1]…]＝白で消す箱（頁の画素））}
+#    段組みをまたぐ段は parts を右に揃えて縦につなぐ（縦書き＝右から読む）。位置は git の外の `ref/ep31/src/tools/kk31.py`（Windows の OCR の字の箱）で当てた＝字は出さない。
+#    white＝①頭の列の上（名前の札「○役職（氏名君）」・前の文）②尻の列の下（次の文）③段の中の名前（c514 の訓練生・c806 の訓練生4回〈列103→104 の折り返し〉・c801 の子の名前）
+#    ④ c801 の地区・親の勤め・続柄（台本の画の欄）。🔴 隠した所は必ず絵で見る（30本目＝隠したつもりの字が写った）
+KK_GAP = 30                            # 段組みをまたぐときの、つないだ段のあいだの白（頁の画素）
+KK_CUT = {
+    "KK19710802SN_c514": dict(page=2, parts=[[894, 644, 1028, 1178]],
+                              white=[[993, 642, 1029, 806], [893, 695, 929, 1180], [962, 916, 993, 993]]),
+    # c801：🔴 尻の「い。」（x362〜394 の列に2字だけ）を OCR が拾わず、初めの切り口から落ちた＝左端を 361 に（その左は次の発言の列 x333〜358）
+    "KK19710802SN_c801": dict(page=7, parts=[[361, 1689, 860, 2207]],
+                              white=[[825, 1687, 861, 1855], [727, 1857, 761, 2150], [694, 1723, 727, 1773]]),
+    "KK19710805SR_c323": dict(page=32, parts=[[1800, 1338, 2655, 2370]],
+                              white=[[2595, 1336, 2656, 1850], [1799, 1723, 1853, 2372]]),
+    # c806：🔴 2つ目の段の右に縦の罫（x3032〜3049）と頁の柱（x3063〜3113）が入った（束の絵の OCR に名前の網を当てて「会議」で気づいた）＝右端を 3012 に（字の右端 x≈3002）
+    "KK19710805SR_c806": dict(page=18, parts=[[393, 1333, 1647, 2368], [1867, 2377, 3012, 3411]],
+                              white=[[1593, 1331, 1648, 1856], [1866, 2681, 1917, 3413], [1594, 2078, 1645, 2264], [1527, 1922, 1577, 2107],
+                                     [2805, 2696, 2855, 2881], [2530, 3328, 2589, 3380], [2462, 2386, 2522, 2525]]),
+    "KK19710804HR_c413": dict(page=7, parts=[[562, 1700, 729, 2221]],
+                              white=[[696, 1698, 730, 1936], [561, 1891, 596, 2223]]),
+    "KK19730509SK_c406": dict(page=2, parts=[[310, 140, 572, 657]],
+                              white=[[539, 138, 573, 350], [309, 284, 341, 659]]),
+    "KK19730509SK_c622": dict(page=4, parts=[[208, 660, 669, 1170], [1102, 1177, 1499, 1688]],
+                              white=[[636, 658, 670, 824], [1101, 1624, 1134, 1690]]),
+    "KK19730509SK_c625": dict(page=4, parts=[[408, 1177, 1101, 1688]],
+                              white=[[1068, 1175, 1102, 1433], [407, 1624, 441, 1690]]),
+    "KK19720823SN_c609": dict(page=24, parts=[[807, 1183, 975, 1703]],
+                              white=[[939, 1181, 976, 1330], [806, 1409, 844, 1705]]),
+    # ca05：台本の画の欄「『控訴しておりますのは国の方』の段だけ・争点の段は入れない」＝2つ目の段落（同時に、民事裁判…）の頭から「主なる争点」の手前まで
+    #       （初めの切り口は発言まるごと＝刑事裁判の段落と争点の句まで入った）。名前の札は切り口の外＝隠した名前なし
+    "KK19851210HN_ca05": dict(page=7, parts=[[670, 179, 972, 692]],
+                              white=[[937, 177, 973, 208], [669, 266, 706, 694]]),
+    # ca09：🔴 2つ目の段の右に頁の柱（日付と院の名）と縦の罫（x1538〜1542）が入った＝右端を 1531 に（字の右端 x1525）
+    "KK19911217SK_ca09": dict(page=20, parts=[[226, 157, 929, 671], [1297, 680, 1531, 1176]],
+                              white=[[894, 155, 930, 433], [1296, 850, 1329, 1178]]),
+}
+# 紙面の中で隠した所の断り（束の名 → 出典の行の「／改変：切出」の後ろ）。会議録は11カットとも名前の札か段の中の名前を白で消した
+HIDDEN = {k: "・名前を隠した" for k in KK_CUT if k != "KK19851210HN_ca05"}   # 鍵は束の鍵（`screen_credit` が束の鍵で引く）・ca05 は名前の札が切り口の外
+HIDDEN.update({"JS_c307": "・記号を隠した", "JS_c313": "・記号を隠した"})
 
 # 升目 {記号: [(x0, y0, x1, y1, 札)]}（束の画素）。札が「ナンバー：」で始まる箱＝ナンバー・それ以外＝顔（出典の行の断りを分ける）。⑤b-2 に原寸で見て決める
 MASK = {}
@@ -429,12 +480,156 @@ def _render_part(code, p, sp):
             raise SystemExit(f"🔴 {code}: 目印の行「{anc}」が字の層に無い（外に出したことを測れない）")
         if any(b[1] < box[3] and b[3] > box[1] for b in hit):
             raise SystemExit(f"🔴 {code}: 切り口の外にあるべき行「{anc}」が束の絵に入る")
-    for r in sp.get("white", []):                        # メモリの中の頁だけ（元のファイルは変えない）
+    whites = [tuple(r) for r in sp.get("white", [])]
+    whites += _hide_rects(code, pg, box, sp)              # 🆕 31本目 ⑤b-2b：記号の字（hide）・段の外の頭（before）と尻（after）を字の箱で白く
+    _LAST_CUT[code] = (box, list(whites))                # 白の周りの欠けらを画素で数える `cmd_specks` が読む
+    for r in whites:                                     # メモリの中の頁だけ（元のファイルは変えない）
         pg.draw_rect(fitz.Rect(*r), color=(1, 1, 1), fill=(1, 1, 1), overlay=True)
     k = sp.get("k", PDF_DPI_K)
     pix = pg.get_pixmap(matrix=fitz.Matrix(k, k), clip=fitz.Rect(*box), alpha=False)
     im = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
-    return im, f"PDF の {sp['page']}頁の切り口（y {box[1]:.0f}〜{box[3]:.0f}pt）を描いた（1pt＝{k:g}画素）"
+    return im, f"PDF の {sp['page']}頁の切り口（y {box[1]:.0f}〜{box[3]:.0f}pt）を描いた（1pt＝{k:g}画素）" + (f"・白で消した {len(whites)}か所" if whites else "")
+
+
+def render_kk(key, fet):
+    """国会会議録の切り口を描く＝(RGB の絵, 記録の言葉)。PDF は取得の記録の md5（2回）と照らす"""
+    import fitz
+    from PIL import Image, ImageDraw
+    code = key.split("_c")[0]
+    r = fet.get(code)
+    if not r or r.get("種類") != "kokkai-pdf":
+        raise SystemExit(f"🔴 {key}: 会議録の PDF の取得の記録が無い（fetch31.tsv）")
+    p = EPD / r["ファイル"]
+    h = md5(p) if p.exists() else ""
+    if h != r["md5"] or r["md5"] != r["md5（読み直し）"]:
+        raise SystemExit(f"🔴 {key}: {p.name} の md5 が取得の記録と合わない（取り直す）")
+    sp = KK_CUT[key]
+    d = fitz.open(p)
+    ims = d[sp["page"] - 1].get_images(full=True)
+    if len(ims) != 1:
+        raise SystemExit(f"🔴 {key}: 頁の絵が {len(ims)} 枚（走査の絵1枚のはず）")
+    pix = fitz.Pixmap(d, ims[0][0])
+    mode = {1: "L", 3: "RGB"}.get(pix.n)
+    if mode is None or pix.alpha:
+        pix = fitz.Pixmap(fitz.csRGB, pix)
+        mode = "RGB"
+    im = Image.frombytes(mode, (pix.width, pix.height), pix.samples).convert("RGB")
+    dr = ImageDraw.Draw(im)
+    for w in sp["white"]:
+        dr.rectangle(w, fill=(255, 255, 255))
+    cuts, trims = [], 0
+    for b in sp["parts"]:
+        c, n = _trim_rules(im.crop(tuple(b)))
+        cuts.append(c)
+        trims += n
+    W = max(c.width for c in cuts)
+    H = sum(c.height for c in cuts) + KK_GAP * (len(cuts) - 1)
+    out = Image.new("RGB", (W, H), (255, 255, 255))
+    y = 0
+    for c in cuts:
+        out.paste(c, (W - c.width, y))                   # 縦書き＝右に揃える
+        y += c.height + KK_GAP
+    how = (f"会議録の PDF の {sp['page']}頁の走査の絵（{pix.width}x{pix.height}）から段 {len(cuts)}つを切った"
+           + ("（右に揃えて縦につないだ）" if len(cuts) > 1 else "") + f"・白で消した {len(sp['white'])}か所"
+           + (f"・段の罫の外を落とした {trims}辺" if trims else ""))
+    return out, h, how
+
+
+def _trim_rules(c, zone=45, th=110):
+    """切り口の上下の端から zone 画素の中に、幅の 1/4 以上続く横の罫があれば、その内側（罫を含めない）で切る。
+    ⚠️ 11-08：段の罫の外に、上の段の字の欠けらが写った（c514）＝罫の内側で切る。罫が無い辺はそのまま"""
+    g = c.convert("L")
+    W, H = g.size
+    px = g.load()
+
+    def long_run(y):
+        best = run = 0
+        for x in range(W):
+            run = run + 1 if px[x, y] < th else 0
+            best = max(best, run)
+        return best
+    rule = [y for y in list(range(min(zone, H))) + list(range(max(0, H - zone), H)) if long_run(y) >= W / 4]
+    top = [y for y in rule if y < zone]
+    bot = [y for y in rule if y >= H - zone]
+    y0 = max(top) + 4 if top else 0
+    y1 = min(bot) - 4 if bot else H
+    return c.crop((0, y0, W, y1)), (1 if top else 0) + (1 if bot else 0)
+
+
+_LAST_CUT = {}
+
+
+def specks(key, im, k):
+    """白で消した箱の上下 8pt（と before／after の行の残り）に黒い画素（灰 128 未満）が何個あるか＝欠けらの数え上げ（🆕 ⑤b-2b）"""
+    box, whites = _LAST_CUT[key]
+    g = im.convert("L")
+    out = []
+    for r in whites:
+        x0, x1 = (r[0] - box[0] + 1) * k, (r[2] - box[0] - 1) * k
+        for y0, y1 in ((r[1] - 8, r[1]), (r[3], r[3] + 8)):
+            a, b = max(0, (y0 - box[1]) * k), min(g.height, (y1 - box[1]) * k)
+            if b <= a or x1 <= x0:
+                continue
+            n = sum(1 for v in g.crop((int(max(0, x0)), int(a), int(min(g.width, x1)), int(b))).getdata() if v < 128)
+            out.append(n)
+    return out
+
+
+def _line_chars(pg):
+    """[(行の字, 行の箱, [(字, 字の箱)])]＝`_pdf_lines` と同じ並び"""
+    out = []
+    for b in pg.get_text("rawdict")["blocks"]:
+        for l in b.get("lines", []):
+            cs = [(c["c"], c["bbox"]) for s in l["spans"] for c in s["chars"]]
+            if "".join(c for c, _ in cs).strip():
+                out.append(("".join(c for c, _ in cs), l["bbox"], cs))
+    return sorted(out, key=lambda x: (round(x[1][1]), x[1][0]))
+
+
+def _hide_rects(code, pg, box, sp):
+    """切り口の行の中で白くする箱（pt）。hide＝この字の並び（全部の出現）・before＝頭の行のこの字より前・after＝尻の行のこの字より後。
+    描く前に「見える字」を組み直し、隠した字と名前の網の語が残れば止める（🔴 30本目＝隠したつもりの字が写った）"""
+    sel = [x for x in _line_chars(pg) if x[1][1] < box[3] and x[1][3] > box[1]]
+    rects = []
+
+    PY = 3.0                                            # ⚠️ 11-08：括弧と読点は行の箱より上下にはみ出す（±0.8pt では欠けらが点で残った）＝行間 16pt の内で ±3pt
+
+    def span(cs, i0, i1):
+        bb = [cs[i][1] for i in range(i0, i1)]
+        return (min(b[0] for b in bb) - 0.6, min(b[1] for b in bb) - PY, max(b[2] for b in bb) + 0.6, max(b[3] for b in bb) + PY)
+    for w in sp.get("hide", []):
+        n = 0
+        for t, lb, cs in sel:
+            for m in re.finditer(re.escape(w), t):
+                rects.append(span(cs, m.start(), m.end()))
+                n += 1
+        if not n:
+            raise SystemExit(f"🔴 {code}: 隠す字「{w}」が切り口の行に無い")
+    if sp.get("before"):
+        t, lb, cs = sel[0]
+        i = t.find(sp["before"])
+        if i <= 0:
+            raise SystemExit(f"🔴 {code}: 頭の行に「{sp['before']}」が無い（か行の頭）")
+        rects.append((lb[0] - 1, lb[1] - PY, (cs[i - 1][1][2] + cs[i][1][0]) / 2, lb[3] + PY))
+    if sp.get("after"):
+        t, lb, cs = sel[-1]
+        i = t.rfind(sp["after"])
+        if i < 0 or i + len(sp["after"]) >= len(t.rstrip()):
+            raise SystemExit(f"🔴 {code}: 尻の行に「{sp['after']}」が無い（か行の尻）")
+        j = i + len(sp["after"])
+        rects.append(((cs[j - 1][1][2] + cs[j][1][0]) / 2, lb[1] - PY, box[2] + 1, lb[3] + PY))
+    seen = ""
+    for t, lb, cs in sel:
+        for c, b in cs:
+            cx, cy = (b[0] + b[2]) / 2, (b[1] + b[3]) / 2
+            if not any(r[0] <= cx <= r[2] and r[1] <= cy <= r[3] for r in rects):
+                seen += c
+        seen += "\n"
+    left = [w for w in sp.get("hide", []) if w in seen]
+    nm = hits_in(seen, _names())
+    if left or nm:
+        raise SystemExit(f"🔴 {code}: 見える字に隠す字 {len(left)}・名前の網の語 {len(nm)} が残る")
+    return rects
 
 
 _YEAR = re.compile(r"((?:19|20)\d\d)(?!年代|\d)")    # 31本目の時期の欄は「1971年5月」「1974〜78年」「撮影年は不明」「最新（…）」（表示に年が無い点は年を言わない）
@@ -648,6 +843,10 @@ def cmd_build(nopages=False):
         if code not in us:
             print(f"🔴 MASK の {code} は一覧で使っていない")
             bad += 1
+    for key in list(KK_CUT) + list(PDF_CROP) + list(HIDDEN):     # 🆕 ⑤b-2b：切り口の表に一覧で使っていない鍵が残れば止める（カットを替えたときの取り残し）
+        if not nopages and key not in us:
+            print(f"🔴 切り口の表の {key} は一覧で使っていない")
+            bad += 1
     for code in ("P1", "P3"):                            # 🔴 許諾の箱の帰属の指定＝表の3列目（名前は出さない）
         if code in us and not _attr_ok(code):
             print(f"🔴 {code}: 頁の許諾の箱の「Attribution:」の指定が git の外の表の3列目と違う＝画面の {AUTHOR} の字を決め直す")
@@ -662,7 +861,17 @@ def cmd_build(nopages=False):
         box_m = MASK.get(code, [])
         private = is_private(code, s)
         shot = None
-        if t in PAGE_TYPES and code in PDF_FILES:
+        if t in PAGE_TYPES and code.startswith("KK"):     # 🆕 ⑤b-2b：国会会議録＝走査の頁の絵から切る
+            if key not in KK_CUT:
+                print(f"🔴 {key}: 会議録の切り口 KK_CUT が無い")
+                bad += 1
+                continue
+            im, smd5, how = render_kk(key, fet)
+            notes = [how, "公開リポに置く（著作権法40条の読み＝国会の公開の陳述）"]
+            im = ImageOps.expand(im, border=PAGE_PAD, fill=(255, 255, 255))
+            im.save(dst, quality=JPEG_Q, optimize=True)
+            w, h = im.size
+        elif t in PAGE_TYPES and code in PDF_FILES:
             if key not in PDF_CROP:
                 print(f"🔴 {key}: PDF の切り口 PDF_CROP が無い（紙面の段で書く）")
                 bad += 1

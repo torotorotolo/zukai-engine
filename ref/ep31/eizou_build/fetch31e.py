@@ -4,6 +4,7 @@
   PYTHONIOENCODING=utf-8 python -X utf8 -P ref/ep31/eizou_build/fetch31e.py selftest          URL の組み立て・幅の選び方・権利の照合を照らす（ネットに出ない）
   PYTHONIOENCODING=utf-8 python -X utf8 -P ref/ep31/eizou_build/fetch31e.py commons [記号…]   sources31.psv の get＝commons:… を src/eizou/<記号>.jpg へ
   PYTHONIOENCODING=utf-8 python -X utf8 -P ref/ep31/eizou_build/fetch31e.py gsi [記号…]       地理院タイル（A1〜A3・A6・A7）を src/gsi/tiles/ に揃えて記録（無い分だけ取る）
+  PYTHONIOENCODING=utf-8 python -X utf8 -P ref/ep31/eizou_build/fetch31e.py kokkai [記号…]    🆕 ⑤b-2b：国会会議録7会議の PDF（公的＝許可不要）を src/kokkai_pdf/ へ（頁の数を写しの startPage と照らす）
   PYTHONIOENCODING=utf-8 python -X utf8 -P ref/ep31/eizou_build/fetch31e.py reparse [記号…]   残した頁を読み直して権利・撮影者の表・名前の網を作り直す（ネットに出ない）
 
 作法（記憶 reference-commons-standard-thumbnail-sizes）：
@@ -22,6 +23,7 @@ src/names_commons.txt（名前の網＝足すだけ）。🔴 名前は画面に
 import datetime
 import hashlib
 import html
+import json
 import os
 import re
 import sys
@@ -368,6 +370,105 @@ def gsi(only):
     return 1 if bad else 0
 
 
+KK_PDF = 'https://kokkai.ndl.go.jp/minutes/api/v1/detailPDF/img/%s'   # 🆕 ⑤b-2b：会議まるごとの PDF（`/pdf/<番号>` の転送先・robots.txt なし＝トップへの転送）
+KK_DIR = os.path.join(EP, 'src', 'kokkai_pdf')                          # git の外（字の層なし＝頁ごとに走査の絵1枚）
+
+
+def kk_rows():
+    """sources31.psv の KK 行 → [(記号, 会議の番号)]（題の欄の `img/<番号>` から）"""
+    out = []
+    for ln in open(PSV, encoding='utf-8'):
+        if ln.startswith('KK') and '|public-page|' in ln:
+            d = dict(zip(KEYS, ln.rstrip('\n').split('|')))
+            m = re.search(r'img/(\d{9}X\d{11})', d['title'])
+            if not m:
+                raise SystemExit('🔴 %s: 題の欄に会議の番号（img/…）が無い' % d['code'])
+            out.append((d['code'], m.group(1)))
+    return out
+
+
+def kk_last_page(issue):
+    """手元の会議録の写し（git の外）の startPage の最大＝会議の印刷の頁の終わり（名前は読まない）"""
+    mx = 0
+    for fn in ('meetings.jsonl', 'speeches.jsonl'):
+        p = os.path.join(EP, 'src', 'kokkai', fn)
+        if os.path.exists(p):
+            for ln in open(p, encoding='utf-8'):
+                if issue in ln:
+                    r = json.loads(ln)
+                    if r.get('issueID') == issue and str(r.get('startPage') or '').isdigit():
+                        mx = max(mx, int(r['startPage']))
+    return mx
+
+
+def kokkai(only):
+    """国会会議録の PDF（公的＝許可不要・10-25）を src/kokkai_pdf/<番号>.pdf へ＝1会議ごとに 10秒あける・md5 を2回（2秒あけて）・頁の数と絵の寸法を数える。
+    手元にあれば取り直さず md5 を2回取って記録だけ足す（11-08 の ⑤b-2 で 1971-08-02 を取ってある）"""
+    import fitz
+    os.makedirs(KK_DIR, exist_ok=True)
+    done = {r.split('\t')[1] for r in open(LOG, encoding='utf-8').read().splitlines()[1:] if r.count('\t') > 2 and r.split('\t')[2] == 'kokkai-pdf'}
+    bad = 0
+    first = True
+    for code, issue in kk_rows():
+        if only and code not in only:
+            continue
+        dst = os.path.join(KK_DIR, issue + '.pdf')
+        url = KK_PDF % issue
+        got = 'あった'
+        if not os.path.exists(dst):
+            if not first:
+                time.sleep(GAP)
+            first = False
+            body, st, ctype = None, 0, ''
+            for k in range(3):                             # 🔴 11-08：3本目で IncompleteRead（途中で切れた）＝待って取り直す（回避しない）
+                st, r = fetch(url)
+                if st != 200 or r is None:
+                    break
+                ctype = r.headers.get('Content-Type', '')
+                try:
+                    body = r.read()
+                    break
+                except Exception as e:      # noqa: BLE001
+                    print('  途中で切れた（%s）＝%d秒待つ' % (type(e).__name__, 30 * (k + 1)), flush=True)
+                    time.sleep(30 * (k + 1))
+            if st != 200 or body is None:
+                print('🔴 %s %s: %s' % (code, issue, st), flush=True)
+                bad += 1
+                if st in (400, 404):
+                    break
+                continue
+            if not body.startswith(b'%PDF'):
+                print('🔴 %s: PDF でない（%s・%dB）' % (code, ctype, len(body)), flush=True)
+                bad += 1
+                continue
+            with open(dst, 'wb') as f:
+                f.write(body)
+            got = '取った'
+        m1 = md5(dst)
+        time.sleep(2)
+        m2 = md5(dst)
+        d = fitz.open(dst)
+        n = len(d)
+        dims = set()
+        txt = 0
+        for pg in d:
+            txt += len(pg.get_text('text').strip())
+            for im in pg.get_images(full=True):
+                dims.add('%dx%d' % (im[2], im[3]))
+        last = kk_last_page(issue)
+        size = os.path.getsize(dst)
+        part = '' if n >= last else '🔴 頁が足りない（写しの startPage の最大 %d）' % last
+        print('%s %s %s %dB %d頁（写しの最後の頁 %d）絵 %s 字の層 %d字 md5x2%s %s' % (code, issue, got, size, n, last, '・'.join(sorted(dims)), txt, '✓' if m1 == m2 else '🔴', part), flush=True)
+        if m1 != m2 or part:
+            bad += 1
+            continue
+        if code not in done:
+            log([datetime.date.today().isoformat(), code, 'kokkai-pdf', size, m1, m2, '%d頁・%s' % (n, '・'.join(sorted(dims))),
+                 'src/kokkai_pdf/%s.pdf' % issue, 'kokkai:' + url])
+    print('おわり＝失敗 %d' % bad, flush=True)
+    return 1 if bad else 0
+
+
 def selftest():
     ok = []
     R = {d['code']: d for d in rows()}
@@ -426,6 +527,8 @@ def main():
         return gsi(set(sys.argv[2:]) or None)
     if mode == 'reparse':
         return reparse(set(sys.argv[2:]) or None)
+    if mode == 'kokkai':
+        return kokkai(set(sys.argv[2:]) or None)
     print(__doc__)
     return 2
 

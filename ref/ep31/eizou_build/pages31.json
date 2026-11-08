@@ -1,0 +1,30 @@
+{
+ "W47-1": {"url": "https://www.mlit.go.jp/hakusyo/transport/shouwa47/ind100206/001.html"},
+ "W47-2": {"url": "https://www.mlit.go.jp/hakusyo/transport/shouwa47/ind100206/002.html"},
+ "LAW58": {"url": "https://www.shugiin.go.jp/internet/itdb_housei.nsf/html/houritsu/07519750710058.htm"},
+ "MLIT2002": {"url": "https://www.mlit.go.jp/kisha/kisha02/12/120904_.html"},
+ "W47-2_c409": {"url": "https://www.mlit.go.jp/hakusyo/transport/shouwa47/ind100206/002.html",
+                "from": "全日空機,自衛隊機衝突事故の原因については", "to": "第1の原因は,教官が訓練空域を逸脱して", "pad_t": 0, "pad_b": 0,
+                "ng": ["事故調査委員会が運輸省", "このことは,教官が指揮した"]},
+ "W47-2_c601": {"url": "https://www.mlit.go.jp/hakusyo/transport/shouwa47/ind100206/002.html",
+                "from": "第2の原因は", "to": "このことは,全日空機操縦者が訓練機と接触すると予測しなかつた", "pad_t": 0, "pad_b": 0,
+                "ng": ["正確な機位の確認", "(2) 教官にあつては"]},
+ "W47-2_cb10": {"url": "https://www.mlit.go.jp/hakusyo/transport/shouwa47/ind100206/002.html",
+                "from": "なお,事故調査機関については", "to": "なお,事故調査機関については", "pad_t": 0, "pad_b": 14,
+                "ng": ["日航機事故の原因調査"]},
+ "W47-1_c713": {"parts": [
+   {"url": "https://www.mlit.go.jp/hakusyo/transport/shouwa47/ind100206/001.html",
+    "from": "昭和46年度には,7月に", "to": "前者は,東亜国内航空", "pad_t": 2, "pad_b": 0, "ng": ["上記2大事故を含め", "航空事故の発生状況"]},
+   {"url": "https://www.mlit.go.jp/hakusyo/transport/shouwa47/ind100206/002.html",
+    "from": "前述の「ばんだい号」事故の原因調査", "cut_after": "事故調査委員会が運輸省", "pad_t": 0, "pad_b": 0, "ng": ["人為的なもの", "総理府に設置された"]}]},
+ "LAW58_cb11": {"parts": [
+   {"url": "https://www.shugiin.go.jp/internet/itdb_housei.nsf/html/houritsu/07519750710058.htm",
+    "from": "法律第五十八号（昭五〇・七・一〇）", "after": 200, "to": "◎航空法の一部を改正する法律", "pad": 12, "scale": 4, "ng": ["航空法（昭和二十七年法律第二百三十一号）"]},
+   {"url": "https://www.shugiin.go.jp/internet/itdb_housei.nsf/html/houritsu/07519750710058.htm",
+    "from": "第七十一条の次に次の一条を加える。", "to": "（操縦者の見張り義務）", "pad": 12, "pad_b": 8, "scale": 4, "ng": ["第七十一条の二", "運輪", "衡突", "第六十九条中"]}]},
+ "MLIT2002_cb17": {"parts": [
+   {"url": "https://www.mlit.go.jp/kisha/kisha02/12/120904_.html",
+    "from": "今回の管理運用体制の変更は", "to": "今回の管理運用体制の変更は", "pad_t": 0, "pad_b": 6, "x0": 40, "ng": ["しかし、今後の航空交通量", "（※）緊急安全措置の内容"]},
+   {"url": "https://www.mlit.go.jp/kisha/kisha02/12/120904_.html",
+    "from": "管理運用体制の概要", "to": "全国各地にある訓練空域４７を細分化し", "pad_t": 6, "pad_b": 0, "x0": 40, "ng": ["空港事務所等と空域使用者", "全国の訓練空域使用予定"]}]}
+}
