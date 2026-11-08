@@ -6476,14 +6476,18 @@ REC_M30 = {}
 
 def judge_m30(f):
     """30本目 札の型：①名と色 ②原文どおりの札 ③数 ④記録の字が画面にある・出さない言葉。"""
+    return _judge_fu(f, REC_M30, "REC_M30", "m30")
+
+
+def _judge_fu(f, R, rname, kind):
+    """🔧 2026-11-08（31本目 ⑤b-4）：judge_m30 の中身をそのまま切り出した（記録の表と名だけを引数に）＝31本目の judge_m31 も同じ式で測る。"""
     import jiko_style as J
     bad, n = [], 0
     m = f.mech
     g, view = m["geo"], m["view"]
-    R = REC_M30
     # 🔧 2026-11-08（31本目 ⑤b-1）：表を見本へ移して `{}` にした＝"vals" の鍵ごと無い形でも理由を出して止める（KeyError で落ちない）
     if not R or not R.get("vals"):
-        return ["記録の表 REC_M30 が空（その回の値を入れるまで、m30 のカットは止まる）"], 1
+        return [f"記録の表 {rname} が空（その回の値を入れるまで、{kind} のカットは止まる）"], 1
 
     def need(cond, msg):
         nonlocal n
@@ -6495,11 +6499,11 @@ def judge_m30(f):
         return (J.ROLE.get(name) or getattr(J, name)).lower()
 
     need({k: (t, col(r)) for k, (t, r) in g["src"].items()} == {k: (t, col(r)) for k, (t, r) in R["src"].items()},
-         "① 誰の記録かの名か色が記録（白書＝青・判決＝紫・国会＝緑・手記＝桃・公安調査庁＝水色・無線＝橙・ほかの国の資料＝茶）と違う")
+         f"① 誰の記録かの名か色が記録（{rname} の src＝" + "・".join(f"{t}＝{r}" for t, r in R["src"].values()) + "）と違う")
     cs = [col(R["src"][k][1]) for k in g["vsrc"]]
     need(len(set(cs)) == len(cs), f"① 同じ画面の鍵 {g['vsrc']} の色が重なる")
     rows = R["vals"].get(view)
-    need(rows is not None, f"② {view} の記録が REC_M30 に無い")
+    need(rows is not None, f"② {view} の記録が {rname} に無い")
     rows = rows or ()
     said = [r[1] for r in rows]
     for q in g["quotes"]:
@@ -6517,7 +6521,7 @@ def judge_m30(f):
             continue
         for mm in NUM_M17.finditer(t):
             tok = mm.group(0)
-            need(any(tok in s for s in said), f"③ 画面の字「{t}」の数「{tok}」が記録（REC_M30）に無い")
+            need(any(tok in s for s in said), f"③ 画面の字「{t}」の数「{tok}」が記録（{rname}）に無い")
     ngs = [(t, w) for t in texts for w in R["ng"] if w in t]
     need(not ngs, f"④ 画面の字「{ngs[0][0]}」に出さない言葉「{ngs[0][1]}」がある" if ngs else "")
     import calendar
@@ -6662,8 +6666,92 @@ def _selftest_m30(ok):
     return ok
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 31本目 ⑤b-4（2026-11-08）：札の型 m31（`tools/mech31.py`＝30本目の型を写した・札113）の記録＝門番の側（§5b-88）。測り方は m30 と同じ（`_judge_fu`）。
+#    行＝(記号, 画面の字, 原文の片)。記号＝`ref/ep31/v1_build/quotes31.py` の DOCS（判・白・法・記）と `国<issueID>/<発言の番号>`・町・会・画（当てない）。
+#    原文の片を省くと画面の字で探す（quotes31 の揃え＝NFKC・小書きの「っ」を「つ」に＝判決の「まつたく」と画面の「まったく」が当たる）。
+#    片が「―」＝画面の字が資料の字でない（会議の日付＝会議録の番号から・時点の日付）＝当てない。
+#    🔴 原文との照合は `ref/ep31/eizou_build/rec31_src.py`（git の外の資料を読む＝手元だけ）。§0b（題材を替えるとき）：次の回の ⑤b-1 で REC_M31 を見本へ移す
+#    🔴 出さない言葉（ng）＝判決の記号の字・「無罪」（訓練生の一審と二審の結果は出さない＝台本 c908）・「犯人」「加害者」（この回の線）。人の名前は名前の網（namecheck31）
+# ══════════════════════════════════════════════════════════
+REC_M31 = dict(
+    src=dict(hanketsu=("最高裁の判決", "tsb"), kokkai=("国会", "ntsb"), hakusho=("運輸白書", "uscg"), kuni=("国交省", "ship"), houki=("法律", "DOC"),
+             machi=("町の頁", "bldg_a"), kaisha=("会社の頁", "company")),
+    ng=("犯人", "加害者", "無罪", "C三佐", "D三佐", "Ｃ三佐", "Ｄ三佐", "E一尉", "Ｅ一尉", "A訓練生", "Ａ訓練生"),
+    vals=dict(
+        c209=(("国106614889X00119710802/13", "一等空尉"), ("国106614889X00119710802/13", "二等空曹")),
+        c303=(("国106613843X00119710805/293", "方面航空司令官"), ("国106613843X00119710805/293", "第四航空団の司令"),
+              ("国106613843X00119710805/293", "5つ", "その名前のついておるところが五つあります")),
+        c316=(("判", "盛岡", "盛岡あたりを指すと考えた"), ("判", "J11L", "ジエツト・ルートJ11Lは盛岡市街あたりの上空をほぼ南北に通つている"),
+              ("判", "誤った認識", "誤つた認識")),
+        c327=(("判", "まったく配慮していなかった"), ("判", "J11L", "ジエツト・ルートJ11Lとの位置関係")),
+    ),
+)
+
+
+def judge_m31(f):
+    """31本目 札の型：m30 と同じ ①名と色 ②原文どおりの札 ③数 ④記録の字が画面にある・出さない言葉（表は REC_M31）。"""
+    return _judge_fu(f, REC_M31, "REC_M31", "m31")
+
+
+def _selftest_m31(ok):
+    """🆕 31本目 ⑤b-4：本番の m31 が全部通り、描く側か記録を壊すと**狙った理由で**鳴るか（陽性対照・m30 と同じ7本＋出さない言葉の記号の字）。"""
+    import cuts
+    import mech31 as M
+
+    good = {c: s["fig"][1] for c, s in cuts.SPEC.items() if s.get("fig") and s["fig"][0] == "m31"}
+    if not good:
+        print("  🔴 NG 31本目 m31 のカットが SPEC に無い＝検算できない")
+        return False
+    for cid, kw in good.items():
+        bad, _ = judge("m31", kw)
+        if bad:
+            ok = False
+            print(f"  🔴 NG 31本目 m31 の本番 {cid} が落ちた: {bad[0]}")
+    print(f"  {'OK' if ok else '🔴 NG'} 31本目 m31 の本番 {len(good)}カット")
+
+    def control(name, cid, brk, want):
+        nonlocal ok
+        if cid not in good:
+            ok = False
+            print(f"  🔴 NG 陽性対照「{name}」の {cid} が SPEC に無い")
+            return
+        save_fu, save_src, save_vals = dict(M.FU), dict(M.SRC), dict(REC_M31["vals"])
+        try:
+            brk()
+            bad, _ = judge("m31", good[cid])
+        finally:
+            M.FU.clear()
+            M.FU.update(save_fu)
+            M.SRC.clear()
+            M.SRC.update(save_src)
+            REC_M31["vals"] = save_vals
+        hit = any(want in b for b in bad)
+        ok = ok and hit
+        print(f"  {'OK' if hit else '🔴 NG'} 陽性対照「{name}」→ {'鳴った' if hit else '鳴らなかった'}")
+
+    def card(cid, i, **kw):
+        d = dict(M.FU[cid])
+        cs = list(d["cards"])
+        cs[i] = dict(cs[i], **kw)
+        d["cards"] = tuple(cs)
+        M.FU[cid] = d
+
+    control("誰の記録かの色を替えた", "c327", lambda: M.SRC.update(hanketsu=("最高裁の判決", "uscg")), "①")
+    control("原文の札の字を替えた", "c327", lambda: card("c327", 0, lines=("まったく配慮していた",)), "②")
+    control("数を替えた", "c303", lambda: card("c303", 2, big="6つ"), "③")
+    control("数を替えた（記録の字が画面から消える）", "c303", lambda: card("c303", 2, big="6つ"), "④")
+    control("記録に古い行を残した", "c209", lambda: REC_M31["vals"].update(c209=REC_M31["vals"]["c209"] + (("画", "三等空佐"),)), "④")
+    control("記録の行を消した", "c303", lambda: REC_M31["vals"].update(c303=()), "③")
+    control("判決の記号の字を札に", "c316", lambda: card("c316", 1, head="Ｃ三佐の考え"), "④")
+    control("「無罪」を札に", "c209", lambda: card("c209", 1, lines="無罪"), "④")
+    return ok
+
+
 def judge(kind, kw):
     f = getattr(F, kind)(**kw)
+    if kind == "m31":
+        return judge_m31(f)
     if kind == "m30":
         return judge_m30(f)
     if kind == "m29":
@@ -7178,12 +7266,18 @@ def main():
         print("selftest（m30）: 🔴 落ちた")
         return 2
     print("selftest（m30）: 通った")
+    # 🆕 31本目 ⑤b-4：m31 の検算（本番の表 REC_M31 と本番の章ファイルのまま＝この回の値）
+    if not _selftest_m31(True):
+        print("selftest（m31）: 🔴 落ちた")
+        return 2
+    print("selftest（m31）: 通った")
     if "--selftest" in sys.argv:
         return 0
     import cuts
     targets ={c: s["fig"] for c, s in sorted(cuts.SPEC.items())
                if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash", "tail", "mod", "bolt", "vsec", "lv", "m18",
-                                                   "m19", "m20", "m21", "m22", "m23", "m17", "m24", "m25", "m26", "m27", "m28", "m29", "m30")}
+                                                   "m19", "m20", "m21", "m22", "m23", "m17", "m24", "m25", "m26", "m27", "m28", "m29", "m30",
+                                                   "m31")}
     if not targets:
         print("⚠️ latch・section・hull・lash・tail・mod・bolt のカットが0件（この回に仕組みの模式図が無いなら正しい。"
               "**0件を調べて合格**にしていないか確かめる）")

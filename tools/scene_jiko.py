@@ -3221,7 +3221,7 @@ def build_layers(allow_missing=False):
     #    その字を読む行の字幕を消す（記憶 feedback-no-subtitle-when-onscreen「その言葉が出ているあいだ、字幕は消す」）
     for c in spans:
         fig = (SPEC.get(c) or {}).get("fig")
-        if fig and fig[0] in ("m27", "m28", "m29", "m30") and fig[1].get("mute"):
+        if fig and fig[0] in ("m27", "m28", "m29", "m30", "m31") and fig[1].get("mute"):
             n = len(SUBS.get(c) or [])
             bad = [i for i in fig[1]["mute"] if not 0 <= int(i) < n]
             if bad:

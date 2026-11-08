@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""札の型（`tools/mech30.py`・`fig=("m30", …)`）の字数と字の大きさの門番。🆕 30本目 ⑤b-4（2026-11-05）。
+"""札の型（`tools/mech30.py`・`fig=("m30", …)`／🆕 31本目 `tools/mech31.py`・`fig=("m31", …)`）の字数と字の大きさの門番。🆕 30本目 ⑤b-4（2026-11-05）。
 
 ■ なぜ要るか
   札の型は描き手が1つ＝表に字を足すだけで、読み切れない札がいくらでも作れる。門番 layout は「はみ出し」しか見ない（拡大率 k が字を縮めて収める）・
@@ -96,8 +96,12 @@ def _inputs():
     # 🔧 2026-11-08（31本目 ⑤b-1・§0b）：秒の表を回の束（`ss.REF`）から引く＝30本目の `ref/ep30/eizou_build/list30.tsv` の直書きをやめた（回を替えるとき直し忘れない）
     import cuts.ss as _ss
     secs = {r["cid"]: float(r["sec"]) for r in csv.DictReader(open(_ss.REF / "eizou_build" / f"list{_ss.REF.name[2:]}.tsv", encoding="utf-8"), delimiter="\t")}
-    targets = [c for c, s in sorted(cuts.SPEC.items()) if s.get("fig") and s["fig"][0] == "m30"]
-    return M, S, secs, targets
+    # 🆕 31本目 ⑤b-4（2026-11-08）：札の型 m31（`tools/mech31.py`＝30本目の型を写した）も同じ物差しで測る＝カットごとに型のモジュールを引く
+    import mech31 as M31
+    mods = {"m30": M, "m31": M31}
+    targets = [c for c, s in sorted(cuts.SPEC.items()) if s.get("fig") and s["fig"][0] in mods]
+    kinds = {c: mods[cuts.SPEC[c]["fig"][0]] for c in targets}
+    return kinds, S, secs, targets
 
 
 def selftest():
@@ -136,14 +140,14 @@ def main():
         ok = selftest()
         print("selftest:", "通った" if ok else "🔴 落ちた")
         return 0 if ok else 1
-    M, S, secs, targets = _inputs()
+    kinds, S, secs, targets = _inputs()
     if not targets:
-        print("札の型のカットが0件（この回に m30 が無いなら正しい）")
+        print("札の型のカットが0件（この回に m30・m31 が無いなら正しい）")
         return 0
     n_bad = 0
     vals = []
     for c in targets:
-        geo = M.geo_of(c)
+        geo = kinds[c].geo_of(c)
         nlines = len(S.SUBS.get(c) or [])
         bad, v = judge(c, geo, secs[c], nlines)
         vals.append((c, v))

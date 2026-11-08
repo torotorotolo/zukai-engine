@@ -5218,3 +5218,11 @@ def m29(view, steps, **kw):
 def m30(view, steps, **kw):
     import mech30 as _m
     return _m.m30(view, steps, **kw)
+
+
+# ── ㉖ 31本目 ⑤b-4（2026-11-08）：札の型（札113＝30本目の型を写した・表 `mech31.FU`）＝`tools/mech31.py`（門番 check_mech の judge_m31）。
+#      🔴 地は写真（cuts.ss.gr）・人の名前と人の形を出さない・言い切らない線は台本 第2版のとおり ──
+#   `fig=("m31", dict(view=…, steps=[…], note="…", src=…, mute=[…]))`＝章ファイルは `mech31.fu_spec`
+def m31(view, steps, **kw):
+    import mech31 as _m
+    return _m.m31(view, steps, **kw)

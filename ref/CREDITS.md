@@ -3625,6 +3625,13 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `l4` | c905 | 2022 | CC BY-SA 4.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep31/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Morioka District Court 1.jpg |
 | `law58_cb11` | cb11 | 1975 | 著作権法13条（法令）（公的な機関の頁） | 各機関（国） | ② で取得ずみ |
 | `mlit2002_cb17` | cb17 | 2002 | PDL1.0（公的な機関の頁） | 各機関（国） | ② で取得ずみ |
+| `ms_g1` | （地 c209） | 1971 | CC BY 3.0（この回の物と場所） | 防衛省・自衛隊 | https://commons.wikimedia.org/wiki/File:%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm |
+| `ms_g2` | （地 c302） | 1971 | CC BY 3.0（この回の物と場所） | 防衛省・自衛隊 | https://commons.wikimedia.org/wiki/File:%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm |
+| `ms_g3` | （地 c324） | 1971 | CC BY 3.0（この回の物と場所） | 防衛省・自衛隊 | https://commons.wikimedia.org/wiki/File:%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm |
+| `ms_g4` | （地 c702） | 1971 | CC BY 3.0（この回の物と場所） | 防衛省・自衛隊 | https://commons.wikimedia.org/wiki/File:%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm |
+| `ms_g5` | （地 c714） | 1971 | CC BY 3.0（この回の物と場所） | 防衛省・自衛隊 | https://commons.wikimedia.org/wiki/File:%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm |
+| `ms_g6` | （地 c933） | 1971 | CC BY 3.0（この回の物と場所） | 防衛省・自衛隊 | https://commons.wikimedia.org/wiki/File:%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm |
+| `ms_g7` | （地 cb09） | 1971 | CC BY 3.0（この回の物と場所） | 防衛省・自衛隊 | https://commons.wikimedia.org/wiki/File:%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm |
 | `p1` | c103 | 1971 | CC BY-SA 4.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep31/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:JA8329 Boeing 727-281 All Nippon Airways, Tokyo International, May 1971.jpg |
 | `p10` | c809 | 2020 | CC0（この回の物と場所） | 表示は任意（CC0） | commons:North American F-86F-40-238 - F-86F-40-MIT Sabre - Kyokkō ‘865 - 82-7865’ (20810093720).jpg |
 | `p3` | c204 | 1979 | CC BY-SA 4.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep31/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:All Nippon Airways Boeing 727-200 JA8344.jpg |

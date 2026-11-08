@@ -833,6 +833,61 @@ def gsi_compose(code):
 
 
 # ── 束を作る ─────────────────────────────────────────────────
+# 🆕 ⑤b-4（2026-11-08）：地 MS＝防衛庁記録のコマを束の静止画 `ms_g…` に（札の型の地・CC BY 3.0・公開リポに置く＝fb_* と同じ）。
+#   {束の名: (映像, 元の秒, 写っている物, カット)}。中身は器の黒帯を外した FB_BOX（額装でなく地＝`ss.gr` が画面いっぱいに敷いて暗くする）。
+#   🔴 人の写るコマは札の言葉と結び付く（教官と訓練生の札の後ろの隊員＝「この人が教官」・長官の言葉の札の後ろの敬礼の寄り＝「この人が長官」・
+#      調査委員会の札の後ろの隊員＝「委員が自衛隊」＝委員会は自衛隊の関係者を外した c716）＝人の写らない滑走路・残骸・半旗と、c701 と同じ捜索のコマだけ。
+#      札を掛ける場面（c208）は全コマに人＝c209 は滑走路へ（台本の画の欄の「人の写らないコマ」が無かった）。11-08 に 640px の2列×3行で候補18コマを全数見て選んだ
+#   ⚠️ MK の滑走路は △（どこの基地か未確認＝make_list31.TRI）＝地は字を出さない（副題・札に基地の名を書かない）
+MS_GROUND = {"ms_g1": ("MK", 1047.8, "滑走路と草地・遠くの丘（人なし）", ("c209",)),
+             "ms_g2": ("MK", 1040.5, "滑走路の端と草地（人なし）", ("c302",)),
+             "ms_g3": ("MK", 1044.5, "滑走路と草地（人なし）", ("c324",)),
+             "ms_g4": ("MS", 1126.0, "森の中の捜索の隊員（顔は見えない・c701 と同じショット）", ("c702",)),
+             "ms_g5": ("MS", 1119.0, "林の中の残骸（人なし・c101 と同じショット）", ("c714",)),
+             "ms_g6": ("MS", 1211.4, "半旗（人なし・c107 と同じショット）", ("c933",)),
+             "ms_g7": ("MS", 1209.6, "半旗（人なし・c107 と同じショット）", ("cb09",))}
+MS_GROUND_CREDIT = "出典：防衛省・自衛隊『昭和46年防衛庁記録』（CC BY 3.0）／改変：切出"
+
+
+def build_ms_ground(db, cuts_ms):
+    """地 MS の7コマを切り出して台帳 db に入れる。一覧の地「MS」のカットと表のカットが1つ残らず合うか・外す秒に触れないかを見る（違えば数を返す）。"""
+    from PIL import Image
+    bad = 0
+    want = sorted(c for v in MS_GROUND.values() for c in v[3])
+    if sorted(cuts_ms) != want:
+        print(f"🔴 地 MS：一覧のカット {sorted(cuts_ms)} と MS_GROUND のカット {want} が合わない")
+        bad += 1
+    for name, (code, sec, what, cs) in MS_GROUND.items():
+        f = FILM[code]
+        if any(a <= sec <= b for a, b, _w in FILM_NOGO.get(code, ())):
+            print(f"🔴 {name}: {code} {sec}秒は外す秒の中")
+            bad += 1
+            continue
+        p = HERE / "ref" / "ep31" / f["file"]
+        if md5(p) != f["md5"]:
+            print(f"🔴 {name}: 手元の写し {f['file']} の md5 が台帳と違う")
+            bad += 1
+            continue
+        raw = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{sec - f['off']:.3f}", "-i", str(p), "-frames:v", "1", "-f", "image2pipe", "-vcodec", "png", "-"],
+                             capture_output=True).stdout
+        if not raw:
+            print(f"🔴 {name}: コマが取れない")
+            bad += 1
+            continue
+        dst = EPD / f"{name}.jpg"
+        Image.open(io.BytesIO(raw)).convert("RGB").crop(FB_BOX).save(dst, quality=JPEG_Q, optimize=True)
+        with Image.open(dst) as im:
+            w, h = im.size
+        db[name] = dict(code=code, part="", file=f["file"], cut="", ji=" ".join(cs), credit=MS_GROUND_CREDIT, who="防衛省・自衛隊",
+                        note=what, box=[0.0, 0.0, 1.0, 1.0], crop_px=[0, 0, w, h], w=w, h=h, md5=md5(dst), src_md5=f["md5"], lic="CC BY 3.0", frame=False,
+                        ground="CC BY 3.0（防衛省 YouTube・Commons の写し）", url=S46_PAGE, blur=[],
+                        how=f"{f['what']}の元 {sec:.1f}秒のコマ（手元の写しの {sec - f['off']:.3f}秒）・器の黒帯を外した {FB_BOX}", year=1971,
+                        year_why="1971年の記録映画（撮影の日は書かない）", stock=False, page=False, related=False, quote_page=False, named=False, mosaic=None,
+                        name_mosaic=None, masked_before=None, era="1971", people="なし" if "人なし" in what else "公的な任務の人（顔は見えない）", private=False, shot=None)
+        print(f"✓ {name:18} {code} {sec:7.1f}秒 {w}x{h} 地 {' '.join(cs)}  {what}")
+    return bad
+
+
 def cmd_build(nopages=False):
     """`nopages`＝紙面を撮る前に写真だけ見るとき（台帳は途中の形＝commit しない）"""
     from PIL import Image, ImageOps
@@ -932,6 +987,9 @@ def cmd_build(nopages=False):
         print(f"✓ {key:18} {name:18} {w}x{h:<5} 主 {' '.join(u['main']) or '—':14} 地 {' '.join(u['ji']) or '—':26} {_lic(code, s)[:12]}"
               f"{'  額装だけ' if frame else ''}  {'・'.join(notes)[:50]}")
     for j, cs in later.items():
+        if j == "MS":
+            bad += build_ms_ground(db, cs)
+            continue
         print(f"・地 {j}＝{JI_LATER[j]}：{len(cs)}カット（{' '.join(cs[:8])}{' …' if len(cs) > 8 else ''}）＝束の外")
     # 🆕 ⑤b-3：イメージの写真（Pexels・地だけの点も）＝取ったファイルそのまま `ref/ep31/stock/<名>.jpg`（🔴 git に入れない＝19本目 決め⑨）。
     #    Actions・Modal は `footage.stock_photos` が台帳の media から取り直して md5 を照らす（23本目の型）

@@ -106,3 +106,10 @@ SPEC.update({
             note="線は函館と松島の点を結んだ概略"),
         t="北から南への道", s="函館から松島（現在の衛星写真）"),
 })
+
+# 🆕 ⑤b-4（2026-11-08）：札の型（`tools/mech31.py` の表 FU＝1行が1カット）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`＝check_ground --suggest）
+#   c209 の地＝防衛庁記録の滑走路のコマ ms_g1（札を掛ける場面は全コマに人＝「この人が教官」と読まれる＝束の MS_GROUND）
+import mech31 as _m31  # noqa: E402
+SPEC.update({
+    "c209": _m31.fu_spec("c209", ss.gr("ms_g1")),
+})

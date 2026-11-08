@@ -145,3 +145,11 @@ SPEC.update({
             note=ss.SAT_LINE_NOTE + "・点は一般の座標"),
         t="西側の近く", s="盛岡の西（現在の衛星写真）"),
 })
+
+# 🆕 ⑤b-4（2026-11-08）：札の型（`tools/mech31.py` の表 FU＝1行が1カット）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`＝check_ground --suggest）
+import mech31 as _m31  # noqa: E402
+SPEC.update({
+    "c303": _m31.fu_spec("c303", ss.gr("a1")),
+    "c316": _m31.fu_spec("c316", ss.gr("a6")),
+    "c327": _m31.fu_spec("c327", ss.gr("stock/gc1")),
+})
