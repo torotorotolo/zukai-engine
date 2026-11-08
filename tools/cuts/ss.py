@@ -130,8 +130,8 @@ from functools import lru_cache
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parents[2]
-REF = HERE / "ref" / "ep30"        # 🔴 §0b：回の名に結んだ束の置き場（2026-10-25 25本目 ⑤b-1 で ep24 → ep25・2026-10-27 26本目 ⑤b-1 で ep25 → ep26・2026-10-30 27本目 ⑤b-1 で ep26 → ep27・2026-11-01 28本目 ⑤b-1 で ep27 → ep28・2026-11-03 29本目 ⑤b-1 で ep28 → ep29・2026-11-05 30本目 ⑤b-1 で ep29 → ep30）
-EP = "ep30/"
+REF = HERE / "ref" / "ep31"        # 🔴 §0b：回の名に結んだ束の置き場（2026-10-25 25本目 ⑤b-1 で ep24 → ep25・2026-10-27 26本目 ⑤b-1 で ep25 → ep26・2026-10-30 27本目 ⑤b-1 で ep26 → ep27・2026-11-01 28本目 ⑤b-1 で ep27 → ep28・2026-11-03 29本目 ⑤b-1 で ep28 → ep29・2026-11-05 30本目 ⑤b-1 で ep29 → ep30・2026-11-08 31本目 ⑤b-1 で ep30 → ep31）
+EP = "ep31/"
 W, H = 1920, 1080
 # 🆕 2026-10-30（27本目 ⑤b-3）：**公開リポに置かない県警・警察庁の引用**の置き場（束の `police/`＝台帳 assets.json の `private`・
 #    県警の動画のひかえの静止画 `police/fb_<cid>.jpg`）＝git の外・Modal の保管庫 jiko-assets の同じ道（`modal_app.pull_private`）。
@@ -269,7 +269,9 @@ SCREEN_AR = W / H
 #    🔴 2026-11-05（30本目 ⑤b-2）：束62点で取り直した＝いちばん大きな切れ目 1.034（slh）→ 1.332（tks）の 29.8ポイント＝中点 1.18。
 #       全画面にする写真はどれも 1.332 以上（縦長の p73・p39・hb・p99 と、ほぼ正方形の slh は kind() では額装）。⚠️ 一覧は slh（c737・cb17）を全面と書いた＝⑤b-7 で何が残るかを見て決める。
 #       WIDE_AR は 2.67 に動く＝これを超えるのは公的な機関の紙面だけ（どれも額装で panel=True）
-PANEL_AR = 1.18                 # これ未満＝縦長すぎ（上下が切れる）
+#    🔴 2026-11-08（31本目 ⑤b-1）：30本目の束から決めた 1.18 のまま残した（見本に入れない＝16〜30本目と同じ）＝31本目の束で
+#       `qa_out/ep31_assets.py panel` のいちばん大きな切れ目から取り直す（上の 1.18 の理由の注は30本目の束の写真のこと）
+PANEL_AR = 1.18                # これ未満＝縦長すぎ（上下が切れる）
 WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝2.67（30本目の束から）。これ超＝横長すぎ
 
 # 報告書の頁から切る図の矩形（写真と頁の束のチャットで作る `ref/<回>/pages.json`＝15本目は `ref/ep15/pages.json`）。
@@ -735,10 +737,11 @@ NG_PHOTOS: dict[str, str] = {}
 #       場所の写真の私人の顔とナンバーは CC BY・CC0・PD で升目・BY-SA の TKS に顔があれば別の点に＝一覧 `ref/ep30/eizou_list30.md` §3 の人の欄を原寸で）を `P("名")` で書く（EP が追う）
 #    🔴 2026-11-05（30本目 ⑤b-2）：場所の写真13点を 640px の並べ＋疑いの所を等倍で見た＝2点に升目（範囲は `qa_out/ep30_assets.py` の MASK・升目にしない点の理由もそこ）。
 #       束の段で切り落とした点（PRE_CROP）＝P62（上＝写真を構える人と見物の人の列）。🔴 BY-SA の TKS は人もナンバーも無い。第三者の引用は加工しない
-NEEDS_MASK: dict[str, str] = {
-    P("ks1"): "左のワゴンのナンバー（c509・c902・地 c714〜c716）",
-    P("hb"): "左の人と奥の人の列の顔（約15〜20px・投稿者がぼかしていない人）＝地 c727",
-}
+#    🔴 2026-11-08（31本目 ⑤b-1・§0b）：30本目の2点（ks1 のワゴンのナンバー・hb の人の顔）は見本 `tools/fixture_ep30.py` の NEEDS_MASK へ移した
+#       （`ep30/` の名を文字で書いた・説明は1字も変えていない＝git の `3d0ee6bc`。範囲は `qa_out/ep30_assets.py` の MASK）。
+#       ⚠️ 空のあいだ門番 check_photo_mask は「NEEDS_MASK が空」の注意を出す＝31本目の束のチャットで、隠す点（了承②＝公的な任務の人〈隊員・幹部・操縦者〉はそのまま・
+#       私人の顔が主役の写真は使わない・車の番号と札の字は原寸＝一覧 `ref/ep31/eizou_list31.md` の人の欄を原寸で）を `P("名")` で書く（EP が追う）
+NEEDS_MASK: dict[str, str] = {}
 
 # 🆕 2026-10-13（21本目 ⑤b-7）：**スライドの台紙の黒い縁がある写真**（名 → 何か）。全画面で流す・寄る窓が縁に入らないかを門番
 #    `tools/check_photo_edge.py` が測る（縁の幅は**絵から毎回測る**＝ここには書かない）。夜空など縁でない暗い所の写真は入れない。
@@ -815,23 +818,11 @@ SLIDE_MOUNT: dict[str, str] = {}
 #       ⚠️ SLIDE_MOUNT も SLIDE_NOT_MOUNT も空のあいだ、門番 check_photo_edge は「SLIDE_MOUNT が空」で止まる（fail closed）＝30本目の束のチャットで、
 #       台紙の縁のある写真があれば SLIDE_MOUNT を、無ければ暗い帯のある点を SLIDE_NOT_MOUNT に理由つきで書く（鍵は `P("名")`）
 #    🔴 2026-11-05（30本目 ⑤b-2）：`qa_out/ep30_assets.py edges` の4点を 640px の並べで見た＝どれも写真の中身＝台紙の縁は0点
-SLIDE_NOT_MOUNT: dict[str, str] = {
-    # 🆕 ⑤b-3（2026-11-05）：イメージの写真（Pexels）の暗い帯＝どれも写真の中身（夜の空や暗い壁・窓の外の暗さ・640px で見た）
-    P("stock/x317"): "夜の路地の暗い四辺（写真の中身）",
-    P("stock/x404"): "夜の道の暗い四辺（写真の中身）",
-    P("stock/x502"): "左の木の陰（写真の中身）",
-    P("stock/x609"): "夜の暗い四辺（写真の中身）",
-    P("stock/x618"): "夜空と手前の暗い街（写真の中身）",
-    P("stock/x708"): "ホームの暗い天井（写真の中身）",
-    P("stock/x816"): "軒の影（写真の中身）",
-    P("stock/x826"): "暗い部屋の背景（写真の中身）",
-    P("stock/xc02"): "電車の中の暗さ（写真の中身）",
-    P("stock/xc04"): "地下の暗い天井と壁（写真の中身）",
-    P("diet"): "右端の黒＝手前の電柱（写真の中身）",
-    P("ks1"): "左端の黒＝手前の木の陰（写真の中身）",
-    P("ks2"): "右端の黒＝手前の並木の陰（写真の中身）",
-    P("police/p25"): "上下の黒＝夜明け前の空と手前の地面（写真の中身・額装＝窓で切らない）",
-}
+#    🔴 2026-11-08（31本目 ⑤b-1・§0b）：30本目の14点（Pexels の夜の写真の暗がり10・場所の写真の手前の陰3・夜明け前の空1＝どれも写真の中身で台紙の縁は0点）は
+#       見本 `tools/fixture_ep30.py` の SLIDE_NOT_MOUNT へ移した（`ep30/` の名を文字で書いた・説明は1字も変えていない＝git の `3d0ee6bc`）。
+#       ⚠️ SLIDE_MOUNT も SLIDE_NOT_MOUNT も空のあいだ、門番 check_photo_edge は「SLIDE_MOUNT が空」で止まる（fail closed）＝31本目の束のチャットで、
+#       台紙の縁のある写真があれば SLIDE_MOUNT を、無ければ暗い帯のある点（防衛庁記録のひかえの静止画・白黒の空中写真の縁）を SLIDE_NOT_MOUNT に理由つきで書く（鍵は `P("名")`）
+SLIDE_NOT_MOUNT: dict[str, str] = {}
 
 # 🆕 2026-10-13（21本目 ⑤b-7）：**原寸で見て字でないと決めた OCR の範囲**（OCR の読み置きのファイル名 → [((x0, y0, x1, y1)＝束の画素, 何か)]）。
 #    `check_slide.load_ocr` がこの中に真ん中のある行を外す（外した行は「文字行と見なさなかった」の表に理由つきで出る）。
@@ -843,15 +834,10 @@ SLIDE_NOT_MOUNT: dict[str, str] = {
 #       ⑤b-7 の下見の原寸の切り出し Q1）は見本 `tools/fixture_ep17.py` の OCR_NOT_TEXT へ移した（値は1つも変えていない＝git の `2cc5e5ab`）。24本目で字でない範囲を決めたら、ここに足す
 #    🔴 2026-10-30（27本目 ⑤b-1・§0b）：26本目の1点（`s5_362.jpg`＝1912年の本の頁の氷原の写真〈c318・c817〉の手前の暗い海面の網点＝⑤b-7 に原寸で見た）は
 #       見本 `tools/fixture_ep26.py` の OCR_NOT_TEXT へ移した（値は1つも変えていない＝git の `54b15e5e`）。27本目で字でない範囲を決めたら、ここに足す
+#    🔴 2026-11-08（31本目 ⑤b-1・§0b）：30本目の4点（`xc02.jpg` の線路と草・`ks2.jpg` の庁舎の窓の並び・`mt.jpg` の民家の窓の並び・`p83.jpg` の木の葉＝⑤b-3〜⑤b-7 に原寸で見た）は
+#       見本 `tools/fixture_ep30.py` の OCR_NOT_TEXT へ移した（鍵ごとの代入の4文のまま・値は1つも変えていない＝git の `3d0ee6bc`）。31本目で字でない範囲を決めたら、ここに足す
+#       （🔴 読み置きのファイル名が鍵＝回の名を含まない＝前の回の名と同じ名の写真〈mt.jpg ほか〉が次の回にあると黙って効く＝回を替えるときは必ず空に）
 OCR_NOT_TEXT: dict[str, list] = {}
-# 🆕 ⑤b-3（2026-11-05）：イメージの写真＝原寸で見た（線路と草＝字でない）
-OCR_NOT_TEXT["xc02.jpg"] = [((1200, 1030, 1235, 1070), "線路と草"), ((1745, 1020, 1790, 1040), "線路と草")]
-# 🆕 ⑤b-4（2026-11-05）：地に使う警視庁の写真＝原寸で見た（庁舎の窓の並び＝字でない）
-OCR_NOT_TEXT["ks2.jpg"] = [((1285, 550, 1540, 695), "庁舎の窓の並び")]
-# 🆕 ⑤b-7（2026-11-06）：門番 edges が鳴った行を原寸で見た（c415 の民家の窓の並び・c912 の木の葉＝字でない）。病院の札（slh）・駅の札の裏（p80）・
-#    中吊りの広告（p79）は本物の字＝窓のほうを直した（c737・cb17・c909・c920）
-OCR_NOT_TEXT["mt.jpg"] = [((985, 995, 1065, 1030), "民家の窓の並び")]
-OCR_NOT_TEXT["p83.jpg"] = [((1205, 100, 1415, 150), "木の葉")]
 
 # 🔴 2026-09-29（14本目 ⑤b-7a）：**切り出し（`TRIM`）で外した私人の範囲**（元画像の割合 x0,y0,x1,y1・何か）。
 #    門番 photomask が「その写真を使う全カットの窓（`trim` か `TRIM`・冒頭の写真は切らない＝全体）がこの範囲に
@@ -1049,34 +1035,11 @@ SAT_CREDIT = "地図：Google マップの衛星写真（帰属は地図の右�
 #    ⚠️ 門番 check_sat の本番（`main()`）は地図のカットが0件のとき exit 1 を返す（24本目に地図があるかは未定）＝地図の無い回なら門番の側を直す
 SAT = {}
 GEO = {}
-# 🆕 2026-11-05（30本目 ⑤b-2）：G01＝c105（`ref/ep30/eizou_build/helpers/gshot30.py`・2回撮って gseam22 で線なし）。残り11画は ⑤b-3。🔴 PNG は git の外＝保管庫 jiko-assets
-SAT.update({
-    "G01": dict(file="ep30/photo/gmap_g01_matsumoto.png", ll=(36.238, 137.972), z=11, md5="0ca1afa753378ead5e611dee75a33498", credit=SAT_CREDIT),
-    # 🆕 ⑤b-3：残り10画（11カット＝G03 は c203 と c607）。2回撮って gseam22 で比べた。中心とズームの理由は gshot30 の表
-    "G02": dict(file="ep30/photo/gmap_g02_tokyo.png", ll=(35.685, 139.735), z=12, md5="0af038b46bf0f866145bc556580c5564", credit=SAT_CREDIT),
-    "G03": dict(file="ep30/photo/gmap_g03_kasumigaseki.png", ll=(35.6745, 139.7505), z=15, md5="995f22de27c822fac311650b34c9ed53", credit=SAT_CREDIT),
-    "G04": dict(file="ep30/photo/gmap_g04_japan.png", ll=(34.75, 135.1), z=7, md5="83b6c94eb56b65e798f636c92ab834c2", credit=SAT_CREDIT),
-    "G05": dict(file="ep30/photo/gmap_g05_matsumoto_city.png", ll=(36.238, 137.972), z=13, md5="91ac60035fd37c60d4676c12af0ae19c", credit=SAT_CREDIT),
-    "G06": dict(file="ep30/photo/gmap_g06_fujigamine.png", ll=(35.49, 138.62), z=12, md5="798a254cfbf064dde9f87b7696585115", credit=SAT_CREDIT),
-    "G07": dict(file="ep30/photo/gmap_g07_tokyo_south.png", ll=(35.625, 139.72), z=12, md5="3de50e3d2916386554b23ecf614f6dc1", credit=SAT_CREDIT),
-    "G08": dict(file="ep30/photo/gmap_g08_hatchobori.png", ll=(35.6745, 139.7777), z=15, md5="a0a2f6c18b74300b893ad898bbd639cc", credit=SAT_CREDIT),
-    "G09": dict(file="ep30/photo/gmap_g09_tsukiji.png", ll=(35.6675, 139.7745), z=16, md5="386bbf13541bedec6dccf490b1923e46", credit=SAT_CREDIT),
-    "G10": dict(file="ep30/photo/gmap_g10_walk.png", ll=(35.6755, 139.7515), z=17, md5="cf3162a1487bc727b0ece88270f8248a", credit=SAT_CREDIT),
-    "G11": dict(file="ep30/photo/gmap_g11_yamanashi_tokyo.png", ll=(35.57, 138.97), z=10, md5="237641824679f9a37de1290209c8d698", credit=SAT_CREDIT),
-})
-GEO.update({
-    # 🔴 札は「長野県松本市」だけ・点は市の代表点（第一通報者の家も事件の現場も示さない）
-    "matsumoto": dict(ll=(36.238, 137.97197), src="公安調査庁 アーカイブ（`1994.6.27松本サリン事件`）", how="一般の座標（Wikidata Q213324＝市）"),
-    # 🆕 ⑤b-3：札の場所（語りに出る公の場所だけ）。🔴 第一通報者の家・事件の路上・役場は置かない。駅＝国土数値情報 N02-24 の駅の線の真ん中・公の建物＝国土地理院の住所検索
-    "kasumigaseki": dict(ll=(35.67355, 139.75183), src="国土数値情報（鉄道）N02-24", how="一般の座標（駅の線の真ん中＝3路線の平均）"),
-    "hatchobori": dict(ll=(35.67551, 139.77742), src="国土数値情報（鉄道）N02-24", how="一般の座標（駅の線の真ん中）"),
-    "tsukiji": dict(ll=(35.66799, 139.77255), src="国土数値情報（鉄道）N02-24", how="一般の座標（駅の線の真ん中）"),
-    "keishicho": dict(ll=(35.676193, 139.751129), src="国土地理院の住所検索（千代田区霞が関二丁目1番）", how="一般の座標（住所の点）"),
-    "hongwanji": dict(ll=(35.666466, 139.772446), src="国土地理院の住所検索（中央区築地三丁目15番）", how="一般の座標（住所の点）"),
-    "luke": dict(ll=(35.667965, 139.776779), src="国土地理院の住所検索（中央区明石町9番1号）", how="一般の座標（住所の点）"),
-    "court": dict(ll=(36.239697, 137.969406), src="国土地理院の住所検索（松本市丸の内10番35号＝長野地裁松本支部）", how="一般の座標（住所の点）"),
-    "fujigamine": dict(ll=(35.414104, 138.626892), src="国土地理院の住所検索（富士河口湖町富士ヶ嶺＝当時の上九一色村）", how="一般の座標（地区の代表点＝施設の位置ではない）"),
-})
+# 🔴 2026-11-08（31本目 ⑤b-1・§0b）：30本目の表（SAT＝G01〜G11 の Google の衛星写真11画〈地図12カット〉／GEO＝市の代表点・駅・公の建物の9点＝語りに出る公の場所だけ）は
+#    selftest の見本 `tools/fixture_ep30.py` へ移した（値は1つも変えていない＝git の `3d0ee6bc`。`file` は `ep30/…` の名を文字のまま・SAT.update／GEO.update の2文も並びのまま）。
+#    撮り方は `ref/ep30/eizou_build/helpers/gshot30.py`・継ぎ目の話は見本の注。31本目の地図（衛星写真12画＝映像方針の一覧 `ref/ep31/eizou_list31.md`・了承② 11-08）は、
+#    衛星写真を撮って SAT に md5 つきで足し、GEO に場所を出どころつきで足す。空のあいだ、`sat=` のカットは門番 check_sat・合成が止まる（fail closed）。
+#    🔴 31本目の札の場所は公の場所と空域・航空路の概略だけ（個人の家・墜落の地点に人の名を付けない＝この回の線）
 # 🔴 2026-10-27（26本目 ⑤b-1・§0b）：25本目の表（SAT＝G01〜G05 の Google の衛星写真5点〈c101・c328・c517・ca23・cb03〉・GEO＝site・itami・mitejima・kashima の4点・
 #    SAT_LINES＝地理院地図Vector の線路の線4本〈fuku・tozai_under・tozai_surface・kashima_curve〉・SAT_LINE_NOTE＝線の出典の断り）は selftest の見本
 #    `tools/fixture_ep25.py` へ移した（値は1つも変えていない＝git の `5f692aab`。`file` は `ep25/…` の名を文字のまま・SAT.update／GEO.update の4文もそのまま）。
@@ -1096,9 +1059,12 @@ GEO.update({
 #    28本目は地図のカットが無い（下の SAT_NONE）＝SAT・GEO は空のまま
 SAT_LINES = {}
 SAT_LINE_NOTE = ""
-# 🆕 2026-11-05（30本目 ⑤b-3）：路線3本と県の境＝国土数値情報（`ref/ep30/eizou_build/helpers/lines30.py` → `ref/ep30/sat_lines30.json`）。🔴 路線は線だけ（区間の細部を足さない＝§B2-12）
-SAT_LINES.update({k: tuple(tuple(p) for p in v) for k, v in json.loads((HERE / "ref" / "ep30" / "sat_lines30.json").read_text(encoding="utf-8")).items()})
-SAT_LINE_NOTE = "線：「国土数値情報」（国土交通省）をもとに作成"
+# 🔴 2026-11-08（31本目 ⑤b-1・§0b）：30本目の線（SAT_LINES＝路線3本と県の境＝`ref/ep30/sat_lines30.json` を読む `SAT_LINES.update(…)` の文・
+#    SAT_LINE_NOTE＝「国土数値情報」の断り）は見本 `tools/fixture_ep30.py` へ移した（文のまま＝git の `3d0ee6bc`）。
+#    🔴 **import のときに前の回のファイルを開かない**＝30本目の文は ss の import で `ref/ep30/sat_lines30.json` を開いた＝31本目 ⑤a-2 のスパースの作業ツリー
+#    （`ref/ep30/` を取り出していない）で `check_subwrap`・`audio_mix` の import が FileNotFoundError で落ちた（字幕と音の門番が映像の前の回の束に頼っていた）。
+#    31本目で線（航空路 J11L・臨時訓練空域「盛岡」の概略）を足すなら、`ref/ep31/` の表を読む文を**その回の束が揃ってから**ここに書き、出どころの断りを SAT_LINE_NOTE に
+#    （回を替えるとき、この文ごと見本へ移す）
 # 🆕 2026-10-23（24本目 ⑤b-6）：**この回は衛星写真の地図なし**の言い分（理由の文）。地図2つ（c203・c713）は描く＝`tools/mech24.py` の ussr・japan
 #    （国の形＝Natural Earth の切り出し `ref/ep24/make_map24.py`＝国の境・1986年の色・北方領土を描き分けるため。衛星写真には国の境が写らない）。
 #    門番 check_sat は、この文があるときだけ「地図のカット0」を通す（地図のカットが1つでもあれば、言い分と食い違う＝鳴る）。
@@ -1112,6 +1078,7 @@ SAT_LINE_NOTE = "線：「国土数値情報」（国土交通省）をもとに
 # ✅ 2026-11-03（29本目 ⑤b-1）：**29本目も地図なしの回**（映像方針の一覧＝地図の種類 0・了承② 11-03）＝文だけ29本目に替えた（28本目の文は見本 `tools/fixture_ep28.py`）。
 #    🔴 §0b：次の回で地図があれば None に戻す
 # 🔴 2026-11-05（30本目 ⑤b-1・§0b）：**None に戻した**（29本目の文は見本 `tools/fixture_ep29.py`）。30本目は衛星写真の地図の回＝全面の額 12画（一覧 `ref/ep30/eizou_list30.md`・了承② 11-05）＝未撮影のあいだ check_sat は止まる（fail closed）
+# ✅ 2026-11-08（31本目 ⑤b-1）：None のまま（31本目も衛星写真の地図の回＝12画〈冒頭 c105 の J11L と空域「盛岡」の概略ほか〉＝一覧 `ref/ep31/eizou_list31.md`・了承② 11-08）
 SAT_NONE = None
 
 
@@ -1173,7 +1140,9 @@ def sat(code, steps, note="", **kw):
 #    REC_PAGES の道は29本目（`ref/ep29/src/ep29_pages.txt`＝まだ無い）
 # ✅ 2026-11-05（30本目 ⑤b-1）：29本目も案C の表は空のままだった（見本 `tools/fixture_ep29.py` も空の状態を持つ）。30本目も再現イラスト0（映像方針）＝空のまま。
 #    REC_PAGES の道は30本目（`ref/ep30/src/ep30_pages.txt`＝まだ無い）
-REC_PAGES = REF / "src" / "ep30_pages.txt"      # 部品の出典（`rec=`）を当てる原文（git の外＝手元だけ）
+# ✅ 2026-11-08（31本目 ⑤b-1）：30本目も案C の表は空のままだった（見本 `tools/fixture_ep30.py` も空の状態を持つ）。31本目も再現イラスト0（映像方針）＝空のまま。
+#    REC_PAGES の道は31本目（`ref/ep31/src/ep31_pages.txt`＝まだ無い）
+REC_PAGES = REF / "src" / "ep31_pages.txt"    # 部品の出典（`rec=`）を当てる原文（git の外＝手元だけ）
 REC_DOCS = {}                               # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
 ILLU_SPLIT_TIMES = ()                       # 割れる時刻（2つの資料で時刻が割れる所＝札は秒で見る）
 ILLU_CROWD_UNTIL = None                     # 群れを描いてよい場面の時刻の上限（None＝群れを描かない）
@@ -1473,10 +1442,11 @@ QWHO = {}
 #   🆕 2026-11-06（30本目 ⑤b-6）：模式の後半と型の図の地＝p76（c719）・stock/x705（c707）・stock/x905（c906）を足した（仮の 0.28 で焼いて `--suggest` の値を写した＝0.28・0.35・0.29）
 #   🔧 2026-11-06（30本目 ⑤c'）：朝の語りの地を陸自から場所の写真へ（c701 c719 c721 c722 c732 c733 c736 c815 c910）＝`--suggest` の値を写した
 #      （ks1 0.29 → 0.28＝c732 c733 の札の周りで 8:1・p66 p68 p76 p80 はもう地に使わない）
-GROUND = {"diet": 0.29, "hb": 0.28, "kas": 0.28, "kg1": 0.28, "kg2": 0.28, "kod": 0.28, "ks1": 0.28, "ks2": 0.28, "mt": 0.29, "p75": 0.29,
-          "p78": 0.28, "sc": 0.30, "slh": 0.28, "stock/ga1": 0.29, "stock/ga2": 0.29, "stock/gf1": 0.29, "stock/gk1": 0.28, "stock/gpc": 0.29, "stock/x503": 0.37,
-          "stock/x512": 0.29, "stock/x513": 0.29, "stock/x520": 0.41, "stock/x609": 0.28, "stock/x618": 0.30, "stock/x705": 0.35, "stock/x708": 0.30, "stock/x803": 0.28,
-          "stock/x806": 0.29, "stock/x809": 0.28, "stock/x812": 0.28, "stock/x813": 0.35, "stock/x905": 0.29, "stock/xc02": 0.30, "tse": 0.28}
+#   🔴 2026-11-08（31本目 ⑤b-1・§0b）：30本目の34点は見本 `tools/fixture_ep30.py` の GROUND へ移した（git の `3d0ee6bc`）。31本目の図144を書くチャットで `--suggest` で測って写す
+#      （🔴 鍵は束の欄の名＝回の名を含まない＝前の回と同じ名〈mt・ks1 ほか〉が次の回にあると黙って効く＝回を替えるときは必ず空に）。
+#      31本目の地＝映像方針の一覧の「地」の欄（最高裁の建物 L1・盛岡の空中写真 A6・東京高裁 L3・Pexels の空や森）。🔴 SDASM の写真は地にしない（映像方針 §5-8）・
+#      国土地理院の空中写真は印（権利の名）なしで組む＝`GROUND_LIC` に「国土地理院」は無い＝束のチャットで権利の欄の書き方を決めてから
+GROUND = {}
 GROUND_LIC = ("CC BY 2.0", "CC BY 2.5", "CC BY 3.0", "CC BY 4.0", "CC0", "PD", "PDL1.0", "Pexels")
 # 🆕 2026-11-04（29本目 ⑤c直し）：額装の頁の地（同じ頁のぼかし）のぼかしの半径＝`ground=dict(photo=…, blur=PAGE_BLUR)`。写真の額装は今までの 6（`build_jiko.GROUND_PHOTO_BLUR`）のまま
 #    半径 6 は頁の見出しの大きな字が読める（c316「犯人サイトのドメイ…」が題の真後ろ）。半径 14 はまだ字の形が見える・22 で読めない（c316・c613・c704 を原寸で見た）

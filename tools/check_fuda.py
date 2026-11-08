@@ -35,7 +35,9 @@ CARD_MAX = 44
 CPS = 6.0
 BODY_MIN, HEAD_MIN, SUB_MIN, BIG_MIN = 44.0, 32.0, 32.0, 58.0
 CARDS_MAX, ARROWS_MAX = 4, 2
-EXC = {"cc15": dict(cards=5)}      # まとめのカット＝同じ型の小さな札が横に3枚並ぶ（一覧 cc15「反省は3つ」）
+# 🔴 2026-11-08（31本目 ⑤b-1・§0b）：札の枚数の例外は**カットIDの直書き**＝30本目の `{"cc15": dict(cards=5)}`（まとめの「反省は3つ」）は見本 `tools/fixture_ep30.py` の EXC へ移した
+#    （git の `3d0ee6bc`）。31本目にも cc15 がある＝残すと31本目の cc15 の札が黙って5枚まで通る。31本目で例外が要るなら、そのカットを承認の数だけ書く
+EXC = {}
 BAND_MAX, BAND_MIN = 8, 34.0       # ⚠️ ⑤b-5 の最初の値（無線帯の語の実測は最大7字「ガソリンの匂い」・字は 38）
 
 
@@ -91,7 +93,9 @@ def _inputs():
     import cuts
     import mech30 as M
     import scene_jiko as S
-    secs = {r["cid"]: float(r["sec"]) for r in csv.DictReader(open(Path(__file__).parent.parent / "ref/ep30/eizou_build/list30.tsv", encoding="utf-8"), delimiter="\t")}
+    # 🔧 2026-11-08（31本目 ⑤b-1・§0b）：秒の表を回の束（`ss.REF`）から引く＝30本目の `ref/ep30/eizou_build/list30.tsv` の直書きをやめた（回を替えるとき直し忘れない）
+    import cuts.ss as _ss
+    secs = {r["cid"]: float(r["sec"]) for r in csv.DictReader(open(_ss.REF / "eizou_build" / f"list{_ss.REF.name[2:]}.tsv", encoding="utf-8"), delimiter="\t")}
     targets = [c for c, s in sorted(cuts.SPEC.items()) if s.get("fig") and s["fig"][0] == "m30"]
     return M, S, secs, targets
 

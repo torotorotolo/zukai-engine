@@ -179,18 +179,24 @@ CSS = ""
 #    （c1〜c9・ca〜cc＝238カット）＝`cuts/__init__.CHAPTER_FILES`・`NCH` を一緒に直した。つかみ（c1＝c101〜c108）は章の札なし。
 #    扉は c201〜cc01 の11枚（音の側と同じ＝check_script.door_key・30本目は INNER_CARDS なし）。
 #    ⚠️ 長い章名（第10章「なぜ止められなかったのか」＝12字）は右上の章の札の幅を焼いた絵で見る。第8章はカギかっこごと章名（台本の見出しのまま）
+# 🔴 2026-11-08（31本目 ⑤b-1）：全日空機雫石衝突事故へ差し替え。30本目の章名は git の `3d0ee6bc`。
+#    正本＝repo `ref/ep31/daihon_v2.md` §4 の `### 第N章　…`（`（` の手前まで）＝映像方針の一覧（`make_list31.py` の chap・`ref/ep31/make_plan31.py` が機械で読んだ）。
+#    **31本目も つかみ＋11章**（c1〜c9・ca〜cc＝241カット）＝`cuts/__init__.CHAPTER_FILES`・`NCH` はそのまま。つかみ（c1＝c101〜c107）は章の札なし。
+#    扉は c201〜cc01 の11枚（音の側と同じ＝check_script.door_key・31本目は INNER_CARDS なし）。
+#    ⚠️ 長い章名（第2章「その朝、空域が1つ足りない」＝13字・第5章「操縦席から見えていたか」＝11字）は右上の章の札の幅を焼いた絵で見る。
+#    第7章はカギかっこと「？」ごと章名（台本の見出しのまま＝`check_final` は1字まで比べる）
 CHAPTERS = {
-    "c2": (1, "3路線5本の電車"),
-    "c3": (2, "教団と最初の捜査"),
-    "c4": (3, "松本の夜"),
-    "c5": (4, "土の中の手がかり"),
-    "c6": (5, "20日間"),
-    "c7": (6, "8時、爆発の知らせ"),
-    "c8": (7, "病院の朝"),
-    "c9": (8, "「サリンと推定」"),
-    "ca": (9, "裁き"),
-    "cb": (10, "なぜ止められなかったのか"),
-    "cc": (11, "事件は終わったのか"),
+    "c2": (1, "1本の道と2つの機体"),
+    "c3": (2, "その朝、空域が1つ足りない"),
+    "c4": (3, "道の幅は何キロか"),
+    "c5": (4, "14時2分"),
+    "c6": (5, "操縦席から見えていたか"),
+    "c7": (6, "162人"),
+    "c8": (7, "「脱出していた？」"),
+    "c9": (8, "裁かれたのは誰か"),
+    "ca": (9, "国は2、全日空は1"),
+    "cb": (10, "空を分ける"),
+    "cc": (11, "森のしずく公園"),
 }
 NCH = 11
 
@@ -319,18 +325,23 @@ def chapter_of(cid):
 #    写真の色味は原本のまま（ep29＝1.0）
 # 🔴 2026-11-05（30本目 ⑤b-1）：29本目の6件（git の `dc72dd8a`）から差し替えた＝11章（つかみは navy）。Claude の推奨（カズヤくんに見せて変えてよい）。選び方は25〜29本目と同じ＝隣の章と同じ色にしない。
 #    写真の色味は原本のまま（ep30＝1.0）
+# 🔴 2026-11-08（31本目 ⑤b-1）：30本目の11件（git の `3d0ee6bc`）から差し替えた＝11章（つかみは navy）。Claude の推奨（カズヤくんに見せて変えてよい）。選び方は25〜30本目と同じ＝
+#    章の中身で4色（紺・セピア・赤銅・白黒）から選び、隣の章の差が DE_MIN 13 以上（🔴 セピアと白黒 6.5＝隣に置けない＝第8章 白黒の隣はセピアにしない）。31本目も役の色は映像方針で
+#    決めていない＝青緑と夜の藍は使わない。紺＝道と空域と位置の図解（航空路 J11L と2つの機体・道の幅・操縦席の見え方の図・民事の割合・今の現場）・
+#    セピア＝経過の記録（その朝に空域を決めた手順・1971〜1975年に空を分けた経過）・赤銅＝失う（14時2分の接触・162人）・白黒＝書類（判決＝裁かれたのは誰か）。
+#    写真の色味は原本のまま（ep31＝1.0）＝章の色は図の層だけに効く
 CHAPTER_PALETTE = {
-    "3路線5本の電車": "copper",                # その朝に起きたこと＝失う
-    "教団と最初の捜査": "sepia",               # 1980年代からの経過＝記録
-    "松本の夜": "copper",                      # 松本の被害＝失う
-    "土の中の手がかり": "mono",                # 検出の鑑定と報道＝書類
-    "20日間": "navy",                          # 暦と捜査の段取り＝図解
-    "8時、爆発の知らせ": "sepia",              # 無線と指令の時刻＝朝の経過の記録
-    "病院の朝": "copper",                      # 運ばれる人と治療＝失う
-    "「サリンと推定」": "navy",                # 知らせが届くまでの時間の帯＝図解
-    "裁き": "mono",                            # 判決＝書類
-    "なぜ止められなかったのか": "copper",      # 検証の重い問い＝失う（信頼）
-    "事件は終わったのか": "navy",              # 今の処分と窓口＝図解
+    "1本の道と2つの機体": "navy",              # 航空路と2つの機体の図解
+    "その朝、空域が1つ足りない": "sepia",      # 空域を決めた手順＝その朝の経過の記録
+    "道の幅は何キロか": "navy",                # 道の幅と位置の図解
+    "14時2分": "copper",                       # 接触＝失う
+    "操縦席から見えていたか": "navy",          # 見え方の図（注視野）＝図解
+    "162人": "copper",                         # 亡くなった162人＝失う
+    "「脱出していた？」": "navy",              # 落下傘で降りた経過の図解（第8章の白黒の隣にセピアを置けない）
+    "裁かれたのは誰か": "mono",                # 判決＝書類
+    "国は2、全日空は1": "navy",                # 民事の割合＝数の図解
+    "空を分ける": "sepia",                     # 1971〜1975年の決まりの変化＝経過の記録
+    "森のしずく公園": "navy",                  # 今の現場と慰霊＝図解
 }
 
 
@@ -910,6 +921,66 @@ def ep19_credit(name):
         u = _FO.USE.get(m.group(1))
         return _FO.CLIPS[u["clip"]]["credit"] if u else None
     return EP19_CREDIT.get(name)
+
+
+# ══════════════════════════════════════════════════════════
+#  31本目（全日空機雫石衝突事故）── `ref/ep31/`（2026-11-08 ⑤b-1）
+# ══════════════════════════════════════════════════════════
+#   ep31/<欄の名>.jpg … 写真と紙面（Commons の事故機・機体・裁判所の建物＝CC BY・BY-SA・CC0・国土地理院の空中写真・国会会議録と判決の紙面・語りに出る場所の写真）＝
+#                        映像方針の一覧 `ref/ep31/eizou_list31.md`（了承②）。説明カットの地の写真も同じ表（「地の写真：…／改変：切出・明るさ」）
+#   ep31/stock/…      … イメージ（この事故の物でないフリー素材＝Pexels・20% に数えない・概要欄にクレジットを書かない）＝映像は `footage.CLIPS`（`ref/ep31/clips.json`）の credit
+#   防衛庁記録の映像（MS・MK）＝`footage.CLIPS` の credit「防衛省・自衛隊『昭和46年防衛庁記録』（CC BY 3.0）・改変：切出・再生速度」（映像方針 §3）
+# 🔴 表はファイルから読む（ルール 0b-34①）。`ref/ep31/credits.json` は写真の束のチャット（⑤b-2）で書く（無いあいだは空＝当たらない）。
+#    ⚠️ 名前が当たらないときは None → 最後の `PHOTO_CREDIT[...]` で KeyError（fail closed）。
+#    🔴 語りと画面に人の名前を出さない回＝出典の行にも私人の名前を出さない（Commons の撮影者は git の外の表から差す）。
+#    🔴 git の外の表は1つ＝`ref/ep31/src/credits_private.tsv`（Commons の撮影者・頭の行なし・8列＝code・file・author…・attr）＝credits.json に印だけを書き、焼くときに足す
+#       （17・23〜30本目の型）。印 `{作者}`＝3列目（author）・🆕 `{帰属}`＝8列目（attr＝P1・P3 は許諾の箱に「帰属の書き方」の指定がある＝映像方針 §4 の9）。
+#       ⚠️ 8列目は 160字＝画面の出典の行（24字まで）に入らない＝今は止める（fail closed）＝⑤b-2 の束のチャットで画面の形（概要欄に全文・画面は短い形か）を決めてから直す
+_EP31_CREDITS = HERE / "ref" / "ep31" / "credits.json"
+EP31_CREDIT = (json.loads(_EP31_CREDITS.read_text(encoding="utf-8"))
+               if _EP31_CREDITS.exists() else {})
+_EP31_PRIVATE = {"{作者}": (HERE / "ref" / "ep31" / "src" / "credits_private.tsv", 2), "{帰属}": (HERE / "ref" / "ep31" / "src" / "credits_private.tsv", 7)}
+
+
+def _ep31_person(name, mark):
+    import csv
+    import os
+    path, col = _EP31_PRIVATE[mark]
+    if not path.exists():
+        if os.environ.get("GITHUB_ACTIONS") == "true":
+            return EP23_AUTHOR_STANDIN                  # 検品の試し焼きだけ（本編は Modal＝表を保管庫から取る）
+        raise RuntimeError(f"{name}: 出典の行に名前が要るのに git の外の表 ref/ep31/src/{path.name} が無い"
+                           "（Modal は保管庫 jiko-assets の ref/ep31/src/ に置く）＝印のまま焼かない")
+    code = json.loads((HERE / "ref" / "ep31" / "assets.json").read_text(encoding="utf-8"))[name[len("ep31/"):-len(".jpg")]]["code"]
+    rows = [r for r in csv.reader(path.open(encoding="utf-8"), delimiter="\t") if r and not r[0].startswith("#")]
+    row = {r[0]: r for r in rows if len(r) > col}.get(code) or []
+    who = " ".join((row[col] if len(row) > col else "").split())
+    if not who:
+        raise RuntimeError(f"{name}（{code}）: git の外の表 {path.name} に {code} の{mark}の欄が無い")
+    if re.search(r"[<>&]", who) or len(who) > 24:
+        raise RuntimeError(f"{name}（{code}）: {mark}の欄が SVG にそのまま書けないか長すぎる（{len(who)}字）＝焼かない")
+    return who
+
+
+def ep31_credit(name):
+    """`ref/ep31/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if not name.startswith("ep31/"):
+        return None
+    if name.startswith("ep31/photo/gmap_"):
+        # 衛星写真（地図のカット）＝出典の行は表 `cuts/ss.SAT` の credit（25〜30本目の枝と同じ）。帰属の行そのものは地図の右下
+        import cuts.ss as _ss
+        return next((v["credit"] for v in getattr(_ss, "SAT", {}).values() if v["file"] == name), None)
+    # 映像のひかえの静止画＝出典は映像と同じ（19本目 ⑤b-2 の型）
+    m = re.fullmatch(r"ep31/(?:stock/)?fb_(c[0-9a-c][0-9]{2}(?:~t)?)\.jpg", name)
+    if m:
+        import footage as _FO
+        u = _FO.USE.get(m.group(1))
+        return _FO.CLIPS[u["clip"]]["credit"] if u else None
+    v = EP31_CREDIT.get(name)
+    for mark in _EP31_PRIVATE:
+        if v and mark in v:
+            v = v.replace(mark, _ep31_person(name, mark))
+    return v
 
 
 # ══════════════════════════════════════════════════════════
@@ -1820,7 +1891,7 @@ def credit_of(cid, spec):
             return c + spec.get("credit_add", "")
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep30_credit(spec["photo"]) or ep29_credit(spec["photo"]) or ep28_credit(spec["photo"]) or ep27_credit(spec["photo"]) or ep26_credit(spec["photo"]) or ep25_credit(spec["photo"]) or ep24_credit(spec["photo"]) or ep17_credit(spec["photo"]) or ep23_credit(spec["photo"]) or ep22_credit(spec["photo"]) or ep21_credit(spec["photo"]) or ep20_credit(spec["photo"]) or ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
+    cr = (ep31_credit(spec["photo"]) or ep30_credit(spec["photo"]) or ep29_credit(spec["photo"]) or ep28_credit(spec["photo"]) or ep27_credit(spec["photo"]) or ep26_credit(spec["photo"]) or ep25_credit(spec["photo"]) or ep24_credit(spec["photo"]) or ep17_credit(spec["photo"]) or ep23_credit(spec["photo"]) or ep22_credit(spec["photo"]) or ep21_credit(spec["photo"]) or ep20_credit(spec["photo"]) or ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
           or ep14_credit(spec["photo"])
           or ep13_credit(spec["photo"])
           or ep12_credit(spec["photo"])
