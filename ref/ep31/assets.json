@@ -3259,7 +3259,7 @@
   "ji": "",
   "credit": "イメージ（Pexels）",
   "who": "投稿者（クレジットは任意＝書かない）",
-  "note": "ca08",
+  "note": "ca08・🔧 試し焼き（Actions 42469136663）で駐機場と機体が字幕の帯の下に隠れた＝機体が帯より上に来るよう寄せる（1.7倍）ため幅2880で取り直した",
   "box": [
    0.0,
    0.0,
@@ -3269,19 +3269,19 @@
   "crop_px": [
    0,
    0,
-   1920,
-   1281
+   2880,
+   1921
   ],
-  "w": 1920,
-  "h": 1281,
-  "md5": "4e7c304200cf9e7a54bcefedcbfe15c2",
-  "src_md5": "4e7c304200cf9e7a54bcefedcbfe15c2",
+  "w": 2880,
+  "h": 1921,
+  "md5": "7f6117b216ab271163fea9e7021eb522",
+  "src_md5": "7f6117b216ab271163fea9e7021eb522",
   "lic": "Pexels",
   "frame": false,
   "ground": "Pexels",
   "url": "https://www.pexels.com/photo/plane-on-a-concrete-pavement-955085/",
   "blur": [],
-  "how": "取ったファイルそのまま（1920x1281）",
+  "how": "取ったファイルそのまま（2880x1921）",
   "year": null,
   "year_why": "この事件の物でない（イメージ）",
   "stock": true,
@@ -3296,7 +3296,7 @@
   "people": "なし",
   "private": false,
   "shot": null,
-  "media": "https://images.pexels.com/photos/955085/pexels-photo-955085.jpeg?auto=compress&cs=tinysrgb&w=1920"
+  "media": "https://images.pexels.com/photos/955085/pexels-photo-955085.jpeg?auto=compress&cs=tinysrgb&w=2880"
  },
  "stock/xa12": {
   "code": "Xa12",
