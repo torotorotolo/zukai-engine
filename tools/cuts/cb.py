@@ -110,3 +110,9 @@ SPEC.update({
     "cb16": _m31.fu_spec("cb16", ss.gr("stock/gc1")),
     "cb18": _m31.fu_spec("cb18", ss.gr("stock/gc1")),
 })
+
+# 🆕 ⑤b-5（2026-11-08）：見え方の表（`mech31.VIEWS`）。cb12 の条文は e-Gov の今の版（⑥ の頭で当て直す）
+SPEC.update({
+    "cb02": _m31.zu_spec("cb02", ss.gr("stock/gc1")),
+    "cb12": _m31.zu_spec("cb12", ss.gr("stock/gc1")),
+})

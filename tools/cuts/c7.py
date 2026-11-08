@@ -96,3 +96,8 @@ SPEC.update({
     "c716": _m31.fu_spec("c716", ss.gr("a2")),
     "c717": _m31.fu_spec("c717", ss.gr("a2")),
 })
+
+# 🆕 ⑤b-5（2026-11-08）：見え方の表（`mech31.VIEWS`）。c702 の地＝防衛庁記録の捜索のコマ ms_g4（束の MS_GROUND・顔は見えない）
+SPEC.update({
+    "c702": _m31.zu_spec("c702", ss.gr("ms_g4")),
+})

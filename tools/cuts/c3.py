@@ -160,3 +160,12 @@ SPEC.update({
     "c327": _m31.fu_spec("c327", ss.gr("stock/gc1")),
     "c328": _m31.fu_spec("c328", ss.gr("a1")),
 })
+
+# 🆕 ⑤b-5（2026-11-08）：見え方の表（`mech31.VIEWS`）。c302 の地＝防衛庁記録の滑走路のコマ ms_g2（束の MS_GROUND）
+SPEC.update({
+    "c302": _m31.zu_spec("c302", ss.gr("ms_g2")),
+    "c309": _m31.zu_spec("c309", ss.gr("a1")),
+    "c312": _m31.zu_spec("c312", ss.gr("stock/gb1")),
+    "c319": _m31.zu_spec("c319", ss.gr("a6")),
+    "c325": _m31.zu_spec("c325", ss.gr("a1")),
+})

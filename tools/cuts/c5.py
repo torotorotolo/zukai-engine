@@ -152,3 +152,12 @@ SPEC.update({
     "c522": _m31.fu_spec("c522", ss.gr("p6")),
     "c523": _m31.fu_spec("c523", ss.gr("p6")),
 })
+
+# 🆕 ⑤b-5（2026-11-08）：見え方の表（`mech31.VIEWS`＝模式と型の図）。地は写真を暗くするだけ（`ss.gr`）
+SPEC.update({
+    "c503": _m31.zu_spec("c503", ss.gr("stock/gc1")),
+    "c509": _m31.zu_spec("c509", ss.gr("stock/gc2")),
+    "c510": _m31.zu_spec("c510", ss.gr("stock/gc2")),
+    "c511": _m31.zu_spec("c511", ss.gr("stock/gc2")),
+    "c518": _m31.zu_spec("c518", ss.gr("stock/gc2")),
+})

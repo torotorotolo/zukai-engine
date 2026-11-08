@@ -117,3 +117,11 @@ SPEC.update({
     "c213": _m31.fu_spec("c213", ss.gr("a1")),
     "c214": _m31.fu_spec("c214", ss.gr("a1")),
 })
+
+# 🆕 ⑤b-5（2026-11-08）：見え方の表（`mech31.VIEWS`＝模式と型の図）
+SPEC.update({
+    "c205": _m31.zu_spec("c205", ss.gr("stock/gc1")),
+    "c210": _m31.zu_spec("c210", ss.gr("stock/gs2")),
+    "c212": _m31.zu_spec("c212", ss.gr("p6")),
+    "c216": _m31.zu_spec("c216", ss.gr("stock/gc1")),
+})

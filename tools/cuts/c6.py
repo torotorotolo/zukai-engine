@@ -151,3 +151,13 @@ SPEC.update({
     "c627": _m31.fu_spec("c627", ss.gr("stock/gf1")),
     "c628": _m31.fu_spec("c628", ss.gr("stock/gf1")),
 })
+
+# 🆕 ⑤b-5（2026-11-08）：見え方の表（`mech31.VIEWS`）。c612・c613 の地は同じ型の保存機 P6
+SPEC.update({
+    "c605": _m31.zu_spec("c605", ss.gr("stock/gc2")),
+    "c606": _m31.zu_spec("c606", ss.gr("stock/gc2")),
+    "c610": _m31.zu_spec("c610", ss.gr("stock/gc2")),
+    "c612": _m31.zu_spec("c612", ss.gr("p6")),
+    "c613": _m31.zu_spec("c613", ss.gr("p6")),
+    "c620": _m31.zu_spec("c620", ss.gr("stock/gc2")),
+})

@@ -114,3 +114,14 @@ SPEC.update({
     "c416": _m31.fu_spec("c416", ss.gr("p6")),
     "c417": _m31.fu_spec("c417", ss.gr("a1")),
 })
+
+# 🆕 ⑤b-5（2026-11-08）：見え方の表（`mech31.VIEWS`）。c403・c404・c410 の帯は同じ物差し
+SPEC.update({
+    "c402": _m31.zu_spec("c402", ss.gr("a1")),
+    "c403": _m31.zu_spec("c403", ss.gr("stock/gc1")),
+    "c404": _m31.zu_spec("c404", ss.gr("p6")),
+    "c405": _m31.zu_spec("c405", ss.gr("stock/gc1")),
+    "c407": _m31.zu_spec("c407", ss.gr("a1")),
+    "c410": _m31.zu_spec("c410", ss.gr("a1")),
+    "c411": _m31.zu_spec("c411", ss.gr("stock/gm2")),
+})

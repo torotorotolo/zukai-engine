@@ -25,6 +25,7 @@
 """
 from __future__ import annotations
 
+import math
 import re
 
 import jiko_style as J
@@ -33,6 +34,8 @@ from mech21 import _arrow, _on, _qmark, _xmark
 from mech24 import _w, rc
 from mech27 import CX, INK, OL, ONOFF, _panel, _t, svg_texts
 from mech30 import ICONS as _ICONS30
+# 🆕 ⑤b-5：時間の線と棒の式（30本目と同じ式＝回をまたいで同じ・門番 judge ⑤ は同じ決めを自分で計算する＝描く側を引かない）
+from mech30 import _axis, _bar, _ev, _lin, _mix, _y0, _yd  # noqa: F401
 
 # 誰の記録か（名・ROLE か J の名）。同じ色の鍵は同じ画面に出さない（門番が見る）
 SRC = dict(
@@ -835,6 +838,697 @@ def _zbox(c):
     w, h = _size(c)
     x, y = c["pos"]
     return (x - w / 2, y - h / 2, w, h)
+
+
+# ── 🆕 ⑤b-5（2026-11-08）：見え方の表の部品（30本目 mech30 の ⑤b-5・⑤b-6 の形を写した＝札の大きさは mech31 の _zbox で測る）
+def _lead(c, x, y):
+    """札の上か下の辺から、線の上の点へ（細い線と点）。"""
+    bx, by, bw, bh = _zbox(c)
+    x0 = min(max(x, bx + 24), bx + bw - 24)
+    y0 = by + bh + 8 if y > by + bh else by - 8
+    return F.line(x0, y0, x, y, J.TICK, 4) + F.circ(x, y, 12, INK)
+
+
+def _rowmid(c):
+    """札の中の行の真ん中の高さ（_draw_card と同じ割り付け）＝[(種類, 字, y)]。"""
+    _x0, y, _w2, h = _zbox(c)
+    rows = _rows(c)
+    yy = y + (h - sum(cap * LH[kd] for kd, _t2, cap in rows)) / 2
+    out = []
+    for kd, t, cap in rows:
+        out.append((kd, t, yy + cap * LH[kd] / 2))
+        yy += cap * LH[kd]
+    return out
+
+
+def _ring(c, col=None, pad=14.0):
+    """札を囲む明るい枠（その段で話している札）。"""
+    x, y, w, h = _zbox(c)
+    return F.rect(x - pad, y - pad, w + 2 * pad, h + 2 * pad, "none", col or J.AMBER, 7, rx=22)
+
+
+def _plane(cx, cy, col, k=1.0, ang=0.0, fill=None):
+    """飛行機を上から見た形（_i_plane と同じ点・拡大率 k・向き ang 度＝時計回り・人を乗せない）。"""
+    pts = [(0, -62), (8, -52), (9, -12), (66, 14), (66, 26), (9, 14), (7, 40), (26, 52), (26, 60), (0, 56), (-26, 60), (-26, 52), (-7, 40), (-9, 14),
+           (-66, 26), (-66, 14), (-9, -12), (-8, -52)]
+    ca, sa = math.cos(math.radians(ang)), math.sin(math.radians(ang))
+    return F.poly([(cx + k * (x * ca - y * sa), cy + k * (x * sa + y * ca)) for x, y in pts], fill or J.BG2, col, 5, close=True)
+
+
+def _blip(x, y, col, r=16.0, dim=False):
+    """機影の印（向きを描かない＝丸と外の輪）。"""
+    if dim:
+        return F.circ(x, y, r * 0.6, "none", J.TICK, 4)
+    return F.circ(x, y, r * 1.9, "none", col, 4, op=0.55) + F.circ(x, y, r, col)
+
+
+def _s(h, m, s=0):
+    """時刻を秒に（門番 ⑤ hms は「14:02:39」「14:03」の字を自分で秒に読む）。"""
+    return h * 3600.0 + m * 60.0 + s
+
+
+# ── c509・c510・c511 方位の図（教官機を真ん中・機首が上・右へ時計回りの角度＝札「正面から測ったと見た場合」＝数え方は判決に無い）。
+#    距離は札の数の比例（1キロ＝PK px）・上下の角は描かない（札の字だけ）・機影の向きは描かない。門番 ⑤ pol が角度と距離を点の座標から測る
+CP, PK, PR = (720.0, 590.0), 150.0, 180.0
+PLANE = J.AMBER              # 機影の印の色（札の黄の数と結ぶ）
+N_POL = "模式・角度は機首から右回り（数え方の見立て）・距離は比例・上下の角は描かない"
+
+
+def _pol(deg, km):
+    a = math.radians(deg)
+    return CP[0] + km * PK * math.sin(a), CP[1] - km * PK * math.cos(a)
+
+
+def _rose():
+    """方位の輪（0度・90度・180度の字）と真ん中の教官機。"""
+    cx, cy = CP
+    g = F.circ(cx, cy, PR, "none", J.TICK, 4, op=0.8)
+    for a in (0, 90, 180, 270):
+        x1, y1 = cx + PR * math.sin(math.radians(a)), cy - PR * math.cos(math.radians(a))
+        x2, y2 = cx + (PR + 26) * math.sin(math.radians(a)), cy - (PR + 26) * math.cos(math.radians(a))
+        g += F.line(x1, y1, x2, y2, J.TICK, 5)
+    g += F.line(cx, cy - 70, cx, cy - PR, J.TICK, 3, dash="12 10")
+    g += _t(cx, cy - PR - 44, "0度", 40, J.TICK, "middle", 160) + _t(cx + PR + 40, cy + 14, "90度", 40, J.TICK, "start", 160)
+    g += _t(cx, cy + PR + 56, "180度", 40, J.TICK, "middle", 200)
+    return g + _plane(cx, cy, INK, k=0.95) + _t(cx - 96, cy + 14, "教官機", 40, INK, "end", 220)
+
+
+def _ray(deg, km, col, lab="", dim=False, side="end", dy=-40.0):
+    """真ん中からその点への破線と機影の印・名の字。"""
+    x, y = _pol(deg, km)
+    a = math.radians(deg)
+    x0, y0 = CP[0] + 78 * math.sin(a), CP[1] - 78 * math.cos(a)
+    if dim:
+        return F.line(x0, y0, x, y, J.TICK, 3, dash="8 12", op=0.6) + _blip(x, y, col, dim=True)
+    g = F.line(x0, y0, x, y, col, 5, dash="14 10") + _blip(x, y, col)
+    if lab:
+        g += _t(x + (-40 if side == "end" else 40), y + dy, lab, 42, col, side, 260)
+    return g
+
+
+def _tie(c, x, y):
+    """札の左か右の辺の真ん中から、その点へ（細い線と点）。"""
+    bx, by, bw, bh = _zbox(c)
+    x0 = bx - 8 if x < bx else bx + bw + 8
+    return F.line(x0, by + bh / 2, x, y, J.TICK, 4) + F.circ(x, y, 12, INK)
+
+
+def _dbl(x1, y1, x2, y2, col, sw=6):
+    """両向きの矢印（真ん中から両端へ）。"""
+    mx, my = (x1 + x2) / 2, (y1 + y2) / 2
+    return _arrow(mx, my, x2, y2, col, sw, 22) + _arrow(mx, my, x1, y1, col, sw, 22)
+
+
+def _arc(cx, cy, r, a0, a1, col, sw=6):
+    """円弧の矢印（角度は上から右回り・a0 から a1 へ・先に矢じり）。"""
+    n = max(4, int(abs(a1 - a0) / 5))
+    pts = [(cx + r * math.sin(math.radians(a0 + (a1 - a0) * i / n)), cy - r * math.cos(math.radians(a0 + (a1 - a0) * i / n))) for i in range(n + 1)]
+    return F.poly(pts[:-1], "none", col, sw) + _arrow(pts[-3][0], pts[-3][1], pts[-1][0], pts[-1][1], col, sw, 22)
+
+
+C509 = [
+    _at(_c(0, None, lines=("角度は教官機の", "正面から測ったと", "見た場合"), cap=44), 300, 360),
+    _at(_c(1, T, head="最高裁が引く二審の認定", big="約30秒前", bcap=72), 1480, 760),
+    _at(_c(2, T, head="旅客機", big="右78度", lines="約4.3キロ", sub="上10度", bcap=64, cap=50), 1580, 440),
+]
+VIEWS["c509"] = _z(3, "方位の図", "角度と距離", C509, [
+    _p(0, _rose),
+    _p(2, lambda: _ray(78, 4.3, PLANE)),
+], src=S_J, note=N_POL, schem=True,
+    tl=dict(kind="pol", c=CP, k=PK, pts=(("右78度", "約4.3キロ") + _pol(78, 4.3),)))
+
+# ── c518 接触の時刻の帯（秒の比例＝門番 ⑤ hms）。報告書の推定と防衛庁の主張のあいだ＝7秒の棒。長官の「14:03ごろ」は影（語りに出ない）
+YT = dict(x0=300.0, x1=1620.0, y=560.0, v0=_s(14, 2, 20), v1=_s(14, 3, 10))
+VT = (_s(14, 2, 39), _s(14, 2, 32), _s(14, 3))
+C518 = [
+    _at(_c(1, K, head="報告書の推定", big="14:02:39", bcap=72), 990, 350),
+    _at(_c(2, K, head="防衛庁の主張", big="14:02:32", bcap=72), 520, 770),
+    _at(_c(2, K, head="長官の報告", big="14:03ごろ", bcap=56, dim=True), 1500, 350),
+]
+
+
+def _t518_axis():
+    return _axis(YT, [_s(14, 2, 20) + 10 * i for i in range(6)])
+
+
+def _t518_gap():
+    x0, x1 = _lin(YT, VT[1]), _lin(YT, VT[0])
+    return (F.rect(x0, YT["y"] - 16, x1 - x0, 32, J.AMBER, None, None, rx=8, op=0.85)
+            + _t((x0 + x1) / 2, YT["y"] - 44, "7秒", 52, J.AMBER, "middle", 200))
+
+
+VIEWS["c518"] = _z(3, "時刻の帯", "秒の目盛りで", C518, [
+    _p(0, _t518_axis),
+    _p(1, lambda: _lead(C518[0], _lin(YT, VT[0]), YT["y"])),
+    _p(2, lambda: _lead(C518[1], _lin(YT, VT[1]), YT["y"]) + _lead(C518[2], _lin(YT, VT[2]), YT["y"]) + _t518_gap()),
+], src=kk("107114103X00719730509", "106614889X00119710802"), note="目盛りは10秒ごと",
+    tl=dict(kind="hms", ax=((YT["v0"], YT["x0"]), (YT["v1"], YT["x1"])),
+            pts=(("14:02:39", _lin(YT, VT[0])), ("14:02:32", _lin(YT, VT[1])), ("14:03", _lin(YT, VT[2])))))
+
+# ── c702 派遣の数の表（日付・人・車両・航空機＝数の棒にしない・人の形は使わない）
+TX702 = (300.0, 760.0, 1160.0, 1560.0)          # 列の真ん中（日付・人・車両・航空機）
+TY702 = (460.0, 600.0, 740.0)                   # 行の真ん中（見出し・30日・31日）
+R702 = (("7月30日", "3,660人", "470両", "80機"), ("7月31日", "5,320人", "480両", "80機"))
+
+
+def _t702_grid():
+    g = "".join(F.line(120.0, y, 1760.0, y, J.TICK, 3) for y in (520.0, 670.0))
+    g += "".join(F.line(x, 400.0, x, 810.0, J.TICK, 3) for x in (520.0, 960.0, 1360.0))
+    return g + "".join(_t(x, TY702[0] + 14, s, 40, J.TICK, "middle", 300) for x, s in zip(TX702, ("日付", "人", "車両", "航空機")))
+
+
+def _t702_row(i):
+    y = TY702[i + 1]
+    d, p, v, a = R702[i]
+    return (_t(TX702[0], y + 18, d, 52, INK, "middle", 400) + _t(TX702[1], y + 24, p, 72, J.AMBER, "middle", 400)
+            + _t(TX702[2], y + 20, v, 56, J.AMBER, "middle", 360) + _t(TX702[3], y + 20, a, 56, J.AMBER, "middle", 360))
+
+
+C702 = [_at(_c(0, K, head="防衛庁長官の報告", lines="陸・海・空の各自衛隊", cap=48), 960, 305)]
+VIEWS["c702"] = _z(2, "派遣の数", "最初の2日", C702, [_p(1, _t702_grid), _p(1, lambda: _t702_row(0) + _t702_row(1))],
+                   src=kk("106614889X00119710802"))
+
+# ══════════════════════════════════════════════════════════
+#  ⑤b-5 の残り（章の順）。🔴 言い切らない線＝台本の画の欄と出典の欄の字の範囲だけ（位置と広さは模式＝左下の注で断る）
+# ══════════════════════════════════════════════════════════
+# ── 第1章 c205 旅客機の時刻の帯（分の比例＝門番 ⑤ hm）・国会議員のまとめ
+Y205 = dict(x0=240.0, x1=1680.0, y=560.0, v0=13 * 60.0 + 30, v1=14 * 60.0 + 15)
+V205 = (13 * 60.0 + 33, 13 * 60.0 + 46, 13 * 60.0 + 50, 14 * 60.0 + 11)
+C205 = [
+    _at(_c(0, K, head="千歳を離陸", big="13:33", bcap=64), 360, 770),
+    _at(_c(0, K, head="函館の上", big="13:46", lines="約6,700メートル", bcap=64, cap=46), 700, 350),
+    _at(_c(1, K, head="管制に報告", big="13:50", lines="約8,500メートル", bcap=64, cap=46), 1010, 720),
+    _at(_c(2, K, head="松島の上", big="14:11", lines="の予定", bcap=64, cap=46), 1450, 360),
+]
+VIEWS["c205"] = _z(3, "旅客機の時刻", "千歳から松島へ", C205, [
+    _p(0, lambda: _axis(Y205, [Y205["v0"] + 5 * i for i in range(10)])),
+    _p(0, lambda: _lead(C205[0], _lin(Y205, V205[0]), Y205["y"]) + _lead(C205[1], _lin(Y205, V205[1]), Y205["y"])),
+    _p(1, lambda: _lead(C205[2], _lin(Y205, V205[2]), Y205["y"])),
+    _p(2, lambda: _lead(C205[3], _lin(Y205, V205[3]), Y205["y"])),
+], src=kk("106614889X00419711007"), note="目盛りは5分ごと",
+    tl=dict(kind="hm", ax=((Y205["v0"], Y205["x0"]), (Y205["v1"], Y205["x1"])),
+            pts=tuple((f"{int(v // 60)}:{int(v % 60):02d}", _lin(Y205, v)) for v in V205)))
+
+# ── c210 機動隊形（前の教官機が左右に旋回・うしろの訓練機が決まった位置）＝c503 と同じ並び（訓練機は右のうしろ）
+C210 = [
+    _at(_c(0, T, head="機動隊形", lines="編隊の訓練", cap=56), 380, 400),
+    _at(_c(1, T, lines="所定の位置", q=True, sub="について行く", cap=56), 1480, 760),
+]
+VIEWS["c210"] = _z(2, "2機の役目", "前と後ろ", C210, [
+    _p(0, lambda: _plane(860.0, 420.0, INK) + _t(860.0, 540.0, "教官機", 40, INK, "middle", 200)
+       + _plane(1060.0, 650.0, INK) + _t(1060.0, 770.0, "訓練機", 40, INK, "middle", 200)),
+    _p(1, lambda: _arc(860.0, 420.0, 150.0, -55.0, -125.0, J.AMBER) + _arc(860.0, 420.0, 150.0, 55.0, 125.0, J.AMBER), arrow=True),
+    _p(1, lambda: F.line(900.0, 470.0, 1020.0, 600.0, J.TICK, 4, dash="10 10")),
+], src=S_J, note="模式・2機の間の距離と旋回の大きさは描いた形でない", schem=True)
+
+
+# ── c212 2つの飛び方（旅客機＝計器飛行方式で決まった道・2機＝有視界飛行で訓練の空域）
+def _c212_free():
+    g = F.rect(1080.0, 470.0, 680.0, 340.0, "none", J.TICK, 5, rx=24, dash="16 12") + _t(1100.0, 456.0, "訓練の空域", 38, J.TICK, "start", 300)
+    # 🔧 重ね絵：交差する線は「×」（禁止の印）に見えた＝交差しない丸い道に
+    pts = [(1300.0 + 170.0 * math.cos(math.radians(t)) + 24.0 * math.cos(math.radians(3 * t)), 600.0 + 70.0 * math.sin(math.radians(t)))
+           for t in range(0, 361, 10)]
+    return g + F.poly(pts, "none", J.AMBER, 5, close=True, dash="12 8") + _plane(1560.0, 600.0, INK, k=0.6, ang=30.0)
+
+
+def _c212_route():
+    g = F.circ(240.0, 780.0, 14, J.BG2, INK, 5) + F.circ(760.0, 470.0, 14, J.BG2, INK, 5)
+    g += _arrow(252.0, 772.0, 746.0, 478.0, INK, 7, 26)
+    return g + _plane(500.0, 625.0, INK, k=0.6, ang=59.0) + _t(560.0, 720.0, "決まった道", 40, INK, "start", 300)
+
+
+C212 = [
+    _at(_c(1, K, head="旅客機", lines="計器飛行方式", cap=52), 430, 330),
+    _at(_c(0, K, head="2機", lines="有視界飛行", q=True, cap=56), 1420, 330),
+    _at(_c(1, None, lines="目で見て確かめる", cap=48), 1420, 745),
+]
+VIEWS["c212"] = _z(2, "2つの飛び方", "管制と目", C212, [_p(0, _c212_free), _p(1, _c212_route, arrow=True)],
+                   src=kk("106614889X00419711007"), note="模式・道と空域の形は描いた形でない", schem=True)
+
+# ── c216 その日の時刻（分の比例＝門番 ⑤ hm）・離陸は長官の報告と議員のまとめ・接触の「14:02ごろ」は語りのまとめ
+Y216 = dict(x0=240.0, x1=1680.0, y=560.0, v0=13 * 60.0 + 20, v1=14 * 60.0 + 10)
+V216 = (13 * 60.0 + 28, 13 * 60.0 + 33, 14 * 60.0 + 2)
+C216 = [
+    _at(_c(0, K, head="2機が松島を離陸", big="13:28", bcap=64), 420, 350),
+    _at(_c(0, K, head="旅客機が千歳を離陸", big="13:33", bcap=64), 660, 770),
+    _at(_c(1, None, head="雫石町の上空", big="14:02ごろ", lines="接触", bcap=64, cap=50), 1450, 350),
+]
+VIEWS["c216"] = _z(2, "その日の時刻", "離陸から接触まで", C216, [
+    _p(0, lambda: _axis(Y216, [Y216["v0"] + 10 * i for i in range(6)])),
+    _p(0, lambda: _lead(C216[0], _lin(Y216, V216[0]), Y216["y"]) + _lead(C216[1], _lin(Y216, V216[1]), Y216["y"])),
+    _p(1, lambda: _lead(C216[2], _lin(Y216, V216[2]), Y216["y"])),
+], src=kk("106614889X00119710802", "106614889X00419711007"), note="目盛りは10分ごと",
+    tl=dict(kind="hm", ax=((Y216["v0"], Y216["x0"]), (Y216["v1"], Y216["x1"])),
+            pts=(("13:28", _lin(Y216, V216[0])), ("13:33", _lin(Y216, V216[1])), ("14:02", _lin(Y216, V216[2])))))
+
+# ── 第2章 c302 5つの空域の名（判決の書いた順・位置は描かない＝資料に図が無い）。名は絵の部品（札の枚数に数えない）
+NAMES302 = ("横手", "月山", "米沢", "気仙沼", "相馬")
+
+
+def _c302_names():
+    g = ""
+    for i, nm in enumerate(NAMES302):
+        x = 300.0 + 330.0 * i
+        g += _panel(x - 130, 370.0, 260, 130, sc(T), op=0.84, sw=5) + _t(x, 457.0, nm, 64, INK, "middle", 240)
+    return g
+
+
+C302 = [_at(_c(0, T, head="飛行訓練準則の原則", lines="1回の飛行に1つ", cap=56), 960, 690)]
+VIEWS["c302"] = _z(1, "空域の名", "準則が定めた5つ", C302, [_p(0, _c302_names)], src=S_J, note="名は判決の書いた順・位置は描かない（資料に図が無い）")
+
+# ── c309 伝わった順（補佐 → 班長 → 隊長＝3人の幹部・主任教官への伝達は影＝次のカット）。役職だけ
+C309 = [
+    _at(_c(0, T, head="飛行班長補佐", lines="空域を進言", cap=52), 330, 420),
+    _at(_c(0, T, head="飛行班長", lines="そのまま承認", cap=52), 960, 420),
+    _at(_c(0, T, head="飛行隊長", lines="そのまま承認", cap=52), 1590, 420),
+    _at(_c(1, None, head="空域「盛岡」", big="3人", lines="の幹部", bcap=72, cap=52), 1290, 720),
+]
+
+
+def _c309_arrows():
+    a, b, c = (_zbox(x) for x in C309[:3])
+    g = _arrow(a[0] + a[2] + 12, 420, b[0] - 12, 420, sc(T), 7, 26) + _t((a[0] + a[2] + b[0]) / 2, 392, "進言", 36, sc(T), "middle", 200)
+    return g + _arrow(b[0] + b[2] + 12, 420, c[0] - 12, 420, sc(T), 7, 26) + _t((b[0] + b[2] + c[0]) / 2, 392, "報告", 36, sc(T), "middle", 200)
+
+
+def _c309_branch():
+    a = _zbox(C309[0])
+    g = _arrow(330.0, a[1] + a[3] + 10, 330.0, 640.0, J.TICK, 4, 20, "12 10") + _t(350.0, 590.0, "伝達", 34, J.TICK, "start", 120)
+    g += _panel(170.0, 652.0, 320, 150, J.TICK, op=0.55, sw=3)
+    return (g + _t(330.0, 702.0, "主任教官", 34, J.TICK, "middle", 300) + _t(330.0, 750.0, "確かめず", 40, J.TICK, "middle", 300)
+            + _t(330.0, 790.0, "注意も与えず", 30, J.TICK, "middle", 300))
+
+
+def _c309_ring():
+    a, c = _zbox(C309[0]), _zbox(C309[2])
+    return F.rect(a[0] - 18, a[1] - 18, c[0] + c[2] - a[0] + 36, max(a[3], c[3]) + 36, "none", J.AMBER, 6, rx=24)
+
+
+VIEWS["c309"] = _z(3, "伝わった順", "松島派遣隊の中で", C309, [
+    _p(0, _c309_arrows, arrow=True), _p(0, _c309_branch, arrow=True), _p(1, _c309_ring)], src=S_J)
+
+# ── c312 部屋のスケジュール・ボード（「盛岡」の2字だけ・位置と範囲の欄は空白＝模式）
+BD = (360.0, 290.0, 1200.0, 400.0)
+BX312 = (560.0, 960.0, 1360.0)
+
+
+def _c312_board():
+    x, y, w, h = BD
+    g = F.rect(x, y, w, h, INK, None, None, rx=14, op=0.10) + F.rect(x, y, w, h, "none", INK, 6, rx=14)
+    g += F.line(x, y + 90, x + w, y + 90, J.TICK, 3) + "".join(F.line(xx, y + 18, xx, y + h - 18, J.TICK, 3) for xx in (760.0, 1160.0))
+    g += "".join(_t(xx, y + 60, s, 40, J.TICK, "middle", 300) for xx, s in zip(BX312, ("空域", "位置", "範囲")))
+    return g + _t(x + 8, y - 22, "スケジュール・ボード", 40, INK, "start", 600)
+
+
+def _c312_blank():
+    y = BD[1]
+    return "".join(F.rect(xx - 170, y + 120, 340, 240, "none", J.AMBER, 6, rx=12, dash="16 12") for xx in BX312[1:])
+
+
+C312 = [_at(_c(2, T, head="最高裁の判決", lines="何ら指示、説明されなかった", q=True, cap=48), 960, 780)]
+VIEWS["c312"] = _z(3, "部屋の板", "伝え方", C312, [
+    _p(0, _c312_board), _p(1, lambda: _t(BX312[0], BD[1] + 280, "盛岡", 110, INK, "middle", 360)), _p(2, _c312_blank)],
+    src=S_J, note="模式・板の形と欄は描いた形でない", schem=True)
+
+
+# ── c319 教官の見当（盛岡の市街に近づかず西側・横手の空域の北側付近＝判決の認定）。位置と大きさは模式
+def _c319_city():
+    return (F.circ(1350.0, 470.0, 110.0, INK, None, None, op=0.12) + F.circ(1350.0, 470.0, 110.0, "none", INK, 5)
+            + _t(1350.0, 634.0, "盛岡の市街", 44, INK, "middle", 300))
+
+
+def _c319_area():
+    pts = [(820.0 + 230.0 * math.cos(math.radians(a)), 430.0 + 140.0 * math.sin(math.radians(a))) for a in range(0, 361, 10)]
+    return (F.poly(pts, J.AMBER, None, close=True, op=0.14) + F.poly(pts, "none", J.AMBER, 6, close=True, dash="18 12")
+            + _t(820.0, 444.0, "教官の見当", 44, J.AMBER, "middle", 300))
+
+
+def _c319_away():
+    return _arrow(1060.0, 440.0, 1225.0, 462.0, J.TICK, 5, 22, "12 10") + _xmark(1142.0, 451.0, 24, J.ALERT, 8)
+
+
+def _c319_yokote():
+    return (F.rect(560.0, 700.0, 420.0, 120.0, "none", J.TICK, 5, rx=14, dash="14 10") + _t(770.0, 776.0, "横手の空域", 44, J.TICK, "middle", 380)
+            + _arrow(770.0, 690.0, 770.0, 585.0, J.TICK, 4, 20))
+
+
+C319 = [
+    _at(_c(0, T, head="教官の考え", lines="市街に近づかず", sub="その西側で", cap=50), 300, 430),
+    _at(_c(1, T, head="判決の認定", lines="北側付近の空域で", cap=48), 1450, 780),
+]
+VIEWS["c319"] = _z(2, "訓練の場所", "見当のつけ方", C319, [
+    _p(0, _c319_city), _p(0, _c319_area), _p(0, _c319_away, arrow=True),
+    _p(0, lambda: _arrow(1720.0, 840.0, 1720.0, 730.0, J.TICK, 5, 22) + _t(1756.0, 800.0, "北", 40, J.TICK, "start", 80)),
+    _p(1, _c319_yokote, arrow=True)],
+    src=S_J, note="模式・教官の考え（判決の認定）・位置と大きさは描いた形でない", schem=True)
+
+# ── c325 3つの言い方（1971 防衛局長＝伝聞・1972 参事官・1983 最高裁）。語りは最高裁の認定＝最高裁の札を囲む
+# 🔧 check_fuda F3（毎秒 9.2字）＝1971年の答弁の原文の札と小さい字を外した（「教官の話」＝伝聞・どの教官かは答弁に無い）
+C325 = [
+    _at(_c(0, K, head="1971年 防衛庁", lines="教官の話", cap=56), 330, 470),
+    _at(_c(0, K, head="1972年 参事官", lines="臨時に横手", cap=56), 960, 470),
+    _at(_c(0, T, head="1983年 最高裁", lines="盛岡", q=True, cap=72), 1590, 470),
+    _at(_c(1, T, lines="進言と承認", cap=56), 1590, 750),
+]
+VIEWS["c325"] = _z(2, "3つの言い方", "空域の名と決め手", C325, [
+    _p(0, lambda: _ring(C325[2], sc(T))),
+    _p(1, lambda: _arrow(1590.0, _zbox(C325[2])[1] + _zbox(C325[2])[3] + 24, 1590.0, _zbox(C325[3])[1] - 12, sc(T), 6, 22), arrow=True),
+], src=kk("106613843X00119710805", "106904889X00319720817") + "・" + S_J)
+
+# ── 第3章 c402〜c404・c410 J11L の線（縦・模式）と守る幅。c403・c404・c410 の帯は同じ物差し（1キロ＝KM px）＝門番 ⑤ num が幅の字と位置を照らす
+JX, JY0, JY1 = 960.0, 300.0, 820.0
+KM = 36.0
+AX_KM = ((0.0, JX), (10.0, JX + 10 * KM))
+
+
+def _j11l(lab=True):
+    g = F.line(JX, JY0, JX, JY1, J.AMBER, 8)
+    for y in (JY0, JY1):
+        g += F.circ(JX, y, 16, J.BG2, J.AMBER, 6) + _t(JX + 30, y + 14, "NDB", 34, J.TICK, "start", 140)
+    return g + (_t(JX - 30, JY0 + 100, "J11L", 44, J.AMBER, "end", 200) if lab else "")      # 🔧 layout：帯の上の辺（JB0）より下に
+
+
+# 🔧 layout：帯の上下の辺が線の両端の「NDB」の字を横切った＝帯は線の端から 30px 内側まで（JB0・JB1）
+JB0, JB1 = JY0 + 30, JY1 - 30
+
+
+def _c402_band():
+    return (F.rect(JX - 200, JB0, 400, JB1 - JB0, J.TICK, None, None, op=0.22) + F.line(JX - 200, JB0, JX - 200, JB1, J.TICK, 3, dash="12 10")
+            + F.line(JX + 200, JB0, JX + 200, JB1, J.TICK, 3, dash="12 10") + _t(JX + 214, JB1 - 20, "守る幅", 40, J.TICK, "start", 240))
+
+
+C402 = [
+    _at(_c(0, K, head="防衛局長の説明", lines=("点と点を結ぶところを", "最短距離で"), q=True, cap=46), 420, 430),
+    _at(_c(1, K, lines=("航空局長の通達で", "内部規程として"), q=True, cap=46), 1500, 640),
+]
+VIEWS["c402"] = _z(2, "ジェット・ルート", "守る幅の決まり", C402, [_p(1, _c402_band), _p(0, _j11l)],
+                   src=kk("106613843X00119710805"), note="模式・線の向きと幅は描いた形でない", schem=True)
+
+
+def _kmband(km, col, op, lab=None, ly=760.0, dim=False, lx=None):
+    """J11L の両側の帯（片側 km キロ）。lx＝幅の字の左端（無ければ矢印の真ん中）＝ほかの帯の辺が字を横切らない所へ。"""
+    w = km * KM
+    g = F.rect(JX - w, JB0, 2 * w, JB1 - JB0, col, None, None, op=op)
+    g += F.line(JX - w, JB0, JX - w, JB1, col, 3, dash="12 10") + F.line(JX + w, JB0, JX + w, JB1, col, 3, dash="12 10")
+    if lab:
+        c2 = J.TICK if dim else J.AMBER
+        g += _arrow(JX + 10, ly, JX + w - 6, ly, c2, 4, 18)
+        g += (_t(lx, ly - 22, lab, 40 if dim else 48, c2, "start", w) if lx is not None
+              else _t(JX + w / 2, ly - 22, lab, 40 if dim else 48, c2, "middle", w + 200))
+    return g
+
+
+C403 = [_at(_c(1, K, head="運輸省の航空局長", lines="1973年の答弁", cap=46), 1660, 420)]
+VIEWS["c403"] = _z(2, "守る幅の数", "J11L の両側", C403, [_p(0, lambda: _kmband(16, sc(K), 0.20, "片側約16キロ")), _p(0, _j11l)],
+                   src=kk("107113830X00919730424"), note="模式・線の向きは描いた形でない・幅は比例", schem=True,
+                   tl=dict(kind="num", ax=AX_KM, pts=(("約16キロ", JX + 16 * KM),)))
+
+C404 = [
+    _at(_c(0, T, head="松島派遣隊", lines="飛行訓練準則", cap=52), 290, 400),
+    _at(_c(1, T, lines="編隊の訓練を制限", sub="5海里", cap=50), 1600, 640),
+]
+VIEWS["c404"] = _z(3, "自衛隊の準則", "準則の幅", C404, [
+    # 🔧 layout：薄い帯の幅の字は9キロの帯の右の辺の外（辺が字を横切らない）
+    _p(0, lambda: _kmband(16, J.TICK, 0.08, "約16キロ", ly=372.0, dim=True, lx=JX + 9 * KM + 24)),
+    _p(1, lambda: _kmband(9, sc(T), 0.26, "約9キロ")),
+    _p(0, _j11l),
+    _p(2, lambda: _ring(C404[1], sc(T))),
+], src=S_J + "・" + kk("107113830X00919730424"), note="模式・幅は比例・薄い帯は運輸省の言う幅", schem=True,
+    tl=dict(kind="num", ax=AX_KM, pts=(("約9キロ", JX + 9 * KM), ("約16キロ", JX + 16 * KM))))
+
+# ── c405 高さの断面（縦の比例＝門番 ⑤ num・y の座標）。帯＝準則の高さ（判決）・印＝旅客機（判決）と2機（長官の報告）
+H405 = dict(x=760.0, y0=820.0, y1=300.0, v0=7400.0, v1=9600.0)
+M405 = (("旅客機", 8500.0, 820.0, T), ("訓練機", 8600.0, 1260.0, K), ("教官機", 7700.0, 820.0, K))
+
+
+def _h405(v):
+    return H405["y0"] + (v - H405["v0"]) * (H405["y1"] - H405["y0"]) / (H405["v1"] - H405["v0"])
+
+
+def _c405_band():
+    x, ya, yb = H405["x"], _h405(9400), _h405(7600)
+    g = F.line(x, H405["y1"], x, H405["y0"], J.TICK, 4)
+    g += F.rect(x, ya, 960.0, yb - ya, sc(T), None, None, op=0.20) + F.line(x, ya, x + 960, ya, sc(T), 4) + F.line(x, yb, x + 960, yb, sc(T), 4)
+    return g + _t(x + 950, ya - 16, "約9,400メートル", 40, J.AMBER, "end", 420) + _t(x + 950, yb + 48, "約7,600メートル", 40, J.AMBER, "end", 420)
+
+
+def _c405_mark(i):
+    name, v, x, who = M405[i]
+    y = _h405(v)
+    return (F.line(x, y, x + 100, y, sc(who), 10) + _t(x + 116, y + 14, name, 40, INK, "start", 140)
+            + _t(x + 246, y + 14, f"約{int(v):,}", 40, J.AMBER, "start", 200))
+
+
+C405 = [
+    _at(_c(0, T, head="判決が引く準則", lines="訓練を制限する高さ", cap=44), 400, 440),
+    _at(_c(1, K, head="防衛庁長官の報告", lines="2機の高さ", cap=48), 400, 680),
+]
+VIEWS["c405"] = _z(2, "高さの断面", "帯の中の3機", C405, [_p(0, _c405_band), _p(1, lambda: _c405_mark(0) + _c405_mark(1) + _c405_mark(2))],
+                   src=S_J + "・" + kk("106614889X00119710802"), note="模式・高さは比例・横の位置は描いた形でない", schem=True,
+                   tl=dict(kind="num", ax=((H405["v0"], H405["y0"]), (H405["v1"], H405["y1"])),
+                           pts=(("約9,400", _h405(9400)), ("約7,600", _h405(7600))) + tuple((f"約{int(v):,}", _h405(v)) for _n, v, _x, _w in M405)))
+
+# ── c407 通告の年（月の比例＝門番 ⑤ ym）
+Y407 = dict(x0=260.0, x1=1660.0, y=560.0, v0=1961.0, v1=1973.0)
+V407 = (1961 + 11.5 / 12, 1971 + 6.5 / 12)
+C407 = [
+    _at(_c(0, K, head="運輸省の航空局長", big="1961年12月", bcap=58), 420, 360),
+    _at(_c(0, None, big="1971年7月", lines="事故", bcap=58, cap=50), 1490, 360),
+    _at(_c(1, K, lines="ジェット・ルートの幅", sub="防衛庁へ通告", cap=50), 420, 760),
+]
+VIEWS["c407"] = _z(2, "通告の時期", "事故までの年月", C407, [
+    _p(0, lambda: _axis(Y407, range(1961, 1974))),
+    _p(0, lambda: _bar(Y407, *V407, J.TICK, h=40) + _t((_lin(Y407, V407[0]) + _lin(Y407, V407[1])) / 2, Y407["y"] - 44, "約10年", 48, J.AMBER, "middle", 300)),
+    _p(0, lambda: _lead(C407[0], _lin(Y407, V407[0]), Y407["y"]) + _lead(C407[1], _lin(Y407, V407[1]), Y407["y"])),
+    _p(1, lambda: _lead(C407[2], _lin(Y407, V407[0]), Y407["y"])),
+], src=kk("107114103X00719730509"),
+    tl=dict(kind="ym", ax=((Y407["v0"], Y407["x0"]), (Y407["v1"], Y407["x1"])), pts=(("1961年12月", _lin(Y407, V407[0])), ("1971年7月", _lin(Y407, V407[1])))))
+
+
+# ── c410 場所の2つの言い方（報告書＝線の上・最高裁＝西側5海里の内側）。帯の幅は c404 と同じ物差し（約9キロ）
+def _c410_art():
+    w = 9 * KM
+    return (F.rect(JX - w, JY0, w, JY1 - JY0, sc(T), None, None, op=0.22) + F.line(JX - w, JY0, JX - w, JY1, sc(T), 3, dash="12 10") + _j11l())
+
+
+C410 = [
+    _at(_c(1, H, head="報告書", lines="J11Lの中", cap=56), 1420, 420),
+    _at(_c(1, T, head="最高裁", lines="西側5海里の内側", cap=52), 400, 690),
+    _at(_c(2, None, head="どちらも", lines="編隊の訓練を避ける空", cap=50), 1400, 730),
+]
+VIEWS["c410"] = _z(3, "2つの書き方", "線の上と西側", C410, [
+    _p(0, _c410_art), _p(1, lambda: _tie(C410[0], JX, 470.0) + _tie(C410[1], 800.0, 600.0))],
+    src=S_W + "・" + S_J, note="模式・位置は描いた形でない・帯は5海里", schem=True)
+
+
+# ── c411 機動隊形の旋回に要る空間（上下・左右・前後に大きな箱＝模式）
+def _c411_box():
+    fx0, fy0, fx1, fy1 = 820.0, 430.0, 1300.0, 740.0
+    dx, dy = 150.0, -110.0
+    g = F.rect(fx0, fy0, fx1 - fx0, fy1 - fy0, J.BG2, None, None, op=0.25)
+    for x1, y1, x2, y2 in ((fx0, fy0, fx1, fy0), (fx1, fy0, fx1, fy1), (fx1, fy1, fx0, fy1), (fx0, fy1, fx0, fy0),
+                           (fx0 + dx, fy0 + dy, fx1 + dx, fy0 + dy), (fx1 + dx, fy0 + dy, fx1 + dx, fy1 + dy),
+                           (fx0, fy0, fx0 + dx, fy0 + dy), (fx1, fy0, fx1 + dx, fy0 + dy), (fx1, fy1, fx1 + dx, fy1 + dy)):
+        g += F.line(x1, y1, x2, y2, J.TICK, 4)
+    g += _dbl(1560.0, 330.0, 1560.0, 700.0, J.AMBER) + _t(1600.0, 530.0, "上下", 44, J.AMBER, "start", 120)
+    g += _dbl(820.0, 790.0, 1300.0, 790.0, J.AMBER) + _t(1060.0, 846.0, "左右", 44, J.AMBER, "middle", 120)
+    return g + _dbl(1330.0, 770.0, 1490.0, 655.0, J.AMBER) + _t(1520.0, 760.0, "前後", 44, J.AMBER, "start", 120)
+
+
+C411 = [
+    _at(_c(0, H, head="報告書の推定", lines="機動隊形の旋回", cap=52), 380, 420),
+    _at(_c(1, H, lines=("非常に大きな", "飛行空間"), q=True, cap=52), 380, 690),
+]
+VIEWS["c411"] = _z(2, "旋回に要る広さ", "訓練の型と空域", C411, [_p(1, _c411_box, arrow=True), _p(0, lambda: _plane(1060.0, 585.0, INK, k=0.8))],
+                   src=S_W, note="模式・箱の大きさは描いた形でない", schem=True)
+
+# ── 第4章 c503 2機の並び（長官の報告＝教官機 左の前・訓練機 右のうしろ）。上が進む向き
+C503 = [
+    _at(_c(0, K, head="教官機", big="約7,700メートル", lines="左の前", bcap=58, cap=48), 380, 560),
+    _at(_c(1, K, head="訓練機", big="約8,600メートル", lines="右のうしろ", bcap=58, cap=48), 1540, 690),
+]
+VIEWS["c503"] = _z(2, "2機の並び", "南へ下るとき", C503, [
+    _p(0, lambda: _arrow(960.0, 380.0, 960.0, 262.0, J.TICK, 5, 22) + _t(990.0, 330.0, "進む向き（南）", 38, J.TICK, "start", 360), arrow=True),
+    _p(0, lambda: _plane(760.0, 430.0, INK)), _p(1, lambda: _plane(1160.0, 690.0, INK))],
+    src=kk("106614889X00119710802"), note="模式・上が進む向き・2機の間の距離は描いた形でない", schem=True)
+
+# ── c510・c511 方位の図の続き（c509 と同じ輪・同じ物差し）
+C510 = [
+    _at(_c(0, T, head="旅客機", big="右78度", lines="約4.3キロ", sub="上10度", bcap=64, cap=50, dim=True), 1580, 440),
+    _at(_c(0, T, big="右116度", lines="約1.9キロ", sub="上29度", bcap=64, cap=50), 1360, 740),
+]
+VIEWS["c510"] = _z(2, "訓練機の方位", "同じ30秒前", C510, [
+    # 🔧 layout：面の左の辺が「0度」「180度」の字を横切った＝面は真ん中の線から 60px 右から
+    _p(1, lambda: F.rect(CP[0] + 60, 250.0, 1840.0 - CP[0] - 60, 600.0, J.AMBER, None, None, rx=18, op=0.07)
+       + _t(1200.0, 300.0, "右の側", 48, J.AMBER, "middle", 300)),
+    _p(0, _rose), _p(0, lambda: _ray(78, 4.3, PLANE, dim=True)), _p(0, lambda: _ray(116, 1.9, PLANE, "訓練機", side="start"))],
+    src=S_J, note=N_POL, schem=True,
+    tl=dict(kind="pol", c=CP, k=PK, pts=(("右116度", "約1.9キロ") + _pol(116, 1.9), ("右78度", "約4.3キロ") + _pol(78, 4.3))))
+
+C511 = [
+    # 🔧 重ね絵：札が約30秒前の旅客機の薄い印（右78度）を隠していた＝右へ
+    _at(_c(0, T, head="約20秒前の旅客機", big="右106度", lines="約2.5キロ", sub=("上11度", "二審の「下方」は誤記"), bcap=64, cap=50), 1590, 440),
+    _at(_c(1, T, big="右132度", lines="約1.7キロ", sub="上10度", bcap=64, cap=50), 1590, 735),
+]
+VIEWS["c511"] = _z(2, "方位の変わり方", "10秒のちの位置", C511, [
+    _p(0, _rose), _p(0, lambda: _ray(78, 4.3, PLANE, dim=True) + _ray(116, 1.9, PLANE, dim=True)),
+    _p(0, lambda: _ray(106, 2.5, PLANE, "旅客機", side="start")), _p(1, lambda: _ray(132, 1.7, PLANE, "訓練機", side="start", dy=60.0))],
+    src=S_J, note=N_POL + "・薄い印は約30秒前", schem=True,
+    tl=dict(kind="pol", c=CP, k=PK, pts=(("右106度", "約2.5キロ") + _pol(106, 2.5), ("右132度", "約1.7キロ") + _pol(132, 1.7))))
+
+
+# ── 第5章 c605 図の作り方（3機の航跡 → 操縦席ごとの見え方の図＝視界図）。線の形は模式
+def _c605_tracks():
+    g = ""
+    for i, (name, col, dash) in enumerate((("旅客機", INK, None), ("教官機", J.TICK, "16 10"), ("訓練機", J.LINE, "4 10"))):
+        y0 = 450.0 + 110.0 * i
+        pts = [(160.0 + 12.0 * k, y0 + 40.0 * math.sin(k / 7.0 + i)) for k in range(56)]
+        g += F.poly(pts, "none", col, 7, dash=dash) + _t(pts[-1][0] + 20, pts[-1][1] + 14, name, 40, col, "start", 200)
+    return g
+
+
+C605 = [
+    _at(_c(0, K, head="元委員長の説明", lines="3機の航跡", cap=52), 530, 305),
+    _at(_c(1, K, lines="視界図", q=True, sub="操縦席ごとの見え方", cap=64), 1420, 545),
+]
+VIEWS["c605"] = _z(2, "図の作り方", "航跡から見え方へ", C605, [
+    _p(0, _c605_tracks), _p(1, lambda: _arrow(990.0, 560.0, 1110.0, 560.0, J.AMBER, 7, 26), arrow=True),
+    _p(1, lambda: F.rect(1130.0, 330.0, 580.0, 440.0, J.BG2, INK, 6, rx=40, op=0.55) + F.line(1150.0, 690.0, 1690.0, 690.0, J.TICK, 3, dash="12 10"))],
+    src=kk("106914889X00219720823"), note="模式・線の形は実際の航跡でない", schem=True)
+
+# ── c606 跡の描き方（旅客機＝記録の装置・2機＝教官と訓練生の記憶）
+C606 = [
+    _at(_c(0, K, head="旅客機", lines=("フライト・データ・", "レコーダ"), q=True, sub="跡ははっきり", icon="plane", cap=48), 520, 450),
+    _at(_c(0, K, head="教官機と訓練機", lines="記録の装置なし", icon="plane", cap=48), 1400, 450),
+    _at(_c(1, K, lines="記憶によって", q=True, sub="教官と訓練生の", cap=56), 1400, 720),
+]
+VIEWS["c606"] = _z(2, "跡の描き方", "記録と記憶", C606, [
+    _p(1, lambda: _arrow(1400.0, _zbox(C606[1])[1] + _zbox(C606[1])[3] + 10, 1400.0, _zbox(C606[2])[1] - 12, sc(K), 6, 22), arrow=True)],
+    src=kk("106914889X00219720823"))
+
+# ── c610 第13図の考え（まっすぐ前の基準点・左へ約60度で訓練機）。どの機の席の図かは答弁に無い＝「見る位置」とだけ書く。角度は門番 ⑤ pol
+VP, VR = (560.0, 640.0), 360.0
+
+
+def _c610_pt():
+    a = math.radians(-60.0)
+    return VP[0] + VR * math.sin(a), VP[1] - VR * math.cos(a)
+
+
+def _c610_base():
+    x, y = VP
+    g = F.circ(x, y, 14, INK) + _t(x, y + 58, "見る位置", 40, INK, "middle", 240)
+    g += F.line(x, y - 24, x, y - VR, J.TICK, 5, dash="14 10") + F.circ(x, y - VR, 18, "none", INK, 5) + F.line(x - 26, y - VR, x + 26, y - VR, INK, 4)
+    return g + _t(x + 34, y - VR + 14, "基準点", 40, INK, "start", 200)
+
+
+def _c610_turn():
+    x, y = VP
+    px, py = _c610_pt()
+    arc = [(x + 140 * math.sin(math.radians(t)), y - 140 * math.cos(math.radians(t))) for t in range(0, -61, -5)]
+    g = F.line(x, y, px, py, J.AMBER, 5, dash="14 10") + F.poly(arc, "none", J.AMBER, 5)
+    return g + _t(x + 230 * math.sin(math.radians(-30)), y - 230 * math.cos(math.radians(-30)) + 14, "左へ約60度", 40, J.AMBER, "middle", 260)
+
+
+C610 = [
+    _at(_c(0, K, head="元委員長の説明", lines="第13図", cap=60), 1300, 380),
+    _at(_c(1, K, lines="左のほう六十度", q=True, sub="訓練機が見える", cap=56), 1300, 680),
+]
+VIEWS["c610"] = _z(2, "図の上の見え方", "まっすぐ前から左へ", C610, [
+    _p(0, _c610_base), _p(0, _c610_turn),
+    _p(1, lambda: _blip(*_c610_pt(), PLANE) + _t(_c610_pt()[0], _c610_pt()[1] + 74, "訓練機", 40, PLANE, "middle", 200))],
+    src=kk("106914889X00219720823"), note="模式・どの機の席の図かは答弁に無い・角度だけ", schem=True,
+    tl=dict(kind="pol", c=VP, k=1.0, pts=(("左へ約60度", None) + _c610_pt(),)))
+
+
+# ── c612・c613 注視野の考え（委員長の説明の範囲＝円は模式・広さと向きは描いた形でない）。字幕は札の原文を読む行で消す
+def _vz(cx, cy, r, lab, col=None):
+    col = col or J.LINE
+    return (F.circ(cx, cy, r, col, None, None, op=0.14) + F.circ(cx, cy, r, "none", col, 5, op=0.9)
+            + _t(cx, cy + r + 50, lab, 40, col, "middle", 2 * r + 120))
+
+
+C612 = [
+    _at(_c(0, K, head="報告書の解析", lines="訓練生にとって", cap=46), 400, 300),
+    _at(_c(1, K, lines="注視野の外にあった", q=True, cap=56), 1480, 640),
+]
+VIEWS["c612"] = _z(2, "訓練生の見え方", "解析の考え", C612, [
+    _p(0, lambda: _vz(520.0, 590.0, 180.0, "前を見るとき") + _vz(900.0, 590.0, 180.0, "教官機を見るとき") + _plane(900.0, 590.0, INK, k=0.6)),
+    _p(1, lambda: _blip(1480.0, 430.0, PLANE) + _t(1440.0, 444.0, "旅客機", 42, PLANE, "end", 200))],
+    src=kk("106914889X00219720823"), note="模式・注視野の広さと向きは描いた形でない", mute=(1,), schem=True)
+
+C613 = [
+    _at(_c(0, K, head="元委員長が読んだ報告書", lines="教官にとって", cap=46), 400, 300),
+    # 🔧 echo：見出しの字が語りの行の字面と同じ＝数を黄の大きな字に分けた
+    _at(_c(1, K, head="少なくとも", big="30秒前から", lines="注視野内", q=True, bcap=64, cap=64), 1450, 600),
+]
+VIEWS["c613"] = _z(2, "教官の見え方", "報告書の考え", C613, [
+    _p(0, lambda: _vz(780.0, 580.0, 200.0, "訓練機の方を見るとき") + _plane(720.0, 620.0, INK, k=0.6)),
+    _p(1, lambda: _blip(880.0, 480.0, PLANE) + _t(840.0, 494.0, "旅客機", 42, PLANE, "end", 200))],
+    src=kk("106904889X00319720817"), note="模式・注視野の広さと向きは描いた形でない", mute=(1,), schem=True)
+
+# ── c620 防衛庁の質問書（c518 と同じ秒の帯＝門番 ⑤ hms）
+C620 = [
+    _at(_c(0, K, head="報告書の推定", big="14:02:39", bcap=72), 990, 350),
+    _at(_c(1, K, head="防衛庁の質問書", big="1972年12月25日", bcap=58), 1500, 350),
+    _at(_c(2, K, big="14:02:32", lines="接触したと思われる", q=True, bcap=72, cap=46), 520, 760),
+]
+VIEWS["c620"] = _z(3, "反対の時刻", "質問書に書いた秒", C620, [
+    _p(0, _t518_axis), _p(0, lambda: _lead(C620[0], _lin(YT, VT[0]), YT["y"])),
+    _p(2, lambda: _lead(C620[2], _lin(YT, VT[1]), YT["y"]) + _t518_gap())],
+    src=kk("107114103X00719730509"), note="目盛りは10秒ごと",
+    tl=dict(kind="hms", ax=((YT["v0"], YT["x0"]), (YT["v1"], YT["x1"])), pts=(("14:02:39", _lin(YT, VT[0])), ("14:02:32", _lin(YT, VT[1])))))
+
+
+# ── 第9章 ca03 補償の残り（3人の分＝四角3つ・人の形は使わない・名前は出さない）
+def _ca03_boxes(hi=False):
+    g = ""
+    for i in range(3):
+        on = hi and i == 0
+        g += F.rect(760.0 + 140.0 * i - 45, 385.0, 90, 90, J.AMBER if on else J.BG2, sc(K), 6, rx=16, op=0.9 if on else 0.6)
+    return g
+
+
+CA03 = [
+    _at(_c(0, K, head="防衛庁の答弁", big="3人", lines="話し合いがまとまらず", bcap=80, cap=48), 400, 450),
+    _at(_c(0, K, lines="裁判に", cap=64), 1450, 430),
+    _at(_c(1, K, head="そのうち", big="1人の分", lines="判決を受けて賠償", sub="1975年の時点", bcap=72, cap=48), 1300, 715),
+]
+VIEWS["ca03"] = _z(2, "補償の残り", "話し合いと裁判", CA03, [
+    _p(0, _ca03_boxes), _p(0, lambda: _arrow(1100.0, 430.0, 1306.0, 430.0, sc(K), 6, 22), arrow=True), _p(1, lambda: _ca03_boxes(True))],
+    src=kk("107503830X00819750314"))
+
+
+# ── 第10章 cb02 要綱の柱（訓練空域を空港と航空路から分ける・特別管制空域を広げる）＋1975年の改正法の条文
+def _cb02_sep():
+    g = F.line(130.0, 420.0, 900.0, 420.0, INK, 7) + _t(140.0, 396.0, "航空路", 40, INK, "start", 200)
+    g += F.circ(260.0, 650.0, 56.0, J.BG2, INK, 6) + F.line(222.0, 650.0, 298.0, 650.0, INK, 8) + _t(260.0, 750.0, "空港", 40, INK, "middle", 200)
+    g += F.rect(540.0, 600.0, 300.0, 160.0, J.AMBER, None, None, rx=14, op=0.16) + F.rect(540.0, 600.0, 300.0, 160.0, "none", J.AMBER, 6, rx=14, dash="16 10")
+    g += _t(690.0, 694.0, "訓練空域", 42, J.AMBER, "middle", 280)
+    return g + _dbl(690.0, 440.0, 690.0, 588.0, J.AMBER) + _dbl(326.0, 680.0, 528.0, 680.0, J.AMBER)
+
+
+def _cb02_ctl():
+    return (F.rect(130.0, 395.0, 770.0, 50.0, sc(K), None, None, op=0.30) + F.rect(120.0, 350.0, 790.0, 140.0, "none", sc(K), 5, rx=18, dash="16 10")
+            + _t(515.0, 338.0, "特別管制空域", 40, sc(K), "middle", 400))
+
+
+CB02 = [
+    _at(_c(0, K, head="緊急対策要綱", lines=("空港及び航空路", "からの分離"), q=True, cap=48), 1420, 330),
+    _at(_c(1, K, lines="特別管制空域の拡大", q=True, cap=48), 1420, 545),
+    _at(_c(2, L, head="1975年の改正法", lines=("計器飛行方式に", "よらなければ"), q=True, cap=48), 1420, 740),
+]
+VIEWS["cb02"] = _z(3, "対策の柱", "2つの決め", CB02, [_p(0, _cb02_sep, arrow=True), _p(1, _cb02_ctl)],
+                   src=kk("106613843X00119710805") + "・" + S_LAW, note="模式・空域の形は描いた形でない", schem=True)
+
+# ── cb12 航空法 第71条の2（e-Gov の今の版＝ref/ep31/src/web/egov_koukuho_71-2_20261108.xml・⑥ の頭で当て直す）。
+#    🔴 衆議院の頁の誤字（「運輪」「衡突」）は出さない＝画面の片は今の版の字。1975年の版との違いは「運輸大臣」→「国土交通大臣」・「行なつて」→「行つて」（どちらも画面に出さない所）だけ
+#    🔧 check_fuda F3（毎秒 9.5字）＝札は2つの片だけ（「外が見えない天気を除く」は語りだけ）
+CB12 = [
+    _at(_c(0, L, head="航空法 第71条の2", lines=("指示に従つている航行で", "あるとないとにかかわらず"), q=True, cap=56), 960, 420),
+    _at(_c(1, L, lines="見張りをしなければならない", q=True, cap=60), 960, 700),
+]
+VIEWS["cb12"] = _z(2, "操縦する人の義務", "いまの条文", CB12, [], src="e-Gov 法令検索の航空法（2026年11月に取り込み）")
 
 
 # ══════════════════════════════════════════════════════════

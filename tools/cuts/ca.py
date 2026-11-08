@@ -81,3 +81,8 @@ SPEC.update({
     "ca07": _m31.fu_spec("ca07", ss.gr("l3")),
     "ca11": _m31.fu_spec("ca11", ss.gr("stock/gf1")),
 })
+
+# 🆕 ⑤b-5（2026-11-08）：見え方の表（`mech31.VIEWS`）
+SPEC.update({
+    "ca03": _m31.zu_spec("ca03", ss.gr("stock/gf1")),
+})
