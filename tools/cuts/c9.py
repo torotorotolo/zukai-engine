@@ -129,3 +129,35 @@ SPEC.update({
     # c934＝曇りの滑走路と遠くの空港の建物（🔧 1本目は遠くの機体の尾翼に会社の印＝替えた）
     "c934": dict(photo=_X934, **ss.mvz(_X934, (0.5, 0.55, 1.0), (0.5, 0.6, 1.12)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-4（2026-11-08）：札の型（`tools/mech31.py` の表 FU＝1行が1カット）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`＝check_ground --suggest）
+#   最高裁の言葉の札は地＝最高裁の建物 L1（CC BY 3.0・木と足場で建物が隠れる＝主の写真にしない・映像方針 §5-5）。c933 の地＝防衛庁記録の半旗のコマ ms_g6
+#   （敬礼の寄りは「この人が長官・官房長」と読める＝人の写らない半旗）
+import mech31 as _m31  # noqa: E402
+SPEC.update({
+    "c901": _m31.fu_spec("c901", ss.gr("a2")),
+    "c902": _m31.fu_spec("c902", ss.gr("a2")),
+    "c903": _m31.fu_spec("c903", ss.gr("a1")),
+    "c904": _m31.fu_spec("c904", ss.gr("stock/gf1")),
+    "c906": _m31.fu_spec("c906", ss.gr("stock/gf1")),
+    "c908": _m31.fu_spec("c908", ss.gr("stock/gf1")),
+    "c911": _m31.fu_spec("c911", ss.gr("l1")),
+    "c912": _m31.fu_spec("c912", ss.gr("l1")),
+    "c913": _m31.fu_spec("c913", ss.gr("l1")),
+    "c914": _m31.fu_spec("c914", ss.gr("p6")),
+    "c915": _m31.fu_spec("c915", ss.gr("a1")),
+    "c916": _m31.fu_spec("c916", ss.gr("l1")),
+    "c918": _m31.fu_spec("c918", ss.gr("l1")),
+    "c919": _m31.fu_spec("c919", ss.gr("stock/gc1")),
+    "c922": _m31.fu_spec("c922", ss.gr("l1")),
+    "c923": _m31.fu_spec("c923", ss.gr("l1")),
+    "c924": _m31.fu_spec("c924", ss.gr("l1")),
+    "c925": _m31.fu_spec("c925", ss.gr("l1")),
+    "c926": _m31.fu_spec("c926", ss.gr("l1")),
+    "c927": _m31.fu_spec("c927", ss.gr("l1")),
+    "c928": _m31.fu_spec("c928", ss.gr("l1")),
+    "c929": _m31.fu_spec("c929", ss.gr("a1")),
+    "c930": _m31.fu_spec("c930", ss.gr("stock/gf1")),
+    "c931": _m31.fu_spec("c931", ss.gr("stock/gf1")),
+    "c933": _m31.fu_spec("c933", ss.gr("ms_g6")),
+})

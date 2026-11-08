@@ -113,3 +113,18 @@ SPEC.update({
             note="点と円は一般の座標（円は公園のあたりの概略）"),
         card_mix=0, t="現場の今", s="岩手県の雫石（現在の衛星写真）"),
 })
+
+# 🆕 ⑤b-4（2026-11-08）：札の型（`tools/mech31.py` の表 FU＝1行が1カット）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`＝check_ground --suggest）
+#   🔴 cc05 の「2026年11月の時点」は時点の言い切り＝⑥ の頭と公開の直前に会社の頁で当て直す（記憶 feedback-jiko-recheck-time-bound-claims）
+import mech31 as _m31  # noqa: E402
+SPEC.update({
+    "cc03": _m31.fu_spec("cc03", ss.gr("a2")),
+    "cc05": _m31.fu_spec("cc05", ss.gr("stock/gp1")),
+    "cc07": _m31.fu_spec("cc07", ss.gr("a1")),
+    "cc08": _m31.fu_spec("cc08", ss.gr("a1")),
+    "cc09": _m31.fu_spec("cc09", ss.gr("stock/gw1")),
+    "cc10": _m31.fu_spec("cc10", ss.gr("stock/gw1")),
+    "cc11": _m31.fu_spec("cc11", ss.gr("stock/gf1")),
+    "cc12": _m31.fu_spec("cc12", ss.gr("stock/gf1")),
+    "cc14": _m31.fu_spec("cc14", ss.gr("stock/gs3")),
+})

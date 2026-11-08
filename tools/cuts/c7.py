@@ -82,3 +82,17 @@ _X718 = P("stock/x718")
 SPEC.update({
     "c718": dict(photo=_X718, **ss.mvz(_X718, (0.5, 0.5, 1.0), (0.54, 0.5, 1.12)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-4（2026-11-08）：札の型（`tools/mech31.py` の表 FU＝1行が1カット）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`＝check_ground --suggest）
+#   c714 の地＝防衛庁記録の残骸のコマ ms_g5（台本の画の欄は「屋上」＝隊員の上に委員会の札を置くと「委員が自衛隊」と読める＝委員会は自衛隊の関係者を外した c716）
+import mech31 as _m31  # noqa: E402
+SPEC.update({
+    "c704": _m31.fu_spec("c704", ss.gr("a2")),
+    "c705": _m31.fu_spec("c705", ss.gr("a2")),
+    "c708": _m31.fu_spec("c708", ss.gr("a2")),
+    "c712": _m31.fu_spec("c712", ss.gr("stock/gm1")),
+    "c714": _m31.fu_spec("c714", ss.gr("ms_g5")),
+    "c715": _m31.fu_spec("c715", ss.gr("a2")),
+    "c716": _m31.fu_spec("c716", ss.gr("a2")),
+    "c717": _m31.fu_spec("c717", ss.gr("a2")),
+})

@@ -111,5 +111,9 @@ SPEC.update({
 #   c209 の地＝防衛庁記録の滑走路のコマ ms_g1（札を掛ける場面は全コマに人＝「この人が教官」と読まれる＝束の MS_GROUND）
 import mech31 as _m31  # noqa: E402
 SPEC.update({
+    "c202": _m31.fu_spec("c202", ss.gr("a1")),
+    "c203": _m31.fu_spec("c203", ss.gr("a1")),
     "c209": _m31.fu_spec("c209", ss.gr("ms_g1")),
+    "c213": _m31.fu_spec("c213", ss.gr("a1")),
+    "c214": _m31.fu_spec("c214", ss.gr("a1")),
 })

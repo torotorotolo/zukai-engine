@@ -130,3 +130,24 @@ SPEC.update({
     "c630": dict(photo=_X630, **ss.mvz(_X630, (0.5, 0.5, 1.0), (0.5, 0.56, 1.12)), side="none", color=1.0, t="", s=""),
     "c631": dict(photo=_X631, **ss.mvz(_X631, (0.5, 0.5, 1.0), (0.46, 0.5, 1.12)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-4（2026-11-08）：札の型（`tools/mech31.py` の表 FU＝1行が1カット）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`＝check_ground --suggest）
+#   ⚠️ GW1（窓と翼）は翼の先が今の型（ウイングレット）＝暗くして地にだけ使う（⑤b-3a で全面にしなかった）＝⑤c で「この機体」と読めないか見る
+import mech31 as _m31  # noqa: E402
+SPEC.update({
+    "c602": _m31.fu_spec("c602", ss.gr("stock/gc1")),
+    "c603": _m31.fu_spec("c603", ss.gr("stock/gc1")),
+    "c607": _m31.fu_spec("c607", ss.gr("stock/gw1")),
+    "c608": _m31.fu_spec("c608", ss.gr("stock/gw1")),
+    "c614": _m31.fu_spec("c614", ss.gr("stock/gc2")),
+    "c616": _m31.fu_spec("c616", ss.gr("stock/gc2")),
+    "c617": _m31.fu_spec("c617", ss.gr("stock/gw1")),
+    "c618": _m31.fu_spec("c618", ss.gr("stock/gc2")),
+    "c619": _m31.fu_spec("c619", ss.gr("stock/gc2")),
+    "c621": _m31.fu_spec("c621", ss.gr("stock/gc2")),
+    "c623": _m31.fu_spec("c623", ss.gr("stock/gc2")),
+    "c624": _m31.fu_spec("c624", ss.gr("stock/gc2")),
+    "c626": _m31.fu_spec("c626", ss.gr("stock/gw1")),
+    "c627": _m31.fu_spec("c627", ss.gr("stock/gf1")),
+    "c628": _m31.fu_spec("c628", ss.gr("stock/gf1")),
+})

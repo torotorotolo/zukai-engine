@@ -71,3 +71,16 @@ SPEC.update({
     # c813＝山すその家並み。🔴 左の今の集合住宅と干した洗濯物・下の給水タンク・右下の車は窓の外（x 0.21 から・y 0.73 まで＝手元の再現で見た）
     "c813": dict(photo=_X813, **ss.mvz(_X813, (0.58, 0.40, 1.3), (0.55, 0.38, 1.4)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-4（2026-11-08）：札の型（`tools/mech31.py` の表 FU＝1行が1カット）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`＝check_ground --suggest）
+#   目撃談の札（c802・c812）は灰色の噂の札＝事実の図と違う見た目
+import mech31 as _m31  # noqa: E402
+SPEC.update({
+    "c802": _m31.fu_spec("c802", ss.gr("stock/gf2")),
+    "c803": _m31.fu_spec("c803", ss.gr("stock/gs1")),
+    "c804": _m31.fu_spec("c804", ss.gr("stock/gs1")),
+    "c805": _m31.fu_spec("c805", ss.gr("stock/gs1")),
+    "c808": _m31.fu_spec("c808", ss.gr("stock/gr1")),
+    "c810": _m31.fu_spec("c810", ss.gr("stock/gc2")),
+    "c812": _m31.fu_spec("c812", ss.gr("stock/gf2")),
+})

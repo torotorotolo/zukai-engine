@@ -150,6 +150,13 @@ SPEC.update({
 import mech31 as _m31  # noqa: E402
 SPEC.update({
     "c303": _m31.fu_spec("c303", ss.gr("a1")),
+    "c305": _m31.fu_spec("c305", ss.gr("a1")),
+    "c310": _m31.fu_spec("c310", ss.gr("stock/gm1")),
+    "c314": _m31.fu_spec("c314", ss.gr("a1")),
     "c316": _m31.fu_spec("c316", ss.gr("a6")),
+    "c317": _m31.fu_spec("c317", ss.gr("a6")),
+    "c321": _m31.fu_spec("c321", ss.gr("a1")),
+    "c324": _m31.fu_spec("c324", ss.gr("ms_g3")),
     "c327": _m31.fu_spec("c327", ss.gr("stock/gc1")),
+    "c328": _m31.fu_spec("c328", ss.gr("a1")),
 })

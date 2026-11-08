@@ -70,3 +70,14 @@ SPEC.update({
     # ca13＝並ぶ2本の飛行機雲（縦長＝真ん中の帯）
     "ca13": dict(photo=_Xa13, **ss.mvz(_Xa13, (0.5, 0.5, 1.0), (0.5, 0.45, 1.1)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-4（2026-11-08）：札の型（`tools/mech31.py` の表 FU＝1行が1カット）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`＝check_ground --suggest）
+#   ca07 の地＝東京高裁の庁舎 L3（CC BY 2.5・映像方針 §5-5）
+import mech31 as _m31  # noqa: E402
+SPEC.update({
+    "ca01": _m31.fu_spec("ca01", ss.gr("stock/gf1")),
+    "ca02": _m31.fu_spec("ca02", ss.gr("stock/gf1")),
+    "ca04": _m31.fu_spec("ca04", ss.gr("stock/gp1")),
+    "ca07": _m31.fu_spec("ca07", ss.gr("l3")),
+    "ca11": _m31.fu_spec("ca11", ss.gr("stock/gf1")),
+})

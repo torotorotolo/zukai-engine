@@ -92,3 +92,21 @@ SPEC.update({
     # cb20＝上から見た斜面の針葉樹の森（ゆっくり近づく）
     "cb20": dict(photo=_Xb20, **ss.mvz(_Xb20, (0.5, 0.5, 1.0), (0.5, 0.5, 1.15)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-4（2026-11-08）：札の型（`tools/mech31.py` の表 FU＝1行が1カット）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`＝check_ground --suggest）
+#   cb09 の地＝防衛庁記録の半旗のコマ ms_g7（敬礼の寄りは「この人が長官」と読める＝人の写らない半旗）
+import mech31 as _m31  # noqa: E402
+SPEC.update({
+    "cb01": _m31.fu_spec("cb01", ss.gr("stock/gc1")),
+    "cb03": _m31.fu_spec("cb03", ss.gr("a1")),
+    "cb04": _m31.fu_spec("cb04", ss.gr("a1")),
+    "cb05": _m31.fu_spec("cb05", ss.gr("a1")),
+    "cb06": _m31.fu_spec("cb06", ss.gr("a1")),
+    "cb07": _m31.fu_spec("cb07", ss.gr("stock/gc1")),
+    "cb08": _m31.fu_spec("cb08", ss.gr("stock/gc1")),
+    "cb09": _m31.fu_spec("cb09", ss.gr("ms_g7")),
+    "cb13": _m31.fu_spec("cb13", ss.gr("stock/gc1")),
+    "cb15": _m31.fu_spec("cb15", ss.gr("stock/gc1")),
+    "cb16": _m31.fu_spec("cb16", ss.gr("stock/gc1")),
+    "cb18": _m31.fu_spec("cb18", ss.gr("stock/gc1")),
+})

@@ -135,3 +135,20 @@ SPEC.update({
                  note="点は一般の座標（町役場の住所の点）"),
         t="雫石町の上空", s="岩手県の雫石（現在の衛星写真）"),
 })
+
+# 🆕 ⑤b-4（2026-11-08）：札の型（`tools/mech31.py` の表 FU＝1行が1カット）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`＝check_ground --suggest）
+import mech31 as _m31  # noqa: E402
+SPEC.update({
+    "c502": _m31.fu_spec("c502", ss.gr("a1")),
+    "c504": _m31.fu_spec("c504", ss.gr("p6")),
+    "c505": _m31.fu_spec("c505", ss.gr("stock/gc1")),
+    "c507": _m31.fu_spec("c507", ss.gr("stock/gc1")),
+    "c508": _m31.fu_spec("c508", ss.gr("stock/gc1")),
+    "c513": _m31.fu_spec("c513", ss.gr("stock/gc2")),
+    "c515": _m31.fu_spec("c515", ss.gr("stock/gc2")),
+    "c516": _m31.fu_spec("c516", ss.gr("stock/gc2")),
+    "c519": _m31.fu_spec("c519", ss.gr("stock/gc2")),
+    "c521": _m31.fu_spec("c521", ss.gr("stock/gf1")),
+    "c522": _m31.fu_spec("c522", ss.gr("p6")),
+    "c523": _m31.fu_spec("c523", ss.gr("p6")),
+})
