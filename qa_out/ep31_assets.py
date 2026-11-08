@@ -74,7 +74,8 @@ KIND_OK = {"写真": COMMONS_TYPES, "場所": COMMONS_TYPES, "空中": NATION_TY
 KIND_OUT = ("映像", "衛星", "イメージ")              # 束の外＝映像は clips.json・衛星は ss.SAT・イメージは ⑤b-3a
 # 🆕 31本目：地（説明カットの地）に一覧が「G:…」（イメージの地＝⑤b-3a で Pexels の記号を当てる）と「MS」（防衛庁記録の映像＝⑤b-4 でコマを選んで
 #    束の静止画 `ms_g…` にする）を書いたカット＝束では止めずに数えて出す（どちらも札の型のカット＝⑤b-4 で地を当てるときに必ず当たる＝`ss.gr` が束に無ければ止める）
-JI_LATER = {"G": "イメージの地（⑤b-3a で Pexels を当てる）", "MS": "防衛庁記録の映像のコマ（⑤b-4 でコマを選んで束へ・CC BY 3.0）"}
+#    🆕 ⑤b-3a（2026-11-08）：イメージの地は make_list31.GMAP で英字の記号（GC1 ほか13）になった＝`uses()` は stock の地を束の外に回す（「G」はもう出ない＝表から外した）
+JI_LATER = {"MS": "防衛庁記録の映像のコマ（⑤b-4 でコマを選んで束へ・CC BY 3.0）"}
 
 # 🆕 国土地理院の空中写真＝z+1 の 8×6枚（2048×1536）を組んで 16:9（2048×1152）に切る。映像方針の見本（z の 3×3＝768px）と同じ真ん中・横は 4/3 倍・縦は 3/4 倍
 #   {記号: (層, z, 左の x, 上の y, 横の枚数, 縦の枚数, 窓（左, 上, 幅）＝組んだ全体 2048×1536 の画素・高さは幅の 9/16)}。🔴 印（赤い丸）は描かない
@@ -311,6 +312,8 @@ def uses(later=None):
             later.setdefault(j, []).append(cid)
         elif j:
             s = src.get(j)
+            if s and s["type"] in STOCK_TYPES:
+                continue        # 🆕 ⑤b-3a：イメージの地（Pexels・make_list31.GMAP の英字の記号）＝束の外＝cmd_build の stock の枝（`ref/ep31/stock/<記号>.jpg`・git に入れない）
             if not s or s["type"] not in COMMONS_TYPES + NATION_TYPES:
                 bad.append(f"{cid} {j}: 地の写真が Commons か国の写真でない（{s['type'] if s else '表に無い'}）")
             elif s["rights"] not in GROUND_RIGHTS:
@@ -1124,7 +1127,8 @@ def cmd_credits(write=False):
             print(f"🔴 {n}: 出典の行の字幅 {wd:.1f}（{CREDIT_W_MAX} まで＝画面の左下からはみ出すおそれ）")
             bad += 1
         cj[f"ep31/{n}.jpg"] = r["credit"]
-        kind = "公的な機関の頁" if r["page"] else ("国土地理院の空中写真" if r["lic"] == "PDL1.0" else "この回の物と場所")
+        kind = ("公的な機関の頁" if r["page"] else "国土地理院の空中写真" if r["lic"] == "PDL1.0"
+                else "イメージ＝この回の物でない・束の外" if r.get("stock") else "この回の物と場所")     # 🆕 ⑤b-3a：Pexels は「イメージ」
         cr_ = r.get("credit") or ""
         mod = ("・顔とナンバーに升目" if "顔とナンバー" in cr_ else "・ナンバーに升目" if "ナンバーにモザイク" in cr_ else "・顔に升目") if r.get("mosaic") else ""
         use = " ".join(cuts) + (f"（地 {r['ji']}）" if r["ji"] else "")
@@ -1161,6 +1165,8 @@ def cmd_credits(write=False):
         "- BY-SA＝額装（無加工・1点1カット・升目もかけない＝人とナンバーが写っていない点だけ）。CC BY・CC0 の私人の顔とナンバーは升目（「／改変：…にモザイク」）。公的な任務の顔はそのまま。色は原本のまま",
         "- 説明カットの地（「地 c…」）＝CC BY・CC0・PDL1.0 の写真を暗くするだけ（字と地の比 8:1 が下限・出典の行は「地の写真：…／改変：切出・明るさ」・国土地理院は「加工して作成」）",
         "- 撮影年＝Commons の頁の撮影日・地理院の層（gazo1＝1974〜1978年）・文書の日付（`sources31.psv` の時期の欄）。表示に年の無い点は「不明」＝副題に年を書かない",
+        "- 🆕 ⑤b-3a（11-08）：イメージの写真（Pexels・全面33＋地13＝`x…`・`g…`）＝写真の頁の JSON の license＝Pexels を1本ずつ確かめた・640px と原寸で見た"
+        "（人の顔・ナンバー・店の名前・読める字なし）。束の外＝git に入れない（焼くときに台帳の直リンクから取り直して md5 を照らす）・出典の行は「イメージ（Pexels）」だけ・投稿者の名前は書かない",
         "",
         "| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |",
         "|---|---|---|---|---|---|", *rows, "",

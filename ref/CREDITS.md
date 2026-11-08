@@ -3593,6 +3593,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 - BY-SA＝額装（無加工・1点1カット・升目もかけない＝人とナンバーが写っていない点だけ）。CC BY・CC0 の私人の顔とナンバーは升目（「／改変：…にモザイク」）。公的な任務の顔はそのまま。色は原本のまま
 - 説明カットの地（「地 c…」）＝CC BY・CC0・PDL1.0 の写真を暗くするだけ（字と地の比 8:1 が下限・出典の行は「地の写真：…／改変：切出・明るさ」・国土地理院は「加工して作成」）
 - 撮影年＝Commons の頁の撮影日・地理院の層（gazo1＝1974〜1978年）・文書の日付（`sources31.psv` の時期の欄）。表示に年の無い点は「不明」＝副題に年を書かない
+- 🆕 ⑤b-3a（11-08）：イメージの写真（Pexels・全面33＋地13＝`x…`・`g…`）＝写真の頁の JSON の license＝Pexels を1本ずつ確かめた・640px と原寸で見た（人の顔・ナンバー・店の名前・読める字なし）。束の外＝git に入れない（焼くときに台帳の直リンクから取り直して md5 を照らす）・出典の行は「イメージ（Pexels）」だけ・投稿者の名前は書かない
 
 | 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
 |---|---|---|---|---|---|
@@ -3630,6 +3631,52 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `p5` | c207 | 不明 | SDASM（著作権の制限は知られていない）（この回の物と場所） | SDASM Archives（Flickr の The Commons） | commons:F-86F-40 of JSDF.jpg |
 | `p6` | c211（地 c212 c404 c416 c504 c522 c523 c612 c613 c914） | 2020 | CC0（この回の物と場所） | 表示は任意（CC0） | commons:North American F-86F-40-238 - F-86F-40-MIT Sabre - Kyokkō ‘865 - 82-7865’ (20810093715).jpg |
 | `p7` | c311 | 2021 | CC BY-SA 4.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep31/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:JASDF F-86F(62-7702) right front view at the Mitsubishi Heavy Industries Komaki Minami factory May 14, 2021.jpg |
+| `gb1` | （地 c312） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/white-board-in-the-office-9034248/ |
+| `gc1` | （地 c205 c216 c327 c403 c405 c415 c503 c505 c507 c508 c602 c603 c919 cb01 cb02 cb07 cb08 cb12 cb13 cb15 cb16 cb18） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/blue-sky-with-fluffy-cumulus-clouds-6623685/ |
+| `gc2` | （地 c509 c510 c511 c513 c515 c516 c518 c519 c605 c606 c610 c614 c616 c618 c619 c620 c621 c623 c624 c810） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/flying-over-white-cumulus-clouds-12728525/ |
+| `gf1` | （地 c521 c627 c628 c904 c906 c908 c930 c931 ca01 ca02 ca03 ca11 cc11 cc12） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/lush-green-forest-canopy-aerial-view-in-summer-32077731/ |
+| `gf2` | （地 c802 c812） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/aerial-footage-of-trees-5667017/ |
+| `gm1` | （地 c310 c712） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/hill-over-forest-26146519/ |
+| `gm2` | （地 c411 c412） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/view-of-green-mountains-under-a-cloudy-sky-18821817/ |
+| `gp1` | （地 ca04 cc05） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/aerial-view-of-private-airstrip-by-forest-37260527/ |
+| `gr1` | （地 c808） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/shallow-tranquil-river-in-forest-18332769/ |
+| `gs1` | （地 c803 c804 c805） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/white-clouds-in-sky-23499290/ |
+| `gs2` | （地 c210） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/vibrant-blue-sky-with-fluffy-clouds-32047220/ |
+| `gs3` | （地 cc14） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/blue-sky-3940880/ |
+| `gw1` | （地 c607 c608 c617 c626 cc09 cc10） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/aerial-view-of-clouds-and-airplane-wing-36705757/ |
+| `x217` | c217 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/empty-airstrip-with-mountainous-backdrop-in-meghalaya-36906759/ |
+| `x306` | c306 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/a-close-up-shot-of-a-map-6664694/ |
+| `x315` | c315 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/stunning-aerial-view-above-the-clouds-38351381/ |
+| `x329` | c329 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/contrail-and-white-clouds-on-sky-15793141/ |
+| `x418` | c418 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/scenic-view-of-clouds-9737272/ |
+| `x512` | c512 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/white-clouds-in-the-sky-15273872/ |
+| `x524` | c524 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/white-clouds-under-blue-sky-9890018/ |
+| `x604` | c604 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/window-view-of-clouds-from-inside-of-airplane-10152633/ |
+| `x611` | c611 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/flying-over-white-clouds-12728528/ |
+| `x615` | c615 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/aerial-view-of-mountains-with-rolling-clouds-36718624/ |
+| `x629` | c629 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/aerial-view-of-clouds-and-landscape-below-38351370/ |
+| `x630` | c630 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/view-of-mountains-26146526/ |
+| `x631` | c631 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/wide-angle-shot-of-green-mountain-ranges-7079874/ |
+| `x718` | c718 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/coniferous-forest-on-hills-21352761/ |
+| `x807` | c807 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/beautiful-tranquil-river-in-japan-with-lush-foliage-29914710/ |
+| `x811` | c811 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/aerial-shot-of-green-trees-3923727/ |
+| `x813` | c813 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/cozy-village-by-hill-5223206/ |
+| `x921` | c921 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/aerial-photo-of-mountain-covered-in-trees-13444072/ |
+| `x934` | c934 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/empty-airport-apron-9873573/ |
+| `xa08` | ca08 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/plane-on-a-concrete-pavement-955085/ |
+| `xa12` | ca12 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/white-clouds-under-the-blue-sky-12335838/ |
+| `xa13` | ca13 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/two-chemtrails-in-blue-sky-17384796/ |
+| `xb14` | cb14 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/stunning-aerial-view-from-aircraft-cockpit-30970497/ |
+| `xb19` | cb19 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/serene-blue-sky-with-wispy-white-clouds-28886643/ |
+| `xb20` | cb20 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/aerial-view-of-lush-green-forest-landscape-38240830/ |
+| `xc04` | cc04 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/forest-trees-789397/ |
+| `xc06` | cc06 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/white-clouds-in-the-blue-sky-2061990/ |
+| `xc13` | cc13 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/white-clouds-in-sky-26077051/ |
+| `xc16` | cc16 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/fluffy-white-clouds-against-blue-sky-33683957/ |
+| `xc17` | cc17 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/photo-of-a-path-between-trees-13905859/ |
+| `xc18` | cc18 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/foggy-mountains-10471894/ |
+| `xc19` | cc19 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/beautiful-cirrus-cloudscape-in-blue-sky-31054631/ |
+| `xc20` | cc20 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/bottom-view-of-plane-with-contrail-1436697/ |
 | `w47_1_c713` | c713 | 1972 | PDL1.0（公的な機関の頁） | 各機関（国） | ② で取得ずみ |
 | `w47_2_c409` | c409 | 1972 | PDL1.0（公的な機関の頁） | 各機関（国） | ② で取得ずみ |
 | `w47_2_c601` | c601 | 1972 | PDL1.0（公的な機関の頁） | 各機関（国） | ② で取得ずみ |

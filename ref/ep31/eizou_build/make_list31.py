@@ -111,8 +111,15 @@ def foot_code(text):
     return 'MK' if '航空自衛隊部隊改編' in text else 'MS'
 
 
+# 🆕 ⑤b-3a（2026-11-08）：地のイメージ〈…〉→ Pexels の記号（30本目 make_list30.GMAP の型）。束の道具は記号の「:」の前しか見ない（`_code_of`）＝
+#    「G:名」のままだと記号が `G` になる・ファイル名にも「:」は使えない＝英字の記号へ。名は台本の地の欄と字まで同じ（前方一致にしない＝「夏の山並み」と「夏の山並みを高い所から」）
+GMAP = (('夏の雲の上', 'GC1'), ('雲の上', 'GC2'), ('旅客機の窓の外の雲', 'GW1'), ('夏の空', 'GS1'), ('夏の青空', 'GS2'), ('夏の高い空', 'GS3'),
+        ('夏の森', 'GF1'), ('夏の山の森', 'GF2'), ('夏の山並み', 'GM1'), ('夏の山並みを高い所から', 'GM2'), ('夏の昼の空港の遠景', 'GP1'),
+        ('部屋の白い板', 'GB1'), ('夏の川', 'GR1'))
+
+
 def ji_code(desc):
-    """台本の「地＝…」→ 地の素材の記号（空中＝A1〜・写真＝P…・記録映像のコマ＝MS=秒・イメージ＝G:…・衛星＝SAT:…）"""
+    """台本の「地＝…」→ 地の素材の記号（空中＝A1〜・写真＝P…・記録映像のコマ＝MS=秒・イメージ＝GMAP の記号〈無い名は G:…〉・衛星＝SAT:…）"""
     m = re.search(r'地＝(.*)$', desc)
     if not m:
         return ''
@@ -128,7 +135,7 @@ def ji_code(desc):
         return '%s=%.1f' % (foot_code(s), hms(*t.groups())) if t else foot_code(s)
     m2 = re.match(r'イメージ〈([^〉]*)〉', s)
     if m2:
-        return 'G:' + m2.group(1)
+        return next((c for w, c in GMAP if m2.group(1) == w), 'G:' + m2.group(1))
     if s.startswith(('実写 衛星', '衛星')):
         return 'SAT:' + re.split(r'[（・）]', s.split('衛星', 1)[1].strip())[0]
     return '?' + s[:20]

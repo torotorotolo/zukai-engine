@@ -5,6 +5,7 @@
   PYTHONIOENCODING=utf-8 python -X utf8 -P ref/ep31/eizou_build/fetch31e.py commons [記号…]   sources31.psv の get＝commons:… を src/eizou/<記号>.jpg へ
   PYTHONIOENCODING=utf-8 python -X utf8 -P ref/ep31/eizou_build/fetch31e.py gsi [記号…]       地理院タイル（A1〜A3・A6・A7）を src/gsi/tiles/ に揃えて記録（無い分だけ取る）
   PYTHONIOENCODING=utf-8 python -X utf8 -P ref/ep31/eizou_build/fetch31e.py kokkai [記号…]    🆕 ⑤b-2b：国会会議録7会議の PDF（公的＝許可不要）を src/kokkai_pdf/ へ（頁の数を写しの startPage と照らす）
+  PYTHONIOENCODING=utf-8 python -X utf8 -P ref/ep31/eizou_build/fetch31e.py stock [記号…]     🆕 ⑤b-3a：Pexels の写真（了承②の46本）を src/stock/<記号>.jpg へ（🔴 git に入れない・記録と違う直リンクなら取り直す）
   PYTHONIOENCODING=utf-8 python -X utf8 -P ref/ep31/eizou_build/fetch31e.py reparse [記号…]   残した頁を読み直して権利・撮影者の表・名前の網を作り直す（ネットに出ない）
 
 作法（記憶 reference-commons-standard-thumbnail-sizes）：
@@ -517,10 +518,83 @@ def selftest():
     return 0 if all(g for _, g in ok) else 1
 
 
+PEXELS_IMG = 'https://images.pexels.com/photos/'
+
+
+def stock(only):
+    """🆕 ⑤b-3a（2026-11-08）：Pexels の写真（sources31 の type＝stock・get＝stock:<置き場の直リンク>・file＝src/stock/<記号>.jpg・了承②）。
+    30本目 fetch30e.stock の型＝HEAD で種類と長さ → 流しながら GET → 長さの照合 → md5 を2回（2秒あけて）→ PIL で縦横 → fetch31.tsv の 出どころ＝`stock:<直リンク>`。
+    ⚠️ 記号は素材を替えても同じ＝記録の直リンクと違えば取り直す（記録は足すだけ・最後の行が効く）。直リンクは images.pexels.com だけ（robots＝全部許可）。
+    1点ごとに 2秒あける・429 と 5xx は待つ（回避しない）・1点目の失敗はそこで止める"""
+    from PIL import Image
+    want_rows = []
+    for ln in open(PSV, encoding='utf-8'):
+        if not ln.strip() or ln.startswith('#'):
+            continue
+        d = dict(zip(KEYS, ln.rstrip('\n').split('|')))
+        if d.get('type') == 'stock' and d.get('get', '').startswith('stock:http') and d.get('file', '').endswith('.jpg'):
+            want_rows.append(d)
+    done = {}
+    if os.path.exists(LOG):
+        with open(LOG, encoding='utf-8') as f:
+            for ln in f:
+                c = ln.rstrip('\n').split('\t')
+                if len(c) >= 9 and c[2] == 'stock':
+                    done[c[1]] = c[8]
+    bad, n_got = 0, 0
+    for d in want_rows:
+        if (only and d['code'] not in only) or done.get(d['code']) == d['get']:
+            continue
+        url = d['get'][6:]
+        if not url.startswith(PEXELS_IMG):
+            print('%s ✗ 直リンクが images.pexels.com の写真でない（%s）＝止める' % (d['code'], url[:60]))
+            return 1
+        path = os.path.join(EP, d['file'])
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        st, h = fetch(url, 'HEAD')
+        ct = (h.headers.get('Content-Type') or '') if h else ''
+        want = int(h.headers.get('Content-Length') or 0) if h else 0
+        if st != 200 or not ct.startswith('image/jpeg'):
+            print('%s ✗ HEAD %s（%s）' % (d['code'], st, ct))
+            bad += 1
+            if n_got == 0:
+                return 1
+            continue
+        st, g = fetch(url)
+        if st != 200 or g is None:
+            print('%s ✗ GET %s' % (d['code'], st))
+            bad += 1
+            continue
+        n = 0
+        with g, open(path + '.part', 'wb') as f:
+            for b in iter(lambda: g.read(1 << 20), b''):
+                f.write(b)
+                n += len(b)
+        if want and n != want:
+            print('%s ✗ 大きさが HEAD と違う（%d / %d）' % (d['code'], n, want))
+            bad += 1
+            continue
+        os.replace(path + '.part', path)
+        m1 = md5(path)
+        time.sleep(2)
+        m2 = md5(path)
+        with Image.open(path) as im:
+            w, hh = im.size
+        log([datetime.date.today().isoformat(), d['code'], 'stock', n, m1, m2, '%dx%d' % (w, hh), d['file'], d['get']])
+        print('%s %.2fMB %dx%d md5 %s %s' % (d['code'], n / 1e6, w, hh, m1[:8], 'md5x2一致' if m1 == m2 else '🔴md5不一致'), flush=True)
+        bad += m1 != m2
+        n_got += 1
+        time.sleep(2)
+    print('おわり＝取った %d・失敗 %d' % (n_got, bad))
+    return 1 if bad else 0
+
+
 def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else ''
     if mode == 'selftest':
         return selftest()
+    if mode == 'stock':
+        return stock(set(sys.argv[2:]) or None)
     if mode == 'commons':
         return commons(set(sys.argv[2:]) or None)
     if mode == 'gsi':
