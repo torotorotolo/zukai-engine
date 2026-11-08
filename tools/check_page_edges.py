@@ -53,6 +53,8 @@ K_STEPS = 21
 # 画面での高さがこれ未満の「行」は字として読めない＝測らない（参考に出す）。OCR が模様を字と読んだ幻を含む
 #   （13本目 c102 の森の破片「ゞ ツ レ」＝画面 8px）。本物の頁の行は画面 19〜39px（⑤c' の実測）
 MIN_H_PX = 10
+# 🆕 2026-11-09（31本目 ⑤b-7）：対照にする行の最小の幅（元の絵の画素）＝横書きの字の行として意味のある長さ。句読点の欠けらを対照に選ばない（pick_control）
+CONTROL_MIN_W = 200
 
 
 def rects_of(sw, sh, box, spec):
@@ -156,8 +158,12 @@ def pick_control(spec_map, ocr, photo_of, box_of, skip):
         tr = CS.trim_of(spec) or (0.0, 0.0, 1.0, 1.0)
         for ln in o["lines"]:
             b = ln["box"]
+            # 🆕 2026-11-09（31本目 ⑤b-7）：幅 CONTROL_MIN_W 未満の行は対照にしない。31本目の紙面22は数行だけを切った細い絵＝本物の字の行は
+            #    `check_slide.line_is_text`（高さ 3.5% まで）で全部ふるい落とされ、残ったのは c806 の縦書きの句読点の欠けら「、 0」（13×45px）だけ
+            #    ＝それが対照に選ばれ、高さいっぱいの額（512×830）で trim を行の真ん中へ動かすと額に合わせて横が切られ、行が窓の外へ出て陽性①②が
+            #    「出ない」で止まった（上の地図・写真と同じ形）。欠けらしか無ければ下の synth_control（合成の頁）で物差しを確かめる
             if (b[0] >= tr[0] * sw and b[2] <= tr[2] * sw and b[1] > tr[1] * sh + 4 and b[3] < tr[3] * sh - 4
-                    and b[3] - b[1] >= 8 and (best is None or b[2] - b[0] > best[3])):
+                    and b[3] - b[1] >= 8 and b[2] - b[0] >= CONTROL_MIN_W and (best is None or b[2] - b[0] > best[3])):
                 best = (cid, spec, ln, b[2] - b[0], tr, sh)
     return best
 

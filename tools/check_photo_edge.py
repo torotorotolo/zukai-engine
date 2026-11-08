@@ -93,8 +93,8 @@ def sweep(not_mount, db=None):
     return out, bad
 
 
-def check(spec=None, mount=None, use=None, not_mount=None, db=None):
-    """(所見の一覧, exit)。spec・mount・use・not_mount を渡さなければ本番（cuts.SPEC・ss.SLIDE_MOUNT・footage.USE・ss.SLIDE_NOT_MOUNT）"""
+def check(spec=None, mount=None, use=None, not_mount=None, db=None, none=None):
+    """(所見の一覧, exit)。spec・mount・use・not_mount・none を渡さなければ本番（cuts.SPEC・ss.SLIDE_MOUNT・footage.USE・ss.SLIDE_NOT_MOUNT・ss.SLIDE_NONE）"""
     import check_slide as CS
     import cuts.ss as ss
     if spec is None:
@@ -102,15 +102,20 @@ def check(spec=None, mount=None, use=None, not_mount=None, db=None):
         spec = cuts.SPEC
     mount = ss.SLIDE_MOUNT if mount is None else mount
     not_mount = getattr(ss, "SLIDE_NOT_MOUNT", {}) if not_mount is None else not_mount
+    none = (getattr(ss, "SLIDE_NONE", None) or "") if none is None else none
     if use is None:
         import footage
         use = footage.USE
     if not mount:
         # 🆕 2026-10-14（22本目 ⑤b-2）：名簿が空でも「暗い帯のある点を全部見て、台紙でないと決めた」なら、この回に縁のある写真は無いと言える
-        if not not_mount:
+        # 🆕 2026-11-09（31本目 ⑤b-7）：暗い帯のある点が0点の回は SLIDE_NOT_MOUNT に書ける点が無い＝言い分 ss.SLIDE_NONE（SAT_NONE と同じ型）。
+        #    言い分があっても束の全点を測る（sweep）＝暗い帯のある点が1つでも出れば止める。言い分も名簿も無ければ今までどおり止める
+        if not not_mount and not none:
             return ["🔴 SLIDE_MOUNT が空（縁のある写真の名簿が読めていない＝fail closed）。台紙の縁のある写真が無い回なら、"
-                    "暗い帯のある点を ss.SLIDE_NOT_MOUNT に理由つきで書く（`qa_out/<回>_assets.py edges`）"], 2
+                    "暗い帯のある点を ss.SLIDE_NOT_MOUNT に理由つきで書く（`qa_out/<回>_assets.py edges`）・暗い帯のある点も0点なら ss.SLIDE_NONE に言い分を書く"], 2
         out, bad = sweep(not_mount, db)
+        if none and not not_mount:
+            out.insert(0, f"・言い分 SLIDE_NONE：{none}")
         return out, (2 if bad else 0)
     import scene_jiko as S
     out, bad, seen = [], 0, 0
@@ -233,10 +238,19 @@ def _selftest_none():
     chk(f"陽性対照：暗い帯のある {drop} を名簿から外すと鳴る（見ていない点を通さない）", code == 2 and any(drop in o for o in out))
     out, code = check({}, mount={}, use={}, not_mount=dict(nm, **{f"{ss.EP}no_such_photo.jpg": "古い名"}))
     chk("陽性対照：束に無い名が名簿に残ると鳴る（古い名簿）", code == 2)
-    out, code = check({}, mount={}, use={}, not_mount={})
-    chk("陽性対照：SLIDE_MOUNT も SLIDE_NOT_MOUNT も空なら鳴る（fail closed）", code == 2)
+    out, code = check({}, mount={}, use={}, not_mount={}, none="")
+    chk("陽性対照：SLIDE_MOUNT も SLIDE_NOT_MOUNT も SLIDE_NONE も空なら鳴る（fail closed）", code == 2)
     out, code = check({}, mount={}, use={}, not_mount=nm, db={})
     chk("陽性対照：束が空なら鳴る（0点を「縁は無い」にしない）", code == 2)
+    # 🆕 2026-11-09（31本目 ⑤b-7）：言い分 SLIDE_NONE（暗い帯のある点が0点の回）。言い分があっても束を測る＝暗い帯のある点が残れば鳴る
+    out, code = check({}, mount={}, use={}, not_mount={}, none="試しの言い分")
+    chk(f"陽性対照：言い分 SLIDE_NONE があっても、暗い帯のある点（22本目の見本の {len(nm)}点）を測って鳴る（言い分を鵜呑みにしない）",
+        code == 2 and any(sorted(nm)[0] in o for o in out))
+    db_light = {k: v for k, v in ss._assets().items() if ss.P(k) not in nm}
+    out, code = check({}, mount={}, use={}, not_mount={}, db=db_light, none="試しの言い分")
+    chk(f"陰性対照：言い分 SLIDE_NONE があり、暗い帯のある点を除いた束（{len(db_light)}点）なら通る", code == 0)
+    out, code = check({}, mount={}, use={}, not_mount={}, db={}, none="試しの言い分")
+    chk("陽性対照：言い分があっても束が空なら鳴る", code == 2)
     return ok
 
 
