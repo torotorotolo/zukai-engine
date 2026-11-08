@@ -1,0 +1,66 @@
+{
+ "MS": {
+  "url": "https://commons.wikimedia.org/wiki/File:%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm",
+  "media": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a7/%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm/%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm.1080p.vp9.webm",
+  "credit": "防衛省・自衛隊『昭和46年防衛庁記録』（CC BY 3.0）・改変：切出・再生速度",
+  "src": "mod",
+  "at": 0.0,
+  "date": "1971",
+  "stock": false,
+  "what": "昭和46年防衛庁記録（章「雫石事故」元 18:34〜20:38）",
+  "got": "2026-11-07",
+  "w": 1920,
+  "h": 1080,
+  "fps": 29.97,
+  "sar": "1:1",
+  "sec": 2006.834,
+  "size": 930511405,
+  "dispw": 1920,
+  "decoded": [
+   1920,
+   1080
+  ],
+  "license": "CC BY 3.0",
+  "rights": "CC BY 3.0（防衛省・自衛隊の YouTube 公式 HK0v9n-PTIM・Commons の同じ版）",
+  "scan": "ref/ep31/src/bouei/s46_1105-1245_1080p.webm",
+  "md5_scan": "eb5364d81a2bd3b2f8f0d87e2d6f01ff",
+  "local_off": 1097.997,
+  "content_x": [
+   252,
+   1660
+  ],
+  "note": "音は使わない。手元の写しの秒＝元の秒−local_off（⑤b-2 に変換版のキーフレームを ffprobe の範囲読みで測った）。器 1920×1080 に4:3 の白黒（中身 x 252〜1660）＝31本目は額装だけ（PILLAR なし・寄り 1.02）"
+ },
+ "MK": {
+  "url": "https://commons.wikimedia.org/wiki/File:%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm",
+  "media": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a7/%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm/%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm.1080p.vp9.webm",
+  "credit": "防衛省・自衛隊『昭和46年防衛庁記録』（CC BY 3.0）・改変：切出・再生速度",
+  "src": "mod",
+  "at": 0.0,
+  "date": "1971",
+  "stock": false,
+  "what": "昭和46年防衛庁記録（章「航空自衛隊部隊改編」元 16:50〜17:54）",
+  "got": "2026-11-07",
+  "w": 1920,
+  "h": 1080,
+  "fps": 29.97,
+  "sar": "1:1",
+  "sec": 2006.834,
+  "size": 930511405,
+  "dispw": 1920,
+  "decoded": [
+   1920,
+   1080
+  ],
+  "license": "CC BY 3.0",
+  "rights": "CC BY 3.0（防衛省・自衛隊の YouTube 公式 HK0v9n-PTIM・Commons の同じ版）",
+  "scan": "ref/ep31/src/bouei/s46_1005-1077_1080p.webm",
+  "md5_scan": "3b29ef6d79f3d945460516bbc47bc09c",
+  "local_off": 996.195,
+  "content_x": [
+   252,
+   1660
+  ],
+  "note": "音は使わない。手元の写しの秒＝元の秒−local_off（⑤b-2 に変換版のキーフレームを ffprobe の範囲読みで測った）。器 1920×1080 に4:3 の白黒（中身 x 252〜1660）＝31本目は額装だけ（PILLAR なし・寄り 1.02）"
+ }
+}

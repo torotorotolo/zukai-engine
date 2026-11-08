@@ -936,6 +936,8 @@ def ep19_credit(name):
 #    🔴 git の外の表は1つ＝`ref/ep31/src/credits_private.tsv`（Commons の撮影者・頭の行なし・8列＝code・file・author…・attr）＝credits.json に印だけを書き、焼くときに足す
 #       （17・23〜30本目の型）。印 `{作者}`＝3列目（author）・🆕 `{帰属}`＝8列目（attr＝P1・P3 は許諾の箱に「帰属の書き方」の指定がある＝映像方針 §4 の9）。
 #       ⚠️ 8列目は 160字＝画面の出典の行（24字まで）に入らない＝今は止める（fail closed）＝⑤b-2 の束のチャットで画面の形（概要欄に全文・画面は短い形か）を決めてから直す
+#       ✅ 2026-11-08（⑤b-2）：決めた＝P1・P3 の許諾の箱の「Attribution:」の指定は3列目（author）と1字も違わない（頁の写しで照らした・`qa_out/ep31_assets.py` の `_attr_ok`）。
+#          8列目の160字は許諾の雛形の文（「You are free…」）を取り違えて写したもの＝帰属の指定ではない＝credits.json は印 `{作者}` だけを使う（`{帰属}` を書けば束の道具が止める）
 _EP31_CREDITS = HERE / "ref" / "ep31" / "credits.json"
 EP31_CREDIT = (json.loads(_EP31_CREDITS.read_text(encoding="utf-8"))
                if _EP31_CREDITS.exists() else {})
@@ -1850,6 +1852,9 @@ def ground_credit(cid, spec):
     body = body.replace("／改変なし", "／改変：切出")
     # 🆕 30本目 ⑤b-2：国の写真（PDL1.0）＝出典の行の「加工して作成」が編集の記載そのもの（切り出しも明るさも含む）＝「／改変：」を重ねない（字幅も 56.5 に収まる）
     if "PDL1.0" in body and "加工して作成" in body:
+        return "地の写真：" + body
+    # 🆕 31本目 ⑤b-2：国土地理院の空中写真（地理院タイル＝PDL1.0 の読み・出典の行は「国土地理院ウェブサイト（…）・加工して作成」＝PDL1.0 の字を持たない）も同じ
+    if body.startswith("国土地理院") and "加工して作成" in body:
         return "地の写真：" + body
     # 🆕 30本目 ⑤b-4：イメージ（Pexels の地）＝帰属も改変の断りも義務が無い＝「イメージ」の断りだけ残す（この事件の絵でないと分かる）
     if "（Pexels）" in body:

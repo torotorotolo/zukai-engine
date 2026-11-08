@@ -1,0 +1,188 @@
+{
+ "MS": {
+  "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a7/%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm/%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm.1080p.vp9.webm",
+  "scan": "ref/ep31/src/bouei/s46_1105-1245_1080p.webm",
+  "dur": 120.12,
+  "how": "⑤b-2（11-08）：手元の写し（29.97コマ/秒・64×36 の灰色・中身の列だけ）の隣のコマの差の山（差 8 以上・隣の3倍の 0.8倍以上）をキーフレームで測った off で元の秒に直した。章の外は表に入れない＝USE に書けば止まる",
+  "shots": [
+   {
+    "start": 1117.383,
+    "until": 1120.486,
+    "motion": 0.0
+   },
+   {
+    "start": 1120.486,
+    "until": 1123.322,
+    "motion": 0.0
+   },
+   {
+    "start": 1123.322,
+    "until": 1130.663,
+    "motion": 0.0
+   },
+   {
+    "start": 1130.663,
+    "until": 1134.734,
+    "motion": 0.0
+   },
+   {
+    "start": 1134.734,
+    "until": 1144.377,
+    "motion": 0.0
+   },
+   {
+    "start": 1144.377,
+    "until": 1148.381,
+    "motion": 0.0
+   },
+   {
+    "start": 1148.381,
+    "until": 1157.823,
+    "motion": 0.0
+   },
+   {
+    "start": 1157.823,
+    "until": 1161.827,
+    "motion": 0.0
+   },
+   {
+    "start": 1161.827,
+    "until": 1164.83,
+    "motion": 0.0
+   },
+   {
+    "start": 1164.83,
+    "until": 1167.667,
+    "motion": 0.0
+   },
+   {
+    "start": 1167.667,
+    "until": 1168.0,
+    "motion": 0.0
+   },
+   {
+    "start": 1168.0,
+    "until": 1169.936,
+    "motion": 0.0
+   },
+   {
+    "start": 1169.936,
+    "until": 1170.236,
+    "motion": 0.0
+   },
+   {
+    "start": 1170.236,
+    "until": 1174.106,
+    "motion": 0.0
+   },
+   {
+    "start": 1174.106,
+    "until": 1183.95,
+    "motion": 0.0
+   },
+   {
+    "start": 1183.95,
+    "until": 1194.527,
+    "motion": 0.0
+   },
+   {
+    "start": 1194.527,
+    "until": 1198.965,
+    "motion": 0.0
+   },
+   {
+    "start": 1198.965,
+    "until": 1206.205,
+    "motion": 0.0
+   },
+   {
+    "start": 1206.205,
+    "until": 1212.111,
+    "motion": 0.0
+   },
+   {
+    "start": 1212.111,
+    "until": 1217.116,
+    "motion": 0.0
+   },
+   {
+    "start": 1217.116,
+    "until": 1220.987,
+    "motion": 0.0
+   },
+   {
+    "start": 1220.987,
+    "until": 1227.059,
+    "motion": 0.0
+   },
+   {
+    "start": 1227.059,
+    "until": 1230.463,
+    "motion": 0.0
+   },
+   {
+    "start": 1230.463,
+    "until": 1237.503,
+    "motion": 0.0
+   }
+  ]
+ },
+ "MK": {
+  "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a7/%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm/%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm.1080p.vp9.webm",
+  "scan": "ref/ep31/src/bouei/s46_1005-1077_1080p.webm",
+  "dur": 64.064,
+  "how": "⑤b-2（11-08）：手元の写し（29.97コマ/秒・64×36 の灰色・中身の列だけ）の隣のコマの差の山（差 8 以上・隣の3倍の 0.8倍以上）をキーフレームで測った off で元の秒に直した。章の外は表に入れない＝USE に書けば止まる",
+  "shots": [
+   {
+    "start": 1009.341,
+    "until": 1019.852,
+    "motion": 0.0
+   },
+   {
+    "start": 1019.852,
+    "until": 1026.959,
+    "motion": 0.0
+   },
+   {
+    "start": 1026.959,
+    "until": 1031.03,
+    "motion": 0.0
+   },
+   {
+    "start": 1031.03,
+    "until": 1034.1,
+    "motion": 0.0
+   },
+   {
+    "start": 1034.1,
+    "until": 1038.537,
+    "motion": 0.0
+   },
+   {
+    "start": 1038.537,
+    "until": 1048.881,
+    "motion": 0.0
+   },
+   {
+    "start": 1048.881,
+    "until": 1058.791,
+    "motion": 0.0
+   },
+   {
+    "start": 1058.791,
+    "until": 1063.763,
+    "motion": 0.0
+   },
+   {
+    "start": 1063.763,
+    "until": 1067.833,
+    "motion": 0.0
+   },
+   {
+    "start": 1067.833,
+    "until": 1073.405,
+    "motion": 0.0
+   }
+  ]
+ }
+}

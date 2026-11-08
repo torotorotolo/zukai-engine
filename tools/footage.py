@@ -417,6 +417,7 @@ NOGO = {
     #    31本目の外す秒＝昭和46年防衛庁記録の章「雫石事故」の新聞の紙面（報道と犠牲者の顔写真）・包んだ物の積み込み（搬送と見る）・参列者の近景（遺族が含まれうる）
     #    ＝`ref/ep31/eizou_build/make_list31.py` の EXCLUDE（元の記録映画の秒・前後 0.5秒）＝束のチャットで clips.json の鍵が決まってから、その秒を含むショットまるごとで書く
     # EP31_NOGO>>> ここから（手で書かない）
+    "MS": [(1113.0, 1117.883, '新聞の紙面（報道と犠牲者の顔写真）'), (1130.163, 1135.234, '包んだ物の積み込み（搬送と見る）'), (1220.487, 1227.559, '参列者の近景（遺族が含まれうる）')],
     # EP31_NOGO>>> ここまで
 }
 
@@ -437,7 +438,9 @@ def in_nogo(use=None, secs=None):
         if not rng:
             continue
         a = float(u["start"])
-        b = a if u.get("still") else a + secs.get(cid, 0.0) * float(u.get("rate", 1.0))
+        # 🆕 31本目 ⑤b-2（2026-11-08）：止め（hold）の秒は読まない＝本番の切り出し（`_cut_stream` の secs − hold）と同じ式。
+        #    hold を引かずに数えると、尻のコマで止める欄（cc15＝0.40倍＋止め 1.6秒）を、読まない 0.64秒ぶん禁止の秒に掛かると取り違えた
+        b = a if u.get("still") else a + max(0.0, secs.get(cid, 0.0) - float(u.get("hold", 0.0))) * float(u.get("rate", 1.0))
         for x0, x1, why in rng:
             if b > x0 + 1e-9 and a < x1:
                 out.append((cid, u["clip"], a, b, x0, x1, why))
@@ -708,6 +711,11 @@ USE = {
     #   要る秒は `ref/ep31/eizou_build/list31.tsv` の cont（narration.json の実測の秒・扉を除く）。欄は束のチャットで道具から書き出す（手で書かない）＝下の印のあいだ。
     #   音は使わない（-an）・0.40倍より遅くしない・止めは区間の尻のコマで（`over31.psv` の「＋止め」）
     # EP31_USE>>> ここから（手で書かない）
+    "c101": dict(clip="MS", start=1117.90, until=1120.40, rate=0.4, hold=2.6, zoom=1.02),   # 読む 2.46秒（〜1120.36）／区間 2.50秒・要る 8.75秒・元の編集の切れ目 なし
+    "c102": dict(clip="MS", start=1120.50, until=1123.30, rate=0.4, hold=0.5, zoom=1.02),   # 読む 2.76秒（〜1123.26）／区間 2.80秒・要る 7.41秒・元の編集の切れ目 なし
+    "c104": dict(clip="MK", start=1010.00, until=1018.00, rate=1.0, zoom=1.02),   # 読む 7.95秒（〜1017.95）／区間 8.00秒・要る 7.95秒・元の編集の切れ目 なし
+    "c106": dict(clip="MS", start=1231.50, until=1237.40, rate=0.5, hold=2.1, zoom=1.02),   # 読む 5.87秒（〜1237.37）／区間 5.90秒・要る 13.83秒・元の編集の切れ目 なし
+    "c107": dict(clip="MS", start=1202.50, until=1212.05, rate=0.8, zoom=1.02, edit=True),   # 読む 9.51秒（〜1212.01）／区間 9.55秒・要る 11.89秒・元の編集の切れ目 1206.2
     # EP31_USE>>> ここまで
 }
 # ⚠️ 2026-09-23（12本目 ⑤c' 直しE）：ここにあった前の回の注（9.11 の c621・c712／6本目キー橋の「まだ決まっていない
@@ -910,6 +918,11 @@ def selftest():
                          secs)), False)
         chk("禁止の表に無いクリップは対象外",
             bool(in_nogo({"x03": dict(clip="zz_clip", start=12.0, until=20.0)}, secs)), False)
+        # 🆕 31本目 ⑤b-2：止め（hold）の秒は読まない＝本番の切り出しと同じ式
+        chk("陰性対照：止め 2.0秒なら読むのは 12.0〜16.0＝禁止の 17.0 に掛からない",
+            bool(in_nogo({"x01": dict(clip="t_clip", start=12.0, until=20.0, hold=2.0)}, secs)), False)
+        chk("陽性対照：止め 0.5秒では読むのが 12.0〜17.5＝禁止の 17.0 に掛かる",
+            bool(in_nogo({"x01": dict(clip="t_clip", start=12.0, until=20.0, hold=0.5)}, secs)), True)
 
         # ⑤ 🔴 PILLAR：素材の黒帯を寄りで消す（K-12）。**定数は実測と突き合わせる**
         globals()["PILLAR"] = {"t_clip": 0.75}

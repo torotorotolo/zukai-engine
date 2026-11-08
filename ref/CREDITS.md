@@ -3576,3 +3576,51 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `X703` | c703 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-subway-station-entrance-4625080/ | 2026-11-05 |
 | `X710` | c710 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/speedy-tunnel-vision-in-underground-train-ride-31435017/ | 2026-11-05 |
 | `Xc17` | cc17 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-blurry-photo-of-people-walking-through-a-train-station-26575728/ | 2026-11-05 |
+
+## 全日空機雫石衝突事故（1971-07-30・31本目）
+
+※2026-11-08（⑤b-2）。`qa_out/ep31_assets.py credits --write` が書く（手で直さない）。写真と紙面は映像方針の一覧 `ref/ep31/eizou_list31.md`（了承② 2026-11-08）。
+🔴 この回の線（台本 §1-4）＝亡くなった方・遺族・操縦者・乗員・役人・裁判官・弁護人の名前は書かない（立場だけ）。報道の写真・遺体・遺品・搬送の秒は使わない。
+
+### 0. 素材の読み（⚠️ 法律の助言ではない＝こちらの読み）
+- Commons の写真＝頁の許諾の箱（`licensetpl_short`）で読んだ（11-08）。BY-SA＝額装・無加工・1点1カット（P1 事故機 JA8329 は冒頭 c103 だけ）。P1・P3 は許諾の箱の「Attribution:」の指定どおりの名乗り（git の外の表の3列目と同じ＝束の道具が照らす）
+- SDASM Archives（P5）＝Flickr の The Commons（著作権の制限は知られていない）＝PD と書かない・地にしない
+- 国土地理院の空中写真＝地理院タイル（PDL1.0 の読み・公共データ利用規約 第1.0版）＝組んで切り出す・印は描かない・出典の行に「加工して作成」
+- 公的な機関の紙面＝判決・法令（著作権法13条の読み）・国会会議録の答弁（40条の読み）・運輸白書と国交省の記者発表（PDL1.0）＝切り出す・名前の行を切り口に入れない（同じ行の名前は字だけ隠す）・出典の行に「／改変：切出」
+
+### 1. 写真と紙面（Commons の CC BY・BY-SA・CC0・SDASM・国土地理院の空中写真・公的な機関の紙面）
+- CC BY・BY-SA・CC0＝「写真：{作者}／Wikimedia Commons（ライセンス）」。🔴 撮影者の名前はこのリポに書かない＝`ref/ep31/credits.json` は印 `{作者}` だけ・焼くときに git の外の表 `ref/ep31/src/credits_private.tsv` の3列目から足す（`tools/scene_jiko.ep31_credit`）
+- BY-SA＝額装（無加工・1点1カット・升目もかけない＝人とナンバーが写っていない点だけ）。CC BY・CC0 の私人の顔とナンバーは升目（「／改変：…にモザイク」）。公的な任務の顔はそのまま。色は原本のまま
+- 説明カットの地（「地 c…」）＝CC BY・CC0・PDL1.0 の写真を暗くするだけ（字と地の比 8:1 が下限・出典の行は「地の写真：…／改変：切出・明るさ」・国土地理院は「加工して作成」）
+- 撮影年＝Commons の頁の撮影日・地理院の層（gazo1＝1974〜1978年）・文書の日付（`sources31.psv` の時期の欄）。表示に年の無い点は「不明」＝副題に年を書かない
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `a1` | c215 c326（地 c202 c203 c213 c214 c303 c305 c309 c314 c321 c325 c328 c402 c407 c410 c414 c417 c502 c903 c915 c929 cb03 cb04 cb05 cb06 cc07 cc08） | 1974 | PDL1.0（国土地理院の空中写真） | 国土地理院 | ⑤b で地理院タイルを組む |
+| `a2` | c703（地 c704 c705 c708 c715 c716 c717 c901 c902 cc03） | 1974 | PDL1.0（国土地理院の空中写真） | 国土地理院 | ⑤b で地理院タイルを組む |
+| `a3` | cc02 | 不明 | PDL1.0（国土地理院の空中写真） | 国土地理院 | ⑤b で地理院タイルを組む |
+| `a6` | （地 c316 c317 c319） | 1974 | PDL1.0（国土地理院の空中写真） | 国土地理院 | ⑤b で地理院タイルを組む |
+| `a7` | c520 | 1974 | PDL1.0（国土地理院の空中写真） | 国土地理院 | ⑤b で地理院タイルを組む |
+| `l1` | （地 c911 c912 c913 c916 c918 c922 c923 c924 c925 c926 c927 c928） | 2014 | CC BY 3.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep31/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Saiko-saibansho - outside - October 2014.jpg |
+| `l1b` | c910 | 2013 | CC BY-SA 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep31/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Supreme Court of Japan (10357245203).jpg |
+| `l2` | c907 | 2013 | CC0（この回の物と場所） | 表示は任意（CC0） | commons:Sendai High District Court.JPG |
+| `l3` | ca06（地 ca07） | 2007 | CC BY 2.5（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep31/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Tokyo High Court Building01s3200.jpg |
+| `l4` | c905 | 2022 | CC BY-SA 4.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep31/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Morioka District Court 1.jpg |
+| `p1` | c103 | 1971 | CC BY-SA 4.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep31/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:JA8329 Boeing 727-281 All Nippon Airways, Tokyo International, May 1971.jpg |
+| `p10` | c809 | 2020 | CC0（この回の物と場所） | 表示は任意（CC0） | commons:North American F-86F-40-238 - F-86F-40-MIT Sabre - Kyokkō ‘865 - 82-7865’ (20810093720).jpg |
+| `p3` | c204 | 1979 | CC BY-SA 4.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep31/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:All Nippon Airways Boeing 727-200 JA8344.jpg |
+| `p5` | c207 | 不明 | SDASM（著作権の制限は知られていない）（この回の物と場所） | SDASM Archives（Flickr の The Commons） | commons:F-86F-40 of JSDF.jpg |
+| `p6` | c211（地 c212 c404 c416 c504 c522 c523 c612 c613 c914） | 2020 | CC0（この回の物と場所） | 表示は任意（CC0） | commons:North American F-86F-40-238 - F-86F-40-MIT Sabre - Kyokkō ‘865 - 82-7865’ (20810093715).jpg |
+| `p7` | c311 | 2021 | CC BY-SA 4.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep31/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:JASDF F-86F(62-7702) right front view at the Mitsubishi Heavy Industries Komaki Minami factory May 14, 2021.jpg |
+
+### 2. 動く映像＝clips.json（防衛庁記録・イメージの Pexels）
+- 防衛省・自衛隊『昭和46年防衛庁記録』（CC BY 3.0＝公式の YouTube `HK0v9n-PTIM` の表示と Commons の写し）＝章「雫石事故」と章「航空自衛隊部隊改編」の区間だけ・4:3 の白黒・音は使わない。新聞の紙面・積み込み・参列者の近景の秒は使わない（`footage.NOGO`）。出典の行に「改変：切出・再生速度」
+- フリー素材（Pexels・AI で作った絵は使わない）＝画面の左上に「イメージ」・出典の行は「イメージ（Pexels）」だけ（クレジットは任意＝投稿者の名前は書かない・概要欄にも書かない）。20% に数えない。🔴 映像そのものもひかえの静止画も git に入れない（19本目 決め⑨）
+
+### 3. 地図の描き足し（⑤b-3b）
+- 衛星写真＝Google マップ（帰属は地図の右下・PNG は公開リポに置かない＝保管庫）。J11L の線と空域「盛岡」の円は概略（資料の言葉から描いた）
+
+| 記号 | 使うカット | 画面の出典 | ライセンス | 頁 | 取った日 |
+|---|---|---|---|---|---|
+| `MS` | c101 c102 c106 c107 c701 c706 c707 c709 c710 c711 cc15 | 防衛省・自衛隊『昭和46年防衛庁記録』（CC BY 3.0）・改変：切出・再生速度 | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm | 2026-11-07 |
+| `MK` | c104 c208 c301 c304 | 防衛省・自衛隊『昭和46年防衛庁記録』（CC BY 3.0）・改変：切出・再生速度 | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm | 2026-11-07 |
