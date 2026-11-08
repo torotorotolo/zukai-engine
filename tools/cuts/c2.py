@@ -80,3 +80,29 @@ SPEC.update({
     # c217＝山を背にした人のいない滑走路（路面の矢印）＝矢印の方へ寄る
     "c217": dict(photo=_X217, **ss.mvz(_X217, (0.5, 0.6, 1.0), (0.5, 0.63, 1.12)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-3b（2026-11-08）：衛星写真（額装・静止）。c201＝G02 北日本（ズーム6＝千歳から羽田まで縦に入る）・c206＝G03 函館から松島（ズーム7）
+#   c201：計画の経路＝国会議員のまとめの順に点を結んだ直線（J10L 函館・J11L 松島・J30L 大子・J25L 佐倉・木更津）・J11L だけ太く。
+#   語りで言うのは千歳・函館・松島・羽田だけ＝大子・佐倉・木更津は点も札も小さく。🔴 点は空港・基地・役場の住所の点（NDB の位置ではない）
+#   c201 は章の頭＝card_mix=0（章の扉の地に染めない）
+SPEC.update({
+    "c201": dict(
+        **ss.sat("G02", steps=[
+            [],
+            [dict(k="line", path=ss.SAT_LINES["route_g02"], c="INK_W", w=4),
+             dict(k="line", path=ss.SAT_LINES["j11l_g02"], c="AMBER", w=9, t="J11L", u=0.5, lab=(24, 10, "start")),
+             dict(k="pt", at="chitose", c="INK_W", t="千歳", lab=(20, -6, "start")),
+             dict(k="pt", at="hakodate", c="INK_W", t="函館", lab=(-20, 0, "end")),
+             dict(k="pt", at="matsushima", c="INK_W", t="松島", lab=(20, 12, "start")),
+             dict(k="pt", at="daigo", c="INK_W", t="大子", lab=(14, 8, "start"), dot=5, size=22),
+             dict(k="pt", at="sakura", c="INK_W", t="佐倉", lab=(14, 2, "start"), dot=5, size=22),
+             dict(k="pt", at="kisarazu", c="INK_W", t="木更津", lab=(10, 28, "start"), dot=5, size=22),
+             dict(k="pt", at="haneda", c="INK_W", t="羽田", lab=(-20, -4, "end"))]],
+            note="点は一般の座標（NDB の位置ではない）・線は点を結んだ概略"),
+        card_mix=0, t="計画の道", s="北日本（現在の衛星写真）"),
+    "c206": dict(
+        **ss.sat("G03", steps=[
+            [dict(k="line", path=ss.SAT_LINES["j11l_g03"], c="AMBER", w=7, t="J11L", u=0.45, lab=(26, 10, "start"))]],
+            note="線は函館と松島の点を結んだ概略"),
+        t="北から南への道", s="函館から松島（現在の衛星写真）"),
+})

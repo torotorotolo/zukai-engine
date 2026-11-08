@@ -1047,6 +1047,44 @@ GEO = {}
 #    撮り方は `ref/ep30/eizou_build/helpers/gshot30.py`・継ぎ目の話は見本の注。31本目の地図（衛星写真12画＝映像方針の一覧 `ref/ep31/eizou_list31.md`・了承② 11-08）は、
 #    衛星写真を撮って SAT に md5 つきで足し、GEO に場所を出どころつきで足す。空のあいだ、`sat=` のカットは門番 check_sat・合成が止まる（fail closed）。
 #    🔴 31本目の札の場所は公の場所と空域・航空路の概略だけ（個人の家・墜落の地点に人の名を付けない＝この回の線）
+# 🆕 2026-11-08（31本目 ⑤b-3b）：場所の表（札と線の端の点）。座標＝国土地理院の住所検索（`msearch.gsi.go.jp/address-search/AddressSearch?q=`＝住所の点）。
+#    🔴 NDB（無線の標識）の位置は手元の資料に無い＝空港・基地・役場の住所の点で代えた（「NDB の位置ではない」）。J11L の線はこの点から描いた概略
+#    （`ref/ep31/eizou_build/helpers/lines31.py`）。私人の家・地区の名の札は置かない（森のしずく公園のあたりまで）
+#    衛星写真＝`ref/ep31/eizou_build/helpers/gshot31.py`（画面ありの Chrome・倍率2で撮って 0.75倍）を2回撮って `gseam31.py` で比べた＝10画とも1回目
+#    （2回目の G04・G08 は左下の小窓のあたりに継ぎ目の線・ほかは差 0.01 以下）。🔴 PNG は公開リポに置かない（Modal の保管庫 jiko-assets の ref/ep31/photo/）
+SAT.update({
+    "G01": dict(file="ep31/photo/gmap_g01_tohoku.png", ll=(39.25, 140.95), z=8, md5="98c3804484e4ea093b1bd92fcf8e6baf", credit=SAT_CREDIT),
+    "G02": dict(file="ep31/photo/gmap_g02_kitanihon.png", ll=(39.10, 141.0), z=6, md5="bb36678e376453d5bae7acce162d2cbe", credit=SAT_CREDIT),
+    "G03": dict(file="ep31/photo/gmap_g03_hakodate_matsushima.png", ll=(40.09, 141.0), z=7, md5="d6338bc4fe0585296877e9a35f1e2a72", credit=SAT_CREDIT),
+    "G04": dict(file="ep31/photo/gmap_g04_morioka_tazawa.png", ll=(39.71, 140.91), z=10, md5="45f1a7e127cc87244d348f0ac435fde8", credit=SAT_CREDIT),
+    "G05": dict(file="ep31/photo/gmap_g05_morioka.png", ll=(39.70, 141.10), z=11, md5="7b25e179e5a80d664f3a2c932892b316", credit=SAT_CREDIT),
+    "G06": dict(file="ep31/photo/gmap_g06_morioka_west.png", ll=(39.70, 141.02), z=10, md5="d18e0f044507717f2ac7eaeff920661d", credit=SAT_CREDIT),
+    "G07": dict(file="ep31/photo/gmap_g07_j11l.png", ll=(39.75, 141.0), z=9, md5="d60c1e264d8bb4c0583c5f262b3828d9", credit=SAT_CREDIT),
+    "G08": dict(file="ep31/photo/gmap_g08_shizukuishi.png", ll=(39.69, 141.0), z=11, md5="5816b52a0096a081078fe99b6fead5a5", credit=SAT_CREDIT),
+    "G09": dict(file="ep31/photo/gmap_g09_matsushima_morioka.png", ll=(39.10, 141.1), z=8, md5="5d8ff37638747f92e65a49f84a2ce472", credit=SAT_CREDIT),
+    "G10": dict(file="ep31/photo/gmap_g10_shizukuishi_town.png", ll=(39.68, 140.99), z=12, md5="ddaa9a8c5a8bfb71002d420c47204f03", credit=SAT_CREDIT),
+})
+GEO.update({
+    "chitose": dict(ll=(42.820427, 141.649887), src="国会会議録 1971-10-07（全日空機の計画の経路）", how="一般の座標（国土地理院の住所検索＝千歳市東雲町二丁目34番地〈市役所〉の点・空港の位置ではない）"),
+    "hakodate": dict(ll=(41.77327, 140.813065), src="国会会議録 1971-10-07（J10L函館NDB）", how="一般の座標（国土地理院の住所検索＝函館空港〈函館市高松町511番地〉の点・NDB の位置ではない）"),
+    "matsushima": dict(ll=(38.405537, 141.226273), src="国会会議録 1971-10-07（J11L松島NDB）・判決（松島派遣隊）", how="一般の座標（国土地理院の住所検索＝航空自衛隊松島基地〈東松島市矢本字板取〉の地区の点・NDB の位置ではない）"),
+    "daigo": dict(ll=(36.76952, 140.351624), src="国会会議録 1971-10-07（J30L大子NDB）", how="一般の座標（国土地理院の住所検索＝大子町大字大子866番地〈町役場〉の点・NDB の位置ではない）"),
+    "sakura": dict(ll=(35.723225, 140.22406), src="国会会議録 1971-10-07（J25L佐倉NDB）", how="一般の座標（国土地理院の住所検索＝佐倉市海隣寺町97番地〈市役所〉の点・NDB の位置ではない）"),
+    "kisarazu": dict(ll=(35.38673, 139.936279), src="国会会議録 1971-10-07（木更津NDB）", how="一般の座標（国土地理院の住所検索＝木更津市朝日三丁目10番19号の点＝市の中心の辺り・NDB の位置ではない）"),
+    "haneda": dict(ll=(35.549786, 139.78653), src="国会会議録 1971-10-07（羽田）", how="一般の座標（国土地理院の住所検索＝大田区羽田空港三丁目〈東京国際空港〉の点）"),
+    "morioka": dict(ll=(39.701557, 141.154343), src="判決（盛岡市と田沢湖の中間あたり・盛岡市上空附近）", how="一般の座標（国土地理院の住所検索＝盛岡市内丸12番2号〈市役所〉の点＝市の代表点）"),
+    "shizukuishi": dict(ll=(39.696697, 140.976059), src="国会会議録 1971-08-02（雫石町上空）", how="一般の座標（国土地理院の住所検索＝雫石町千刈田5番地〈町役場〉の点＝町の代表点・接触の場所ではない）"),
+    # 🔴 公園の番地は町の頁に無い（2020-07-31 の記事）＝Google マップの地点（検索「森のしずく公園 雫石町」→「森のしずく公園(旧:慰霊の森)」の !3d!4d・2026-11-08）。
+    #    二次の座標（Wikipedia の記事 39.657111, 141.001917＝⑤ 映像方針で地理院の空中写真〈1974〜78年〉の森の中の開けた所と当たりを見た）と約10メートルで一致。札は「あたり」
+    "park": dict(ll=(39.657119, 141.001836), src="雫石町（2020-07-31「森のしずく公園で献花・拝礼が行われました」）", how="一般の座標（Google マップの地点「森のしずく公園(旧:慰霊の森)」）"),
+    # 湖の真ん中＝撮った衛星写真 G04（ズーム10）の青い水面のつながった塊の重心（4,147画素・同じ広さの円の径 5.70キロ＝湖の広さ 25.8 km² の円の径 5.73キロとほぼ同じ）
+    "tazawa": dict(ll=(39.72502, 140.66112), src="判決（盛岡市と田沢湖の中間あたり）", how="一般の座標（撮った衛星写真 G04 の湖面の重心）"),
+    # 🔴 ここから下は概略の点（円の真ん中）＝位置の記録ではない。札に「概略」・額の下の断りに「概略」
+    "mid": dict(ll=(39.713289, 140.907732), src="判決（盛岡市と田沢湖の中間あたりを中心とする地域を漠然と手指で指し示して）",
+                how="一般の座標の中点（盛岡市役所の点と田沢湖の湖面の真ん中の中点＝「中間あたり」の概略・空域の位置の記録ではない）"),
+    "train320": dict(ll=(39.72, 141.010699), src="判決（その西側五海里内に進入して編隊訓練を実施した）",
+                     how="概略（J11L の概略の線から西へ 4.63キロ＝「西側五海里内」の幅の半分の所・訓練の位置の記録ではない）"),
+})
 # 🔴 2026-10-27（26本目 ⑤b-1・§0b）：25本目の表（SAT＝G01〜G05 の Google の衛星写真5点〈c101・c328・c517・ca23・cb03〉・GEO＝site・itami・mitejima・kashima の4点・
 #    SAT_LINES＝地理院地図Vector の線路の線4本〈fuku・tozai_under・tozai_surface・kashima_curve〉・SAT_LINE_NOTE＝線の出典の断り）は selftest の見本
 #    `tools/fixture_ep25.py` へ移した（値は1つも変えていない＝git の `5f692aab`。`file` は `ep25/…` の名を文字のまま・SAT.update／GEO.update の4文もそのまま）。
@@ -1072,6 +1110,13 @@ SAT_LINE_NOTE = ""
 #    （`ref/ep30/` を取り出していない）で `check_subwrap`・`audio_mix` の import が FileNotFoundError で落ちた（字幕と音の門番が映像の前の回の束に頼っていた）。
 #    31本目で線（航空路 J11L・臨時訓練空域「盛岡」の概略）を足すなら、`ref/ep31/` の表を読む文を**その回の束が揃ってから**ここに書き、出どころの断りを SAT_LINE_NOTE に
 #    （回を替えるとき、この文ごと見本へ移す）
+# 🆕 2026-11-08（31本目 ⑤b-3b）：31本目の線＝J11L の概略・教官が思っていた線・西側5海里の帯・旅客機と2機の道すじの模式
+#    （`ref/ep31/eizou_build/helpers/lines31.py` が書いた `ref/ep31/sat_lines31.json`＝git の中）。🔴 import で開くのはこの回のファイルだけ・
+#    無い作業ツリー（スパース）では読まない（章ファイルが名を引けば KeyError で止まる＝fail closed）。🔴 §0b：回を替えるときこの文ごと見本へ移す
+_SL31 = HERE / "ref" / "ep31" / "sat_lines31.json"
+if _SL31.exists():
+    SAT_LINES.update({k: tuple(tuple(p) for p in v) for k, v in json.loads(_SL31.read_text(encoding="utf-8")).items()})
+SAT_LINE_NOTE = "線と円は資料の言葉から描いた概略"
 # 🆕 2026-10-23（24本目 ⑤b-6）：**この回は衛星写真の地図なし**の言い分（理由の文）。地図2つ（c203・c713）は描く＝`tools/mech24.py` の ussr・japan
 #    （国の形＝Natural Earth の切り出し `ref/ep24/make_map24.py`＝国の境・1986年の色・北方領土を描き分けるため。衛星写真には国の境が写らない）。
 #    門番 check_sat は、この文があるときだけ「地図のカット0」を通す（地図のカットが1つでもあれば、言い分と食い違う＝鳴る）。

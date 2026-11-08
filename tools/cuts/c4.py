@@ -82,3 +82,25 @@ _X418 = P("stock/x418")
 SPEC.update({
     "c418": dict(photo=_X418, **ss.mvz(_X418, (0.5, 0.5, 1.0), (0.46, 0.46, 1.12)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-3b（2026-11-08）：衛星写真（額装・静止）。c401＝G07 J11L（ズーム9＝盛岡と雫石のあたりを大きく）・c408＝G08 雫石（ズーム11）
+#   c408：西側の帯＝J11L の概略の線から西へ 5海里（9.26キロ）まで（判決「J11Lの西側五海里内」＝最高裁の推認）。🔴 事故の場所の点・×は置かない
+#   （判決は「長円形地域ないしこれに近い地域内」＝場所の記録は手元に無い）。帯の札は場所に付かない字（say）で帯の中の下へ
+#   c401 は章の頭＝card_mix=0
+SPEC.update({
+    "c401": dict(
+        **ss.sat("G07", steps=[
+            [dict(k="line", path=ss.SAT_LINES["j11l_g07"], c="AMBER", w=7, t="J11L（ジェット・ルート）", u=0.18, lab=(24, 10, "start"))],
+            [dict(k="pt", at="morioka", c="INK_W", t="盛岡", lab=(20, 12, "start")),
+             dict(k="pt", at="shizukuishi", c="INK_W", t="雫石", lab=(-20, 12, "end"))]],
+            note=ss.SAT_LINE_NOTE + "・点は一般の座標"),
+        card_mix=0, t="道の幅", s="盛岡と雫石のあたり（現在の衛星写真）"),
+    "c408": dict(
+        **ss.sat("G08", steps=[
+            [dict(k="line", path=ss.SAT_LINES["j11l_g08"], c="AMBER", t="J11L（概略）", u=0.08, lab=(22, 10, "start")),
+             dict(k="pt", at="shizukuishi", c="INK_W", t="雫石町", lab=(-46, -12, "end"), dot=8)],   # 札は帯の西の縁（点の西 約23px）の外へ＝門番 layout
+            [dict(k="zone", path=ss.SAT_LINES["band5_g08"], c="AMBER"),
+             dict(k="say", xy=(985, 830), c="AMBER", t="最高裁の推認：西側5海里の内", anchor="middle")]],
+            note=ss.SAT_LINE_NOTE + "・点は一般の座標"),
+        t="推し量った場所", s="雫石（現在の衛星写真）"),
+})

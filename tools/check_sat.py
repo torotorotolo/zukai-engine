@@ -51,6 +51,20 @@ REC_SAT_NUM = {}
 # ✅ 2026-11-08（31本目 ⑤b-1・§0b）：30本目も REC_SAT_NUM は空のまま（地図の札に数を置かなかった）＝見本 `tools/fixture_ep30.py` は空の状態と30本目の道を持つ。
 #    REC_SAT_PAGES の道は31本目（`ref/ep31/src/news_frag_v2.txt`＝まだ無い）。31本目は衛星写真の地図 12画（高さ 8,500メートル・道の幅の数を札に置くなら記録と原文の置き場を ⑤b の衛星写真のチャットで決める）
 REC_SAT_PAGES = Path(__file__).resolve().parent.parent / "ref" / "ep31" / "src" / "news_frag_v2.txt"
+# 🆕 2026-11-08（31本目 ⑤b-3b）：31本目の記録＝札の「J11L」（航空路の名の数字）と「5海里」（c408）。出典＝最高裁 1983-09-22 判決＝
+#    抜き書き p1（`ref/ep31/src/news_frag_v2.txt`＝判決の写し `src/hanrei/hanrei-58088.txt` の頁の番号を消した全文・git の外）。
+#    🔴 §0b：次の回で見本 `tools/fixture_ep31.py` へ移して空に（REC_SAT_PAGES も）
+_J11L = (("抜き書き p1", "ジエツト・ルートJ11L"),)
+REC_SAT_NUM.update({
+    "c105": {"旅客機の道 J11L（概略）": _J11L},
+    "c201": {"J11L": _J11L},
+    "c206": {"J11L": _J11L},
+    "c318": {"実際の J11L（概略）": _J11L},
+    "c320": {"J11L（概略）": _J11L},
+    "c401": {"J11L（ジェット・ルート）": _J11L},
+    "c408": {"J11L（概略）": _J11L, "最高裁の推認：西側5海里の内": (("抜き書き p1", "J11Lの西側五海里内"),)},
+    "c506": {"J11L（概略）": _J11L},
+})
 _NUM = __import__("re").compile(r"[0-9０-９]")
 _SAT_PAGES = {}
 

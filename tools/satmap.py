@@ -12,12 +12,16 @@
 ■ SPEC の書き方（`cuts/ss.sat()` が photo・panel・pw・color をそろえる）
   "c219": dict(**ss.sat("G02", steps=[[…], […]], note="…"), t="…", s="…（現在の衛星写真）")
   部品（段ごとに何個でも。場所は `cuts/ss.GEO` の名＝🔴 確かめていない場所に点を置かない）：
-    dict(k="pt", at="stjohns", role="ship", t="母船の港", lab=(18, -16, "start"))   … 点（役の色）＋札
+    dict(k="pt", at="stjohns", role="ship", t="母船の港", lab=(18, -16, "start"))   … 点（役の色）＋札（🆕 31本目：dot＝点の半径・既定 11）
     dict(k="x", at="site", t="事故の現場", lab=(…))                                 … 赤の×（報告書の座標の場所だけ＝門番）
     dict(k="line", path=("stjohns", "site"), role="ship", dash=True, t="約700〜800キロ", lc="AMBER", lab=(…))
                                                                                     … 線（札は線の真ん中から lab・札の色だけ lc で替える）
     dict(k="arrow", fr=(緯度, 経度), to="site", t="…", lab=(…), dir=True)           … 向きの矢印（尾は場所でない＝dir=True）
     dict(k="area", at="harvey", r=120, role="company", t="…", lab=(…))              … 破線の囲み（r は撮った絵の画素）
+    dict(k="area", at="mid", r=150, soft=True, c="AMBER", t="…（概略）", lab=(…))     … 🆕 31本目 ⑤b-3b：ぼかした円（縁の線なし・外へ向けて薄れる
+                                                                                    ＝「漠然と」した範囲の概略。境の位置を言い切らない）
+    dict(k="zone", path=(場所 or (緯度, 経度), …), c="AMBER", t="…", lab=(…), u=0.5)  … 🆕 31本目 ⑤b-3b：帯（閉じた多角形を薄く塗る＋破線の縁）
+                                                                                    ＝道の幅など（札は縁の折れ線の割合 u の点から lab）
     dict(k="icon", what="plane"|"ship", on=("buffalo", "stjohns", 0.5), role=…)     … 印（線の途中 u の位置・向きは線の向き）
     dict(k="wave", at="abaco47", t="…", lab=(…))                                    … 音の波の印（赤）
     dict(k="txt", at="marsh", t="…", lc="AMBER", lab=(…))                           … 印の無い札（前の段の点に数を足す）
@@ -57,7 +61,7 @@ KEEP_OUT = dict(logo=(860, 1000, 1060, 1080), attrib=(1000, 1046, 1920, 1080),
                 open=(0, 0, 230, 72), layers=(0, 985, 95, 1080), full=(1828, 970, 1920, 1062))
 HARD = ("logo", "attrib")           # 隠すと決まりに反する箱
 EDGE = 8                            # 描き足しと額の縁のすき間の下限（画面の画素）
-KINDS = ("pt", "x", "line", "arrow", "area", "icon", "wave", "txt", "north", "say", "inset", "car")
+KINDS = ("pt", "x", "line", "arrow", "area", "icon", "wave", "txt", "north", "say", "inset", "car", "zone")
 COLS = ("INK_W", "ALERT", "AMBER")
 INSET_SEA, INSET_LAND = "#13202b", "#8f979c"     # 🆕 17本目 ⑤b-6：位置の小さな地図の海と陸（章の色に染まらない値）
 
@@ -230,11 +234,12 @@ def _cross(x, y, r=14):
     return "".join(g)
 
 
-def _poly(pts, col, dash):
+def _poly(pts, col, dash, w=5):
+    """🆕 31本目 ⑤b-3b：w＝線の太さ（既定 5・縁取りは w＋5）。"""
     d = "M" + " L".join(f"{x:.1f} {y:.1f}" for x, y in pts)
     da = ' stroke-dasharray="18 12"' if dash else ""
-    return (f'<path d="{d}" fill="none" stroke="{J.BG}" stroke-width="10" stroke-linecap="round" opacity="0.7"/>'
-            f'<path d="{d}" fill="none" stroke="{col}" stroke-width="5" stroke-linecap="round"{da}/>')
+    return (f'<path d="{d}" fill="none" stroke="{J.BG}" stroke-width="{w + 5}" stroke-linecap="round" opacity="0.7"/>'
+            f'<path d="{d}" fill="none" stroke="{col}" stroke-width="{w}" stroke-linecap="round"{da}/>')
 
 
 def _along(pts, u):
@@ -284,8 +289,9 @@ def draw(sat, el, inks):
     col = _col(el)
     if k == "pt":
         x, y = _pt(sat, el["at"])
-        inks.append((f"点 {el['at']}", (x - 14, y - 14, x + 14, y + 14)))
-        return _dot(x, y, col) + _label(x, y, el, col, inks)
+        r = el.get("dot", 11)       # 🆕 31本目 ⑤b-3b：点の大きさ（語りで言わない中継の点は小さく）
+        inks.append((f"点 {el['at']}", (x - r - 3, y - r - 3, x + r + 3, y + r + 3)))
+        return _dot(x, y, col, r) + _label(x, y, el, col, inks)
     if k == "x":
         x, y = _pt(sat, el["at"])
         inks.append((f"× {el['at']}", (x - 20, y - 20, x + 20, y + 20)))
@@ -294,7 +300,7 @@ def draw(sat, el, inks):
         pts = [_pt(sat, p) for p in (el["path"] if k == "line" else (el["fr"], el["to"]))]
         inks.append((f"線 {el.get('path') or el.get('to')}", _ext(pts, 6)))
         if k == "line":
-            g = _poly(pts, col, el.get("dash"))
+            g = _poly(pts, col, el.get("dash"), el.get("w", 5))
         else:
             (x1, y1), (x2, y2) = pts
             a = math.atan2(y2 - y1, x2 - x1)
@@ -307,6 +313,14 @@ def draw(sat, el, inks):
         x, y = _pt(sat, el["at"])
         r = el["r"] * box()[2] / IW
         inks.append((f"囲み {el['at']}", (x - r - 4, y - r - 4, x + r + 4, y + r + 4)))
+        if el.get("soft"):
+            # 🆕 31本目 ⑤b-3b：ぼかした円（縁の線なし・真ん中から外へ薄れる）。グラデーションの名は位置と色から（同じ額の中で重ならない）
+            gid = "sg" + hashlib.md5(f"{x:.1f},{y:.1f},{r:.1f},{col}".encode()).hexdigest()[:8]   # hash() は回すたびに変わる＝md5 で決める
+            return (f'<defs><radialGradient id="{gid}" cx="0.5" cy="0.5" r="0.5">'
+                    f'<stop offset="0" stop-color="{col}" stop-opacity="0.62"/><stop offset="0.6" stop-color="{col}" stop-opacity="0.44"/>'
+                    f'<stop offset="1" stop-color="{col}" stop-opacity="0"/></radialGradient></defs>'
+                    f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r:.1f}" fill="url(#{gid})"/>'
+                    + _label(x, y, el, col, inks))
         return (f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r:.1f}" fill="none" stroke="{J.BG}" stroke-width="10" opacity="0.7"/>'
                 f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r:.1f}" fill="none" stroke="{col}" stroke-width="5" stroke-dasharray="16 10"/>'
                 + _label(x, y, el, col, inks))
@@ -331,6 +345,16 @@ def draw(sat, el, inks):
             inks.append(("台の印", (tx - 14, ty - 14, tx + 14, ty + 14)))
         inks.append((f"印 {el['what']}", (x - r, y - r, x + r, y + r)))
         return g + _label(x, y, el, col, inks)
+    if k == "zone":
+        # 🆕 31本目 ⑤b-3b：帯（閉じた多角形を薄く塗る＋破線の縁）。札は縁の折れ線の割合 u の点から
+        pts = [_pt(sat, p) for p in el["path"]]
+        inks.append((f"帯 {el.get('t') or len(pts)}", _ext(pts, 6)))
+        d = "M" + " L".join(f"{px_:.1f} {py_:.1f}" for px_, py_ in pts) + " Z"
+        g = (f'<path d="{d}" fill="{col}" fill-opacity="0.22" stroke="none"/>'
+             f'<path d="{d}" fill="none" stroke="{J.BG}" stroke-width="8" opacity="0.6"/>'
+             f'<path d="{d}" fill="none" stroke="{col}" stroke-width="4" stroke-dasharray="14 10"/>')
+        (mx, my), _ = _along(pts + [pts[0]], el.get("u", 0.5))
+        return g + _label(mx, my, el, col, inks)
     if k == "txt":
         # 印の無い札（その場所の近くに数や説明を足す＝前の段の点の続き）
         x, y = _pt(sat, el["at"])

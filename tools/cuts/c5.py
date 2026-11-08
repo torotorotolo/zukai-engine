@@ -102,3 +102,36 @@ SPEC.update({
     "c512": dict(photo=_X512, **ss.mvz(_X512, (0.5, 0.5, 1.0), (0.46, 0.5, 1.12)), side="none", color=1.0, t="", s=""),
     "c524": dict(photo=_X524, **ss.mvz(_X524, (0.5, 0.5, 1.0), (0.5, 0.46, 1.12)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-3b（2026-11-08）：衛星写真（額装・静止）。c501＝G09 松島から盛岡（ズーム8）・c506＝G08 雫石（c408 と同じ画・札が違う）・c517／cc01 は G10
+#   c501：2機の進み方＝防衛庁長官の報告「訓練を実施しながら北上、その後盛岡市西北において右旋回して南下」の言葉の範囲の模式（段＝語りの行）
+#   c506：旅客機＝J11L に沿ってその西側を南へ（判決が引く一審の認定）・2機＝旋回をくり返しながら盛岡市の西方を南へ（国会会議録 1971-10-07）
+#   🔴 2機の線は旅客機の線と交わらせない（接触の場所を言い切らない）・矢の尾は場所でない＝dir=True と src（向きの根拠）
+#   c517：雫石町の札だけ（接触の場所はまだ印にしない）。c501 は章の頭＝card_mix=0
+_UP, _DN, _AIR, _TWO = ss.SAT_LINES["two_g09_up"], ss.SAT_LINES["two_g09_down"], ss.SAT_LINES["air_g08"], ss.SAT_LINES["two_g08"]
+SPEC.update({
+    "c501": dict(
+        **ss.sat("G09", steps=[
+            [dict(k="pt", at="matsushima", c="INK_W", t="松島", lab=(20, 12, "start")),
+             dict(k="pt", at="morioka", c="INK_W", t="盛岡", lab=(20, -6, "start")),
+             dict(k="pt", at="shizukuishi", c="INK_W", t="雫石", lab=(16, 46, "start"), dot=8)],
+            [dict(k="line", path=_UP, c="ALERT", dash=True, t="北へ（訓練をしながら）", u=0.45, lab=(-22, 10, "end")),
+             dict(k="arrow", fr=_UP[-2], to=_UP[-1], c="ALERT", dir=True, src="防衛庁長官の報告（北上）", gap=0)],
+            [dict(k="line", path=_DN, c="ALERT", dash=True, t="右へ旋回して南へ", u=0.55, lab=(-26, 10, "end")),
+             dict(k="arrow", fr=_DN[-2], to=_DN[-1], c="ALERT", dir=True, src="防衛庁長官の報告（右旋回して南下）", gap=0)]],
+            note="2機の道すじは報告の言葉から描いた模式・点は一般の座標"),
+        card_mix=0, t="2機の進み方", s="松島から盛岡（現在の衛星写真）"),
+    "c506": dict(
+        **ss.sat("G08", steps=[
+            [dict(k="line", path=ss.SAT_LINES["j11l_g08"], c="AMBER", t="J11L（概略）", u=0.08, lab=(22, 10, "start"))],
+            [dict(k="arrow", fr=_AIR[0], to=_AIR[1], c="INK_W", dir=True, src="判決（J11L に沿つてその西側を南下航行中）", gap=0,
+                  t="旅客機：西側を南へ", u=0.55, lab=(64, 10, "start"))],
+            [dict(k="line", path=_TWO, c="ALERT", dash=True, t="訓練機：旋回しながら南へ", u=0.35, lab=(-26, 10, "end")),
+             dict(k="arrow", fr=_TWO[-2], to=_TWO[-1], c="ALERT", dir=True, src="国会会議録 1971-10-07（盛岡市の西方を南下）", gap=0)]],
+            note=ss.SAT_LINE_NOTE + "・点は一般の座標"),
+        t="同じ向き", s="雫石（現在の衛星写真）"),
+    "c517": dict(
+        **ss.sat("G10", steps=[[dict(k="pt", at="shizukuishi", c="INK_W", t="雫石町", lab=(20, -12, "start"))]],
+                 note="点は一般の座標（町役場の住所の点）"),
+        t="雫石町の上空", s="岩手県の雫石（現在の衛星写真）"),
+})

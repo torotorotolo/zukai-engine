@@ -116,3 +116,32 @@ SPEC.update({
     # c329＝1本の飛行機雲（真ん中の上）＝雲の筋の方へ
     "c329": dict(photo=_X329, **ss.mvz(_X329, (0.5, 0.45, 1.0), (0.5, 0.4, 1.12)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-3b（2026-11-08）：衛星写真（額装・静止）。c308＝G04 盛岡と田沢湖（ズーム10）・c318＝G05 盛岡（ズーム11）・c320＝G06 盛岡の西（ズーム10）
+#   c308：「中間あたり」＝盛岡市役所と田沢湖の真ん中の中点（ss.GEO の mid）から 12キロのぼかした円（半径＝12000 ÷ 78.4 m/画素＝153）・J11L はまだ出さない
+#   c318：実際の J11L（実線・概略）と、教官が思っていた道（点線＝同じ向きで盛岡市役所の点を通る＝判決「かなり東方の盛岡市上空附近を通つているものと誤信」）
+#   c320：J11L の西側の近くの訓練＝J11L の概略の線から西へ 4.63キロの点（ss.GEO の train320）から 4.63キロのぼかした円（半径 59＝5海里の帯の中）
+SPEC.update({
+    "c308": dict(
+        **ss.sat("G04", steps=[
+            [dict(k="pt", at="morioka", c="INK_W", t="盛岡市", lab=(20, 12, "start")),
+             dict(k="pt", at="tazawa", c="INK_W", t="田沢湖", lab=(0, -36, "middle"), dot=8),
+             dict(k="pt", at="shizukuishi", c="INK_W", t="雫石", lab=(0, 52, "middle"), dot=8),
+             dict(k="area", at="mid", r=153, soft=True, c="ALERT", t="中間あたり（概略）", lab=(0, -104, "middle"))]],
+            note=ss.SAT_LINE_NOTE + "・点は一般の座標"),
+        t="検討なしの承認", s="盛岡市と田沢湖（現在の衛星写真）"),
+    "c318": dict(
+        **ss.sat("G05", steps=[
+            [dict(k="pt", at="morioka", c="INK_W", t="盛岡市", lab=(20, 44, "start")),
+             dict(k="line", path=ss.SAT_LINES["j11l_g05"], c="AMBER", t="実際の J11L（概略）", u=0.12, lab=(-22, 10, "end"))],
+            [dict(k="line", path=ss.SAT_LINES["believed_g05"], c="INK_W", dash=True, t="教官が思っていた道（思い違い）", u=0.12, lab=(22, 10, "start"))]],
+            note=ss.SAT_LINE_NOTE + "・点は一般の座標"),
+        t="誤った認識", s="盛岡の市街（現在の衛星写真）"),
+    "c320": dict(
+        **ss.sat("G06", steps=[
+            [dict(k="line", path=ss.SAT_LINES["j11l_g06"], c="AMBER", t="J11L（概略）", u=0.12, lab=(22, 10, "start")),
+             dict(k="pt", at="morioka", c="INK_W", t="盛岡市", lab=(20, 44, "start"))],
+            [dict(k="area", at="train320", r=59, soft=True, c="ALERT", t="編隊の訓練（概略）", lab=(-24, -46, "end"))]],
+            note=ss.SAT_LINE_NOTE + "・点は一般の座標"),
+        t="西側の近く", s="盛岡の西（現在の衛星写真）"),
+})
