@@ -60,7 +60,7 @@
 | 🔴 A-10-072 | FAA | **着水の条件が、エンジンの力なしで普通の腕前で出せることを、認証で示させる** | **受け入れられる対応** | **2025-12-02** |
 | A-10-073 | FAA | 着水の手順に地面接近の警報を切る手順を足す | それに代わる対応 | 2016-07-21 |
 | A-10-074 | FAA | 迎え角の守りの働きを地上の訓練で教える | 受け入れられる対応 | 2013-12-27 |
-| A-10-075〜076 | FAA | （救命と避難の関係） | それに代わる対応 | 2017・2013 |
+| A-10-075〜076 | FAA | 075＝空港に野生動物の危険の評価をさせる（p142）／076＝農務省と、機体に付ける鳥の技術を作る（p143・087 の対）〈④ で直した＝前は「救命と避難の関係」と誤り〉 | それに代わる対応 | 2017・2013 |
 | 🔴 A-10-077 | FAA | **65番の縦の梁が客室に突き出ないよう作り直す** | 受け入れられる対応 | 2019-05-29 |
 | A-10-078 | FAA | 衝撃に備える姿勢の研究 | 受け入れられる対応 | 2021-12-09 |
 | A-10-079〜086 | FAA | 救命いかだ・救命胴衣・乗客への案内ほか（8本） | 受け入れられる 1（085）・それに代わる 1（081）・受け入れられない 6 | 2011〜2020 |
@@ -77,7 +77,7 @@
 | 2 | ぶつかった位置 | 「LGA の滑走路22 の進入端から北北西へ約4.5マイル」AAR p19・p105・#6 p13／「LGA から4.3マイル」AAR p115・#101 p4＝**基準点が違う**（滑走路の端／空港）。座標は #6 p13 | 数で言わず、衛星写真の地図に座標で点を置く |
 | 3 | 着水した位置 | 「LGA から約8.5マイル」AAR p17／印0／#6 p13 は「**衝突点から**着水点まで約8.5マイル」＝座標から測ると衝突点→着水点 13.85km（8.61マイル）・空港の基準点→着水点 約11km（⚠️ 空港の基準点の座標は覚えている値＝未確認） | 「ぶつかった所から、まっすぐ約14キロ」（座標から計算） |
 | 4 | 機体の重さ | 離陸 151,510lb（会社の重量表・AAR p27／印10）／151,017lb（表2・p40／印23）／151,760lb（FDR・#85 p18）／着水 約150,000lb（推定・p27） | 要るなら「約68トン」（どの値でも 68〜69t） |
-| 5 | シミュレーターの着水の試し | 14回（2回を捨てて12回・AAR p67／印50）／16回（2回を捨てた・#35 p7＝別の機械〈S22〉の数の可能性） | 使わない（芯は空港へ戻る試し＝15回・成功8・35秒遅らせた1回は不成功） |
+| 5 | シミュレーターの着水の試し | 14回（2回を捨てて12回・AAR p67／印50）／16回（2回を捨てた・#35 p7）＝#35 の16回は、捨てた2回と、迎え角の守りの中で飛ばした2回を含む＝4人×3条件の12回と食い違わない（④ の係 B の当て直し） | ④ で c720 に「12回のうち、テストパイロットの1回だけ」として使った（AAR p67・p113 で一致）＝前の「使わない」を改めた |
 | 6 | 最初の船 | 1534:40（AAR p59／印42 の時系列）／「about 1534」（p62／印45＝沿岸警備隊と消防の記録） | **約4分**（3分57秒・計算）。「約3分」は使わない |
 | 7 | 「1540 に水中と伝えた」 | AAR p44／印27「About 1540, the controller was advised by a nearby helicopter pilot …」＝着水 1530:43 と合わない＝誤記の可能性（推定） | 使わない |
 | 8 | テターボロの滑走路 | 管制の言葉＝runway 1（p20／印3）／シミュレーター＝runway 19（p67／印50）／位置の基準＝runway 24 の進入端（p105／印88） | 管制の言葉どおり「滑走路1」 |
@@ -123,3 +123,37 @@
 - 空港の基準点の座標は覚えている値（§4-3）＝使うなら FAA の資料で当てる
 - 鳥1羽の重さ（§4-11）・新館の開館と 2026-11 の展示（§2-8）は未確認
 - 州知事の言葉の一次の記録は読めない（§0-6）
+
+## 9. ④ で確かめたこと（2026-11-09 チャット3＝台本 第1版・頁は PDF の頁／印刷の頁）
+- 🔴 **鳥の重さ**＝AAR p97／印80「The average weight of a male Canada goose is from 8.4 to 9.2 pounds … female … 7.3 to 7.8 pounds」「each engine ingested at least two Canada geese weighing about 8 pounds each」＝§4-11 の未確認は解けた。当時の大きな鳥の試験は「a single, 4-pound bird」（p34／印17）
+- 🔴 **シミュレーター**＝p67／印50＝20回のうち5回を捨てて15回（LGA 22へ6・13へ7・TEB 19へ2）。降りられた8回（53%）は**どれも直後に曲がった試し**。「35秒遅らせた1回」が15回の中か外かは本文から読めない＝台本は「降りられた8回はどれも直後に曲がった」「35秒を足した1回は届かなかった」まで（「15回すべてが直後」とは言わない）。注88（すぐに曲がる試しは現実の事情を映していない）・注89（35秒は気づいて決める時間）。**操縦士は試す前に十分な説明を受けていた**（p67）。着水の試し＝12回のうち前提（−0.5度）に近い −0.2度はエアバスのテストパイロットの1回だけ
+- 🔴 **手順書**＝p104／印87「3 parts and was 3 pages long」「complete most of part 1 … not able to start parts 2 and 3」・p105／印88「about one-third」「This critical step would not have been completed if the flight crew had simply followed the order of the items in the checklist」＝芯 B の言葉は報告書の本文にある。付録C の頁の画像を3枚見た（APU＝2頁目「When below FL250: k. APU … START」・着水のボタン＝3頁目「At 2000’ AGL: c. Ditching pb … ON」・「Touchdown with approximately 11 degrees of pitch and minimum vertical speed」）。1つ目の部分は2頁目の o まで続く＝「1頁目の途中まで」とは言わない
+- ⚠️ **副操縦士の聴取**（#7）＝p5「He did not have time to get off the first page」・p27「he did not get off of page one of the checklist」＝報告書の「Part 1 の大部分」と CVR（2頁目の g・h・i の項目を読み上げている）と食い違う＝台本では使っていない。p5「The Airbus had a ditching button, but he did not push it」・p10「they did not have time to get to the ditching push button」・p6「There was no training in the simulator」「All guidance he received for ditching implied that they had time」＝c620・c621。機長の聴取（p32）＝低い所ですぐに降りるときの短い手順書が要る・手順書で届かない項目を覚えていて先にやった＝c625
+- **着水のボタン**＝p77／印60 の注101「closes all of the valves below the water line … to help the airplane float longer」・ボタンの働きは訓練で教えていた（p77）。押さなかったことの効果は報告書で見つけていない（「outflow valve」の語は注101 だけ）
+- **管制官の聴取**（#40 p10）＝13 が最良と考えて勧めた・31・LGA の管制塔が空けた4・TEB は風で1が最良・**スピーカーの回線を開けておいた**（伝え直す時間がない）・最後に聞いた言葉は「can't do it, going in the river」だったと思う＝c403・c406・c411・c415・c418
+- **公聴会1日目**（#109）＝p9 議長「no intention … to diminish the crew’s and the first responder’s extraordinary success」・p18 進行役（p15 の名乗りの役名＝調査を率いた責任者）「a successful return to LaGuardia or a diversion to Teterboro Airport was not assured」
+- **推定原因**（p17・p140／印123）＝胴体の壊れに寄与した3つ（FAA が推力なしで前提に届くかを確かめずに着水の認証をした・業界に着水の訓練と指針が無かった・緊急で手いっぱいになり機長が思った速さを保てなかった）／生き残れた4つ（乗員の判断と連携・決まりのない洋上の装備の偶然・客室乗務員の速い誘導・救助の近さと早さ）。所見14〜19・24〜26・32〜44 は p137〜140
+- **「一連の偶然」**＝p96／印79＝見通しと穏やかな水面・とても経験のある乗員・決まりのない洋上の装備・すぐ近くの船。「miracle」は文字の層で0件。同じ頁に「計画した着水と思いがけない着水のあいだ」
+- **救助**＝p59 の時系列（1534:40・1554:43）・p62（ほかの6隻は 1540 まで・消防の救助艇 1539・沿岸警備隊の小舟2隻 1548）・p63（川の通行止め 1535）・**p64（フェリーの会社は合同の訓練への参加を申し出ていたが認められず、事故の翌日に加わると決まった）**・p120／印103（約20分・救助の船が近くにいなければ溺れた人が出た見込みが高い）
+- **救命胴衣**＝p61 注78「Two additional passengers retrieved and donned their life vests before impact」・p146 委員の同意意見「only two of the 155 aircraft occupants donned life preservers prior to the water landing」・着水のあとに座席の下から 5＋5・渡された 21・座席のクッション 77・安全の実演をほとんど見た 25（一部 19）・しおりを読んだ 12（聞き取り＝146人）
+- **天気**＝p41 セントラルパーク 1451（風 290度 8ノット・見通し10マイル・−6℃）・1551（−7℃）・水温 5.2℃・下げ潮 1.4ノット。その日の早いうちに雪・晴れてきた（時刻の語は無い＝「昼まで」とは書いていない）＝副操縦士の聴取（#7 p6「It had been snowing earlier in the day」「The weather cleared up and it was sunny when they arrived at LGA」）＝台本は「副操縦士の話では」と帰属して言う
+- ⚠️ 報告書 p106／印89 の「a direct return to LGA would have required crossing Manhattan」＝衝突点（#6 の座標）から読みにくい＝台本に入れていない（④' で地図と照らす）
+- 報告書の文字の層に無い語＝Battery Park（岸壁の名）・George Washington（橋の名＝表3 のフェリーの名だけ）・機体の引き上げの日（p30 の「recovered from the water」だけ）
+- **web**（④ で robots.txt を自前で読んでから、窓だけを `src/web/` に控えた・3つとも Claude-User の名指しなし・`*` は許可）＝govinfo の連邦官報 2023-06413（1549便の事故をきっかけに研究・最大の中型の群れの鳥をコアに・施行 2023-06-05）／PBS の AP の転載（2016-09・映画は調査官を検察官のように描いた・元の責任者「We weren’t out to embarrass anybody at all」・主演の俳優の話＝初めの脚本の実名を機長が外させた）／ノースカロライナ州の観光の案内（2024-06-01 に再開・1549便の A320 が展示の中心）。州知事の言葉は検索の結果の文だけ（CNN の書き起こしは robots で拒否＝読まない）
+- ⚠️ 名前の網の表 `src/names_private.txt` の #208 は人の名ではない英字2語（月の名の前に前置詞が付いた形）＝④ の片で4回当たった＝片を月の名から始めて避けた（表は直していない）
+
+### 9-2 係4本の点検の所見を、親が原文で当て直したこと（2026-11-09 チャット3・同じ日の後半）
+
+- 🔴 **操縦室の中で先に「Hudson」**＝付録B p185「15:26:37 HOT-1 uh what a view of the Hudson today」（鳥とぶつかる約34秒前）＝「ハドソン川の語が初めて出た」は**管制との交信の中で**（15:28:10.6 RDO-1 we're unable. we may end up in the Hudson）
+- 🔴 **時刻の起点**＝15:28:46 は管制が滑走路4 を示した時刻（DEP）・機長の「I'm not sure we can make any runway」は 15:28:49.9（p193）／15:28:31 は管制が31 を示した時刻・機長の unable は 15:28:35（p192）／15:29:53 は管制官が「radar contact is lost」と告げた時刻（p198・p20）／15:29:25 RDO-1 we can't do it（p196）／15:29:00 の「no relight after thirty seconds」は HOT-2＝副操縦士（p197・p20）
+- 🔴 **35秒遅らせた試しの中身**＝ドケット #35 p18 の試し36（条件 2.2c・ラガーディアの滑走路13）「Hard landing just short of threshold」「3:02 time from bird strike to LGA」＝滑走路のすぐ手前に強く降りた＝「届かなかった」の根拠（報告書の本文は「not successful」だけ）。2.2c は試し33〜36 の4回（33 はやり直し・34 は途中で川へ・35 は速すぎ）＝有効は1回で、報告書の「One run」と合う
+- **大きな鳥の試験**＝p34「The large-bird ingestion criterion … was a single, 4-pound bird」（中くらいの鳥の試験は別＝約0.68キロ×7羽）＝「試験の鳥は1羽」とは言わず「大きな鳥の試験は1羽」
+- **弱めの語**＝p67 注88「such as」・p69「Because Airbus airplanes」・p104「not readily available」「did not fully apply」・p142「the order of critical items」・p143「to lessen the likelihood that it will intrude into the cabin」・p96「mostly」・p58「a number of passengers」・p120「cold shock … within 3 to 5 minutes, and swimming failure … within 5 to 30 minutes」・p54 注69「rated to carry 44 passengers and had an overload capacity of 55」＝台本の言い方を原文の強さにそろえた
+- **救助の時間**＝p120「one ferry … within about 3 minutes … the other six ferries … within 10 minutes … one FDNY fire rescue boat … within 8 minutes, and two USCG boats … within 17 minutes」「all of the occupants were rescued within about 20 minutes」＝c906 は着水からの分で言う（最初のフェリーは p59 の年表の 15:34:40＝約4分＝§4-6 のまま）
+- **避難**＝p57「Within seconds after the ditching, the crewmembers and passengers initiated the evacuation」（外へ出たのは15秒後）・p58 注75「about 20 seconds elapsed after flight attendant A opened door 1L and the slide/raft began to inflate」（NTSB の映像の解析）・p53「The off-wing ramp/slides did not have quick-release handles」・p126「not … required to have quick-release girts or handholds」
+- **所見の主語**＝p137 所見14・15・18 はどれも「the captain」＝台本は「機長の判断」／推定原因（p140）＝「the ingestion of large birds into each engine」・損傷に寄与した3つは「Contributing to the fuselage damage and resulting unavailability of the aft slide/rafts」＝事故の原因そのものではない
+- **左のエンジン**＝p50「found near the initial impact location of the airplane with the water」「January 23, 2009 (8 days after the accident)」（片は月の名から＝名前の網の #208 を避けた）＝「川底に沈んでいた」は書いていない（公聴会の進行役は「3日後に回収」と話す＝ド#109 p18＝食い違いは記録だけ）
+- **規則**＝連邦官報の窓「the largest medium flocking bird (MFB) into the engine core at climb or approach conditions」＝上昇か進入（着陸前）／規則の背景の節（II. Background）＝「規則の本文」ではなく「規則の説明」
+- **博物館**＝観の窓「reopened on June 1, 2024, after extensive renovations and rebranding」＝「新しい建物」は書いていない＝台本は「改装を終えて再び開き」
+- **映画**＝原題 Sully・日本の公開 2016年9月24日・配給ワーナー・ブラザース映画（映画.com の作品の頁＝2026-11-09 の検索の表示で確かめた・頁は開いていない）＝c517 の「2016年の映画『ハドソン川の奇跡』」の根拠
+- **勧告の状態3 の呼び方**＝この台帳は「それに代わる対応」・台本は「受け入れられる別の対応」（NTSB が受け入れられると評価した別の対応＝Closed—Acceptable Alternate Action）＝画の札と概要欄は台本の言い方にそろえる
