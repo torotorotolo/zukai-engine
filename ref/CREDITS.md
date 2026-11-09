@@ -3636,7 +3636,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `p10` | c809 | 2020 | CC0（この回の物と場所） | 表示は任意（CC0） | commons:North American F-86F-40-238 - F-86F-40-MIT Sabre - Kyokkō ‘865 - 82-7865’ (20810093720).jpg |
 | `p3` | c204 | 1979 | CC BY-SA 4.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep31/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:All Nippon Airways Boeing 727-200 JA8344.jpg |
 | `p5` | c207 | 不明 | SDASM（著作権の制限は知られていない）（この回の物と場所） | SDASM Archives（Flickr の The Commons） | commons:F-86F-40 of JSDF.jpg |
-| `p6` | c211（地 c212 c404 c416 c504 c522 c523 c612 c613 c914） | 2020 | CC0（この回の物と場所） | 表示は任意（CC0） | commons:North American F-86F-40-238 - F-86F-40-MIT Sabre - Kyokkō ‘865 - 82-7865’ (20810093715).jpg |
+| `p6` | c211 | 2020 | CC0（この回の物と場所） | 表示は任意（CC0） | commons:North American F-86F-40-238 - F-86F-40-MIT Sabre - Kyokkō ‘865 - 82-7865’ (20810093715).jpg |
 | `p7` | c311 | 2021 | CC BY-SA 4.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep31/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:JASDF F-86F(62-7702) right front view at the Mitsubishi Heavy Industries Komaki Minami factory May 14, 2021.jpg |
 | `gb1` | （地 c312） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/white-board-in-the-office-9034248/ |
 | `gc1` | （地 c205 c216 c327 c403 c405 c415 c503 c505 c507 c508 c602 c603 c919 cb01 cb02 cb07 cb08 cb12 cb13 cb15 cb16 cb18） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/blue-sky-with-fluffy-cumulus-clouds-6623685/ |
@@ -3647,7 +3647,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `gm2` | （地 c411 c412） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/view-of-green-mountains-under-a-cloudy-sky-18821817/ |
 | `gp1` | （地 ca04 cc05） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/aerial-view-of-private-airstrip-by-forest-37260527/ |
 | `gr1` | （地 c808） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/shallow-tranquil-river-in-forest-18332769/ |
-| `gs1` | （地 c803 c804 c805） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/white-clouds-in-sky-23499290/ |
+| `gs1` | （地 c212 c404 c416 c504 c522 c523 c612 c613 c803 c804 c805 c914） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/white-clouds-in-sky-23499290/ |
 | `gs2` | （地 c210） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/vibrant-blue-sky-with-fluffy-clouds-32047220/ |
 | `gs3` | （地 cc14） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/blue-sky-3940880/ |
 | `gw1` | （地 c607 c608 c617 c626 cc09 cc10） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/aerial-view-of-clouds-and-airplane-wing-36705757/ |
