@@ -1,0 +1,14 @@
+checked 17:02:30
+videoId vJZDcAEjYk0  https://youtu.be/vJZDcAEjYk0
+✓ 題: 76字
+✓ 説明: 3498字
+✓ タグ: 16個
+✓ 子ども向けでない: self=False made=False
+✓ 公開設定: public
+✓ 処理: succeeded
+✓ 画質: hd
+✓ 尺: PT36M28S（手元 36分27.5秒）
+✓ サムネ: maxres 1280x720：平均の差 2.79（8 未満）・鮮明さの比 1.08（0.95 以上）／hq720.jpg 1280x720：平均の差 2.79（8 未満）・鮮明さの比 1.08（0.95 以上）／maxres.webp 1280x720：平均の差 3.31（8 未満）・鮮明さの比 0.98（0.85 以上）／hq720.webp 1280x720：平均の差 3.31（8 未満）・鮮明さの比 0.98（0.85 以上）
+verify exit=0
+oembed http=200
+thumbcheck exit=0

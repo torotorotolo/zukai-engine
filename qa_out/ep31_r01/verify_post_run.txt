@@ -1,0 +1,10 @@
+videoId vJZDcAEjYk0  https://youtu.be/vJZDcAEjYk0
+✓ 題: 76字
+✓ 説明: 3498字
+✓ タグ: 16個
+✓ 子ども向けでない: self=False made=False
+✓ 公開設定: private／予約 2026-11-09T08:00:00Z
+✓ 処理: succeeded
+✓ 画質: hd
+✓ 尺: PT36M28S（手元 36分27.5秒）
+✓ サムネ: maxres 1280x720：平均の差 2.79（8 未満）・鮮明さの比 1.08（0.95 以上）

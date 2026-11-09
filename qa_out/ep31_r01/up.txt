@@ -1,0 +1,20 @@
+メタ: meta_ep31.json
+接続先: ゆっくり調査ノート（@chosanote／動画17本）
+動画: titan_audio-ep31-r01.mp4（358.7 MB）
+題　: 【映像あり】全日空機雫石衝突事故の真相。その朝の訓練の空は、旅客機の道が載っていない地図の上で、幹部が指で示して決めていた。【事故検証】【ゆっくり解説】
+非公開で上げる（予約はあとで `schedule`）
+  2%  4%  7%  9%  11%  14%  16%  18%  21%  23%  25%  28%  30%  32%  35%  37%  39%  42%  44%  46%  49%  51%  53%  56%  58%  60%  63%  65%  67%  70%  72%  74%  77%  79%  81%  84%  86%  88%  91%  93%  95%  98%
+上がった: https://youtu.be/vJZDcAEjYk0
+管理　　: https://studio.youtube.com/video/vJZDcAEjYk0/edit
+処理が終わるのを待つ（サムネは hd になってから貼る）
+  処理 processing・画質 sd（0秒）
+  処理 processing・画質 sd（20秒）
+  処理 processing・画質 sd（40秒）
+  処理 processing・画質 hd（61秒）
+  処理 processing・画質 hd（81秒）
+  処理 succeeded・画質 hd（101秒）
+サムネを貼った: ep31_Hinv_C3cr2.png
+  ✓ maxres 1280x720：平均の差 2.79（8 未満）・鮮明さの比 1.08（0.95 以上）
+✓ サムネは高解像度で貼れている
+
+次: python tools/upload_jiko.py schedule vJZDcAEjYk0 --at "…+09:00"（または public）

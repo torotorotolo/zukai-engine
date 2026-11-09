@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""30本目 ⑥：YouTube に上げた動画を API で読み、`config/meta_ep31.json` と照らす（29本目 `ep29_r02_verify_upload.py` の写し）。
+"""31本目 ⑥：YouTube に上げた動画を API で読み、`config/meta_ep31.json` と照らす（30本目 `ep30_r02_verify_upload.py` の写し・尺だけ直した）。
 
 照らす物＝題・説明・タグ・公開設定・子ども向けでない・処理・画質・尺・サムネの画素（大きい版を原寸で・鮮明さの比も＝upload_jiko.check_thumb）。
 
@@ -14,9 +14,9 @@ sys.path.insert(0, str(HERE / "tools"))
 sys.stdout.reconfigure(encoding="utf-8")
 import upload_jiko as U  # noqa: E402
 
-# 本編 r01 の尺（check_final の 2229.07秒＝37分09.1秒）＝ISO 8601 の秒の切り捨て・切り上げの両方を許す
-DURATIONS = ("PT37M9S", "PT37M10S")
-DUR_NOTE = "手元 37分09.1秒"
+# 本編 r01 の尺（check_final の 2187.5秒＝36分27.5秒）＝ISO 8601 の秒の切り捨て・切り上げの両方を許す
+DURATIONS = ("PT36M27S", "PT36M28S")
+DUR_NOTE = "手元 36分27.5秒"
 
 
 def main():
