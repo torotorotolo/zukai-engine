@@ -126,7 +126,7 @@ SPEC.update({
                  t="常設の機関", s="運輸白書の本文（法案）"),
     # cb11＝衆議院の頁の法律第五十八号の頭と、第七十一条の次に加える条の見出し（4倍で撮った・誤字のある条文は外した）
     "cb11": dict(photo=_L_b11, panel=True, ptall=True, ground=dict(photo=_L_b11, blur=ss.PAGE_BLUR), color=1.0,
-                 t="見張り義務", s="改正の法律と新しい条の見出し"),
+                 t="見張り義務", s="改正の法律と新しい条の見出し", mute=[1]),   # 🔧 ⑤c'：2行目（「操縦者の見張り義務」）は4倍の紙面の字と二重＝字幕を消す（27本目 c316 の型）
     # cb17＝国交省の記者発表（管理運用体制の変更・訓練空域の細分化）
     "cb17": dict(photo=_M_b17, panel=True, pw=1776, ground=dict(photo=_M_b17, blur=ss.PAGE_BLUR), color=1.0,
                  t="訓練空域を細かく", s="国交省の記者発表の一節"),

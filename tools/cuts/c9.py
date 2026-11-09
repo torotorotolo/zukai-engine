@@ -144,7 +144,7 @@ SPEC.update({
     "c911": _m31.fu_spec("c911", ss.gr("l1")),
     "c912": _m31.fu_spec("c912", ss.gr("l1")),
     "c913": _m31.fu_spec("c913", ss.gr("l1")),
-    "c914": _m31.fu_spec("c914", ss.gr("p6")),
+    "c914": _m31.fu_spec("c914", ss.gr("stock/gs1")),   # 🔧 ⑤c'：地 P6 → GS1（副題「機動隊形の教官」×保存機＝「教官機」と読まれる）
     "c915": _m31.fu_spec("c915", ss.gr("a1")),
     "c916": _m31.fu_spec("c916", ss.gr("l1")),
     "c918": _m31.fu_spec("c918", ss.gr("l1")),

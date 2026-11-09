@@ -1450,7 +1450,14 @@ def credit_of(cid):
     """カットまるごとの映像の出典。🆕 18本目 ⑤b-7c：映像の差し込み（頭＝head）の欄は None＝本の写真・頁の出典をそのまま出す
     （差し込みの出典は差し込みの層 `{cid}_ilab` が出す＝scene_jiko.head_top）"""
     u = USE.get(cid)
-    return CLIPS[u["clip"]]["credit"] if u and not u.get("head") and not u.get("tail") else None
+    if not u or u.get("head") or u.get("tail"):
+        return None
+    cr = CLIPS[u["clip"]]["credit"]
+    # 🔧 2026-11-09（31本目 ⑤c'）：出典の字は映像1本（clips.json）に1つ＝等速のカット（c104・c709・c710）にも「改変：切出・再生速度」と出た
+    #    （言いすぎの向き・⑤b-2 §4-7 の持ち越し）。等速（rate 1.0）・止めなしのカットは「再生速度」を言わない
+    if cr.endswith("・再生速度") and float(u.get("rate", 1.0)) == 1.0 and not u.get("hold"):
+        cr = cr[:-len("・再生速度")]
+    return cr
 
 
 def secs_of():

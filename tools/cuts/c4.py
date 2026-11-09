@@ -111,7 +111,7 @@ SPEC.update({
     "c412": _m31.fu_spec("c412", ss.gr("stock/gm2")),
     "c414": _m31.fu_spec("c414", ss.gr("a1")),
     "c415": _m31.fu_spec("c415", ss.gr("stock/gc1")),
-    "c416": _m31.fu_spec("c416", ss.gr("p6")),
+    "c416": _m31.fu_spec("c416", ss.gr("stock/gs1")),   # 🔧 ⑤c'：地 P6 → GS1（保存機を地にしない＝番号が読めて「この機体」と読まれる）
     "c417": _m31.fu_spec("c417", ss.gr("a1")),
 })
 
@@ -119,7 +119,7 @@ SPEC.update({
 SPEC.update({
     "c402": _m31.zu_spec("c402", ss.gr("a1")),
     "c403": _m31.zu_spec("c403", ss.gr("stock/gc1")),
-    "c404": _m31.zu_spec("c404", ss.gr("p6")),
+    "c404": _m31.zu_spec("c404", ss.gr("stock/gs1")),   # 🔧 ⑤c'：地 P6 → GS1（日の丸と番号が帯の後ろに透けた）
     "c405": _m31.zu_spec("c405", ss.gr("stock/gc1")),
     "c407": _m31.zu_spec("c407", ss.gr("a1")),
     "c410": _m31.zu_spec("c410", ss.gr("a1")),

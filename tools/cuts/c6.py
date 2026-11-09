@@ -157,8 +157,8 @@ SPEC.update({
     "c605": _m31.zu_spec("c605", ss.gr("stock/gc2")),
     "c606": _m31.zu_spec("c606", ss.gr("stock/gc2")),
     "c610": _m31.zu_spec("c610", ss.gr("stock/gc2")),
-    "c612": _m31.zu_spec("c612", ss.gr("p6")),
-    "c613": _m31.zu_spec("c613", ss.gr("p6")),
+    "c612": _m31.zu_spec("c612", ss.gr("stock/gs1")),   # 🔧 ⑤c'：地 P6 → GS1（番号「865」が円の下に透けた）
+    "c613": _m31.zu_spec("c613", ss.gr("stock/gs1")),   # 🔧 ⑤c'：地 P6 → GS1
     "c620": _m31.zu_spec("c620", ss.gr("stock/gc2")),
 })
 

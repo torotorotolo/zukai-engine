@@ -122,7 +122,7 @@ SPEC.update({
 SPEC.update({
     "c205": _m31.zu_spec("c205", ss.gr("stock/gc1")),
     "c210": _m31.zu_spec("c210", ss.gr("stock/gs2")),
-    "c212": _m31.zu_spec("c212", ss.gr("p6")),
+    "c212": _m31.zu_spec("c212", ss.gr("stock/gs1")),   # 🔧 ⑤c'：地 P6（保存機の番号「865」が図の枠に透ける）→ 夏の空 GS1
     "c216": _m31.zu_spec("c216", ss.gr("stock/gc1")),
 })
 

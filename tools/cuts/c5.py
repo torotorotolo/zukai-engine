@@ -140,7 +140,7 @@ SPEC.update({
 import mech31 as _m31  # noqa: E402
 SPEC.update({
     "c502": _m31.fu_spec("c502", ss.gr("a1")),
-    "c504": _m31.fu_spec("c504", ss.gr("p6")),
+    "c504": _m31.fu_spec("c504", ss.gr("stock/gs1")),   # 🔧 ⑤c'：地 P6 → GS1
     "c505": _m31.fu_spec("c505", ss.gr("stock/gc1")),
     "c507": _m31.fu_spec("c507", ss.gr("stock/gc1")),
     "c508": _m31.fu_spec("c508", ss.gr("stock/gc1")),
@@ -149,8 +149,8 @@ SPEC.update({
     "c516": _m31.fu_spec("c516", ss.gr("stock/gc2")),
     "c519": _m31.fu_spec("c519", ss.gr("stock/gc2")),
     "c521": _m31.fu_spec("c521", ss.gr("stock/gf1")),
-    "c522": _m31.fu_spec("c522", ss.gr("p6")),
-    "c523": _m31.fu_spec("c523", ss.gr("p6")),
+    "c522": _m31.fu_spec("c522", ss.gr("stock/gs1")),   # 🔧 ⑤c'：地 P6 → GS1
+    "c523": _m31.fu_spec("c523", ss.gr("stock/gs1")),   # 🔧 ⑤c'：地 P6 → GS1
 })
 
 # 🆕 ⑤b-5（2026-11-08）：見え方の表（`mech31.VIEWS`＝模式と型の図）。地は写真を暗くするだけ（`ss.gr`）
