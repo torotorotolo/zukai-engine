@@ -1,0 +1,4 @@
+  ep31_szk_a_bw1.jpg: {'grain': 9.0, 'gsig': 1.3, 'contrast': 1.2, 'black': 22, 'white': 232, 'soft': 0.9, 'halo': 0.15, 'vig': 0.15, 'dust': 0, 'scratch': 0}
+  ep31_szk_a_bw2.jpg: {'grain': 14.0, 'gsig': 1.7, 'contrast': 1.35, 'black': 30, 'white': 226, 'soft': 1.2, 'halo': 0.25, 'vig': 0.25, 'dust': 30, 'scratch': 2}
+  ep31_szk_a_bw3.jpg: {'grain': 4.0, 'gsig': 1.5, 'contrast': 1.3, 'black': 16, 'white': 238, 'soft': 1.1, 'halo': 0.22, 'vig': 0.2, 'dust': 0, 'scratch': 0, 'mix': (0.2, 0.5, 0.3), 'scurve': 0.35, 'gmul': 1.0}
+  ep31_szk_a_bw4.jpg: {'grain': 5.5, 'gsig': 1.8, 'contrast': 1.45, 'black': 12, 'white': 232, 'soft': 1.3, 'halo': 0.28, 'vig': 0.26, 'dust': 12, 'scratch': 1, 'mix': (0.2, 0.5, 0.3), 'scurve': 0.55, 'gmul': 1.0}

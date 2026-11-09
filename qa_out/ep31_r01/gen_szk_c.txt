@@ -1,0 +1,3 @@
+★課金API: gpt-image-2.5-flare high 1枚（概算 $0.2前後）。案SZK_C＝案① 下から見上げる：白い727 の胴体と主翼が横いっぱい・すぐそばに深く左へ傾いた F-86F（白黒・1971年の報道写真の質感）
+OK -> C:\Users\konar\Desktop\zukai-engine\ref\ep31\ai\ep31_szk_c.jpg（246px版も出力）
+🔴 次＝thumb_jiko.py で赤・黄を焼いてから検品する（地だけで判断しない）

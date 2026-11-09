@@ -1,0 +1,3 @@
+  ep31_Hinv_C3ga_over: 大きさ 454・上の行 96・機体を字の手前に（切り出し {'zoom': 1.0, 'cx': 0.5, 'cy': 0.5}）
+cmp31_final.png ok
+C:\Users\konar\Desktop\zukai-engine\out\thumb\ep31\cmp31_final.png 0.67MB

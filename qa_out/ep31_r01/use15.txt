@@ -1,0 +1,15 @@
+c101 {'clip': 'MS', 'start': 1117.95, 'rate': 0.4, 'hold': 2.65}
+c102 {'clip': 'MS', 'start': 1120.5, 'rate': 0.4, 'hold': 0.5}
+c104 {'clip': 'MK', 'start': 1010.0, 'rate': 1.0}
+c106 {'clip': 'MS', 'start': 1231.5, 'rate': 0.5, 'hold': 2.1}
+c107 {'clip': 'MS', 'start': 1206.4, 'rate': 0.48, 'hold': 0.3, 'edit': True}
+c208 {'clip': 'MK', 'start': 1034.2, 'rate': 0.53}
+c301 {'clip': 'MK', 'start': 1040.0, 'rate': 0.74}
+c304 {'clip': 'MK', 'start': 1019.9, 'rate': 0.8}
+c701 {'clip': 'MS', 'start': 1123.4, 'rate': 0.66}
+c706 {'clip': 'MS', 'start': 1212.2, 'rate': 0.56}
+c707 {'clip': 'MS', 'start': 1227.65, 'rate': 0.4, 'hold': 1.7, 'edit': True}
+c709 {'clip': 'MS', 'start': 1194.6, 'rate': 1.0, 'edit': True}
+c710 {'clip': 'MS', 'start': 1136.6, 'rate': 1.0}
+c711 {'clip': 'MS', 'start': 1157.9, 'rate': 0.83, 'edit': True}
+cc15 {'clip': 'MS', 'start': 1217.2, 'rate': 0.4, 'hold': 1.6}

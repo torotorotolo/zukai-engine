@@ -1,0 +1,11 @@
+網＝names_private.txt・names_commons.txt
+🔴 meta_dry2.txt:71 に網の語 #50
+🔴 meta_dry2.txt:72 に網の語 #55
+🔴 meta_dry2.txt:73 に網の語 #52
+🔴 meta_dry2.txt:74 に網の語 #56
+🔴 meta_dry2.txt:75 に網の語 #60
+🔴 meta_dry2.txt:76 に網の語 #57
+🔴 meta_dry2.txt:77 に網の語 #59
+🔴 meta_dry2.txt:78 に網の語 #53
+🔴 meta_dry2.txt:79 に網の語 #58
+名前の網 60語 × 1ファイル → 9件

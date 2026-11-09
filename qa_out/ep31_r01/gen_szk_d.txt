@@ -1,0 +1,3 @@
+★課金API: gpt-image-2.5-flare high 1枚（概算 $0.2前後）。案SZK_D＝案② 機首から迫る：望遠でほぼ正面・727 の機首と主翼が真ん中を大きく・すぐそばに深く左へ傾いた F-86F（白黒・1971年の報道写真の質感）
+OK -> C:\Users\konar\Desktop\zukai-engine\ref\ep31\ai\ep31_szk_d.jpg（246px版も出力）
+🔴 次＝thumb_jiko.py で赤・黄を焼いてから検品する（地だけで判断しない）

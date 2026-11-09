@@ -913,6 +913,133 @@ SCENES.update({
 })
 
 
+# ── 31本目 全日空機雫石衝突事故（1971-07-30・岩手県雫石町の上空）── 2026-11-09 ⑥ ──────────────────────
+# 🆕 11-09 カズヤくん「生成AIの地を作る」（写真の地＝保存機 F-86F は番号「865」が透ける・窓の外は字の中と外の差 +13＝迫力が弱い）。
+#    事実の芯（台本 第2版）：旅客機＝ボーイング727-200（3発・T字の尾翼）・高さ約8,500m を松島へ向けて真っすぐ水平に・マッハ約0.79（c505）。
+#    訓練機＝F-86F（銀色・後退翼・機首の空気取り入れ口）・深いバンク角の左旋回（議員のまとめ＝c507）。夏の昼（14時2分ごろ）。
+#    🔴 描くのは「ぶつかる直前の近さ」まで＝衝突・破片・炎は描かない（何が起きたかの順を絵で作らない）。
+#    🔴 社名・印・機体番号・字は描かせない（会社の印のまね・番号の取り違えを作らない）。人の顔なし（操縦席の中は見えない距離）。
+#    本番は H 型の反転版（字の外がカラー・大きな語「雫石」が真ん中の帯 y136〜579 を横いっぱい）＝主役は真ん中の帯を横に大きく
+LOOK_SZK = (
+    "A real PHOTOGRAPH, indistinguishable from dramatic documentary aviation photography, as if taken on a bright summer "
+    "afternoon in July 1971 at about 8,500 metres above northern Japan with a modern full-frame camera and a long lens "
+    "from another aircraft. Clear, thin, very transparent air; a deep cobalt-blue sky; hard, dazzling high-altitude "
+    "sunlight glinting on polished metal; crisp detail, natural colours, true photographic depth of field. "
+)
+FRAME_SZK = (
+    "COMPOSITION, critical: 16:9 frame. Very large lettering will later cover the top 15% and the bottom 20% of the "
+    "frame, and one huge word will run across the whole middle, so the picture will mostly be seen through the gaps "
+    "between its letters. So both aircraft must be LARGE, spread across the middle band of the frame, readable at a "
+    "glance even when the picture is tiny. Keep plain deep-blue sky at the top and the cloud tops and mountains at the "
+    "bottom. Original composition: do not copy any existing photograph, painting or film scene. "
+)
+BAN_SZK = (
+    "No text, letters, numbers, registration markings, airline names, logos, emblems, flags, roundels, national "
+    "insignia or watermarks of any kind, in any language, anywhere on the aircraft or in the picture. No collision, "
+    "no damage, no debris, no fire, no smoke trails: this is the moment just BEFORE anything happens. No visible faces. "
+)
+TAIL_SZK = (
+    "The result must look like a genuine, tense, high-impact photograph of a real moment, full of detail. It must NOT "
+    "look like a render, a video game, a movie still, a movie poster, a painting, a 3D visualisation, a model or an "
+    "illustration. No lens flare, no cinematic colour grading."
+)
+SZK_AIRLINER = (
+    "a white Boeing 727-200 airliner of the early 1970s — a long narrow fuselage, swept wings, three jet engines grouped "
+    "at the tail and a tall T-shaped tail — painted plain white with one simple dark-blue stripe along the windows and no "
+    "markings at all, flying perfectly straight and level "
+)
+SZK_FIGHTER = (
+    "a small silver North American F-86F Sabre jet fighter — bare polished aluminium, a round air intake in the nose, "
+    "swept-back wings, a bubble canopy, no markings at all — rolled into a steep left bank "
+)
+# 🔧 11-09：2機の前後（どちらが前か・どちらが追いついたか・進路へ入ったか）は資料で確かめていない＝描く言葉に入れない
+#    （絵がどちらかの落ち度を語らないように）。傾きの度数も資料に無い（議員のまとめ「深いバンク角」まで）
+SCENES.update({
+    "szk_a": {
+        "ep": "ep31",
+        "name": "横から：真っすぐ飛ぶ白い727 のすぐそばに、深く左へ傾いた銀色の F-86F（ぶつかる直前・雲と山は下）",
+        "hypothesis": "2機の近さそのものが絵になる（210px でも大きな白い機体と小さな銀の機体が重なりそうに見える）。"
+                      "旅客機は真っすぐ・訓練機は深い左旋回＝台本 c505・c507 の言葉のまま",
+        "look": LOOK_SZK, "frame": FRAME_SZK, "ban": BAN_SZK, "tail": TAIL_SZK,
+        "scene": (
+            "Seen from the side at the same height: " + SZK_AIRLINER + "from left to right across the middle of the "
+            "frame, filling most of its width. Close beside it, a little farther from the camera and only a little "
+            "higher, dangerously close — only a few dozen metres away — is " + SZK_FIGHTER + ", its silver underside and "
+            "swept wings flashing in the sun. Far below, rows of white summer cumulus clouds "
+            "and, between them, the dark green forested mountains and valleys of rural northern Japan. "
+        ),
+    },
+    "szk_b": {
+        "ep": "ep31",
+        "name": "斜め上から：真っすぐ飛ぶ白い727 と、すぐそばで深く左へ傾いた銀色の F-86F（下に岩手の山と盆地・夏の雲）",
+        "hypothesis": "szk_a より高さと広さが伝わる（約8,500m の上空・下に山と盆地）。2機の前後は描き分けない（資料で確かめていない）",
+        "look": LOOK_SZK, "frame": FRAME_SZK, "ban": BAN_SZK, "tail": TAIL_SZK,
+        "scene": (
+            "Seen from slightly above and to one side, high in the sky: " + SZK_AIRLINER + "across the frame from left "
+            "to right, large in the frame. Very close to it, dangerously close, is " + SZK_FIGHTER + ". The two "
+            "aircraft are both large and fill the middle band of the frame. Far below lies a wide green summer landscape of northern Japan "
+            "— forested mountains, a broad basin with rice fields and a river — under scattered white cumulus clouds. "
+        ),
+    },
+})
+
+
+# 🆕 11-09 ⑥ の続き：カズヤくん「当時の写真の質感を再現するように、白黒で作成」「色だけでなく質感も」→ 加工の白黒（qa_out/ep31_thumb_bw.py）を見て
+#    「生成AIで作り直し。構成も再考」→ 構図3案から「案① 下から見上げる」「案② 機首から迫る」（各 約$0.2）。
+#    🔴 質感＝1971年の白黒の報道写真（35mm の白黒フィルム・望遠・粒・焼き付けの階調・にじみ・ほこり）。色は一切なし。
+#    🔴 本番は H 型の反転版＝大きな「雫石」が真ん中の帯をふさぐ＝字のすき間と縁のまわりから見ても形が分かるよう、2機を画面からはみ出すほど大きく強い形で。
+#    🔴 2機の前後・衝突・破片・炎は描かせない（szk_a・b と同じ）。高さは訓練機がわずかに上（長官の報告＝約8,600m と約8,500m・台本 c503・c505）。
+#    ⚠️ 本物の当時の写真に見えるほど「実際の事故の写真」と取り違えられやすい＝概要欄の「生成AIで作った再現のイメージ」の断りを必ず残す
+LOOK_SZK_BW = (
+    "A real BLACK-AND-WHITE PHOTOGRAPH from July 1971, indistinguishable from a genuine archival press photograph of that "
+    "year: taken air-to-air on 35mm black-and-white film with a long telephoto lens and printed as a high-contrast silver "
+    "gelatin print. Visible natural film grain, slightly soft focus, lens falloff darkening the corners, deep blacks and "
+    "bright but not clipped whites, a soft glow of halation around the brightest highlights, and a few faint dust specks and "
+    "fine scratches from the negative. Monochrome only — absolutely no colour. Bright summer afternoon sunlight at about "
+    "8,500 metres. "
+)
+FRAME_SZK_BW = (
+    "COMPOSITION, critical: 16:9 frame. Very large lettering will later cover the top 15% and the bottom 20% of the frame, "
+    "and one huge word will run across the whole middle, so the picture will mostly be seen through the gaps between its "
+    "letters and around their edges. So both aircraft must be HUGE, with strong dark-and-light shapes that stay "
+    "recognisable even through small gaps, the airliner spreading across the whole width of the frame and even beyond its "
+    "edges. Keep the sky bright. Original composition: do not copy any existing photograph, painting or film scene. "
+)
+TAIL_SZK_BW = (
+    "The result must look exactly like a genuine 1971 black-and-white archival press photograph, full of detail and tension. "
+    "It must NOT look like a modern digital photo, a colourised photo, a render, a video game, a movie still, a painting, a "
+    "3D visualisation, a model or an illustration. No colour at all, no lens flare."
+)
+SCENES.update({
+    "szk_c": {
+        "ep": "ep31",
+        "name": "案① 下から見上げる：白い727 の胴体と主翼が横いっぱい・すぐそばに深く左へ傾いた F-86F（白黒・1971年の報道写真の質感）",
+        "hypothesis": "明るい空に2機の腹と翼が強い影の形で出る＝H 反転版の字のすき間からでも形が分かる",
+        "look": LOOK_SZK_BW, "frame": FRAME_SZK_BW, "ban": BAN_SZK, "tail": TAIL_SZK_BW,
+        "scene": (
+            "Seen from slightly below and to one side, high above the clouds: " + SZK_AIRLINER + ", seen from below, very "
+            "large, its long fuselage, swept wings and three tail engines spreading across the whole width of the frame, the "
+            "undersides of the wings and fuselage in deep shadow against the bright sky. Very close to it and a little "
+            "higher, dangerously close, is " + SZK_FIGHTER + ", its swept wings and fuselage a strong dark shape against the "
+            "bright sky. Far below, the tops of summer cumulus clouds. "
+        ),
+    },
+    "szk_d": {
+        "ep": "ep31",
+        "name": "案② 機首から迫る：望遠でほぼ正面・727 の機首と主翼が真ん中を大きく・すぐそばに深く左へ傾いた F-86F（白黒・1971年の報道写真の質感）",
+        "hypothesis": "見る人に向かってくる圧＝機首・操縦席の窓・主翼の形が字の帯の上下とすき間に出る",
+        "look": LOOK_SZK_BW, "frame": FRAME_SZK_BW, "ban": BAN_SZK, "tail": TAIL_SZK_BW,
+        "scene": (
+            "Seen almost head-on through a long telephoto lens from about the same height: " + SZK_AIRLINER + ", coming "
+            "straight toward the camera, its nose, the dark cockpit windows, the swept wings and the three tail engines "
+            "filling the middle of the frame, very large and wide. Very close beside it and a little higher, dangerously "
+            "close, is " + SZK_FIGHTER + ". Far below, summer cumulus clouds and the dark forested mountains of northern "
+            "Japan. "
+        ),
+    },
+})
+
+
 def build(v):
     """🔴 質感（look）と締め（tail）は**場面ごとに差し替えられる**（2026-09-22 追加）。
 
