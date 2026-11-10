@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
-"""第9章　国は2、全日空は1 ca01–ca13（12カット）。31本目（全日空機雫石衝突事故・1971-07-30・岩手県雫石町の上空・刑事は1983年・民事は1989年に終わった）。
+"""第9章　報告書が書いた「偶然」 ca01–ca15（15カット）。32本目（USエアウェイズ1549便のハドソン川への着水・2009-01-15・ニューヨーク・報告書 NTSB/AAR-10/03 は2010-05-04 採択）。
 
-■ 🔴 2026-11-08（⑤b-1）：30本目（地下鉄サリン事件）の中身を空にした＝git の `3d0ee6bc`（`git show 3d0ee6bc:tools/cuts/ca.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep31/make_plan31.py` で
-  映像方針の一覧（`ref/ep31/eizou_build/make_list31.py`＝了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
-  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep31/eizou_list31.md`）。
+■ 🔴 2026-11-10（⑤b-1）：31本目（全日空機雫石衝突事故）の中身を空にした＝git の `f4bd0a9a`（`git show f4bd0a9a:tools/cuts/ca.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep32/make_plan32.py` で
+  映像方針の一覧（`ref/ep32/eizou_build/make_list32.py`＝了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
+  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep32/eizou_list32.md`＝⑤b は一覧に従う）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
-  🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep31）＝`fmove`（額ごと動かす）・額の中の `cam` を書かない（門番 check_fmove が絵で測る）。
-  🔴 写真は画面いっぱい・色は原本（`build_jiko.PHOTO_KEEP_EP` に ep31）・BY-SA は額装・国会と判決の紙面も額装。説明カットの地は写真を暗くするだけ（8:1）。
+  🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep32）＝`fmove`（額ごと動かす）・額の中の `cam` を書かない（門番 check_fmove が絵で測る）。
+  🔴 写真は画面いっぱい・色は原本（`build_jiko.PHOTO_KEEP_EP` に ep32）・BY-SA は額装・紙面と調査の写真も額装。説明カットの地は写真を暗くするだけ（8:1・衛星と夜の写真は地にしない）。
+  🔴 VTS（沿岸警備隊の監視カメラ）は等速・止めなし・頭から使う・同じ秒を2回使わない（区間は一覧の動きの欄＝make_list32 の門番）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット。
-  🔴 この回の線＝語りと画面に人の名前を出さない（亡くなった方・遺族・操縦者・乗員・役人・裁判官・弁護人は立場だけ）・「犯人」「加害者」と言わない・
-     報道の写真は使わない・遺体・遺品・搬送の秒なし・新聞の紙面の犠牲者の顔写真・参列者の近景は外す＝図でも同じ（紙面に名前が写る＝親が絵を見て切る）
+  🔴 この回の線＝語りと画面に名前を出すのは機長と副操縦士だけ（初出 c203・c205）・客室乗務員・管制官・救助の人は立場だけ・乗客は名前なし・
+     NTSB・FAA・議員・知事・監督・俳優は役職で・「犠牲」「死亡」は言わない・「208秒」は使わず「約3分半」・映画は c517〜c518・c520 だけ
+     ＝図でも同じ（紙面・写真に名前の字が写る＝親が絵を見て切る・船の名も読ませない）
 """
 import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
@@ -19,84 +21,51 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'ca01': dict(kind='図解',
-               plan='地：GF1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：補償の札＝防衛庁が窓口・1971年末から72年の冬・乗客155人のうち152人の分〈1975年の防衛庁の答弁〉・人の形は｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国107503830X00819750314/59（`とりあえず防衛庁が窓口となりまして十六億五千二百万円`…`補償を四十六年末から四十七年の冬にかけてお払いしております。これは百五十五名中百五十二名分でございます`）'),
-    'ca02': dict(kind='図解',
-               plan='地：GF1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：額の札＝16億5,200万円〈防衛庁の答弁〉｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国107503830X00819750314/59（`防衛庁が窓口となりまして十六億五千二百万円`）'),
-    'ca03': dict(kind='図解',
-               plan='地：GF1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：残る3人の分＝話し合いがまとまらず裁判に〈防衛庁の答弁〉・名前は出さない｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国107503830X00819750314/59（`三名の乗客の方の御遺族に対しましては、補償額について話し合いが円満に解決できませんでしたので`…`訴訟になりまして、これはすでに判決を受けて賠償いたしております`）'),
+    'ca01': dict(kind='写真',
+               plan='🔧 C40｜一覧の種類：写真｜見せ方：全面｜副題：夜の岸壁のそばの機体〈2009年1月17日〉｜動き：ゆっくり寄る｜見た目の型：11-10 640px＝夜の照明の中の機体・奥の建物の明かり｜権利：CC BY 2.0｜時期：2009-01-17 00:07（EXIF）・夜｜人：なし｜出典の行：写真：{作者}／Wikimedia Commons（CC BY 2.0）｜注：—｜新しい画（映像方針）：🔧 副題「夕方の機体〈2009年1月15日〉」→ EXIF 1月17日 0:07＝夜｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・副題の日付と夕方・夜は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='聞（州知事の会見＝報道の帰属・CNN の書き起こしは robots で拒否＝未読）'),
+    'ca02': dict(kind='写真',
+               plan='R96｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p96（`Consequently, this accident has been portrayed as a “successful” ditching. However, the investigation revealed that the success of this ditching mostly resulted from a series of fortuitous circumstances`）・計（報告書の文字の層で「miracle」0件）'),
+    'ca03': dict(kind='フリー素材',
+               plan='Xa03｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：冬の晴れた日の静かな川面〈場所は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p96（`including that the ditching occurred in good visibility conditions on calm water`）'),
     'ca04': dict(kind='図解',
-               plan='地：GP1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：民事の裁判の札＝機体と営業の損害・全日空の側と国｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国110304889X00619851210/28（`民事裁判につきましては、一審の判決がございまして`）・国107503830X00819750314/59（`全日空の方も営業損失等について訴訟を起こし`）・国112214103X00219911217/181（`損保会社の機体損害保険の代位`）'),
-    'ca05': dict(kind='文字の頁',
-               plan='KK19851210HN｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：著作権法40条｜時期：1985年｜人：「控訴しておりますのは国の方」の段だけ（ca05）｜出典の行：国会会議録（1985年12月10日 衆議院 内閣委員会）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 公的な機関の紙面（国会会議録・判決）＝額装・無加工・🔴 名前の行を入れない＝親が絵を見て切る（語りと画面に人の名前を出さない回）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国110304889X00619851210/28（`控訴しておりますのは国の方でございますけれども`）'),
+               plan='地：GR2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：偶然の札の1つ目と2つ目＝よい見通しと穏やかな水面・とても経験のある乗員｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p96（`and was executed by a very experienced flight crew`）'),
+    'ca05': dict(kind='写真',
+               plan='🔧 R140｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）推定原因｜注：枠＝「(1) the decision-making of the flight crewmembers and their crew resource management」から（c722 と別の枠）｜新しい画（映像方針）：🔧 模式（生き残れた理由の札・地＝夜の [40]）→ 報告書 p140 の「生き残れた理由」の段（実物）＝模式の連続を切る｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p140（`Contributing to the survivability of the accident was (1) the decision-making of the flight crewmembers and their crew resource management during the accident sequence`）'),
     'ca06': dict(kind='写真',
-               plan='🔧 L3｜一覧の種類：場所｜見せ方：額装（高さいっぱい）｜副題：東京高等裁判所の入る庁舎〈2007年の写真〉｜動き：静止｜権利：CC BY 2.5｜時期：2007年6月｜人：なし｜出典の行：写真：{作者}／Wikimedia Commons（CC BY 2.5）｜注：語りの「東京高裁は、過失の割合を」。庁舎は1983年に完成（Commons の分類）＝1989年の判決と同じ庁舎｜新しい画（映像方針）：🔧 模式 → 東京高裁の庁舎（CC BY 2.5 を選ぶ・縦長＝額装）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表から焼くときに差し込む（P1・P3 は帰属の書き方の指定＝credits_private の8列目）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国112214103X00219911217/181（`平成元年五月九日に東京高等裁判所での判決がございまして、過失割合を国は二それから全日空一といただいております`）'),
-    'ca07': dict(kind='図解',
-               plan='🔧 地：L3（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：「理由の文は読めていない」の札｜新しい画（映像方針）：🔧 地 → 東京高裁の庁舎（直前の写真）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='―（読んだ範囲の断り）'),
-    'ca08': dict(kind='フリー素材',
-               plan='🔧 Xa08｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：夏の昼の空港の駐機場（遠く・機体の字は読めない）｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜新しい画（映像方針）：🔧 探す絵を分けた（c934 と同じ書き方だった）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='―（刑事と民事の違い）'),
-    'ca09': dict(kind='文字の頁',
-               plan='KK19911217SK｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：著作権法40条｜時期：1991年｜人：名前の行は外す（ca09）｜出典の行：国会会議録（1991年12月17日 参議院 決算委員会）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 公的な機関の紙面（国会会議録・判決）＝額装・無加工・🔴 名前の行を入れない＝親が絵を見て切る（語りと画面に人の名前を出さない回）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国112214103X00219911217/181（`これによって算定いたしますと、合計といたしまして約五十四億円であります`）'),
-    'ca11': dict(kind='図解',
-               plan='地：GF1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：国の負担の内わけの札＝遺族への賠償 約20億円のうち約14億円〈防衛庁の答弁〉・人の形は使わない｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国112214103X00219911217/181（`乗客及び乗組員の御遺族に対する賠償としまして約二十億円、このうち約十四億円を国側が負担いたしております`）'),
-    'ca12': dict(kind='フリー素材',
-               plan='🔧 Xa12｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：夏の昼の雲の上（高い所の薄い雲）｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜新しい画（映像方針）：🔧 探す絵を分けた｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='―（まとめ）'),
+               plan='🔧 D49-56｜一覧の種類：調査｜見せ方：額装（高さいっぱい）｜副題：すべり台を兼ねた救命いかだ〈NTSB の調査の写真〉｜動き：静止｜印：△｜権利：同上｜時期：2009（凡例）｜人：なし｜出典の行：写真：NTSB 公開ドケット DCA09MA026（生存の写真 写真56）｜注：△ いかだの全体が写るかは ⑤b で原寸｜新しい画（映像方針）：🔧 [38]（c915 へ）→ #49 写真56（すべり台いかだ）＝語り「海の上の装備」｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 調査の写真（NTSB のドケット）＝額装・無加工・出典の行・人の写り（顔・名前の字・船の名）は原寸で（⑤b-2）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p96（`that the airplane was EOW equipped even though it was not required to be so equipped for this particular flight`）'),
+    'ca07': dict(kind='写真',
+               plan='🔧 VC｜一覧の種類：映像｜見せ方：額装（高さいっぱい）｜副題：機体に近づくフェリー〈沿岸警備隊の監視カメラ〉｜動き：映像 383.00〜395.00秒｜見た目の型：11-10 原寸 383・395秒＝×25.8・手前からもう1隻のフェリー・翼の上の人｜権利：PD（PD-USCG）｜時期：2009-01-15 15:30ごろ〜（🔴 焼き込みのカメラの時計は約20秒進む＝語りと副題に使わない）｜人：翼の上の人（遠景・顔は分からない）｜出典の行：映像：U.S. Coast Guard（public domain）／Wikimedia Commons｜注：—｜新しい画（映像方針）：🔧 模式（偶然の札の4つ目）→ VTS（語り「船の近くに降りた」）＝模式の連続を切る｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 VTS（沿岸警備隊の監視カメラ・PD-USCG）＝等速・止めなし・頭から使う・同じ秒を2回使わない・音は使わない（-an）・外す秒（背景のコンコルド 410〜428秒）に触れない・焼き込みのカメラの時計は語りと副題に使わない（約20秒進む）＝make_list32 の門番｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p96（`and that the airplane was ditched near vessels immediately available to rescue the passengers and crewmembers`）'),
+    'ca08': dict(kind='図解',
+               plan='🔧 地：C36（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：生き残れた理由の4つの札＝乗員の判断と連携・海の上の装備があった偶然・客室乗務員の速い誘導・救助の人たちの近さと早さ｜注：—｜新しい画（映像方針）：🔧 地 [40]（夜）→ [36]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p140（`(2) the fortuitous use of an airplane that was equipped for an extended overwater flight`…`(3) the performance of the cabin crewmembers while expediting the evacuation of the airplane; and (4) the proximity of the emergency responders to the accident site and their immediate and appropriate response to the accident`）'),
+    'ca09': dict(kind='フリー素材',
+               plan='Xa09｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：操縦席から見た晴れた空〈機種と社名は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p137（`The professionalism of the flight crewmembers and their excellent crew resource management during the accident sequence contributed to their ability to maintain control of the airplane`）'),
+    'ca10': dict(kind='図解',
+               plan='🔧 地：C36（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：所見の札＝川を選んだ判断〈所見15〉・APU を先に回した〈所見14〉・フラップ2 は妥当〈所見18〉｜注：—｜新しい画（映像方針）：🔧 地 [40]（夜）→ [36]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p137（`The captain’s decision to ditch on the Hudson River rather than attempting to land at an airport provided the highest probability`）・報p137（`the captain started the auxiliary power unit, which improved the outcome of the ditching`）・報p105（`Starting the APU early in the accident sequence proved to be critical`）・報p137（`The captain’s decision to use flaps 2 for the ditching, based on his experience and perception of the situation, was reasonable`）'),
+    'ca11': dict(kind='写真',
+               plan='🔧 C57｜一覧の種類：写真｜見せ方：額装（高さいっぱい）｜副題：保管中の機体を調べる人〈2010年・ニュージャージー州〉｜動き：静止｜見た目の型：11-10 640px＝天幕の中の胴体と外した翼・技術者の後ろ姿｜権利：CC BY-SA 3.0｜時期：2010（題・頁の説明＝ニュージャージー州での保管）｜人：技術者（後ろ姿・中景）｜出典の行：写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工｜注：BY-SA＝額装・無加工｜新しい画（映像方針）：🔧 [12]（夜の岸壁で話す3人＝作業でない・顔が主役）→ [57]（語り「改めるべき所」）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・副題の日付と夕方・夜は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p96（`The investigation revealed several areas where safety improvements are needed`）・報p96（`engine bird-ingestion certification testing, emergency and abnormal checklist design, dual-engine failure and ditching training`）・報p96（`validation of operational procedures and requirements for airplane ditching certification`）・報p96（`life vest stowage, retrieval, and donning`）'),
+    'ca12': dict(kind='図解',
+               plan='🔧 地：C36（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：委員の意見の札＝時間がほとんど無かった｜注：—｜新しい画（映像方針）：🔧 地 [12]（夜）→ [36]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p146（`In the case of US Airways 1549, there was insufficient time for much of anything`）・報p146（`defy the NTSB’s own criteria for use of the term. Those criteria state that a ditching allows “some time” for preparation`）'),
     'ca13': dict(kind='フリー素材',
-               plan='🔧 Xa13｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：夏の高い空の2本の飛行機雲（離れて並ぶ）｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜新しい画（映像方針）：🔧 探す絵を分けた（c329 と同じ書き方だった）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='―（橋の1行）'),
+               plan='Xa13｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：救命胴衣〈社名は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p146（`had more time existed, and had the occupants been made aware of the impending water landing, many more – if not all - would have located and donned the life preservers`）'),
+    'ca14': dict(kind='図解',
+               plan='🔧 地：C18（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：偶然の4つの札を並べ、その下に「次も重なるとは限らない」の札｜注：—｜新しい画（映像方針）：🔧 地 [40]（夜）→ [18]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='計（3つ目の問いの答えの前半）'),
+    'ca15': dict(kind='写真',
+               plan='🔧 R141｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）勧告｜注：枠＝見出し「Recommendations」と最初の段（c627 と別の枠）｜新しい画（映像方針）：🔧 [11]（夜の作業＝cb04 の [9] と似た写真）→ 報告書の勧告の頁の頭（語り「残りの半分は、勧告にある」）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='計（橋の1行）'),
 }
 
 SPEC = {}
-# 🆕 ⑤b-3a（2026-11-08）：イメージの写真（Pexels＝`stock/`・git に入れない・焼くときに `footage.stock_photos` が取り直して md5 を照らす）＝
-#   全面・ゆっくり寄る・見出しと副題なし・原色。窓＝(fx, fy, zoom) の2つ（`ss.mvz`）。中身は `sources31.psv` の title（640px と原寸で見た）
-_Xa08, _Xa12, _Xa13 = P("stock/xa08"), P("stock/xa12"), P("stock/xa13")
-SPEC.update({
-    # ca08＝遠くの駐機場の旅客機（霞・左下に1機＝原寸で字なし・白い物の列は荷物の台車）＝機体の方へ寄る
-    #   🔧 試し焼き（Actions 42469136663・1.0〜1.15倍）で駐機場と機体が字幕の帯（画面の下 約17%）の下に隠れた＝幅2880で取り直し、
-    #      駐機場の帯だけの窓（2.0〜2.15倍＝手元の再現で車輪が画面の 0.80〜0.78）。⚠️ 直した窓は未焼き（⑤c で）
-    "ca08": dict(photo=_Xa08, **ss.mvz(_Xa08, (0.3, 0.92, 2.0), (0.28, 0.94, 2.15)), side="none", color=1.0, t="", s=""),
-    "ca12": dict(photo=_Xa12, **ss.mvz(_Xa12, (0.5, 0.5, 1.0), (0.5, 0.55, 1.12)), side="none", color=1.0, t="", s=""),
-    # ca13＝並ぶ2本の飛行機雲（縦長＝真ん中の帯）
-    "ca13": dict(photo=_Xa13, **ss.mvz(_Xa13, (0.5, 0.5, 1.0), (0.5, 0.45, 1.1)), side="none", color=1.0, t="", s=""),
-})
-
-# 🆕 ⑤b-4（2026-11-08）：札の型（`tools/mech31.py` の表 FU＝1行が1カット）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`＝check_ground --suggest）
-#   ca07 の地＝東京高裁の庁舎 L3（CC BY 2.5・映像方針 §5-5）
-import mech31 as _m31  # noqa: E402
-SPEC.update({
-    "ca01": _m31.fu_spec("ca01", ss.gr("stock/gf1")),
-    "ca02": _m31.fu_spec("ca02", ss.gr("stock/gf1")),
-    "ca04": _m31.fu_spec("ca04", ss.gr("stock/gp1")),
-    "ca07": _m31.fu_spec("ca07", ss.gr("l3")),
-    "ca11": _m31.fu_spec("ca11", ss.gr("stock/gf1")),
-})
-
-# 🆕 ⑤b-5（2026-11-08）：見え方の表（`mech31.VIEWS`）
-SPEC.update({
-    "ca03": _m31.zu_spec("ca03", ss.gr("stock/gf1")),
-})
-
-# 🆕 ⑤b-7（2026-11-09）：紙面と東京高裁の写真（c2.py の ⑤b-7 の型）。🔴 紙面は PLAN の kind＝「文字の頁」・額は静止・地は同じ頁のぼかし（ss.PAGE_BLUR）
-_K_a05, _L3, _K_a09 = P("kk19851210hn_ca05"), P("l3"), P("kk19911217sk_ca09")
-SPEC.update({
-    # ca05＝1985-12-10 の会議録 p7 段1 #28 の2つ目の段落（防衛庁の官房長の答弁＝名前の札は切り口の外）
-    "ca05": dict(photo=_K_a05, panel=True, ptall=True, ground=dict(photo=_K_a05, blur=ss.PAGE_BLUR), color=1.0,
-                 t="控訴した側", s="防衛庁の官房長の答弁の一節"),
-    # ca06＝東京高等裁判所の入る庁舎（CC BY 2.5・2007年・縦長＝高さいっぱいの額・地は同じ写真のぼかし）
-    "ca06": dict(photo=_L3, panel=True, ptall=True, ground=dict(photo=_L3), color=1.0,
-                 t="過失の割合", s="東京高等裁判所の入る庁舎〈2007年の写真〉"),
-    # ca09＝1991-12-17 の会議録 p20 段1〜2 #181 まるごと（防衛庁の経理局長の答弁）
-    "ca09": dict(photo=_K_a09, panel=True, ptall=True, ground=dict(photo=_K_a09, blur=ss.PAGE_BLUR), color=1.0,
-                 t="国の負担", s="防衛庁の経理局長の答弁"),
-})

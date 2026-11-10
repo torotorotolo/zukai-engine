@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
-"""第5章　操縦席から見えていたか c601–c631（31カット）。31本目（全日空機雫石衝突事故・1971-07-30・岩手県雫石町の上空・刑事は1983年・民事は1989年に終わった）。
+"""第5章　3ページの手順書 c601–c630（30カット）。32本目（USエアウェイズ1549便のハドソン川への着水・2009-01-15・ニューヨーク・報告書 NTSB/AAR-10/03 は2010-05-04 採択）。
 
-■ 🔴 2026-11-08（⑤b-1）：30本目（地下鉄サリン事件）の中身を空にした＝git の `3d0ee6bc`（`git show 3d0ee6bc:tools/cuts/c6.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep31/make_plan31.py` で
-  映像方針の一覧（`ref/ep31/eizou_build/make_list31.py`＝了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
-  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep31/eizou_list31.md`）。
+■ 🔴 2026-11-10（⑤b-1）：31本目（全日空機雫石衝突事故）の中身を空にした＝git の `f4bd0a9a`（`git show f4bd0a9a:tools/cuts/c6.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep32/make_plan32.py` で
+  映像方針の一覧（`ref/ep32/eizou_build/make_list32.py`＝了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
+  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep32/eizou_list32.md`＝⑤b は一覧に従う）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
-  🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep31）＝`fmove`（額ごと動かす）・額の中の `cam` を書かない（門番 check_fmove が絵で測る）。
-  🔴 写真は画面いっぱい・色は原本（`build_jiko.PHOTO_KEEP_EP` に ep31）・BY-SA は額装・国会と判決の紙面も額装。説明カットの地は写真を暗くするだけ（8:1）。
+  🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep32）＝`fmove`（額ごと動かす）・額の中の `cam` を書かない（門番 check_fmove が絵で測る）。
+  🔴 写真は画面いっぱい・色は原本（`build_jiko.PHOTO_KEEP_EP` に ep32）・BY-SA は額装・紙面と調査の写真も額装。説明カットの地は写真を暗くするだけ（8:1・衛星と夜の写真は地にしない）。
+  🔴 VTS（沿岸警備隊の監視カメラ）は等速・止めなし・頭から使う・同じ秒を2回使わない（区間は一覧の動きの欄＝make_list32 の門番）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット。
-  🔴 この回の線＝語りと画面に人の名前を出さない（亡くなった方・遺族・操縦者・乗員・役人・裁判官・弁護人は立場だけ）・「犯人」「加害者」と言わない・
-     報道の写真は使わない・遺体・遺品・搬送の秒なし・新聞の紙面の犠牲者の顔写真・参列者の近景は外す＝図でも同じ（紙面に名前が写る＝親が絵を見て切る）
+  🔴 この回の線＝語りと画面に名前を出すのは機長と副操縦士だけ（初出 c203・c205）・客室乗務員・管制官・救助の人は立場だけ・乗客は名前なし・
+     NTSB・FAA・議員・知事・監督・俳優は役職で・「犠牲」「死亡」は言わない・「208秒」は使わず「約3分半」・映画は c517〜c518・c520 だけ
+     ＝図でも同じ（紙面・写真に名前の字が写る＝親が絵を見て切る・船の名も読ませない）
 """
 import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
@@ -19,164 +21,96 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'c601': dict(kind='文字の頁',
-               plan='W47-2｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PDL1.0｜時期：1972年｜人：なし｜出典の行：運輸省『昭和47年度 運輸白書』（国土交通省の頁）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 公的な機関の紙面（国会会議録・判決）＝額装・無加工・🔴 名前の行を入れない＝親が絵を見て切る（語りと画面に人の名前を出さない回）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='白（`全日空機操縦者にあつては,訓練機を少なくとも接触約7秒前から視認していたと推定されるが`）'),
-    'c602': dict(kind='図解',
-               plan='地：GC1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：飛行の記録の装置の札＝接触の前に、よける操作で機体が動いた跡が無い｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='白（`フライト・データ・レコーダの接触前の記録に機体の反応が示されていなかつたことからみて接触直前まで回避操作が行なわれていなかつたことである`）'),
+    'c601': dict(kind='図解',
+               plan='地：GK1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：画面と冊子＝ふだんは故障とやることが操縦室の画面に出る・両方のエンジンの故障は例外で紙の冊子を開く｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p68（`If the flight warning computer (FWC) detects an airplane system failure, the failure type and the flight crew actions to be taken are displayed on the ECAM displays in the cockpit`）・報p69（`The ECAM exception index indicated that a dual-engine failure was an ECAM exception and directed the PM to the Engine Dual Failure checklist procedures contained in the QRH`）'),
+    'c602': dict(kind='フリー素材',
+               plan='X602｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：冊子の裏表紙の目次〈機種と社名は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p69（`because he had just completed training, he immediately recognized that the event was an ECAM exception; therefore, he was able to promptly locate the procedure listed on the back cover of the QRH, turn to the appropriate page, and start executing the checklist`）'),
     'c603': dict(kind='図解',
-               plan='地：GC1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：「予測しなかったため」の札＝推定原因の文｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='白（`全日空機操縦者が訓練機と接触すると予測しなかつたためと考えられる`）'),
+               plan='地：GB1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：手順書の3つの部分＝1 エンジンをかけ直す・2 かかったときとかからないとき・3 不時着と着水・3ページの絵｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p69（`Part 1 required the flight crew to differentiate between a no fuel remaining and a fuel remaining condition and included steps to attempt an engine restart`）・報p70（`Part 2 contained guidance for the flight crew to follow if an engine restart was successful or if an engine restart was not possible`…`Part 3 contained guidance for the flight crew to follow if a forced landing or a ditching was anticipated`）'),
     'c604': dict(kind='フリー素材',
-               plan='X604｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：旅客機の窓の外の雲の上｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='―（問いの続き）'),
+               plan='X604｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：雲の上を飛ぶ旅客機〈社名と機種は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p69（`Airbus designed the Engine Dual Failure checklist for the occurrence of a dual-engine failure above 20,000 feet`）'),
     'c605': dict(kind='図解',
-               plan='地：GC2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：3つの航跡の線＝旅客機・教官機・訓練機を描き、そこから操縦席ごとの見え方の図を作る流れ｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106914889X00219720823/137（`三つの、全日空機それから自衛隊の教官機、訓練機の航跡を出さなければならない`…`いわゆる視界図をつくりました`）'),
-    'c606': dict(kind='図解',
-               plan='地：GC2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：跡の描き方の2つ＝旅客機は飛行の記録の装置・2機は教官と訓練生の記憶｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106914889X00219720823/137（`全日空機につきましては、すでに御承知のように、フライト・データ・レコーダがございますから、これははっきりしておる`…`いわゆるフライト・レコーダというものを載せておりませんので、教官なりあるいは訓練生なりの記憶によって、われわれは航跡を書く`）'),
+               plan='地：GC1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：飛ぶ時間の多くは高い空・故障が起きる見込みも高い空の札｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p69（`Because Airbus airplanes spend much more time at higher altitudes and, therefore, a dual-engine failure had the highest probability of occurring at a high rather than a low altitude`）・報p69（`Airbus indicated that it had not considered developing a dual-engine failure checklist for use at a low altitude`）'),
+    'c606': dict(kind='フリー素材',
+               plan='X606｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：並んだ旅客機の尾翼〈社名は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p104（`Discussions with A320 operators and a manufacturer also indicated that low-altitude, dual-engine failure checklists are not readily available in the industry`）'),
     'c607': dict(kind='図解',
-               plan='地：GW1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：操縦席に座ってまっすぐ前を見る札＝「基準点」・頭の振り方は分からない｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106914889X00219720823/137（`まっすぐ前を見ておったときのことだけを書いているわけでございます`…`この基準点から左右にどう頭を振ったか、あるいは上下に振ったかということが問題になるんでございますが、それは実はわかりません`）'),
+               plan='地：GS1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：比べ｜副題：高さの比べ＝手順書の前提 約6,100メートルより上・鳥とぶつかった高さ 約860メートル｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p104（`The Engine Dual Failure checklist was designed assuming that a dual-engine failure occurred at a high altitude (above 20,000 feet)`）・計（2,818÷20,000＝約7分の1）'),
     'c608': dict(kind='図解',
-               plan='地：GW1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：「注視野」の札＝航空医学の言葉・まっすぐ前を見ている場合の図で使った｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106914889X00219720823/137（`注視野の問題でございますが、これは医学上のテクニカル・ターム、航空医学の本にも書いてございますが`）'),
-    'c609': dict(kind='文字の頁',
-               plan='KK19720823SN｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：著作権法40条｜時期：1972年｜人：#138 の読み上げの2文で止める・#140・#146 を入れない（c609）｜出典の行：国会会議録（1972年8月23日 参議院 内閣委員会）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 公的な機関の紙面（国会会議録・判決）＝額装・無加工・🔴 名前の行を入れない＝親が絵を見て切る（語りと画面に人の名前を出さない回）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106914889X00219720823/138（`全日空機操縦者にとつては、訓練機は終始注視野の外にあつた`）'),
+               plan='地：GK1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：2005年の改訂＝燃料が残る場合と残らない場合の2本立て・別の手順書にあった着水の手順をこの手順書へ入れる矢印・ページが｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p104（`In 2005, Airbus amended the Engine Dual Failure checklist by including two parallel steps, one for a fuel remaining scenario`…`by incorporating the ditching procedures, which had previously been located in a separate checklist`…`it resulted in a lengthy checklist`）'),
+    'c609': dict(kind='フリー素材',
+               plan='X609｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：分厚い冊子の束〈字は読ませない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p104（`the Engine Dual Failure checklist did not fully apply to a low-altitude, dual-engine failure and was unduly long for such an event given the limited time available`）'),
     'c610': dict(kind='図解',
-               plan='地：GC2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：元委員長が例に出した第13図の考え＝まっすぐ前の基準点・左へ約60度で訓練機・どの機の席の図かは #137 が言わない＝｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106914889X00219720823/137（`左のほう六十度ずっとこう見ますれば、ここにございますように訓練機が見える`）'),
-    'c611': dict(kind='フリー素材',
-               plan='X611｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：夏の雲の上｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106914889X00219720823/137（`特に全日空機につきましては、機長、副機長はなくなられておりますので、この見張りをどういうぐあいにやっていたかということは、実は全日空機についてはわからないわけでございます`）'),
-    'c612': dict(kind='図解',
-               plan='地：P6（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：訓練生の操縦席の見え方の考え＝前方を見ても教官機を見ても旅客機は注視野の外｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106914889X00219720823/138（`訓練生にとつては、前方を見ていても、教官機の方を見ていても、全日空機は注視野の外にあつた`）'),
-    'c613': dict(kind='図解',
-               plan='地：P6（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：教官の操縦席の見え方の考え＝訓練機の方を見ていれば少なくとも30秒前から旅客機は注視野の中｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106904889X00319720817/223（`教官にとっては、訓練機の方を見ていれば、少なくとも接触三十秒前から注視野内に全日空機が存在していた`）'),
+               plan='地：GB2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：燃料が残っている場合の手順の札＝点火を入れる・推力のレバーを確かめる・かけ直しに向く速さを保つ・降りる場所を決める｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p70（`In response to Part 1, the pilots followed the steps for a fuel remaining condition`）・報p70（`a. Start engine ignition b. Confirm thrust levers at idle c. Maintain optimum relight airspeed of 300 kts d. Determine a landing strategy`）'),
+    'c611': dict(kind='写真',
+               plan='🔧 C62｜一覧の種類：写真｜見せ方：額装（高さいっぱい）｜副題：保管中のこの機体の操縦室｜動き：静止｜見た目の型：11-10 640px＝泥の跡の操縦席・計器｜権利：CC BY-SA 3.0｜時期：2011-02-25（EXIF＝博物館へ移す前の保管中）｜人：なし｜出典の行：写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工｜注：BY-SA＝額装・無加工｜新しい画（映像方針）：🔧 副題の「2010年」は頁で確かめられない＝外した｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・副題の日付と夕方・夜は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p19（`At 1528:14, the first officer stated, “emergency electrical power...emergency generator not online.” At 1528:19, the captain stated, “it’s online.”`）・報p20（`At 1528:45, while the captain was communicating with ATC, the first officer stated, “FAC [flight augmentation computer] one off, then on.”`）'),
+    'c612': dict(kind='写真',
+               plan='R204｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録C｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p20（`Fifteen seconds later, the first officer stated, “no relight after thirty seconds, engine master one and two confirm.”`）・報p20（`the steps included turning the engine master switches 1 and 2 to OFF and then waiting 30 more seconds before turning the switches back to ON`）'),
+    'c613': dict(kind='写真',
+               plan='🔧 D83-8｜一覧の種類：調査｜見せ方：額装（高さいっぱい）｜副題：はしけの上の右のエンジン〈NTSB の調査の写真〉｜動き：静止｜見た目の型：11-10 640px＝雪のはしけの上の右のエンジン・壊れた覆い｜権利：同上｜時期：2009-01（凡例＝はしけの上）｜人：なし｜出典の行：写真：NTSB 公開ドケット DCA09MA026（エンジンの報告 図8）｜注：下の「Photo No」の帯は切る｜新しい画（映像方針）：🔧 #83 の写真を見て決めた（図8＝右のエンジン＝語りの「2番」）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 調査の写真（NTSB のドケット）＝額装・無加工・出典の行・人の写り（顔・名前の字・船の名）は原寸で（⑤b-2）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p20（`At 1529:16, the first officer stated, “engine master two, back on,”`）・報p20（`At 1529:36, the first officer stated, “I put it [the engine master switch] back on,”`）・報p20（`At 1529:44, the first officer stated, “no relight,”`）'),
     'c614': dict(kind='図解',
-               plan='地：GC2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：「最終的な結論は出なかった」の札＝元委員長の答弁｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106904889X00319720817/223（`はたしてそういうふうに三十秒前から数秒前までの間に教官が訓練機のほうを見たかどうか、ここの証拠と申しますか、事実をわれわれはわかりませんものですから`…`最終的な結論がわれわれとしては出なかった`）・判（`衝突を回避しうる可能性は、実は極めて限られたものであつた`）'),
-    'c615': dict(kind='フリー素材',
-               plan='🔧 X615｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：夏の昼の雲の上（雲海がゆっくり流れる）｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜新しい画（映像方針）：🔧 探す絵を分けた（同じ書き方が4つ＝④ の係C）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='―（まとめ）'),
-    'c616': dict(kind='図解',
-               plan='地：GC2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：「雑音」の札＝接触の約7秒前〈報告書の文＝議員の読み上げ〉・7秒の解釈は元委員長の説明｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106914889X00219720823/145（`雑音の解釈から七秒前には確かに発見していたと`）'),
+               plan='地：GB2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：手順書の3ページの絵に、進めた所を塗る＝1つ目の部分〈1ページ目と2ページ目の上〉の大半・2つ目と3つ目は白いまま｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p104（`Although the flight crewmembers were able to complete most of part 1 of the checklist, they were not able to start parts 2 and 3 of the checklist because of the airplane’s low altitude and the limited time available`）'),
+    'c615': dict(kind='図解',
+               plan='🔧 地：GB2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：割合｜副題：手順書の全体のうち約3分の1を塗った3ページの絵｜注：—｜新しい画（映像方針）：🔧 模式（3ページの絵をもう一度）→ 割合の帯（全体の約3分の1）＝c614 と同じ絵を2度描かない｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p105（`the flight crew was only able to complete about one-third of the Engine Dual Failure checklist`）'),
+    'c616': dict(kind='写真',
+               plan='R205｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録C｜注：枠＝「If Ditching is anticipated」から下・「At 2000’ AGL c. Ditching pb ... ON」に印（頁の画像の座標 約 y 1870〜2600）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p104（`the flight crew never reached the ditching portion of the checklist, which most directly applied to the accident situation`）'),
     'c617': dict(kind='図解',
-               plan='地：GW1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：報告書の想定の札＝間近の訓練機を見て、またはそれ以前から見ていた訓練機が予測に反して急速に近づき、操縦輪を強く握った「と｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106914889X00219720823/144（`接触約七秒前の雑音が発せられた時点においては、全日空機機長は自己機の間近に訓練機を視認し`…`またはそれ以前から視認していた訓練機が予測に反して`…`操縦輪を強く保持したと考えられる`）・国106914889X00219720823/145（`全日空機機長の動作を想定してみると、次のようなことも考えられる`…`これは断定しているわけではございません`）'),
-    'c618': dict(kind='図解',
-               plan='地：GC2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：「7秒前」と「それ以前から」の書き分けの札｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106914889X00219720823/145（`七秒からその前のほうになりますというと証拠がございませんから、ここで七秒と、それから七秒以前ということを書き分けてあるわけでございます`…`その間、七秒間何をしていたかと、これはまあいま読みましたように決定的な証拠というものはございませんから`）'),
+               plan='地：GK1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：3ページ目の段取りの札＝約910メートルまでに翼を降りる形に・約610メートルで着水のボタン・約150メートルで衝撃に備｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='画（`Prior to 3000’ AGL`…`FLAPS`…`Configure for Landing`…`At 2000’ AGL`…`Ditching pb`）・報p73（`the airplane should be configured for a ditching before 3,000 feet (flaps 3 selected and landing gear up)`）'),
+    'c618': dict(kind='写真',
+               plan='R205｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜見た目の型：11-10 原寸の切り出し（p205 の 500,2140〜2060,2470）｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録C｜注：枠＝注の「Touchdown with approximately 11 degrees of pitch and minimum vertical speed.」（約 y 2200〜2280）と「At 500’AGL: d. Brace Signal ... Command」（約 y 2285〜2380）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='画（`At 500’AGL`…`Brace Signal`…`Command`…`Touchdown with approximately 11 degrees of pitch and minimum vertical speed`）'),
     'c619': dict(kind='図解',
-               plan='地：GC2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：「見張りはほとんど書いていない」の札＝元委員長の答弁・推定原因との関係｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106904889X00319720817/229（`見張りということはこの報告書ではほとんど書いてございません`…`見張りということが直接問題とはわれわれは考えることができなかった`）'),
-    'c620': dict(kind='図解',
-               plan='地：GC2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：防衛庁の質問書＝1972年12月25日・接触は14:02:32 と思われる・報告書の推定 14:02:39 と並べる｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国107114103X00719730509/30（`四十七年の十二月二十五日に質問書を出した`…`「十四時二分三十二秒」に接触したと思われると`）'),
+               plan='地：C49（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：着水のボタンの働き＝水面より下の弁をすべて閉じる・長く浮くのを助ける｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p77（`Pushing the ditching pushbutton closes all of the valves below the water line (such as the outflow, avionics, ram air, and pack inlet valves) to help the airplane float longer`）'),
+    'c620': dict(kind='フリー素材',
+               plan='X620｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：操縦室の天井のボタンの列〈機種は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='ド#7p5（`The Airbus had a ditching button, but he did not push it`）・ド#7p10（`they did not have time to get to the ditching push button`）'),
     'c621': dict(kind='図解',
-               plan='地：GC2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：質問書の中身の札＝見張りの義務の考え方・発見と衝突の時刻の推定〈1973年3月8日の参事官〉｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国107105266X00619730308/349（`最初の見張りの問題につきましては`…`第三点の視認及び衝突の時刻についてでございますが`）'),
-    'c622': dict(kind='文字の頁',
-               plan='KK19730509SK｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：著作権法40条｜時期：1973年｜人：名前の行は外す（c406＝切り口・c622・c625）｜出典の行：国会会議録（1973年5月9日 参議院 決算委員会）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 公的な機関の紙面（国会会議録・判決）＝額装・無加工・🔴 名前の行を入れない＝親が絵を見て切る（語りと画面に人の名前を出さない回）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国107114103X00719730509/30（`防衛庁は、これを解体をして存在しない委員会に突き出しているんです`）'),
+               plan='地：GK1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：訓練の札＝地上の座学で習う・シミュレーターの着水の訓練は無し・教わった着水は時間がある前提｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='ド#7p6（`The only training for ditching was given in ground school`…`There was no training in the simulator`…`All guidance he received for ditching implied that they had time`）'),
+    'c622': dict(kind='写真',
+               plan='🔧 C32｜一覧の種類：写真｜見せ方：全面｜副題：警察のダイバーが渡すエンジンの覆い〈2009年1月・陸軍工兵隊〉｜動き：ゆっくり寄る｜見た目の型：11-10 640px＝青い覆いを運ぶ警察のダイバーと工兵隊｜権利：PD（PD-USACE）｜時期：2009-01（頁の説明）｜人：警察のダイバーと工兵隊（顔が見える・公的な任務）｜出典の行：写真：U.S. Army Corps of Engineers（public domain）／Wikimedia Commons｜注：—｜新しい画（映像方針）：🔧 副題を写っているものに（頁の説明）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・副題の日付と夕方・夜は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='画（`When below FL250`…`APU`…`START`）・ド#6p17（`When below FL250: k. APU`）・報p105（`immediately after the bird strike, the captain did accomplish one critical item that the flight crew did not reach in the checklist: starting the APU`）'),
     'c623': dict(kind='図解',
-               plan='地：GC2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：防衛庁の疑問の札＝「注視野という新しい概念」・1973年3月8日の参事官の答弁｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国107105266X00619730308/349（`報告書の中で注視野という新しい概念を使っております。なぜそういう概念を使って見張りの義務の内容を論じなければならないかという点が、私どもによく納得できなかった`）'),
+               plan='地：C32（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：手順書の2ページ目の絵＝k の行に印・そこまでの項目の数を見せる｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p105（`This critical step would not have been completed if the flight crew had simply followed the order of the items in the checklist`）'),
     'c624': dict(kind='図解',
-               plan='地：GC2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：「一つの推定」の札＝14:02:39 の7秒前に見たという推論・参事官の答弁｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国107105266X00619730308/349（`二分三十九秒という時刻をもって衝突時刻と推定をし、それからさかのぼって七秒前に視認をしたであろうという推論`…`一つの推定だろうと思います`…`はたしてそうであったろうかというような疑問がございます`）'),
-    'c625': dict(kind='文字の頁',
-               plan='KK19730509SK｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：著作権法40条｜時期：1973年｜人：名前の行は外す（c406＝切り口・c622・c625）｜出典の行：国会会議録（1973年5月9日 参議院 決算委員会）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 公的な機関の紙面（国会会議録・判決）＝額装・無加工・🔴 名前の行を入れない＝親が絵を見て切る（語りと画面に人の名前を出さない回）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国107114103X00719730509/31（`運輸省としましては、衝突時刻は推定二分三十九秒ごろであるという委員会の結論を全面的に是認いたします`）'),
+               plan='地：C32（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：流れ｜副題：APU が電気をつくる → ふだんの制御の形〈ノーマル・ロー〉が保たれる → 失速を防ぐ守りが働く｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p105（`ensuring that a primary source of electrical power was available to the airplane and that the airplane remained in normal law and maintained the flight envelope protections, one of which protects against a stall`）'),
+    'c625': dict(kind='フリー素材',
+               plan='X625｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：操縦席から見た冬の川〈機種は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='ド#7p32（`he felt that there needed to be a low level altitude, imminent landing checklist that could be done quicker with a couple of memory items`）・ド#7p32（`did a few memory items that helped them because they did not get to them on the checklist`）'),
     'c626': dict(kind='図解',
-               plan='地：GW1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：見張りの時間の余裕の札＝14:02:32 なら 14:02:39 より少ない〈技術部長の答弁〉｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国107114103X00719730509/31（`三十二秒ということになれば、周囲を監視する時間的余裕が三十九秒よりは少ないということが言えます`）'),
-    'c627': dict(kind='図解',
-               plan='地：GF1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：「有無にかかわらず」の札＝最高裁・旅客機の操縦者の見張りの違反は判断していない｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='判（`B機操縦者の見張り義務違反の有無にかかわらず`）'),
+               plan='地：C32（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：低い所での故障の手順書があれば、の札｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p105（`if a checklist that addressed a dual-engine failure occurring at a low altitude had been available to the flight crewmembers, they would have been more likely to have completed that checklist`）'),
+    'c627': dict(kind='写真',
+               plan='R141｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）勧告｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p141（`Require manufacturers of turbine-powered aircraft to develop a checklist and procedure for a dual-engine failure occurring at a low altitude. (A-10-66)`）・報p141（`operators of turbine-powered aircraft to implement the checklist and procedure. (A-10-67)`）'),
     'c628': dict(kind='図解',
-               plan='地：GF1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：民事の札＝東京高裁・過失の割合 国2・全日空1〈1991年の防衛庁の答弁〉・理由の文は読めていない｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国112214103X00219911217/181（`過失割合を国は二それから全日空一といただいております`）'),
-    'c629': dict(kind='フリー素材',
-               plan='🔧 X629｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：夏の昼の雲の上（雲の切れ間に地上の緑）｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜新しい画（映像方針）：🔧 探す絵を分けた｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='―（まとめ）'),
-    'c630': dict(kind='フリー素材',
-               plan='X630｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：夕方ではない夏の山並みの遠景｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='―（2つ目の問いの答え）'),
-    'c631': dict(kind='フリー素材',
-               plan='X631｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：夏の山の森を遠くから｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='―（橋の1行）'),
+               plan='地：C32（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：勧告の札＝手順書の作り方の指針〈APU の始動のような大事な項目の順番・長さ・かかる時間〉・低い所での故障を訓練に入れる｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p142（`the order of critical items in the checklist (for example, starting the auxiliary power unit)`…`the length of the checklist`…`the time needed to complete the checklist`）・報p142（`include a dual-engine failure scenario occurring at a low altitude in initial and recurrent ground and simulator training`）'),
+    'c629': dict(kind='写真',
+               plan='🔧 C44｜一覧の種類：写真｜見せ方：額装（高さいっぱい）｜副題：雪の公園の柵ごしに見た、はしけの上の機体〈2009年1月18日〉｜動き：静止｜見た目の型：11-10 640px＝雪の公園の柵・奥のはしけの機体｜権利：CC BY-SA 3.0｜時期：2009-01-18（頁の説明）｜人：はしけの人（遠景・小さい）｜出典の行：写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工｜注：BY-SA＝額装・無加工｜新しい画（映像方針）：🔧 副題に撮影の日（頁の説明 1月18日）・[45] と分ける｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・副題の日付と夕方・夜は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='計（2つ目の問いの答え）・報p104（`designed assuming that a dual-engine failure occurred at a high altitude`）・報p104（`was unduly long for such an event given the limited time available`）'),
+    'c630': dict(kind='図解',
+               plan='地：C32（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：勧告の4本の札に「第10章」の印｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='計（橋の1行）'),
 }
 
 SPEC = {}
-# 🆕 ⑤b-3a（2026-11-08）：イメージの写真（Pexels＝`stock/`・git に入れない・焼くときに `footage.stock_photos` が取り直して md5 を照らす）＝
-#   全面・ゆっくり寄る・見出しと副題なし・原色。窓＝(fx, fy, zoom) の2つ（`ss.mvz`）。中身は `sources31.psv` の title（640px と原寸で見た）
-_X604, _X611, _X615 = P("stock/x604"), P("stock/x611"), P("stock/x615")
-_X629, _X630, _X631 = P("stock/x629"), P("stock/x630"), P("stock/x631")
-SPEC.update({
-    # c604＝窓から見た雲の上（縦長＝上の帯だけ・窓の枠は写らない）。🔧 窓と翼の絵は翼の端が今の型＝地 GW1 へ回した
-    "c604": dict(photo=_X604, **ss.mvz(_X604, (0.5, 0.35, 1.0), (0.48, 0.3, 1.1)), side="none", color=1.0, t="", s=""),
-    "c611": dict(photo=_X611, **ss.mvz(_X611, (0.5, 0.5, 1.0), (0.46, 0.5, 1.12)), side="none", color=1.0, t="", s=""),
-    # c615＝尾根を流れる雲海（左に暗い山）
-    "c615": dict(photo=_X615, **ss.mvz(_X615, (0.5, 0.5, 1.0), (0.55, 0.5, 1.12)), side="none", color=1.0, t="", s=""),
-    # c629＝雲の切れ間の地上の緑（左下）の方へ寄る
-    "c629": dict(photo=_X629, **ss.mvz(_X629, (0.5, 0.5, 1.0), (0.4, 0.62, 1.15)), side="none", color=1.0, t="", s=""),
-    "c630": dict(photo=_X630, **ss.mvz(_X630, (0.5, 0.5, 1.0), (0.5, 0.56, 1.12)), side="none", color=1.0, t="", s=""),
-    "c631": dict(photo=_X631, **ss.mvz(_X631, (0.5, 0.5, 1.0), (0.46, 0.5, 1.12)), side="none", color=1.0, t="", s=""),
-})
-
-# 🆕 ⑤b-4（2026-11-08）：札の型（`tools/mech31.py` の表 FU＝1行が1カット）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`＝check_ground --suggest）
-#   ⚠️ GW1（窓と翼）は翼の先が今の型（ウイングレット）＝暗くして地にだけ使う（⑤b-3a で全面にしなかった）＝⑤c で「この機体」と読めないか見る
-import mech31 as _m31  # noqa: E402
-SPEC.update({
-    "c602": _m31.fu_spec("c602", ss.gr("stock/gc1")),
-    "c603": _m31.fu_spec("c603", ss.gr("stock/gc1")),
-    "c607": _m31.fu_spec("c607", ss.gr("stock/gw1")),
-    "c608": _m31.fu_spec("c608", ss.gr("stock/gw1")),
-    "c614": _m31.fu_spec("c614", ss.gr("stock/gc2")),
-    "c616": _m31.fu_spec("c616", ss.gr("stock/gc2")),
-    "c617": _m31.fu_spec("c617", ss.gr("stock/gw1")),
-    "c618": _m31.fu_spec("c618", ss.gr("stock/gc2")),
-    "c619": _m31.fu_spec("c619", ss.gr("stock/gc2")),
-    "c621": _m31.fu_spec("c621", ss.gr("stock/gc2")),
-    "c623": _m31.fu_spec("c623", ss.gr("stock/gc2")),
-    "c624": _m31.fu_spec("c624", ss.gr("stock/gc2")),
-    "c626": _m31.fu_spec("c626", ss.gr("stock/gw1")),
-    "c627": _m31.fu_spec("c627", ss.gr("stock/gf1")),
-    "c628": _m31.fu_spec("c628", ss.gr("stock/gf1")),
-})
-
-# 🆕 ⑤b-5（2026-11-08）：見え方の表（`mech31.VIEWS`）。c612・c613 の地は同じ型の保存機 P6
-SPEC.update({
-    "c605": _m31.zu_spec("c605", ss.gr("stock/gc2")),
-    "c606": _m31.zu_spec("c606", ss.gr("stock/gc2")),
-    "c610": _m31.zu_spec("c610", ss.gr("stock/gc2")),
-    "c612": _m31.zu_spec("c612", ss.gr("stock/gs1")),   # 🔧 ⑤c'：地 P6 → GS1（番号「865」が円の下に透けた）
-    "c613": _m31.zu_spec("c613", ss.gr("stock/gs1")),   # 🔧 ⑤c'：地 P6 → GS1
-    "c620": _m31.zu_spec("c620", ss.gr("stock/gc2")),
-})
-
-# 🆕 ⑤b-7（2026-11-09）：紙面（c2.py の ⑤b-7 の型）。🔴 PLAN の kind＝「文字の頁」・額は静止・地は同じ頁のぼかし（ss.PAGE_BLUR）・
-#   横長は帯の幅いっぱい（pw=1776）・縦長は高さいっぱい（ptall）＝面積の大きい方。会議録の名前の札は束で白にした（⑤b-2b）
-_W601, _K609 = P("w47_2_c601"), P("kk19720823sn_c609")
-_K622, _K625 = P("kk19730509sk_c622"), P("kk19730509sk_c625")
-SPEC.update({
-    # c601＝運輸白書 002（推定原因の第2＝旅客機の操縦者について）。章の頭＝card_mix=0（額装だけの点を扉の地に混ぜない）
-    "c601": dict(photo=_W601, panel=True, pw=1776, ground=dict(photo=_W601, blur=ss.PAGE_BLUR), color=1.0, card_mix=0,
-                 t="推定原因の第2", s="旅客機の操縦者についての推定原因"),
-    # c609＝1972-08-23 の会議録 p24 段3 #138（議員が読み上げた分析の2文）
-    "c609": dict(photo=_K609, panel=True, ptall=True, ground=dict(photo=_K609, blur=ss.PAGE_BLUR), color=1.0,
-                 t="注視野の外", s="議員が読み上げた分析の一節"),
-    # c622＝1973-05-09 の会議録 p4 段2〜3 #30（議員の批判＝質問書）
-    "c622": dict(photo=_K622, panel=True, ptall=True, ground=dict(photo=_K622, blur=ss.PAGE_BLUR), color=1.0,
-                 t="解体した委員会", s="議員の批判の一節"),
-    # c625＝1973-05-09 の会議録 p4 段3 #31（航空局の技術部長の答弁）
-    "c625": dict(photo=_K625, panel=True, ptall=True, ground=dict(photo=_K625, blur=ss.PAGE_BLUR), color=1.0,
-                 t="運輸省の答え", s="航空局の技術部長の答弁"),
-})

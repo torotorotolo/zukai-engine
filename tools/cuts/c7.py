@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
-"""第6章　162人 c701–c718（18カット）。31本目（全日空機雫石衝突事故・1971-07-30・岩手県雫石町の上空・刑事は1983年・民事は1989年に終わった）。
+"""第6章　最後の30メートル c701–c724（24カット）。32本目（USエアウェイズ1549便のハドソン川への着水・2009-01-15・ニューヨーク・報告書 NTSB/AAR-10/03 は2010-05-04 採択）。
 
-■ 🔴 2026-11-08（⑤b-1）：30本目（地下鉄サリン事件）の中身を空にした＝git の `3d0ee6bc`（`git show 3d0ee6bc:tools/cuts/c7.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep31/make_plan31.py` で
-  映像方針の一覧（`ref/ep31/eizou_build/make_list31.py`＝了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
-  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep31/eizou_list31.md`）。
+■ 🔴 2026-11-10（⑤b-1）：31本目（全日空機雫石衝突事故）の中身を空にした＝git の `f4bd0a9a`（`git show f4bd0a9a:tools/cuts/c7.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep32/make_plan32.py` で
+  映像方針の一覧（`ref/ep32/eizou_build/make_list32.py`＝了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
+  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep32/eizou_list32.md`＝⑤b は一覧に従う）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
-  🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep31）＝`fmove`（額ごと動かす）・額の中の `cam` を書かない（門番 check_fmove が絵で測る）。
-  🔴 写真は画面いっぱい・色は原本（`build_jiko.PHOTO_KEEP_EP` に ep31）・BY-SA は額装・国会と判決の紙面も額装。説明カットの地は写真を暗くするだけ（8:1）。
+  🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep32）＝`fmove`（額ごと動かす）・額の中の `cam` を書かない（門番 check_fmove が絵で測る）。
+  🔴 写真は画面いっぱい・色は原本（`build_jiko.PHOTO_KEEP_EP` に ep32）・BY-SA は額装・紙面と調査の写真も額装。説明カットの地は写真を暗くするだけ（8:1・衛星と夜の写真は地にしない）。
+  🔴 VTS（沿岸警備隊の監視カメラ）は等速・止めなし・頭から使う・同じ秒を2回使わない（区間は一覧の動きの欄＝make_list32 の門番）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット。
-  🔴 この回の線＝語りと画面に人の名前を出さない（亡くなった方・遺族・操縦者・乗員・役人・裁判官・弁護人は立場だけ）・「犯人」「加害者」と言わない・
-     報道の写真は使わない・遺体・遺品・搬送の秒なし・新聞の紙面の犠牲者の顔写真・参列者の近景は外す＝図でも同じ（紙面に名前が写る＝親が絵を見て切る）
+  🔴 この回の線＝語りと画面に名前を出すのは機長と副操縦士だけ（初出 c203・c205）・客室乗務員・管制官・救助の人は立場だけ・乗客は名前なし・
+     NTSB・FAA・議員・知事・監督・俳優は役職で・「犠牲」「死亡」は言わない・「208秒」は使わず「約3分半」・映画は c517〜c518・c520 だけ
+     ＝図でも同じ（紙面・写真に名前の字が写る＝親が絵を見て切る・船の名も読ませない）
 """
 import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
@@ -20,110 +22,77 @@ P = ss.P
 
 PLAN = {
     'c701': dict(kind='写真',
-               plan='MS｜一覧の種類：映像｜見せ方：額装（高さいっぱい）｜副題：捜索〈1971年7月・防衛庁記録〉｜動き：映像 1123.40〜1130.10秒（0.66倍速）｜権利：CC BY 3.0｜時期：1971年｜人：公的な任務の人（隊員・幹部）＝可・参列者の近景は外す｜出典の行：防衛省・自衛隊『昭和46年防衛庁記録』（CC BY 3.0）・改変：切出・再生速度｜注：捜索の隊員（公的な任務の人）。元 1123.322〜1130.663 のショット・1130.663 からが ✕ の積み込み＝0.5秒手前で止める｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 防衛庁記録＝音は使わない（-an）・0.40倍より遅くしない・区間と止めは make_list31 の門番（使う章の内・外す秒に触れない）・新聞の紙面・積み込み・参列者の近景は使わない｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106614889X00119710802/13（`乗客、乗員百六十二名が全員死亡される`）・国107503830X00819750314/59（`百五十五名中百五十二名分でございます`）'),
-    'c702': dict(kind='図解',
-               plan='地：MS（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：表｜副題：派遣の数の表＝7月30日 3,660人・車両470・航空機80と、31日 5,320人・車両480・航空機80〈防衛庁長｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106614889X00119710802/13（`陸、海、空各自衛隊をあげて、七月三十日には、人員三千六百六十名、車両四百七十両、航空機八十機、翌七月三十一日には、人員五千三百二十名、車両四百八十両、航空機八十機を派遣し`）'),
-    'c703': dict(kind='写真',
-               plan='A2｜一覧の種類：空中｜見せ方：全面｜副題：雫石町の現場付近〈1974〜78年・事故の数年後・国土地理院〉｜動き：ゆっくり寄る｜権利：PDL1.0｜時期：1974〜78年｜人：なし｜出典の行：出典：国土地理院ウェブサイト（地理院タイル・空中写真 1974〜1978年）・加工して作成｜注：A2 は2枚の写真の継ぎ目（上が緑・下が青い色）＝現場の推定の中心は継ぎ目のすぐ下（青い側）。⑤b-2：青い側だけの窓は幅 500〜840px（×2.3〜3.8）＝緑の側の窓（約1.2×0.7km・現場の推定の中心は窓の下の端から約10m）にした＝🔴 ⑤c で見る｜🔴 国土地理院の空中写真＝出典の行「出典：国土地理院ウェブサイト（…）・加工して作成」・写真の年を副題に（事故の数年後と断る）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106614889X00119710802/13（`警察及び地元の県、町、消防等と協力して`…`七月三十一日十五時三十分には、全遺体の収容を終了いたしました`）'),
-    'c704': dict(kind='図解',
-               plan='地：A2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：全日空機事故対策本部の札＝総理府・7月30日・本部長は運輸大臣〈運輸大臣の報告〉｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106613830X00219710802/4（`政府といたしましては、同日、直ちに総理府に全日空機事故対策本部を設置いたしまして`…`本部長に任ぜられました私が現地におもむきまして指揮をとってまいった次第でございます`）'),
+               plan='🔧 D76-9｜一覧の種類：調査｜見せ方：額装（高さいっぱい）｜副題：後ろの胴体の下の裂け〈NTSB の調査の写真〉｜動き：静止｜権利：同上｜時期：2009-01（凡例）｜人：なし｜出典の行：写真：NTSB 公開ドケット DCA09MA026（構造の写真 写真9）｜注：△ 絵は ⑤b で原寸｜新しい画（映像方針）：🔧 調査の写真の番号を凡例から（#76 写真9）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 調査の写真（NTSB のドケット）＝額装・無加工・出典の行・人の写り（顔・名前の字・船の名）は原寸で（⑤b-2）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p39（`According to Airbus, the ditching certification criteria also assumed that engine power was available, that the descent rate was 3.5 feet per second (fps), and that the airplane landed longitudinal to any water swells`）'),
+    'c702': dict(kind='写真',
+               plan='R40｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）表2｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p40（`Pitch attitude (in °) 11 9.5 Airspeed (in knots) 118 125`…`Descent rate (in fps) 3.5 12.5`）'),
+    'c703': dict(kind='図解',
+               plan='🔧 地：GF1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：フラップ＝翼のうしろから出す板・ゆっくり飛べるようになる絵｜注：—｜新しい画（映像方針）：🔧 地 衛星 → イメージ〈翼のうしろの板〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p20（`At 1529:44, the first officer stated, “no relight,” and the captain replied, “ok let’s go put the flaps out, put the flaps out.”`）・報p198（`15:29:45.4 HOT-1 ok lets go put the flaps out`）・報p64（`At 1529:49, as the airplane was descending through 270 feet, the flap lever was moved to the CONF 2 position`）'),
+    'c704': dict(kind='フリー素材',
+               plan='X704｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：翼のうしろの板が出た旅客機の翼〈社名と機種は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p21（`at 1530:17, stated, “got flaps two, you want more?” The captain replied, “no, let’s stay at two,”`）・報p108（`The NTSB concludes that the captain’s decision to use flaps 2 for the ditching, based on his experience and perception of the situation, was reasonable`）'),
     'c705': dict(kind='図解',
-               plan='地：A2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：運輸大臣の言葉の札＝「つつしんで心より深くおわびを申し上げる」〈1971年8月2日・参議院 運輸委員会〉｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106613830X00219710802/4（`百六十二名のとうとい生命が失われましたることは重ね重ね遺憾にたえない次第でございます。つつしんで心より深くおわびを申し上げる次第でございます`）'),
-    'c706': dict(kind='写真',
-               plan='MS｜一覧の種類：映像｜見せ方：額装（高さいっぱい）｜副題：全日空機遭難者合同慰霊式〈1971年・日本武道館・防衛庁記録〉｜動き：映像 1212.20〜1216.60秒（0.56倍速）｜権利：CC BY 3.0｜時期：1971年｜人：公的な任務の人（隊員・幹部）＝可・参列者の近景は外す｜出典の行：防衛省・自衛隊『昭和46年防衛庁記録』（CC BY 3.0）・改変：切出・再生速度｜注：日本武道館の外観と看板（元 1212.111〜1217.116 のショット）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 防衛庁記録＝音は使わない（-an）・0.40倍より遅くしない・区間と止めは make_list31 の門番（使う章の内・外す秒に触れない）・新聞の紙面・積み込み・参列者の近景は使わない｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='画（防衛庁記録の看板の字）'),
-    'c707': dict(kind='写真',
-               plan='🔧 MS｜一覧の種類：映像｜見せ方：額装（高さいっぱい）｜副題：祭壇〈1971年・日本武道館・防衛庁記録〉｜動き：映像 1227.65〜1231.40秒（0.40倍速）（＋止め 1.7秒）｜権利：CC BY 3.0｜時期：1971年｜人：公的な任務の人（隊員・幹部）＝可・参列者の近景は外す｜出典の行：防衛省・自衛隊『昭和46年防衛庁記録』（CC BY 3.0）・改変：切出・再生速度｜注：祭壇の「…空機遭難者之霊位」の寄り（元 1227.059〜1230.429）から会場の全景へ（元の編集のまま）。1227.126（切り替えの尻）までが ✕ の参列者の近景＝0.5秒あける｜新しい画（映像方針）：🔧 速さ 0.35倍 → 0.40倍＋止め・副題｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 防衛庁記録＝音は使わない（-an）・0.40倍より遅くしない・区間と止めは make_list31 の門番（使う章の内・外す秒に触れない）・新聞の紙面・積み込み・参列者の近景は使わない｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106613843X00119710805/3（`現地には御遺族約七百八十名がおもむかれましたが`）・国106614889X00119710802/13（`なくなられた乗客の大部分が吉原遺族会の方々であるため、静岡県富士市に遺族との連絡本部を設け`）'),
-    'c708': dict(kind='図解',
-               plan='地：A2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：遺族への連絡の札＝家を1軒ずつ弔問・ほとんどの家に連絡の係を1人〈防衛庁長官の報告〉・人の形は使わない｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106614889X00119710802/13（`遺族各戸を弔問するとともに、ほとんどの遺族宅に各一名の連絡員を常駐させ`）'),
-    'c709': dict(kind='写真',
-               plan='MS｜一覧の種類：映像｜見せ方：額装（高さいっぱい）｜副題：屋上の隊員〈1971年・防衛庁記録〉｜動き：映像 1194.60〜1202.40秒｜権利：CC BY 3.0｜時期：1971年｜人：公的な任務の人（隊員・幹部）＝可・参列者の近景は外す｜出典の行：防衛省・自衛隊『昭和46年防衛庁記録』（CC BY 3.0）・改変：切出・再生速度｜注：屋上の隊員（元 1194.527 から・中に 1198.965 の切れ目＝元の編集のまま）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 防衛庁記録＝音は使わない（-an）・0.40倍より遅くしない・区間と止めは make_list31 の門番（使う章の内・外す秒に触れない）・新聞の紙面・積み込み・参列者の近景は使わない｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106613830X00219710802/4（`自衛隊の訓練飛行を当分の間、全面的に中止することにいたしました`）'),
-    'c710': dict(kind='写真',
-               plan='MS｜一覧の種類：映像｜見せ方：額装（高さいっぱい）｜副題：防衛庁の式〈1971年・防衛庁記録〉｜動き：映像 1136.60〜1144.30秒｜印：△｜権利：CC BY 3.0｜時期：1971年｜人：公的な任務の人（隊員・幹部）＝可・参列者の近景は外す｜出典の行：防衛省・自衛隊『昭和46年防衛庁記録』（CC BY 3.0）・改変：切出・再生速度｜注：△ 長官の離任の式と見られる。記録の章立てでは1971年の長官の離着任式の章は 13:05（7月）と 28:38（12月）だけ＝8月の式は章「雫石事故」の中（推測）。カズヤくんが語りを聞くまで副題は写っている物まで。元 1136.469〜1144.377 のショット（1134.700〜1136.469 は別のショット）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 防衛庁記録＝音は使わない（-an）・0.40倍より遅くしない・区間と止めは make_list31 の門番（使う章の内・外す秒に触れない）・新聞の紙面・積み込み・参列者の近景は使わない｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106613830X00219710802/16（`防衛庁長官が辞任をしたのだから、後任がきょう認証されるならば`）・国106614889X00119710802/13（`自衛隊機と全日空機との接触事故に関しまして、報告を申し上げる次第であります`）'),
-    'c711': dict(kind='写真',
-               plan='🔧 MS｜一覧の種類：映像｜見せ方：額装（高さいっぱい）｜副題：演壇で礼をする人〈1971年・防衛庁記録〉｜動き：映像 1157.90〜1164.75秒（0.83倍速）｜印：△｜権利：CC BY 3.0｜時期：1971年｜人：公的な任務の人（隊員・幹部）＝可・参列者の近景は外す｜出典の行：防衛省・自衛隊『昭和46年防衛庁記録』（CC BY 3.0）・改変：切出・再生速度｜注：△ c710 と同じ。元 1157.823〜1164.830（中に 1161.827 の切れ目＝礼から2人の寄りへ・元の編集のまま）｜新しい画（映像方針）：🔧 副題｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 防衛庁記録＝音は使わない（-an）・0.40倍より遅くしない・区間と止めは make_list31 の門番（使う章の内・外す秒に触れない）・新聞の紙面・積み込み・参列者の近景は使わない｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106614889X00119710802/13（`前長官は、この事故の報告を受けて、即日現地に向かい、八月一日まで事故の実情を調査し`）'),
+               plan='🔧 地：GK2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：速さの札＝いちばん遠くまで滑れる速さ・機体が示す下限の速さ・実際の速さの線｜注：—｜新しい画（映像方針）：🔧 地 衛星 → イメージ〈速さの計器〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p106（`FDR data indicated that the airplane was below green dot speed and at VLS or slightly less for most of the descent, and about 15 to 19 knots below VLS during the last 200 feet`）'),
+    'c706': dict(kind='フリー素材',
+               plan='X706｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：操縦室の速さの計器〈機種は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p106（`the captain stated during postaccident interviews that he thought that he had obtained green dot speed immediately after the bird strike`）・報p106（`maintained that speed until the airplane was configured for landing, and, after deploying the flaps, maintained a speed “safely above VLS,”`）・報p107（`The NTSB concludes the captain’s difficulty maintaining his intended airspeed during the final approach resulted, in part, from high workload, stress, and task saturation`）'),
+    'c707': dict(kind='図解',
+               plan='地：GK1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：警報の札＝遅すぎる警報より地面の警報が優先される・地面の警報は約85秒で15回｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p107（`the low-speed warning was inhibited by the GPWS warnings, so that the flight crew was not made aware of the low-speed state`）・報p20（`From 1529:14.9 to 1530:40.1, the two systems transmitted a total of 15 alerts`）'),
+    'c708': dict(kind='写真',
+               plan='R201｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録B｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p21（`and then asked the first officer, “got any ideas?” The first officer responded, “actually not.”`）'),
+    'c709': dict(kind='図解',
+               plan='🔧 地：GK1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：警報の札「地面、地面、機首を上げろ」｜注：—｜新しい画（映像方針）：🔧 地 衛星 → イメージ〈操縦室〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p21（`At 1530:24, the GPWS issued a “terrain, terrain” warning followed by “pull up,” which repeated to the end of the CVR recording`）・報p201（`["pull up" repeats until the end of the recording]`）'),
+    'c710': dict(kind='フリー素材',
+               plan='X710｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：操縦席の横の操縦の棒〈サイドスティック｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p65（`Starting at 1530:36, when the airplane was at a radio altitude of about 100 feet, the FDR recorded a progressive pull aft on the left sidestick`）・報p65（`At 1530:39, as the airplane descended through 50 feet, the sidestick moved aft more abruptly, reaching its aft limit (16°) at 1530:41`）'),
+    'c711': dict(kind='図解',
+               plan='🔧 地：GF1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：迎え角＝翼が空気に当たる角度の絵・角度が大きくなりすぎないよう機体が操縦をおさえる「迎え角の守り」｜注：—｜新しい画（映像方針）：🔧 地 衛星 → イメージ〈翼のうしろの板〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p65（`Airbus performed a simulation of the last 300 feet of the accident flight, which indicated that the airplane was performing as designed and was in alpha-protection mode from 150 feet to touchdown`）'),
     'c712': dict(kind='図解',
-               plan='地：GM1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：1971年7月の2つの事故の札＝3日 ばんだい号〈北海道の七飯町の山・68人〉と、30日 この事故〈運輸白書〉｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='白（`7月に「ばんだい号」事故(3日),全日空機・自衛隊機空中衝突事故(30日)と2つの大事故が連続して発生した`…`北海道度島支庁七飯町横津岳中腹に激突し,68名が死亡する`）'),
-    'c713': dict(kind='文字の頁',
-               plan='W47-1｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PDL1.0｜時期：1972年｜人：なし｜出典の行：運輸省『昭和47年度 運輸白書』（国土交通省の頁）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 公的な機関の紙面（国会会議録・判決）＝額装・無加工・🔴 名前の行を入れない＝親が絵を見て切る（語りと画面に人の名前を出さない回）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='白（`68名が死亡する`…`事故調査委員会が運輸省`）'),
-    'c714': dict(kind='図解',
-               plan='地：MS（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：事故調査委員会の札＝全日空機接触事故調査委員会・総理府・1971年7月31日・委員5人｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106814103X01219720524/78（`昨年の七月三十一日に全日空機接触事故調査委員会が設立をされまして`…`設立されました七月三十一日当日に第一回の委員会を開催いたしましたあと`）・国106604889X00519710816/171（`今回の事故調査委員会を総理府訓令に基づいて発足をさせた`）'),
+               plan='🔧 地：C31（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：帯｜副題：高さと守りの帯＝約45メートルから下で守りが働く・約30メートルから下で機首を上げる操縦の効きが弱まる｜注：—｜新しい画（映像方針）：🔧 模式 → 帯（高さの帯＝約45メートルと約30メートル）・地 衛星 → [31]＝模式の連続を切る｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p114（`airspeed in the last 150 feet of the descent was low enough to activate the alpha-protection mode`）・報p65（`was in alpha-protection mode from 150 feet to touchdown`）・報p65（`the flight control system attenuated the effect of the pilot’s airplane nose-up (ANU) sidestick inputs below 100 feet radio altitude`）'),
+    'c713': dict(kind='図解',
+               plan='🔧 地：C31（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：守りの両面の札＝いちばんの性能を出した・失速の心配なく引けた・その一方で機首を上げる効きを弱めた｜注：—｜新しい画（映像方針）：🔧 地 衛星 → [31]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p115（`the airplane did provide maximum performance for the weight and configuration at that time`）・報p115（`The flight envelope protections allowed the captain to pull full aft on the sidestick without the risk of stalling the airplane`）'),
+    'c714': dict(kind='写真',
+               plan='R202｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録B｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src="報p202（`HOT-1 we're gonna brace.`）・報p21（`The first officer was referring to the cabin emergency notification switch, which provides a signal to the cabin crewmembers indicating that an emergency has occurred`）"),
     'c715': dict(kind='図解',
-               plan='地：A2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：調査の札＝委員会10回・懇談会9回・現地の調査3回・三沢のレーダー・松島基地・千歳の管制・全日空の運航の管理〈1972年｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106814103X01219720524/78（`今日までに委員会を十回、委員懇談会を九回開催をいたしまして、あわせで事故現地の調査も三回にわたって委員の皆さんがお出かけになりました`）'),
+               plan='🔧 地：C31（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：着水の姿＝機首9.5度・時速約230キロ・沈む速さ 毎秒約3.8メートル｜注：—｜新しい画（映像方針）：🔧 地 衛星 → [31]（着水の直後の機体）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p65（`the airplane touched down on the Hudson River at an airspeed of 125 KCAS with a pitch angle of 9.5°`）・報p65（`the airplane ditched with a descent rate of 12.5 fps`）'),
     'c716': dict(kind='図解',
-               plan='地：A2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：総理府に置いたわけの札＝自衛隊法は運輸大臣の事故調査の権限を外していた・総理が直接委嘱・全日空と自衛隊の関係者は委員にし｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106604889X00519710816/171（`一方自衛隊法を調べてみますと、この運輸大臣の事故調査権限というものを自衛法でははずしておられる`…`総理が直接委嘱をする事故調査委員会というものを設けよう`…`全日空、自衛隊、当面の責任があると考えられる関係者は一切委員には任命しない`）'),
-    'c717': dict(kind='図解',
-               plan='地：A2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：調査委員会の札の続き＝委員5人・およそ1年後に報告｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106613830X00219710802/4（`氏以下五名の委員からなる事故調査委員会を設置いたしまして`）・白（`総理府に設置された事故調査委員会より昭和47年7月27日次のとおり発表された`）'),
-    'c718': dict(kind='フリー素材',
-               plan='X718｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：夏の昼の山の森を遠くから｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='―（橋の1行）'),
+               plan='🔧 地：C31（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：棒｜副題：沈む速さ＝前提 毎秒約1.1メートル・1549便 毎秒約3.8メートル｜注：—｜新しい画（映像方針）：🔧 地 衛星 → [31]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p95（`the airplane’s descent rate at the time it impacted the water was 12.5 fps, more than three times the descent rate of 3.5 fps assumed during ditching certification, resulting in external pressures on the aft fuselage`）'),
+    'c717': dict(kind='写真',
+               plan='🔧 C68｜一覧の種類：写真｜見せ方：額装（高さいっぱい）｜副題：保管中のこの機体の底の壊れ｜動き：静止｜見た目の型：11-10 640px＝はがれた底の外板・骨組み｜権利：CC BY-SA 3.0｜時期：2011-02-25（EXIF＝博物館へ移す前の保管中）｜人：なし｜出典の行：写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工｜注：BY-SA＝額装・無加工｜新しい画（映像方針）：🔧 副題「後ろの胴体の中〈2010年〉」→ 写っているもの（頁の説明＝着水で壊れた機体の底）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・副題の日付と夕方・夜は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p40（`Average external pressure (in psi) 7.3 15.1 Maximum external pressure (in psi) 10.9 22.6`）・計（15.1÷7.3＝2.07・22.6÷10.9＝2.07）'),
+    'c718': dict(kind='写真',
+               plan='🔧 D49-42｜一覧の種類：調査｜見せ方：額装（高さいっぱい）｜副題：床を突き破った梁〈NTSB の調査の写真〉｜動き：静止｜権利：同上｜時期：2009（凡例）｜人：なし｜出典の行：写真：NTSB 公開ドケット DCA09MA026（生存の写真 写真42）｜注：② で見た（dk_049）｜新しい画（映像方針）：🔧 調査の写真の番号を凡例から（#49 写真42）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 調査の写真（NTSB のドケット）＝額装・無加工・出典の行・人の写り（顔・名前の字・船の名）は原寸で（⑤b-2）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p49（`The FR65 vertical beam had punctured through the cabin floor in front of the direct-view jumpseat`）・報p139（`Flight attendant B was injured by the frame 65 vertical beam after it punctured the cabin floor during impact`）'),
+    'c719': dict(kind='図解',
+               plan='🔧 地：C21（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：傷の札＝左のすね・長さ12センチ・深さ5センチ・手術で閉じた｜注：—｜新しい画（映像方針）：🔧 地 衛星 → [21]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p52（`Flight attendant B sustained a V-shaped, 12-centimeter-long 5-centimeter-deep laceration to her lower left leg that required surgery to close`）'),
+    'c720': dict(kind='フリー素材',
+               plan='X720｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：シミュレーターの装置の外観〈機種と社名は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p67（`a total of 14 runs were performed in the engineering simulator in which pilots attempted to touch down on the water within a target flightpath angle of -0.5°`…`In 11 of the 12 runs, the touchdown flightpath angle ranged between -1.5° and -3.6°`…`a -0.2° touchdown flightpath angle was achieved by an Airbus test pilot`）'),
+    'c721': dict(kind='図解',
+               plan='地：GM1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：所見の札＝前提をすべて満たすのは、ありえなくはないが見込みは低い｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p138（`During an actual ditching, it is possible but unlikely that pilots will be able to attain all of the Airbus ditching parameters because it is exceptionally difficult for pilots to meet such precise criteria when no engine power is available, and this difficulty contributed to the fuselage damage`）'),
+    'c722': dict(kind='写真',
+               plan='R140｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）推定原因｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p140（`the probable cause of this accident was the ingestion of large birds into each engine`）・報p140（`Contributing to the fuselage damage and resulting unavailability of the aft slide/rafts were (1) the Federal Aviation Administration’s approval of ditching certification without determining whether pilots could attain the ditching parameters without engine thrust`）'),
+    'c723': dict(kind='図解',
+               plan='🔧 地：C21（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：並べ｜副題：損傷に関わった3つの札＝認証・訓練と指針・速さ｜注：—｜新しい画（映像方針）：🔧 地 衛星 → [21]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p140（`(2) the lack of industry flight crew training and guidance on ditching techniques, and (3) the captain’s resulting difficulty maintaining his intended airspeed on final approach due to the task saturation resulting from the emergency situation`）・報p140（`approval of ditching certification without determining whether pilots could attain the ditching parameters without engine thrust`）・報p112（`contain very little guidance to pilots on flying techniques to use during a ditching`）'),
+    'c724': dict(kind='写真',
+               plan='🔧 D79-1｜一覧の種類：調査｜見せ方：額装（高さいっぱい）｜副題：胴体の外板の壊れ〈NTSB の調査の写真〉｜動き：静止｜権利：同上｜時期：2009（凡例）｜人：なし｜出典の行：写真：NTSB 公開ドケット DCA09MA026（構造の追記の写真 写真1）｜注：△ 絵は ⑤b で原寸｜新しい画（映像方針）：🔧 調査の写真の番号を凡例から（#79 写真1＝外板の区画 16/17）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 調査の写真（NTSB のドケット）＝額装・無加工・出典の行・人の写り（顔・名前の字・船の名）は原寸で（⑤b-2）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p124（`two slide/rafts on the accident airplane were unavailable because of water entry in the aft cabin`）・報p139（`significant aft fuselage breaching and subsequent water entry into the aft area of the airplane, which prevents the aft slide/rafts from being available for use during an evacuation`）'),
 }
 
 SPEC = {}
-# 🆕 ⑤b-3a（2026-11-08）：イメージの写真（Pexels＝`stock/`・git に入れない・焼くときに `footage.stock_photos` が取り直して md5 を照らす）＝
-#   全面・ゆっくり寄る・見出しと副題なし・原色。窓＝(fx, fy, zoom) の2つ（`ss.mvz`）。中身は `sources31.psv` の title（640px と原寸で見た）
-_X718 = P("stock/x718")
-SPEC.update({
-    "c718": dict(photo=_X718, **ss.mvz(_X718, (0.5, 0.5, 1.0), (0.54, 0.5, 1.12)), side="none", color=1.0, t="", s=""),
-})
-
-# 🆕 ⑤b-4（2026-11-08）：札の型（`tools/mech31.py` の表 FU＝1行が1カット）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`＝check_ground --suggest）
-#   c714 の地＝防衛庁記録の残骸のコマ ms_g5（台本の画の欄は「屋上」＝隊員の上に委員会の札を置くと「委員が自衛隊」と読める＝委員会は自衛隊の関係者を外した c716）
-import mech31 as _m31  # noqa: E402
-SPEC.update({
-    "c704": _m31.fu_spec("c704", ss.gr("a2")),
-    "c705": _m31.fu_spec("c705", ss.gr("a2")),
-    "c708": _m31.fu_spec("c708", ss.gr("a2")),
-    "c712": _m31.fu_spec("c712", ss.gr("stock/gm1")),
-    "c714": _m31.fu_spec("c714", ss.gr("ms_g5")),
-    "c715": _m31.fu_spec("c715", ss.gr("a2")),
-    "c716": _m31.fu_spec("c716", ss.gr("a2")),
-    "c717": _m31.fu_spec("c717", ss.gr("a2")),
-})
-
-# 🆕 ⑤b-5（2026-11-08）：見え方の表（`mech31.VIEWS`）。c702 の地＝防衛庁記録の捜索のコマ ms_g4（束の MS_GROUND・顔は見えない）
-SPEC.update({
-    "c702": _m31.zu_spec("c702", ss.gr("ms_g4")),
-})
-
-# 🆕 ⑤b-7（2026-11-09）：防衛庁記録・空中写真・紙面（c2.py の ⑤b-7 の型）。防衛庁記録＝`ss.vid`（額装・高さいっぱい・静止・地は同じ映像のぼかし・
-#   区間は一覧の動きの欄 → `qa_out/ep31_assets.py use --all`）。🔴 外す秒（新聞の紙面・積み込み・参列者の近景）は make_list31 と footage.NOGO の門番。
-#   c710・c711＝△ 室内の式（元 18:55.2〜19:54.4・何の式かは未確認＝映像方針の決め6）＝副題は写っている物まで（「長官」「辞任」を書かない）・
-#   見出しも映像の人と結び付く語にしない（「前の長官」「辞任」を書かない）
-_A2, _W713 = P("a2"), P("w47_1_c713")
-SPEC.update({
-    # c701＝防衛庁記録 MS 1123.40〜（森の中の捜索＝新聞の紙面の後・積み込みの前）。0.66倍・章の頭
-    "c701": ss.vid("c701", panel=True, ptall=True, t="乗客と乗員", s="捜索〈1971年7月・防衛庁記録〉"),
-    # c703＝雫石町の現場付近（地理院 1974〜78年・窓は現場の推定の中心の約10m 北＝⑤b-2 §1-9）＝真ん中へゆっくり寄る（×1.42 の写真＝寄りは小さく）
-    "c703": dict(photo=_A2, **ss.mv(_A2, "in", z=1.1), side="none", color=1.0,
-                 t="捜索と収容", s="雫石町の現場付近〈1974〜78年・事故の数年後・国土地理院〉"),
-    # c706＝防衛庁記録 MS 1212.20〜（日本武道館の外観）。0.56倍
-    "c706": ss.vid("c706", panel=True, ptall=True, t="合同慰霊式", s="日本武道館〈1971年・防衛庁記録〉"),
-    # c707＝防衛庁記録 MS 1227.65〜（祭壇の寄り → 元 1230.429〜 会場の全景＝元の編集のまま場面をまたぐ）。0.40倍＋止め 1.7秒
-    "c707": ss.vid("c707", panel=True, ptall=True, t="遺族と連絡本部", s="祭壇と会場〈1971年・日本武道館〉"),
-    # c709＝防衛庁記録 MS 1194.60〜（屋上の隊員・元 1198.931 で切り替わる）。等速
-    "c709": ss.vid("c709", panel=True, ptall=True, t="訓練の中止", s="屋上の隊員〈1971年・防衛庁記録〉"),
-    # c710＝防衛庁記録 MS 1136.60〜（△ 室内の式）。等速
-    "c710": ss.vid("c710", panel=True, ptall=True, t="国会への報告", s="防衛庁の式〈1971年・防衛庁記録〉"),
-    # c711＝防衛庁記録 MS 1157.90〜（△ 室内の式・演壇で礼をする人・元 1161.827 で切り替わる）。0.83倍
-    "c711": ss.vid("c711", panel=True, ptall=True, t="現地の調べ", s="室内の式〈1971年〉"),   # 🔧 ⑤c'：元の編集の切れ目（本体 4.73秒）から2人の顔の寄り＝「演壇で礼をする人」は前半だけ
-    # c713＝運輸白書 001＋002（ばんだい号の段・「運輸省」で切った）
-    "c713": dict(photo=_W713, panel=True, pw=1776, ground=dict(photo=_W713, blur=ss.PAGE_BLUR), color=1.0,
-                 t="ばんだい号", s="運輸白書の本文（事故の調査の委員会）"),
-})

@@ -232,6 +232,19 @@
   🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep31）。写真の色は原本（`PHOTO_KEEP_EP` に ep31）。
   30本目の型の値（ss.py の後半・門番の記録の表 REC_M30・check_fuda の EXC）は selftest の見本 `tools/fixture_ep30.py` へ移した。
   検算：⑤b-1 の終わりは `len(PLAN)` が **241**・`len(SPEC)` は ed01（と字幕の試しのカット）だけ。書き終えたら **242**。
+
+■ 🔴🔴 2026-11-10（32本目 USエアウェイズ1549便のハドソン川への着水 ⑤b-1）：**32本目へ差し替え。**
+  31本目の章ファイル（c1〜c9・ca〜cc）は git の `f4bd0a9a` にある。32本目も **12の区切り**（冒頭 c101〜c113＝c1＋台本の第1〜11章＝
+  c2〜c9・ca〜cc＝c201〜cc10 の236カット・欠番 c519〈映画の線の外〉）＋共通の末尾 `ed01`＝`CHAPTER_FILES` はそのまま。
+  冒頭 c1 は章の印なし・扉は c201〜cc01 の頭の11枚（`check_script.door_key`＝32本目は INNER_CARDS なし）。
+  PLAN＝`ref/ep32/make_plan32.py` が映像方針の一覧（`ref/ep32/eizou_build/make_list32.py`＝了承②ずみ・E 0・秒は narration.json の実測・扉11枚）と
+  台本 第2版 §4 の**出典の欄だけ**から機械で組んだ（🔴 台本の画の欄は写さない＝32本目は画の欄が一覧と食い違う所がある＝⑤b は一覧に従う）＝
+  写真85（映像 13〈VTS〉・写真 38・調査 13・公的 21）・フリー素材46（Pexels＝未取得）・図解105（衛星 15・模式 67・ほか 23）・🔧105。文字だけ0・決め所0・再現イラスト0。
+  🔴 この回の線＝語りと画面に名前を出すのは機長と副操縦士だけ（初出 c203・c205）・客室乗務員・管制官・救助の人は立場だけ・乗客は名前なし・
+     NTSB・FAA・議員・知事・監督・俳優は役職で・「犠牲」「死亡」は言わない・「208秒」は使わず「約3分半」・映画は c517〜c518・c520 だけ。
+  🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep32）。写真の色は原本（`PHOTO_KEEP_EP` に ep32）。VTS は等速・止めなし・頭から使う。
+  31本目の型の値（ss.py の後半＝GROUND・SAT・GEO・線の表・SLIDE_NOT_MOUNT・門番の記録の表 REC_M31・check_sat の REC_SAT_NUM）は selftest の見本 `tools/fixture_ep31.py` へ移した。
+  検算：⑤b-1 の終わりは `len(PLAN)` が **236**・`len(SPEC)` は ed01（と字幕の試しのカット）だけ。書き終えたら **237**。
 """
 import importlib
 import sys

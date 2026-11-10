@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
-"""第1章　1本の道と2つの機体 c201–c217（17カット）。31本目（全日空機雫石衝突事故・1971-07-30・岩手県雫石町の上空・刑事は1983年・民事は1989年に終わった）。
+"""第1章　ラガーディア空港、滑走路4 c201–c217（17カット）。32本目（USエアウェイズ1549便のハドソン川への着水・2009-01-15・ニューヨーク・報告書 NTSB/AAR-10/03 は2010-05-04 採択）。
 
-■ 🔴 2026-11-08（⑤b-1）：30本目（地下鉄サリン事件）の中身を空にした＝git の `3d0ee6bc`（`git show 3d0ee6bc:tools/cuts/c2.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep31/make_plan31.py` で
-  映像方針の一覧（`ref/ep31/eizou_build/make_list31.py`＝了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
-  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep31/eizou_list31.md`）。
+■ 🔴 2026-11-10（⑤b-1）：31本目（全日空機雫石衝突事故）の中身を空にした＝git の `f4bd0a9a`（`git show f4bd0a9a:tools/cuts/c2.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep32/make_plan32.py` で
+  映像方針の一覧（`ref/ep32/eizou_build/make_list32.py`＝了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
+  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep32/eizou_list32.md`＝⑤b は一覧に従う）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
-  🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep31）＝`fmove`（額ごと動かす）・額の中の `cam` を書かない（門番 check_fmove が絵で測る）。
-  🔴 写真は画面いっぱい・色は原本（`build_jiko.PHOTO_KEEP_EP` に ep31）・BY-SA は額装・国会と判決の紙面も額装。説明カットの地は写真を暗くするだけ（8:1）。
+  🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep32）＝`fmove`（額ごと動かす）・額の中の `cam` を書かない（門番 check_fmove が絵で測る）。
+  🔴 写真は画面いっぱい・色は原本（`build_jiko.PHOTO_KEEP_EP` に ep32）・BY-SA は額装・紙面と調査の写真も額装。説明カットの地は写真を暗くするだけ（8:1・衛星と夜の写真は地にしない）。
+  🔴 VTS（沿岸警備隊の監視カメラ）は等速・止めなし・頭から使う・同じ秒を2回使わない（区間は一覧の動きの欄＝make_list32 の門番）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット。
-  🔴 この回の線＝語りと画面に人の名前を出さない（亡くなった方・遺族・操縦者・乗員・役人・裁判官・弁護人は立場だけ）・「犯人」「加害者」と言わない・
-     報道の写真は使わない・遺体・遺品・搬送の秒なし・新聞の紙面の犠牲者の顔写真・参列者の近景は外す＝図でも同じ（紙面に名前が写る＝親が絵を見て切る）
+  🔴 この回の線＝語りと画面に名前を出すのは機長と副操縦士だけ（初出 c203・c205）・客室乗務員・管制官・救助の人は立場だけ・乗客は名前なし・
+     NTSB・FAA・議員・知事・監督・俳優は役職で・「犠牲」「死亡」は言わない・「208秒」は使わず「約3分半」・映画は c517〜c518・c520 だけ
+     ＝図でも同じ（紙面・写真に名前の字が写る＝親が絵を見て切る・船の名も読ませない）
 """
 import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
@@ -20,130 +22,56 @@ P = ss.P
 
 PLAN = {
     'c201': dict(kind='図解',
-               plan='SAT:北日本｜一覧の種類：衛星｜見せ方：額装（衛星）｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：Google の帰属の行（絵の近く）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106614889X00419711007/16（`J10L函館NDB、J11L松島NDB、J30L大子NDB、J25L佐倉NDB及び木更津NDBを経て`）・国106614889X00419711007/17（`大体現在私どもが推定いたしましているとおりでございます`）'),
-    'c202': dict(kind='図解',
-               plan='地：A1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：函館と松島の2つの点をまっすぐ結ぶ線＝J11L・点に「無線の目じるし（NDB）」の札・幅はまだ描かない｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='判（`ジエツト・ルートJ11L(函館NDBと松島NDBとを結ぶ高高度管制区内の直行経路`）'),
+               plan='SAT:ラガーディア空港｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：ラガーディア空港〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：同上｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・帰属は地図の右下（Google の表示を絵の近くに）・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p18（`The flight was en route to Charlotte Douglas International Airport (CLT), Charlotte, North Carolina`）'),
+    'c202': dict(kind='写真',
+               plan='C52｜一覧の種類：写真｜見せ方：額装（高さいっぱい）｜副題：ラガーディア空港の出発の図〈FAA〉｜動き：静止｜見た目の型：11-10 640px＝出発の図と滑走路の図｜権利：PD（FAA）｜時期：2009-01-15（題）｜人：なし｜出典の行：図：FAA（public domain）／Wikimedia Commons｜注：379×612＝額装｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・副題の日付と夕方・夜は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p18（`The accident flight was the last flight of a 4-day trip sequence for the flight and cabin crewmembers`）・報p18（`This was the first trip sequence that the captain and first officer had been paired to fly together`）'),
     'c203': dict(kind='図解',
-               plan='地：A1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：NDB の札＝地上の局から電波・機体がその方角へ飛ぶ矢印・c202 とは別の絵＝寄り｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106613843X00119710805/293（`無線保安施設の点と点を結ぶところを最短距離で飛行しなさい`）'),
-    'c204': dict(kind='写真',
-               plan='🔧 P3｜一覧の種類：写真｜見せ方：額装（高さいっぱい）｜副題：同じ型の全日空機〈1979年・香港・この機体ではない〉｜動き：静止｜権利：CC BY-SA 4.0｜時期：1979年11月｜人：なし｜出典の行：写真：{作者}／Wikimedia Commons（CC BY-SA 4.0）・無加工（地：同じ写真のぼかし）｜注：1970年代の塗装・人の顔なし（11-08 に 960px で見た）｜新しい画（映像方針）：🔧 副題の年＝頁の撮影 1979年11月｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表から焼くときに差し込む（P1・P3 は帰属の書き方の指定＝credits_private の8列目）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106614889X00419711007/16（`計器飛行方式の承認を得て十三時三十三分東京国際空港に向けて千歳空港を離陸`）'),
+               plan='地：C50（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：機長の札＝名前・57歳・飛んだ時間 1万9,663時間・うち A320 4,765時間・顔は描かない｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p23（`The captain, age 57`）・報p24（`the captain had accumulated 19,663 total flight hours`…`4,765 hours of which were in A320 airplanes`）・ド#6p8（`Total A320 flying time 4,765 hours`）'),
+    'c204': dict(kind='フリー素材',
+               plan='X204｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：晴れた空を飛ぶ旅客機の遠景〈社名と機種は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p23（`was hired by Pacific Southwest Airlines on February 25, 1980`…`Before this, he flew McDonnell Douglas F-4 airplanes for the U.S. Air Force`）・報p23（`Pacific Southwest Airlines merged with USAir Group in 1988`）'),
     'c205': dict(kind='図解',
-               plan='地：GC1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：帯｜副題：全日空機の時刻の帯＝13:33 千歳 → 13:46 函館の上・約6,700メートル → 13:50 約8,500メート｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106614889X00419711007/16（`函館NDBを十三時四十六分、高度二万二千フィートで通って`…`十三時五十分に札幌管制部に巡航高度二万八千フィートに到着したことを`）・国106614889X00419711007/16（`松島NDBの通過予定が十四時十一分であった`）'),
-    'c206': dict(kind='図解',
-               plan='SAT:函館から松島｜一覧の種類：衛星｜見せ方：額装（衛星）｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：Google の帰属の行（絵の近く）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106614889X00419711007/16（`松島NDBの通過予定が十四時十一分であった`）'),
-    'c207': dict(kind='写真',
-               plan='🔧 P5｜一覧の種類：写真｜見せ方：額装（高さいっぱい）｜副題：同じ型の F-86F〈航空自衛隊・この機体ではない〉｜動き：静止｜権利：SDASM（著作権の制限は知られていない）｜時期：撮影年は不明｜人：操縦者＝公的な任務の人｜出典の行：SDASM Archives（著作権の制限は知られていない）｜注：SDASM＝PD と書かない。操縦席の人は公的な任務の操縦者。撮影年は不明＝副題に年を書かない｜新しい画（映像方針）：🔧 全面 → 高さいっぱいの額（幅1000px・4:3）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表から焼くときに差し込む（P1・P3 は帰属の書き方の指定＝credits_private の8列目）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106614889X00119710802/13（`航空自衛隊機F86F`）・判（`第一航空団松島派遣隊所属の被告人の操縦する教官機とA訓練生の操縦する訓練機の両機`）'),
+               plan='地：C50（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：副操縦士の札＝名前・49歳・飛んだ時間 1万5,643時間・A320 は37時間・A320 の資格 2008年12月31｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p25（`The first officer, age 49`…`the first officer had accumulated 15,643 total flight hours`…`The first officer had 37 hours in A320 airplanes`）'),
+    'c206': dict(kind='フリー素材',
+               plan='X206｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：旅客機の操縦室の計器〈機種は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p25（`The first officer received his initial A320 type rating on December 31, 2008`）・報p69（`because he had just completed training, he immediately recognized that the event was an ECAM exception`）'),
+    'c207': dict(kind='図解',
+               plan='地：C50（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：客室乗務員3人の札＝51・58・57歳・座る位置〈前に2人・後ろに1人〉・名前と顔は描かない｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p26（`Flight attendant A, age 51, was located at the aft-facing, forward jumpseat`…`Flight attendant B, age 58, was located at the forward-facing, “direct-view” jumpseat (aft, center aisle)`…`Flight attendant C, age 57, was located at the aft-facing, forward jumpseat`）・計（初めの訓練の年から2009年1月まで＝26年・38年・28年）'),
     'c208': dict(kind='写真',
-               plan='MK｜一覧の種類：映像｜見せ方：額装（高さいっぱい）｜副題：『第一航空団 松島派遣隊』の札〈1971年・防衛庁記録〉｜動き：映像 1034.20〜1038.40秒（0.53倍速）｜権利：CC BY 3.0｜時期：1971年｜人：公的な任務の人＝可｜出典の行：防衛省・自衛隊『昭和46年防衛庁記録』（CC BY 3.0）・改変：切出・再生速度｜注：元 1034.066〜1038.437 のショット＝札を掛ける（⑤b-2 に灰色の差と 780px のコマで見た＝1038.437〜1038.570 の切り替えから滑走路）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 防衛庁記録＝音は使わない（-an）・0.40倍より遅くしない・区間と止めは make_list31 の門番（使う章の内・外す秒に触れない）・新聞の紙面・積み込み・参列者の近景は使わない｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='画（防衛庁記録の札の字）'),
+               plan='🔧 C41｜一覧の種類：写真｜見せ方：全面｜副題：引き上げたあとの機体〈2009年1月〉｜動き：ゆっくり寄る｜見た目の型：11-10 640px＝夜・はしけの上の機体・柵と街灯｜権利：CC BY 2.0｜時期：2009-01-18 17:48（EXIF・頁の説明＝引き上げたあと）・夜｜人：なし｜出典の行：写真：{作者}／Wikimedia Commons（CC BY 2.0）｜注：夜の写真＝全面は可・地にしない｜新しい画（映像方針）：🔧 副題を写っているものに｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・副題の日付と夕方・夜は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p27（`The airplane was configured with 12 first-class passenger seats; 138 economy-class passenger seats`）・報p18（`The 150 passengers, including a lap-held child`）'),
     'c209': dict(kind='図解',
-               plan='地：MS（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：2人の札＝教官〈一等空尉〉・訓練生〈二等空曹〉＝防衛庁長官の報告の階級・名前と顔は描かない｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106614889X00119710802/13（`一等空尉`…`二等空曹`）'),
+               plan='🔧 地：C21（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：この機体の装備＝前と後ろの扉に、救命いかだを兼ねたすべり台が4つ・座席の下に救命胴衣｜注：—｜新しい画（映像方針）：🔧 地 [41]（夜）→ [21]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p53（`Each of these exits was equipped with a door-mounted, automatically inflating Type II slide/raft`）・報p55（`an EOW-equipped airplane must be equipped with a life vest for each airplane occupant`）'),
     'c210': dict(kind='図解',
-               plan='地：GS2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：機動隊形の訓練＝前の教官機が左右に旋回し、うしろの訓練機が決まった位置を保ってついていく矢印｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='判（`教官としても左右に教官機の機動旋回をくり返しながら、後続する訓練機が編隊僚機としての所定の位置につくよう誘導する`）'),
-    'c211': dict(kind='写真',
-               plan='P6｜一覧の種類：写真｜見せ方：全面｜副題：保存されている同じ型の F-86F〈この機体ではない〉｜動き：ゆっくり寄る｜権利：CC0｜時期：2020年8月｜人：なし｜出典の行：写真：{作者}／Wikimedia Commons（CC0）｜注：82-7865 の全景＝人なし（11-08 に見た）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表から焼くときに差し込む（P1・P3 は帰属の書き方の指定＝credits_private の8列目）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='判（`本件におけるような経験の浅い訓練生にとつて非常に難度の高い操縦操作を伴い`…`他へ注意力をさくことは著しく困難`）'),
+               plan='🔧 地：C21（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：割合｜副題：75機のうち20機＝この装備の機｜注：—｜新しい画（映像方針）：🔧 地 [41]（夜）→ [21]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p54（`The accident airplane was 1 of 20 A320s equipped as an EOW airplane in the US Airways fleet of 75 A320s`）・報p55（`The accident flight was a non-EOW flight`）・報p54（`Non-EOW airplanes are not required to carry passenger life vests, slide/rafts, or survival kits`）'),
+    'c211': dict(kind='フリー素材',
+               plan='X211｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：雪の残る冬の街と晴れた空〈場所は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='ド#7p6（`It had been snowing earlier in the day`…`The weather cleared up and it was sunny`）・報p41（`The 1451 Central Park surface weather observation indicated the following: winds 290° at 8 kts, visibility 10 miles`…`temperature -6° C`）'),
     'c212': dict(kind='図解',
-               plan='地：P6（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：2つの飛び方の比べ＝旅客機は計器飛行方式で決まった道を・2機は有視界飛行で訓練の空域を｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106614889X00419711007/16（`F86Fの二機の編隊は、有視界飛行で`）'),
+               plan='SAT:滑走路4｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：滑走路4〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：同上｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・帰属は地図の右下（Google の表示を絵の近くに）・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p18（`at 1524:54, the LGA air traffic control tower (ATCT) local controller cleared the flight for takeoff from runway 4`）'),
     'c213': dict(kind='図解',
-               plan='地：A1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：空の使い分けの札＝旅客機は管制の道〈J11L〉・戦闘機は訓練空域｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='判（`各訓練飛行ごとにその際の主要訓練課目を実施すべき空域としてこれらの一を割り当てることを原則としていた`）・国106603843X00119710804/56（`民間航空路とはできるだけ交錯を避けるように、別の地域になっております`）'),
+               plan='地：GK1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：操縦の役＝操縦する人〈副操縦士〉と見守る人〈機長〉の2つの札｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p18（`At this time, the first officer was the pilot flying (PF), and the captain was the pilot monitoring (PM)`）'),
     'c214': dict(kind='図解',
-               plan='🔧 地：A1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：1つ目の問い＝その朝、訓練の空は、どう決まったのか｜注：語りの「そこに、1つ目の問いがある」。地は次のカットの松島の空中写真｜新しい画（映像方針）：🔧 P2（GFDL 1.2 only・1982年の撮影）→ 問いの札｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106603843X00119710804/56（`本来の訓練空域は、これは別途でございます`）'),
-    'c215': dict(kind='写真',
-               plan='A1｜一覧の種類：空中｜見せ方：全面｜副題：松島基地〈1974〜78年・事故の数年後・国土地理院〉｜動き：ゆっくり寄る｜権利：PDL1.0｜時期：1974〜78年｜人：なし｜出典の行：出典：国土地理院ウェブサイト（地理院タイル・空中写真 1974〜1978年）・加工して作成｜注：② の見本のモザイクの赤い丸は本番では描かない・右下の黒と欠けを切る｜🔴 国土地理院の空中写真＝出典の行「出典：国土地理院ウェブサイト（…）・加工して作成」・写真の年を副題に（事故の数年後と断る）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106614889X00119710802/13（`七月三十日十三時二十八分、編隊飛行訓練のため松島基地を離陸し`）'),
-    'c216': dict(kind='図解',
-               plan='地：GC1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：年表｜副題：その日の時刻の並び＝13:28 松島を離陸〈長官の報告〉・13:33 千歳を離陸〈国会議員のまとめ〉・14:02 ごろ ｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='―（まとめ）'),
-    'c217': dict(kind='フリー素材',
-               plan='X217｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：夏の朝の滑走路の遠景｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='―（橋の1行）'),
+               plan='🔧 地：GS1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：帯｜副題：上昇の帯＝約210メートルで出発の管制へ・約4,600メートルまで上がる指示｜注：—｜新しい画（映像方針）：🔧 地 衛星（Google を暗く）→ イメージ〈冬の空〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p18（`The captain contacted the departure controller at 1525:51, advising him that the airplane was at 700 feet`…`The controller then instructed the flight to climb to and maintain 15,000 feet`）'),
+    'c215': dict(kind='フリー素材',
+               plan='X215｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：雲の上へ上がる旅客機の遠景〈社名と機種は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p18（`the takeoff and initial portion of the climb were uneventful`）'),
+    'c216': dict(kind='フリー素材',
+               plan='X216｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：紙に包んだサンドイッチ〈店名なし〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p25（`because they had a quick turnaround at LGA, he purchased a sandwich to eat on the airplane after departure`）'),
+    'c217': dict(kind='写真',
+               plan='🔧 D101-1｜一覧の種類：調査｜見せ方：額装（高さいっぱい）｜副題：エンジンのファンから試料を取る調査官〈NTSB の調査の写真〉｜動き：静止｜権利：同上｜時期：2009-01（凡例）｜人：調査官（後ろ姿・公的な任務）｜出典の行：写真：NTSB 公開ドケット DCA09MA026（野生動物の報告 写真1）｜注：② で見た（dk_068_101）｜新しい画（映像方針）：🔧 調査の写真の番号を凡例から（#101 写真1）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 調査の写真（NTSB のドケット）＝額装・無加工・出典の行・人の写り（顔・名前の字・船の名）は原寸で（⑤b-2）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p19（`at 1527:10.4, the captain stated, “birds.”`）・計（15:25:51 から 15:27:10 まで＝79秒）'),
 }
 
 SPEC = {}
-# 🆕 ⑤b-3a（2026-11-08）：イメージの写真（Pexels＝`stock/`・git に入れない・焼くときに `footage.stock_photos` が取り直して md5 を照らす）＝
-#   全面・ゆっくり寄る・見出しと副題なし・原色。窓＝(fx, fy, zoom) の2つ（`ss.mvz`）。中身は `sources31.psv` の title（640px と原寸で見た）
-_X217 = P("stock/x217")
-SPEC.update({
-    # c217＝山を背にした人のいない滑走路（路面の矢印）＝矢印の方へ寄る
-    "c217": dict(photo=_X217, **ss.mvz(_X217, (0.5, 0.6, 1.0), (0.5, 0.63, 1.12)), side="none", color=1.0, t="", s=""),
-})
-
-# 🆕 ⑤b-3b（2026-11-08）：衛星写真（額装・静止）。c201＝G02 北日本（ズーム6＝千歳から羽田まで縦に入る）・c206＝G03 函館から松島（ズーム7）
-#   c201：計画の経路＝国会議員のまとめの順に点を結んだ直線（J10L 函館・J11L 松島・J30L 大子・J25L 佐倉・木更津）・J11L だけ太く。
-#   語りで言うのは千歳・函館・松島・羽田だけ＝大子・佐倉・木更津は点も札も小さく。🔴 点は空港・基地・役場の住所の点（NDB の位置ではない）
-#   c201 は章の頭＝card_mix=0（章の扉の地に染めない）
-SPEC.update({
-    "c201": dict(
-        **ss.sat("G02", steps=[
-            [],
-            [dict(k="line", path=ss.SAT_LINES["route_g02"], c="INK_W", w=4),
-             dict(k="line", path=ss.SAT_LINES["j11l_g02"], c="AMBER", w=9, t="J11L", u=0.5, lab=(24, 10, "start")),
-             dict(k="pt", at="chitose", c="INK_W", t="千歳", lab=(20, -6, "start")),
-             dict(k="pt", at="hakodate", c="INK_W", t="函館", lab=(-20, 0, "end")),
-             dict(k="pt", at="matsushima", c="INK_W", t="松島", lab=(20, 12, "start")),
-             dict(k="pt", at="daigo", c="INK_W", t="大子", lab=(14, 8, "start"), dot=5, size=22),
-             dict(k="pt", at="sakura", c="INK_W", t="佐倉", lab=(14, 2, "start"), dot=5, size=22),
-             dict(k="pt", at="kisarazu", c="INK_W", t="木更津", lab=(10, 28, "start"), dot=5, size=22),
-             dict(k="pt", at="haneda", c="INK_W", t="羽田", lab=(-20, -4, "end"))]],
-            note="点は一般の座標（NDB の位置ではない）・線は点を結んだ概略"),
-        card_mix=0, t="計画の道", s="北日本（現在の衛星写真）"),
-    "c206": dict(
-        **ss.sat("G03", steps=[
-            [dict(k="line", path=ss.SAT_LINES["j11l_g03"], c="AMBER", w=7, t="J11L", u=0.45, lab=(26, 10, "start"))]],
-            note="線は函館と松島の点を結んだ概略"),
-        t="北から南への道", s="函館から松島（現在の衛星写真）"),
-})
-
-# 🆕 ⑤b-4（2026-11-08）：札の型（`tools/mech31.py` の表 FU＝1行が1カット）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`＝check_ground --suggest）
-#   c209 の地＝防衛庁記録の滑走路のコマ ms_g1（札を掛ける場面は全コマに人＝「この人が教官」と読まれる＝束の MS_GROUND）
-import mech31 as _m31  # noqa: E402
-SPEC.update({
-    "c202": _m31.fu_spec("c202", ss.gr("a1")),
-    "c203": _m31.fu_spec("c203", ss.gr("a1")),
-    "c209": _m31.fu_spec("c209", ss.gr("ms_g1")),
-    "c213": _m31.fu_spec("c213", ss.gr("a1")),
-    "c214": _m31.fu_spec("c214", ss.gr("a1")),
-})
-
-# 🆕 ⑤b-5（2026-11-08）：見え方の表（`mech31.VIEWS`＝模式と型の図）
-SPEC.update({
-    "c205": _m31.zu_spec("c205", ss.gr("stock/gc1")),
-    "c210": _m31.zu_spec("c210", ss.gr("stock/gs2")),
-    "c212": _m31.zu_spec("c212", ss.gr("stock/gs1")),   # 🔧 ⑤c'：地 P6（保存機の番号「865」が図の枠に透ける）→ 夏の空 GS1
-    "c216": _m31.zu_spec("c216", ss.gr("stock/gc1")),
-})
-
-# 🆕 ⑤b-7（2026-11-09）：写真・防衛庁記録・空中写真（c1.py の型）。全面＝ゆっくり寄る（`ss.mv`・`ss.mvz`・side="none"・原色 color=1.0）／
-#   🔴 額装（BY-SA・SDASM・防衛庁記録・紙面）は静止＝高さいっぱい（ptall）か帯の幅いっぱい（pw=1776）の**面積の大きい方**・fmove も cam も書かない・
-#   地は同じ絵のぼかし（紙面は ss.PAGE_BLUR）。見出し（t）は話題の札（12字未満＝語りの丸写しにしない・門番 echo）・
-#   副題（s）は写っているもの（一覧 list31.tsv の sub を額の左の幅〈高さいっぱいの額で約 640〜690px〉に縮めた）
-_P3, _P5, _P6, _A1 = P("p3"), P("p5"), P("p6"), P("a1")
-SPEC.update({
-    # c204＝同じ型の全日空機 JA8344（BY-SA 4.0＝額装・無加工・丸ごと・1979年11月・香港）
-    "c204": dict(photo=_P3, panel=True, ptall=True, ground=dict(photo=_P3), color=1.0,
-                 t="旅客機の側", s="同じ型の全日空機〈1979年・香港〉"),
-    # c207＝同じ型の F-86F（SDASM＝著作権の制限は知られていない・撮影年は不明＝副題に年を書かない）。幅 1000＝高さいっぱいの額
-    "c207": dict(photo=_P5, panel=True, ptall=True, ground=dict(photo=_P5), color=1.0,
-                 t="戦闘機の側", s="同じ型の F-86F〈この機体ではない〉"),
-    # c208＝防衛庁記録 MK 1034.20〜（『第一航空団 松島派遣隊』の札を入口に掛ける）。0.53倍
-    "c208": ss.vid("c208", panel=True, ptall=True, t="松島派遣隊", s="第一航空団 松島派遣隊の札〈1971年〉"),
-    # c211＝保存されている同じ型の F-86F（CC0・人なし）＝胴の真ん中へゆっくり寄る
-    "c211": dict(photo=_P6, **ss.mv(_P6, "in", fx=0.55, fy=0.42), side="none", color=1.0,
-                 t="ついていく難しさ", s="保存されている同じ型の F-86F〈この機体ではない〉"),
-    # c215＝松島基地（地理院 1974〜78年）＝右下の滑走路へゆっくり寄る（左上は別の写真の継ぎ目＝⑤b-2 §4-5・⑤c で見る）
-    "c215": dict(photo=_A1, **ss.mv(_A1, "in", fx=0.75, fy=0.62), side="none", color=1.0,
-                 t="2機の出発", s="松島基地〈1974〜78年・事故の数年後・国土地理院〉"),
-})

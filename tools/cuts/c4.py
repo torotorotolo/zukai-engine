@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
-"""第3章　道の幅は何キロか c401–c418（18カット）。31本目（全日空機雫石衝突事故・1971-07-30・岩手県雫石町の上空・刑事は1983年・民事は1989年に終わった）。
+"""第3章　「ハドソン川に降りる」 c401–c423（23カット）。32本目（USエアウェイズ1549便のハドソン川への着水・2009-01-15・ニューヨーク・報告書 NTSB/AAR-10/03 は2010-05-04 採択）。
 
-■ 🔴 2026-11-08（⑤b-1）：30本目（地下鉄サリン事件）の中身を空にした＝git の `3d0ee6bc`（`git show 3d0ee6bc:tools/cuts/c4.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep31/make_plan31.py` で
-  映像方針の一覧（`ref/ep31/eizou_build/make_list31.py`＝了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
-  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep31/eizou_list31.md`）。
+■ 🔴 2026-11-10（⑤b-1）：31本目（全日空機雫石衝突事故）の中身を空にした＝git の `f4bd0a9a`（`git show f4bd0a9a:tools/cuts/c4.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep32/make_plan32.py` で
+  映像方針の一覧（`ref/ep32/eizou_build/make_list32.py`＝了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
+  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep32/eizou_list32.md`＝⑤b は一覧に従う）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
-  🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep31）＝`fmove`（額ごと動かす）・額の中の `cam` を書かない（門番 check_fmove が絵で測る）。
-  🔴 写真は画面いっぱい・色は原本（`build_jiko.PHOTO_KEEP_EP` に ep31）・BY-SA は額装・国会と判決の紙面も額装。説明カットの地は写真を暗くするだけ（8:1）。
+  🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep32）＝`fmove`（額ごと動かす）・額の中の `cam` を書かない（門番 check_fmove が絵で測る）。
+  🔴 写真は画面いっぱい・色は原本（`build_jiko.PHOTO_KEEP_EP` に ep32）・BY-SA は額装・紙面と調査の写真も額装。説明カットの地は写真を暗くするだけ（8:1・衛星と夜の写真は地にしない）。
+  🔴 VTS（沿岸警備隊の監視カメラ）は等速・止めなし・頭から使う・同じ秒を2回使わない（区間は一覧の動きの欄＝make_list32 の門番）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット。
-  🔴 この回の線＝語りと画面に人の名前を出さない（亡くなった方・遺族・操縦者・乗員・役人・裁判官・弁護人は立場だけ）・「犯人」「加害者」と言わない・
-     報道の写真は使わない・遺体・遺品・搬送の秒なし・新聞の紙面の犠牲者の顔写真・参列者の近景は外す＝図でも同じ（紙面に名前が写る＝親が絵を見て切る）
+  🔴 この回の線＝語りと画面に名前を出すのは機長と副操縦士だけ（初出 c203・c205）・客室乗務員・管制官・救助の人は立場だけ・乗客は名前なし・
+     NTSB・FAA・議員・知事・監督・俳優は役職で・「犠牲」「死亡」は言わない・「208秒」は使わず「約3分半」・映画は c517〜c518・c520 だけ
+     ＝図でも同じ（紙面・写真に名前の字が写る＝親が絵を見て切る・船の名も読ませない）
 """
 import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
@@ -20,123 +22,74 @@ P = ss.P
 
 PLAN = {
     'c401': dict(kind='図解',
-               plan='SAT:J11L｜一覧の種類：衛星｜見せ方：額装（衛星）｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：Google の帰属の行（絵の近く）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106613843X00119710805/293（`ジェットルートは航空路ではない。法令でいうところの航空路ではない`）'),
+               plan='SAT:飛んだ道｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：飛んだ道〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：同上｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・帰属は地図の右下（Google の表示を絵の近くに）・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p189（`DEP ok uh, you need to return to LaGuardia? turn left heading of uh two two zero.`）'),
     'c402': dict(kind='図解',
-               plan='地：A1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：J11L の線と、両側の「守る幅」の帯・数はまだ出さない｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106613843X00119710805/293（`無線保安施設の点と点を結ぶところを最短距離で飛行しなさい`…`航空局長の通達で内部規程としてあるそうでありますが`）'),
-    'c403': dict(kind='図解',
-               plan='地：GC1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：J11L の両側の帯＝運輸省の側 片側約16キロ〈1973年の航空局長の答弁〉｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国107113830X00919730424/40（`幅、片側十六キロぐらいとっております`）'),
-    'c404': dict(kind='図解',
-               plan='地：P6（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：自衛隊の準則の帯＝J11L の両側 約9キロ〈5海里〉・高さ約7,600〜9,400メートル｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='判（`松島派遣隊の飛行訓練準則がジエツト・ルートJ11Lの両側五海里内の高度二五、〇〇〇フイートから三一、〇〇〇フイートの空域を、編隊飛行訓練を制限する飛行制限空域の一に指定している`）'),
+               plan='🔧 地：GA1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：交信の相手の札＝出発の管制〈レーダー〉・ラガーディアの管制塔・テターボロの管制・1549便｜注：—｜新しい画（映像方針）：🔧 地 衛星 → イメージ〈管制室のレーダーの画面〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p18（`instructed the flight crew to contact the New York Terminal Radar Approach Control (TRACON) LGA departure controller`）'),
+    'c403': dict(kind='写真',
+               plan='R191｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録B｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p191（`do you want to try to land runway one three?`）・ド#40p10（`runway 13 would be best and he suggested that runway to the pilot`）'),
+    'c404': dict(kind='フリー素材',
+               plan='X404｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：冬の川を上から〈場所は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src="報p191（`RDO-1 we're unable. we may end up in the Hudson.`）・報p105（`About 1 minute after the bird strike, it was evident to the flight crew that landing at an airport may not be an option`）"),
     'c405': dict(kind='図解',
-               plan='地：GC1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：高さの断面＝約7,600〜9,400メートルの帯・旅客機 約8,500・訓練機 約8,600・教官機 約7,700 の印｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='判（`高度二五、〇〇〇フイートから三一、〇〇〇フイートの空域`…`上空約八、五〇〇メートル`）・国106614889X00119710802/13（`この時の編隊長機は高度約七千七百メートル`…`高度約八千六百メートル`）'),
-    'c406': dict(kind='文字の頁',
-               plan='KK19730509SK｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：著作権法40条｜時期：1973年｜人：名前の行は外す（c406＝切り口・c622・c625）｜出典の行：国会会議録（1973年5月9日 参議院 決算委員会）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 公的な機関の紙面（国会会議録・判決）＝額装・無加工・🔴 名前の行を入れない＝親が絵を見て切る（語りと画面に人の名前を出さない回）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国107114103X00719730509/7（`別に十六キロと九キロということについての合意はございません`）'),
+               plan='🔧 地：GS1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：左のエンジンの札＝機長の言葉「少し戻ってきた」｜注：—｜新しい画（映像方針）：🔧 地 衛星 → イメージ〈冬の空〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p20（`At 1528:25, the captain stated, “The left one’s [engine] coming back up a little bit.”`）・報p97（`neither engine was able to produce sufficient power to sustain flight after ingesting these birds`）'),
+    'c406': dict(kind='図解',
+               plan='SAT:ラガーディア空港 滑走路｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：ラガーディア空港の滑走路〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：同上｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・帰属は地図の右下（Google の表示を絵の近くに）・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p20（`At 1528:31, the LGA departure controller stated that it was going to be “left traffic for runway three one,” and the captain responded, “unable.”`）・報p44（`At 1528:37, the ATCT cab coordinator advised the LGA departure controller that`…`runway 4 is also available, if he needs it`）・ド#40p10（`heard LGA tower state that runway 4 was available which he offered to the pilot`）'),
     'c407': dict(kind='図解',
-               plan='地：A1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：年表｜副題：1961年12月 ジェット・ルートの幅の通告〈運輸省から防衛庁へ〉→ 1971年7月 事故｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国107114103X00719730509/7（`第二回目に昭和三十六年の十二月十八日、このときに必要なジェット・ルートの幅、いわば保護空域と申しますか、それについての通告をしております`）'),
-    'c408': dict(kind='図解',
-               plan='SAT:雫石｜一覧の種類：衛星｜見せ方：額装（衛星）｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：Google の帰属の行（絵の近く）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='判（`本件事故が発生した位置は、ジエツト・ルートJ11Lの西側五海里内で`…`上空約八、五〇〇メートル`…`であつたと推認することができ`）'),
-    'c409': dict(kind='文字の頁',
-               plan='W47-2｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜副題：事故調査報告書の推定原因〈運輸白書に全文〉｜動き：静止｜権利：PDL1.0｜時期：1972年｜人：なし｜出典の行：運輸省『昭和47年度 運輸白書』（国土交通省の頁）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 公的な機関の紙面（国会会議録・判決）＝額装・無加工・🔴 名前の行を入れない＝親が絵を見て切る（語りと画面に人の名前を出さない回）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='白（`第1の原因は,教官が訓練空域を逸脱して`…`の中に入つたことに気がつかず機動隊形の訓練飛行を続行したことである`）'),
+               plan="🔧 地：GA1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：言葉｜副題：よく言われる話「管制の指示を断った」→ 記録の言葉「unable」〈できない〉・「we can't do it」〈無理だ｜注：—｜新しい画（映像方針）：🔧 地 衛星 → イメージ〈管制室のレーダーの画面〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）",
+               src='報p19（`the LGA departure controller asked the captain if he wanted to try to land on runway 13 at LGA if it was available`）'),
+    'c408': dict(kind='フリー素材',
+               plan='X408｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：空を飛ぶヘリコプターの遠景｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p20（`At 1528:36, the traffic collision avoidance system (TCAS) on the airplane transmitted, “traffic traffic.”`）・報p20（`the alert was caused when the airplane passed close above a helicopter operating in the area`）'),
+    'c409': dict(kind='図解',
+               plan='SAT:テターボロ空港｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：テターボロ空港〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：同上｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・帰属は地図の右下（Google の表示を絵の近くに）・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p20（`At 1528:46, the controller stated that runway 4 at LGA was available`）・報p20（`I’m not sure we can make any runway. Uh what’s over to our right anything in New Jersey maybe Teterboro?`）'),
     'c410': dict(kind='図解',
-               plan='地：A1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：比べ｜副題：場所の2つの言い方＝報告書「J11L の中」・最高裁「西側5海里内」と推認・どちらも編隊の訓練を避けるべき空の中｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='―（まとめ）'),
-    'c411': dict(kind='図解',
-               plan='地：GM2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：機動隊形の旋回に要る空間＝上下・左右・前後に大きな箱｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='白（`教官が指揮した機動隊形の旋回訓練には,上下,左右,前後に非常に大きな飛行空間を必要とするものであるにもかかわらず`）'),
-    'c412': dict(kind='図解',
-               plan='地：GM2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：地文航法の札＝地上の景色を目で見て位置を確かめる・高い空の狭い空域｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='白（`比較的狭い訓練空域で高々度において地文航法のみによつて訓練を行なつたため`…`正確な機位の確認ができ`）'),
-    'c413': dict(kind='文字の頁',
-               plan='KK19710804HR｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：著作権法40条｜時期：1971年｜人：答弁の頭と同じ行なら名前の字を隠す（c413）｜出典の行：国会会議録（1971年8月4日 衆議院 連合審査会）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし｜🔴 公的な機関の紙面（国会会議録・判決）＝額装・無加工・🔴 名前の行を入れない＝親が絵を見て切る（語りと画面に人の名前を出さない回）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106603843X00119710804/56（`本来は、松島航空隊の一つの訓練空域`…`民間航空路とはできるだけ交錯を避けるように、別の地域になっております`）'),
-    'c414': dict(kind='図解',
-               plan='地：A1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：常設の訓練空域の札＝ジェット・ルートの中心線から5海里離れた範囲で訓練〈1972年の防衛庁の参事官〉｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106904889X00319720817/198（`ジェットルートの中心線から五ノーチカルマイル離れた空域の範囲内で訓練をやるようにということで、常設のものとして五カ所の訓練空域が設定されております`）'),
+               plan='🔧 地：GR1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：3つの案の札＝ラガーディア・テターボロ・ハドソン川｜注：—｜新しい画（映像方針）：🔧 地 衛星 → イメージ〈冬の川を上から〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p20（`The controller replied, “ok yeah, off your right side is Teterboro Airport [TEB].”`…`the departure controller asked the captain if he wanted to try going to TEB, and the captain replied, “yes.”`）'),
+    'c411': dict(kind='フリー素材',
+               plan='X411｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：管制室のレーダーの画面〈場所は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='ド#40p10（`He left the speaker line open so those controllers could hear the communication with the pilot because there was no time to relay information to them`）'),
+    'c412': dict(kind='フリー素材',
+               plan='X412｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：空港の管制塔の遠景〈ラガーディアとは名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p61（`LGA ATCT personnel activated the Emergency Alert Notification System using the red crash phone at 1528:53`）'),
+    'c413': dict(kind='写真',
+               plan='R195｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録B｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p195（`PA-1 this is the Captain brace for impact.`）'),
+    'c414': dict(kind='フリー素材',
+               plan='X414｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：旅客機の客室の座席の列〈人の顔なし〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p195（`15:29:11 PA-1 this is the Captain brace for impact.`）・計（付録B の PA-1 の行は 15:02:51・15:17:30・15:29:11 の3つ＝鳥とぶつかったあとは1つ）・ド#7p5（`The captain made one PA announcement when it was obvious they were ditching`）'),
     'c415': dict(kind='図解',
-               plan='地：GC1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：パイロットへの指導の札＝自分の位置を確かめる・ジェット・ルートは直角に横切る・「教官機の行動に適当でないものがあった」〈｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='国106904889X00319720817/200（`まず自分の位置を確認をするということが命ぜられております`…`航空路なりあるいはジェットルートを横切るときには、直角に横切れという指導がなされております`…`教官機の行動に適当でないものがあったということは、私どもも事故調査報告で示されているとおりであると思います`）'),
-    'c416': dict(kind='図解',
-               plan='地：P6（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：教官の2つの義務の札＝見張る・J11L の近く、少なくとも両側5海里の内側では編隊の訓練を避ける〈最高裁〉｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='判（`編隊の現在位置を刻刻確認して航行頻度の高いジエツト・ルートJ11L近傍、少なくともその両側五海里内の空域では、右の編隊飛行訓練を回避すべき義務があつた`）'),
+               plan='🔧 SAT:テターボロ空港｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：テターボロ空港の滑走路1〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：同上｜注：c409 と同じ衛星写真に別の描き足し｜新しい画（映像方針）：🔧 図の模式（地＝衛星を暗く）→ 衛星写真＋描き足し（右へ曲がる矢印と届かない印）＝地図は衛星写真で（25本目の決め）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・帰属は地図の右下（Google の表示を絵の近くに）・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p20（`At 1529:21, the CVR recorded the LGA departure controller instructing the captain to turn right 280° and stating that the airplane could land on runway 1 at TEB`…`In response to the controller, the captain stated, “we can’t do it.”`）・ド#40p10（`He coordinated with TEB thinking runway 1 was the best option due to the wind`）'),
+    'c416': dict(kind='写真',
+               plan="R196｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録B｜注：＋音 A1（FAA の管制の録音）の数秒＝機長の「we're gonna be in the Hudson」（秒は ⑤b で聞いて決める）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）",
+               src="報p196（`RDO-1 we're gonna be in the Hudson.`）・報p105（`At 1529:25, the captain told ATC that they would also be unable to land at TEB. Three seconds later, he stated to ATC that the airplane was going to be in the Hudson`）"),
     'c417': dict(kind='図解',
-               plan='地：A1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：札｜副題：1つ目の問いの答えの札＝地図の上で指で示す・検討なしに承認・J11L を思い違え・自衛隊自身の幅の中へ｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='―（まとめ）'),
+               plan='🔧 地：GA1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：声の札＝管制「すまない、もう一度」｜注：—｜新しい画（映像方針）：🔧 地 衛星 → イメージ〈管制室のレーダーの画面〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src="報p196（`DEP I'm sorry say again Cactus?`）"),
     'c418': dict(kind='フリー素材',
-               plan='X418｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：夏の昼の雲の上を進む｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list31.md（写さない）',
-               src='―（橋の1行）'),
+               plan='X418｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：管制室の無線の機器〈場所は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='ド#40p10（`He believed the response was “can’t do it, going in the river”. That was the last transmission he heard from the flight crew`）'),
+    'c419': dict(kind='図解',
+               plan='🔧 地：C13（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：レーダーの電波が建物にさえぎられる絵｜注：—｜新しい画（映像方針）：🔧 地 衛星 → [13]（マンハッタンの建物＝レーダーをさえぎる建物）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p20（`At 1529:53, the LGA departure controller stated that he had lost radar contact with the airplane`）・報p21（`If the airplane descends low enough to have the line-of-sight obstructed by buildings or other obstructions, radar contact will be lost`）'),
+    'c420': dict(kind='フリー素材',
+               plan='X420｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：夕方の空港の滑走路〈場所は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p20（`but he continued`）・報p21（`trying to communicate with the captain, stating, “you also got Newark airport off your two o’clock in about seven miles.”`）'),
+    'c421': dict(kind='図解',
+               plan='SAT:ハドソン川｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：ハドソン川〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：同上｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・帰属は地図の右下（Google の表示を絵の近くに）・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='報p105（`both pilots indicated that they thought the Hudson River was the best and safest landing option given the airplane’s airspeed, altitude, and position`）'),
+    'c422': dict(kind='図解',
+               plan='🔧 地：GA1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：年表｜副題：交信の並び＝15:27:33 戻る → 15:28:11 できない〈13〉→ 15:28:35 できない〈31〉→ 15｜注：—｜新しい画（映像方針）：🔧 地 衛星 → イメージ〈管制室のレーダーの画面〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='計（15:27:11 から 15:29:28 まで＝2分17秒）・報p105（`at 1528:11, the captain reported to ATC`）'),
+    'c423': dict(kind='フリー素材',
+               plan='X423｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：シミュレーターの操縦席〈機種と社名は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               src='計（橋の1行）'),
 }
 
 SPEC = {}
-# 🆕 ⑤b-3a（2026-11-08）：イメージの写真（Pexels＝`stock/`・git に入れない・焼くときに `footage.stock_photos` が取り直して md5 を照らす）＝
-#   全面・ゆっくり寄る・見出しと副題なし・原色。窓＝(fx, fy, zoom) の2つ（`ss.mvz`）。中身は `sources31.psv` の title（640px と原寸で見た）
-_X418 = P("stock/x418")
-SPEC.update({
-    "c418": dict(photo=_X418, **ss.mvz(_X418, (0.5, 0.5, 1.0), (0.46, 0.46, 1.12)), side="none", color=1.0, t="", s=""),
-})
-
-# 🆕 ⑤b-3b（2026-11-08）：衛星写真（額装・静止）。c401＝G07 J11L（ズーム9＝盛岡と雫石のあたりを大きく）・c408＝G08 雫石（ズーム11）
-#   c408：西側の帯＝J11L の概略の線から西へ 5海里（9.26キロ）まで（判決「J11Lの西側五海里内」＝最高裁の推認）。🔴 事故の場所の点・×は置かない
-#   （判決は「長円形地域ないしこれに近い地域内」＝場所の記録は手元に無い）。帯の札は場所に付かない字（say）で帯の中の下へ
-#   c401 は章の頭＝card_mix=0
-SPEC.update({
-    "c401": dict(
-        **ss.sat("G07", steps=[
-            [dict(k="line", path=ss.SAT_LINES["j11l_g07"], c="AMBER", w=7, t="J11L（ジェット・ルート）", u=0.18, lab=(24, 10, "start"))],
-            [dict(k="pt", at="morioka", c="INK_W", t="盛岡", lab=(20, 12, "start")),
-             dict(k="pt", at="shizukuishi", c="INK_W", t="雫石", lab=(-20, 12, "end"))]],
-            note=ss.SAT_LINE_NOTE + "・点は一般の座標"),
-        card_mix=0, t="道の幅", s="盛岡と雫石のあたり（現在の衛星写真）"),
-    "c408": dict(
-        **ss.sat("G08", steps=[
-            [dict(k="line", path=ss.SAT_LINES["j11l_g08"], c="AMBER", t="J11L（概略）", u=0.08, lab=(22, 10, "start")),
-             dict(k="pt", at="shizukuishi", c="INK_W", t="雫石町", lab=(-46, -12, "end"), dot=8)],   # 札は帯の西の縁（点の西 約23px）の外へ＝門番 layout
-            [dict(k="zone", path=ss.SAT_LINES["band5_g08"], c="AMBER"),
-             dict(k="say", xy=(985, 830), c="AMBER", t="最高裁の推認：西側5海里の内", anchor="middle")]],
-            note=ss.SAT_LINE_NOTE + "・点は一般の座標"),
-        t="推し量った場所", s="雫石（現在の衛星写真）"),
-})
-
-# 🆕 ⑤b-4（2026-11-08）：札の型（`tools/mech31.py` の表 FU＝1行が1カット）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`＝check_ground --suggest）
-import mech31 as _m31  # noqa: E402
-SPEC.update({
-    "c412": _m31.fu_spec("c412", ss.gr("stock/gm2")),
-    "c414": _m31.fu_spec("c414", ss.gr("a1")),
-    "c415": _m31.fu_spec("c415", ss.gr("stock/gc1")),
-    "c416": _m31.fu_spec("c416", ss.gr("stock/gs1")),   # 🔧 ⑤c'：地 P6 → GS1（保存機を地にしない＝番号が読めて「この機体」と読まれる）
-    "c417": _m31.fu_spec("c417", ss.gr("a1")),
-})
-
-# 🆕 ⑤b-5（2026-11-08）：見え方の表（`mech31.VIEWS`）。c403・c404・c410 の帯は同じ物差し
-SPEC.update({
-    "c402": _m31.zu_spec("c402", ss.gr("a1")),
-    "c403": _m31.zu_spec("c403", ss.gr("stock/gc1")),
-    "c404": _m31.zu_spec("c404", ss.gr("stock/gs1")),   # 🔧 ⑤c'：地 P6 → GS1（日の丸と番号が帯の後ろに透けた）
-    "c405": _m31.zu_spec("c405", ss.gr("stock/gc1")),
-    "c407": _m31.zu_spec("c407", ss.gr("a1")),
-    "c410": _m31.zu_spec("c410", ss.gr("a1")),
-    "c411": _m31.zu_spec("c411", ss.gr("stock/gm2")),
-})
-
-# 🆕 ⑤b-7（2026-11-09）：紙面（c2.py の ⑤b-7 の型）。🔴 PLAN の kind＝「文字の頁」・額は静止・地は同じ頁のぼかし（ss.PAGE_BLUR）・
-#   横長は帯の幅いっぱい（pw=1776）・縦長は高さいっぱい（ptall）＝面積の大きい方。会議録の名前の札は束で白にした（⑤b-2b）
-_K406, _W409, _K413 = P("kk19730509sk_c406"), P("w47_2_c409"), P("kk19710804hr_c413")
-SPEC.update({
-    # c406＝1973-05-09 の会議録 p2 段1（運輸省の航空局長＝「十六キロと九キロ」〜「合意はございません」）
-    "c406": dict(photo=_K406, panel=True, ptall=True, ground=dict(photo=_K406, blur=ss.PAGE_BLUR), color=1.0,
-                 t="2つの幅", s="運輸省の航空局長の答弁の一節"),
-    # c409＝運輸白書 002（推定原因の頭と第1）
-    "c409": dict(photo=_W409, panel=True, pw=1776, ground=dict(photo=_W409, blur=ss.PAGE_BLUR), color=1.0,
-                 t="推定原因の第1", s="運輸白書に載った推定原因の一節"),
-    # c413＝1971-08-04 の会議録 p7 段4 #56（総理大臣の答弁）
-    "c413": dict(photo=_K413, panel=True, ptall=True, ground=dict(photo=_K413, blur=ss.PAGE_BLUR), color=1.0,
-                 t="本来の訓練空域", s="総理大臣の答弁の一節"),
-})

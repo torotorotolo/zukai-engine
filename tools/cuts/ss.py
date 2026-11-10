@@ -130,8 +130,8 @@ from functools import lru_cache
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parents[2]
-REF = HERE / "ref" / "ep31"        # 🔴 §0b：回の名に結んだ束の置き場（2026-10-25 25本目 ⑤b-1 で ep24 → ep25・2026-10-27 26本目 ⑤b-1 で ep25 → ep26・2026-10-30 27本目 ⑤b-1 で ep26 → ep27・2026-11-01 28本目 ⑤b-1 で ep27 → ep28・2026-11-03 29本目 ⑤b-1 で ep28 → ep29・2026-11-05 30本目 ⑤b-1 で ep29 → ep30・2026-11-08 31本目 ⑤b-1 で ep30 → ep31）
-EP = "ep31/"
+REF = HERE / "ref" / "ep32"        # 🔴 §0b：回の名に結んだ束の置き場（2026-10-25 25本目 ⑤b-1 で ep24 → ep25・2026-10-27 26本目 ⑤b-1 で ep25 → ep26・2026-10-30 27本目 ⑤b-1 で ep26 → ep27・2026-11-01 28本目 ⑤b-1 で ep27 → ep28・2026-11-03 29本目 ⑤b-1 で ep28 → ep29・2026-11-05 30本目 ⑤b-1 で ep29 → ep30・2026-11-08 31本目 ⑤b-1 で ep30 → ep31・2026-11-10 32本目 ⑤b-1 で ep31 → ep32）
+EP = "ep32/"
 W, H = 1920, 1080
 # 🆕 2026-10-30（27本目 ⑤b-3）：**公開リポに置かない県警・警察庁の引用**の置き場（束の `police/`＝台帳 assets.json の `private`・
 #    県警の動画のひかえの静止画 `police/fb_<cid>.jpg`）＝git の外・Modal の保管庫 jiko-assets の同じ道（`modal_app.pull_private`）。
@@ -831,25 +831,17 @@ SLIDE_MOUNT: dict[str, str] = {}
 #       台紙の縁のある写真があれば SLIDE_MOUNT を、無ければ暗い帯のある点（防衛庁記録のひかえの静止画・白黒の空中写真の縁）を SLIDE_NOT_MOUNT に理由つきで書く（鍵は `P("名")`）
 #    🆕 2026-11-09（31本目 ⑤b-7）：門番 check_photo_edge が束の全点を測って返した12点を 640px の並べ（2枚）で見た＝どれも写真の中身の暗がりで台紙の縁は0点
 #       （測った辺＝門番の margins の値・何が写っているか）
-SLIDE_NOT_MOUNT: dict[str, str] = {
-    P("ms_g4"): "防衛庁記録の捜索のコマ（地）＝上 5.0% は森の暗い葉（コマの中身）",
-    P("stock/gm1"): "Pexels の山（地）＝下 5.0% は山すその暗い針葉樹の林",
-    P("stock/gp1"): "Pexels の滑走路と森（地）＝下 4.8% は手前の暗い木立",
-    P("stock/gr1"): "Pexels の川（地）＝左右 5.0% は両岸の木の陰",
-    P("stock/gw1"): "Pexels の客室の窓（地）＝左 5.0% は窓のまわりの暗い内壁",
-    P("stock/x630"): "Pexels の山並み＝下 5.0% は手前の暗い斜面",
-    P("stock/x921"): "Pexels の霧の山と森＝下 5.0% は暗い針葉樹の森",
-    P("stock/xb14"): "Pexels の操縦室から見た雲海＝上 1.9% は窓の上の枠・下 5.0% は計器盤（どちらも操縦室の中身）",
-    P("stock/xb20"): "Pexels の斜面の針葉樹＝左 5.0%・下 4.9% は森の影",
-    P("stock/xc04"): "Pexels の木の間の日の光＝右 5.0% は木のシルエット",
-    P("stock/xc17"): "Pexels の森の道＝左 5.0%・右 2.4% は暗い木の幹と森",
-    P("stock/xc18"): "Pexels の雲海と山並み＝下 3.4% は手前の暗い尾根",
-}
+#    🔴 2026-11-10（32本目 ⑤b-1・§0b）：31本目の12点（防衛庁記録の地のコマ1・Pexels の地と画11＝どれも写真の中身の暗がりで台紙の縁は0点）は
+#       見本 `tools/fixture_ep31.py` の SLIDE_NOT_MOUNT へ移した（`ep31/` の名を文字で書いた・説明は1字も変えていない＝git の `f4bd0a9a`）。
+#       ⚠️ SLIDE_MOUNT も SLIDE_NOT_MOUNT も空・SLIDE_NONE も None のあいだ、門番 check_photo_edge は「SLIDE_MOUNT が空」で止まる（fail closed）＝32本目の束のチャットで、
+#       台紙の縁のある写真があれば SLIDE_MOUNT を、無ければ暗い帯のある点（VTS のひかえの静止画の焼き込みの帯・夜の写真の暗がりほか）を SLIDE_NOT_MOUNT に理由つきで書く（鍵は `P("名")`）
+SLIDE_NOT_MOUNT: dict[str, str] = {}
 
 # 🆕 2026-11-09（31本目 ⑤b-7）：**台紙の縁も暗い帯も無い回の言い分**（SAT_NONE と同じ型・§0b＝回を替えるとき None に戻す）。
 #    暗い帯のある点が0点の回は SLIDE_NOT_MOUNT に書ける点が無く、名簿が2つとも空のまま門番 check_photo_edge が止まり続ける＝言い分を書く。
 #    言い分があっても門番は束の全点の四辺を測り、暗い帯のある点が1つでも出たら止める（言い分を測って確かめる）。言い分が無ければ今までどおり止める（fail closed）
 #    ⚠️ 31本目は None＝⑤b-7 で「0点」と書いたら門番が束を測って12点（地 ms_g4・Pexels 11）を返した（束の道具の名簿を頭の30行しか見ていなかった）＝上の SLIDE_NOT_MOUNT に書いた
+#    ✅ 2026-11-10（32本目 ⑤b-1・§0b）：None のまま（31本目の None は見本 `tools/fixture_ep31.py`）。32本目の束を測ってから決める
 SLIDE_NONE = None
 
 # 🆕 2026-10-13（21本目 ⑤b-7）：**原寸で見て字でないと決めた OCR の範囲**（OCR の読み置きのファイル名 → [((x0, y0, x1, y1)＝束の画素, 何か)]）。
@@ -1068,44 +1060,13 @@ GEO = {}
 #    撮り方は `ref/ep30/eizou_build/helpers/gshot30.py`・継ぎ目の話は見本の注。31本目の地図（衛星写真12画＝映像方針の一覧 `ref/ep31/eizou_list31.md`・了承② 11-08）は、
 #    衛星写真を撮って SAT に md5 つきで足し、GEO に場所を出どころつきで足す。空のあいだ、`sat=` のカットは門番 check_sat・合成が止まる（fail closed）。
 #    🔴 31本目の札の場所は公の場所と空域・航空路の概略だけ（個人の家・墜落の地点に人の名を付けない＝この回の線）
-# 🆕 2026-11-08（31本目 ⑤b-3b）：場所の表（札と線の端の点）。座標＝国土地理院の住所検索（`msearch.gsi.go.jp/address-search/AddressSearch?q=`＝住所の点）。
-#    🔴 NDB（無線の標識）の位置は手元の資料に無い＝空港・基地・役場の住所の点で代えた（「NDB の位置ではない」）。J11L の線はこの点から描いた概略
-#    （`ref/ep31/eizou_build/helpers/lines31.py`）。私人の家・地区の名の札は置かない（森のしずく公園のあたりまで）
-#    衛星写真＝`ref/ep31/eizou_build/helpers/gshot31.py`（画面ありの Chrome・倍率2で撮って 0.75倍）を2回撮って `gseam31.py` で比べた＝10画とも1回目
-#    （2回目の G04・G08 は左下の小窓のあたりに継ぎ目の線・ほかは差 0.01 以下）。🔴 PNG は公開リポに置かない（Modal の保管庫 jiko-assets の ref/ep31/photo/）
-SAT.update({
-    "G01": dict(file="ep31/photo/gmap_g01_tohoku.png", ll=(39.25, 140.95), z=8, md5="98c3804484e4ea093b1bd92fcf8e6baf", credit=SAT_CREDIT),
-    "G02": dict(file="ep31/photo/gmap_g02_kitanihon.png", ll=(39.10, 141.0), z=6, md5="bb36678e376453d5bae7acce162d2cbe", credit=SAT_CREDIT),
-    "G03": dict(file="ep31/photo/gmap_g03_hakodate_matsushima.png", ll=(40.09, 141.0), z=7, md5="d6338bc4fe0585296877e9a35f1e2a72", credit=SAT_CREDIT),
-    "G04": dict(file="ep31/photo/gmap_g04_morioka_tazawa.png", ll=(39.71, 140.91), z=10, md5="45f1a7e127cc87244d348f0ac435fde8", credit=SAT_CREDIT),
-    "G05": dict(file="ep31/photo/gmap_g05_morioka.png", ll=(39.70, 141.10), z=11, md5="7b25e179e5a80d664f3a2c932892b316", credit=SAT_CREDIT),
-    "G06": dict(file="ep31/photo/gmap_g06_morioka_west.png", ll=(39.70, 141.02), z=10, md5="d18e0f044507717f2ac7eaeff920661d", credit=SAT_CREDIT),
-    "G07": dict(file="ep31/photo/gmap_g07_j11l.png", ll=(39.75, 141.0), z=9, md5="d60c1e264d8bb4c0583c5f262b3828d9", credit=SAT_CREDIT),
-    "G08": dict(file="ep31/photo/gmap_g08_shizukuishi.png", ll=(39.69, 141.0), z=11, md5="5816b52a0096a081078fe99b6fead5a5", credit=SAT_CREDIT),
-    "G09": dict(file="ep31/photo/gmap_g09_matsushima_morioka.png", ll=(39.10, 141.1), z=8, md5="5d8ff37638747f92e65a49f84a2ce472", credit=SAT_CREDIT),
-    "G10": dict(file="ep31/photo/gmap_g10_shizukuishi_town.png", ll=(39.68, 140.99), z=12, md5="ddaa9a8c5a8bfb71002d420c47204f03", credit=SAT_CREDIT),
-})
-GEO.update({
-    "chitose": dict(ll=(42.820427, 141.649887), src="国会会議録 1971-10-07（全日空機の計画の経路）", how="一般の座標（国土地理院の住所検索＝千歳市東雲町二丁目34番地〈市役所〉の点・空港の位置ではない）"),
-    "hakodate": dict(ll=(41.77327, 140.813065), src="国会会議録 1971-10-07（J10L函館NDB）", how="一般の座標（国土地理院の住所検索＝函館空港〈函館市高松町511番地〉の点・NDB の位置ではない）"),
-    "matsushima": dict(ll=(38.405537, 141.226273), src="国会会議録 1971-10-07（J11L松島NDB）・判決（松島派遣隊）", how="一般の座標（国土地理院の住所検索＝航空自衛隊松島基地〈東松島市矢本字板取〉の地区の点・NDB の位置ではない）"),
-    "daigo": dict(ll=(36.76952, 140.351624), src="国会会議録 1971-10-07（J30L大子NDB）", how="一般の座標（国土地理院の住所検索＝大子町大字大子866番地〈町役場〉の点・NDB の位置ではない）"),
-    "sakura": dict(ll=(35.723225, 140.22406), src="国会会議録 1971-10-07（J25L佐倉NDB）", how="一般の座標（国土地理院の住所検索＝佐倉市海隣寺町97番地〈市役所〉の点・NDB の位置ではない）"),
-    "kisarazu": dict(ll=(35.38673, 139.936279), src="国会会議録 1971-10-07（木更津NDB）", how="一般の座標（国土地理院の住所検索＝木更津市朝日三丁目10番19号の点＝市の中心の辺り・NDB の位置ではない）"),
-    "haneda": dict(ll=(35.549786, 139.78653), src="国会会議録 1971-10-07（羽田）", how="一般の座標（国土地理院の住所検索＝大田区羽田空港三丁目〈東京国際空港〉の点）"),
-    "morioka": dict(ll=(39.701557, 141.154343), src="判決（盛岡市と田沢湖の中間あたり・盛岡市上空附近）", how="一般の座標（国土地理院の住所検索＝盛岡市内丸12番2号〈市役所〉の点＝市の代表点）"),
-    "shizukuishi": dict(ll=(39.696697, 140.976059), src="国会会議録 1971-08-02（雫石町上空）", how="一般の座標（国土地理院の住所検索＝雫石町千刈田5番地〈町役場〉の点＝町の代表点・接触の場所ではない）"),
-    # 🔴 公園の番地は町の頁に無い（2020-07-31 の記事）＝Google マップの地点（検索「森のしずく公園 雫石町」→「森のしずく公園(旧:慰霊の森)」の !3d!4d・2026-11-08）。
-    #    二次の座標（Wikipedia の記事 39.657111, 141.001917＝⑤ 映像方針で地理院の空中写真〈1974〜78年〉の森の中の開けた所と当たりを見た）と約10メートルで一致。札は「あたり」
-    "park": dict(ll=(39.657119, 141.001836), src="雫石町（2020-07-31「森のしずく公園で献花・拝礼が行われました」）", how="一般の座標（Google マップの地点「森のしずく公園(旧:慰霊の森)」）"),
-    # 湖の真ん中＝撮った衛星写真 G04（ズーム10）の青い水面のつながった塊の重心（4,147画素・同じ広さの円の径 5.70キロ＝湖の広さ 25.8 km² の円の径 5.73キロとほぼ同じ）
-    "tazawa": dict(ll=(39.72502, 140.66112), src="判決（盛岡市と田沢湖の中間あたり）", how="一般の座標（撮った衛星写真 G04 の湖面の重心）"),
-    # 🔴 ここから下は概略の点（円の真ん中）＝位置の記録ではない。札に「概略」・額の下の断りに「概略」
-    "mid": dict(ll=(39.713289, 140.907732), src="判決（盛岡市と田沢湖の中間あたりを中心とする地域を漠然と手指で指し示して）",
-                how="一般の座標の中点（盛岡市役所の点と田沢湖の湖面の真ん中の中点＝「中間あたり」の概略・空域の位置の記録ではない）"),
-    "train320": dict(ll=(39.72, 141.010699), src="判決（その西側五海里内に進入して編隊訓練を実施した）",
-                     how="概略（J11L の概略の線から西へ 4.63キロ＝「西側五海里内」の幅の半分の所・訓練の位置の記録ではない）"),
-})
+# 🔴 2026-11-10（32本目 ⑤b-1・§0b）：31本目の表（SAT＝G01〜G10 の Google の衛星写真10画／GEO＝空港・基地・役場・市役所の住所の点と湖面の重心と
+#    概略の点 mid・train320 の13点＝NDB の位置ではない・公の場所と空域・航空路の概略だけ）は selftest の見本 `tools/fixture_ep31.py` へ移した
+#    （値は1つも変えていない＝git の `f4bd0a9a`。`file` は `ep31/…` の名を文字のまま・SAT.update／GEO.update の2文も並びのまま・31本目 ⑤b-3b の注〈座標の取り方・
+#    撮り方 `ref/ep31/eizou_build/helpers/gshot31.py`＝画面ありの Chrome・倍率2で撮って 0.75倍・2回撮って `gseam31.py` で比べる〉は git の `f4bd0a9a`）。
+#    32本目の地図（衛星写真15カット＝c201 ラガーディア空港ほか・映像方針の一覧 `ref/ep32/eizou_list32.md`・了承② 11-10）は、衛星写真を撮って SAT に md5 つきで足し、
+#    GEO に場所を出どころつきで足す（🔴 衛星写真は説明カットの地にしない＝暗くしない・PNG は公開リポに置かない＝Modal の保管庫）。空のあいだ、`sat=` のカットは門番 check_sat・合成が止まる（fail closed）。
+#    🔴 32本目の札の場所は空港・川・公の場所だけ（私人の家・乗客の名を付けない＝この回の線）
 # 🔴 2026-10-27（26本目 ⑤b-1・§0b）：25本目の表（SAT＝G01〜G05 の Google の衛星写真5点〈c101・c328・c517・ca23・cb03〉・GEO＝site・itami・mitejima・kashima の4点・
 #    SAT_LINES＝地理院地図Vector の線路の線4本〈fuku・tozai_under・tozai_surface・kashima_curve〉・SAT_LINE_NOTE＝線の出典の断り）は selftest の見本
 #    `tools/fixture_ep25.py` へ移した（値は1つも変えていない＝git の `5f692aab`。`file` は `ep25/…` の名を文字のまま・SAT.update／GEO.update の4文もそのまま）。
@@ -1131,13 +1092,10 @@ SAT_LINE_NOTE = ""
 #    （`ref/ep30/` を取り出していない）で `check_subwrap`・`audio_mix` の import が FileNotFoundError で落ちた（字幕と音の門番が映像の前の回の束に頼っていた）。
 #    31本目で線（航空路 J11L・臨時訓練空域「盛岡」の概略）を足すなら、`ref/ep31/` の表を読む文を**その回の束が揃ってから**ここに書き、出どころの断りを SAT_LINE_NOTE に
 #    （回を替えるとき、この文ごと見本へ移す）
-# 🆕 2026-11-08（31本目 ⑤b-3b）：31本目の線＝J11L の概略・教官が思っていた線・西側5海里の帯・旅客機と2機の道すじの模式
-#    （`ref/ep31/eizou_build/helpers/lines31.py` が書いた `ref/ep31/sat_lines31.json`＝git の中）。🔴 import で開くのはこの回のファイルだけ・
-#    無い作業ツリー（スパース）では読まない（章ファイルが名を引けば KeyError で止まる＝fail closed）。🔴 §0b：回を替えるときこの文ごと見本へ移す
-_SL31 = HERE / "ref" / "ep31" / "sat_lines31.json"
-if _SL31.exists():
-    SAT_LINES.update({k: tuple(tuple(p) for p in v) for k, v in json.loads(_SL31.read_text(encoding="utf-8")).items()})
-SAT_LINE_NOTE = "線と円は資料の言葉から描いた概略"
+# 🔴 2026-11-10（32本目 ⑤b-1・§0b）：31本目の線（`_SL31` と `if _SL31.exists(): SAT_LINES.update(…)`＝`ref/ep31/sat_lines31.json` の J11L の概略・教官が思っていた線・
+#    西側5海里の帯・旅客機と2機の道すじの模式の14本／SAT_LINE_NOTE＝「線と円は資料の言葉から描いた概略」）は見本 `tools/fixture_ep31.py` へ移した（文のまま＝git の `f4bd0a9a`）。
+#    🔴 import のときに前の回のファイルを開かない（31本目 ⑤b-1 の決め）。32本目で線を足すなら、`ref/ep32/` の表を読む文をその回の束が揃ってから
+#    `if … .exists():` の形でここに書き、出どころの断りを SAT_LINE_NOTE に（回を替えるとき、この文ごと見本へ移す）
 # 🆕 2026-10-23（24本目 ⑤b-6）：**この回は衛星写真の地図なし**の言い分（理由の文）。地図2つ（c203・c713）は描く＝`tools/mech24.py` の ussr・japan
 #    （国の形＝Natural Earth の切り出し `ref/ep24/make_map24.py`＝国の境・1986年の色・北方領土を描き分けるため。衛星写真には国の境が写らない）。
 #    門番 check_sat は、この文があるときだけ「地図のカット0」を通す（地図のカットが1つでもあれば、言い分と食い違う＝鳴る）。
@@ -1152,6 +1110,7 @@ SAT_LINE_NOTE = "線と円は資料の言葉から描いた概略"
 #    🔴 §0b：次の回で地図があれば None に戻す
 # 🔴 2026-11-05（30本目 ⑤b-1・§0b）：**None に戻した**（29本目の文は見本 `tools/fixture_ep29.py`）。30本目は衛星写真の地図の回＝全面の額 12画（一覧 `ref/ep30/eizou_list30.md`・了承② 11-05）＝未撮影のあいだ check_sat は止まる（fail closed）
 # ✅ 2026-11-08（31本目 ⑤b-1）：None のまま（31本目も衛星写真の地図の回＝12画〈冒頭 c105 の J11L と空域「盛岡」の概略ほか〉＝一覧 `ref/ep31/eizou_list31.md`・了承② 11-08）
+# ✅ 2026-11-10（32本目 ⑤b-1）：None のまま（32本目も衛星写真の地図の回＝15カット〈c201 ラガーディア空港ほか〉＝一覧 `ref/ep32/eizou_list32.md`・了承② 11-10）＝撮るまで check_sat は止まる（fail closed）
 SAT_NONE = None
 
 
@@ -1521,11 +1480,10 @@ QWHO = {}
 #      国土地理院の空中写真は印（権利の名）なしで組む＝`GROUND_LIC` に「国土地理院」は無い＝束のチャットで権利の欄の書き方を決めてから
 #   🆕 2026-11-08（31本目 ⑤b-4）：札の型の地。仮の 0.28 で層を焼いて `--suggest` の値を写す（下の値）。ms_g1〜7＝防衛庁記録のコマ（束の MS_GROUND・CC BY 3.0）
 #   113カットの層で測った値（11-08・22点 0.28〜0.45）。ms_g・gc2・gf2・gm1・gs3 は灰色や曇りの低い絵＝上げられる（字の周りで 8:1 のまま）
-GROUND = {"a1": 0.29, "a2": 0.30, "a6": 0.28, "l1": 0.28, "l3": 0.30, "ms_g1": 0.45, "ms_g3": 0.43, "ms_g5": 0.38, "ms_g6": 0.43, "ms_g7": 0.44,
-          "p6": 0.28, "stock/gc1": 0.29, "stock/gc2": 0.34, "stock/gf1": 0.28, "stock/gf2": 0.39, "stock/gm1": 0.35, "stock/gm2": 0.31,
-          "stock/gp1": 0.28, "stock/gr1": 0.29, "stock/gs1": 0.29, "stock/gs3": 0.42, "stock/gw1": 0.29,
-          # 🆕 ⑤b-5（2026-11-08）：見え方の表の地（仮の 0.28 で層を焼いて `--suggest` の値を写した）
-          "ms_g4": 0.36, "ms_g2": 0.44, "stock/gs2": 0.28, "stock/gb1": 0.30}
+#   🔴 2026-11-10（32本目 ⑤b-1・§0b）：31本目の26点は見本 `tools/fixture_ep31.py` の GROUND へ移した（git の `f4bd0a9a`）。32本目の図を書くチャットで `--suggest` で測って写す
+#      （🔴 鍵は束の欄の名＝回の名を含まない＝前の回と同じ名〈a1・p6・stock/gc1 ほか〉が次の回にあると黙って効く＝回を替えるときは必ず空に）。
+#      32本目の地＝映像方針の一覧の「地」の欄（CC BY 2.0・CC0・PD・Pexels だけ＝了承② 11-10・🔴 Google の衛星写真と夜の写真は地にしない）
+GROUND = {}
 GROUND_LIC = ("CC BY 2.0", "CC BY 2.5", "CC BY 3.0", "CC BY 4.0", "CC0", "PD", "PDL1.0", "Pexels")
 # 🆕 2026-11-04（29本目 ⑤c直し）：額装の頁の地（同じ頁のぼかし）のぼかしの半径＝`ground=dict(photo=…, blur=PAGE_BLUR)`。写真の額装は今までの 6（`build_jiko.GROUND_PHOTO_BLUR`）のまま
 #    半径 6 は頁の見出しの大きな字が読める（c316「犯人サイトのドメイ…」が題の真後ろ）。半径 14 はまだ字の形が見える・22 で読めない（c316・c613・c704 を原寸で見た）
