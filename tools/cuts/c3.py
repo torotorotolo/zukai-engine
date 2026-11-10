@@ -72,13 +72,13 @@ PLAN = {
     'c317': dict(kind='図解',
                plan='SAT:いちばん高い所｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：いちばん高くなった所〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：同上｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・帰属は地図の右下（Google の表示を絵の近くに）・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p64（`until 1527:30, when the airplane reached its highest altitude of about 3,060 feet`…`The altitude then started to decrease`）・報p64（`the airplane’s altitude continued to increase while the airspeed decreased`）'),
-    'c318': dict(kind='写真',
+    'c318': dict(kind='文字の頁',
                plan='R189｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録B｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p19（`we’ve lost thrust in both engines, we’re turning back towards LaGuardia`）'),
     'c319': dict(kind='図解',
                plan='🔧 地：GA1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：無線が重なる絵＝2つの機の声が同じ周波数でぶつかる｜注：—｜新しい画（映像方針）：🔧 地 衛星（Google を暗く）→ イメージ〈管制室のレーダーの画面〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p19（`portion of the captain’s statement was not transmitted to the air traffic controller because another pilot was transmitting on the same frequency at the same time`）・報p19（`The NTSB notes that the flight number was 1549 not 1539`）'),
-    'c320': dict(kind='写真',
+    'c320': dict(kind='文字の頁',
                plan='R203｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録C｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p19（`At 1527:50, the first officer began conducting Part 1 of the QRH ENG DUAL FAILURE checklist`）・計（15:27:11 から 15:27:50 まで＝39秒）'),
     'c321': dict(kind='図解',
@@ -93,3 +93,14 @@ PLAN = {
 }
 
 SPEC = {}
+
+# 🆕 ⑤b-3（2026-11-10）：紙面（型は c1.py の同じ節）
+_R318, _R320 = P("r189_c318"), P("r203_c320")
+SPEC.update({
+    # c318＝付録B p189 の右の半分（管制との無線）の頭＋15:27:32.9（RDO-1 の mayday）と 15:27:42（DEP）の行。1065×657＝高さいっぱい
+    "c318": dict(photo=_R318, panel=True, ptall=True, ground=dict(photo=_R318, blur=ss.PAGE_BLUR), color=1.0,
+                 t="機長から管制へ", s="管制との無線の書き起こし〈付録B〉"),
+    # c320＝付録C p203 の見出し「ENG DUAL FAILURE」＋「If fuel remaining」から「Cont'd」まで（左上の縦線は分かれ道の括弧の線）
+    "c320": dict(photo=_R320, panel=True, ptall=True, ground=dict(photo=_R320, blur=ss.PAGE_BLUR), color=1.0,
+                 t="手順書の最初", s="両方のエンジンの故障の手順書〈付録C〉"),
+})

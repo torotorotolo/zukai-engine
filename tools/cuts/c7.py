@@ -24,7 +24,7 @@ PLAN = {
     'c701': dict(kind='写真',
                plan='🔧 D76-9｜一覧の種類：調査｜見せ方：額装（高さいっぱい）｜副題：後ろの胴体の下の裂け〈NTSB の調査の写真〉｜動き：静止｜権利：同上｜時期：2009-01（凡例）｜人：なし｜出典の行：写真：NTSB 公開ドケット DCA09MA026（構造の写真 写真9）｜注：△ 絵は ⑤b で原寸｜新しい画（映像方針）：🔧 調査の写真の番号を凡例から（#76 写真9）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 調査の写真（NTSB のドケット）＝額装・無加工・出典の行・人の写り（顔・名前の字・船の名）は原寸で（⑤b-2）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p39（`According to Airbus, the ditching certification criteria also assumed that engine power was available, that the descent rate was 3.5 feet per second (fps), and that the airplane landed longitudinal to any water swells`）'),
-    'c702': dict(kind='写真',
+    'c702': dict(kind='文字の頁',
                plan='R40｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）表2｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p40（`Pitch attitude (in °) 11 9.5 Airspeed (in knots) 118 125`…`Descent rate (in fps) 3.5 12.5`）'),
     'c703': dict(kind='図解',
@@ -42,7 +42,7 @@ PLAN = {
     'c707': dict(kind='図解',
                plan='地：GK1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：警報の札＝遅すぎる警報より地面の警報が優先される・地面の警報は約85秒で15回｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p107（`the low-speed warning was inhibited by the GPWS warnings, so that the flight crew was not made aware of the low-speed state`）・報p20（`From 1529:14.9 to 1530:40.1, the two systems transmitted a total of 15 alerts`）'),
-    'c708': dict(kind='写真',
+    'c708': dict(kind='文字の頁',
                plan='R201｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録B｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p21（`and then asked the first officer, “got any ideas?” The first officer responded, “actually not.”`）'),
     'c709': dict(kind='図解',
@@ -60,7 +60,7 @@ PLAN = {
     'c713': dict(kind='図解',
                plan='🔧 地：C31（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：守りの両面の札＝いちばんの性能を出した・失速の心配なく引けた・その一方で機首を上げる効きを弱めた｜注：—｜新しい画（映像方針）：🔧 地 衛星 → [31]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p115（`the airplane did provide maximum performance for the weight and configuration at that time`）・報p115（`The flight envelope protections allowed the captain to pull full aft on the sidestick without the risk of stalling the airplane`）'),
-    'c714': dict(kind='写真',
+    'c714': dict(kind='文字の頁',
                plan='R202｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録B｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src="報p202（`HOT-1 we're gonna brace.`）・報p21（`The first officer was referring to the cabin emergency notification switch, which provides a signal to the cabin crewmembers indicating that an emergency has occurred`）"),
     'c715': dict(kind='図解',
@@ -84,7 +84,7 @@ PLAN = {
     'c721': dict(kind='図解',
                plan='地：GM1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：所見の札＝前提をすべて満たすのは、ありえなくはないが見込みは低い｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p138（`During an actual ditching, it is possible but unlikely that pilots will be able to attain all of the Airbus ditching parameters because it is exceptionally difficult for pilots to meet such precise criteria when no engine power is available, and this difficulty contributed to the fuselage damage`）'),
-    'c722': dict(kind='写真',
+    'c722': dict(kind='文字の頁',
                plan='R140｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）推定原因｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p140（`the probable cause of this accident was the ingestion of large birds into each engine`）・報p140（`Contributing to the fuselage damage and resulting unavailability of the aft slide/rafts were (1) the Federal Aviation Administration’s approval of ditching certification without determining whether pilots could attain the ditching parameters without engine thrust`）'),
     'c723': dict(kind='図解',
@@ -96,3 +96,20 @@ PLAN = {
 }
 
 SPEC = {}
+
+# 🆕 ⑤b-3（2026-11-10）：紙面（型は c1.py の同じ節）
+_R702, _R708, _R714, _R722 = P("r40_c702"), P("r201_c708"), P("r202_c714"), P("r140_c722")
+SPEC.update({
+    # c702＝報告書 p40 の表2（認証の値と事故の値）。1530×606＝幅いっぱい
+    "c702": dict(photo=_R702, panel=True, pw=1776, ground=dict(photo=_R702, blur=ss.PAGE_BLUR), color=1.0,
+                 t="前提と実際の値", s="報告書の表2〈認証の値と事故の値〉"),
+    # c708＝付録B p201 の左右の頭＋15:30:21〜15:30:24 の行（操縦室の中と管制の両方）。2040×1092＝幅いっぱい
+    "c708": dict(photo=_R708, panel=True, pw=1776, ground=dict(photo=_R708, blur=ss.PAGE_BLUR), color=1.0,
+                 t="何か案は", s="操縦室と管制の書き起こし〈付録B〉"),
+    # c714＝付録B p202 の左の半分の頭＋15:30:38〜15:30:43.7（記録の終わり）の行。1050×1179＝高さいっぱい
+    "c714": dict(photo=_R714, panel=True, ptall=True, ground=dict(photo=_R714, blur=ss.PAGE_BLUR), color=1.0,
+                 t="衝撃に備える", s="操縦室の中の書き起こし〈付録B〉"),
+    # c722＝報告書 p140 の「3.2 Probable Cause」の段（ca05 と別の枠）。1497×552＝幅いっぱい
+    "c722": dict(photo=_R722, panel=True, pw=1776, ground=dict(photo=_R722, blur=ss.PAGE_BLUR), color=1.0,
+                 t="原因の結論", s="報告書の推定原因の段"),     # 🔧 「推定原因」は出典の行と同じ語（門番 dup）
+})

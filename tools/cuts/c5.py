@@ -75,7 +75,7 @@ PLAN = {
     'c518': dict(kind='図解',
                plan='地：GT1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：AP 通信の記事の要点の札＝調査を率いた元の責任者の言葉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='通（`“We weren’t out to embarrass anybody at all.”`）'),
-    'c520': dict(kind='写真',
+    'c520': dict(kind='文字の頁',
                plan='R3｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010-05-04｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p3（`Adopted May 4, 2010`）・ド#109p10（`nor will any attempt be made at this time to determine the probable cause of the accident`）・計（公聴会 2009年6月＝事故から約5か月・採択 2010年5月4日）'),
     'c521': dict(kind='図解',
@@ -87,9 +87,20 @@ PLAN = {
     'c523': dict(kind='フリー素材',
                plan='X523｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：冬の川の水面〈場所は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p96（`although the pilots did not have time to complete each step of the applicable checklist, they did have sufficient time to consult the QRH, begin checklist execution, transmit radio calls, determine a landing strategy`）'),
-    'c524': dict(kind='写真',
+    'c524': dict(kind='文字の頁',
                plan='🔧 R203-205｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録C｜注：—｜新しい画（映像方針）：🔧 模式（手順書の3ページの絵）→ 付録C の3頁を並べた紙面（実物）＝模式の連続を切る｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='計（橋の1行）'),
 }
 
 SPEC = {}
+
+# 🆕 ⑤b-3（2026-11-10）：紙面（型は c1.py の同じ節）
+_R520, _R524 = P("r3_c520"), P("r203_205")
+SPEC.update({
+    # c520＝報告書の題の頁（右上の「Adopted May 4, 2010」から題の「January 15, 2009」まで・下の印は入れない）。1500×1284＝高さいっぱい
+    "c520": dict(photo=_R520, panel=True, ptall=True, ground=dict(photo=_R520, blur=ss.PAGE_BLUR), color=1.0,
+                 t="報告書の採択", s="報告書の題の頁〈2010年5月4日の採択〉"),
+    # c524＝付録C の3頁（手順書の 27・28・29 ページ）の絵を横に並べた紙面（cc06 と同じ束）。1818×1078＝高さいっぱい
+    "c524": dict(photo=_R524, panel=True, ptall=True, ground=dict(photo=_R524, blur=ss.PAGE_BLUR), color=1.0,
+                 t="2つ目の問い", s="手順書の3ページ〈付録C〉"),
+})

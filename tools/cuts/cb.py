@@ -45,7 +45,7 @@ PLAN = {
     'cb08': dict(kind='写真',
                plan='🔧 D79-45｜一覧の種類：調査｜見せ方：額装（高さいっぱい）｜副題：65番の骨組みの床の穴〈NTSB の調査の写真〉｜動き：静止｜権利：同上｜時期：2009（凡例）｜人：なし｜出典の行：写真：NTSB 公開ドケット DCA09MA026（構造の追記の写真 写真45）｜注：△ 絵は ⑤b で原寸｜新しい画（映像方針）：🔧 調査の写真の番号を凡例から（#79 写真45）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 調査の写真（NTSB のドケット）＝額装・無加工・出典の行・人の写り（顔・名前の字・船の名）は原寸で（⑤b-2）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='勧（`A-10-077 受け入れられる対応 2019-05-29`）・報p143（`Require Airbus to redesign the frame 65 vertical beam on A318, A319, A320, and A321 series airplanes to lessen the likelihood that it will intrude into the cabin during a ditching or gear-up landing`）'),
-    'cb09': dict(kind='写真',
+    'cb09': dict(kind='文字の頁',
                plan='FR2023｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD（米国の連邦の業務）｜時期：2023｜人：なし｜出典の行：出典：連邦官報 2023-06413（FAA・2023年）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='官（`ensure that turbofan engines can ingest`…`the largest medium flocking bird (MFB) into the engine core at climb or approach conditions`）・官（`DATES: Effective June 5, 2023`）'),
     'cb10': dict(kind='図解',
@@ -72,3 +72,12 @@ PLAN = {
 }
 
 SPEC = {}
+
+# 🆕 ⑤b-3（2026-11-10）：紙面（型は c1.py の同じ節）
+_Rb09 = P("fr2023_cb09")
+SPEC.update({
+    # cb09＝連邦官報の頁の頭（誌名・号・2023年4月4日）＋FAA の最終規則の頭（1頁目の右の段の下）＋2頁目の左の段の頭
+    #   （SUMMARY の続き〜「DATES: Effective June 5, 2023.」）を縦につないだ。582×1284＝高さいっぱい
+    "cb09": dict(photo=_Rb09, panel=True, ptall=True, ground=dict(photo=_Rb09, blur=ss.PAGE_BLUR), color=1.0,
+                 t="鳥の試験の規則", s="連邦官報〈2023年4月4日〉"),
+})

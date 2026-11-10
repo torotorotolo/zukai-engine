@@ -54,7 +54,7 @@ PLAN = {
     'c611': dict(kind='写真',
                plan='🔧 C62｜一覧の種類：写真｜見せ方：額装（高さいっぱい）｜副題：保管中のこの機体の操縦室｜動き：静止｜見た目の型：11-10 640px＝泥の跡の操縦席・計器｜権利：CC BY-SA 3.0｜時期：2011-02-25（EXIF＝博物館へ移す前の保管中）｜人：なし｜出典の行：写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工｜注：BY-SA＝額装・無加工｜新しい画（映像方針）：🔧 副題の「2010年」は頁で確かめられない＝外した｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・副題の日付と夕方・夜は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p19（`At 1528:14, the first officer stated, “emergency electrical power...emergency generator not online.” At 1528:19, the captain stated, “it’s online.”`）・報p20（`At 1528:45, while the captain was communicating with ATC, the first officer stated, “FAC [flight augmentation computer] one off, then on.”`）'),
-    'c612': dict(kind='写真',
+    'c612': dict(kind='文字の頁',
                plan='R204｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録C｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p20（`Fifteen seconds later, the first officer stated, “no relight after thirty seconds, engine master one and two confirm.”`）・報p20（`the steps included turning the engine master switches 1 and 2 to OFF and then waiting 30 more seconds before turning the switches back to ON`）'),
     'c613': dict(kind='写真',
@@ -66,13 +66,13 @@ PLAN = {
     'c615': dict(kind='図解',
                plan='🔧 地：GB2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：割合｜副題：手順書の全体のうち約3分の1を塗った3ページの絵｜注：—｜新しい画（映像方針）：🔧 模式（3ページの絵をもう一度）→ 割合の帯（全体の約3分の1）＝c614 と同じ絵を2度描かない｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p105（`the flight crew was only able to complete about one-third of the Engine Dual Failure checklist`）'),
-    'c616': dict(kind='写真',
+    'c616': dict(kind='文字の頁',
                plan='R205｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録C｜注：枠＝「If Ditching is anticipated」から下・「At 2000’ AGL c. Ditching pb ... ON」に印（頁の画像の座標 約 y 1870〜2600）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p104（`the flight crew never reached the ditching portion of the checklist, which most directly applied to the accident situation`）'),
     'c617': dict(kind='図解',
                plan='地：GK1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：3ページ目の段取りの札＝約910メートルまでに翼を降りる形に・約610メートルで着水のボタン・約150メートルで衝撃に備｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='画（`Prior to 3000’ AGL`…`FLAPS`…`Configure for Landing`…`At 2000’ AGL`…`Ditching pb`）・報p73（`the airplane should be configured for a ditching before 3,000 feet (flaps 3 selected and landing gear up)`）'),
-    'c618': dict(kind='写真',
+    'c618': dict(kind='文字の頁',
                plan='R205｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜見た目の型：11-10 原寸の切り出し（p205 の 500,2140〜2060,2470）｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録C｜注：枠＝注の「Touchdown with approximately 11 degrees of pitch and minimum vertical speed.」（約 y 2200〜2280）と「At 500’AGL: d. Brace Signal ... Command」（約 y 2285〜2380）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='画（`At 500’AGL`…`Brace Signal`…`Command`…`Touchdown with approximately 11 degrees of pitch and minimum vertical speed`）'),
     'c619': dict(kind='図解',
@@ -99,7 +99,7 @@ PLAN = {
     'c626': dict(kind='図解',
                plan='地：C32（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：低い所での故障の手順書があれば、の札｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p105（`if a checklist that addressed a dual-engine failure occurring at a low altitude had been available to the flight crewmembers, they would have been more likely to have completed that checklist`）'),
-    'c627': dict(kind='写真',
+    'c627': dict(kind='文字の頁',
                plan='R141｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）勧告｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p141（`Require manufacturers of turbine-powered aircraft to develop a checklist and procedure for a dual-engine failure occurring at a low altitude. (A-10-66)`）・報p141（`operators of turbine-powered aircraft to implement the checklist and procedure. (A-10-67)`）'),
     'c628': dict(kind='図解',
@@ -114,3 +114,22 @@ PLAN = {
 }
 
 SPEC = {}
+
+# 🆕 ⑤b-3（2026-11-10）：紙面（型は c1.py の同じ節）
+_R612, _R616, _R618, _R627 = P("r204_c612"), P("r205_c616"), P("r205_c618"), P("r141_c627")
+SPEC.update({
+    # c612＝付録C p204「If no relight after 30 seconds」〜「Wait 30 seconds」〜「i. ENG MASTER 1 and 2 … ON」。956×204＝幅いっぱい
+    "c612": dict(photo=_R612, panel=True, pw=1776, ground=dict(photo=_R612, blur=ss.PAGE_BLUR), color=1.0,
+                 t="エンジンの再始動", s="手順書の2ページ目〈付録C〉"),     # 🔧 「エンジンのスイッチ」は字幕の1文の写し（門番 echo）
+    # c616＝付録C p205「If Ditching is anticipated」から頁の尻まで。印＝「c. Ditching pb … ON」の行（一覧の注）を2行目の語り
+    #   「乗員は、そこにたどり着かなかった」と同時に塗る（箱は台帳 assets.json の hl＝束の道具が頁の座標から書く）。970×608＝高さいっぱい
+    "c616": dict(photo=_R616, panel=True, ptall=True, ground=dict(photo=_R616, blur=ss.PAGE_BLUR), color=1.0,
+                 hl=[(1, 0.0, 0.8, ss.page_hl("r205_c616", "c616"))],
+                 t="着水の手順", s="手順書の3ページ目〈付録C〉"),
+    # c618＝付録C p205 の注（約11度の機首・沈む速さを小さく）と「At 500'AGL: d. Brace Signal … Command」。956×214＝幅いっぱい
+    "c618": dict(photo=_R618, panel=True, pw=1776, ground=dict(photo=_R618, blur=ss.PAGE_BLUR), color=1.0,
+                 t="着水の姿勢と合図", s="着水の手順の注と合図〈付録C〉"),   # 🔧 「衝撃に備える合図」は字幕の1文の頭の写し（門番 echo）
+    # c627＝報告書 p141 の勧告 A-10-66・A-10-67 の2段。1293×438＝幅いっぱい
+    "c627": dict(photo=_R627, panel=True, pw=1776, ground=dict(photo=_R627, blur=ss.PAGE_BLUR), color=1.0,
+                 t="FAA への勧告", s="報告書の勧告〈A-10-66・A-10-67〉"),
+})

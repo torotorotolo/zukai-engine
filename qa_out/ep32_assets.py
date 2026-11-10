@@ -100,7 +100,8 @@ DK_PICK = {
 
 # 🆕 帰属の指定の名乗りの後ろ（許諾の箱の「Attribution: …」＝表の3列目〈作者〉＋この字）。11-10 に頁の写しと照らした（名前は出さず語の形だけ＝作者の1語＋3語）。
 #    [55]＝英語版ウィキペディアから移した写真の書き方「〈作者〉 at English Wikipedia」＝画面の出典の行も `{作者}` の後ろにこの字を足す（指定どおりの名乗り）
-ATTR_TAIL = {"C55": " at English Wikipedia"}
+#    [56]（⑤b-3〈11-10〉に cc08 の差し替えで足した）も同じ指定の形（3列目と頁の指定の頭が1字も同じ＝字数で照らした）
+ATTR_TAIL = {"C55": " at English Wikipedia", "C56": " at English Wikipedia"}
 # 🆕 撮影者の欄（3列目）が機関の名前の点＝印 `{作者}` を使わず、その名前を出典の行にそのまま書く（人の名前でない＝公開リポに書いてよい）。
 #    11-10 に3列目と1字も同じかを道具が照らす（違えば止める）。[13]・[14]＝陸軍工兵隊ニューヨーク地区の Flickr（26字＝焼く道具の名乗りの上限 24字を超える）
 AUTHOR_ORG = {"C13": "US Army Corps of Engineers", "C14": "US Army Corps of Engineers"}
@@ -278,8 +279,12 @@ def uses(later=None):
                 bad.append(f"{cid} {c}: 図の型「{r['kind']}」の素材の欄に記号がある（地は ji の欄）")
             elif s["type"] not in KIND_OK[r["kind"]]:
                 bad.append(f"{cid} {c}: 一覧の種類「{r['kind']}」と出どころの型 {s['type']} が食い違う")
-            elif s["type"] in PAGE_TYPES:
-                later.setdefault("公的", []).append(cid)
+            elif s["type"] in PAGE_TYPES:                # 🆕 ⑤b-3：紙面＝PAGE_CUT の束の鍵（記号_カット）で束に入れる
+                ks = [k for k, sp in PAGE_CUT.items() if sp["code"] == c and cid in sp["cuts"]]
+                if len(ks) != 1:
+                    bad.append(f"{cid} {c}: 紙面の切り口 PAGE_CUT が{'無い' if not ks else '2つある'}")
+                else:
+                    out.setdefault(ks[0], dict(code=c, main=[], ji=[], full=False, page=True))["main"].append(cid)
             else:
                 u = out.setdefault(c, dict(code=c, main=[], ji=[], full=False))
                 u["main"].append(cid)
@@ -455,6 +460,256 @@ def cmd_dk():
     return 0
 
 
+# ── 紙面（⑤b-3）───────────────────────────────────────────────
+# 🆕 ⑤b-3（11-10）：一覧の「公的」21カット（sources32 の public-page 17点）＝報告書 NTSB/AAR-10/03 と連邦官報 2023-06413 の PDF の頁から切る
+#    （公的な機関＝許可不要）。31本目の判決の切り口（字の層の行で決める）の型を、32本目の頁に合わせて直した：
+#    🔴 付録B（操縦室の声の書き起こし）は横向きの頁（/Rotate 90）＝字の層の座標は回す前の向き → `rotation_matrix` で表示の向きに直してから箱と照らす
+#       （回したまま照らすと、行が縦の帯に見えて箱と合わない）。箱はすべて表示の向きの pt（1pt＝PAGE_K 画素で描く）。
+#    🔴 付録C（手順書の3頁）は走査の絵だけの頁（字の層は頁の頭と番号だけ）＝箱は 300dpi の頁の画素（unit="px300"＝`src/ntsb/ocrC/p*.png` と
+#       同じ物差し・Windows の OCR の [x,y] で行を当てた・OCR の字は絵に使わない）＝pt に直して描く。行を切っていないかは縁の黒の画素で測る（`_edge_ink`）。
+#    🔴 表紙（p1）の写真は報告書の雛形の飾りの絵（この事故の写真でない・持ち主が分からない＝第三者の見込み）＝切り口に入れない（no_img＝頁の絵の箱と重なれば止める）。
+#    名前＝切り口の中の字（字の層と OCR）を名前の網に当てる（連邦官報の1頁目の右の段の上〈y 448〉にエネルギー省の担当者の名前＝out の目印）。
+PDF_SRC = {"R": ("ntsb/AAR1003.pdf", "14290858c8274ff3b2c284a9b8344f63",           # md5＝`ref/ep32/sources.md`（① と同じ・5,994,104 B）
+                 "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf"),
+           "FR": ("web/fr2023_06413.pdf", "4b58c7a85db6273385c6d02e95368cda",       # md5＝sources32 の FR2023 の行（11-10 取得・2回一致・11頁）
+                  "https://www.govinfo.gov/content/pkg/FR-2023-04-04/html/2023-06413.htm")}
+OCR_DIR = SRC / "ntsb" / "ocrC"         # git の外（② の OCR＝[x,y]＋字・300dpi の頁の画素）
+PAGE_K = 3.0                            # 描く倍率（1pt＝3画素＝31本目の判決と同じ）
+PAGE_PAD = 24                           # 紙面の絵のまわりの白（束の画素）
+PART_GAP = 30                           # つないだ切り口のあいだの白（束の画素）
+PX300 = 72 / 300                        # 300dpi の頁の画素 → pt
+INK = 120                               # 縁の黒の物差し（灰色の値・これより暗い画素が縁の2画素にあれば「行か罫を切った」）
+# 付録B の表の頭（表示の向き）＝「AIR-GROUND COMMUNICATION／INTRA-COCKPIT COMMUNICATION」と「TIME and SOURCE」「CONTENT」の段（y 74.7〜129.7）
+#   ⚠️ 左の半分（操縦室）の頭は x 395 まで＝右の半分の「TIME and」（表示の x 397〜445）を切らない（行の中身は左の半分も x 397.4 まで伸びる＝行の段は 400 まで）
+_HB_AG, _HB_CK, _HB_ALL = (391, 70, 730, 134), (66, 70, 395, 134), (66, 70, 730, 134)
+_BRACKET = "手順書の分かれ道の括弧の縦線（罫・字でない＝上の段から下りてくる線の途中で切る）"
+# {束の鍵: dict(code, cuts, parts=[(頁, 箱|"img")], unit="pt"|"px300", stack="v"|"h", align, k, must, out, ocr_must, ocr_out, no_img, hl={cid: (頁, 箱)})}
+#   must＝切り口の中に丸ごと入るべき行の字（字の層）・out＝切り口に入ってはいけない行の字（隣の段・名前の行の目印）。ocr_* は付録C の OCR の行（点）で同じことを照らす
+#   付録B は「表の頭」＋「その時刻の行」を縦につなぐ（間の行は空白か別の欄＝台本の画の欄「…の行を枠で」）
+PAGE_CUT = {
+    # c112＝表紙の題の段＋右下の「Accident Report／NTSB/AAR-10/03」（右に揃えて縦につなぐ）。🔴 飾りの写真（y 310〜621）は入れない
+    "R1_c112": dict(code="R1", cuts=["c112"], parts=[(1, (30, 36, 588, 203)), (1, (405, 627, 588, 706))], align="right", no_img=True,
+                    must=["Loss of Thrust in Both Engines", "January 15, 2009", "NTSB/AAR-10/03"], out=["National"]),
+    # c520＝題の頁（右上の「Adopted May 4, 2010」から題の「January 15, 2009」まで・下の印は入れない）
+    "R3_c520": dict(code="R3", cuts=["c520"], parts=[(3, (66, 66, 550, 478))], no_img=True,     # 左は題の上の横の罫（x 71.5〜）の外まで
+                    must=["Adopted May 4, 2010", "Loss of Thrust in Both Engines", "January 15, 2009"], out=["National"]),
+    "R40_c702": dict(code="R40", cuts=["c702"], parts=[(40, (58, 110, 552, 296))],                # 左は表の縁の罫（x 66〜）の外まで
+                     must=["Table 2. Certification and accident flight values.", "Maximum external pressure"], out=["accident flight.", "1.6.8 US Airways"]),
+    "R96_ca02": dict(code="R96", cuts=["ca02"], parts=[(96, (66, 366, 549, 520))],
+                     must=["Although both engines experienced", "series of fortuitous circumstances", "crewmembers. The investigation revealed"],
+                     out=["certification. (See section 2.6", "The analysis discusses"]),
+    "R140_c722": dict(code="R140", cuts=["c722"], parts=[(140, (66, 189, 549, 357))],
+                      must=["3.2 Probable Cause", "ingestion of large birds", "situation."], out=["associated with passengers", "Contributing to the survivability"]),
+    "R140_ca05": dict(code="R140", cuts=["ca05"], parts=[(140, (66, 359, 549, 471))],
+                      must=["Contributing to the survivability", "the decision-making of the flight", "appropriate response to the accident."], out=["123"]),
+    "R141_ca15": dict(code="R141", cuts=["ca15"], parts=[(141, (66, 84, 549, 212))],
+                      must=["4. Safety Recommendations", "4.1 New Recommendations", "Federal Aviation Administration:"], out=["Work with the military"]),
+    "R141_c627": dict(code="R141", cuts=["c627"], parts=[(141, (100, 563, 515, 693))],
+                      must=["(A-10-66)", "(A-10-67)", "Require manufacturers of turbine-powered"], out=["(A-10-65)", "124"]),
+    # 付録B（横向きの頁）＝表の頭＋その時刻の行。右の半分＝空地の交信（管制との無線）・左の半分＝操縦室の中
+    "R189_c318": dict(code="R189", cuts=["c318"], parts=[(189, _HB_AG), (189, (391, 270, 730, 399))],
+                      must=["AIR-GROUND COMMUNICATION", "15:27:32.9", "mayday mayday mayday", "15:27:42", "heading of uh two two zero."],
+                      out=["INTRA-COCKPIT", "172"]),
+    "R191_c403": dict(code="R191", cuts=["c403"], parts=[(191, _HB_AG), (191, (391, 194, 730, 343))],
+                      must=["15:28:05", "you want to try to land runway one three?", "15:28:10.6", "we may end up in the Hudson."], out=["INTRA-COCKPIT"]),
+    "R195_c413": dict(code="R195", cuts=["c413"], parts=[(195, _HB_CK), (195, (66, 194, 400, 232))],
+                      must=["INTRA-COCKPIT COMMUNICATION", "15:29:11", "this is the Captain brace for impact."], out=["wait thirty seconds.", "one thousand.", "AIR-GROUND"]),
+    "R196_c416": dict(code="R196", cuts=["c416"], parts=[(196, _HB_AG), (196, (391, 415, 730, 503))],
+                      must=["15:29:28", "we're gonna be in the Hudson.", "15:29:33", "I'm sorry say again Cactus?"], out=["kay which runway", "INTRA-COCKPIT"]),
+    "R201_c708": dict(code="R201", cuts=["c708"], parts=[(201, _HB_ALL), (201, (66, 243, 730, 517))],
+                      must=["15:30:21", "got any ideas?", "actually not.", "15:30:24", "until the end of the recording]"], out=["no lets stay at two.", "got flaps two"]),
+    "R202_c714": dict(code="R202", cuts=["c714"], parts=[(202, _HB_CK), (202, (66, 145, 400, 448))],
+                      must=["15:30:38", "we're gonna brace.", "retard.", "[End of Transcript]"], out=["AIR-GROUND"]),
+    # 付録C（走査の絵の頁・箱は 300dpi の頁の画素）。c320＝見出し「ENG DUAL FAILURE」＋「If fuel remaining」から頁の尻の「Cont'd」まで
+    #   境目は黒の無い行（scratchpad の blank32.py で測った＝見出しの上下の罫 672〜678・731〜736 の外・「h. Go to step 2.」の尻 1540 の下・「Cont'd」の尻 2793 の下）
+    "R203_c320": dict(code="R203", cuts=["c320"], unit="px300",
+                      parts=[(203, (330, 660, 1745, 750)), (203, (330, 1546, 1745, 2820), {"上": _BRACKET})],
+                      ocr_must=["ENG DUAL FAILURE", "fuel remaining", "nt' d"], ocr_out=["no fuelremaining", "GO 10 step 2", "QRH"]),
+    # c612＝「If no relight after 30 seconds」〜「Wait 30 seconds」〜「i. ENG MASTER 1 and 2 … ON」（下の Note は入れない）
+    "R204_c612": dict(code="R204", cuts=["c612"], unit="px300", parts=[(204, (470, 546, 1730, 762))],
+                      ocr_must=["no relight after 30 seconds", "Wait 30 seconds", "i. ENG MASTER"], ocr_out=["Unassisted", "g. FAC"]),
+    # c616＝「If Ditching is anticipated」から頁の尻の「Evacuation」まで。印（hl）＝「At 2000' AGL: c. Ditching pb … ON」の行
+    #   左は「▶If Ditching」の矢じり（x 508〜520）の外の 500 から
+    "R205_c616": dict(code="R205", cuts=["c616"], unit="px300", parts=[(205, (500, 1858, 1780, 2636), {"上": _BRACKET})],
+                      ocr_must=["Ditching is anticipated", "c. Ditching pb", "Evacuation"], ocr_out=["h. APU MASTER SW", "i. ENG DUAL FAILURE", "QRH"],
+                      hl={"c616": (205, (548, 2116, 1768, 2166))}),
+    # c618＝注「…Touchdown with approximately 11 degrees of pitch and minimum vertical speed.」と「At 500'AGL: d. Brace Signal … Command」
+    #   （11-10 に原寸で見た枠 y 2200〜2380 を、注の頭の行〈y 2177〉まで広げた＝文の途中から始めない）
+    "R205_c618": dict(code="R205", cuts=["c618"], unit="px300", parts=[(205, (520, 2163, 1780, 2393))],
+                      ocr_must=["NOte: case of strong", "Touchdown with", "Brace Sign"], ocr_out=["At touchdown", "c. Ditching pb"]),
+    # c524・cc06（2つ目の問いの入口と答え）＝付録C の3頁の絵を横に並べる（同じ束を2カット）
+    "R203-205": dict(code="R203-205", cuts=["c524", "cc06"], unit="px300", stack="h", k=1.6,
+                     parts=[(203, "img"), (204, "img"), (205, "img")], ocr_must=["ENG DUAL FAILURE", "Ditching is anticipated"]),
+    # cb09＝連邦官報の頁の頭（誌名・号・日付）＋FAA の最終規則の頭（1頁目の右の段の下）＋2頁目の左の段の頭（SUMMARY の続き〜「DATES: Effective June 5, 2023.」）
+    "FR2023_cb09": dict(code="FR2023", cuts=["cb09"], parts=[(1, (395, 54, 500, 103)), (1, (395, 516, 573, 746)), (2, (41, 56, 218, 169))],
+                        must=["Federal Register", "Tuesday, April 4, 2023", "DEPARTMENT OF TRANSPORTATION", "Medium Flocking Bird Test at Climb",
+                              "ensure that turbofan engines can ingest", "the largest medium flocking bird (MFB)", "DATES: Effective June 5, 2023."],
+                        out=["BILLING CODE 6450", "Garrett", "ADDRESSES:", "19802"]),
+}
+
+
+def _pdf_of(code):
+    rel, want, url = PDF_SRC["FR" if code.startswith("FR") else "R"]
+    p = SRC / rel
+    if not p.exists():
+        raise SystemExit(f"🔴 {code}: PDF が無い（{p}）")
+    h = md5(p)
+    if h != want:
+        raise SystemExit(f"🔴 {code}: {p.name} の md5 {h[:8]} が記録 {want[:8]} と合わない（取り直す）")
+    return p, h, url
+
+
+def _lines_disp(pg):
+    """字の層の行＝[(字, 表示の向きの箱)]。🔴 横向きの頁（/Rotate 90）の字の層は回す前の座標＝rotation_matrix で直す"""
+    import fitz
+    rm = pg.rotation_matrix
+    out = []
+    for b in pg.get_text("dict")["blocks"]:
+        for ln in b.get("lines", []):
+            t = "".join(s["text"] for s in ln["spans"]).strip()
+            if t:
+                out.append((t, fitz.Rect(ln["bbox"]) * rm))
+    return out
+
+
+def _ocr_lines(n):
+    """付録C の OCR の行＝[(字, x_pt, y_pt)]（[x,y]＝300dpi の頁の画素の行の頭）"""
+    p = OCR_DIR / f"p{n}.txt"
+    out = []
+    if p.exists():
+        for ln in p.read_text(encoding="utf-8").splitlines():
+            m = re.match(r"\[(\d+),(\d+)\]\s*(.*)", ln)
+            if m:
+                out.append((m.group(3), int(m.group(1)) * PX300, int(m.group(2)) * PX300))
+    return out
+
+
+def _edge_ink(im, w=2):
+    """切り口の縁 w 画素の暗い画素の数 {辺: 数}（0 の辺は出さない）＝行や罫を縁で切っていないか"""
+    import numpy as np
+    a = np.asarray(im.convert("L"))
+    sides = {"上": a[:w], "下": a[-w:], "左": a[:, :w], "右": a[:, -w:]}
+    return {k: int((v < INK).sum()) for k, v in sides.items() if int((v < INK).sum())}
+
+
+def frame_of(w, h):
+    """額の選び方（scene_jiko.photo_box と同じ幾何）＝高さいっぱい（ptall・幅 1128 まで・高さ 830 まで）と幅いっぱい（pw=1776・高さ 648 まで）の面積の大きい方"""
+    a = w / h
+    pt = (min(1128, 830 * a), min(830, 1128 / a))
+    pw = (min(1776, 648 * a), min(648, 1776 / a))
+    return ("ptall", pt) if pt[0] * pt[1] >= pw[0] * pw[1] else ("pw=1776", pw)
+
+
+def render_page(key):
+    """紙面の切り口を描く＝(RGB の絵, PDF の md5, 記録の言葉, 印 {cid: [x0,y0,x1,y1]＝束の絵の割合}, 出どころ)。照らしが1つでも外れれば止める"""
+    import fitz
+    from PIL import Image
+    sp = PAGE_CUT[key]
+    p, h, url = _pdf_of(sp["code"])
+    doc = fitz.open(p)
+    k = sp.get("k", PAGE_K)
+    u = PX300 if sp.get("unit") == "px300" else 1.0
+    bad, ims, boxes, words, pages = [], [], [], [], {}
+    seen_txt, seen_ocr, near_txt, near_ocr = [], [], [], []
+    allowed = []
+    for part in sp["parts"]:
+        n, box = part[0], part[1]
+        ok = part[2] if len(part) > 2 else {}                # 縁の黒を許す辺 {辺: 理由}（罫の線だけ＝理由を記録に残す）
+        pg = doc[n - 1]
+        if box == "img":
+            rr = [fitz.Rect(r) * pg.rotation_matrix for x in pg.get_images(full=True) for r in pg.get_image_rects(x[0])]
+            if len(rr) != 1:
+                raise SystemExit(f"🔴 {key}: p{n} の絵が1枚でない（{len(rr)}枚）")
+            R = rr[0] + (1.5, 1.5, -1.5, -1.5)                 # 走査の絵の縁（黒い点がある）は 1.5pt 内側で切る
+        else:
+            R = fitz.Rect(*(v * u for v in box))
+        if not pg.rect.contains(R):
+            bad.append(f"p{n}: 切り口 {tuple(round(v, 1) for v in R)} が頁 {tuple(pg.rect)} の外にはみ出す")
+        Rin = fitz.Rect(R.x0 - 0.6, R.y0 - 0.6, R.x1 + 0.6, R.y1 + 0.6)
+        lines = [(" ".join(t.replace(" ", " ").split()), r) for t, r in _lines_disp(pg)]   # 改行しない空白（表紙）をふつうの空白に
+        inside = [t for t, r in lines if Rin.contains(r)]
+        cut = [t for t, r in lines if r.intersects(R) and not Rin.contains(r)]
+        if cut:
+            bad.append(f"p{n}: 切り口の縁が字の層の行を切る（{len(cut)}行・「{cut[0][:40]}」）")
+        if sp.get("no_img"):
+            for x in pg.get_images(full=True):
+                for r in pg.get_image_rects(x[0]):
+                    if (fitz.Rect(r) * pg.rotation_matrix).intersects(R):
+                        bad.append(f"p{n}: 切り口が頁の絵（xref {x[0]}・{tuple(round(v) for v in r)}）に重なる（表紙の飾りの写真を入れない）")
+        ocr = [t for t, x, y in _ocr_lines(n) if R.contains(fitz.Point(x, y))]
+        seen_txt += inside
+        seen_ocr += ocr
+        near_txt += [t for t, r in lines if r.intersects(R)]
+        near_ocr += ocr
+        words += inside + ocr
+        if n not in pages:
+            pix = pg.get_pixmap(matrix=fitz.Matrix(k, k), alpha=False)            # 頁を表示の向きで丸ごと描いてから切る（clip の座標の向きに頼らない）
+            pages[n] = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
+        im = pages[n].crop((round(R.x0 * k), round(R.y0 * k), round(R.x1 * k), round(R.y1 * k)))
+        e = _edge_ink(im)
+        for side in [s_ for s_ in e if s_ in ok]:
+            if e[side] > 60:
+                bad.append(f"p{n}: 許した辺「{side}」の黒が {e[side]} 画素（罫の線の幅を超える＝字を切っている見込み）")
+            allowed.append(f"p{n} の{side}の縁の黒 {e.pop(side)} 画素＝{ok[side]}")
+        if e:
+            bad.append(f"p{n}: 切り口の縁に黒 {e}（行か罫を切っている）")
+        ims.append(im)
+        boxes.append((n, R))
+    for a in sp.get("must", []):
+        if not any(a in t for t in seen_txt):
+            bad.append(f"丸ごと入るべき行「{a}」が切り口の中に無い")
+    for a in sp.get("out", []):
+        if any(a in t for t in near_txt):
+            bad.append(f"入ってはいけない行「{a}」が切り口にかかる")
+    for a in sp.get("ocr_must", []):
+        if not any(a in t for t in seen_ocr):
+            bad.append(f"OCR の行「{a}」が切り口の中に無い")
+    for a in sp.get("ocr_out", []):
+        if any(a in t for t in near_ocr):
+            bad.append(f"入ってはいけない OCR の行「{a}」が切り口に入る")
+    leak = hits_in(" ".join(words), _names())
+    if leak:
+        bad.append(f"切り口の字に名前の網の語 {len(leak)}語（表示しない）")
+    if bad:
+        raise SystemExit(f"🔴 {key}:\n  " + "\n  ".join(bad))
+    # つなぐ（縦＝align で左右を揃える・横＝上で揃える）
+    if sp.get("stack") == "h":
+        W = sum(i.width for i in ims) + PART_GAP * (len(ims) - 1)
+        H = max(i.height for i in ims)
+        offs, x = [], 0
+        for i in ims:
+            offs.append((x, 0))
+            x += i.width + PART_GAP
+    else:
+        W = max(i.width for i in ims)
+        H = sum(i.height for i in ims) + PART_GAP * (len(ims) - 1)
+        offs, y = [], 0
+        for i in ims:
+            x = {"right": W - i.width, "center": (W - i.width) // 2}.get(sp.get("align"), 0)
+            offs.append((x, y))
+            y += i.height + PART_GAP
+    out = Image.new("RGB", (W, H), (255, 255, 255))
+    for i, o in zip(ims, offs):
+        out.paste(i, o)
+    from PIL import ImageOps
+    out = ImageOps.expand(out, border=PAGE_PAD, fill=(255, 255, 255))
+    hl = {}
+    for cid, (n, box) in (sp.get("hl") or {}).items():
+        r = fitz.Rect(*(v * u for v in box))
+        j = next((j for j, (m, R) in enumerate(boxes) if m == n and R.contains(r)), None)
+        if j is None:
+            raise SystemExit(f"🔴 {key}: 印 {cid} の箱が切り口の中に無い")
+        R = boxes[j][1]
+        ox, oy = offs[j]
+        x0, y0 = PAGE_PAD + ox + (r.x0 - R.x0) * k, PAGE_PAD + oy + (r.y0 - R.y0) * k
+        x1, y1 = PAGE_PAD + ox + (r.x1 - R.x0) * k, PAGE_PAD + oy + (r.y1 - R.y0) * k
+        hl[cid] = [round(x0 / out.width, 4), round(y0 / out.height, 4), round(x1 / out.width, 4), round(y1 / out.height, 4)]
+    how = "・".join(f"p{n} の切り口（{R.x0:.0f},{R.y0:.0f}〜{R.x1:.0f},{R.y1:.0f}pt）" for n, R in boxes)
+    how += f"を{'横' if sp.get('stack') == 'h' else '縦'}につないだ" if len(boxes) > 1 else "を描いた"
+    how += f"（1pt＝{k:g}画素・表示の向き）" + "".join(f"・{a}" for a in allowed)
+    return out, h, how, hl, url
+
+
 def year_of(code, s):
     m = _YEAR.search(s["era"])
     if m:
@@ -485,6 +740,8 @@ def screen_credit(code, s, boxes, full):
     if "［" in s["credit"] or "⑤b" in s["credit"] or s["credit"].startswith("同上") or not s["credit"].strip() or s["credit"] == "—":
         raise SystemExit(f"🔴 {code}: 出典の欄に書きかけの印が残る（{s['credit'][:60]}）")
     cr = _base_credit(s)
+    if s["type"] in PAGE_TYPES:                          # 🆕 ⑤b-3：紙面＝頁の切り口（PD）＝「／改変：切出」（31本目の紙面と同じ書き方）
+        return cr + "／改変：切出"
     what = f"{_mask_words(boxes)}にモザイク" if boxes else ""
     if boxes and "BY-SA" in s["rights"]:
         raise SystemExit(f"🔴 {code}: 升目は CC BY・CC0・PD の写真だけ（{s['rights']}＝BY-SA は升目も翻案）")
@@ -508,12 +765,16 @@ def who_table(code, s):
         return "表示は任意（CC0）＝撮影者の名乗りを焼くときに足す"
     if t in COMMONS_TYPES:
         return "米国の機関（public domain）"
+    if t in PAGE_TYPES:
+        return "FAA（連邦官報）" if code.startswith("FR") else "NTSB（報告書）"
     return "NTSB の調査グループ（撮影者の記載なし）"
 
 
 def _lic(s):
     if s["type"] in DOCKET_TYPES:
         return "PD（米国の連邦の業務の見込み）"
+    if s["type"] in PAGE_TYPES:
+        return "PD（米国の連邦の業務）"
     return s["rights"]
 
 
@@ -524,9 +785,9 @@ def cmd_build():
     later = {}
     us = uses(later)
     dk = _dk_log() if any(src[u["code"]]["type"] in DOCKET_TYPES for u in us.values()) else {}
-    for code in list(MASK) + list(PRE_CROP):
+    for code in list(MASK) + list(PRE_CROP) + list(PAGE_CUT):
         if code not in us:
-            print(f"🔴 MASK・PRE_CROP の {code} は一覧で使っていない")
+            print(f"🔴 MASK・PRE_CROP・PAGE_CUT の {code} は一覧で使っていない（カットを替えたときの取り残し）")
             bad += 1
     prv = _private_rows()
     for code, r in prv.items():                          # 🔴 8列目（attr）のある点＝頁の許諾の箱の帰属の指定を3列目と照らす（名前は出さない）
@@ -542,6 +803,26 @@ def cmd_build():
         dst = EPD / f"{name}.jpg"
         t = s["type"]
         box_m = MASK.get(code, [])
+        if t in PAGE_TYPES:                              # 🆕 ⑤b-3：紙面（PDF の頁の切り口＝render_page が照らす）
+            try:
+                im, smd5, how, hl, url = render_page(key)
+            except SystemExit as e:
+                print(e)
+                bad += 1
+                continue
+            fr, size = frame_of(*im.size)
+            im.save(dst, quality=JPEG_Q, optimize=True)
+            w, h = im.size
+            y, ywhy = year_of(code, s)
+            cr = screen_credit(key, s, [], False)
+            db[name] = dict(code=code, part="", file=PDF_SRC["FR" if code.startswith("FR") else "R"][0], cut=" ".join(u["main"]), ji="",
+                            credit=cr, who=who_table(code, s), note=s["note"][:200], box=[0.0, 0.0, 1.0, 1.0], crop_px=[0, 0, w, h], w=w, h=h,
+                            md5=md5(dst), src_md5=smd5, lic=_lic(s), frame=True, ground=s["basis"][:120], url=url,
+                            blur=[], how=how + f"・額＝{fr}（約{size[0]:.0f}×{size[1]:.0f}）", year=y, year_why=ywhy, stock=False, page=True, related=False,
+                            quote_page=False, named=False, mosaic=None, name_mosaic=None, masked_before=None, era=s["era"], people=s["people"],
+                            private=False, shot=None, hl=hl or None, fit=fr)
+            print(f"✓ {key:12} {name:12} {w}x{h:<5} 主 {' '.join(u['main']):10} 額 {fr:8} {cr[:40]}")
+            continue
         if t in DOCKET_TYPES:
             p, smd5 = _docket_ok(code, dk)
             r = dk[code]
@@ -598,7 +879,8 @@ def cmd_build():
         print(f"・{j}：{len(cs)}カット（{' '.join(cs[:10])}{' …' if len(cs) > 10 else ''}）＝束の外（{where}）")
     DB.write_text(json.dumps(db, ensure_ascii=False, indent=1), encoding="utf-8")
     tot = sum((EPD / f"{n}.jpg").stat().st_size for n in db)
-    print(f"→ ref/ep32/assets.json（{len(db)}点＝Commons {sum(1 for r in db.values() if not r['code'].startswith('D'))}・調査 {sum(1 for r in db.values() if r['code'].startswith('D'))}"
+    print(f"→ ref/ep32/assets.json（{len(db)}点＝Commons {sum(1 for r in db.values() if r['code'].startswith('C'))}・調査 {sum(1 for r in db.values() if r['code'].startswith('D'))}"
+          f"・紙面 {sum(1 for r in db.values() if r.get('page'))}"
           f"・額装だけ {sum(1 for r in db.values() if r['frame'])}・作者の印 {sum(1 for r in db.values() if r['named'])}・升目 {sum(1 for r in db.values() if r['mosaic'])}"
           f"・地に使う {sum(1 for r in db.values() if r['ji'])}・束の大きさ {tot / 1e6:.1f}MB＝全部公開リポ）")
     return 1 if bad else 0
@@ -742,7 +1024,8 @@ def cmd_credits(write=False):
             print(f"🔴 {n}: 出典の行の字幅 {wd:.1f}（{CREDIT_W_MAX} まで＝画面の左下からはみ出すおそれ）")
             bad += 1
         cj[f"ep32/{n}.jpg"] = r["credit"]
-        kind = "NTSB の調査の写真（公開ドケット）" if r["code"].startswith("D") else "この回の物と場所"
+        kind = ("NTSB の調査の写真（公開ドケット）" if r["code"].startswith("D") else "公的な機関の紙面" if r.get("page")
+                else "この回の物と場所")
         mod = ("・顔と字に升目" if "顔と字" in r["credit"] else "・字に升目" if "字にモザイク" in r["credit"] else "・顔に升目") if r.get("mosaic") else ""
         use = " ".join(cuts) + (f"（地 {r['ji']}）" if r["ji"] else "")
         url = r["url"]
@@ -1042,9 +1325,87 @@ def cmd_fb(only=None):
     return 1 if bad else 0
 
 
+# ── 管制の録音 A1 の秒（⑤b-3）────────────────────────────────────
+# 🆕 ⑤b-3（11-10）：c416 に足す本物の音＝A1（FAA ニューヨーク TRACON の録音の抜粋・Commons・PD-USGov-FAA・190.0秒）の中の機長の1文
+#    「we're gonna be in the Hudson.」（付録B p196 の 15:29:28 RDO-1）。🔴 耳では聞いていない（1通目の約束＝録音の字と波形で決める・耳の確かめは試写）。
+#    決め方＝`a1` の命令：①付録B の空地の交信（右の半分）の頭の時刻 23行を字の層から組む ②A1 の声のかたまり（20ms の RMS が床＋12dB を超える・
+#    0.35秒未満の切れ目はつなぐ）③録音の頭の時刻を 0.05秒刻みで動かして、かたまりの頭と 0.7秒以内で重なる行の数がいちばん多い所＝頭 15:27:31.15
+#    （23行のうち18行・平均のずれ 0.25秒）④ 15:29:27 の管制の問いと 15:29:28 の答えは1つのかたまり（115.28〜118.04秒）＝間の落ち込み
+#    （116.55〜116.60秒・−32dB＝前後は −12〜−15dB）を無線の切り替えと読んだ（推定）＝答えの頭 116.65秒＝付録B の時計で 15:29:27.8。
+#    ⚠️ 焼く道具（`tools/audio_mix.py`）に本物の音を重ねる仕組みはまだ無い＝混ぜ方（語りと重ねるか・語りの間に置くか・大きさ）は ⑤b-7 で決める
+AUDIO_PICK = {"c416": dict(code="A1", file="src/commons/c32/A1.ogg", a=116.55, b=118.10, ctx=(115.25, 118.10),
+                           what="機長「we're gonna be in the Hudson.」（ctx＝管制の問い「kay which runway would you like at Teterboro?」から）",
+                           cvr="15:29:28", page=196)}
+A1_HEAD = "15:27:31.15"                   # `a1` が出した録音の頭（付録B の時計）＝これと違えば止める（0.2秒まで）
+
+
+def cmd_a1():
+    """A1 の録音の頭の時刻を付録B の時刻と声のかたまりで求め、AUDIO_PICK の秒が答えの行の時刻に合うかを照らす"""
+    import tempfile
+    import wave
+    import fitz
+    import numpy as np
+    pk = AUDIO_PICK["c416"]
+    src = EPD / pk["file"]
+    if not src.exists():
+        print(f"🔴 録音が無い（{src}）")
+        return 1
+    with tempfile.TemporaryDirectory() as td:
+        wv = Path(td) / "a1.wav"
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(src), "-ac", "1", "-ar", "16000", str(wv)], check=True)
+        with wave.open(str(wv)) as w:
+            sr = w.getframerate()
+            x = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float64) / 32768
+    hop = int(sr * 0.02)
+    n = len(x) // hop
+    db = 20 * np.log10(np.sqrt((x[:n * hop].reshape(n, hop) ** 2).mean(axis=1) + 1e-12))
+    on = db > np.percentile(db, 20) + 12
+    segs, s0 = [], None
+    for i, v in enumerate(list(on) + [False]):
+        if v and s0 is None:
+            s0 = i
+        if not v and s0 is not None:
+            if segs and s0 - segs[-1][1] < 18:
+                segs[-1][1] = i
+            else:
+                segs.append([s0, i])
+            s0 = None
+    B = np.array([a * 0.02 for a, b in segs if (b - a) * 0.02 >= 0.25])
+    doc = fitz.open(SRC / PDF_SRC["R"][0])
+    T = []
+    for pn in range(186, 203):
+        pg = doc[pn - 1]
+        for t, r in _lines_disp(pg):
+            if r.x0 >= 390 and 134 < r.y0 < 540 and re.fullmatch(r"\d\d:\d\d:\d\d(\.\d)?", t):
+                h, m, s = t.split(":")
+                T.append(int(h) * 3600 + int(m) * 60 + float(s))
+    T = sorted(set(T))
+    best = None
+    for t0 in np.arange(15 * 3600 + 26 * 60 + 20, 15 * 3600 + 27 * 60 + 50, 0.05):
+        d = [float(np.min(np.abs(B - (c - t0)))) for c in T if 0 <= c - t0 <= len(x) / sr]
+        hit = [v for v in d if v < 0.7]
+        key = (len(hit), -float(np.mean(hit)) if hit else -9)
+        if best is None or key > best[0]:
+            best = (key, t0)
+    (hit, err), t0 = best
+    h, m, s = A1_HEAD.split(":")
+    want = int(h) * 3600 + int(m) * 60 + float(s)
+    ans = 15 * 3600 + 29 * 60 + 28 - t0
+    print(f"録音 {len(x) / sr:.1f}秒・付録B の空地の交信 {len(T)}行・頭 {int(t0 // 3600)}:{int(t0 % 3600 // 60):02d}:{t0 % 60:05.2f}（重なる {hit}行・平均のずれ {-err:.2f}秒）")
+    print(f"c416＝{pk['what']}・付録B {pk['cvr']} → 録音 {ans:.2f}秒・AUDIO_PICK {pk['a']}〜{pk['b']}秒（{pk['b'] - pk['a']:.2f}秒）・ctx {pk['ctx'][0]}〜{pk['ctx'][1]}秒")
+    bad = 0
+    if abs(t0 - want) > 0.2:
+        print(f"🔴 頭が A1_HEAD と {t0 - want:+.2f}秒 違う（録音か付録B の読みが変わった）")
+        bad += 1
+    if not (pk["a"] - 0.6 <= ans <= pk["b"]) or pk["b"] - pk["a"] > 5.0 or pk["ctx"][1] - pk["ctx"][0] > 5.0:
+        print("🔴 AUDIO_PICK の秒が答えの行の時刻に合わないか、5秒を超える")
+        bad += 1
+    return 1 if bad else 0
+
+
 if __name__ == "__main__":
     a = sys.argv[1:]
-    cmds = {"panel": cmd_panel, "edges": cmd_edges, "clips": cmd_clips, "shots": cmd_shots, "dk": cmd_dk, "build": cmd_build}
+    cmds = {"panel": cmd_panel, "edges": cmd_edges, "clips": cmd_clips, "shots": cmd_shots, "dk": cmd_dk, "build": cmd_build, "a1": cmd_a1}
     if a and a[0] == "uses":
         _later = {}
         for _k, _u in sorted(uses(_later).items()):

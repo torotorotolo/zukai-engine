@@ -3746,6 +3746,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `c50` | cc03（地 c203 c205 c207 cc05 cc07 cc09） | 不明 | CC0（この回の物と場所・顔に升目） | 表示は任意（CC0）＝撮影者の名乗りを焼くときに足す | commons:1549tail.JPG |
 | `c52` | c202 | 2009 | PD（FAA）（この回の物と場所） | 米国の機関（public domain） | commons:LGA RWY 4 DEP 15JAN2009.jpg |
 | `c55` | cc04 | 不明 | CC BY-SA 3.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:N106US tail damage.JPG |
+| `c56` | cc08 | 2012 | CC BY-SA 3.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:N106US wing damage.JPG |
 | `c57` | ca11 | 2010 | CC BY-SA 3.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:N106USinNJ2010.jpg |
 | `c59` | cc01 | 2011 | CC0（この回の物と場所） | 表示は任意（CC0）＝撮影者の名乗りを焼くときに足す | commons:US Airways Flight 1549 in Maryland.jpg |
 | `c60` | cc02 | 2011 | CC0（この回の物と場所・字に升目） | 表示は任意（CC0）＝撮影者の名乗りを焼くときに足す | commons:US Airways Flight 1549 support vehicle in Maryland.jpg |
@@ -3769,6 +3770,26 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `d79_1` | c724 | 2009 | PD（米国の連邦の業務の見込み）（NTSB の調査の写真（公開ドケット）） | NTSB の調査グループ（撮影者の記載なし） | NTSB ドケット DCA09MA026・079_40313690.pdf p3 |
 | `d79_45` | cb08 | 2009 | PD（米国の連邦の業務の見込み）（NTSB の調査の写真（公開ドケット）） | NTSB の調査グループ（撮影者の記載なし） | NTSB ドケット DCA09MA026・079_40313690.pdf p47 |
 | `d83_8` | c613 | 2009 | PD（米国の連邦の業務の見込み）（NTSB の調査の写真（公開ドケット）） | NTSB の調査グループ（撮影者の記載なし） | NTSB ドケット DCA09MA026・083_40313442.pdf p29 |
+| `fr2023_cb09` | cb09 | 2023 | PD（米国の連邦の業務）（公的な機関の紙面） | FAA（連邦官報） | https://www.govinfo.gov/content/pkg/FR-2023-04-04/html/2023-06413.htm |
+| `r140_c722` | c722 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
+| `r140_ca05` | ca05 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
+| `r141_c627` | c627 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
+| `r141_ca15` | ca15 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
+| `r189_c318` | c318 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
+| `r191_c403` | c403 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
+| `r195_c413` | c413 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
+| `r196_c416` | c416 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
+| `r1_c112` | c112 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
+| `r201_c708` | c708 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
+| `r202_c714` | c714 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
+| `r203_205` | c524 cc06 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
+| `r203_c320` | c320 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
+| `r204_c612` | c612 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
+| `r205_c616` | c616 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
+| `r205_c618` | c618 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
+| `r3_c520` | c520 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
+| `r40_c702` | c702 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
+| `r96_ca02` | ca02 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
 
 ### 2. 動く映像＝clips.json（沿岸警備隊の監視カメラ VTS）
 - 米国沿岸警備隊の VTS（船の交通の監視カメラ）の記録（Commons の3本＝public domain・PD-USCG）＝384×288・毎秒3〜4コマ・音なし。等速（速さを変えない）・止めなし・額装（高さいっぱい）・地は同じ映像のぼかし。焼き込みのカメラの時計（約20秒進む）は語りと副題に使わない。背景のはしけに別の旅客機が写る秒（CrashAndRescue 402.5〜438.5秒）は使わない（`footage.NOGO`）

@@ -27,7 +27,7 @@ PLAN = {
     'c402': dict(kind='図解',
                plan='🔧 地：GA1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：交信の相手の札＝出発の管制〈レーダー〉・ラガーディアの管制塔・テターボロの管制・1549便｜注：—｜新しい画（映像方針）：🔧 地 衛星 → イメージ〈管制室のレーダーの画面〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p18（`instructed the flight crew to contact the New York Terminal Radar Approach Control (TRACON) LGA departure controller`）'),
-    'c403': dict(kind='写真',
+    'c403': dict(kind='文字の頁',
                plan='R191｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録B｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p191（`do you want to try to land runway one three?`）・ド#40p10（`runway 13 would be best and he suggested that runway to the pilot`）'),
     'c404': dict(kind='フリー素材',
@@ -57,7 +57,7 @@ PLAN = {
     'c412': dict(kind='フリー素材',
                plan='X412｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：空港の管制塔の遠景〈ラガーディアとは名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p61（`LGA ATCT personnel activated the Emergency Alert Notification System using the red crash phone at 1528:53`）'),
-    'c413': dict(kind='写真',
+    'c413': dict(kind='文字の頁',
                plan='R195｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録B｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p195（`PA-1 this is the Captain brace for impact.`）'),
     'c414': dict(kind='フリー素材',
@@ -66,7 +66,7 @@ PLAN = {
     'c415': dict(kind='図解',
                plan='🔧 SAT:テターボロ空港｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：テターボロ空港の滑走路1〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：同上｜注：c409 と同じ衛星写真に別の描き足し｜新しい画（映像方針）：🔧 図の模式（地＝衛星を暗く）→ 衛星写真＋描き足し（右へ曲がる矢印と届かない印）＝地図は衛星写真で（25本目の決め）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・帰属は地図の右下（Google の表示を絵の近くに）・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p20（`At 1529:21, the CVR recorded the LGA departure controller instructing the captain to turn right 280° and stating that the airplane could land on runway 1 at TEB`…`In response to the controller, the captain stated, “we can’t do it.”`）・ド#40p10（`He coordinated with TEB thinking runway 1 was the best option due to the wind`）'),
-    'c416': dict(kind='写真',
+    'c416': dict(kind='文字の頁',
                plan="R196｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録B｜注：＋音 A1（FAA の管制の録音）の数秒＝機長の「we're gonna be in the Hudson」（秒は ⑤b で聞いて決める）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）",
                src="報p196（`RDO-1 we're gonna be in the Hudson.`）・報p105（`At 1529:25, the captain told ATC that they would also be unable to land at TEB. Three seconds later, he stated to ATC that the airplane was going to be in the Hudson`）"),
     'c417': dict(kind='図解',
@@ -93,3 +93,18 @@ PLAN = {
 }
 
 SPEC = {}
+
+# 🆕 ⑤b-3（2026-11-10）：紙面（型は c1.py の同じ節）
+_R403, _R413, _R416 = P("r191_c403"), P("r195_c413"), P("r196_c416")
+SPEC.update({
+    # c403＝付録B p191 の右の半分の頭＋15:28:05（DEP の問い）と 15:28:10.6（RDO-1）の行（間の空白は表のまま）。1065×717＝高さいっぱい
+    "c403": dict(photo=_R403, panel=True, ptall=True, ground=dict(photo=_R403, blur=ss.PAGE_BLUR), color=1.0,
+                 t="管制の問い", s="管制との無線の書き起こし〈付録B〉"),
+    # c413＝付録B p195 の左の半分（操縦室の中）の頭＋15:29:11 の PA-1 の行。1050×384＝幅いっぱい
+    "c413": dict(photo=_R413, panel=True, pw=1776, ground=dict(photo=_R413, blur=ss.PAGE_BLUR), color=1.0,
+                 t="客室への放送", s="操縦室の中の書き起こし〈付録B〉"),
+    # c416＝付録B p196 の右の半分の頭＋15:29:28（RDO-1）と 15:29:33（DEP）の行。1065×534＝幅いっぱい。
+    #   ⚠️ 本物の音（A1 の 116.55〜118.10秒＝`qa_out/ep32_assets.py` の AUDIO_PICK・耳の確かめは試写）を混ぜる仕組みは ⑤b-7（audio_mix に無い）
+    "c416": dict(photo=_R416, panel=True, pw=1776, ground=dict(photo=_R416, blur=ss.PAGE_BLUR), color=1.0,
+                 t="機長の答え", s="管制との無線の書き起こし〈付録B〉"),
+})

@@ -366,6 +366,16 @@ def P(name):
     return f"{EP}{name}.jpg"
 
 
+def page_hl(name, cid):
+    """🆕 32本目 ⑤b-3：紙面の束の上の印の箱＝(x0, y0, x1, y1)＝束の絵の割合。`assets.json` の `hl`（`qa_out/ep32_assets.py` の PAGE_CUT が
+    頁の座標から計算して書く）から読む＝**手で写さない**。SPEC は `hl=[(行, 始めの割合, 終わりの割合, ss.page_hl(名, cid))]`（scene_jiko.hl_times）。
+    無ければ止める（黙って印を落とさない）"""
+    r = ((_assets().get(name) or {}).get("hl") or {}).get(cid)
+    if not r or len(r) != 4:
+        raise KeyError(f"{name} に {cid} の印が無い（`qa_out/{EP[:-1]}_assets.py` の PAGE_CUT の hl に足して build）")
+    return tuple(float(v) for v in r)
+
+
 def fb(cid):
     """動く映像を当てたカットの**ひかえの静止画**（`footage.USE` が取れなかったとき）。
 
@@ -853,6 +863,9 @@ SLIDE_NOT_MOUNT: dict[str, str] = {
     P("c40"): "夜の岸壁のそばの機体＝右の 5.0% は明かりの消えたビルの壁（夜）",
     P("c41"): "引き上げたあとの機体（夜）＝左・上・右の 5% は夜の空と木の枝の影",
     P("c46"): "引き上げられる機体（夜・BY-SA＝額装だけ）＝上・右の 5% は夜の空とクレーンの影",
+    # 🆕 ⑤b-3（11-10）：紙面の束（白い紙）＝暗い帯は紙面の罫（1400px のシートで見た・額装だけ＝全面にしない）
+    P("r203_c320"): "付録C の手順書の見出し「ENG DUAL FAILURE」の上下の罫＝上の 3.4%（紙面の中身・台紙の縁でない）",
+    P("r40_c702"): "報告書の表2 の左右の縁の罫＝左 3.3%・右 2.9%（紙面の中身・台紙の縁でない）",
 }
 
 # 🆕 2026-11-09（31本目 ⑤b-7）：**台紙の縁も暗い帯も無い回の言い分**（SAT_NONE と同じ型・§0b＝回を替えるとき None に戻す）。

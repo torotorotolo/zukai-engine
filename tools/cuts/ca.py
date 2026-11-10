@@ -24,7 +24,7 @@ PLAN = {
     'ca01': dict(kind='写真',
                plan='🔧 C40｜一覧の種類：写真｜見せ方：全面｜副題：夜の岸壁のそばの機体〈2009年1月17日〉｜動き：ゆっくり寄る｜見た目の型：11-10 640px＝夜の照明の中の機体・奥の建物の明かり｜権利：CC BY 2.0｜時期：2009-01-17 00:07（EXIF）・夜｜人：なし｜出典の行：写真：{作者}／Wikimedia Commons（CC BY 2.0）｜注：—｜新しい画（映像方針）：🔧 副題「夕方の機体〈2009年1月15日〉」→ EXIF 1月17日 0:07＝夜｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・副題の日付と夕方・夜は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='聞（州知事の会見＝報道の帰属・CNN の書き起こしは robots で拒否＝未読）'),
-    'ca02': dict(kind='写真',
+    'ca02': dict(kind='文字の頁',
                plan='R96｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p96（`Consequently, this accident has been portrayed as a “successful” ditching. However, the investigation revealed that the success of this ditching mostly resulted from a series of fortuitous circumstances`）・計（報告書の文字の層で「miracle」0件）'),
     'ca03': dict(kind='フリー素材',
@@ -33,7 +33,7 @@ PLAN = {
     'ca04': dict(kind='図解',
                plan='地：GR2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：偶然の札の1つ目と2つ目＝よい見通しと穏やかな水面・とても経験のある乗員｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p96（`and was executed by a very experienced flight crew`）'),
-    'ca05': dict(kind='写真',
+    'ca05': dict(kind='文字の頁',
                plan='🔧 R140｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）推定原因｜注：枠＝「(1) the decision-making of the flight crewmembers and their crew resource management」から（c722 と別の枠）｜新しい画（映像方針）：🔧 模式（生き残れた理由の札・地＝夜の [40]）→ 報告書 p140 の「生き残れた理由」の段（実物）＝模式の連続を切る｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p140（`Contributing to the survivability of the accident was (1) the decision-making of the flight crewmembers and their crew resource management during the accident sequence`）'),
     'ca06': dict(kind='写真',
@@ -63,9 +63,23 @@ PLAN = {
     'ca14': dict(kind='図解',
                plan='🔧 地：C18（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：偶然の4つの札を並べ、その下に「次も重なるとは限らない」の札｜注：—｜新しい画（映像方針）：🔧 地 [40]（夜）→ [18]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='計（3つ目の問いの答えの前半）'),
-    'ca15': dict(kind='写真',
+    'ca15': dict(kind='文字の頁',
                plan='🔧 R141｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）勧告｜注：枠＝見出し「Recommendations」と最初の段（c627 と別の枠）｜新しい画（映像方針）：🔧 [11]（夜の作業＝cb04 の [9] と似た写真）→ 報告書の勧告の頁の頭（語り「残りの半分は、勧告にある」）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='計（橋の1行）'),
 }
 
 SPEC = {}
+
+# 🆕 ⑤b-3（2026-11-10）：紙面（型は c1.py の同じ節）
+_Ra02, _Ra05, _Ra15 = P("r96_ca02"), P("r140_ca05"), P("r141_ca15")
+SPEC.update({
+    # ca02＝報告書 p96 の段（「a series of fortuitous circumstances」を含む）。1497×510＝幅いっぱい
+    "ca02": dict(photo=_Ra02, panel=True, pw=1776, ground=dict(photo=_Ra02, blur=ss.PAGE_BLUR), color=1.0,
+                 t="一連の偶然", s="報告書の分析の段"),
+    # ca05＝報告書 p140 の「Contributing to the survivability…」の段（c722 と別の枠）。1497×384＝幅いっぱい
+    "ca05": dict(photo=_Ra05, panel=True, pw=1776, ground=dict(photo=_Ra05, blur=ss.PAGE_BLUR), color=1.0,
+                 t="生き残れた理由", s="報告書の結論の段"),
+    # ca15＝報告書 p141 の見出し「4. Safety Recommendations」と最初の段（c627 と別の枠）。1497×432＝幅いっぱい
+    "ca15": dict(photo=_Ra15, panel=True, pw=1776, ground=dict(photo=_Ra15, blur=ss.PAGE_BLUR), color=1.0,
+                 t="勧告", s="報告書の勧告の頁の頭"),
+})
