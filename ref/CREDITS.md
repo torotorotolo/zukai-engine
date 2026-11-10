@@ -3716,6 +3716,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 - 私人の顔は CC BY・CC0・PD で升目（「／改変：…にモザイク」）。公的な任務の顔（沿岸警備隊・陸軍工兵隊・警察・NTSB の調査官）はそのまま。色は原本のまま
 - 説明カットの地（「地 c…」）＝CC BY 2.0・CC0・PD の昼の写真を暗くするだけ（字と地の比 8:1 が下限・出典の行は「地の写真：…／改変：切出・明るさ」・CC0 と PD は改変を書かない）。🔴 夜の写真と Google の衛星写真は地にしない
 - 撮影年＝Commons の頁の説明と EXIF・ドケットの凡例（`sources32.psv` の時期の欄）。⚠️ 陸軍工兵隊のカメラの EXIF の時刻は場面と合わない＝副題は「2009年1月」まで
+- 🆕 ⑤b-4a（11-10）：イメージの写真（Pexels・全面の `x…`＋地だけの `g…`）＝写真の頁の license＝Pexels を1本ずつ確かめた・640px と原寸で見た（人の顔・ナンバー・店の名前・読める字・社名と機種なし）。束の外＝git に入れない（焼くときに台帳の直リンクから取り直して md5 を照らす）・出典の行は「イメージ（Pexels）」だけ・投稿者の名前は書かない
 
 | 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
 |---|---|---|---|---|---|
@@ -3790,6 +3791,37 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `r3_c520` | c520 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
 | `r40_c702` | c702 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
 | `r96_ca02` | ca02 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
+| `ga1` | （地 c319 c402 c407 c417 c422） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/air-traffic-control-room-3582597/ |
+| `gk1` | （地 c213 c313 c315 c321 c510 c513 c601 c608 c617 c621 c707 c709） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/control-lever-in-a-cockpit-6916506/ |
+| `gm1` | （地 c503 c505 c506 c507 c721） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/a-pilot-flying-an-aircraft-7530685/ |
+| `gr1` | （地 c410） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/aerial-view-of-a-harbor-and-pier-covered-in-snow-14800623/ |
+| `gs1` | （地 c214 c301 c308 c323 c405 c607） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/evergreen-forest-in-winter-20208429/ |
+| `gt1` | （地 c518） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/red-seats-at-a-cinema-7991319/ |
+| `x204` | c204 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/low-angle-shot-of-an-airplane-in-the-sky-11150245/ |
+| `x206` | c206 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/close-up-of-dashboard-in-airplane-18719092/ |
+| `x211` | c211 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/trees-covered-in-snow-in-the-mountains-14769048/ |
+| `x215` | c215 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/airplane-on-clear-sky-19563698/ |
+| `x216` | c216 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/delicious-healthy-sandwiches-17748171/ |
+| `x302` | c302 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/four-canada-geese-in-flight-against-blue-sky-33124206/ |
+| `x304` | c304 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/flock-of-canada-geese-flying-in-formation-38840522/ |
+| `x310` | c310 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/control-panel-in-airplane-9663803/ |
+| `x314` | c314 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/pilots-operating-airplane-in-cockpit-during-flight-4269510/ |
+| `x316` | c316 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/close-up-shot-of-a-book-7054516/ |
+| `x404` | c404 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/majestic-river-in-mountains-10764287/ |
+| `x408` | c408 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/monochrome-photo-of-flying-helicopter-1479425/ |
+| `x411` | c411 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/airport-radar-tower-with-airplane-in-sky-35986954/ |
+| `x412` | c412 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/control-tower-at-londrina-airport-brazil-34298439/ |
+| `x414` | c414 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/an-empty-airplane-interior-19878021/ |
+| `x418` | c418 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/a-headset-on-a-laptop-7709176/ |
+| `x420` | c420 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/airplane-on-runway-at-sunset-with-cityscape-31075568/ |
+| `x423` | c423 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/person-controlling-flight-simulator-3862634/ |
+| `x502` | c502 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/engineer-in-flight-simulator-3862137/ |
+| `x504` | c504 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/two-pilots-flying-an-airplane-2898316/ |
+| `x508` | c508 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/approaching-the-runway-7418643/ |
+| `x511` | c511 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/black-and-white-aerial-view-of-streets-of-manhattan-new-york-usa-14844497/ |
+| `x515` | c515 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/monitors-and-microphone-on-wooden-table-top-6949366/ |
+| `x517` | c517 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/large-conference-room-with-red-seats-25857614/ |
+| `x523` | c523 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/serene-winter-river-with-bare-trees-reflection-36539713/ |
 
 ### 2. 動く映像＝clips.json（沿岸警備隊の監視カメラ VTS）
 - 米国沿岸警備隊の VTS（船の交通の監視カメラ）の記録（Commons の3本＝public domain・PD-USCG）＝384×288・毎秒3〜4コマ・音なし。等速（速さを変えない）・止めなし・額装（高さいっぱい）・地は同じ映像のぼかし。焼き込みのカメラの時計（約20秒進む）は語りと副題に使わない。背景のはしけに別の旅客機が写る秒（CrashAndRescue 402.5〜438.5秒）は使わない（`footage.NOGO`）

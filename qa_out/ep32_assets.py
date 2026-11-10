@@ -877,13 +877,56 @@ def cmd_build():
     for j, cs in later.items():
         where = {"公的": "⑤b-3 の紙面", "イメージの地": "⑤b-4 の Pexels"}.get(j, "差し替えの点は了承を得て Commons から取る")
         print(f"・{j}：{len(cs)}カット（{' '.join(cs[:10])}{' …' if len(cs) > 10 else ''}）＝束の外（{where}）")
+    # 🆕 ⑤b-4a（2026-11-10）：イメージの写真（Pexels・全面の X…＋地だけの G…）＝取ったファイルそのまま `ref/ep32/stock/<名>.jpg`
+    #    （🔴 git に入れない＝19本目 決め⑨）。Actions・Modal は `footage.stock_photos` が台帳の media から取り直して md5 を照らす（31本目 ⑤b-3a の写し）。
+    #    sources32 に行が無い記号（⑤b-4b の分）は数えて出すだけ
+    (EPD / "stock").mkdir(exist_ok=True)
+    rows = _list()
+    n_stock = 0
+    for code, s in sorted(src.items()):
+        if s["type"] not in STOCK_TYPES or not s["file"].endswith(".jpg"):
+            continue
+        r = fet.get(code) or {}
+        p = EPD / s["file"]
+        if not p.exists() or not r or md5(p) != r["md5"] or r.get("出どころ") != s["get"]:
+            print(f"🔴 {code}: 手元の写真が無いか、md5 か直リンクが取得のときと違う（{s['file']}）＝fetch32e.py stock で取る")
+            bad += 1
+            continue
+        main = [x["cid"] for x in rows if _code_of(x["main"]) == code]
+        ji = [x["cid"] for x in rows if _code_of(x["ji"]) == code]
+        if not main and not ji:
+            print(f"🔴 {code}: イメージの写真をどのカットにも当てていない")
+            bad += 1
+            continue
+        name = f"stock/{code.lower()}"
+        dst = EPD / f"{name}.jpg"
+        dst.write_bytes(p.read_bytes())
+        with Image.open(dst) as im:
+            w, h = im.size
+        db[name] = dict(code=code, part="", file=s["file"], cut=" ".join(main), ji=" ".join(ji), credit="イメージ（Pexels）", who="投稿者（クレジットは任意＝書かない）",
+                        note=s["note"][:200], box=[0.0, 0.0, 1.0, 1.0], crop_px=[0, 0, w, h], w=w, h=h, md5=r["md5"], src_md5=r["md5"], lic="Pexels", frame=False,
+                        ground=s["rights"], url=_stock_page(code, s), blur=[], how=f"取ったファイルそのまま（{w}x{h}）", year=None, year_why="この事故の物でない（イメージ）",
+                        stock=True, page=False, related=False, quote_page=False, named=False, mosaic=None, name_mosaic=None, masked_before=None, era=s["era"], people=s["people"],
+                        private=False, shot=None, media=s["get"][len("stock:"):])
+        n_stock += 1
+        print(f"✓ {code:7} {name:14} {w}x{h:<5} 主 {' '.join(main) or '—':10} 地 {' '.join(ji) or '—':30} Pexels（git に入れない）")
     DB.write_text(json.dumps(db, ensure_ascii=False, indent=1), encoding="utf-8")
     tot = sum((EPD / f"{n}.jpg").stat().st_size for n in db)
+    pub = [n for n, r in db.items() if not r.get("stock")]
     print(f"→ ref/ep32/assets.json（{len(db)}点＝Commons {sum(1 for r in db.values() if r['code'].startswith('C'))}・調査 {sum(1 for r in db.values() if r['code'].startswith('D'))}"
-          f"・紙面 {sum(1 for r in db.values() if r.get('page'))}"
+          f"・紙面 {sum(1 for r in db.values() if r.get('page'))}・イメージ {n_stock}（git の外）"
           f"・額装だけ {sum(1 for r in db.values() if r['frame'])}・作者の印 {sum(1 for r in db.values() if r['named'])}・升目 {sum(1 for r in db.values() if r['mosaic'])}"
-          f"・地に使う {sum(1 for r in db.values() if r['ji'])}・束の大きさ {tot / 1e6:.1f}MB＝全部公開リポ）")
+          f"・地に使う {sum(1 for r in db.values() if r['ji'])}・束の大きさ {tot / 1e6:.1f}MB／公開リポの分 "
+          f"{sum((EPD / f'{n}.jpg').stat().st_size for n in pub) / 1e6:.1f}MB）")
     return 1 if bad else 0
+
+
+def _stock_page(code, s):
+    """頁の URL＝sources32 の basis の頭（13列のまま＝get は直リンクが持つ）＝31本目 ep31_assets._stock_page の写し"""
+    m = re.match(r"https://www\.pexels\.com/(?:video|photo)/\S+?/(?=[（ ]|$)", s["basis"])
+    if not m:
+        raise SystemExit(f"🔴 {code}: basis の頭に Pexels の頁の URL が無い（{s['basis'][:60]}）")
+    return m.group(0)
 
 
 def _find(db, c):
@@ -1025,7 +1068,7 @@ def cmd_credits(write=False):
             bad += 1
         cj[f"ep32/{n}.jpg"] = r["credit"]
         kind = ("NTSB の調査の写真（公開ドケット）" if r["code"].startswith("D") else "公的な機関の紙面" if r.get("page")
-                else "この回の物と場所")
+                else "イメージ＝この回の物でない・束の外" if r.get("stock") else "この回の物と場所")     # 🆕 ⑤b-4a：Pexels は「イメージ」
         mod = ("・顔と字に升目" if "顔と字" in r["credit"] else "・字に升目" if "字にモザイク" in r["credit"] else "・顔に升目") if r.get("mosaic") else ""
         use = " ".join(cuts) + (f"（地 {r['ji']}）" if r["ji"] else "")
         url = r["url"]
@@ -1063,6 +1106,8 @@ def cmd_credits(write=False):
         "- 説明カットの地（「地 c…」）＝CC BY 2.0・CC0・PD の昼の写真を暗くするだけ（字と地の比 8:1 が下限・出典の行は「地の写真：…／改変：切出・明るさ」・CC0 と PD は改変を書かない）。"
         "🔴 夜の写真と Google の衛星写真は地にしない",
         "- 撮影年＝Commons の頁の説明と EXIF・ドケットの凡例（`sources32.psv` の時期の欄）。⚠️ 陸軍工兵隊のカメラの EXIF の時刻は場面と合わない＝副題は「2009年1月」まで",
+        "- 🆕 ⑤b-4a（11-10）：イメージの写真（Pexels・全面の `x…`＋地だけの `g…`）＝写真の頁の license＝Pexels を1本ずつ確かめた・640px と原寸で見た"
+        "（人の顔・ナンバー・店の名前・読める字・社名と機種なし）。束の外＝git に入れない（焼くときに台帳の直リンクから取り直して md5 を照らす）・出典の行は「イメージ（Pexels）」だけ・投稿者の名前は書かない",
         "",
         "| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |",
         "|---|---|---|---|---|---|", *rows, "",

@@ -25,13 +25,13 @@ PLAN = {
                plan='🔧 地：GS1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：時計｜副題：「15:27:10」の札と針｜注：—｜新しい画（映像方針）：🔧 地 衛星（Google を暗く）→ イメージ〈冬の空〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p19（`at 1527:10.4, the captain stated, “birds.”`）'),
     'c302': dict(kind='フリー素材',
-               plan='X302｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：正面から飛んでくるガンの群れ｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               plan='X302｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：正面から飛んでくるガンの群れ｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='ド#7p3（`saw the birds go down below the windscreen and thought they would miss the birds`）・報p19（`One second later, the CVR recorded the sound of thumps and thuds followed by a shuddering sound`）・ド#7p3（`Then he heard birds hit`）'),
     'c303': dict(kind='図解',
                plan='SAT:鳥とぶつかった所｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：鳥とぶつかった所〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：同上｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・帰属は地図の右下（Google の表示を絵の近くに）・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p19（`the bird encounter occurred when the airplane was at an altitude of 2,818 feet above ground level (agl)`…`a distance of about 4.5 miles north-northwest of the approach end of runway 22 at LGA`）・報p115（`about 4.3 miles from LGA`）'),
     'c304': dict(kind='フリー素材',
-               plan='X304｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：空を飛ぶカナダガンの群れ｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               plan='X304｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：空を飛ぶカナダガンの群れ｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p66（`contained viable DNA and matched 99 percent or more to the Barcode of Life Database`…`for Canada goose (Branta canadensis)`）'),
     'c305': dict(kind='写真',
                plan='🔧 C61｜一覧の種類：写真｜見せ方：額装（高さいっぱい）｜副題：エンジンから集めた羽〈NTSB〉｜動き：静止｜見た目の型：11-10 640px＝袋の羽・エンジン1 の札・左下に手書きの人の名前｜権利：PD（PD-NTSB）｜時期：2009-01-29（袋の字）｜人：なし｜出典の行：写真：NTSB（public domain）／Wikimedia Commons・改変：切出｜注：🔴 左下の手書きの人の名前を切る（PD＝切出可）｜新しい画（映像方針）：🔧 全面 → 額装（縦長）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・副題の日付と夕方・夜は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
@@ -49,7 +49,7 @@ PLAN = {
                plan='🔧 D76-4｜一覧の種類：調査｜見せ方：額装（高さいっぱい）｜副題：鳥が当たった跡〈NTSB の調査の写真〉｜動き：静止｜見た目の型：11-10 640px＝ピンクの丸の中の凹み｜権利：PD の見込み（NTSB の調査グループの写真・撮影者の記載なし）｜時期：2009-01（凡例）｜人：なし｜出典の行：写真：NTSB 公開ドケット DCA09MA026（構造の写真 写真4）｜注：—｜新しい画（映像方針）：🔧 調査の写真の番号を凡例から（#76 写真4）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 調査の写真（NTSB のドケット）＝額装・無加工・出典の行・人の写り（顔・名前の字・船の名）は原寸で（⑤b-2）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p19（`At 1527:14, the first officer stated, “uh oh,” followed by the captain stating, “we got one rol- both of ‘em rolling back.”`）'),
     'c310': dict(kind='フリー素材',
-               plan='X310｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：旅客機の操縦室のスイッチ〈機種は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               plan='X310｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：旅客機の操縦室のスイッチ〈機種は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p19（`At 1527:19, the captain stated, “[engine] ignition, start,” and, about 2 seconds later, “I’m starting the APU [auxiliary power unit].”`）・報p71（`The captain stated that he accomplished step a by memory`）・計（15:27:11 から 15:27:21 まで＝10秒）'),
     'c311': dict(kind='図解',
                plan='地：C49（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：APU＝機体の後ろの小さなエンジン・電気をつくる矢印｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
@@ -61,13 +61,13 @@ PLAN = {
                plan='地：GK1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：2人の役の札＝操縦と交信と降りる場所〈機長〉・手順書〈副操縦士〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p19（`At 1527:23, the captain took over control of the airplane, stating, “my aircraft.”`）・報p104（`At 1527:23, about 12 seconds after the bird strike, the captain took control of the airplane`）'),
     'c314': dict(kind='フリー素材',
-               plan='X314｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：操縦席に並ぶ2人の後ろ姿〈顔なし｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               plan='X314｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：操縦席に並ぶ2人の後ろ姿〈顔なし｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：後ろ姿の2人（顔なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p108（`The first officer progressed through the checklist while the captain was flying the airplane, communicating with ATC, and determining a suitable landing point`）'),
     'c315': dict(kind='図解',
                plan='地：GK1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：冊子の札「QRH＝緊急のときの手順をまとめた冊子」・推力の矢印〈エンジンが機体を前へ押す〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p19（`At 1527:28, the captain instructed the first officer to “get the QRH [quick reference handbook] loss of thrust on both engines.”`）'),
     'c316': dict(kind='フリー素材',
-               plan='X316｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：冊子をめくる手〈社名と機種は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               plan='X316｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：冊子をめくる手〈社名と機種は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：手だけ｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p108（`when he called for the QRH, about 17 seconds after the bird strike, the first officer already had the checklist out`）・報p108（`he and the first officer had to work almost intuitively in a very close-knit fashion`）'),
     'c317': dict(kind='図解',
                plan='SAT:いちばん高い所｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：いちばん高くなった所〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：同上｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・帰属は地図の右下（Google の表示を絵の近くに）・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
@@ -126,4 +126,20 @@ SPEC.update({
             [dict(k="line", path=ss.SAT_LINES["path_g05_down"], c="INK_W")]],
             note=ss.SAT_LINE_NOTE),
         t="上がって、下がる", s="いちばん高くなった所〈現在の衛星写真〉"),
+})
+
+# 🆕 ⑤b-4a（2026-11-10）：イメージの写真（Pexels・全面・見出しと副題なし・原色＝c2.py の同じ節の型）
+_X302, _X304, _X310, _X314, _X316 = (P(f"stock/{c}") for c in ("x302", "x304", "x310", "x314", "x316"))
+SPEC.update({
+    # c302＝こちらへ飛んでくるカナダガン4羽＝右下の1羽を字幕の帯（下 約17%）より上に（fy 0.55）
+    "c302": dict(photo=_X302, **ss.mvz(_X302, (0.5, 0.55, 1.0), (0.5, 0.55, 1.08)), side="none", color=1.0, t="", s=""),
+    # c304＝青空を群れで飛ぶカナダガン
+    "c304": dict(photo=_X304, **ss.mvz(_X304, (0.45, 0.5, 1.0), (0.42, 0.45, 1.12)), side="none", color=1.0, t="", s=""),
+    # c310＝暗い操縦室のレバーと ENG 1／ENG 2 のスイッチ。🔴 レバーの間の紙の札（字が読める・y 0.43〜0.51）は窓の上の外（窓の上の端 y 0.53〜）。
+    #   窓の左の端は操作盤の札の行のあいだ（x 653・666＝OCR の箱 615〜683 のすき間）・終わりの下の端は 1810（行 1817〜1836 を切らない＝門番 slide G-10）
+    "c310": dict(photo=_X310, **ss.mvz(_X310, (0.49, 0.76, 1.9), (0.475, 0.737, 2.05)), side="none", color=1.0, t="", s=""),
+    # c314＝操縦席に並ぶ2人の後ろ姿（顔は写らない・名札なし）
+    "c314": dict(photo=_X314, **ss.mvz(_X314, (0.5, 0.5, 1.0), (0.5, 0.45, 1.1)), side="none", color=1.0, t="", s=""),
+    # c316＝白い頁をめくる手（字なし）
+    "c316": dict(photo=_X316, **ss.mvz(_X316, (0.5, 0.5, 1.0), (0.55, 0.5, 1.1)), side="none", color=1.0, t="", s=""),
 })

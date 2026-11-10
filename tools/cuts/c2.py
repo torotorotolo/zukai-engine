@@ -31,13 +31,13 @@ PLAN = {
                plan='地：C50（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：機長の札＝名前・57歳・飛んだ時間 1万9,663時間・うち A320 4,765時間・顔は描かない｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p23（`The captain, age 57`）・報p24（`the captain had accumulated 19,663 total flight hours`…`4,765 hours of which were in A320 airplanes`）・ド#6p8（`Total A320 flying time 4,765 hours`）'),
     'c204': dict(kind='フリー素材',
-               plan='X204｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：晴れた空を飛ぶ旅客機の遠景〈社名と機種は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               plan='X204｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：晴れた空を飛ぶ旅客機の遠景〈社名と機種は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p23（`was hired by Pacific Southwest Airlines on February 25, 1980`…`Before this, he flew McDonnell Douglas F-4 airplanes for the U.S. Air Force`）・報p23（`Pacific Southwest Airlines merged with USAir Group in 1988`）'),
     'c205': dict(kind='図解',
                plan='地：C50（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：副操縦士の札＝名前・49歳・飛んだ時間 1万5,643時間・A320 は37時間・A320 の資格 2008年12月31｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p25（`The first officer, age 49`…`the first officer had accumulated 15,643 total flight hours`…`The first officer had 37 hours in A320 airplanes`）'),
     'c206': dict(kind='フリー素材',
-               plan='X206｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：旅客機の操縦室の計器〈機種は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               plan='X206｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：旅客機の操縦室の計器〈機種は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p25（`The first officer received his initial A320 type rating on December 31, 2008`）・報p69（`because he had just completed training, he immediately recognized that the event was an ECAM exception`）'),
     'c207': dict(kind='図解',
                plan='地：C50（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：客室乗務員3人の札＝51・58・57歳・座る位置〈前に2人・後ろに1人〉・名前と顔は描かない｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
@@ -52,7 +52,7 @@ PLAN = {
                plan='🔧 地：C21（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：割合｜副題：75機のうち20機＝この装備の機｜注：—｜新しい画（映像方針）：🔧 地 [41]（夜）→ [21]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p54（`The accident airplane was 1 of 20 A320s equipped as an EOW airplane in the US Airways fleet of 75 A320s`）・報p55（`The accident flight was a non-EOW flight`）・報p54（`Non-EOW airplanes are not required to carry passenger life vests, slide/rafts, or survival kits`）'),
     'c211': dict(kind='フリー素材',
-               plan='X211｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：雪の残る冬の街と晴れた空〈場所は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               plan='X211｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：雪の残る冬の街と晴れた空〈場所は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='ド#7p6（`It had been snowing earlier in the day`…`The weather cleared up and it was sunny`）・報p41（`The 1451 Central Park surface weather observation indicated the following: winds 290° at 8 kts, visibility 10 miles`…`temperature -6° C`）'),
     'c212': dict(kind='図解',
                plan='SAT:滑走路4｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：滑走路4〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：同上｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・帰属は地図の右下（Google の表示を絵の近くに）・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
@@ -64,10 +64,10 @@ PLAN = {
                plan='🔧 地：GS1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：帯｜副題：上昇の帯＝約210メートルで出発の管制へ・約4,600メートルまで上がる指示｜注：—｜新しい画（映像方針）：🔧 地 衛星（Google を暗く）→ イメージ〈冬の空〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p18（`The captain contacted the departure controller at 1525:51, advising him that the airplane was at 700 feet`…`The controller then instructed the flight to climb to and maintain 15,000 feet`）'),
     'c215': dict(kind='フリー素材',
-               plan='X215｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：雲の上へ上がる旅客機の遠景〈社名と機種は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               plan='X215｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：雲の上へ上がる旅客機の遠景〈社名と機種は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p18（`the takeoff and initial portion of the climb were uneventful`）'),
     'c216': dict(kind='フリー素材',
-               plan='X216｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：紙に包んだサンドイッチ〈店名なし〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               plan='X216｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：紙に包んだサンドイッチ〈店名なし〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p25（`because they had a quick turnaround at LGA, he purchased a sandwich to eat on the airplane after departure`）'),
     'c217': dict(kind='写真',
                plan='🔧 D101-1｜一覧の種類：調査｜見せ方：額装（高さいっぱい）｜副題：エンジンのファンから試料を取る調査官〈NTSB の調査の写真〉｜動き：静止｜権利：同上｜時期：2009-01（凡例）｜人：調査官（後ろ姿・公的な任務）｜出典の行：写真：NTSB 公開ドケット DCA09MA026（野生動物の報告 写真1）｜注：② で見た（dk_068_101）｜新しい画（映像方針）：🔧 調査の写真の番号を凡例から（#101 写真1）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 調査の写真（NTSB のドケット）＝額装・無加工・出典の行・人の写り（顔・名前の字・船の名）は原寸で（⑤b-2）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
@@ -88,4 +88,20 @@ SPEC.update({
             [dict(k="arrow", fr="lga04", to="lga22", c="INK_W", t="離陸の向き", u=0.8, lab=(-30, 0, "end"))]],   # 右は Google の「ラガーディア空港」の字（試し焼きの原寸）
             note="矢印は FAA の滑走路の端の座標から描いた向き"),
         t="飛び立った滑走路", s="滑走路4〈現在の衛星写真〉"),
+})
+
+# 🆕 ⑤b-4a（2026-11-10）：イメージの写真（Pexels＝`stock/`・git に入れない・焼くときに `footage.stock_photos` が取り直して md5 を照らす）＝
+#   全面・ゆっくり寄る・見出しと副題なし・原色（31本目 ⑤b-3a の型）。窓＝(fx, fy, zoom) の2つ（`ss.mvz`）。中身は `sources32.psv` の title（640px と原寸で見た）
+_X204, _X206, _X211, _X215, _X216 = (P(f"stock/{c}") for c in ("x204", "x206", "x211", "x215", "x216"))
+SPEC.update({
+    # c204＝真下から見た旅客機の影絵と2本の飛行機雲（印は写らない）
+    "c204": dict(photo=_X204, **ss.mvz(_X204, (0.5, 0.48, 1.0), (0.5, 0.46, 1.12)), side="none", color=1.0, t="", s=""),
+    # c206＝操縦室の計器（ピントの浅い寄り・画面の字は原寸でぼけて読めない）
+    "c206": dict(photo=_X206, **ss.mvz(_X206, (0.55, 0.55, 1.0), (0.6, 0.58, 1.12)), side="none", color=1.0, t="", s=""),
+    # c211＝雪をかぶった木と晴れた冬の空（語りは天気）
+    "c211": dict(photo=_X211, **ss.mvz(_X211, (0.5, 0.5, 1.0), (0.5, 0.55, 1.1)), side="none", color=1.0, t="", s=""),
+    # c215＝高い空を飛ぶ旅客機（真下から・遠い）＝機体の方へ寄る
+    "c215": dict(photo=_X215, **ss.mvz(_X215, (0.48, 0.45, 1.0), (0.48, 0.44, 1.15)), side="none", color=1.0, t="", s=""),
+    # c216＝紙に包んで紐でしばったサンドイッチ（店の名なし）
+    "c216": dict(photo=_X216, **ss.mvz(_X216, (0.5, 0.5, 1.0), (0.55, 0.5, 1.1)), side="none", color=1.0, t="", s=""),
 })

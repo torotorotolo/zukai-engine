@@ -25,13 +25,13 @@ PLAN = {
                plan='SAT:試しの行き先｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：試しの行き先〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：同上｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・帰属は地図の右下（Google の表示を絵の近くに）・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p66（`From April 14 through 16, 2009, the NTSB Operations and Human Performance Group, including members from Airbus, US Airways, the U.S. Airline Pilots Association, and the BEA, conducted flight simulations at the Airbus Training Center, Toulouse, France`）'),
     'c502': dict(kind='フリー素材',
-               plan='X502｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：旅客機のシミュレーターの外観〈箱の形｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               plan='X502｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：旅客機のシミュレーターの外観〈箱の形｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：🔴 操縦席に3人（原寸で横顔が分かる・x 0.51〜）＝窓の外｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p66（`to determine whether the accident airplane could have glided to and landed at LGA or TEB after the bird strike, considering both an immediate return to LGA and a return after a 35-second delay`）'),
     'c503': dict(kind='図解',
                plan='地：GM1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：シミュレーターの条件の札＝風・気温・機体の重さ・鳥とぶつかる少し前から始める｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p66（`The simulators were programmed to duplicate as closely as possible the conditions of the accident flight, including winds, temperature, altimeter setting, and weight and balance`）・報p67（`from a preprogrammed point shortly before the bird strike and loss of engine thrust`）'),
     'c504': dict(kind='フリー素材',
-               plan='X504｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：説明を受ける操縦士の後ろ姿〈顔なし｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               plan='X504｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：説明を受ける操縦士の後ろ姿〈顔なし｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：後ろ姿の2人（顔なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p67（`The pilots were fully briefed on the maneuver before they attempted to perform it in the simulator`）'),
     'c505': dict(kind='図解',
                plan='地：GM1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：表｜副題：20回 → 5回を外す → 15回＝ラガーディアの滑走路22 6回・13 7回・テターボロの19 2回｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
@@ -43,7 +43,7 @@ PLAN = {
                plan='地：GM1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：降りられた8回に「直後に曲がった」の札・残る7回は「うまく降りられなかった」の印｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p67（`the pilot successfully landed after making an immediate turn to an airport after the loss of engine thrust`）・計（15回のうち8回が降りられた＝残る7回は successful でなかった回＝滑走路の手前の回だけとは限らない〈ド#35 の表〉）'),
     'c508': dict(kind='フリー素材',
-               plan='X508｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：操縦席から見た冬の街の遠景〈機種と社名は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               plan='X508｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：操縦席から見た冬の街の遠景〈機種と社名は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p67（`The immediate turn made by the pilots during the simulations did not reflect or account for real-world considerations, such as the time delay required to recognize the bird strike and decide on a course of action`）'),
     'c509': dict(kind='図解',
                plan='🔧 SAT:試しの行き先｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：35秒を足した試しの行き先〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：同上｜注：c303 と同じ衛星写真（G04＝滑走路13 の端が見える寄り）に別の描き足し・35秒は見出しと副題に（⑤b-3b）｜新しい画（映像方針）：🔧 図の模式（地＝衛星を暗く）→ 衛星写真＋描き足し（滑走路13 へ届かない矢印と35秒の札）＝模式の連続を切る｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・帰属は地図の右下（Google の表示を絵の近くに）・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
@@ -52,7 +52,7 @@ PLAN = {
                plan='🔧 地：GK1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：1549便の実際＝15:27:11 ぶつかる → 15:27:33 管制へ第一報〈22秒〉→ 15:27:50 手順書を｜注：—｜新しい画（映像方針）：🔧 地 衛星 → イメージ〈操縦室〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='計（15:27:11 から 15:27:33 まで＝22秒・15:27:50 まで＝39秒）'),
     'c511': dict(kind='フリー素材',
-               plan='X511｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：冬のニューヨークの街を上から〈地名は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               plan='X511｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：冬のニューヨークの街を上から〈地名は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p106（`The simulations demonstrated that, to accomplish a successful flight to either airport, the airplane would have to have been turned toward the airport immediately after the bird strike`）'),
     'c512': dict(kind='図解',
                plan='SAT:ハドソン川｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：着水した所〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：同上｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・帰属は地図の右下（Google の表示を絵の近くに）・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
@@ -64,13 +64,13 @@ PLAN = {
                plan='🔧 C35｜一覧の種類：写真｜見せ方：全面｜副題：残骸を見る NTSB の調査官〈2009年1月・陸軍工兵隊〉｜動き：ゆっくり寄る｜見た目の型：11-10 640px＝甲板の残骸のそばの調査官1人（NTSB の帽子）｜権利：PD（PD-USACE）｜時期：2009-01（頁の説明）｜人：NTSB の調査官（公的な任務・名前は書かない）｜出典の行：写真：U.S. Army Corps of Engineers（public domain）／Wikimedia Commons｜注：名前は書かない（頁の説明に名がある）｜新しい画（映像方針）：🔧 副題「機体を調べる人たち」→ 写っているもの（1人）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・副題の日付と夕方・夜は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p106（`and that TEB “was too far away.”`）'),
     'c515': dict(kind='フリー素材',
-               plan='X515｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：会議の場の机とマイク〈人の顔なし〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               plan='X515｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：会議の場の机とマイク〈人の顔なし〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='ド#109p1（`Tuesday, June 9, 2009`）・ド#111p1（`Thursday, June 11, 2009`）・ド#109p18（`These flight simulations revealed that a successful return to LaGuardia or a diversion to Teterboro Airport was not assured`）'),
     'c516': dict(kind='写真',
                plan='🔧 C8｜一覧の種類：写真｜見せ方：全面｜副題：岸壁のそばの機体〈2009年1月17日〉｜動き：ゆっくり寄る｜見た目の型：11-10 640px＝奥の岸壁の機体と消防艇・警察の船｜権利：CC BY 2.0｜時期：2009-01-17 09:51（EXIF）｜人：船の上の人（遠景）｜出典の行：写真：{作者}／Wikimedia Commons（CC BY 2.0）｜注：—｜新しい画（映像方針）：🔧 [37]（[38] の切り抜き＝同じ写真）→ [8]（EXIF 1月17日 9:51）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・副題の日付と夕方・夜は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='ド#109p9（`there is certainly no intention by the Safety Board to diminish the crew’s and the first responder’s extraordinary success in saving the lives of all passengers and crew that day`）・ド#109p10（`fact-finding examination`）'),
     'c517': dict(kind='フリー素材',
-               plan='X517｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：映画館の客席〈人なし｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               plan='X517｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：映画館の客席〈人なし｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='業（映画.com の作品の頁〈2026-11-09 の検索の表示〉＝原題 Sully・日本の公開 2016年9月24日）・通（`portrays investigators as more like prosecutors looking for any excuse to blame Sullenberger for the mishap`）'),
     'c518': dict(kind='図解',
                plan='地：GT1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：AP 通信の記事の要点の札＝調査を率いた元の責任者の言葉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
@@ -85,7 +85,7 @@ PLAN = {
                plan='🔧 地：C31（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：判断の35秒の札と、届かない矢印｜注：—｜新しい画（映像方針）：🔧 地 衛星 → [31]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='計（1つ目の問いの答え）・報p67（`the time delay required to recognize the extent of the engine thrust loss and decide on a course of action`）・ド#35p18（`Hard landing just short of threshold`）・報p106（`provided the highest probability that the accident would be survivable`）'),
     'c523': dict(kind='フリー素材',
-               plan='X523｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：冬の川の水面〈場所は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               plan='X523｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：冬の川の水面〈場所は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p96（`although the pilots did not have time to complete each step of the applicable checklist, they did have sufficient time to consult the QRH, begin checklist execution, transmit radio calls, determine a landing strategy`）'),
     'c524': dict(kind='文字の頁',
                plan='🔧 R203-205｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録C｜注：—｜新しい画（映像方針）：🔧 模式（手順書の3ページの絵）→ 付録C の3頁を並べた紙面（実物）＝模式の連続を切る｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
@@ -137,4 +137,24 @@ SPEC.update({
              dict(k="arrow", fr="bird", to="teb", c="AMBER")]],
             note="矢印は試しを描いた模式"),
         t="記録の答え", s="ニューヨーク〈現在の衛星写真〉"),
+})
+
+# 🆕 ⑤b-4a（2026-11-10）：イメージの写真（Pexels・全面・見出しと副題なし・原色＝c2.py の同じ節の型）
+_X502, _X504, _X508, _X511, _X515, _X517, _X523 = (P(f"stock/{c}") for c in ("x502", "x504", "x508", "x511", "x515", "x517", "x523"))
+SPEC.update({
+    # c502＝映写の幕の中の模擬の操縦席の外側。🔴 操縦席の3人（横顔・x 0.51〜）は窓の右の外（窓の右の端 x 〜0.48）
+    "c502": dict(photo=_X502, **ss.mvz(_X502, (0.2, 0.45, 2.1), (0.2, 0.5, 2.25)), side="none", color=1.0, t="", s=""),
+    # c504＝操縦席に並ぶ2人の後ろ姿（古い型の操縦室・顔なし・肩章に字なし）
+    #   窓の上の端は 0・31（天井の操作盤の OCR の行 y 55〜88 を切らない＝門番 edges）・終わりの右の端は 2835（行 2693〜2812 を切らない）
+    "c504": dict(photo=_X504, **ss.mvz(_X504, (0.5, 0.42, 1.0), (0.53, 0.40, 1.1)), side="none", color=1.0, t="", s=""),
+    # c508＝操縦席から見た滑走路への進入（冬枯れの地面）
+    "c508": dict(photo=_X508, **ss.mvz(_X508, (0.5, 0.55, 1.0), (0.5, 0.6, 1.12)), side="none", color=1.0, t="", s=""),
+    # c511＝上から見たマンハッタンの通りと屋根（白黒＝原本の色・看板の字なし・2009年より後の高い建物は写らない）
+    "c511": dict(photo=_X511, **ss.mvz(_X511, (0.5, 0.5, 1.0), (0.5, 0.5, 1.1)), side="none", color=1.0, t="", s=""),
+    # c515＝会議の場の机とマイクと画面（人なし・名札は白）
+    "c515": dict(photo=_X515, **ss.mvz(_X515, (0.5, 0.5, 1.0), (0.55, 0.55, 1.1)), side="none", color=1.0, t="", s=""),
+    # c517＝映写の幕と赤い客席（人なし）
+    "c517": dict(photo=_X517, **ss.mvz(_X517, (0.5, 0.5, 1.0), (0.5, 0.5, 1.1)), side="none", color=1.0, t="", s=""),
+    # c523＝冬の川の水面と葉の落ちた木
+    "c523": dict(photo=_X523, **ss.mvz(_X523, (0.5, 0.5, 1.0), (0.45, 0.5, 1.1)), side="none", color=1.0, t="", s=""),
 })
