@@ -278,6 +278,11 @@ def run_ocr(files):
             out[cur]["lines"].append(dict(box=[x0, y0, x1, y1], text=m.group(5)))
     if not out:
         raise RuntimeError("OCR の出力を1件も読めなかった（形式が変わった？）")
+    # 🔴 2026-11-10（32本目 ⑤b-4a）：渡したファイルの一部だけ答えが無くても止まらなかった（71 → 67＝x418・x420・x423・x502 が黙って抜けた）
+    #    ＝読み置きから点が消えると slide・edges がその点を測らずに通る（まるごと無いは中の欠けの網を素通り）。渡した名が全部あるかを照らして止める
+    miss = sorted({Path(f).name for f in files} - set(out))
+    if miss:
+        raise RuntimeError(f"OCR の答えに無いファイル {len(miss)}点（{' '.join(miss[:8])}）＝読み置きを書かずに止める・回し直す")
     return out
 
 

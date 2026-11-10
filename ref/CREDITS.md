@@ -3815,9 +3815,9 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `x418` | c418 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/a-headset-on-a-laptop-7709176/ |
 | `x420` | c420 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/airplane-on-runway-at-sunset-with-cityscape-31075568/ |
 | `x423` | c423 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/person-controlling-flight-simulator-3862634/ |
-| `x502` | c502 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/engineer-in-flight-simulator-3862137/ |
+| `x502` | c502 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/approaching-the-runway-7418643/ |
 | `x504` | c504 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/two-pilots-flying-an-airplane-2898316/ |
-| `x508` | c508 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/approaching-the-runway-7418643/ |
+| `x508` | c508 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/man-riding-airplane-2898315/ |
 | `x511` | c511 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/black-and-white-aerial-view-of-streets-of-manhattan-new-york-usa-14844497/ |
 | `x515` | c515 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/monitors-and-microphone-on-wooden-table-top-6949366/ |
 | `x517` | c517 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/large-conference-room-with-red-seats-25857614/ |
