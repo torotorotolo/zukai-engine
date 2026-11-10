@@ -119,7 +119,7 @@ SPEC.update({
     "c509": dict(
         **ss.sat("G04", steps=[
             [dict(k="x", at="bird", t="鳥とぶつかった所", lab=(30, 10, "start"))],
-            [dict(k="pt", at="lga13", c="INK_W", dot=8, t="滑走路13", lab=(22, 26, "start")),
+            [dict(k="txt", at="lga13", c="INK_W", t="滑走路13", lab=(34, -26, "start")),   # 点は置かない＝端の上に Google の「ラガーディア空港」の字（試し焼きの原寸）
              dict(k="arrow", fr=ss.SAT_LINES["arr13_g04"][0], to="lga13", dir=True, src="FAA の滑走路13 の真方位（122度）",
                   c="ALERT", gap=42, t="手前で届かず（模式）", u=0.35, lab=(-20, -20, "end"))]],
             note="矢印は試しを描いた模式（FAA の滑走路の向き）"),
