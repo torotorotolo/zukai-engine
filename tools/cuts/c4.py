@@ -108,3 +108,48 @@ SPEC.update({
     "c416": dict(photo=_R416, panel=True, pw=1776, ground=dict(photo=_R416, blur=ss.PAGE_BLUR), color=1.0,
                  t="機長の答え", s="管制との無線の書き起こし〈付録B〉"),
 })
+
+# 🆕 ⑤b-3b（2026-11-10）：衛星写真（額装・静止・型は c1.py の同じ節）。矢印＝向きの模式（長さに意味は無い）。
+#   管制の向き（220度・280度）は磁方位＝FAA の偏差 12度西を引いて真北の上の地図に描いた（lines32.py）・尾はその時刻の機体の位置（レーダーの点のあいだ）
+#   c401＝G05（章の頭＝card_mix=0）：15:27:42 までの道 → 段2 で管制の示した向き／c406＝G03：滑走路31 へ降りる向き → 段2 で滑走路4 へ降りる向き（FAA の真方位）
+#   c409・c415＝G06 テターボロ（ズーム13）／c421＝G07 ハドソン川（ズーム13）
+_SRC220 = "付録B p189（15:27:42 turn left heading of uh two two zero）＝磁方位から偏差 12度西を引いた向き"
+_SRC280 = "付録B p195（15:29:21 turn right two eight zero）＝磁方位から偏差 12度西を引いた向き"
+SPEC.update({
+    "c401": dict(
+        **ss.sat("G05", steps=[
+            [dict(k="line", path=ss.SAT_LINES["path_g05_to2742"], c="INK_W")],
+            [dict(k="arrow", fr=ss.SAT_LINES["arr220_g05"][0], to=ss.SAT_LINES["arr220_g05"][1], dir=True, src=_SRC220,
+                  c="AMBER", t="管制の示した向き", u=0.6, lab=(-24, 0, "end"))]],
+            note=ss.SAT_LINE_NOTE + "・矢印は向きの模式"),
+        card_mix=0, t="管制の答え", s="飛んだ道〈現在の衛星写真〉"),
+    "c406": dict(
+        **ss.sat("G03", steps=[
+            [dict(k="arrow", fr=ss.SAT_LINES["arr31_g03"][0], to="lga31", dir=True, src="FAA の滑走路31 の真方位（302度）",
+                  c="AMBER", t="滑走路31", u=0.45, lab=(24, 30, "start"))],
+            [dict(k="arrow", fr=ss.SAT_LINES["arr04_g03"][0], to="lga04", dir=True, src="FAA の滑走路4 の真方位（32度）",
+                  c="AMBER", t="滑走路4", u=0.4, lab=(-24, 0, "end"))]],
+            note="矢印は降りる向きの模式（FAA の滑走路の向き）"),
+        t="示された滑走路", s="ラガーディア空港の滑走路〈現在の衛星写真〉"),
+    "c409": dict(
+        **ss.sat("G06", steps=[
+            [dict(k="line", path=ss.SAT_LINES["path_g06_to2846"], c="INK_W")],
+            [dict(k="pt", at="teb", c="INK_W", t="右手の空港", lab=(26, 10, "start"))]],
+            note=ss.SAT_LINE_NOTE),
+        t="もう1つの空港", s="テターボロ空港〈現在の衛星写真〉"),
+    "c415": dict(
+        **ss.sat("G06", steps=[
+            [dict(k="arrow", fr=ss.SAT_LINES["arr01_g06"][0], to="teb01", dir=True, src="FAA の滑走路1 の真方位（3度）",
+                  c="AMBER", t="降りる向き", u=0.5, lab=(-24, 0, "end"))],
+            [dict(k="arrow", fr=ss.SAT_LINES["arr280_g06"][0], to=ss.SAT_LINES["arr280_g06"][1], dir=True, src=_SRC280,
+                  c="AMBER", t="右へ曲がる向き", u=0.5, lab=(0, -22, "middle"))],
+            [dict(k="line", path=ss.SAT_LINES["path_g06_from2921"], c="INK_W", t="実際の道", u=0.6, lab=(24, 0, "start"))]],
+            note=ss.SAT_LINE_NOTE + "・矢印は向きの模式"),
+        t="管制の次の案", s="テターボロ空港の滑走路1〈現在の衛星写真〉"),
+    "c421": dict(
+        **ss.sat("G07", steps=[
+            [dict(k="line", path=ss.SAT_LINES["path_g07"], c="INK_W", t="飛んだ道", u=0.3, lab=(-24, 0, "end"))],   # 東は Google の地名が多い＝門番 slide G-14
+            [dict(k="x", at="ditch", t="着水した所", lab=(-30, -16, "end"))]],
+            note=ss.SAT_LINE_NOTE),
+        t="2人の考え", s="マンハッタンの西〈現在の衛星写真〉"),   # 川の名は章の札（「ハドソン川に降りる」）にある＝門番 dup
+})

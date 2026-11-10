@@ -104,3 +104,26 @@ SPEC.update({
     "c320": dict(photo=_R320, panel=True, ptall=True, ground=dict(photo=_R320, blur=ss.PAGE_BLUR), color=1.0,
                  t="手順書の最初", s="両方のエンジンの故障の手順書〈付録C〉"),
 })
+
+# 🆕 ⑤b-3b（2026-11-10）：衛星写真（額装・静止・型は c1.py の同じ節）。
+#   c303＝G04（ズーム13）：飛んだ道（最初のレーダーの点から鳥とぶつかった所まで）・×・段2 で「約7キロ」＝滑走路22 の進入端から（報告書 p19 の 4.5マイル）。
+#     ⚠️ 向きの語は札に書かない（報告書の north-northwest と、座標から出す向き 356度が合わない＝ss.GEO の注）
+#   c317＝G05（ズーム13）：鳥とぶつかった所 → いちばん高い所（報告書 p64 の 15:27:30・約3,060フィート＝約930メートル）→ 段2 で下がりながら左へ
+SPEC.update({
+    "c303": dict(
+        **ss.sat("G04", steps=[
+            [dict(k="line", path=ss.SAT_LINES["path_g04"], c="INK_W"),
+             dict(k="pt", at="lga", c="INK_W", t="出発した空港", lab=(24, 10, "start")),
+             dict(k="x", at="bird", t="鳥とぶつかった所", lab=(30, 10, "start"))],
+            [dict(k="line", path=("lga22", "bird"), c="AMBER", dash=True, w=3, t="約7キロ", u=0.55, lab=(-22, 0, "end"))]],
+            note=ss.SAT_LINE_NOTE),
+        t="高さと場所", s="ラガーディア空港の北〈現在の衛星写真〉"),   # 「鳥とぶつかった空」は札の写し＝門番 dup
+    "c317": dict(
+        **ss.sat("G05", steps=[
+            [dict(k="line", path=ss.SAT_LINES["path_g05_up"], c="INK_W"),
+             dict(k="pt", at="bird", c="INK_W", dot=7),
+             dict(k="pt", at="top", c="INK_W", t="約930メートル", lab=(26, 0, "start"))],
+            [dict(k="line", path=ss.SAT_LINES["path_g05_down"], c="INK_W")]],
+            note=ss.SAT_LINE_NOTE),
+        t="上がって、下がる", s="いちばん高くなった所〈現在の衛星写真〉"),
+})

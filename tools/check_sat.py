@@ -55,7 +55,16 @@ REC_SAT_NUM = {}
 #    🔴 31本目の8カットのIDは32本目にもある（残すと32本目の同じIDのカットに31本目の記録が当たる）。
 #    REC_SAT_PAGES の道は32本目（`ref/ep32/src/news_frag_v2.txt`＝まだ無い）。32本目は衛星写真の地図 15カット＝数字を含む札（滑走路の番号・距離ほか）を置くなら
 #    記録と原文の置き場を ⑤b の衛星写真のチャットで決める
+# 🆕 2026-11-10（32本目 ⑤b-3b）：原文の置き場＝報告書 NTSB/AAR-10/03 の頁ごとの字の層（`ref/ep32/eizou_build/helpers/frag32.py` が書く・git の外・
+#    「抜き書き pN」の N＝PDF の頁＝付録B の p189〜202 と同じ数え方）。札の数は5つ（c303 の距離・c317 の高さ・c406 と c509 の滑走路の番号）
 REC_SAT_PAGES = Path(__file__).resolve().parent.parent / "ref" / "ep32" / "src" / "news_frag_v2.txt"
+REC_SAT_NUM.update({
+    "c303": {"約7キロ": (("抜き書き p19", "4.5 miles north-northwest of the approach end of runway 22"),)},
+    "c317": {"約930メートル": (("抜き書き p64", "highest altitude of about 3,060 feet"),)},
+    "c406": {"滑走路31": (("抜き書き p192", "left traffic for runway three one"),),
+             "滑走路4": (("抜き書き p193", "runway four's available"),)},
+    "c509": {"滑走路13": (("抜き書き p106", "a return to LGA runway 13 was attempted after a 35-second delay"),)},
+})
 _NUM = __import__("re").compile(r"[0-9０-９]")
 _SAT_PAGES = {}
 

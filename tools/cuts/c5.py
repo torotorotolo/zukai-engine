@@ -46,7 +46,7 @@ PLAN = {
                plan='X508｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：操縦席から見た冬の街の遠景〈機種と社名は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p67（`The immediate turn made by the pilots during the simulations did not reflect or account for real-world considerations, such as the time delay required to recognize the bird strike and decide on a course of action`）'),
     'c509': dict(kind='図解',
-               plan='🔧 SAT:試しの行き先｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：35秒を足した試しの行き先〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：同上｜注：c501 と同じ衛星写真に別の描き足し｜新しい画（映像方針）：🔧 図の模式（地＝衛星を暗く）→ 衛星写真＋描き足し（滑走路13 へ届かない矢印と35秒の札）＝模式の連続を切る｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・帰属は地図の右下（Google の表示を絵の近くに）・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               plan='🔧 SAT:試しの行き先｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：35秒を足した試しの行き先〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：同上｜注：c303 と同じ衛星写真（G04＝滑走路13 の端が見える寄り）に別の描き足し・35秒は見出しと副題に（⑤b-3b）｜新しい画（映像方針）：🔧 図の模式（地＝衛星を暗く）→ 衛星写真＋描き足し（滑走路13 へ届かない矢印と35秒の札）＝模式の連続を切る｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・帰属は地図の右下（Google の表示を絵の近くに）・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p67（`One run was made to return to an airport (runway 13 at LGA) after a 35-second delay`…`and the landing was not successful`）・ド#35p18（`Hard landing just short of threshold`）・報p67（`The 35-second delay accounted for real-world considerations, such as the time delay required to recognize the extent of the engine thrust loss and decide on a course of action`）'),
     'c510': dict(kind='図解',
                plan='🔧 地：GK1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：1549便の実際＝15:27:11 ぶつかる → 15:27:33 管制へ第一報〈22秒〉→ 15:27:50 手順書を｜注：—｜新しい画（映像方針）：🔧 地 衛星 → イメージ〈操縦室〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
@@ -103,4 +103,38 @@ SPEC.update({
     # c524＝付録C の3頁（手順書の 27・28・29 ページ）の絵を横に並べた紙面（cc06 と同じ束）。1818×1078＝高さいっぱい
     "c524": dict(photo=_R524, panel=True, ptall=True, ground=dict(photo=_R524, blur=ss.PAGE_BLUR), color=1.0,
                  t="2つ目の問い", s="手順書の3ページ〈付録C〉"),
+})
+
+# 🆕 ⑤b-3b（2026-11-10）：衛星写真（額装・静止・型は c1.py の同じ節）。
+#   c501＝G01（章の頭＝card_mix=0）：試しの行き先の2つの空港 → 段2 で鳥とぶつかった所（試しの始まり）
+#   c509＝G04：段2 で滑走路13 と、その手前で止まる矢印（35秒を足した1回＝報告書 p106・ドケット #35 p18 の「Hard landing just short of threshold」＝模式）
+#   c512＝G07：着水した所だけ／c521＝G01：段2 で「すぐに曲がった試し」の矢印（報告書 p106＝模式）
+SPEC.update({
+    "c501": dict(
+        **ss.sat("G01", steps=[
+            [dict(k="pt", at="lga", c="INK_W", t="ラガーディア空港", lab=(24, 10, "start")),
+             dict(k="pt", at="teb", c="INK_W", t="テターボロ空港", lab=(-26, 10, "end"))],
+            [dict(k="x", at="bird", t="鳥とぶつかった所", lab=(30, 10, "start"))]]),
+        card_mix=0, t="戻っていたら", s="試しの行き先〈現在の衛星写真〉"),
+    "c509": dict(
+        **ss.sat("G04", steps=[
+            [dict(k="x", at="bird", t="鳥とぶつかった所", lab=(30, 10, "start"))],
+            [dict(k="pt", at="lga13", c="INK_W", dot=8, t="滑走路13", lab=(22, 26, "start")),
+             dict(k="arrow", fr=ss.SAT_LINES["arr13_g04"][0], to="lga13", dir=True, src="FAA の滑走路13 の真方位（122度）",
+                  c="ALERT", gap=42, t="手前で届かず（模式）", u=0.35, lab=(-20, -20, "end"))]],
+            note="矢印は試しを描いた模式（FAA の滑走路の向き）"),
+        t="35秒の遅れ", s="35秒を足した試しの行き先〈現在の衛星写真〉"),
+    "c512": dict(
+        **ss.sat("G07", steps=[
+            [dict(k="x", at="ditch")]]),
+        t="川を選んだ判断", s="着水した所〈現在の衛星写真〉"),
+    "c521": dict(
+        **ss.sat("G01", steps=[
+            [dict(k="x", at="bird", t="鳥とぶつかった所", lab=(30, 10, "start")),
+             dict(k="pt", at="lga", c="INK_W", t="ラガーディア空港", lab=(24, 10, "start")),
+             dict(k="pt", at="teb", c="INK_W", t="テターボロ空港", lab=(-26, 10, "end"))],
+            [dict(k="arrow", fr="bird", to="lga", c="AMBER", t="すぐに曲がった試し（模式）", u=0.5, lab=(-26, 0, "end")),
+             dict(k="arrow", fr="bird", to="teb", c="AMBER")]],
+            note="矢印は試しを描いた模式"),
+        t="記録の答え", s="ニューヨーク〈現在の衛星写真〉"),
 })

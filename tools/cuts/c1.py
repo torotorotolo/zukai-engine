@@ -111,3 +111,15 @@ SPEC.update({
     "c112": dict(photo=_R112, panel=True, pw=1776, ground=dict(photo=_R112, blur=ss.PAGE_BLUR), color=1.0,
                  t="公開された記録", s="NTSB の事故の報告書の表紙"),
 })
+
+# 🆕 ⑤b-3b（2026-11-10）：衛星写真（額装・静止・`ss.sat`＝帰属の行は地図の右下・色を変えない）。点は ss.GEO（出どころつき）・線は ss.SAT_LINES（lines32.py）。
+#   c109＝G01 ニューヨーク（ズーム12）：飛んだ道（レーダーの記録）・出発した空港・着水した所（×＝報告書の座標）
+SPEC.update({
+    "c109": dict(
+        **ss.sat("G01", steps=[
+            [dict(k="line", path=ss.SAT_LINES["path_g01"], c="INK_W", t="飛んだ道", u=0.12, lab=(24, 0, "start")),
+             dict(k="pt", at="lga", c="INK_W", t="ラガーディア空港", lab=(24, 10, "start")),
+             dict(k="x", at="ditch", t="着水した所", lab=(-30, 40, "end"))]],
+            note=ss.SAT_LINE_NOTE),
+        t="空港か、川か", s="ニューヨーク〈現在の衛星写真〉"),
+})

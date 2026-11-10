@@ -1098,6 +1098,46 @@ GEO = {}
 #    32本目の地図（衛星写真15カット＝c201 ラガーディア空港ほか・映像方針の一覧 `ref/ep32/eizou_list32.md`・了承② 11-10）は、衛星写真を撮って SAT に md5 つきで足し、
 #    GEO に場所を出どころつきで足す（🔴 衛星写真は説明カットの地にしない＝暗くしない・PNG は公開リポに置かない＝Modal の保管庫）。空のあいだ、`sat=` のカットは門番 check_sat・合成が止まる（fail closed）。
 #    🔴 32本目の札の場所は空港・川・公の場所だけ（私人の家・乗客の名を付けない＝この回の線）
+# 🆕 2026-11-10（32本目 ⑤b-3b）：衛星写真 8画（G01〜G08＝`ref/ep32/eizou_build/helpers/gshot32.py`＝画面ありの Chrome・倍率2で撮って 0.75倍・
+#    2回撮って `gseam32.py` で比べた＝G07 の1回目は読み込まれず無地〈10KB〉＝2回目と3回目を比べて2回目・ほかは1回目〈差 0.03 以下〉）。
+#    映像方針の一覧の「SAT:…」11の名は、同じ広さ・同じズームになる名を1画にまとめた（8画で15カット＝gshot32 の頭の表）。PNG は保管庫だけ（md5 をここに）
+#    場所の表＝空港の基準点と滑走路の端は FAA の NASR（2026-10-29 の APT_BASE・APT_RWY_END＝`ref/ep32/src/sat/faa_apt/`＝git の外）・
+#    鳥とぶつかった所と着水した所はドケット #6 §4.0 の緯度経度（報告書の座標＝×を置いてよい）・いちばん高い所は報告書 p64 の時刻をレーダーの点のあいだに割った位置・
+#    フェリー乗り場は Google マップの地点（一般の座標）
+#    ⚠️ 報告書は鳥とぶつかった所を「滑走路22 の進入端の north-northwest 約4.5マイル」と書くが、#6 の座標と FAA の端の座標では向き 356度・6.98キロ（4.34マイル）
+#       ＝北北西でなく北＝地図の札に向きの語を書かない（台本 c303 の「北北西」は報告書の言葉）
+SAT.update({
+    "G01": dict(file="ep32/photo/gmap_g01_newyork.png", ll=(40.815, -73.955), z=12, md5="911610d20eac810b45c197c6d1bb0616", credit=SAT_CREDIT),
+    "G02": dict(file="ep32/photo/gmap_g02_lga_city.png", ll=(40.785, -73.915), z=13, md5="20a2eb8746697e65439b57db1d4016f2", credit=SAT_CREDIT),
+    "G03": dict(file="ep32/photo/gmap_g03_lga_runways.png", ll=(40.7775, -73.8725), z=14, md5="688faf508c82b5d928d0e6f5962e2033", credit=SAT_CREDIT),
+    "G04": dict(file="ep32/photo/gmap_g04_birdstrike.png", ll=(40.8125, -73.882), z=13, md5="7b8b0dd89a17763f1fecb5bc0f995e35", credit=SAT_CREDIT),
+    "G05": dict(file="ep32/photo/gmap_g05_top_turn.png", ll=(40.862, -73.915), z=13, md5="541260dc1838b12160042bb305a4070a", credit=SAT_CREDIT),
+    "G06": dict(file="ep32/photo/gmap_g06_teterboro.png", ll=(40.835, -73.995), z=13, md5="07bbe775c9ddac181290a379ad45004c", credit=SAT_CREDIT),
+    "G07": dict(file="ep32/photo/gmap_g07_hudson.png", ll=(40.805, -73.985), z=13, md5="a1fb95e9e705a506b0445f7dd4392141", credit=SAT_CREDIT),
+    "G08": dict(file="ep32/photo/gmap_g08_ditch_ferry.png", ll=(40.7745, -74.006), z=14, md5="e866b5a68e405e7636e0c1a6259302e6", credit=SAT_CREDIT),
+})
+_FAA_ARP = "FAA の公開の資料（NASR 2026-10-29 の APT_BASE＝空港の基準点）"
+_FAA_RWY = "FAA の公開の資料（NASR 2026-10-29 の APT_RWY_END＝滑走路の端の座標）"
+_D6 = "報告書の座標（NTSB のドケット #6＝運航の事実の報告書 §4.0 の緯度経度）"
+GEO.update({
+    "lga": dict(ll=(40.77724222, -73.87260555), src="報告書（LaGuardia Airport＝出発した空港）", how=_FAA_ARP),
+    "teb": dict(ll=(40.85010194, -74.06083333), src="報告書（Teterboro Airport）", how=_FAA_ARP),
+    "lga04": dict(ll=(40.76916258, -73.88411902), src="報告書（離陸の滑走路4・付録B の runway four）", how=_FAA_RWY),
+    "lga22": dict(ll=(40.78543666, -73.87067336), src="報告書（the approach end of runway 22 at LGA・試しの滑走路22）", how=_FAA_RWY),
+    "lga13": dict(ll=(40.78229586, -73.87851916), src="報告書（付録B の runway one three・試しの滑走路13）", how=_FAA_RWY),
+    "lga31": dict(ll=(40.77207144, -73.85711158), src="報告書（付録B の runway three one）", how=_FAA_RWY),
+    "teb01": dict(ll=(40.83868208, -74.0603705), src="報告書（付録B の runway one at Teterboro）", how=_FAA_RWY),
+    "teb19": dict(ll=(40.85785627, -74.05895641), src="報告書（試しの TEB runway 19）", how=_FAA_RWY),
+    "teb24": dict(ll=(40.85773911, -74.05409561), src="報告書（the approach end of runway 24 at TEB）", how=_FAA_RWY),
+    "bird": dict(ll=(40.84810, -73.876089), src="報告書（鳥とぶつかった所＝2,818 feet agl）", how=_D6),
+    "ditch": dict(ll=(40.771297, -74.005697), src="報告書（ハドソン川への着水）", how=_D6),
+    # いちばん高い所＝報告書 p64「1527:30 … highest altitude of about 3,060 feet」の時刻を、レーダー（#85 p22）の 15:27:27.11 と 15:27:31.76 の点のあいだに時刻で割った位置
+    "top": dict(ll=(40.863805, -73.880435), src="報告書 p64（1527:30・about 3,060 feet）",
+                how="報告書の時刻をレーダーの記録（NTSB のドケット #85 p22）の点のあいだに割った位置"),
+    # フェリー乗り場＝Google マップの地点「Port Imperial Ferry Terminal」（検索の !3d!4d・2026-11-10。同じ検索の「Port Imperial / Weehawken」ほか3点は 50 メートルの内）
+    "ferry": dict(ll=(40.7765042, -74.0113094), src="ドケット #68（フェリーの聴取の Port Imperial）",
+                  how="一般の座標（Google マップの地点「Port Imperial Ferry Terminal」）"),
+})
 # 🔴 2026-10-27（26本目 ⑤b-1・§0b）：25本目の表（SAT＝G01〜G05 の Google の衛星写真5点〈c101・c328・c517・ca23・cb03〉・GEO＝site・itami・mitejima・kashima の4点・
 #    SAT_LINES＝地理院地図Vector の線路の線4本〈fuku・tozai_under・tozai_surface・kashima_curve〉・SAT_LINE_NOTE＝線の出典の断り）は selftest の見本
 #    `tools/fixture_ep25.py` へ移した（値は1つも変えていない＝git の `5f692aab`。`file` は `ep25/…` の名を文字のまま・SAT.update／GEO.update の4文もそのまま）。
@@ -1127,6 +1167,12 @@ SAT_LINE_NOTE = ""
 #    西側5海里の帯・旅客機と2機の道すじの模式の14本／SAT_LINE_NOTE＝「線と円は資料の言葉から描いた概略」）は見本 `tools/fixture_ep31.py` へ移した（文のまま＝git の `f4bd0a9a`）。
 #    🔴 import のときに前の回のファイルを開かない（31本目 ⑤b-1 の決め）。32本目で線を足すなら、`ref/ep32/` の表を読む文をその回の束が揃ってから
 #    `if … .exists():` の形でここに書き、出どころの断りを SAT_LINE_NOTE に（回を替えるとき、この文ごと見本へ移す）
+# 🆕 2026-11-10（32本目 ⑤b-3b）：飛んだ道（レーダー55点＋鳥とぶつかった所＋着水した所を画ごとに額の内側で切った線）と向きの矢印（管制の 220度・280度＝磁方位から
+#    偏差 12度西を引いた向き・滑走路へ降りる向き＝FAA の真方位）＝`ref/ep32/eizou_build/helpers/lines32.py` → `ref/ep32/sat_lines32.json`（git の中）
+_SL32 = HERE / "ref" / "ep32" / "sat_lines32.json"
+if _SL32.exists():
+    SAT_LINES.update({k: tuple(tuple(p) for p in v) for k, v in json.loads(_SL32.read_text(encoding="utf-8")).items()})
+SAT_LINE_NOTE = "線はレーダーの記録（NTSB）から描いた"
 # 🆕 2026-10-23（24本目 ⑤b-6）：**この回は衛星写真の地図なし**の言い分（理由の文）。地図2つ（c203・c713）は描く＝`tools/mech24.py` の ussr・japan
 #    （国の形＝Natural Earth の切り出し `ref/ep24/make_map24.py`＝国の境・1986年の色・北方領土を描き分けるため。衛星写真には国の境が写らない）。
 #    門番 check_sat は、この文があるときだけ「地図のカット0」を通す（地図のカットが1つでもあれば、言い分と食い違う＝鳴る）。
