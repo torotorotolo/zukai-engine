@@ -3730,7 +3730,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `c26` | c103（地 c802 c804 c807 c809 c810） | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:US Airways Flight 1549 (N106US) after crashing into the Hudson River (cropped).jpg |
 | `c3` | c907 | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Coast Guard Response to Miracle on the Hudson (3201128005).jpg |
 | `c31` | c104（地 c522 c712 c713 c715 c716） | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:USAirFlight1549InRiver.jpg |
-| `c32` | c622（地 c623 c624 c626 c628 c630） | 2009 | PD（PD-USACE）（この回の物と場所） | 米国の機関（public domain） | commons:Flight 1549 engine cowling recovered.jpg |
+| `c32` | c622（地 c623 c624 c626 c628 c630） | 2009 | PD（PD-USACE）（この回の物と場所・字に升目） | 米国の機関（public domain） | commons:Flight 1549 engine cowling recovered.jpg |
 | `c33` | c917 | 2009 | PD（PD-USACE）（この回の物と場所） | 米国の機関（public domain） | commons:Flight 1549 engine recovered.jpg |
 | `c35` | c514 | 2009 | PD（PD-USACE）（この回の物と場所） | 米国の機関（public domain） | commons:Flight 1549 recovered debris.jpg |
 | `c36` | c111（地 ca08 ca10 ca12） | 2009 | PD（PD-USCG）（この回の物と場所） | 米国の機関（public domain） | commons:Flight1549BatteryPark1.jpg |
@@ -3755,7 +3755,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `c68` | c717 | 2011 | CC BY-SA 3.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:USAir 1549（機体番号N106US）」調査後の機体底部.jpg |
 | `c70` | cc10 | 不明 | CC BY-SA 3.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:「USAir Fligt1549」機体番号 N106US.jpg |
 | `c8` | c516 | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Hudson River, aftermath of flight 1549.jpg |
-| `c9` | cb04 | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:New York District Responds To U.S. Airways Flight 1549 Crash in the Hudson River (5148212811).jpg |
+| `c9` | cb04 | 2009 | CC BY 2.0（この回の物と場所・字に升目） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:New York District Responds To U.S. Airways Flight 1549 Crash in the Hudson River (5148212811).jpg |
 | `d101_1` | c217 | 2009 | PD（米国の連邦の業務の見込み）（NTSB の調査の写真（公開ドケット）） | NTSB の調査グループ（撮影者の記載なし） | NTSB ドケット DCA09MA026・101_40313533.pdf p12 |
 | `d101_2` | c322 | 2009 | PD（米国の連邦の業務の見込み）（NTSB の調査の写真（公開ドケット）） | NTSB の調査グループ（撮影者の記載なし） | NTSB ドケット DCA09MA026・101_40313533.pdf p13 |
 | `d49_21` | c805 | 2009 | PD（米国の連邦の業務の見込み）（NTSB の調査の写真（公開ドケット）） | NTSB の調査グループ（撮影者の記載なし） | NTSB ドケット DCA09MA026・049_40314086.pdf p12 |

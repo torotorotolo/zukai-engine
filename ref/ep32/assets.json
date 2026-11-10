@@ -235,7 +235,7 @@
   "file": "src/commons/c32/C9.jpg",
   "cut": "cb04",
   "ji": "",
-  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出",
+  "credit": "写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出・字にモザイク",
   "who": "Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す）",
   "note": "夜＝地にしない",
   "box": [
@@ -252,14 +252,14 @@
   ],
   "w": 1800,
   "h": 1205,
-  "md5": "409c529ac9bf8e7b16181b257338a850",
+  "md5": "985e9565edd26ff223008f32361e8953",
   "src_md5": "4d1312d228275c051b3bf371137a5394",
   "lic": "CC BY 2.0",
   "frame": false,
   "ground": "陸軍工兵隊ニューヨーク地区の Flickr（頁の許諾）",
   "url": "commons:New York District Responds To U.S. Airways Flight 1549 Crash in the Hudson River (5148212811).jpg",
   "blur": [],
-  "how": "札 sRGB IEC61966-2.1（sRGB のまま）・fetch32.tsv の md5 と同じ（2回とも）",
+  "how": "札 sRGB IEC61966-2.1（sRGB のまま）・fetch32.tsv の md5 と同じ（2回とも）・字の升目 1か所（升 14px）",
   "year": 2009,
   "year_why": "sources32.psv の時期の欄「2009-01（頁の説明＝機体を岸壁につなぐ作業」（映像方針＝頁の説明・EXIF・凡例）",
   "stock": false,
@@ -267,7 +267,14 @@
   "related": false,
   "quote_page": false,
   "named": true,
-  "mosaic": null,
+  "mosaic": [
+   [
+    630,
+    633,
+    667,
+    672
+   ]
+  ],
   "name_mosaic": null,
   "masked_before": null,
   "era": "2009-01（頁の説明＝機体を岸壁につなぐ作業）・夜",
@@ -649,7 +656,7 @@
   "file": "src/commons/c32/C32.jpg",
   "cut": "c622",
   "ji": "c623 c624 c626 c628 c630",
-  "credit": "写真：U.S. Army Corps of Engineers（public domain）／Wikimedia Commons",
+  "credit": "写真：U.S. Army Corps of Engineers（public domain）／Wikimedia Commons／改変：字にモザイク",
   "who": "米国の機関（public domain）",
   "note": "—",
   "box": [
@@ -666,14 +673,14 @@
   ],
   "w": 2400,
   "h": 1607,
-  "md5": "6562b70b4545f5be244f73c7b5893c94",
+  "md5": "366d5eb65bdbbf82b90fa194ca03b272",
   "src_md5": "a14b6a594ba98908503b5c50f2678eb0",
   "lic": "PD（PD-USACE）",
   "frame": false,
   "ground": "米国の連邦の業務",
   "url": "commons:Flight 1549 engine cowling recovered.jpg",
   "blur": [],
-  "how": "札なし（sRGB と読む）・fetch32.tsv の md5 と同じ（2回とも）・縮小 ×0.625",
+  "how": "札なし（sRGB と読む）・fetch32.tsv の md5 と同じ（2回とも）・縮小 ×0.625・字の升目 2か所（升 14px）",
   "year": 2009,
   "year_why": "sources32.psv の時期の欄「2009-01（頁の説明）」（映像方針＝頁の説明・EXIF・凡例）",
   "stock": false,
@@ -681,7 +688,20 @@
   "related": false,
   "quote_page": false,
   "named": false,
-  "mosaic": null,
+  "mosaic": [
+   [
+    1255,
+    262,
+    1320,
+    325
+   ],
+   [
+    515,
+    335,
+    565,
+    368
+   ]
+  ],
   "name_mosaic": null,
   "masked_before": null,
   "era": "2009-01（頁の説明）",
