@@ -2,9 +2,9 @@
 
 ### ✓ 1 第2版を組む（build32_v2.py）（exit 0）
 ```
-差し替え 180件を当てた・カット 237 → 236・🔧 104（c105 c113 c202 c206 c210 c211 c212 c216 c217 c303 c307 c309 c310 c313 c315 c316 c319 c320 c322 c403 c405 c408 c409 c411 c412 c413 c414 c415 c416 c417 c419 c421 c422 c506 c507 c509 c510 c513 c514 c516 c518 c522 c602 c605 c606 c607 c610 c611 c616 c617 c618 c619 c620 c623 c624 c627 c629 c701 c703 c704 c705 c706 c707 c709 c712 c720 c721 c722 c723 c724 c804 c806 c807 c809 c813 c815 c816 c817 c818 c904 c907 c913 c915 c916 c917 c918 ca01 ca04 ca05 ca06 ca11 ca12 ca13 ca14 cb02 cb04 cb06 cb09 cb12 cb15 cc02 cc06 cc07 cc08）
+差し替え 185件を当てた・カット 237 → 236・🔧 104（c105 c113 c202 c206 c210 c211 c212 c216 c217 c303 c307 c309 c310 c313 c315 c316 c319 c320 c322 c403 c405 c408 c409 c411 c412 c413 c414 c415 c416 c417 c419 c421 c422 c506 c507 c509 c510 c513 c514 c516 c518 c522 c602 c605 c606 c607 c610 c611 c616 c617 c618 c619 c620 c623 c624 c627 c629 c701 c703 c704 c705 c706 c707 c709 c712 c720 c721 c722 c723 c724 c804 c806 c807 c809 c813 c815 c816 c817 c818 c904 c907 c913 c915 c916 c917 c918 ca01 ca04 ca05 ca06 ca11 ca12 ca13 ca14 cb02 cb04 cb06 cb09 cb12 cb15 cc02 cc06 cc07 cc08）
 第1版 md5 22fdaa8fda2ff155dbf3fd0bb2849fff（前後で同じ）
-→ C:\Users\konar\Desktop\zukai-engine\ref\ep32\daihon_v2.md md5 6c943b250e09a0822ea687b8c59eaa3a
+→ C:\Users\konar\Desktop\zukai-engine\ref\ep32\daihon_v2.md md5 673c37d52c1ecfc089a82ca085dd8f10
 ```
 
 ### ✓ 2 聞き役の役割表（roles32.py → v2_build/roles.tsv）（exit 0）
@@ -40,7 +40,7 @@ selftest ok
   cc 34分31秒  10（ 10）  21   540（  504・ +36）  1.48  6（ 5） 60%  0  4  2（3） 0.0秒
   ed01 36分00秒
 図の型: 模式 77・割合 2・帯 2・比べ 2・並べ 2・年表 2・表 2・棒 2・時計 1・線 1・言葉 1・流れ 1・札 1・箱 1
-名前の網: 238語を当てた
+名前の網: 250語を当てた
 聞き役: {'lines': 546, 'q': 67, 'ratio': 0.123, 'per_min': 1.855, 'first': 18.74, 'max_gap': 75.123, 'tail': 24.493, 'roles': {'質問': 39, 'まとめ': 20, '反応': 8}}
 == 画の欄のまま（236カット・見込み 46.4分）
   写真 92・図・写真の頁 0・再現イラスト 0・図解 97・混ざり 0・文字の頁 0・パネル 0・決め所 0
@@ -66,10 +66,10 @@ selftest ok
 E 0件（形）・聞き役 E 0件・W 17件・言わない語 5件
 ```
 
-### ✓ 5 名前の網（namecheck32.py・34 ファイル）（exit 0）
+### ✓ 5 名前の網（namecheck32.py・42 ファイル）（exit 0）
 ```
 網＝names_private.txt・names_commons.txt
-名前の網 238語 × 34ファイル → 0件
+名前の網 250語 × 42ファイル → 0件
 ```
 
 ### ✓ 6a check_script --refcheck（尺の式の陽性対照）（exit 0）
@@ -119,7 +119,7 @@ selftest ok
 
 ### ✓ 12 対照表（make_diff32.py）（exit 0）
 ```
-対照 116 カット・消えた 1・§ 24 → C:\Users\konar\Desktop\zukai-engine\ref\ep32\v2_build\diff_v1_v2.md
+対照 116 カット・消えた 1・§ 29 → C:\Users\konar\Desktop\zukai-engine\ref\ep32\v2_build\diff_v1_v2.md
 ```
 
 ### ✓ 13 消えた語（lost32.py）（exit 0）
