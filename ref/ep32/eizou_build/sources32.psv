@@ -1,0 +1,91 @@
+# 32本目 映像方針：素材の出どころ（2026-11-10・チャット5・手で書く入力）。区切りは「|」・13列＝code|type|grp|title|get|dims|rights|basis|credit|era|people|file|note
+# type：commons-video（VTS＝沿岸警備隊の監視カメラ）／commons-photo（Commons の写真）／commons-audio（FAA の管制の録音）／docket-photo（NTSB の公開ドケットの調査の写真）／public-page（報告書・連邦官報の紙面）／google（衛星写真）／stock（フリー素材＝⑤b で Pexels を1本ずつ・make_list32 が足す）
+# grp：footage／accident（当日〜その後のこの機体）／museum（博物館の展示）／page／satmap／audio／night（夜の暗い写真＝地にしない）
+# title＝見て確かめた中身（2026-11-10 に 640px の見本帳で見た＝src/look/seen_log.tsv）。🔴 撮影者の個人名はここに書かない（{作者}＝git の外の src/credits_private.tsv から ⑤b で差し込む）。Commons の点は [n]＝記号 C<n>
+# era＝確かめた時点（頁の説明か EXIF の撮影日時）。🔴 副題の日付・夕方・夜はこの欄と合わないと門番が止める（32本目で [8]・[7]・[40] が台本の「その日の夕方」と食い違った）
+# get＝取り方（Commons＝了承②のあと。原本の幅 3840 超→3840・1920 超→1920 の標準の縮小版・それ以下は原本＝記憶 reference-commons-standard-thumbnail-sizes・md5 を2回）
+# ⚠️ 権利の読みは法律の助言ではない＝こちらの読み
+VC|commons-video|footage|沿岸警備隊の VTS のカメラ「Flight1549CrashAndRescue」＝引きの絵と着水のしぶき（0〜42秒）・浮かぶ機体と翼の上の人（48秒〜）・最初のフェリー（3分50秒〜）・横付けと翼の上の人の列（4分30秒〜8分）|② で取得ずみ（src/commons/vts・md5 70b5eab77983ea485abf24f3d0970704）＝本番は ⑤b で Commons から|384×288・毎秒3コマ・8分07.7秒|PD（PD-USCG）|米国の連邦の業務（17 U.S.C. §105）|映像：U.S. Coast Guard（public domain）／Wikimedia Commons|2009-01-15 15:30ごろ〜（🔴 焼き込みのカメラの時計は約20秒進む＝語りと副題に使わない）|翼の上の人（遠景・顔は分からない）|src/commons/vts/Flight1549CrashAndRescue.ogv|動画はリポに入れない（ルール §2-6d）・高さいっぱいの額＋同じ映像のぼかしの地・色は原本・等速
+V15|commons-video|footage|同じカメラ「Flight1549After15Minutes」＝フェリーのあいだの沈みかけの機体と消防艇|② で取得ずみ（md5 5ad2485ec6c57b28ad34fe02adf4f1db）|384×288・毎秒4コマ・44.8秒|PD（PD-USCG）|同上|映像：U.S. Coast Guard（public domain）／Wikimedia Commons|2009-01-15 15:46ごろ|なし（遠景の船）|src/commons/vts/Flight1549After15Minutes.ogv|同上
+V20|commons-video|footage|同じカメラ「Flight1549After20Minutes」＝フェリーの群れ（前半）・引き船とクレーンのそばの機体（後半）|② で取得ずみ（md5 ef828df3f0ef1710686383e0ebee52b6）|384×288・毎秒3コマ・2分30.3秒|PD（PD-USCG）|同上|映像：U.S. Coast Guard（public domain）／Wikimedia Commons|2009-01-15 15:50ごろ|なし（遠景の船）|src/commons/vts/Flight1549After20Minutes.ogv|同上
+VF|commons-video|footage|同じカメラ「Flight1549FirstFerry」＝最初のフェリー（CrashAndRescue と同じ区間）|② で取得ずみ|384×288・毎秒3コマ・45.3秒|PD（PD-USCG）|同上|—|2009-01-15|—|src/commons/vts/Flight1549FirstFerry.ogv|使わない（重なり）
+A1|commons-audio|audio|FAA ニューヨーク TRACON の管制の録音の抜粋（機長の「we're gonna be in the Hudson」を含む）|了承②のあと原本（ogg）＝c416 の数秒だけ（秒は ⑤b で聞いて決める）|3分10秒|PD（PD-USGov-FAA）|米国の連邦の業務|音声：FAA（public domain）／Wikimedia Commons|2009-01-15 15:27〜15:31|管制官と機長の声（名前は出さない）|src/commons/atc/|音を足すのは決め所の数秒だけ（① の決め）
+C1|commons-photo|accident|川一面の船（手前に艦の一部と桟橋）|3840 の縮小版（原本 4288）|4288×2848|CC BY 2.0|Commons の頁の許諾|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2009-01-15（頁の説明）|船の上の人（遠景）|src/commons/c32/|—
+C2|commons-photo|accident|川の中ほどで沈みかけの機体・消防艇・沿岸警備隊の小舟|原本|822×558|CC BY 2.0|沿岸警備隊の Flickr（頁の許諾）|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2009-01-15（絵＝川の中ほどに浮かぶ機体と消防艇）|乗り組みの人（遠景・小さい）|src/commons/c32/|小さい＝額装
+C3|commons-photo|accident|沈みかけの機体の翼と尾翼・消防艇と警察の船|原本|600×403|CC BY 2.0|沿岸警備隊の Flickr|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2009-01-15 17:43（EXIF）|乗り組みの人（中景・小さい）|src/commons/c32/|小さい＝額装
+C4|commons-photo|accident|尾翼のまわりの消防艇と小舟（奥に高いビル）|原本|746×520|CC BY 2.0|沿岸警備隊の Flickr|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2009-01-15（絵＝川の中の機体と消防艇）|乗り組みの人（遠景）|src/commons/c32/|小さい＝額装
+C8|commons-photo|accident|岸壁のそばの機体と消防艇・警察の船（奥に高い建物）|3840 の縮小版（原本 4319）|4319×2865|CC BY 2.0|Commons の頁の許諾|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2009-01-17 09:51（EXIF）|船の上の人（遠景）|src/commons/c32/|台本の「夕方・1月15日」は誤り＝1月17日の朝
+C9|commons-photo|night|夜の作業＝工兵隊の作業員と警察の人（船の上）|原本|1800×1205|CC BY 2.0|陸軍工兵隊ニューヨーク地区の Flickr（頁の許諾）|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2009-01（頁の説明＝機体を岸壁につなぐ作業）・夜|工兵隊・警察（公的な任務・中景）|src/commons/c32/|夜＝地にしない
+C13|commons-photo|accident|氷の浮かぶ川・警察の船と作業船（奥にマンハッタン）|3840 の縮小版（原本 3872）|3872×2592|CC BY 2.0|頁に PD の札もある＝CC BY 2.0 で表示（強いほうに寄せない）|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2009-01（頁の説明）|なし（遠景）|src/commons/c32/|機体は写っていない
+C14|commons-photo|accident|錨を下ろす作業船の人（甲板・昼）|3840 の縮小版（原本 3872）|3872×2592|CC BY 2.0|頁に PD の札もある＝CC BY 2.0 で表示|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2009-01（頁の説明）|工兵隊の作業員（横顔・公的な任務）|src/commons/c32/|機体は写っていない
+C15|commons-photo|accident|浮かぶ機体と寄せたフェリー（高い所から・遠景）|3840 の縮小版（原本 4288）|4288×2848|CC BY 2.0|Commons の頁の許諾|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2009-01-15（頁の説明）|なし（遠景）|src/commons/c32/|—
+C16|commons-photo|accident|浮かぶ機体に横付けしたフェリー（高い所から・遠景）|3840 の縮小版（原本 4288）|4288×2848|CC BY 2.0|Commons の頁の許諾|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2009-01-15（頁の説明）|なし（遠景）|src/commons/c32/|[15] と同じ撮影者の別の時（似た写真＝c105 と c821 で離す）
+C18|commons-photo|accident|機体のまわりのフェリーの群れとヘリコプター（夕日の川）|1920 の縮小版（原本 2144）|2144×1424|CC BY 2.0|Commons の頁の許諾|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2009-01-15（頁の説明）|なし（遠景）|src/commons/c32/|[17] は切って色を直した版＝原本の [18]
+C21|commons-photo|accident|消防艇と小舟・沈みかけの翼と尾翼（AIRWAYS の字）|3840 の縮小版（原本 3872）|3872×2592|PD（PD-USACE）|米国の連邦の業務|写真：U.S. Army Corps of Engineers（public domain）／Wikimedia Commons|2009-01-15（頁の説明）|消防・救助の人（中景・公的な任務）|src/commons/c32/|—
+C26|commons-photo|accident|浮かぶ機体と翼の上に並ぶ人たち（遠景・顔は分からない）|原本|1289×1243|CC BY 2.0|Commons の頁の許諾|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2009-01-15（頁の説明）|翼の上の乗客（遠景・顔は分からない）|src/commons/c32/|ほぼ正方形＝額装
+C31|commons-photo|accident|着水の直後の機体と白い航跡（遠景）|3840 の縮小版（原本 4288）|4288×2848|CC BY 2.0|Commons の頁の許諾|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2009-01-15（頁の説明＝着水の直後）|なし（遠景）|src/commons/c32/|—
+C32|commons-photo|accident|警察のダイバーが工兵隊の船へ渡すエンジンの覆い（昼）|3840 の縮小版（原本 3872）|3872×2592|PD（PD-USACE）|米国の連邦の業務|写真：U.S. Army Corps of Engineers（public domain）／Wikimedia Commons|2009-01（頁の説明）|警察のダイバーと工兵隊（顔が見える・公的な任務）|src/commons/c32/|—
+C33|commons-photo|accident|クレーンで吊られた左のエンジン（工兵隊の引き船と艀）|原本|640×428|PD（PD-USACE）|米国の連邦の業務|写真：U.S. Army Corps of Engineers（public domain）／Wikimedia Commons|2009-01-23（報告書 p50＝事故の8日後）|作業の人（遠景）|src/commons/c32/|小さい＝額装
+C35|commons-photo|accident|工兵隊の船の甲板で残骸を見る NTSB の調査官（1人）|3840 の縮小版（原本 3872）|3872×2592|PD（PD-USACE）|米国の連邦の業務|写真：U.S. Army Corps of Engineers（public domain）／Wikimedia Commons|2009-01（頁の説明）|NTSB の調査官（公的な任務・名前は書かない）|src/commons/c32/|—
+C36|commons-photo|accident|岸壁のそばの沈みかけの機体と沿岸警備隊の小舟 25640（晴れ・昼）|3840 の縮小版（原本 3872）|3872×2592|PD（PD-USCG）|米国の連邦の業務|写真：U.S. Coast Guard（public domain）／Wikimedia Commons|2009-01-16 13:57（EXIF）|乗り組みの人（中景・公的な任務）|src/commons/c32/|台本の「夜」は誤り＝晴れた昼
+C38|commons-photo|accident|岸壁に綱でつながれた沈みかけの機体（翼と尾翼）と沿岸警備隊の小舟（横長）|1920 の縮小版（原本 3040）|3040×1136|PD（PD-USCG）|米国の連邦の業務|写真：U.S. Coast Guard（public domain）／Wikimedia Commons|2009-01-16（[37]＝同じ写真の切り抜きの頁の説明「tied up next to Battery Park City on Jan. 16」）|乗り組みの人（中景・公的な任務）|src/commons/c32/|[37] はこの写真の切り抜き＝使わない
+C39|commons-photo|accident|水に浮く機体の翼と、翼の上のすべり台（縦長・奥に警察と沿岸警備隊の船）|原本|1919×2592|PD（PD-USCG）|米国の連邦の業務|写真：U.S. Coast Guard（public domain）／Wikimedia Commons|2009-01-16 11:31（EXIF＝11-10 の取得で確かめた）|船の上の人（遠景）|src/commons/c32/|縦長＝額装
+C40|commons-photo|night|夜の岸壁のそばの機体（照明・奥に高い建物）|3840 の縮小版（原本 4288）|4288×2848|CC BY 2.0|Commons の頁の許諾|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2009-01-17 00:07（EXIF）・夜|なし|src/commons/c32/|台本の「夕方」は誤り＝夜・地にしない
+C41|commons-photo|night|はしけの上の機体（夜・柵ごし・街灯）|1920 の縮小版（原本 3272）|3272×2177|CC BY 2.0|Commons の頁の許諾|写真：{作者}／Wikimedia Commons（CC BY 2.0）|2009-01-18 17:48（EXIF・頁の説明＝引き上げたあと）・夜|なし|src/commons/c32/|夜＝地にしない
+C44|commons-photo|accident|雪の公園の柵ごしに見た、はしけの上の機体|1920 の縮小版（原本 2592）|2592×1944|CC BY-SA 3.0|Commons の頁の許諾（GFDL もある＝BY-SA 3.0 で表示）|写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工|2009-01-18（頁の説明）|はしけの人（遠景・小さい）|src/commons/c32/|BY-SA＝額装・無加工・1カット
+C45|commons-photo|accident|はしけの上の機体（雪の公園・街灯）|1920 の縮小版（原本 2592）|2592×1944|CC BY-SA 3.0|同上|写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工|2009-01-18（頁の説明）|はしけの人（遠景・小さい）|src/commons/c32/|BY-SA＝額装・無加工・1カット
+C46|commons-photo|night|夜、クレーンで吊られる機体（氷の浮かぶ川）|原本|1179×1266|CC BY-SA 3.0|Commons の頁の許諾（GFDL もある）|写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工|2009-01（頁の説明）・夜|作業の人（遠景・小さい）|src/commons/c32/|BY-SA＝額装・無加工・1カット
+C49|commons-photo|museum|この機体の操縦室の天井のパネル（ENG 1・APU・ENG 2 の消火のボタン）|1920 の縮小版（原本 2848）|2848×2136|CC0|作者の CC0（頁の許諾）|写真：{作者}／Wikimedia Commons（CC0）|2011-02-25（頁の説明）|なし|src/commons/c32/|—
+C50|commons-photo|museum|博物館の格納庫の機体（つけ直した尾翼・来館者の後ろ姿）|1920 の縮小版（原本 2048）|2048×1536|CC0|作者の CC0（頁の許諾）|写真：{作者}／Wikimedia Commons（CC0）|撮影の日は頁に無い|来館者（後ろ姿・中景）|src/commons/c32/|博物館の名は改名の前
+C52|commons-photo|accident|ラガーディア空港の滑走路4 の出発の図（赤い線）|原本|379×612|PD（FAA）|米国の連邦の業務|図：FAA（public domain）／Wikimedia Commons|2009-01-15（題）|なし|src/commons/c32/|小さい＝額装
+C55|commons-photo|museum|博物館の機体の登録記号 N106US と胴体の下の壊れ|1920 の縮小版（原本 3456）|3456×2304|CC BY-SA 3.0|Commons の頁の許諾（GFDL もある）|写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工|撮影の日は頁に無い|なし|src/commons/c32/|BY-SA＝額装・無加工・1カット
+C57|commons-photo|accident|天幕の中で保管中の機体（翼を外した胴体・技術者の後ろ姿）|1920 の縮小版（原本 2848）|2848×2136|CC BY-SA 3.0|Commons の頁の許諾|写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工|2010（題・頁の説明＝ニュージャージー州での保管）|技術者（後ろ姿・中景）|src/commons/c32/|BY-SA＝額装・無加工・1カット
+C59|commons-photo|accident|トラックで運ばれる胴体（木々の向こう・州警察の建物のそば）|原本|1852×1316|CC0|作者の CC0（頁の許諾）|写真：{作者}／Wikimedia Commons（CC0）|2011（頁の説明＝メリーランド州・博物館への運搬）|遠くの人（小さい）|src/commons/c32/|—
+C60|commons-photo|accident|運搬に付き添った博物館の車（「The Miracle on the Hudson」の字）|原本|764×591|CC0|作者の CC0（頁の許諾）|写真：{作者}／Wikimedia Commons（CC0）|2011（頁の説明＝メリーランド州）|運転の人（窓の中・顔は分からない）|src/commons/c32/|小さい＝額装
+C61|commons-photo|accident|袋に入った羽（エンジン1 の札・袋の手書きの字）|原本|900×1200|PD（PD-NTSB）|米国の連邦の業務|写真：NTSB（public domain）／Wikimedia Commons・改変：切出|2009-01-29（袋の字）|なし|src/commons/c32/|🔴 袋の左下の手書きの人の名前を切って使う（PD＝切出可）・縦長＝額装
+C62|commons-photo|museum|保管中のこの機体の操縦室（泥の跡・座席）|原本|1600×1200|CC BY-SA 3.0|Commons の頁の許諾|写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工|2011-02-25（EXIF＝博物館へ移す前の保管中）|なし|src/commons/c32/|BY-SA＝額装・無加工・1カット
+C63|commons-photo|museum|保管中のこの機体の座席（泥の跡）|原本|1600×1200|CC BY-SA 3.0|Commons の頁の許諾|写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工|2011-02-25（EXIF＝博物館へ移す前の保管中）|なし|src/commons/c32/|BY-SA＝額装・無加工・1カット
+C68|commons-photo|museum|調べたあとの機体の底の壊れ（NTSB の印）|原本|1600×1200|CC BY-SA 3.0|Commons の頁の許諾|写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工|2011-02-25（EXIF＝博物館へ移す前の保管中）|なし|src/commons/c32/|BY-SA＝額装・無加工・1カット（台本の「後ろの胴体の中」は誤り）
+C69|commons-photo|museum|この便の荷物の札（CLT US 1549）とシートベルト（博物館の展示）|1920 の縮小版（原本 1936）|1936×2592|CC BY-SA 3.0|Commons の頁の許諾|写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工|撮影の日は頁に無い|なし|src/commons/c32/|BY-SA＝額装・無加工・1カット（台本の「博物館の機体」は誤り）
+C70|commons-photo|museum|博物館の機体の登録記号 N106US と旗|1920 の縮小版（原本 2507）|2507×1872|CC BY-SA 3.0|Commons の頁の許諾|写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工|撮影の日は頁に無い|なし|src/commons/c32/|BY-SA＝額装・無加工・1カット
+D76-4|docket-photo|accident|#76 構造の写真 写真4（PDF p6）＝左の前の胴体の、鳥の当たった凹み（ピンクの丸）|src/ntsb/docket/076 の PDF から埋め込みの写真を取り出す|1430×1068|PD の見込み（NTSB の調査グループの写真・撮影者の記載なし）|米国の連邦の業務の見込み（弱い所＝グループに会社の人も入る）|写真：NTSB 公開ドケット DCA09MA026（構造の写真 写真4）|2009-01（凡例）|なし|—|公的な機関のファイル＝許可不要
+D76-2|docket-photo|accident|#76 構造の写真 写真2（PDF p4）＝機首の覆い（レドーム）の割れ|同上|1430×1073|同上|同上|写真：NTSB 公開ドケット DCA09MA026（構造の写真 写真2）|2009-01（凡例）|なし|—|—
+D76-9|docket-photo|accident|#76 構造の写真 写真9（PDF p11）＝左の後ろの下の胴体の壊れ|同上|—|同上|同上|写真：NTSB 公開ドケット DCA09MA026（構造の写真 写真9）|2009-01（凡例）|なし|—|△ 絵は ⑤b で原寸
+D79-1|docket-photo|accident|#79 構造の追記の写真 写真1（PDF p3）＝外板の区画 16/17 の壊れ（骨組み 59〜64）|src/ntsb/docket/079 の PDF から|—|同上|同上|写真：NTSB 公開ドケット DCA09MA026（構造の追記の写真 写真1）|2009（凡例）|なし|—|△ 絵は ⑤b で原寸
+D79-45|docket-photo|accident|#79 構造の追記の写真 写真45（PDF p47）＝65番の骨組みの床の穴|同上|—|同上|同上|写真：NTSB 公開ドケット DCA09MA026（構造の追記の写真 写真45）|2009（凡例）|なし|—|△ 絵は ⑤b で原寸
+D49-42|docket-photo|accident|#49 生存の写真 写真42（PDF p22）＝65番の縦の梁が客室の床を突き破った所|src/ntsb/docket/049 の PDF から|—|同上|同上|写真：NTSB 公開ドケット DCA09MA026（生存の写真 写真42）|2009（凡例）|なし|—|写真1〜18（当日の避難）は使わない
+D49-21|docket-photo|accident|#49 生存の写真 写真21（PDF p12）＝後ろの左の扉（2L）とすべり台を兼ねたいかだ|同上|—|同上|同上|写真：NTSB 公開ドケット DCA09MA026（生存の写真 写真21）|2009（凡例）|なし|—|△ 絵は ⑤b で原寸
+D49-54|docket-photo|accident|#49 生存の写真 写真54（PDF p28）＝座席の下の救命胴衣の袋|同上|—|同上|同上|写真：NTSB 公開ドケット DCA09MA026（生存の写真 写真54）|2009（凡例）|なし|—|△ 絵は ⑤b で原寸
+D49-56|docket-photo|accident|#49 生存の写真 写真56（PDF p29）＝すべり台を兼ねたいかだ（ナイフの袋の位置）|同上|—|同上|同上|写真：NTSB 公開ドケット DCA09MA026（生存の写真 写真56）|2009（凡例）|なし|—|△ いかだの全体が写るかは ⑤b で原寸（写らなければ写真21 の別の切り出しか [39]）
+D101-1|docket-photo|accident|#101 野生動物の写真1（PDF p12）＝エンジン2 のファンから試料を取る調査官（後ろ姿）|src/ntsb/docket/101 の PDF から|—|同上|同上|写真：NTSB 公開ドケット DCA09MA026（野生動物の報告 写真1）|2009-01（凡例）|調査官（後ろ姿・公的な任務）|—|—
+D101-2|docket-photo|accident|#101 野生動物の写真2（PDF p13）＝フラップのレールの溝に残った羽|同上|—|同上|同上|写真：NTSB 公開ドケット DCA09MA026（野生動物の報告 写真2）|2009-01（凡例）|なし|—|—
+D68-3|docket-photo|accident|#68 救助の写真3（PDF p2〜4）＝1月17日の桟橋のフェリー|src/ntsb/docket/068 の PDF から|1024px|同上|同上|写真：NTSB 公開ドケット DCA09MA026（救助の写真3）|2009-01-17（凡例）|なし|—|🔴 船の名（人の名）は読ませない＝⑤b で原寸
+D83-8|docket-photo|accident|#83 エンジンの報告 図8（PDF p29 の下）＝はしけの上の右のエンジン（雪・壊れた覆い）|src/ntsb/docket/083 の PDF から|827×660|同上|同上|写真：NTSB 公開ドケット DCA09MA026（エンジンの報告 図8）|2009-01（凡例＝はしけの上）|なし|—|下の「Photo No」の帯は切る（11-10 に 640px で見た）
+R1|public-page|page|報告書 NTSB/AAR-10/03 の表紙|src/ntsb/AAR1003.pdf の p1 を頁の画像に|—|PD（米国の連邦の業務）|NTSB の報告書|出典：NTSB「NTSB/AAR-10/03」（2010）表紙|2010-05-04（採択）|なし|—|—
+R3|public-page|page|報告書の題の頁（採択の日の行）|同上 p3|—|PD|同上|出典：NTSB「NTSB/AAR-10/03」（2010）|2010-05-04|なし|—|—
+R40|public-page|page|報告書の表2（認証の値と事故の値）|同上 p40|—|PD|同上|出典：NTSB「NTSB/AAR-10/03」（2010）表2|2010|なし|—|—
+R96|public-page|page|報告書 p96（「a series of fortuitous circumstances」の段落）|同上 p96|—|PD|同上|出典：NTSB「NTSB/AAR-10/03」（2010）|2010|なし|—|—
+R140|public-page|page|報告書 p140（推定原因と、生き残れた理由の4つ）|同上 p140|—|PD|同上|出典：NTSB「NTSB/AAR-10/03」（2010）推定原因|2010|なし|—|c722 と ca05 で枠を変える
+R141|public-page|page|報告書 p141（勧告の頭・A-10-66・A-10-67）|同上 p141|—|PD|同上|出典：NTSB「NTSB/AAR-10/03」（2010）勧告|2010|なし|—|ca15 と c627 で枠を変える
+R189|public-page|page|付録B 操縦室の声の書き起こし（15:27:33・15:27:42 の行）|同上 p189|—|PD|同上|出典：NTSB「NTSB/AAR-10/03」（2010）付録B|2010|なし|—|—
+R191|public-page|page|付録B（15:28:05・15:28:10.6 の行）|同上 p191|—|PD|同上|出典：NTSB「NTSB/AAR-10/03」（2010）付録B|2010|なし|—|—
+R195|public-page|page|付録B（15:29:11 の行）|同上 p195|—|PD|同上|出典：NTSB「NTSB/AAR-10/03」（2010）付録B|2010|なし|—|—
+R196|public-page|page|付録B（15:29:28・15:29:33 の行）|同上 p196|—|PD|同上|出典：NTSB「NTSB/AAR-10/03」（2010）付録B|2010|なし|—|＋音 A1 の数秒
+R201|public-page|page|付録B（15:30:21〜15:30:24 の行）|同上 p201|—|PD|同上|出典：NTSB「NTSB/AAR-10/03」（2010）付録B|2010|なし|—|—
+R202|public-page|page|付録B（15:30:38〜15:30:43.7 の行）|同上 p202|—|PD|同上|出典：NTSB「NTSB/AAR-10/03」（2010）付録B|2010|なし|—|—
+R203|public-page|page|付録C 手順書の1ページ目（「If fuel remaining」から下）|同上 p203（頁の画像＝src/ntsb/ocrC/p203.png）|2550×3300|PD|同上|出典：NTSB「NTSB/AAR-10/03」（2010）付録C|2010|なし|—|字は頁の画像で（OCR の字は使わない）
+R204|public-page|page|付録C 手順書の2ページ目（「If no relight after 30 seconds」から「ENG MASTER 1 and 2」）|同上 p204|2550×3300|PD|同上|出典：NTSB「NTSB/AAR-10/03」（2010）付録C|2010|なし|—|—
+R205|public-page|page|付録C 手順書の3ページ目（「If Ditching is anticipated」から下）|同上 p205|2550×3300|PD|同上|出典：NTSB「NTSB/AAR-10/03」（2010）付録C|2010|なし|—|c616 と c618 で枠を変える（c618 の枠＝11-10 に原寸の切り出しで見た）
+R203-205|public-page|page|付録C 手順書の3ページを横に並べた紙面|同上 p203〜p205 を並べる|—|PD|同上|出典：NTSB「NTSB/AAR-10/03」（2010）付録C|2010|なし|—|c524 と cc06（2つ目の問いの入口と答え）
+FR2023|public-page|page|連邦官報 2023-06413（FAA の最終規則）の頁の頭（題と DATES の行）|govinfo の PDF（11-10 取得＝src/web/fr2023_06413.pdf・285,216 bytes・md5 4b58c7a85db6273385c6d02e95368cda・11頁）を ⑤b で頁の画像に|—|PD（米国の連邦の業務）|連邦官報|出典：連邦官報 2023-06413（FAA・2023年）|2023|なし|—|公的な機関のファイル＝許可不要
+SAT:ニューヨーク|google|satmap|ラガーディア空港・テターボロ空港・ハドソン川・鳥とぶつかった点・着水した点（ドケット #6 の座標）＋飛んだ道の線（報告書の図1・#85）|⑤b で Google マップの衛星写真を撮る（CDP）＝PNG は公開リポに置かない|1920×1080|Google（Geo Guidelines）|教育・ドキュメンタリーは許可不要（09-23 に原文）|「Google」と提供元の表記を絵のすぐ近くに|現在|なし|—|見た目を大きく変えない（暗くしない・地にしない）
+SAT:ラガーディア空港|google|satmap|ラガーディア空港＝滑走路4・13・22・31 の札|同上|1920×1080|Google|同上|同上|現在|なし|—|—
+SAT:滑走路4|google|satmap|滑走路4 の寄り＝飛び立つ向き（北東）の矢印|同上|1920×1080|Google|同上|同上|現在|なし|—|—
+SAT:鳥とぶつかった所|google|satmap|鳥とぶつかった点（ドケット #6）・ラガーディア空港・飛んだ道の線|同上|1920×1080|Google|同上|同上|現在|なし|—|—
+SAT:いちばん高い所|google|satmap|約930メートルの点・左へ曲がる線|同上|1920×1080|Google|同上|同上|現在|なし|—|—
+SAT:飛んだ道|google|satmap|左へ曲がる線＝管制の示した220度の向き|同上|1920×1080|Google|同上|同上|現在|なし|—|—
+SAT:ラガーディア空港 滑走路|google|satmap|滑走路13・31・4 の向きの矢印|同上|1920×1080|Google|同上|同上|現在|なし|—|—
+SAT:テターボロ空港|google|satmap|テターボロ空港の滑走路1・19・24・鳥とぶつかった点（c415 は右へ曲がる矢印と届かない印）|同上|1920×1080|Google|同上|同上|現在|なし|—|—
+SAT:ハドソン川|google|satmap|川の上で南へ向かう線・着水した点（c512 は空港2つも）|同上|1920×1080|Google|同上|同上|現在|なし|—|—
+SAT:試しの行き先|google|satmap|ラガーディアの滑走路22・13・テターボロの滑走路19・鳥とぶつかった点（c509 は滑走路13 へ届かない矢印）|同上|1920×1080|Google|同上|同上|現在|なし|—|—
+SAT:着水した所|google|satmap|着水した点・ウィーホーケンのフェリー乗り場（Port Imperial＝#68 の語）|同上|1920×1080|Google|同上|同上|現在|なし|—|—
