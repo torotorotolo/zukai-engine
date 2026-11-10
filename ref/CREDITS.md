@@ -3700,3 +3700,82 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 |---|---|---|---|---|---|
 | `MS` | c101 c102 c106 c107 c701 c706 c707 c709 c710 c711 cc15 | 防衛省・自衛隊『昭和46年防衛庁記録』（CC BY 3.0）・改変：切出・再生速度 | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm | 2026-11-07 |
 | `MK` | c104 c208 c301 c304 | 防衛省・自衛隊『昭和46年防衛庁記録』（CC BY 3.0）・改変：切出・再生速度 | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:%E6%98%AD%E5%92%8C%EF%BC%94%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm | 2026-11-07 |
+
+## USエアウェイズ1549便のハドソン川への着水（2009-01-15・32本目）
+
+※2026-11-10（⑤b-2）。`qa_out/ep32_assets.py credits --write` が書く（手で直さない）。写真と映像は映像方針の一覧 `ref/ep32/eizou_list32.md`（了承② 2026-11-10）。
+🔴 この回の線（台本 §1-4）＝名前を出すのは機長と副操縦士だけ。乗客・客室乗務員・管制官・救助した人・撮影者の名前は書かない（立場だけ）。写真の中の上着や船の名の字は読ませない。
+
+### 0. 素材の読み（⚠️ 法律の助言ではない＝こちらの読み）
+- Commons の写真＝頁の許諾の箱（`licensetpl_short`）で読んだ（11-10）。CC BY 2.0＝帰属と改変の旨（全面は「改変：切出」）。BY-SA 3.0＝額装・無加工・1点1カット・升目もかけない。CC0＝表示は任意（撮影者の名乗りを書く）。PD（米国の沿岸警備隊・陸軍工兵隊・FAA・NTSB の業務）＝断りなし
+- [13]・[14] は頁に CC BY 2.0 と Public domain の両方の札＝CC BY 2.0 で表示（強いほうに寄せない）。[44]・[45]・[46]・[55] は GFDL の札もある＝BY-SA 3.0 で表示
+- NTSB の公開ドケット DCA09MA026 の調査の写真（構造・生存・救助・エンジン・野生動物の報告の付図）＝米国の連邦の業務の見込み（撮影者の記載なし・弱い所＝調査グループに会社の人も入る）。PDF に埋め込まれた絵をそのまま取り出した（頁の字と矢印は入らない）・額装
+
+### 1. 写真（Commons の CC BY 2.0・BY-SA 3.0・CC0・PD・NTSB の公開ドケット）
+- CC BY・BY-SA・CC0＝「写真：{作者}／Wikimedia Commons（ライセンス）」。🔴 撮影者の名前はこのリポに書かない＝`ref/ep32/credits.json` は印 `{作者}` だけ・焼くときに git の外の表 `ref/ep32/src/credits_private.tsv` の3列目から足す（`tools/scene_jiko.ep32_credit`）
+- 私人の顔は CC BY・CC0・PD で升目（「／改変：…にモザイク」）。公的な任務の顔（沿岸警備隊・陸軍工兵隊・警察・NTSB の調査官）はそのまま。色は原本のまま
+- 説明カットの地（「地 c…」）＝CC BY 2.0・CC0・PD の昼の写真を暗くするだけ（字と地の比 8:1 が下限・出典の行は「地の写真：…／改変：切出・明るさ」・CC0 と PD は改変を書かない）。🔴 夜の写真と Google の衛星写真は地にしない
+- 撮影年＝Commons の頁の説明と EXIF・ドケットの凡例（`sources32.psv` の時期の欄）。⚠️ 陸軍工兵隊のカメラの EXIF の時刻は場面と合わない＝副題は「2009年1月」まで
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `c1` | c108（地 c909 c918） | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Boats around plane in the Hudson.jpg |
+| `c13` | c113（地 c419 cb01 cb02 cb03 cb14） | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:New York District Responds To U.S. Airways Flight 1549 Crash in the Hudson River -d.jpg |
+| `c14` | cb06（地 cb05 cb07） | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:New York District Responds To U.S. Airways Flight 1549 Crash in the Hudson River -e.jpg |
+| `c15` | c105 | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Plane and ferry in the Hudson 1.jpg |
+| `c16` | c821（地 c813 c816 c819 c820 c822） | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Plane and ferry in the Hudson 2.jpg |
+| `c18` | c106（地 c913 ca14） | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Plane and some ferries in the Hudson.jpg |
+| `c2` | c814 | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Coast Guard Response to Miracle on the Hudson (3201127645).jpg |
+| `c21` | c107（地 c209 c210 c719 c723） | 2009 | PD（PD-USACE）（この回の物と場所） | 米国の機関（public domain） | commons:US Air Flight 1549 rescue efforts.jpg |
+| `c26` | c103（地 c802 c804 c807 c809 c810） | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:US Airways Flight 1549 (N106US) after crashing into the Hudson River (cropped).jpg |
+| `c3` | c907 | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Coast Guard Response to Miracle on the Hudson (3201128005).jpg |
+| `c31` | c104（地 c522 c712 c713 c715 c716） | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:USAirFlight1549InRiver.jpg |
+| `c32` | c622（地 c623 c624 c626 c628 c630） | 2009 | PD（PD-USACE）（この回の物と場所） | 米国の機関（public domain） | commons:Flight 1549 engine cowling recovered.jpg |
+| `c33` | c917 | 2009 | PD（PD-USACE）（この回の物と場所） | 米国の機関（public domain） | commons:Flight 1549 engine recovered.jpg |
+| `c35` | c514 | 2009 | PD（PD-USACE）（この回の物と場所） | 米国の機関（public domain） | commons:Flight 1549 recovered debris.jpg |
+| `c36` | c111（地 ca08 ca10 ca12） | 2009 | PD（PD-USCG）（この回の物と場所） | 米国の機関（public domain） | commons:Flight1549BatteryPark1.jpg |
+| `c38` | c915 | 2009 | PD（PD-USCG）（この回の物と場所） | 米国の機関（public domain） | commons:Flight1549BatteryPark2.jpg |
+| `c39` | c812 | 2009 | PD（PD-USCG）（この回の物と場所） | 米国の機関（public domain） | commons:Flight1549BatteryPark3.jpg |
+| `c4` | c912 | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Coast Guard Response to Miracle on the Hudson (3201973348).jpg |
+| `c40` | ca01 | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Hudson River, aftermath of flight 1549, at night.jpg |
+| `c41` | c208 | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:US Air 1549 on barge at night.jpg |
+| `c44` | c629 | 2009 | CC BY-SA 3.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:US Airways Flight 1549 on barge close-up.jpg |
+| `c45` | cb16 | 2009 | CC BY-SA 3.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:US Airways Flight 1549 on barge.jpg |
+| `c46` | c916 | 2009 | CC BY-SA 3.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:USAirways-1549 lifting out of Hudson.jpg |
+| `c49` | c110（地 c311 c619 cb15） | 2011 | CC0（この回の物と場所） | 表示は任意（CC0）＝撮影者の名乗りを焼くときに足す | commons:1549Overhead.jpg |
+| `c50` | cc03（地 c203 c205 c207 cc05 cc07 cc09） | 不明 | CC0（この回の物と場所・顔に升目） | 表示は任意（CC0）＝撮影者の名乗りを焼くときに足す | commons:1549tail.JPG |
+| `c52` | c202 | 2009 | PD（FAA）（この回の物と場所） | 米国の機関（public domain） | commons:LGA RWY 4 DEP 15JAN2009.jpg |
+| `c55` | cc04 | 不明 | CC BY-SA 3.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:N106US tail damage.JPG |
+| `c57` | ca11 | 2010 | CC BY-SA 3.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:N106USinNJ2010.jpg |
+| `c59` | cc01 | 2011 | CC0（この回の物と場所） | 表示は任意（CC0）＝撮影者の名乗りを焼くときに足す | commons:US Airways Flight 1549 in Maryland.jpg |
+| `c60` | cc02 | 2011 | CC0（この回の物と場所・字に升目） | 表示は任意（CC0）＝撮影者の名乗りを焼くときに足す | commons:US Airways Flight 1549 support vehicle in Maryland.jpg |
+| `c61` | c305（地 c306 c307 cb10） | 2009 | PD（PD-NTSB）（この回の物と場所） | 米国の機関（public domain） | commons:USAir 1549 bird feather.jpg |
+| `c62` | c611 | 2011 | CC BY-SA 3.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:USAir 1549（機体番号N106US）」のコックピット.jpg |
+| `c63` | c806 | 2011 | CC BY-SA 3.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:USAir 1549（機体番号N106US）」の座席.jpg |
+| `c68` | c717 | 2011 | CC BY-SA 3.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:USAir 1549（機体番号N106US）」調査後の機体底部.jpg |
+| `c70` | cc10 | 不明 | CC BY-SA 3.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:「USAir Fligt1549」機体番号 N106US.jpg |
+| `c8` | c516 | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Hudson River, aftermath of flight 1549.jpg |
+| `c9` | cb04 | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:New York District Responds To U.S. Airways Flight 1549 Crash in the Hudson River (5148212811).jpg |
+| `d101_1` | c217 | 2009 | PD（米国の連邦の業務の見込み）（NTSB の調査の写真（公開ドケット）） | NTSB の調査グループ（撮影者の記載なし） | NTSB ドケット DCA09MA026・101_40313533.pdf p12 |
+| `d101_2` | c322 | 2009 | PD（米国の連邦の業務の見込み）（NTSB の調査の写真（公開ドケット）） | NTSB の調査グループ（撮影者の記載なし） | NTSB ドケット DCA09MA026・101_40313533.pdf p13 |
+| `d49_21` | c805 | 2009 | PD（米国の連邦の業務の見込み）（NTSB の調査の写真（公開ドケット）） | NTSB の調査グループ（撮影者の記載なし） | NTSB ドケット DCA09MA026・049_40314086.pdf p12 |
+| `d49_42` | c718 | 2009 | PD（米国の連邦の業務の見込み）（NTSB の調査の写真（公開ドケット）） | NTSB の調査グループ（撮影者の記載なし） | NTSB ドケット DCA09MA026・049_40314086.pdf p22 |
+| `d49_54` | c815 | 2009 | PD（米国の連邦の業務の見込み）（NTSB の調査の写真（公開ドケット）） | NTSB の調査グループ（撮影者の記載なし） | NTSB ドケット DCA09MA026・049_40314086.pdf p28 |
+| `d49_56` | ca06 | 2009 | PD（米国の連邦の業務の見込み）（NTSB の調査の写真（公開ドケット）） | NTSB の調査グループ（撮影者の記載なし） | NTSB ドケット DCA09MA026・049_40314086.pdf p29 |
+| `d68_3` | c905 | 2009 | PD（米国の連邦の業務の見込み）（NTSB の調査の写真（公開ドケット）・字に升目） | NTSB の調査グループ（撮影者の記載なし） | NTSB ドケット DCA09MA026・068_40316255.pdf p3 |
+| `d76_2` | c312 | 2009 | PD（米国の連邦の業務の見込み）（NTSB の調査の写真（公開ドケット）） | NTSB の調査グループ（撮影者の記載なし） | NTSB ドケット DCA09MA026・076_40313054.pdf p4 |
+| `d76_4` | c309 | 2009 | PD（米国の連邦の業務の見込み）（NTSB の調査の写真（公開ドケット）） | NTSB の調査グループ（撮影者の記載なし） | NTSB ドケット DCA09MA026・076_40313054.pdf p6 |
+| `d76_9` | c701 | 2009 | PD（米国の連邦の業務の見込み）（NTSB の調査の写真（公開ドケット）） | NTSB の調査グループ（撮影者の記載なし） | NTSB ドケット DCA09MA026・076_40313054.pdf p11 |
+| `d79_1` | c724 | 2009 | PD（米国の連邦の業務の見込み）（NTSB の調査の写真（公開ドケット）） | NTSB の調査グループ（撮影者の記載なし） | NTSB ドケット DCA09MA026・079_40313690.pdf p3 |
+| `d79_45` | cb08 | 2009 | PD（米国の連邦の業務の見込み）（NTSB の調査の写真（公開ドケット）） | NTSB の調査グループ（撮影者の記載なし） | NTSB ドケット DCA09MA026・079_40313690.pdf p47 |
+| `d83_8` | c613 | 2009 | PD（米国の連邦の業務の見込み）（NTSB の調査の写真（公開ドケット）） | NTSB の調査グループ（撮影者の記載なし） | NTSB ドケット DCA09MA026・083_40313442.pdf p29 |
+
+### 2. 動く映像＝clips.json（沿岸警備隊の監視カメラ VTS）
+- 米国沿岸警備隊の VTS（船の交通の監視カメラ）の記録（Commons の3本＝public domain・PD-USCG）＝384×288・毎秒3〜4コマ・音なし。等速（速さを変えない）・止めなし・額装（高さいっぱい）・地は同じ映像のぼかし。焼き込みのカメラの時計（約20秒進む）は語りと副題に使わない。背景のはしけに別の旅客機が写る秒（CrashAndRescue 402.5〜438.5秒）は使わない（`footage.NOGO`）
+- 出典の行＝「映像：U.S. Coast Guard（public domain）／Wikimedia Commons」（等速＝「再生速度」を言わない）。🔴 映像そのものは git に入れない（焼くときに Commons の原本を取る）・ひかえの静止画は公開リポに置く（PD）
+
+| 記号 | 使うカット | 画面の出典 | ライセンス | 頁 | 取った日 |
+|---|---|---|---|---|---|
+| `VC` | c101 c102 c801 c811 c901 c903 c906 c908 c911 ca07 | 映像：U.S. Coast Guard（public domain）／Wikimedia Commons | Public domain（PD-USCG） | https://commons.wikimedia.org/wiki/File:Flight1549CrashAndRescue.ogv | 2026-11-09 |
+| `V15` | c910 | 映像：U.S. Coast Guard（public domain）／Wikimedia Commons | Public domain（PD-USCG） | https://commons.wikimedia.org/wiki/File:Flight1549After15Minutes.ogv | 2026-11-09 |
+| `V20` | c919 c920 | 映像：U.S. Coast Guard（public domain）／Wikimedia Commons | Public domain（PD-USCG） | https://commons.wikimedia.org/wiki/File:Flight1549After20Minutes.ogv | 2026-11-09 |

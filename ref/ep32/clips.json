@@ -1,0 +1,98 @@
+{
+ "VC": {
+  "url": "https://commons.wikimedia.org/wiki/File:Flight1549CrashAndRescue.ogv",
+  "media": "https://upload.wikimedia.org/wikipedia/commons/6/67/Flight1549CrashAndRescue.ogv",
+  "credit": "映像：U.S. Coast Guard（public domain）／Wikimedia Commons",
+  "src": "commons",
+  "at": 0.0,
+  "date": "2009-01-15",
+  "stock": false,
+  "what": "沿岸警備隊の VTS のカメラ（着水・救助）",
+  "got": "2026-11-09",
+  "w": 384,
+  "h": 288,
+  "fps": 3.0,
+  "sar": "1:1",
+  "sec": 487.667,
+  "size": 5537657,
+  "dispw": 384,
+  "decoded": [
+   384,
+   288
+  ],
+  "license": "Public domain（PD-USCG）",
+  "rights": "PD（米国の沿岸警備隊の業務＝17 U.S.C. §105・Commons の PD-USCG）",
+  "scan": "ref/ep32/src/commons/vts/Flight1549CrashAndRescue.ogv",
+  "md5_scan": "70b5eab77983ea485abf24f3d0970704",
+  "local_off": 0.0,
+  "content_x": [
+   0,
+   384
+  ],
+  "note": "音は使わない。手元の原本（git の外）＝Commons の原本と同じ大きさ（HEAD）・md5 は sources32 の get の欄。384×288 の器そのものが 4:3 の中身（黒い帯なし・焼き込みの字は上下の約10行）＝額装（高さいっぱい）・PILLAR なし・寄り 1.0"
+ },
+ "V15": {
+  "url": "https://commons.wikimedia.org/wiki/File:Flight1549After15Minutes.ogv",
+  "media": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Flight1549After15Minutes.ogv",
+  "credit": "映像：U.S. Coast Guard（public domain）／Wikimedia Commons",
+  "src": "commons",
+  "at": 0.0,
+  "date": "2009-01-15",
+  "stock": false,
+  "what": "同じカメラ（着水の約15分後）",
+  "got": "2026-11-09",
+  "w": 384,
+  "h": 288,
+  "fps": 4.0,
+  "sar": "1:1",
+  "sec": 44.75,
+  "size": 303620,
+  "dispw": 384,
+  "decoded": [
+   384,
+   288
+  ],
+  "license": "Public domain（PD-USCG）",
+  "rights": "PD（米国の沿岸警備隊の業務＝17 U.S.C. §105・Commons の PD-USCG）",
+  "scan": "ref/ep32/src/commons/vts/Flight1549After15Minutes.ogv",
+  "md5_scan": "5ad2485ec6c57b28ad34fe02adf4f1db",
+  "local_off": 0.0,
+  "content_x": [
+   0,
+   384
+  ],
+  "note": "音は使わない。手元の原本（git の外）＝Commons の原本と同じ大きさ（HEAD）・md5 は sources32 の get の欄。384×288 の器そのものが 4:3 の中身（黒い帯なし・焼き込みの字は上下の約10行）＝額装（高さいっぱい）・PILLAR なし・寄り 1.0"
+ },
+ "V20": {
+  "url": "https://commons.wikimedia.org/wiki/File:Flight1549After20Minutes.ogv",
+  "media": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Flight1549After20Minutes.ogv",
+  "credit": "映像：U.S. Coast Guard（public domain）／Wikimedia Commons",
+  "src": "commons",
+  "at": 0.0,
+  "date": "2009-01-15",
+  "stock": false,
+  "what": "同じカメラ（着水の約20分後）",
+  "got": "2026-11-09",
+  "w": 384,
+  "h": 288,
+  "fps": 3.0,
+  "sar": "1:1",
+  "sec": 150.333,
+  "size": 857179,
+  "dispw": 384,
+  "decoded": [
+   384,
+   288
+  ],
+  "license": "Public domain（PD-USCG）",
+  "rights": "PD（米国の沿岸警備隊の業務＝17 U.S.C. §105・Commons の PD-USCG）",
+  "scan": "ref/ep32/src/commons/vts/Flight1549After20Minutes.ogv",
+  "md5_scan": "ef828df3f0ef1710686383e0ebee52b6",
+  "local_off": 0.0,
+  "content_x": [
+   0,
+   384
+  ],
+  "note": "音は使わない。手元の原本（git の外）＝Commons の原本と同じ大きさ（HEAD）・md5 は sources32 の get の欄。384×288 の器そのものが 4:3 の中身（黒い帯なし・焼き込みの字は上下の約10行）＝額装（高さいっぱい）・PILLAR なし・寄り 1.0"
+ }
+}

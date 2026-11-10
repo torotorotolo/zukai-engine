@@ -1,0 +1,564 @@
+{
+ "VC": {
+  "src": "https://upload.wikimedia.org/wikipedia/commons/6/67/Flight1549CrashAndRescue.ogv",
+  "scan": "ref/ep32/src/commons/vts/Flight1549CrashAndRescue.ogv",
+  "dur": 487.667,
+  "how": "⑤b-2（11-10）：原本の全コマ（3コマ/秒・96×72 の灰色・焼き込みの字の行を外す）の隣のコマの差の山（差 ≥ max(8, 前後15コマの中央値の4倍)・3コマ以内に続く山は1つ）の頭＝ショットの切れ目（カメラの寄り・振り＝監視カメラの操作・編集ではない）",
+  "moves": [
+   {
+    "head": 42.667,
+    "tail": 43.333,
+    "frames": 3,
+    "peak": 18.1
+   },
+   {
+    "head": 108.0,
+    "tail": 108.0,
+    "frames": 1,
+    "peak": 9.9
+   },
+   {
+    "head": 129.333,
+    "tail": 129.333,
+    "frames": 1,
+    "peak": 8.4
+   },
+   {
+    "head": 139.0,
+    "tail": 139.333,
+    "frames": 2,
+    "peak": 15.0
+   },
+   {
+    "head": 183.667,
+    "tail": 183.667,
+    "frames": 1,
+    "peak": 10.0
+   },
+   {
+    "head": 207.0,
+    "tail": 207.333,
+    "frames": 2,
+    "peak": 12.9
+   },
+   {
+    "head": 228.0,
+    "tail": 229.667,
+    "frames": 6,
+    "peak": 23.2
+   },
+   {
+    "head": 234.667,
+    "tail": 235.667,
+    "frames": 4,
+    "peak": 21.5
+   },
+   {
+    "head": 237.0,
+    "tail": 237.333,
+    "frames": 2,
+    "peak": 12.9
+   },
+   {
+    "head": 239.0,
+    "tail": 239.333,
+    "frames": 2,
+    "peak": 10.4
+   },
+   {
+    "head": 247.667,
+    "tail": 248.667,
+    "frames": 4,
+    "peak": 16.0
+   },
+   {
+    "head": 252.333,
+    "tail": 252.667,
+    "frames": 2,
+    "peak": 18.4
+   },
+   {
+    "head": 257.667,
+    "tail": 257.667,
+    "frames": 1,
+    "peak": 9.0
+   },
+   {
+    "head": 269.333,
+    "tail": 270.333,
+    "frames": 4,
+    "peak": 19.9
+   },
+   {
+    "head": 272.0,
+    "tail": 272.0,
+    "frames": 1,
+    "peak": 11.6
+   },
+   {
+    "head": 283.667,
+    "tail": 284.0,
+    "frames": 2,
+    "peak": 14.5
+   },
+   {
+    "head": 290.667,
+    "tail": 294.667,
+    "frames": 11,
+    "peak": 21.1
+   },
+   {
+    "head": 302.0,
+    "tail": 302.333,
+    "frames": 2,
+    "peak": 10.7
+   },
+   {
+    "head": 304.667,
+    "tail": 304.667,
+    "frames": 1,
+    "peak": 9.7
+   },
+   {
+    "head": 325.333,
+    "tail": 325.333,
+    "frames": 1,
+    "peak": 11.1
+   },
+   {
+    "head": 332.333,
+    "tail": 332.333,
+    "frames": 1,
+    "peak": 10.4
+   },
+   {
+    "head": 348.0,
+    "tail": 348.0,
+    "frames": 1,
+    "peak": 10.9
+   },
+   {
+    "head": 353.333,
+    "tail": 353.333,
+    "frames": 1,
+    "peak": 10.4
+   },
+   {
+    "head": 364.0,
+    "tail": 364.333,
+    "frames": 2,
+    "peak": 11.0
+   },
+   {
+    "head": 372.667,
+    "tail": 372.667,
+    "frames": 1,
+    "peak": 12.0
+   },
+   {
+    "head": 396.667,
+    "tail": 398.667,
+    "frames": 3,
+    "peak": 13.0
+   },
+   {
+    "head": 403.0,
+    "tail": 403.333,
+    "frames": 2,
+    "peak": 15.8
+   },
+   {
+    "head": 427.333,
+    "tail": 427.667,
+    "frames": 2,
+    "peak": 16.7
+   },
+   {
+    "head": 438.0,
+    "tail": 438.0,
+    "frames": 1,
+    "peak": 15.0
+   },
+   {
+    "head": 462.667,
+    "tail": 462.667,
+    "frames": 1,
+    "peak": 16.1
+   },
+   {
+    "head": 474.667,
+    "tail": 474.667,
+    "frames": 1,
+    "peak": 13.6
+   },
+   {
+    "head": 487.0,
+    "tail": 487.0,
+    "frames": 1,
+    "peak": 12.0
+   }
+  ],
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 42.667,
+    "motion": 0.0
+   },
+   {
+    "start": 42.667,
+    "until": 108.0,
+    "motion": 0.0
+   },
+   {
+    "start": 108.0,
+    "until": 129.333,
+    "motion": 0.0
+   },
+   {
+    "start": 129.333,
+    "until": 139.0,
+    "motion": 0.0
+   },
+   {
+    "start": 139.0,
+    "until": 183.667,
+    "motion": 0.0
+   },
+   {
+    "start": 183.667,
+    "until": 207.0,
+    "motion": 0.0
+   },
+   {
+    "start": 207.0,
+    "until": 228.0,
+    "motion": 0.0
+   },
+   {
+    "start": 228.0,
+    "until": 234.667,
+    "motion": 0.0
+   },
+   {
+    "start": 234.667,
+    "until": 237.0,
+    "motion": 0.0
+   },
+   {
+    "start": 237.0,
+    "until": 239.0,
+    "motion": 0.0
+   },
+   {
+    "start": 239.0,
+    "until": 247.667,
+    "motion": 0.0
+   },
+   {
+    "start": 247.667,
+    "until": 252.333,
+    "motion": 0.0
+   },
+   {
+    "start": 252.333,
+    "until": 257.667,
+    "motion": 0.0
+   },
+   {
+    "start": 257.667,
+    "until": 269.333,
+    "motion": 0.0
+   },
+   {
+    "start": 269.333,
+    "until": 272.0,
+    "motion": 0.0
+   },
+   {
+    "start": 272.0,
+    "until": 283.667,
+    "motion": 0.0
+   },
+   {
+    "start": 283.667,
+    "until": 290.667,
+    "motion": 0.0
+   },
+   {
+    "start": 290.667,
+    "until": 302.0,
+    "motion": 0.0
+   },
+   {
+    "start": 302.0,
+    "until": 304.667,
+    "motion": 0.0
+   },
+   {
+    "start": 304.667,
+    "until": 325.333,
+    "motion": 0.0
+   },
+   {
+    "start": 325.333,
+    "until": 332.333,
+    "motion": 0.0
+   },
+   {
+    "start": 332.333,
+    "until": 348.0,
+    "motion": 0.0
+   },
+   {
+    "start": 348.0,
+    "until": 353.333,
+    "motion": 0.0
+   },
+   {
+    "start": 353.333,
+    "until": 364.0,
+    "motion": 0.0
+   },
+   {
+    "start": 364.0,
+    "until": 372.667,
+    "motion": 0.0
+   },
+   {
+    "start": 372.667,
+    "until": 396.667,
+    "motion": 0.0
+   },
+   {
+    "start": 396.667,
+    "until": 403.0,
+    "motion": 0.0
+   },
+   {
+    "start": 403.0,
+    "until": 427.333,
+    "motion": 0.0
+   },
+   {
+    "start": 427.333,
+    "until": 438.0,
+    "motion": 0.0
+   },
+   {
+    "start": 438.0,
+    "until": 462.667,
+    "motion": 0.0
+   },
+   {
+    "start": 462.667,
+    "until": 474.667,
+    "motion": 0.0
+   },
+   {
+    "start": 474.667,
+    "until": 487.0,
+    "motion": 0.0
+   },
+   {
+    "start": 487.0,
+    "until": 487.667,
+    "motion": 0.0
+   }
+  ]
+ },
+ "V15": {
+  "src": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Flight1549After15Minutes.ogv",
+  "scan": "ref/ep32/src/commons/vts/Flight1549After15Minutes.ogv",
+  "dur": 44.75,
+  "how": "⑤b-2（11-10）：原本の全コマ（4コマ/秒・96×72 の灰色・焼き込みの字の行を外す）の隣のコマの差の山（差 ≥ max(8, 前後15コマの中央値の4倍)・3コマ以内に続く山は1つ）の頭＝ショットの切れ目（カメラの寄り・振り＝監視カメラの操作・編集ではない）",
+  "moves": [
+   {
+    "head": 2.5,
+    "tail": 3.5,
+    "frames": 5,
+    "peak": 14.2
+   },
+   {
+    "head": 22.75,
+    "tail": 23.25,
+    "frames": 3,
+    "peak": 13.0
+   },
+   {
+    "head": 33.25,
+    "tail": 33.25,
+    "frames": 1,
+    "peak": 11.4
+   },
+   {
+    "head": 38.0,
+    "tail": 38.0,
+    "frames": 1,
+    "peak": 8.8
+   }
+  ],
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 2.5,
+    "motion": 0.0
+   },
+   {
+    "start": 2.5,
+    "until": 22.75,
+    "motion": 0.0
+   },
+   {
+    "start": 22.75,
+    "until": 33.25,
+    "motion": 0.0
+   },
+   {
+    "start": 33.25,
+    "until": 38.0,
+    "motion": 0.0
+   },
+   {
+    "start": 38.0,
+    "until": 44.75,
+    "motion": 0.0
+   }
+  ]
+ },
+ "V20": {
+  "src": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Flight1549After20Minutes.ogv",
+  "scan": "ref/ep32/src/commons/vts/Flight1549After20Minutes.ogv",
+  "dur": 150.333,
+  "how": "⑤b-2（11-10）：原本の全コマ（3コマ/秒・96×72 の灰色・焼き込みの字の行を外す）の隣のコマの差の山（差 ≥ max(8, 前後15コマの中央値の4倍)・3コマ以内に続く山は1つ）の頭＝ショットの切れ目（カメラの寄り・振り＝監視カメラの操作・編集ではない）",
+  "moves": [
+   {
+    "head": 12.333,
+    "tail": 12.333,
+    "frames": 1,
+    "peak": 14.4
+   },
+   {
+    "head": 13.667,
+    "tail": 13.667,
+    "frames": 1,
+    "peak": 13.1
+   },
+   {
+    "head": 15.0,
+    "tail": 15.667,
+    "frames": 3,
+    "peak": 16.4
+   },
+   {
+    "head": 35.333,
+    "tail": 35.333,
+    "frames": 1,
+    "peak": 15.1
+   },
+   {
+    "head": 69.333,
+    "tail": 71.333,
+    "frames": 7,
+    "peak": 13.4
+   },
+   {
+    "head": 73.333,
+    "tail": 73.333,
+    "frames": 1,
+    "peak": 10.6
+   },
+   {
+    "head": 114.667,
+    "tail": 116.333,
+    "frames": 5,
+    "peak": 16.9
+   },
+   {
+    "head": 117.667,
+    "tail": 118.0,
+    "frames": 2,
+    "peak": 13.1
+   },
+   {
+    "head": 123.667,
+    "tail": 125.333,
+    "frames": 6,
+    "peak": 14.2
+   },
+   {
+    "head": 131.667,
+    "tail": 132.0,
+    "frames": 2,
+    "peak": 13.1
+   },
+   {
+    "head": 144.333,
+    "tail": 144.667,
+    "frames": 2,
+    "peak": 11.4
+   }
+  ],
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 12.333,
+    "motion": 0.0
+   },
+   {
+    "start": 12.333,
+    "until": 13.667,
+    "motion": 0.0
+   },
+   {
+    "start": 13.667,
+    "until": 15.0,
+    "motion": 0.0
+   },
+   {
+    "start": 15.0,
+    "until": 35.333,
+    "motion": 0.0
+   },
+   {
+    "start": 35.333,
+    "until": 69.333,
+    "motion": 0.0
+   },
+   {
+    "start": 69.333,
+    "until": 73.333,
+    "motion": 0.0
+   },
+   {
+    "start": 73.333,
+    "until": 114.667,
+    "motion": 0.0
+   },
+   {
+    "start": 114.667,
+    "until": 117.667,
+    "motion": 0.0
+   },
+   {
+    "start": 117.667,
+    "until": 123.667,
+    "motion": 0.0
+   },
+   {
+    "start": 123.667,
+    "until": 131.667,
+    "motion": 0.0
+   },
+   {
+    "start": 131.667,
+    "until": 144.333,
+    "motion": 0.0
+   },
+   {
+    "start": 144.333,
+    "until": 150.333,
+    "motion": 0.0
+   }
+  ]
+ }
+}

@@ -426,6 +426,7 @@ NOGO = {
     #    32本目の外す秒＝VTS の CrashAndRescue 410〜428秒（背景のはしけの上に別の旅客機＝コンコルド・この機体と取り違えられる）＝`ref/ep32/eizou_build/make_list32.py` の
     #    EXCLUDE（元の映像の秒・前後 0.5秒）＝束のチャットで clips.json の鍵が決まってから、その秒を含むショットまるごとで書く
     # EP32_NOGO>>> ここから（手で書かない）
+    "VC": [(402.5, 438.5, '背景のはしけの上に別の旅客機（コンコルド）＝この機体と取り違えられる')],
     # EP32_NOGO>>> ここまで
 }
 
@@ -726,6 +727,8 @@ USE = {
     #   （narration.json の実測の秒・扉を除く）。欄は束のチャットで道具から書き出す（手で書かない）＝下の印のあいだ。
     #   🔴 等速・止めなし・頭から使う・同じ秒を2回使わない・音は使わない（-an）・焼き込みのカメラの時計は語りと副題に使わない
     # EP32_USE>>> ここから（手で書かない）
+    "c101": dict(clip="VC", start=7.00, until=20.50, rate=1.0),   # 読む 9.17秒（〜16.17）／区間 13.50秒・ショット 0〜42.667
+    "c102": dict(clip="VC", start=82.00, until=95.50, rate=1.0),   # 読む 9.75秒（〜91.75）／区間 13.50秒・ショット 42.667〜108
     # EP32_USE>>> ここまで
 }
 # ⚠️ 2026-09-23（12本目 ⑤c' 直しE）：ここにあった前の回の注（9.11 の c621・c712／6本目キー橋の「まだ決まっていない
@@ -1275,7 +1278,9 @@ def probe_media(url, timeout=45):
             if not gif and not ct.startswith(("video/", "audio/", "application/octet-stream", "binary/octet-stream",
                                               "application/ogg")):
                 why = f"Content-Type が `{ct or '空'}`＝動画でない（頁を渡している）"
-            elif ln < 1_000_000:
+            # 🔧 2026-11-10（32本目 ⑤b-2）：沿岸警備隊の VTS（Commons の ogv・384×288・毎秒3〜4コマ）は 0.30MB・0.86MB の本物の動画＝1MB の線で止まった。
+            #    型が動画（video/・audio/・application/ogg）なら 100KB まで通す（頁は上の型で止まる）・型の分からない octet-stream は今までどおり 1MB
+            elif ln < (100_000 if ct.startswith(("video/", "audio/", "application/ogg")) else 1_000_000):
                 why = f"Content-Length {ln} が小さすぎる＝媒体でない"
             elif "bytes" not in ar and not range_ok(url, timeout):
                 why = f"Accept-Ranges が `{ar or '空'}`＝区間だけ読めない（Range の GET も 206 を返さない）"
