@@ -40,7 +40,7 @@ C50|commons-photo|museum|博物館の格納庫の機体（つけ直した尾翼�
 C52|commons-photo|accident|ラガーディア空港の滑走路4 の出発の図（赤い線）|原本|379×612|PD（FAA）|米国の連邦の業務|図：FAA（public domain）／Wikimedia Commons|2009-01-15（題）|なし|src/commons/c32/|小さい＝額装
 C55|commons-photo|museum|博物館の機体の登録記号 N106US と胴体の下の壊れ|1920 の縮小版（原本 3456）|3456×2304|CC BY-SA 3.0|Commons の頁の許諾（GFDL もある）|写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工|撮影の日は頁に無い|なし|src/commons/c32/|BY-SA＝額装・無加工・1カット
 C56|commons-photo|accident|この機体の翼の壊れとエンジンを外した所（頁の説明「detail of wing damage and spot where engines were removed」）|1920 の縮小版（原本 3456）|3456×2304|CC BY-SA 3.0|Commons の頁の許諾（GFDL もある）|写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工|頁の説明＝博物館へ運ぶ前・EXIF＝2012-04-14＝合わない＝副題に日付と場所を書かない|なし（11-10 に 960px と原寸で見た）|src/commons/c32/|BY-SA＝額装・無加工・1カット（cc08＝[69] の差し替え・✅ 11-10 カズヤくん「[56] を取ってよい」）
-C57|commons-photo|accident|天幕の中で保管中の機体（翼を外した胴体・技術者の後ろ姿）|1920 の縮小版（原本 2848）|2848×2136|CC BY-SA 3.0|Commons の頁の許諾|写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工|2010（題・頁の説明＝ニュージャージー州での保管）|技術者（後ろ姿・中景）|src/commons/c32/|BY-SA＝額装・無加工・1カット
+C57|commons-photo|accident|天幕の中で保管中の機体（翼を外した胴体・技術者の後ろ姿）|1920 の縮小版（原本 2848）|2848×2136|CC BY-SA 3.0|Commons の頁の許諾|写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工|2010（題・頁の説明＝ニュージャージー州での保管）|技術者（奥に小さく立つ・横向き＝⑤b-7 の試し焼きで見た・主役でない）|src/commons/c32/|BY-SA＝額装・無加工・1カット
 C59|commons-photo|accident|トラックで運ばれる胴体（木々の向こう・州警察の建物のそば）|原本|1852×1316|CC0|作者の CC0（頁の許諾）|写真：{作者}／Wikimedia Commons（CC0）|2011（頁の説明＝メリーランド州・博物館への運搬）|遠くの人（小さい）|src/commons/c32/|—
 C60|commons-photo|accident|運搬に付き添った博物館の車（「The Miracle on the Hudson」の字）|原本|764×591|CC0|作者の CC0（頁の許諾）|写真：{作者}／Wikimedia Commons（CC0）|2011（頁の説明＝メリーランド州）|運転の人（窓の中・顔は分からない）|src/commons/c32/|小さい＝額装
 C61|commons-photo|accident|袋に入った羽（エンジン1 の札・袋の手書きの字）|原本|900×1200|PD（PD-NTSB）|米国の連邦の業務|写真：NTSB（public domain）／Wikimedia Commons・改変：切出|2009-01-29（袋の字）|なし|src/commons/c32/|🔴 袋の左下の手書きの人の名前を切って使う（PD＝切出可）・縦長＝額装
@@ -59,7 +59,7 @@ D49-42|docket-photo|accident|#49 生存の写真 写真42（PDF p22）＝65番�
 D49-21|docket-photo|accident|#49 生存の写真 写真21（PDF p12）＝後ろの左の扉（2L）とすべり台を兼ねたいかだ|同上|—|同上|同上|写真：NTSB 公開ドケット DCA09MA026（生存の写真 写真21）|2009（凡例）|なし|—|△ 絵は ⑤b で原寸
 D49-54|docket-photo|accident|#49 生存の写真 写真54（PDF p28）＝座席の下の救命胴衣の袋|同上|—|同上|同上|写真：NTSB 公開ドケット DCA09MA026（生存の写真 写真54）|2009（凡例）|なし|—|△ 絵は ⑤b で原寸
 D49-56|docket-photo|accident|#49 生存の写真 写真56（PDF p29）＝すべり台を兼ねたいかだ（ナイフの袋の位置）|同上|—|同上|同上|写真：NTSB 公開ドケット DCA09MA026（生存の写真 写真56）|2009（凡例）|なし|—|△ いかだの全体が写るかは ⑤b で原寸（写らなければ写真21 の別の切り出しか [39]）
-D101-1|docket-photo|accident|#101 野生動物の写真1（PDF p12）＝エンジン2 のファンから試料を取る調査官（後ろ姿）|src/ntsb/docket/101 の PDF から|—|同上|同上|写真：NTSB 公開ドケット DCA09MA026（野生動物の報告 写真1）|2009-01（凡例）|調査官（後ろ姿・公的な任務）|—|—
+D101-1|docket-photo|accident|#101 野生動物の写真1（PDF p12）＝エンジン2 のファンから試料を取る調査官（数人・ヘルメット）|src/ntsb/docket/101 の PDF から|—|同上|同上|写真：NTSB 公開ドケット DCA09MA026（野生動物の報告 写真1）|2009-01（凡例）|調査官（中景・顔の見える人あり＝⑤b-7 の試し焼きで見た・公的な任務＝升目なし）|—|—
 D101-2|docket-photo|accident|#101 野生動物の写真2（PDF p13）＝フラップのレールの溝に残った羽|同上|—|同上|同上|写真：NTSB 公開ドケット DCA09MA026（野生動物の報告 写真2）|2009-01（凡例）|なし|—|—
 D68-3|docket-photo|accident|#68 救助の写真3（PDF p2〜4）＝1月17日の桟橋のフェリー|src/ntsb/docket/068 の PDF から|1024px|同上|同上|写真：NTSB 公開ドケット DCA09MA026（救助の写真3）|2009-01-17（凡例）|なし|—|🔴 船の名（人の名）は読ませない＝⑤b で原寸
 D83-8|docket-photo|accident|#83 エンジンの報告 図8（PDF p29 の下）＝はしけの上の右のエンジン（雪・壊れた覆い）|src/ntsb/docket/083 の PDF から|827×660|同上|同上|写真：NTSB 公開ドケット DCA09MA026（エンジンの報告 図8）|2009-01（凡例＝はしけの上）|なし|—|下の「Photo No」の帯は切る（11-10 に 640px で見た）
