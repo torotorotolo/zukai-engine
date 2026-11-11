@@ -2662,9 +2662,20 @@ LEAD, TAIL = 0.35, 0.50
 TAIL_EXTRA = {"quote": 2.0}
 
 
+def orig_hold(cid):
+    """🆕 2026-11-11（32本目 ⑤b-7）：**本物の音（原音）を語りのあとに鳴らすカット**の足す秒＝SPEC の `orig=dict(wav, len, pre)`。
+    語りの wav は書き換えない（読み終えたあとに pre 秒あけて len 秒の原音＝`audio_mix` が混ぜる）。足す秒＝pre＋len
+    （そのあとに共通の末尾 TAIL が残る）。音・総尺（check_final）・コマ数が同じ CUTS を読むので、ずれない。
+    ⚠️ aq_build の timeline・check_listener は決め所の余白だけを数える＝このカットより後ろの「本編の秒」はこの秒だけ早く出る"""
+    o = (SPEC.get(cid) or {}).get("orig")
+    if not o:
+        return 0.0
+    return round(float(o["pre"]) + float(o["len"]), 2)
+
+
 def _tail_extra(cid):
     fig = (SPEC.get(cid) or {}).get("fig")
-    return TAIL_EXTRA.get(fig[0], 0.0) if fig else 0.0
+    return (TAIL_EXTRA.get(fig[0], 0.0) if fig else 0.0) + orig_hold(cid)
 
 
 # ── 章の扉（12本目から・2026-09-23 カズヤくん決定）──────────────────

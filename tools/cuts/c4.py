@@ -104,8 +104,11 @@ SPEC.update({
     "c413": dict(photo=_R413, panel=True, pw=1776, ground=dict(photo=_R413, blur=ss.PAGE_BLUR), color=1.0,
                  t="客室への放送", s="操縦室の中の書き起こし〈付録B〉"),
     # c416＝付録B p196 の右の半分の頭＋15:29:28（RDO-1）と 15:29:33（DEP）の行。1065×534＝幅いっぱい。
-    #   ⚠️ 本物の音（A1 の 116.55〜118.10秒＝`qa_out/ep32_assets.py` の AUDIO_PICK・耳の確かめは試写）を混ぜる仕組みは ⑤b-7（audio_mix に無い）
+    #   🆕 ⑤b-7（11-11）：本物の音＝A1 の 116.55〜118.10秒（AUDIO_PICK）を `qa_out/ep32_assets.py a1clip` で切った `ref/ep32/a1_c416.wav`（1.550秒・
+    #   md5 1aced30f…・FAA＝public domain）を、語り「…「ハドソン川に降りる」。」を読み終えて 0.30秒あけて鳴らす（`orig`＝scene_jiko.orig_hold が
+    #   カットに 1.85秒を足す・audio_mix が混ぜる・声の wav は書き換えない）。画面は同じ紙面（15:29:28 の行が見えている＝字幕は足さない）。耳の確かめは試写
     "c416": dict(photo=_R416, panel=True, pw=1776, ground=dict(photo=_R416, blur=ss.PAGE_BLUR), color=1.0,
+                 orig=dict(wav="ep32/a1_c416.wav", len=1.55, pre=0.30), credit_add="／音声：FAA（public domain）／Wikimedia Commons",
                  t="機長の答え", s="管制との無線の書き起こし〈付録B〉"),
 })
 

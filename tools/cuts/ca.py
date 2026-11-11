@@ -114,3 +114,18 @@ SPEC.update({
     "ca12": _m32.fu_spec("ca12", ss.gr("c36")),
     "ca14": _m32.zu_spec("ca14", ss.gr("c18")),
 })
+
+# 🆕 ⑤b-7（2026-11-11）：写真の束の残り（型は c1.py の同じ節）
+_C40, _D49_56, _C57 = P("c40"), P("d49_56"), P("c57")
+SPEC.update({
+    # ca01＝[40] 夜の照明の中の機体（EXIF 1月17日 0:07・第9章の頭）。🔴 機体は左下（原寸で見た＝はしけの照明のそば・胴体の字と尾翼）＝そこへ 1.35 まで寄る。
+    #   見出しに「奇跡」を書かない（語りの言わない語＝make_list32.SAY_NOT）
+    "ca01": dict(photo=_C40, **ss.mv(_C40, "in", fx=0.25, fy=0.68, z=1.35), side="none", color=1.0,
+                 t="呼び名の始まり", s="夜の岸壁のそばの機体〈2009年1月17日〉"),
+    # ca06＝#49 写真56（札「Location of the knife storage pouch on the slide/raft」）＝いかだの全体は写らない＝副題は写っているもの
+    "ca06": dict(photo=_D49_56, panel=True, ptall=True, ground=dict(photo=_D49_56), color=1.0,
+                 t="積む決まりのない装備", s="救命いかだのナイフの袋〈NTSB〉"),   # 🔧 副題は額の左に収まる長さ（門番 fmove）
+    # ca11＝[57] 天幕の中の胴体と外した翼・技術者（横顔の中景＝主役でない・BY-SA＝額装・無加工）
+    "ca11": dict(photo=_C57, panel=True, ptall=True, ground=dict(photo=_C57), color=1.0,
+                 t="改めるべき所", s="保管中の機体を調べる人〈2010年〉"),   # 🔧 副題は額の左に収まる長さ（門番 fmove）
+})

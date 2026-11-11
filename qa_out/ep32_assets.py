@@ -84,7 +84,9 @@ DK_PICK = {
     "D76-2": ("076", 4, 11, "Photo 2", "below"),
     "D76-4": ("076", 6, 17, "Photo 4", "below"),
     "D76-9": ("076", 11, 32, "Photo 9", "below"),
-    "D79-1": ("079", 3, 6, "Photo 1", "below"),
+    "D79-1": ("079", 3, 6, "Photo 1", "below"),      # 🔴 ⑤b-7（11-11）：D76-9 と同じ写真（画素の相関 0.996）＝一覧で使わない（取り出しの記録だけ残す）
+    # 🆕 ⑤b-7（11-11）：c724 の替え＝写真23（p25・902×739・白い余白と絵の中の札「Picture 1:」つき＝PRE_CROP で切る）
+    "D79-23": ("079", 25, 72, "Photo 23", "below"),
     # 写真45＝上下2枚の組。🔴 上の絵（xref 146）は座席の配置図（骨組みの番号 61〜70・床の穴の場所の札「Floor panel perforation」）＝写真でない
     #   （11-10 に 640px のシートで見て取り違えに気づいた）。写真は下の絵（xref 147・400×265・札「Attachment of vertical beam closing cargo compartment」）
     "D79-45": ("079", 47, 147, "Attachment of vertical", "below"),
@@ -124,6 +126,8 @@ MASK = {
 PRE_CROP = {
     "C61": (0.0, 0.0, 1.0, 0.71),      # 🔴 袋の左下の手書きの人の名前（行 855〜940）＝切り落とす（sources32 の注・PD）。行 852 まで＝羽の付け根と「1-29-09」「US Air 1549」は残す（羽の下の端の少しと「1 of 6」・物差しは落ちる）
     "D83-8": (0.0, 0.0, 1.0, 0.9379),  # 下の白い余白と札「Photo No: DSCN….tif」（行 620〜659）＝写真は行 619 まで（11-10 に白の割合で測った）
+    # 🆕 ⑤b-7（11-11）：902×739 の白い余白（行 0〜57＝札「Picture 1:」を含む・行 718〜・列 0〜12・列 888〜）＝白の割合 0.95 の行と列で測った。内側へ 2〜3px
+    "D79-23": (0.016, 0.081, 0.983, 0.970),
 }
 
 
@@ -1382,6 +1386,35 @@ AUDIO_PICK = {"c416": dict(code="A1", file="src/commons/c32/A1.ogg", a=116.55, b
                            what="機長「we're gonna be in the Hudson.」（ctx＝管制の問い「kay which runway would you like at Teterboro?」から）",
                            cvr="15:29:28", page=196)}
 A1_HEAD = "15:27:31.15"                   # `a1` が出した録音の頭（付録B の時計）＝これと違えば止める（0.2秒まで）
+# 🆕 ⑤b-7（11-11）：c416 に混ぜる原音の切り出し（git に入れる＝Actions・Modal の audio_mix が読む・A1 は git の外）。
+#    FAA の録音（PD-USGov-FAA＝public domain）。44.1kHz・モノラル・16bit（audio_mix.read_wav の前提）・端に 8ミリ秒のフェード（切り口の「プツッ」を消す）。
+#    秒は AUDIO_PICK のまま（耳では聞いていない＝試写）。SPEC の c416 の `orig`（len）と長さを照らす＝audio_mix も照らす（違えば止める）
+A1_CLIP = EPD / "a1_c416.wav"
+A1_FADE = 0.008
+
+
+def cmd_a1clip():
+    """AUDIO_PICK の c416 の秒を A1 から切って `ref/ep32/a1_c416.wav` に書く（md5 を2回）"""
+    import wave
+    pk = AUDIO_PICK["c416"]
+    src = EPD / pk["file"]
+    if not src.exists():
+        print(f"🔴 録音が無い（{src}）")
+        return 1
+    want = round(pk["b"] - pk["a"], 3)
+    af = f"afade=t=in:st=0:d={A1_FADE},afade=t=out:st={want - A1_FADE:.3f}:d={A1_FADE}"
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{pk['a']:.3f}", "-i", str(src), "-t", f"{want:.3f}",
+                    "-ac", "1", "-ar", "44100", "-sample_fmt", "s16", "-af", af, "-map_metadata", "-1", "-fflags", "+bitexact",
+                    "-flags:a", "+bitexact", str(A1_CLIP)], check=True)
+    with wave.open(str(A1_CLIP)) as w:
+        got = w.getnframes() / w.getframerate()
+        ch, sw, sr = w.getnchannels(), w.getsampwidth(), w.getframerate()
+    h1, h2 = md5(A1_CLIP), hashlib.md5(A1_CLIP.read_bytes()).hexdigest()
+    print(f"{A1_CLIP.relative_to(HERE).as_posix()}：{got:.3f}秒（狙い {want:.3f}）・{ch}ch・{sw * 8}bit・{sr}Hz・md5 {h1}（読み直し {'同じ' if h1 == h2 else '違う'}）")
+    if abs(got - want) > 0.01 or (ch, sw, sr) != (1, 2, 44100) or h1 != h2:
+        print("🔴 長さか形式か md5 が合わない")
+        return 1
+    return 0
 
 
 def cmd_a1():
@@ -1450,7 +1483,8 @@ def cmd_a1():
 
 if __name__ == "__main__":
     a = sys.argv[1:]
-    cmds = {"panel": cmd_panel, "edges": cmd_edges, "clips": cmd_clips, "shots": cmd_shots, "dk": cmd_dk, "build": cmd_build, "a1": cmd_a1}
+    cmds = {"panel": cmd_panel, "edges": cmd_edges, "clips": cmd_clips, "shots": cmd_shots, "dk": cmd_dk, "build": cmd_build, "a1": cmd_a1,
+            "a1clip": cmd_a1clip}
     if a and a[0] == "uses":
         _later = {}
         for _k, _u in sorted(uses(_later).items()):

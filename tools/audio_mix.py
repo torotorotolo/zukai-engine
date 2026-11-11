@@ -624,6 +624,23 @@ def duck_gain(narr, n, blk=None):
 
 BGM_MODES = ("auto", "music", "drone", "none")
 
+# 🆕 2026-11-11（32本目 ⑤b-7）：原音（SPEC の orig）の大きさ＝そのカットの語りの話している所の実効値からの差（dB）。
+#    無線の声は帯域が狭く同じ実効値でも細く聞こえる＝語りと同じ（0）から始める。耳の確かめは試写（途中で頼まない）
+ORIG_REL_DB = 0.0
+
+
+def active_rms(x, blk=882, below=25.0):
+    """話している所だけの実効値＝20ミリ秒ごとの実効値が、いちばん大きい区切りから below dB 以内の区切りだけで測る（無音を数えない）"""
+    m = len(x) // blk
+    if m == 0:
+        return float(np.sqrt((x ** 2).mean())) if len(x) else 0.0
+    r = np.sqrt((x[:m * blk].reshape(m, blk) ** 2).mean(axis=1))
+    top = r.max()
+    if top <= 0:
+        return 0.0
+    keep = r[r >= top * 10 ** (-below / 20.0)]
+    return float(np.sqrt((keep ** 2).mean()))
+
 
 def main(head=None, out_name="mix.wav", duck=True, bgm="auto"):
     """head に秒を渡すと**先頭その秒だけ**を混ぜる。
@@ -680,6 +697,7 @@ def main(head=None, out_name="mix.wav", duck=True, bgm="auto"):
     audio = HERE / "audio"
     eq = voice_eq_ep()
     print(f"声の EQ：{eq[0]:.0f}Hz・{eq[1]}オクターブ・{eq[2]:+.1f}dB（compress のあと・声だけ）" if eq else "声の EQ：なし")
+    narr_end, narr_rms = {}, {}
     for cid, _ in cuts:
         p = audio / f"{cid}.wav"
         if not p.exists():
@@ -691,6 +709,33 @@ def main(head=None, out_name="mix.wav", duck=True, bgm="auto"):
         # 🔴 12本目から：章の頭のカットは扉（S.card_of）のぶん声を後ろへ（映像の中身と同じずらし）
         i = int((starts[cid] + S.LEAD + S.card_of(cid)) * SR)
         mix[i:i + len(a)] += a[:max(0, n - i)]
+        narr_end[cid] = i + len(a)
+        if (S.SPEC.get(cid) or {}).get("orig"):
+            narr_rms[cid] = active_rms(a)
+
+    # 🆕 2026-11-11（32本目 ⑤b-7）：**本物の音（原音）**＝SPEC の `orig=dict(wav, len, pre)` のカットだけ、語りを読み終えて pre 秒あけて鳴らす
+    #    （c416＝管制の録音の機長の答え・FAA の public domain）。語りの wav は書き換えない。カットの秒は scene_jiko.orig_hold が pre＋len を足してある
+    #    ＝原音は声と重ならず、終わったあとに共通の末尾 TAIL が残る。大きさは**そのカットの語りの話している所の実効値**＋ORIG_REL_DB にそろえる
+    #    （最後の LUFS の合わせは全体に一様＝比は変わらない）。🔴 ファイルが無い・長さが SPEC と違う・余白に収まらない＝止める（黙って抜かない）
+    for cid, sec in cuts:
+        o = (S.SPEC.get(cid) or {}).get("orig")
+        if not o:
+            continue
+        q = HERE / "ref" / o["wav"]
+        if cid not in narr_end or not q.exists():
+            raise SystemExit(f"🔴 原音のカット {cid}：語りの wav か原音 {q.name} が無い（黙って抜かずに止めた）")
+        x = read_wav(q)
+        if abs(len(x) / SR - float(o["len"])) > 0.02:
+            raise SystemExit(f"🔴 原音 {q.name} の長さ {len(x) / SR:.3f}秒が SPEC の len {o['len']} と違う（カットの秒がずれる）")
+        g = narr_rms[cid] / max(active_rms(x), 1e-9) * 10 ** (ORIG_REL_DB / 20.0)
+        i = narr_end[cid] + int(float(o["pre"]) * SR)
+        room = int((starts[cid] + sec - S.TAIL) * SR) + 1
+        if i + len(x) > room:
+            raise SystemExit(f"🔴 原音 {q.name} がカット {cid} の余白に収まらない（{(i + len(x) - room) / SR:.2f}秒はみ出す＝orig_hold を確かめる）")
+        e = min(n, i + len(x))
+        mix[i:e] += x[:e - i] * g
+        print(f"原音：{cid} {o['wav']}（{len(x) / SR:.2f}秒）を {i / SR:.2f}秒から＝語りの終わり＋{float(o['pre']):.2f}秒・"
+              f"語りの実効値にそろえて {20 * np.log10(g):+.1f}dB", flush=True)
 
     # 🔴 サイドチェイン。**ナレーションだけ**を鍵にして寝床を下げる
     #    （心拍と衝撃音は鍵に入れない。鳴った瞬間に BGM が沈んで不自然になる）。

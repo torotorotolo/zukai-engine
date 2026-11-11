@@ -161,3 +161,20 @@ SPEC.update({
     "c308": _m32.zu_spec("c308", ss.gr("stock/gs1")),
     "c323": _m32.zu_spec("c323", ss.gr("stock/gs1")),
 })
+
+# 🆕 ⑤b-7（2026-11-11）：写真の束の残り（型は c1.py の同じ節）
+_C61, _D76_4, _D76_2, _D101_2 = P("c61"), P("d76_4"), P("d76_2"), P("d101_2")
+SPEC.update({
+    # c305＝[61] 袋の羽（エンジン1 の札・「1-29-09」・左下の手書きの人の名前は束の段で切り落とした）
+    "c305": dict(photo=_C61, panel=True, ptall=True, ground=dict(photo=_C61), color=1.0,
+                 t="羽の分析", s="エンジンから集めた羽〈NTSB〉"),
+    # c309＝#76 写真4 ピンクの丸の中の凹み
+    "c309": dict(photo=_D76_4, panel=True, ptall=True, ground=dict(photo=_D76_4), color=1.0,
+                 t="両方のエンジン", s="鳥が当たった跡〈NTSB の調査の写真〉"),
+    # c312＝#76 写真2 割れた機首の覆い
+    "c312": dict(photo=_D76_2, panel=True, ptall=True, ground=dict(photo=_D76_2), color=1.0,
+                 t="APU の始動", s="機首の覆いの割れ〈NTSB の調査の写真〉"),
+    # c322＝#101 写真2 翼の溝に残った羽
+    "c322": dict(photo=_D101_2, panel=True, ptall=True, ground=dict(photo=_D101_2), color=1.0,
+                 t="再始動の試み", s="翼の溝に残った羽〈NTSB の調査の写真〉"),
+})

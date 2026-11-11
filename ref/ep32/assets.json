@@ -2162,15 +2162,15 @@
   "private": false,
   "shot": null
  },
- "d79_1": {
-  "code": "D79-1",
+ "d79_23": {
+  "code": "D79-23",
   "part": "",
-  "file": "src/ntsb/photos/D79-1.png",
+  "file": "src/ntsb/photos/D79-23.png",
   "cut": "c724",
   "ji": "",
-  "credit": "写真：NTSB 公開ドケット DCA09MA026（構造の追記の写真 写真1）",
+  "credit": "写真：NTSB 公開ドケット DCA09MA026（構造の追記の写真 写真23）／改変：切出",
   "who": "NTSB の調査グループ（撮影者の記載なし）",
-  "note": "△ 絵は ⑤b で原寸",
+  "note": "🔧 ⑤b-7（11-11）：c724 の D79-1 は c701 の D76-9 と同じ写真＝替えた・白い余白と絵の中の札は束の段で切る（PRE_CROP）",
   "box": [
    0.0,
    0.0,
@@ -2180,19 +2180,19 @@
   "crop_px": [
    0,
    0,
-   902,
-   674
+   873,
+   657
   ],
-  "w": 902,
-  "h": 674,
-  "md5": "0b5955264c8a3d5879bb11f6e91d721a",
-  "src_md5": "9001179e204485057f2cabdbb342e9ac",
+  "w": 873,
+  "h": 657,
+  "md5": "4fa05b3129a95acf7d137587911fab2c",
+  "src_md5": "ba440e7dd838d1d187ca239fa0bdcf1a",
   "lic": "PD（米国の連邦の業務の見込み）",
   "frame": true,
   "ground": "米国の連邦の業務の見込み（弱い所＝グループに会社の人も入る）",
-  "url": "NTSB ドケット DCA09MA026・079_40313690.pdf p3",
+  "url": "NTSB ドケット DCA09MA026・079_40313690.pdf p25",
   "blur": [],
-  "how": "ドケット 079_40313690.pdf p3 の埋め込みの絵（xref 6・埋め込みの jpx を画素に解いて PNG（RGB））・札 sRGB IEC61966-2.1（sRGB のまま）",
+  "how": "ドケット 079_40313690.pdf p25 の埋め込みの絵（xref 72・埋め込みの jpx を画素に解いて PNG（RGB））・札 sRGB IEC61966-2.1（sRGB のまま）・束の段で切り落とした (0.016, 0.081, 0.983, 0.97)",
   "year": 2009,
   "year_why": "sources32.psv の時期の欄「2009（凡例）」（映像方針＝頁の説明・EXIF・凡例）",
   "stock": false,
@@ -2204,7 +2204,7 @@
   "name_mosaic": null,
   "masked_before": null,
   "era": "2009（凡例）",
-  "people": "なし",
+  "people": "作業の人（右の端・脚と反射ベストだけ＝顔は外板の陰）",
   "private": false,
   "shot": null
  },

@@ -91,7 +91,7 @@ PLAN = {
                plan='🔧 地：C21（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：並べ｜副題：損傷に関わった3つの札＝認証・訓練と指針・速さ｜注：—｜新しい画（映像方針）：🔧 地 衛星 → [21]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p140（`(2) the lack of industry flight crew training and guidance on ditching techniques, and (3) the captain’s resulting difficulty maintaining his intended airspeed on final approach due to the task saturation resulting from the emergency situation`）・報p140（`approval of ditching certification without determining whether pilots could attain the ditching parameters without engine thrust`）・報p112（`contain very little guidance to pilots on flying techniques to use during a ditching`）'),
     'c724': dict(kind='写真',
-               plan='🔧 D79-1｜一覧の種類：調査｜見せ方：額装（高さいっぱい）｜副題：胴体の外板の壊れ〈NTSB の調査の写真〉｜動き：静止｜権利：同上｜時期：2009（凡例）｜人：なし｜出典の行：写真：NTSB 公開ドケット DCA09MA026（構造の追記の写真 写真1）｜注：△ 絵は ⑤b で原寸｜新しい画（映像方針）：🔧 調査の写真の番号を凡例から（#79 写真1＝外板の区画 16/17）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 調査の写真（NTSB のドケット）＝額装・無加工・出典の行・人の写り（顔・名前の字・船の名）は原寸で（⑤b-2）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
+               plan='🔧 D79-23｜一覧の種類：調査｜見せ方：額装（高さいっぱい）｜副題：後ろの胴体の下の大きな破れ〈NTSB の調査の写真〉｜動き：静止｜権利：同上｜時期：2009（凡例）｜人：作業の人（右の端・脚と反射ベストだけ＝顔は外板の陰）｜出典の行：写真：NTSB 公開ドケット DCA09MA026（構造の追記の写真 写真23）｜注：白い余白と絵の中の札「Picture 1:」は束の段で切る（PRE_CROP）｜新しい画（映像方針）：🔧 ⑤b-7（11-11・手で直した＝make_plan32 --write は回さない）：#79 写真1 は c701 の #76 写真9 と同じ写真（画素の相関 0.996）＝#79 写真23（PDF p25）に替えた｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 調査の写真（NTSB のドケット）＝額装・無加工・出典の行・人の写り（顔・名前の字・船の名）は原寸で（⑤b-2）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
                src='報p124（`two slide/rafts on the accident airplane were unavailable because of water entry in the aft cabin`）・報p139（`significant aft fuselage breaching and subsequent water entry into the aft area of the airplane, which prevents the aft slide/rafts from being available for use during an evacuation`）'),
 }
 
@@ -146,4 +146,23 @@ SPEC.update({
     "c719": _m32.fu_spec("c719", ss.gr("c21")),
     "c721": _m32.fu_spec("c721", ss.gr("stock/gm1")),
     "c723": _m32.fu_spec("c723", ss.gr("c21")),
+})
+
+# 🆕 ⑤b-7（2026-11-11）：写真の束の残り（型は c1.py の同じ節）
+#   🔴 c724 は D79-1 → D79-23：#79 写真1 は c701 の #76 写真9 と同じ写真だった（902×674 に縮めた画素の相関 0.996・ずらし0＝⑤b-2 の「別の写真・0.80」は誤り）。
+#      #79 写真23（PDF p25・左の後ろの下の胴体の破れ・骨組み 64〜70）＝語り「後ろの胴体は破れ、水が入った」・白い余白と絵の中の札は束の段で切った（PRE_CROP）
+_D76_9, _C68, _D49_42, _D79_23 = P("d76_9"), P("c68"), P("d49_42"), P("d79_23")
+SPEC.update({
+    # c701＝#76 写真9 後ろの胴体の下の裂け（第6章の頭＝扉の地に混ぜない＝card_mix=0）
+    "c701": dict(photo=_D76_9, panel=True, ptall=True, ground=dict(photo=_D76_9), color=1.0, card_mix=0,
+                 t="着水の前提", s="胴体の下の裂け〈NTSB の調査の写真〉"),   # 🔧 副題は額の左に収まる長さ（門番 fmove）
+    # c717＝[68] 保管中のこの機体の底の壊れ（BY-SA＝額装・無加工）
+    "c717": dict(photo=_C68, panel=True, ptall=True, ground=dict(photo=_C68), color=1.0,
+                 t="押す力は約2倍", s="保管中のこの機体の底の壊れ"),
+    # c718＝#49 写真42 床を突き破った65番の縦の梁
+    "c718": dict(photo=_D49_42, panel=True, ptall=True, ground=dict(photo=_D49_42), color=1.0,
+                 t="65番の縦の梁", s="床を突き破った梁〈NTSB の調査の写真〉"),
+    # c724＝#79 写真23 後ろの胴体の下の大きな破れ（右の端に作業の人の脚＝顔は外板の陰）
+    "c724": dict(photo=_D79_23, panel=True, ptall=True, ground=dict(photo=_D79_23), color=1.0,
+                 t="破れた胴体", s="破れた外板と骨組み〈NTSB の調査の写真〉"),   # 🔧 副題は額の左に収まる長さ（門番 fmove）・c701 の「裂け」と分ける
 })

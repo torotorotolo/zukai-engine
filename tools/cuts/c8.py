@@ -126,3 +126,26 @@ SPEC.update({
     "c820": _m32.zu_spec("c820", ss.gr("c16")),
     "c822": _m32.zu_spec("c822", ss.gr("c16")),
 })
+
+# 🆕 ⑤b-7（2026-11-11）：写真の束の残り（型は c1.py の同じ節）
+_D49_21, _C63, _C39, _C2, _D49_54, _C16 = P("d49_21"), P("c63"), P("c39"), P("c2"), P("d49_54"), P("c16")
+SPEC.update({
+    # c805＝#49 写真21 扉 2L とすべり台いかだ
+    "c805": dict(photo=_D49_21, panel=True, ptall=True, ground=dict(photo=_D49_21), color=1.0,
+                 t="少し開いた扉", s="後ろの左の扉〈NTSB の調査の写真〉"),
+    # c806＝[63] 保管中のこの機体の座席（BY-SA＝額装・無加工）
+    "c806": dict(photo=_C63, panel=True, ptall=True, ground=dict(photo=_C63), color=1.0,
+                 t="前へ進む呼びかけ", s="保管中のこの機体の座席"),
+    # c812＝[39] 水に浮く翼とふくらんだすべり台（EXIF 1月16日 11:31・縦長＝額装）
+    "c812": dict(photo=_C39, panel=True, ptall=True, ground=dict(photo=_C39), color=1.0,
+                 t="地面のための作り", s="翼とすべり台〈2009年1月16日・沿岸警備隊〉"),
+    # c814＝[2] 消防艇と沈みかけの機体（822px＝額装）
+    "c814": dict(photo=_C2, panel=True, ptall=True, ground=dict(photo=_C2), color=1.0,
+                 t="医学の文献", s="水につかっていく機体〈2009年1月15日〉"),   # 🔧 副題は額の左に収まる長さ（門番 fmove）
+    # c815＝#49 写真54 座席の下の救命胴衣の袋
+    "c815": dict(photo=_D49_54, panel=True, ptall=True, ground=dict(photo=_D49_54), color=1.0,
+                 t="着水の前に2人", s="座席の下の救命胴衣〈NTSB の調査の写真〉"),   # 🔧 副題は額の左に収まる長さ（門番 fmove）
+    # c821＝[16] 高い所から遠くに見た、機体のそばのフェリー（小さい＝1.35 まで寄る・c105 の [15] と同じ撮影者の別の時）
+    "c821": dict(photo=_C16, **ss.mv(_C16, "in", fx=0.47, fy=0.45, z=1.35), side="none", color=1.0,
+                 t="装備の役目", s="遠くから見た、機体のそばのフェリー〈2009年1月15日〉"),
+})

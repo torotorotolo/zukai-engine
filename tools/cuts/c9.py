@@ -125,3 +125,26 @@ SPEC.update({
     "c913": _m32.fu_spec("c913", ss.gr("c18")),
     "c918": _m32.zu_spec("c918", ss.gr("c1")),
 })
+
+# 🆕 ⑤b-7（2026-11-11）：写真の束の残り（型は c1.py の同じ節）
+_D68_3, _C3, _C4, _C38, _C46, _C33 = P("d68_3"), P("c3"), P("c4"), P("c38"), P("c46"), P("c33")
+SPEC.update({
+    # c905＝#68 写真3 フェリー乗り場の桟橋のフェリー（船の名は束の段で升目）
+    "c905": dict(photo=_D68_3, panel=True, ptall=True, ground=dict(photo=_D68_3), color=1.0,
+                 t="毎月の訓練", s="救助に出たフェリー〈2009年1月17日〉"),   # 🔧 副題は額の左に収まる長さ（門番 fmove）
+    # c907＝[3] 沈みかけの翼と尾翼・消防艇（600px＝額装）
+    "c907": dict(photo=_C3, panel=True, ptall=True, ground=dict(photo=_C3), color=1.0,
+                 t="川を空ける", s="機体のまわりの船〈2009年1月15日〉"),   # 🔧 副題は額の左に収まる長さ（門番 fmove）
+    # c912＝[4] 消防艇と警察の船・尾翼（746px＝額装）
+    "c912": dict(photo=_C4, panel=True, ptall=True, ground=dict(photo=_C4), color=1.0,
+                 t="病院へ運ばれた人", s="尾翼のそばの消防艇〈2009年1月15日〉"),   # 🔧 副題は額の左に収まる長さ（門番 fmove）
+    # c915＝[38] 1920×717 の細い帯＝翼（左の端 x 0.1）・尾翼（x 0.45）・綱が入る左寄りの窓を2つ（`mvz`）＝真ん中の窓だと翼が切れる
+    "c915": dict(photo=_C38, **ss.mvz(_C38, (0.38, 0.5, 1.0), (0.32, 0.5, 1.12)), side="none", color=1.0,
+                 t="引き潮", s="翌日、岸壁につながれた機体〈2009年1月16日・沿岸警備隊〉"),
+    # c916＝[46] 夜・クレーンで吊られる機体（BY-SA＝額装・無加工）
+    "c916": dict(photo=_C46, panel=True, ptall=True, ground=dict(photo=_C46), color=1.0,
+                 t="詳しい調べ", s="引き上げられる機体〈2009年1月〉"),
+    # c917＝[33] 吊られた左のエンジン（640px＝額装・事故の8日後＝報告書 p50）
+    "c917": dict(photo=_C33, panel=True, ptall=True, ground=dict(photo=_C33), color=1.0,
+                 t="8日後", s="引き上げた左のエンジン〈2009年1月〉"),   # 🔧 副題は額の左に収まる長さ（門番 fmove）
+})

@@ -176,3 +176,20 @@ SPEC.update({
     "c615": _m32.zu_spec("c615", ss.gr("stock/gb2")),
     "c624": _m32.fu_spec("c624", ss.gr("c32")),
 })
+
+# 🆕 ⑤b-7（2026-11-11）：写真の束の残り（型は c1.py の同じ節）
+_C62, _D83_8, _C32, _C44 = P("c62"), P("d83_8"), P("c32"), P("c44")
+SPEC.update({
+    # c611＝[62] 保管中のこの機体の操縦室（BY-SA＝額装・無加工）
+    "c611": dict(photo=_C62, panel=True, ptall=True, ground=dict(photo=_C62), color=1.0,
+                 t="電源とコンピューター", s="保管中のこの機体の操縦室"),
+    # c613＝#83 図8 はしけの上の右のエンジン（語りの「2番」＝右・下の札の帯は束の段で切った）
+    "c613": dict(photo=_D83_8, panel=True, ptall=True, ground=dict(photo=_D83_8), color=1.0,
+                 t="2番のエンジン", s="右のエンジン〈NTSB の調査の写真〉"),   # 🔧 副題は額の左に収まる長さ（門番 fmove）
+    # c622＝[32] 青い覆いを渡す警察のダイバーと工兵隊（胸の名札2つは束の段で升目）＝覆いへ寄る
+    "c622": dict(photo=_C32, **ss.mv(_C32, "in", fx=0.5, fy=0.45), side="none", color=1.0,
+                 t="2ページ目の項目", s="警察のダイバーが渡すエンジンの覆い〈2009年1月・陸軍工兵隊〉"),
+    # c629＝[44] 雪の公園の柵ごしのはしけの機体（BY-SA＝額装・無加工）
+    "c629": dict(photo=_C44, panel=True, ptall=True, ground=dict(photo=_C44), color=1.0,
+                 t="2つ目の問いの答え", s="柵ごしのはしけの機体〈2009年1月18日〉"),   # 🔧 副題は額の左に収まる長さ（門番 fmove）・cb16 の [45] と分ける
+})

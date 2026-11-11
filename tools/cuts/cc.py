@@ -70,3 +70,27 @@ SPEC.update({
     "cc07": _m32.fu_spec("cc07", ss.gr("c50")),
     "cc09": _m32.fu_spec("cc09", ss.gr("c50")),
 })
+
+# 🆕 ⑤b-7（2026-11-11）：写真の束の残り（型は c1.py の同じ節）
+_C59, _C60, _C50, _C55, _C56, _C70 = P("c59"), P("c60"), P("c50"), P("c55"), P("c56"), P("c70")
+SPEC.update({
+    # cc01＝[59] 木々の向こうのトラックの上の胴体（2011年・第11章の頭）＝胴体へ寄る
+    "cc01": dict(photo=_C59, **ss.mv(_C59, "in", fx=0.55, fy=0.42), side="none", color=1.0,
+                 t="シャーロットへ", s="運ばれる胴体〈2011年・メリーランド州〉"),
+    # cc02＝[60] 運搬に付き添った博物館の車（764px＝額装・車体の小さな4字は束の段で升目）
+    "cc02": dict(photo=_C60, panel=True, ptall=True, ground=dict(photo=_C60), color=1.0,
+                 t="博物館の名前", s="運搬に付き添った博物館の車〈2011年〉"),
+    # cc03＝[50] 格納庫の尾翼と胴体（来館者の顔2か所は束の段で升目）＝尾翼と胴体へ寄る
+    #   🔧 fy 0.52（0.48 だと寄り終わりに字幕の帯の上の辺〈画素の行 1003〉が胴体の「N106US」〈行 972〜1019〉を 68% で切る＝門番 edges）
+    "cc03": dict(photo=_C50, **ss.mv(_C50, "in", fx=0.55, fy=0.52), side="none", color=1.0,
+                 t="展示の中心", s="博物館に展示された機体"),
+    # cc04＝[55] 博物館の機体の登録記号と胴体の下の壊れ（BY-SA＝額装・無加工）
+    "cc04": dict(photo=_C55, panel=True, ptall=True, ground=dict(photo=_C55), color=1.0,
+                 t="答えのまとめ", s="博物館の機体〈登録記号と胴体の壊れ〉"),   # 🔧 見出し＝語りの切り取り（門番 echo）・副題は額の左に収まる長さ（fmove）
+    # cc08＝[56] 翼の壊れとエンジンを外した所（BY-SA＝額装・無加工・頁の説明と EXIF の日付が合わない＝副題に日付と場所を書かない）
+    "cc08": dict(photo=_C56, panel=True, ptall=True, ground=dict(photo=_C56), color=1.0,
+                 t="閉じた勧告のいま", s="翼の壊れとエンジンを外した所"),
+    # cc10＝[70] 博物館の機体の登録記号（BY-SA＝額装・無加工）＝最後の問い
+    "cc10": dict(photo=_C70, panel=True, ptall=True, ground=dict(photo=_C70), color=1.0,
+                 t="あなたへの問い", s="博物館の機体の登録記号"),
+})

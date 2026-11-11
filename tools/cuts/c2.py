@@ -121,3 +121,17 @@ SPEC.update({
     "c210": _m32.zu_spec("c210", ss.gr("c21")),
     "c214": _m32.zu_spec("c214", ss.gr("stock/gs1")),
 })
+
+# 🆕 ⑤b-7（2026-11-11）：写真の束の残り（型は c1.py の同じ節）
+_C52, _C41, _D101_1 = P("c52"), P("c41"), P("d101_1")
+SPEC.update({
+    # c202＝[52] FAA の出発の図（379×612＝縦長・小さい＝額装）
+    "c202": dict(photo=_C52, panel=True, ptall=True, ground=dict(photo=_C52), color=1.0,
+                 t="4日間の乗務", s="ラガーディア空港の出発の図〈FAA〉"),
+    # c208＝[41] 夜・はしけの上の機体（EXIF 1月18日 17:48）＝機体へ寄る
+    "c208": dict(photo=_C41, **ss.mv(_C41, "in", fx=0.4, fy=0.6), side="none", color=1.0,
+                 t="機体と乗客", s="引き上げたあとの機体〈2009年1月〉"),
+    # c217＝#101 写真1 エンジンのファンから試料を取る調査官（横顔の中景・公的な任務＝そのまま）
+    "c217": dict(photo=_D101_1, panel=True, ptall=True, ground=dict(photo=_D101_1), color=1.0,
+                 t="約80秒後", s="試料を取る調査官〈NTSB の調査の写真〉"),   # 🔧 一覧の副題は額（左の端 x736）にかかる＝縮めた（門番 fmove）
+})
