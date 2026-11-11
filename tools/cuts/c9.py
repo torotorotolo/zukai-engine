@@ -117,3 +117,11 @@ SPEC.update({
     # c914＝人のいない客室の青い座席の列
     "c914": dict(photo=_X914, **ss.mvz(_X914, (0.5, 0.5, 1.0), (0.5, 0.5, 1.1)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-6（2026-11-11）：模式（`tools/mech32.py`）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`）
+import mech32 as _m32  # noqa: E402
+SPEC.update({
+    "c909": _m32.zu_spec("c909", ss.gr("c1")),
+    "c913": _m32.fu_spec("c913", ss.gr("c18")),
+    "c918": _m32.zu_spec("c918", ss.gr("c1")),
+})

@@ -116,3 +116,8 @@ SPEC.update({
     "c209": _m32.zu_spec("c209", ss.gr("c21")),
     "c213": _m32.fu_spec("c213", ss.gr("stock/gk1")),
 })
+# 🆕 ⑤b-6（2026-11-11）：型の図（割合・帯）＝mech32 の「⑤b-6」の節。地は一覧の「地」の欄
+SPEC.update({
+    "c210": _m32.zu_spec("c210", ss.gr("c21")),
+    "c214": _m32.zu_spec("c214", ss.gr("stock/gs1")),
+})

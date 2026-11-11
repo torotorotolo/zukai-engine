@@ -62,3 +62,11 @@ SPEC.update({
     "cc06": dict(photo=_Rc06, panel=True, ptall=True, ground=dict(photo=_Rc06, blur=ss.PAGE_BLUR), color=1.0,
                  t="2つ目の答え", s="手順書の3ページ〈付録C〉"),
 })
+
+# 🆕 ⑤b-6（2026-11-11）：模式（`tools/mech32.py`）＝答えと結びの札。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`）
+import mech32 as _m32  # noqa: E402
+SPEC.update({
+    "cc05": _m32.fu_spec("cc05", ss.gr("c50")),
+    "cc07": _m32.fu_spec("cc07", ss.gr("c50")),
+    "cc09": _m32.fu_spec("cc09", ss.gr("c50")),
+})

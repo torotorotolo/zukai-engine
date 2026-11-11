@@ -135,3 +135,15 @@ SPEC.update({
     "c705": _m32.zu_spec("c705", ss.gr("stock/gk2")),
     "c711": _m32.zu_spec("c711", ss.gr("stock/gf1")),
 })
+# 🆕 ⑤b-6（2026-11-11）：模式 後半（c707〜c721）と型の図（c712 帯・c716 棒・c723 並べ）＝mech32 の「⑤b-6」の節
+SPEC.update({
+    "c707": _m32.fu_spec("c707", ss.gr("stock/gk1")),
+    "c709": _m32.fu_spec("c709", ss.gr("stock/gk1")),
+    "c712": _m32.zu_spec("c712", ss.gr("c31")),
+    "c713": _m32.fu_spec("c713", ss.gr("c31")),
+    "c715": _m32.zu_spec("c715", ss.gr("c31")),
+    "c716": _m32.zu_spec("c716", ss.gr("c31")),
+    "c719": _m32.fu_spec("c719", ss.gr("c21")),
+    "c721": _m32.fu_spec("c721", ss.gr("stock/gm1")),
+    "c723": _m32.fu_spec("c723", ss.gr("c21")),
+})

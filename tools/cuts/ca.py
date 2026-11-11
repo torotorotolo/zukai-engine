@@ -107,3 +107,10 @@ import mech32 as _m32  # noqa: E402
 SPEC.update({
     "ca04": _m32.fu_spec("ca04", ss.gr("stock/gr2")),
 })
+# 🆕 ⑤b-6（2026-11-11）：模式（`tools/mech32.py`）
+SPEC.update({
+    "ca08": _m32.fu_spec("ca08", ss.gr("c36")),
+    "ca10": _m32.fu_spec("ca10", ss.gr("c36")),
+    "ca12": _m32.fu_spec("ca12", ss.gr("c36")),
+    "ca14": _m32.zu_spec("ca14", ss.gr("c18")),
+})

@@ -184,3 +184,8 @@ SPEC.update({
     "c417": _m32.fu_spec("c417", ss.gr("stock/ga1")),
     "c419": _m32.zu_spec("c419", ss.gr("c13")),
 })
+# 🆕 ⑤b-6（2026-11-11）：型の図（言葉・年表）＝mech32 の「⑤b-6」の節
+SPEC.update({
+    "c407": _m32.fu_spec("c407", ss.gr("stock/ga1")),
+    "c422": _m32.zu_spec("c422", ss.gr("stock/ga1")),
+})

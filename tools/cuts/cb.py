@@ -96,3 +96,14 @@ import mech32 as _m32  # noqa: E402
 SPEC.update({
     "cb13": _m32.fu_spec("cb13", ss.gr("stock/gl1")),
 })
+# 🆕 ⑤b-6（2026-11-11）：模式と型の図（cb02・cb14 箱）＝mech32 の「⑤b-6」の節。勧告の数は CAROL の控え（2026-11-09）＝⑥ で取り直す
+SPEC.update({
+    "cb01": _m32.zu_spec("cb01", ss.gr("c13")),
+    "cb02": _m32.zu_spec("cb02", ss.gr("c13")),
+    "cb03": _m32.fu_spec("cb03", ss.gr("c13")),
+    "cb05": _m32.fu_spec("cb05", ss.gr("c14")),
+    "cb07": _m32.zu_spec("cb07", ss.gr("c14")),
+    "cb10": _m32.fu_spec("cb10", ss.gr("c61")),
+    "cb14": _m32.zu_spec("cb14", ss.gr("c13")),
+    "cb15": _m32.zu_spec("cb15", ss.gr("c49")),
+})

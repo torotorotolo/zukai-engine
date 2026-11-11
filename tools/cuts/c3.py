@@ -153,3 +153,11 @@ SPEC.update({
     "c319": _m32.fu_spec("c319", ss.gr("stock/ga1")),
     "c321": _m32.zu_spec("c321", ss.gr("stock/gk1")),
 })
+# 🆕 ⑤b-6（2026-11-11）：型の図（時計・比べ・並べ・線・帯）＝mech32 の「⑤b-6」の節
+SPEC.update({
+    "c301": _m32.zu_spec("c301", ss.gr("stock/gs1")),
+    "c306": _m32.zu_spec("c306", ss.gr("c61")),
+    "c307": _m32.zu_spec("c307", ss.gr("c61")),
+    "c308": _m32.zu_spec("c308", ss.gr("stock/gs1")),
+    "c323": _m32.zu_spec("c323", ss.gr("stock/gs1")),
+})

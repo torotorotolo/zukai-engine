@@ -111,3 +111,18 @@ SPEC.update({
     # c818＝座席の背の札と物入れのしおり（しおりは絵だけ＝原寸）
     "c818": dict(photo=_X818, **ss.mvz(_X818, (0.5, 0.5, 1.0), (0.5, 0.55, 1.1)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-6（2026-11-11）：模式（`tools/mech32.py`）と型の図（c802 年表・c810 割合・c816 表・c819 札）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`）
+import mech32 as _m32  # noqa: E402
+SPEC.update({
+    "c802": _m32.zu_spec("c802", ss.gr("c26")),
+    "c804": _m32.zu_spec("c804", ss.gr("c26")),
+    "c807": _m32.zu_spec("c807", ss.gr("c26")),
+    "c809": _m32.zu_spec("c809", ss.gr("c26")),
+    "c810": _m32.zu_spec("c810", ss.gr("c26")),
+    "c813": _m32.fu_spec("c813", ss.gr("c16")),
+    "c816": _m32.zu_spec("c816", ss.gr("c16")),
+    "c819": _m32.fu_spec("c819", ss.gr("c16")),
+    "c820": _m32.zu_spec("c820", ss.gr("c16")),
+    "c822": _m32.zu_spec("c822", ss.gr("c16")),
+})

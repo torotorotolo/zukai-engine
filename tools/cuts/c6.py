@@ -170,3 +170,9 @@ SPEC.update({
     "c628": _m32.fu_spec("c628", ss.gr("c32")),
     "c630": _m32.fu_spec("c630", ss.gr("c32")),
 })
+# 🆕 ⑤b-6（2026-11-11）：型の図（比べ・割合・流れ）＝mech32 の「⑤b-6」の節
+SPEC.update({
+    "c607": _m32.zu_spec("c607", ss.gr("stock/gs1")),
+    "c615": _m32.zu_spec("c615", ss.gr("stock/gb2")),
+    "c624": _m32.fu_spec("c624", ss.gr("c32")),
+})

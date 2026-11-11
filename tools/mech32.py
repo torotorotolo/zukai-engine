@@ -508,10 +508,15 @@ VIEWS["c603"] = _z(3, "手順書の作り", "3つの部分", C603, [
     src=S_R, note="模式・ページの中の区切りは描いた形でない", schem=True)
 
 
+def _c614_paint():
+    (x1, y1), _p2, _p3 = PG
+    return F.rect(x1 + 6, y1 + 6, PW - 12, PH - 12, J.AMBER, None, None, rx=6, op=0.42)
+
+
 def _c614_done():
-    (x1, y1), (x2, y2), _p3 = PG
-    g = F.rect(x1 + 6, y1 + 6, PW - 12, PH - 12, J.AMBER, None, None, rx=6, op=0.42)
-    return g + F.rect(x2 + 6, y2 + 6, PW - 12, P1Y - y2 - 46, J.AMBER, None, None, rx=6, op=0.42) + _part(1)
+    # 🔧 ⑤b-6（11-11）：すぐ次の c615「全体の約3分の1」（報p105）と同じ塗り＝1ページ目だけ（3ページの3分の1）。
+    #    1つ目の部分（1ページ目と2ページ目の上＝枠）の大半を塗る形のまま＝c614 の札「1つ目の大半まで」（報p104）とも合う
+    return _c614_paint() + _part(1)
 
 
 C614 = [
@@ -684,6 +689,844 @@ FU["cb13"] = _f(2, "着けやすさの見直し", "閉じるまで", [
     _c(0, R, head="勧告", lines="救命胴衣の決まり", sub="すばやく正しく着ける", cell=(0, 0)),
     _c(1, R, head="2018年", lines="受け入れられる対応", sub="勧告は閉じた", cell=(1, 0))],
     src=S_R + "・NTSB の勧告の記録（CAROL）")
+
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-11-11）：模式 後半28＋型の図23（第1〜11章の残り＝51カット）。
+#  🔴 言い切らない線＝台本の画の欄と出典の欄の字の範囲だけ。数と原文は報告書の字の層（`ref/ep32/src/ntsb/AAR1003.txt`）・
+#     書き起こしの付録（p189〜p196）・勧告の控え（`src/carol/carol_dca09ma026.json`＝2026-11-09）・連邦官報（`src/web/fr2023_06413.txt`）に
+#     11-11 に当てた（記録は check_mech.REC_M32）。換算＝1フィート 0.3048メートル・1ノット 1.852キロ毎時・1ポンド 0.4536キロ・華氏は (F−32)÷1.8。
+#  型の図（帯・時計・比べ・並べ・線・年表・表・棒・割合・箱）は 31本目の型の図（c205 帯・c216 年表・c702 表）の形＝見え方の表に札と部品を座標で置く。
+#     比例の図は門番 ⑤ が字の数から位置を自分で測る（tl＝num・hms・ym）。比例でない絵だけ「模式」の札（schem）
+# ══════════════════════════════════════════════════════════
+S_CAROL = "NTSB の勧告の記録（CAROL・2026年11月に取り込み）"
+S_FR = "連邦官報 2023-06413（2023年4月4日）"
+
+
+def _lx(ax, v):
+    """値 v を線の x へ（ax＝((v0, x0), (v1, x1))＝門番 ⑤ の tl と同じ形・描く側はこの直線の式だけ）。"""
+    (v0, x0), (v1, x1) = ax
+    return x0 + (v - v0) * (x1 - x0) / (v1 - v0)
+
+
+def _hline(ax, y, step, x_from=None, x_to=None):
+    """目盛りの線（字なし）。"""
+    (v0, x0), (v1, x1) = ax
+    g = F.line(x0 if x_from is None else x_from, y, x1 if x_to is None else x_to, y, J.TICK, 5)
+    lo, hi = min(v0, v1), max(v0, v1)
+    v = lo
+    while v <= hi + 1e-9:
+        x = _lx(ax, v)
+        g += F.line(x, y - 14, x, y + 14, J.TICK, 4)
+        v += step
+    return g
+
+
+def _ev(x, axy, tm, words, up=True, lx=None, gap=58.0):
+    """年表の出来事（点・細い線・時刻＝黄・語＝白）。up＝線の上に字・lx＝字の真ん中の x（点と違うときは斜めの線）。"""
+    lx = x if lx is None else lx
+    rows = ([(tm, 34, J.AMBER)] if tm else []) + [(w, 38, INK) for w in words]
+    hh = 46.0 * len(rows)
+    y_top = axy - gap - hh if up else axy + gap
+    y_bot = y_top + hh
+    g = F.line(x, axy, lx, (y_bot + 4) if up else (y_top - 4), J.TICK, 3) + F.circ(x, axy, 10, INK)
+    yy = y_top
+    for t, cap, col in rows:
+        g += _t(lx, yy + 36, t, cap, col, "middle", 440)
+        yy += 46.0
+    return g
+
+
+def _sq(x, y, w, fill=None, stroke=None, op=None, dash=None):
+    """箱の図の四角（1つが1つ＝数え切れる）。"""
+    if fill:
+        return F.rect(x, y, w, w, fill, None, None, rx=8, op=op)
+    return F.rect(x, y, w, w, "none", stroke or J.TICK, 4, rx=8, dash=dash)
+
+
+def _hbar(ax, v, y, col, h=44.0, op=0.85, v0=0.0):
+    """横の棒（v0 から v まで）。"""
+    xa, xb = _lx(ax, v0), _lx(ax, v)
+    return F.rect(min(xa, xb), y - h / 2, abs(xb - xa), h, col, None, None, rx=6, op=op)
+
+
+def _obar(ax, v, y, h=44.0):
+    """横の棒の外枠（全体の数）。"""
+    xa, xb = _lx(ax, 0.0), _lx(ax, v)
+    return F.rect(xa, y - h / 2, xb - xa, h, "none", J.TICK, 4, rx=6, dash="12 8")
+
+
+# ── 第1章 c210 75機のうち20機（1つの四角が1機＝数え切れる）
+SQ210 = (800.0, 330.0, 52.0, 12.0)        # 左上の x・y・四角の辺・すき間（15列×5行）
+
+
+def _c210_sq(fill=False):
+    x0, y0, w, gp = SQ210
+    g = ""
+    for i in range(75):
+        x, y = x0 + (i % 15) * (w + gp), y0 + (i // 15) * (w + gp)
+        if fill and i < 20:
+            g += _sq(x, y, w, fill=J.AMBER, op=0.92)
+        elif not fill:
+            g += _sq(x, y, w, stroke=J.TICK)
+    return g
+
+
+C210 = [
+    _at(_c(1, R, head="この便", lines="積む決まりなし", cap=46), 420, 400),
+    _at(_c(2, R, big="20機", lines="装備のある機", sub="A320 75機のうち", bcap=72, cap=46), 420, 650),
+]
+VIEWS["c210"] = _z(3, "海の上の備え", "会社の中で", C210, [
+    _p(1, _c210_sq), _p(2, lambda: _c210_sq(True) + _tie(C210[1], SQ210[0] - 12, 362.0))],
+    src=S_R, note="1つの四角が1機（会社の A320）")
+
+# ── c214 上昇の帯（高さの比例＝門番 ⑤ num）。左が地上
+AX214 = ((0.0, 300.0), (5000.0, 1650.0))
+Y214 = 640.0
+C214 = [
+    _at(_c(0, R, head="出発の管制へ", big="15:25:51", lines="約210メートル", bcap=64, cap=46), 520, 380),
+    _at(_c(1, R, head="管制の指示", big="約4,600メートル", lines="まで上がる", bcap=64, cap=46), 1460, 380),
+]
+VIEWS["c214"] = _z(2, "上昇の指示", "離陸して", C214, [
+    _p(0, lambda: _hline(AX214, Y214, 1000.0) + _t(300.0, Y214 + 66, "地上", 38, J.TICK, "middle", 160)
+       + _t(1650.0, Y214 + 66, "高さ", 38, J.TICK, "middle", 160) + _lead(C214[0], _lx(AX214, 210.0), Y214)),
+    _p(1, lambda: _arrow(_lx(AX214, 210.0), Y214 - 40, _lx(AX214, 4600.0), Y214 - 40, J.AMBER, 8, 28, "18 12")
+       + _lead(C214[1], _lx(AX214, 4600.0), Y214), arrow=True)],
+    src=S_R, note="高さは比例・目盛りは1,000メートルごと",
+    tl=dict(kind="num", ax=AX214, pts=(("約210メートル", _lx(AX214, 210.0)), ("約4,600メートル", _lx(AX214, 4600.0)))))
+
+
+# ── 第2章 c301 時計（針は 15:27:10 の位置＝式で置く・文字盤の数は 12・3・6・9 だけ）
+def _clock(cx, cy, r, h, m, s):
+    g = F.circ(cx, cy, r, J.BG2, None, None, op=0.6) + F.circ(cx, cy, r, "none", INK, 6)
+    for i in range(60):
+        a = math.radians(i * 6)
+        big = i % 5 == 0
+        r0 = r - (34 if big else 16)
+        g += F.line(cx + r0 * math.sin(a), cy - r0 * math.cos(a), cx + (r - 8) * math.sin(a), cy - (r - 8) * math.cos(a),
+                    J.AMBER if i == 0 else (INK if big else J.TICK), 6 if big else 3)
+    for n, deg in (("12", 0), ("3", 90), ("6", 180), ("9", 270)):
+        a = math.radians(deg)
+        g += _t(cx + (r - 70) * math.sin(a), cy - (r - 70) * math.cos(a) + 16, n, 44, INK, "middle", 100)
+    ah = math.radians(((h % 12) + m / 60.0 + s / 3600.0) * 30.0)
+    am = math.radians((m + s / 60.0) * 6.0)
+    asec = math.radians(s * 6.0)
+    g += F.line(cx, cy, cx + r * 0.5 * math.sin(ah), cy - r * 0.5 * math.cos(ah), INK, 14)
+    g += F.line(cx, cy, cx + r * 0.78 * math.sin(am), cy - r * 0.78 * math.cos(am), INK, 9)
+    g += F.line(cx, cy, cx + r * 0.84 * math.sin(asec), cy - r * 0.84 * math.cos(asec), J.AMBER, 4)
+    return g + F.circ(cx, cy, 12, J.AMBER)
+
+
+C301 = [_at(_c(0, R, head="機長", big="15:27:10", lines="鳥だ", q=True, bcap=72, cap=56), 1350, 540)]
+VIEWS["c301"] = _z(2, "最初の一言", "操縦室の録音", C301, [_p(0, lambda: _clock(700.0, 545.0, 270.0, 15, 27, 10.4))],
+                   src=S_R, note="針は15時27分10秒の位置")
+
+# ── c306 ガンの重さ（キロの比例＝門番 ⑤ num・2本の線＝幅の頭と尻）
+AX306 = ((0.0, 300.0), (5.0, 1600.0))
+YR306 = (520.0, 680.0)
+
+
+def _c306_row(i, lo, hi, lab, txt):
+    y = YR306[i]
+    g = F.line(_lx(AX306, 0.0), y, _lx(AX306, lo), y, J.TICK, 3, dash="6 10")
+    g += _hbar(AX306, hi, y, J.AMBER, v0=lo) + _t(280.0, y + 14, lab, 40, INK, "end", 160)
+    # 字は 3.6キロの印の線（x 1236）を避ける＝オスは棒の右・メスは棒の左
+    if i == 0:
+        return g + _t(_lx(AX306, hi) + 20, y + 16, txt, 44, J.AMBER, "start", 420)
+    return g + _t(_lx(AX306, lo) - 20, y + 16, txt, 44, J.AMBER, "end", 420)
+
+
+def _c306_mark():
+    x = _lx(AX306, 3.6)
+    return F.line(x, 470.0, x, 730.0, J.LINE, 5, dash="14 10")
+
+
+C306 = [_at(_c(1, R, head="報告書の見立て", lines="約3.6キロのガン", sub="少なくとも2羽ずつ", cap=46), 600, 330)]
+VIEWS["c306"] = _z(2, "ガンの重さ", "オスとメス", C306, [
+    _p(0, lambda: _hline(AX306, 780.0, 1.0) + _c306_row(0, 3.8, 4.2, "オス", "約3.8〜4.2キロ") + _c306_row(1, 3.3, 3.5, "メス", "約3.3〜3.5キロ")),
+    _p(1, lambda: _c306_mark() + _lead(C306[0], _lx(AX306, 3.6), 470.0))],
+    src=S_R, note="重さは比例・目盛りは1キロごと・ポンドをキロに換算",
+    tl=(dict(kind="num", ax=AX306, pts=(("約3.8〜4.2キロ", _lx(AX306, 3.8)), ("約3.3〜3.5キロ", _lx(AX306, 3.3)), ("約3.6キロ", _lx(AX306, 3.6)))),
+        dict(kind="num", ax=AX306, pts=(("4.2キロ", _lx(AX306, 4.2)), ("3.5キロ", _lx(AX306, 3.5))))))
+
+# ── c307 試験の鳥と当たったガン（キロの比例＝門番 ⑤ num）
+AX307 = ((0.0, 300.0), (4.0, 1380.0))
+YR307 = (500.0, 690.0)
+C307 = [
+    _at(_c(0, R, head="認められたときの試験", big="約1.8キロ", lines="1羽", bcap=64, cap=46), 1150, 380),
+    _at(_c(1, R, head="吸い込んだガン", big="約3.6キロ", lines="約2倍の重さ", bcap=64, cap=46), 1580, 690),
+]
+VIEWS["c307"] = _z(2, "試験と実際", "大きな鳥の基準", C307, [
+    _p(0, lambda: _hline(AX307, 820.0, 1.0) + _hbar(AX307, 1.8, YR307[0], J.LINE) + _t(300.0, YR307[0] - 40, "試験の鳥", 40, INK, "start", 300)
+       + _tie(C307[0], _lx(AX307, 1.8), YR307[0])),
+    _p(1, lambda: _hbar(AX307, 3.6, YR307[1], J.AMBER) + _t(300.0, YR307[1] - 40, "ガン", 40, INK, "start", 200))],
+    src=S_R, note="棒の長さは重さの比例・目盛りは1キロごと",
+    tl=dict(kind="num", ax=AX307, pts=(("約1.8キロ", _lx(AX307, 1.8)), ("約3.6キロ", _lx(AX307, 3.6)))))
+
+# ── c308 回る速さ（%の比例＝門番 ⑤ num）。82% の外枠から 35%・15% へ
+AX308 = ((0.0, 440.0), (100.0, 1640.0))
+YR308 = (420.0, 590.0)
+
+
+def _c308_row(i, to, lab):
+    y = YR308[i]
+    x82, xt = _lx(AX308, 82.0), _lx(AX308, to)
+    g = _obar(AX308, 82.0, y) + _hbar(AX308, to, y, J.AMBER) + _t(420.0, y + 14, lab, 40, INK, "end", 340)
+    g += _t(x82 + 18, y + 14, "82%", 40, J.TICK, "start", 160) + _t(xt + 18, y + 14, f"{to:.0f}%", 44, J.AMBER, "start", 160)
+    return g + _arrow(x82 - 10, y - 46, xt + 90, y - 46, J.AMBER, 6, 22)
+
+
+C308 = [_at(_c(1, R, head="どちらも", lines="押す力はほぼ残らない", cap=46), 1080, 770)]
+VIEWS["c308"] = _z(3, "落ちた回転", "ぶつかった直後", C308, [
+    _p(0, lambda: _hline(AX308, 660.0, 25.0) + _t(440.0, 320.0, "エンジンの回る速さ", 38, J.TICK, "start", 500) + _c308_row(0, 35.0, "左のエンジン"), arrow=True),
+    _p(1, lambda: _c308_row(1, 15.0, "右のエンジン"), arrow=True)],
+    src=S_R, note="棒の長さは比例・目盛りは25%ごと",
+    tl=dict(kind="num", ax=AX308, pts=(("82%", _lx(AX308, 82.0)), ("35%", _lx(AX308, 35.0)), ("15%", _lx(AX308, 15.0)))))
+
+# ── c323 約2分の帯（秒の比例＝門番 ⑤ hms）
+AX323 = ((_hs(15, 27, 0), 240.0), (_hs(15, 30, 0), 1680.0))
+Y323 = 600.0
+C323 = [
+    _at(_c(0, R, big="15:27:33", lines="管制へ第一報", bcap=64, cap=46), 504, 380),
+    _at(_c(1, R, big="15:29:28", lines="ハドソン川に降りる", q=True, bcap=64, cap=46), 1424, 380),
+]
+
+
+def _c323_span():
+    xa, xb = _lx(AX323, _hs(15, 27, 33)), _lx(AX323, _hs(15, 29, 28))
+    g = F.line(xa, Y323 + 60, xb, Y323 + 60, J.AMBER, 7) + F.line(xa, Y323 + 44, xa, Y323 + 76, J.AMBER, 5) + F.line(xb, Y323 + 44, xb, Y323 + 76, J.AMBER, 5)
+    return g + _t((xa + xb) / 2, Y323 + 130, "約2分", 52, J.AMBER, "middle", 300)
+
+
+VIEWS["c323"] = _z(2, "管制とのやりとり", "手順書と並んで", C323, [
+    _p(0, lambda: _hline(AX323, Y323, 30.0) + _lead(C323[0], _lx(AX323, _hs(15, 27, 33)), Y323)),
+    _p(1, lambda: _lead(C323[1], _lx(AX323, _hs(15, 29, 28)), Y323) + _c323_span())],
+    src=S_R, note="目盛りは30秒ごと",
+    tl=dict(kind="hms", ax=AX323, pts=(("15:27:33", _lx(AX323, _hs(15, 27, 33))), ("15:29:28", _lx(AX323, _hs(15, 29, 28))))))
+
+# ── 第3章 c407 よく言われる話と記録の言葉（灰色の噂の札は使わない＝画の欄）
+FU["c407"] = _f(3, "断ったのか", "記録の言葉", [
+    _c(0, None, head="よく言われる話", lines="管制の指示を断った", cell=(0, 0)),
+    _c(1, R, lines="unable", q=True, sub="できない", cell=(1, 0)),
+    _c(1, R, lines="we can't do it", q=True, sub="無理だ", cell=(1, 1)),
+    _c(2, R, head="滑走路13のとき", lines="降りるかの問い", cell=(0, 1))],
+    [_x(1, "a", "b", t="記録では")], src=S_R)
+
+# ── c422 交信の並び（秒の比例＝門番 ⑤ hms）。字は話した人の行の時刻（書き起こし p189〜p196・15:28:11 は本文 p105 の字）
+AX422 = ((_hs(15, 27, 0), 240.0), (_hs(15, 30, 0), 1680.0))
+Y422 = 560.0
+EV422 = (  # 時刻・語・上か・字の x のずれ
+    ((15, 27, 33), "15:27:33", ("ラガーディアへ", "戻る"), True, 0.0),
+    ((15, 28, 11), "15:28:11", ("滑走路13は", "できない"), False, 0.0),
+    ((15, 28, 35), "15:28:35", ("滑走路31も", "できない"), True, 0.0),
+    ((15, 28, 50), "15:28:50", ("滑走路4も", "届くか分からない"), False, 0.0),
+    ((15, 29, 25), "15:29:25", ("テターボロも", "無理だ"), True, -40.0),
+    ((15, 29, 28), "15:29:28", ("ハドソン川に", "降りる"), False, 90.0),
+)
+
+
+def _c422_ev(*ii):
+    g = ""
+    for i in ii:
+        hms, tm, ws, up, dx = EV422[i]
+        x = _lx(AX422, _hs(*hms))
+        g += _ev(x, Y422, tm, ws, up=up, lx=x + dx)
+    return g
+
+
+C422 = [_at(_c(2, R, head="鳥とぶつかってから", big="2分17秒", bcap=64), 420, 720)]
+VIEWS["c422"] = _z(3, "消えていった案", "交信の並び", C422, [
+    _p(0, lambda: _hline(AX422, Y422, 30.0) + F.circ(_lx(AX422, _hs(15, 27, 11)), Y422, 10, J.TICK)
+       + _t(_lx(AX422, _hs(15, 27, 11)), Y422 - 34, "鳥", 36, J.TICK, "middle", 80) + _c422_ev(0)),
+    _p(1, lambda: _c422_ev(1, 2, 3)), _p(2, lambda: _c422_ev(4, 5))],
+    src=S_R, note="目盛りは30秒ごと・時刻は話した人の行",
+    tl=dict(kind="hms", ax=AX422, pts=tuple((e[1], _lx(AX422, _hs(*e[0]))) for e in EV422)))
+
+# ── 第4章 c505 試しの数（20回 → 5回を外す → 15回＝行き先ごとの表）
+C505 = [
+    _at(_c(0, R, head="試し", big="20回", bcap=72), 360, 330),
+    _at(_c(0, R, head="残り", big="15回", bcap=72), 1560, 330),
+]
+TY505 = (560.0, 650.0, 740.0)
+R505 = (("ラガーディア", "滑走路22", "6回"), ("ラガーディア", "滑走路13", "7回"), ("テターボロ", "滑走路19", "2回"))
+
+
+def _c505_flow():
+    a, b = _zbox(C505[0]), _zbox(C505[1])
+    g = _arrow(a[0] + a[2] + 16, 330.0, b[0] - 16, 330.0, J.LINE, 8, 28)
+    # 🔧 check_echo：「記録の不具合などで5回を外す」は語りと 93% 一致＝報告書の poor data or simulator malfunctions の訳に
+    mx = (a[0] + a[2] + b[0]) / 2
+    return g + _t(mx, 300.0, "5回を外す", 40, J.LINE, "middle", 400) + _t(mx, 386.0, "データや装置の不具合", 32, J.TICK, "middle", 500)
+
+
+def _c505_table():
+    # 🔧 check_slide G-14：地 gm1 の画面の焼き込みの字（画面 x 992〜1106・y 566〜620）に「滑走路22」が載った＝列を右へ（x 1000 → 1220）
+    g = _t(560.0, 492.0, "行き先", 36, J.TICK, "middle", 300) + _t(1220.0, 492.0, "滑走路", 36, J.TICK, "middle", 300) + _t(1480.0, 492.0, "回数", 36, J.TICK, "middle", 200)
+    g += "".join(F.line(360.0, y + 45, 1600.0, y + 45, J.TICK, 3, op=0.7) for y in TY505[:2])
+    for y, (a, b, n) in zip(TY505, R505):
+        g += _t(560.0, y + 16, a, 44, INK, "middle", 380) + _t(1220.0, y + 16, b, 44, INK, "middle", 300) + _t(1480.0, y + 20, n, 52, J.AMBER, "middle", 200)
+    return g
+
+
+VIEWS["c505"] = _z(2, "試しの数", "行き先ごと", C505, [_p(0, _c505_flow, arrow=True), _p(1, _c505_table)],
+                   src=S_R, note="エンジニアのシミュレーターの試し")
+
+# ── c506 降りられた回数（回数の比例＝門番 ⑤ num・2本の線＝全体の回数と降りられた回数）
+AX506 = ((0.0, 640.0), (8.0, 1600.0))
+R506 = ((330.0, "滑走路22", 6, 2), (440.0, "滑走路13", 7, 5), (550.0, "テターボロ", 2, 1))
+
+
+def _c506_bars():
+    g = _hline(AX506, 620.0, 1.0)
+    for y, lab, n, ok in R506:
+        g += _obar(AX506, float(n), y) + _hbar(AX506, float(ok), y, J.AMBER) + _t(610.0, y + 14, lab, 40, INK, "end", 340)
+        g += _t(_lx(AX506, float(n)) + 18, y + 14, f"{n}回中{ok}回", 40, INK, "start", 260)
+    return g
+
+
+C506 = [
+    _at(_c(0, R, big="8回・53%", lines="15回のうち降りられた", bcap=64, cap=46), 760, 760),
+    _at(_c(1, R, head="いちばん多い", lines="滑走路13", cap=46), 1420, 760),
+]
+VIEWS["c506"] = _z(2, "結果の内訳", "滑走路ごと", C506, [
+    _p(0, _c506_bars), _p(1, lambda: F.rect(390.0, 440.0 - 40, 230.0, 80.0, "none", J.AMBER, 6, rx=14))],
+    src=S_R, note="棒の長さは回数の比例・枠は試しの回数",
+    tl=(dict(kind="num", ax=AX506, pts=tuple((f"{n}回中{ok}回", _lx(AX506, float(n))) for _y, _l, n, ok in R506)),
+        dict(kind="num", ax=AX506, pts=tuple((f"中{ok}回", _lx(AX506, float(ok))) for _y, _l, n, ok in R506))))
+
+# ── 第5章 c607 前提の高さ（メートルの比例＝門番 ⑤ num）
+AX607 = ((0.0, 360.0), (7000.0, 1660.0))
+YR607 = (420.0, 590.0)
+C607 = [_at(_c(1, R, head="前提の高さの", big="約7分の1", bcap=72), 1320, 770)]
+
+
+def _c607_row(i):
+    y = YR607[i]
+    if i == 0:
+        x = _lx(AX607, 6100.0)
+        g = _hbar(AX607, 6100.0, y, J.LINE) + _arrow(x + 6, y, 1700.0, y, J.LINE, 6, 22, "12 10")
+        g += _t(360.0, y - 40, "手順書の前提", 40, INK, "start", 400) + _t(x, y - 40, "約6,100メートル", 44, J.LINE, "middle", 400)
+        return g + _t(1700.0, y + 64, "より上", 40, J.LINE, "end", 200)
+    x = _lx(AX607, 860.0)
+    return _hbar(AX607, 860.0, y, J.AMBER) + _t(360.0, y - 40, "1549便", 40, INK, "start", 300) + _t(x + 20, y + 16, "約860メートル", 44, J.AMBER, "start", 400)
+
+
+VIEWS["c607"] = _z(2, "想定した高さ", "鳥とぶつかった所", C607, [
+    _p(0, lambda: _hline(AX607, 650.0, 1000.0) + _c607_row(1)), _p(1, lambda: _c607_row(0))],
+    src=S_R, note="棒の長さは高さの比例・目盛りは1,000メートルごと",
+    tl=dict(kind="num", ax=AX607, pts=(("約6,100メートル", _lx(AX607, 6100.0)), ("約860メートル", _lx(AX607, 860.0)))))
+
+
+# ── c615 たどれた所（c603・c614 と同じ3ページの絵・1ページ目を塗る＝全体の3分の1）
+def _c615_all():
+    x0, x1 = PG[0][0], PG[2][0] + PW
+    g = F.line(x0, 266.0, x1, 266.0, J.TICK, 5) + F.line(x0, 266.0, x0, 286.0, J.TICK, 5) + F.line(x1, 266.0, x1, 286.0, J.TICK, 5)
+    return g + _t((x0 + x1) / 2, 250.0, "全体", 38, J.TICK, "middle", 200)
+
+
+C615 = [_at(_c(0, R, head="手順書の全体のうち", big="約3分の1", bcap=72), 1480, 480)]
+VIEWS["c615"] = _z(2, "たどれた所", "報告書の見方", C615, [_p(0, _pages), _p(0, _c614_paint), _p(0, _c615_all)],
+                   src=S_R, note="模式・ページの区切りは描いた形でない・塗りは全体の3分の1", schem=True)
+
+# ── c624 APU の効き目（流れ）
+FU["c624"] = _f(3, "APU の効き目", "電気と守り", [
+    _c(0, R, head="APU", lines="電気をつくる", cell=(0, 0)),
+    _c(0, R, head="ふだんの制御の形", lines="ノーマル・ロー", cell=(1, 0)),
+    _c(1, R, head="失速を防ぐ守り", lines="働き続ける", cell=(2, 0)),
+    _c(2, R, head="失速とは", lines="翼が空気の力を失う", cell=(0, 1), span=(3, 1))],
+    [_x(0, "a", "b"), _x(1, "b", "c")], src=S_R)
+
+# ── 第6章 c707 鳴らなかった警報
+FU["c707"] = _f(2, "消えた知らせ", "警報の順番", [
+    _c(0, R, head="速さが遅すぎる警報", lines="鳴らなかった", cell=(0, 0)),
+    _c(0, R, head="地面に近い警報", lines="優先された", cell=(1, 0)),
+    _c(1, R, big="15回", lines="約85秒で", cell=(1, 1))],
+    [_x(0, "b", "a", t="優先")], src=S_R)
+# ── c709 地面の警報（原文どおり＝字幕を消す）
+FU["c709"] = _f(2, "地面の警報", "最後の録音", [
+    _c(0, R, big="15:30:24", lines="地面、地面、機首を上げろ", q=True, cell=(0, 0)),
+    _c(1, R, head="機首を上げろ", lines="録音が終わるまで", sub="くり返された", cell=(1, 0))], src=S_R, mute=(0,))
+# ── c712 守りが働いた高さ（高さの比例＝門番 ⑤ num・左が高い・右が水面）
+AX712 = ((60.0, 300.0), (0.0, 1620.0))
+C712 = [
+    _at(_c(0, R, head="迎え角の守り", lines="約45メートルから下", cap=46), 560, 300),
+    _at(_c(1, R, head="エアバスの再現", lines="約30メートルから下", cap=46), 1250, 300),
+]
+
+
+def _c712_band(v, y, col, txt):
+    xa, xb = _lx(AX712, v), _lx(AX712, 0.0)
+    g = F.rect(xa, y - 30, xb - xa, 60, col, None, None, rx=10, op=0.28) + F.rect(xa, y - 30, xb - xa, 60, "none", col, 5, rx=10)
+    return g + _t(xa + 24, y + 14, txt, 38, INK, "start", xb - xa - 40) + F.line(xa, y + 30, xa, 660.0, col, 3, dash="8 8")
+
+
+VIEWS["c712"] = _z(2, "守りが働いた高さ", "水面に近づいて", C712, [
+    _p(0, lambda: _hline(AX712, 660.0, 10.0) + _t(1620.0, 726.0, "水面", 38, J.TICK, "middle", 160) + _t(300.0, 726.0, "高さ", 38, J.TICK, "middle", 160)
+       + _c712_band(45.0, 550.0, J.AMBER, "守りが働く") + _lead(C712[0], _lx(AX712, 45.0), 520.0)),
+    _p(1, lambda: _c712_band(30.0, 440.0, J.LINE, "機首上げが効きにくい") + _lead(C712[1], _lx(AX712, 30.0), 410.0))],
+    src=S_R, note="高さは比例・目盛りは10メートルごと",
+    tl=dict(kind="num", ax=AX712, pts=(("約45メートル", _lx(AX712, 45.0)), ("約30メートル", _lx(AX712, 30.0)))))
+# ── c713 守りのよい面（前の c712 の弱める面は影の札）
+FU["c713"] = _f(3, "守りのよい面", "報告書の分析", [
+    _c(0, R, head="守りの別の面", lines="機首上げの効きを弱めた", dim=True, cell=(0, 0), span=(2, 1)),
+    _c(0, R, head="その重さと形で", lines="いちばんの性能", cell=(0, 1)),
+    _c(1, R, head="守りのおかげ", lines="失速の心配なく引けた", cell=(1, 1))], src=S_R)
+# ── c715 着水の姿（横から見た機体＝機首の角度は比例・ほかは模式）
+WY715 = 640.0
+T715 = (520.0, 980.0, 120.0, 9.5)          # 尾が水面に着く点の x・長さ・高さ・機首の上げ（度）
+
+
+def _r715(x, y):
+    tx, _L, _H, ang = T715
+    a = math.radians(ang)
+    return tx + x * math.cos(a) + y * math.sin(a), WY715 - x * math.sin(a) + y * math.cos(a)
+
+
+def _c715_body():
+    _tx, L, H, _a = T715
+    nose = [(L - 60 + 60 * math.cos(math.radians(t)), -H / 2 + (H / 2) * math.sin(math.radians(t))) for t in range(90, -91, -10)]
+    body = [(0.0, 0.0)] + nose + [(40.0, -H), (0.0, -H + 24)]
+    fin = [(10.0, -H), (170.0, -H), (60.0, -H - 130), (14.0, -H - 130)]
+    g = F.line(160.0, WY715, 1760.0, WY715, J.LINE, 5, dash="20 12") + _t(1760.0, WY715 + 50, "水面", 38, J.LINE, "end", 160)
+    g += F.poly([_r715(x, y) for x, y in body], J.BG2, INK, 6, close=True) + F.poly([_r715(x, y) for x, y in fin], J.BG2, INK, 5, close=True)
+    arc = [(T715[0] + 380 * math.cos(math.radians(t / 10)), WY715 - 380 * math.sin(math.radians(t / 10))) for t in range(0, 96, 5)]
+    return g + F.poly(arc, "none", J.AMBER, 6)
+
+
+def _c715_moves():
+    _tx, L, H, _a = T715
+    (x1, y1), (x2, y2) = _r715(L + 40, -H / 2), _r715(L + 260, -H / 2)
+    return _arrow(x1, y1, x2, y2, J.AMBER, 8, 28) + _arrow(430.0, 470.0, 430.0, 610.0, J.AMBER, 8, 28)
+
+
+C715 = [
+    _at(_c(0, R, head="着水", big="15:30:43", bcap=64), 300, 300),
+    _at(_c(0, R, head="機首の上げ", big="9.5度", bcap=64), 1150, 770),
+    _at(_c(0, R, head="速さ", big="時速約230キロ", bcap=64), 1560, 770),
+    _at(_c(1, R, head="沈む速さ", big="毎秒約3.8メートル", bcap=64), 420, 770),
+]
+VIEWS["c715"] = _z(2, "着水の姿", "水面に着いたとき", C715, [
+    _p(0, _c715_body), _p(0, _c715_moves, arrow=True),
+    _p(0, lambda: _lead(C715[1], T715[0] + 380 * math.cos(math.radians(4.75)), WY715 - 380 * math.sin(math.radians(4.75)))
+       + _lead(C715[2], _r715(T715[1] + 150, -T715[2] / 2)[0], _r715(T715[1] + 150, -T715[2] / 2)[1] + 4)),
+    _p(1, lambda: _lead(C715[3], 430.0, 612.0))],
+    src=S_R, note="模式・機体の形と矢印の長さは描いた形でない・機首の角度は比例", schem=True)
+# ── c719 客室乗務員のけが
+FU["c719"] = _f(2, "客室乗務員のけが", "後ろの席", [
+    _c(0, R, head="傷", lines="左のすね", cell=(0, 0)),
+    _c(0, R, head="長さ", big="12センチ", cell=(1, 0)),
+    _c(0, R, head="深さ", big="5センチ", cell=(2, 0)),
+    _c(1, R, lines="手術で閉じた", cell=(0, 1), span=(3, 1))], src=S_R)
+# ── c721 前提の難しさ（所見）
+FU["c721"] = _f(3, "前提の難しさ", "報告書の所見", [
+    _c(0, R, head="エンジンの力なしで", lines="着水の前提をすべて", cell=(0, 0)),
+    _c(1, R, lines=("ありえなくはないが", "見込みは低い"), cell=(1, 0)),
+    _c(2, R, head="その難しさ", lines="胴体の損傷の一因", cell=(0, 1), span=(2, 1))],
+    [_x(1, "a", "b")], src=S_R)
+# ── c716 沈む速さ（毎秒メートルの比例＝門番 ⑤ num）
+AX716 = ((0.0, 440.0), (4.0, 1640.0))
+YR716 = (420.0, 590.0)
+C716 = [
+    _at(_c(1, R, big="3倍をこえる", bcap=72), 1340, 770),
+    _at(_c(2, R, head="後ろの胴体に", lines="大きな水の力", cap=46), 620, 770),
+]
+VIEWS["c716"] = _z(3, "沈む速さ", "水に当たったとき", C716, [
+    _p(0, lambda: _hline(AX716, 664.0, 1.0) + _hbar(AX716, 1.1, YR716[0], J.LINE) + _t(420.0, YR716[0] + 14, "認証の前提", 40, INK, "end", 340)
+       + _t(_lx(AX716, 1.1) + 20, YR716[0] + 16, "毎秒約1.1メートル", 44, J.LINE, "start", 500)),
+    _p(1, lambda: _hbar(AX716, 3.8, YR716[1], J.AMBER) + _t(420.0, YR716[1] + 14, "1549便", 40, INK, "end", 300)
+       + _t(_lx(AX716, 3.8), YR716[1] - 40, "毎秒約3.8メートル", 44, J.AMBER, "end", 500))],
+    src=S_R, note="棒の長さは比例・目盛りは毎秒1メートルごと・フィートをメートルに換算",
+    tl=dict(kind="num", ax=AX716, pts=(("毎秒約1.1メートル", _lx(AX716, 1.1)), ("毎秒約3.8メートル", _lx(AX716, 3.8)))))
+# ── c723 損傷に関わった3つ（並べ）
+FU["c723"] = _f(3, "損傷に関わった3つ", "報告書の結論", [
+    _c(0, R, head="FAA の認証", lines="推力なしで届くか確かめず", cell=(0, 0)),
+    _c(1, R, head="訓練と指針", lines="着水の降り方", sub="業界に足りず", cell=(1, 0)),
+    _c(2, R, head="最後の進入", lines="思う速さを保ちにくい", sub="緊急で手いっぱい", cell=(0, 1), span=(2, 1))], src=S_R)
+
+# ── 第7章 c802 開いた順（秒の比例＝門番 ⑤ hms・NTSB が映像から読んだ時刻）
+AX802 = ((_hs(15, 30, 40), 240.0), (_hs(15, 31, 30), 1680.0))
+Y802 = 560.0
+EV802 = (
+    ((15, 30, 58), "15:30:58", ("左の翼の非常口",), True),
+    ((15, 31, 6), "15:31:06", ("前の左の扉",), False),
+    ((15, 31, 11), "15:31:11", ("前の右の扉",), True),
+    ((15, 31, 16), "15:31:16", ("前の右のすべり台", "ふくらむ"), False),
+    ((15, 31, 26), "15:31:26", ("前の左のすべり台", "ふくらみ始める"), True),
+)
+
+
+def _c802_ev(*ii):
+    return "".join(_ev(_lx(AX802, _hs(*EV802[i][0])), Y802, EV802[i][1], EV802[i][2], up=EV802[i][3]) for i in ii)
+
+
+C802 = [_at(_c(0, R, head="着水", big="15:30:43", bcap=64), 360, 380)]
+VIEWS["c802"] = _z(2, "開いた順", "NTSB の映像の読み", C802, [
+    _p(0, lambda: _hline(AX802, Y802, 10.0) + _lead(C802[0], _lx(AX802, _hs(15, 30, 43)), Y802) + _c802_ev(0)),
+    _p(1, lambda: _c802_ev(1, 2, 3, 4))],
+    src=S_R, note="目盛りは10秒ごと",
+    tl=dict(kind="hms", ax=AX802, pts=(("15:30:43", _lx(AX802, _hs(15, 30, 43))),) + tuple((e[1], _lx(AX802, _hs(*e[0]))) for e in EV802)))
+
+
+# ── c804 閉まりかけた扉（前から見た扉の口・扉・すべり台＝模式）
+def _c804_door():
+    g = F.poly([(760.0, 700.0), (1060.0, 700.0), (1170.0, 850.0), (650.0, 850.0)], J.AMBER, None, close=True, op=0.22)
+    g += F.poly([(760.0, 700.0), (1060.0, 700.0), (1170.0, 850.0), (650.0, 850.0)], "none", J.AMBER, 5, close=True)
+    g += _t(910.0, 800.0, "すべり台", 40, INK, "middle", 300)
+    # 🔧 check_box（空き矩形 47%）：扉の口は「中が空いた枠」でなく、暗い穴（塗った形）として描く
+    g += F.rect(760.0, 300.0, 300.0, 400.0, J.BG2, INK, 6, rx=10) + _t(910.0, 282.0, "扉の口", 38, INK, "middle", 260)
+    return g + F.rect(766.0, 306.0, 104.0, 388.0, J.TICK, J.TICK, 5, rx=6, op=0.55) + _t(818.0, 520.0, "扉", 40, INK, "middle", 80)
+
+
+C804 = [
+    _at(_c(0, R, head="前の右の扉", lines="途中で閉まりかけた", sub="約30センチ入り込む", cap=46), 1450, 380),
+    _at(_c(1, R, head="客室乗務員の頼み", lines="力のありそうな男性", sub="扉を押さえる", cap=46), 1450, 680),
+]
+VIEWS["c804"] = _z(2, "扉の異変", "脱出のさなか", C804, [
+    _p(0, _c804_door), _p(0, lambda: _arrow(880.0, 600.0, 990.0, 600.0, J.AMBER, 8, 28) + _tie(C804[0], 1066.0, 420.0), arrow=True)],
+    src=S_R, note="模式・扉とすべり台の形は描いた形でない", schem=True)
+
+
+# ── c807・c809 機体を上から（c207 と同じ筒・前＝左・上が右側）
+def _sides():
+    return _t(430.0, 470.0, "右", 34, J.TICK, "middle", 60) + _t(430.0, 712.0, "左", 34, J.TICK, "middle", 60)
+
+
+def _exits807():
+    g = ""
+    for x in (930.0, 1000.0):
+        for y in (BODY[2], BODY[3]):
+            g += F.rect(x - 22, y - 12, 44, 24, J.TICK, None, None, rx=5)
+    for y in (BODY[2], BODY[3]):
+        g += F.rect(470.0 - 34, y - 14, 68, 28, J.AMBER, None, None, rx=6)
+    return g
+
+
+def _c807_flow():
+    pts = [(965.0 + 120.0 * math.cos(math.radians(t)), 580.0 + 70.0 * math.sin(math.radians(t))) for t in range(0, 361, 15)]
+    g = F.poly(pts, J.AMBER, None, close=True, op=0.22) + F.poly(pts, "none", J.AMBER, 4, close=True, dash="10 8")
+    return g + _arrow(830.0, 580.0, 560.0, 580.0, J.AMBER, 10, 32)
+
+
+def _c807_aft():
+    return F.line(1450.0, 545.0, 540.0, 545.0, J.LINE, 5, dash="16 12") + _arrow(540.0, 545.0, 478.0, 516.0, J.LINE, 5, 22)
+
+
+C807 = [
+    _at(_c(0, R, head="翼の非常口", lines="混み合った", cap=46), 965, 330),
+    _at(_c(0, R, head="前の扉へ", lines="呼び寄せた", cap=46), 720, 770),
+    _at(_c(1, R, head="後ろの客室乗務員", lines="前の右の扉から出た", cap=46), 1300, 770),
+]
+VIEWS["c807"] = _z(2, "前へ呼ぶ", "人の向き", C807, [
+    _p(0, lambda: _body() + _exits807() + _sides()), _p(0, _c807_flow, arrow=True),
+    _p(0, lambda: _lead(C807[0], 965.0, BODY[2] - 14) + _lead(C807[1], 470.0, BODY[3] + 16)),
+    _p(1, _c807_aft, arrow=True), _p(1, lambda: _lead(C807[2], 1450.0, 560.0))],
+    src=S_R, note="模式・人の流れの形は描いた形でない（人は数えない）", schem=True)
+
+
+def _c809_loop():
+    return _arrow(560.0, 565.0, 1430.0, 565.0, J.AMBER, 6, 24, "16 12") + _arrow(1430.0, 605.0, 560.0, 605.0, J.AMBER, 6, 24, "16 12")
+
+
+C809 = [
+    _at(_c(0, R, head="機長と副操縦士", lines="残る人がいないか", cap=46), 960, 330),
+    _at(_c(1, R, lines="前の左のすべり台へ", cap=46), 860, 790),
+]
+VIEWS["c809"] = _z(2, "最後の見回り", "機長の話", C809, [
+    _p(0, lambda: _body() + _exits807() + _sides()), _p(0, _c809_loop, arrow=True), _p(0, lambda: _lead(C809[0], 960.0, 555.0)),
+    _p(1, lambda: _arrow(470.0, 640.0, 470.0, 770.0, J.AMBER, 8, 28) + _tie(C809[1], 486.0, 760.0), arrow=True)],
+    src=S_R, note="模式・見回った道の形は描いた形でない", schem=True)
+# ── c813 その日の寒さ
+FU["c813"] = _f(3, "その日の寒さ", "気温と水温", [
+    _c(1, R, head="気温", big="マイナス7度", sub="セントラルパーク 15:51", cell=(0, 0), bcap=72),
+    _c(2, R, head="川の水", big="5.2度", cell=(1, 0), bcap=72),
+    _c(2, R, head="風を受けた体", big="約マイナス17度", cell=(2, 0), bcap=72)], src=S_R)
+
+
+# ── c820 いかだになるすべり台（横から見た機体の前・すべり台・いかだ＝模式）
+def _c820_slide():
+    g = F.line(160.0, 600.0, 1760.0, 600.0, J.LINE, 5, dash="20 12") + _t(1760.0, 650.0, "水面", 38, J.LINE, "end", 160)
+    g += F.rect(200.0, 380.0, 560.0, 140.0, J.BG2, INK, 6, rx=70, op=0.6) + F.rect(560.0, 400.0, 60.0, 100.0, "none", J.AMBER, 5, rx=6)
+    g += F.poly([(560.0, 500.0), (620.0, 500.0), (900.0, 600.0), (820.0, 600.0)], J.AMBER, None, close=True, op=0.35)
+    return g + F.line(566.0, 514.0, 626.0, 514.0, J.ALERT, 5, dash="8 6")
+
+
+def _c820_raft():
+    g = _arrow(930.0, 575.0, 1160.0, 585.0, J.AMBER, 8, 28)
+    g += F.rect(1180.0, 560.0, 380.0, 60.0, J.AMBER, None, None, rx=30, op=0.30) + F.rect(1180.0, 560.0, 380.0, 60.0, "none", J.AMBER, 5, rx=30)
+    return g + _t(1370.0, 690.0, "いかだ", 40, INK, "middle", 200)
+
+
+C820 = [
+    _at(_c(0, R, head="前のすべり台", lines="切り離すといかだに", cap=46), 520, 290),
+    _at(_c(0, R, head="いかだ1つ", big="44人用", bcap=64), 1370, 330),
+    _at(_c(1, R, head="報告書", lines="この装備が無ければ", sub="約64人のいかだは無かった", cap=46), 1000, 760),
+]
+VIEWS["c820"] = _z(2, "もう1つの使い道", "海の上の装備", C820, [
+    _p(0, _c820_slide), _p(0, _c820_raft, arrow=True), _p(0, lambda: _lead(C820[1], 1370.0, 552.0))],
+    src=S_R, note="模式・機体とすべり台といかだの形は描いた形でない", schem=True)
+
+
+# ── c822 救助を待つ（川の上の機体と、近づく船の影＝数えない形）
+def _c822_river():
+    g = F.rect(F.BX0, 440.0, F.BW, 260.0, J.LINE, None, None, op=0.12) + F.line(F.BX0, 440.0, F.BX1, 440.0, J.TICK, 4) + F.line(F.BX0, 700.0, F.BX1, 700.0, J.TICK, 4)
+    return g + _plane(820.0, 570.0, INK, k=1.5, ang=-90.0)
+
+
+def _c822_ship():
+    pts = [(1330.0, 575.0), (1520.0, 575.0), (1570.0, 600.0), (1520.0, 628.0), (1330.0, 628.0)]
+    g = F.poly(pts, "none", J.TICK, 5, close=True, dash="12 8")
+    return g + _arrow(1310.0, 600.0, 1010.0, 585.0, J.TICK, 5, 22, "14 10") + _qmark(1450.0, 540.0, 64, J.AMBER)
+
+
+C822 = [_at(_c(1, R, head="最初の船", lines="何分後に着いたか", cap=46), 1420, 320)]
+VIEWS["c822"] = _z(2, "救助を待つ", "川の上の機体", C822, [_p(0, _c822_river), _p(1, _c822_ship, arrow=True)],
+                   src=S_R, note="模式・船の形と数は描いた形でない", schem=True)
+
+# ── 第8章 c909 救助の時間（分の比例＝門番 ⑤ num・着水から）
+AX909 = ((0.0, 300.0), (25.0, 1600.0))
+Y909 = 560.0
+C909 = [
+    _at(_c(0, R, big="約4分", lines="最初のフェリー", bcap=64, cap=46), 520, 360),
+    _at(_c(1, R, big="約20分", lines="全員が救われる", bcap=64, cap=46), 1340, 760),
+    _at(_c(0, R, big="24分", lines="最後の船が離れる", sub="15:54:43", bcap=64, cap=46), 1560, 350),
+]
+VIEWS["c909"] = _z(2, "救助の時間", "着水から", C909, [
+    _p(0, lambda: _hline(AX909, Y909, 5.0) + _t(300.0, Y909 + 66, "着水", 40, J.TICK, "middle", 160)
+       + _lead(C909[0], _lx(AX909, 4.0), Y909) + _lead(C909[2], _lx(AX909, 24.0), Y909)),
+    _p(1, lambda: _lead(C909[1], _lx(AX909, 20.0), Y909))],
+    src=S_R, note="分は比例・目盛りは5分ごと",
+    tl=dict(kind="num", ax=AX909, pts=(("約4分", _lx(AX909, 4.0)), ("約20分", _lx(AX909, 20.0)), ("24分", _lx(AX909, 24.0)))))
+# ── c913 重いけが
+FU["c913"] = _f(2, "重いけが", "5人の内訳", [
+    _c(0, R, head="客室乗務員", lines="足の傷", cell=(0, 0)),
+    _c(0, R, head="乗客", lines="胸の骨の端の骨折", cell=(1, 0)),
+    _c(0, R, head="乗客", lines="低体温症", sub="2日後の夕方まで入院", cell=(0, 1)),
+    _c(1, R, head="あとで申し出た乗客", big="2人", lines="肩の骨折", cell=(1, 1))], src=S_R)
+
+
+# ── c918 両岸へ（救助の3つ・川・両岸＝模式）。北が上＝西がニュージャージー側
+def _c918_river():
+    g = F.rect(820.0, 430.0, 280.0, 428.0, J.LINE, None, None, op=0.12) + F.line(820.0, 430.0, 820.0, 858.0, J.TICK, 4) + F.line(1100.0, 430.0, 1100.0, 858.0, J.TICK, 4)
+    return g + _plane(960.0, 600.0, INK, k=0.9, ang=200.0) + _t(1500.0, 684.0, "ニューヨーク側", 42, INK, "middle", 400)
+
+
+C918 = [
+    _at(_c(0, R, lines="フェリー", cap=46), 560, 300),
+    _at(_c(0, R, lines="消防", cap=46), 960, 300),
+    _at(_c(0, R, lines="沿岸警備隊", cap=46), 1360, 300),
+    _at(_c(0, R, head="ニュージャージー側", lines="救助の指揮所", cap=46), 420, 670),
+]
+VIEWS["c918"] = _z(2, "両岸へ", "救助の動き", C918, [
+    _p(0, _c918_river), _p(0, lambda: _lead(C918[0], 900.0, 548.0) + _lead(C918[1], 960.0, 540.0) + _lead(C918[2], 1020.0, 548.0)),
+    _p(1, lambda: _arrow(900.0, 650.0, 640.0, 680.0, J.AMBER, 8, 28) + _arrow(1020.0, 650.0, 1330.0, 680.0, J.AMBER, 8, 28), arrow=True)],
+    src=S_R, note="模式・位置と大きさは描いた形でない", schem=True)
+
+# ── 第9章 ca08 生き残れた理由（結論の4つ）
+FU["ca08"] = _f(2, "生き残れた理由", "報告書の結論", [
+    _c(0, R, head="乗員", lines="判断と連携", cell=(0, 0)),
+    _c(1, R, head="海の上の装備", lines="偶然あった", cell=(1, 0)),
+    _c(1, R, head="客室乗務員", lines="速い誘導", cell=(0, 1)),
+    _c(1, R, head="救助の人たち", lines="近さと早さ", cell=(1, 1))], src=S_R)
+# ── ca10 認められた判断（所見の番号＝報告書の結論の並び）
+FU["ca10"] = _f(3, "認められた判断", "報告書の所見", [
+    _c(0, R, head="所見15", lines="川を選んだ判断", cell=(0, 0)),
+    _c(1, R, head="所見14", lines="APU を先に回した", cell=(1, 0)),
+    _c(1, R, head="所見18", lines="フラップ2は妥当", cell=(2, 0)),
+    _c(2, R, lines="どれも機長がしたこと", cell=(0, 1), span=(3, 1))], src=S_R)
+# ── ca12 時間はあったか（委員の意見＝原文どおり・字幕を消す）
+FU["ca12"] = _f(3, "時間はあったか", "委員の意見", [
+    _c(0, R, head="NTSB の以前の研究", lines="着水には準備の時間", cell=(0, 0)),
+    _c(2, R, lines=("1549便には、ほとんど", "何をする時間もなかった"), q=True, cell=(1, 0))],
+    [_x(2, "a", "b", t="ところが")], src=S_R, mute=(2,))
+# ── ca14 4つの偶然（重なった偶然＝ca04 と同じ語・下に「次も重なるとは限らない」）
+C14A = [
+    _at(_c(1, R, lines="よい見通しと静かな水面", cap=46), 560, 400),
+    _at(_c(1, R, lines="経験のある乗員", cap=46), 1360, 400),
+    _at(_c(2, R, lines="積む決まりのない装備", cap=46), 560, 560),
+    _at(_c(2, R, lines="近くの船", cap=46), 1360, 560),
+]
+VIEWS["ca14"] = _z(3, "4つの偶然", "3つ目の問い", C14A, [
+    _p(0, lambda: _t(960.0, 300.0, "重なった偶然", 46, J.TICK, "middle", 600)),
+    _p(2, lambda: F.line(560.0, 680.0, 1360.0, 680.0, J.TICK, 3) + _t(960.0, 760.0, "次も重なるとは限らない", 52, J.AMBER, "middle", 900))],
+    src=S_R, note="偶然の語は報告書の結論と分析の字")
+
+# ── 第10章 cb01 勧告の数（1つの札が1本）
+GX01 = dict(faa=(300.0, 470.0, 13, 2), easa=(1080.0, 501.0, 8, 1), usda=(1600.0, 501.0, 1, 1))
+
+
+def _cb01_cards(col=None):
+    g = ""
+    cols = dict(faa=J.LINE, easa=J.AMBER, usda=INK)
+    for key, (x0, y0, nc, nr) in GX01.items():
+        for i in range(nc * nr):
+            x, y = x0 + (i % nc) * 48.0, y0 + (i // nc) * 62.0
+            if col:
+                g += F.rect(x - 18, y - 25, 36, 50, cols[key], None, None, rx=5, op=0.85)
+            else:
+                g += F.rect(x - 18, y - 25, 36, 50, "none", J.TICK, 3, rx=5)
+    return g
+
+
+C01 = [
+    _at(_c(1, R, head="勧告", big="35本", sub="報告書の34本＋先の1本", bcap=64), 960, 318),
+    _at(_c(2, R, head="FAA", big="26本", bcap=64), 588, 720),
+    _at(_c(2, R, head="ヨーロッパの当局", big="8本", bcap=64), 1248, 720),
+    _at(_c(2, R, head="アメリカの農務省", big="1本", bcap=64), 1640, 720),
+]
+VIEWS["cb01"] = _z(3, "勧告の数", "あて先", C01, [_p(1, _cb01_cards), _p(2, lambda: _cb01_cards(True))],
+                   src=S_CAROL, note="1つの札が1本の勧告")
+# ── cb03 評価のしくみ
+FU["cb03"] = _f(3, "評価のしくみ", "閉じ方", [
+    _c(0, R, head="勧告の相手", lines="対応する", cell=(0, 0)),
+    _c(2, R, head="NTSB", lines="対応を見て評価", cell=(1, 0)),
+    _c(2, R, lines="記録を閉じる", cell=(2, 0)),
+    _c(1, R, head="受け入れられない対応", lines="求めに届かない", cell=(0, 1), span=(3, 1))],
+    [_x(2, "a", "b"), _x(2, "b", "c")], src=S_CAROL)
+# ── cb05 閉じた評価（A-10-068）
+FU["cb05"] = _f(2, "閉じた評価", "CAROL の記録", [
+    _c(0, R, head="勧告", lines="手順書の作り方の指針", cell=(0, 0)),
+    _c(1, R, big="2012年", lines="受け入れられない対応", cell=(1, 0))], src=S_CAROL)
+# ── cb07 閉じるまでの年月（年の比例＝門番 ⑤ ym）
+AX07 = ((2009.0, 300.0), (2026.0, 1660.0))
+Y07 = 560.0
+V07 = (2009 + 0.5 / 12, 2025 + 11.5 / 12)
+C07 = [
+    _at(_c(0, R, head="事故", big="2009年1月", bcap=64), 360, 360),
+    _at(_c(0, R, head="勧告が閉じる", big="2025年12月", bcap=64), 1520, 360),
+    _at(_c(1, R, big="17年近く", bcap=72), 960, 760),
+]
+VIEWS["cb07"] = _z(2, "閉じるまでの年月", "事故から", C07, [
+    _p(0, lambda: _hline(AX07, Y07, 1.0) + _lead(C07[0], _lx(AX07, V07[0]), Y07) + _lead(C07[1], _lx(AX07, V07[1]), Y07)),
+    _p(1, lambda: F.line(_lx(AX07, V07[0]), Y07 + 50, _lx(AX07, V07[1]), Y07 + 50, J.AMBER, 10))],
+    src=S_CAROL, note="年は比例・目盛りは1年ごと",
+    tl=dict(kind="ym", ax=AX07, pts=(("2009年1月", _lx(AX07, V07[0])), ("2025年12月", _lx(AX07, V07[1])))))
+# ── cb10 エンジンの規則（FAA の規則の説明＝連邦官報・低い回転の試験の勧告＝A-10-064）
+# 🔧 門番 credits：副題「2023年の規則」が地 c61（2009年の撮影）の年と食い違う＝副題に年を書かない
+FU["cb10"] = _f(2, "エンジンの規則", "鳥とエンジン", [
+    _c(0, None, head="FAA の規則の説明", lines="1549便がきっかけ", sub="鳥の吸い込みの研究", cell=(0, 0), span=(1, 2)),
+    _c(1, R, head="勧告", lines="低い回転での鳥の試験", cell=(1, 0)),
+    _c(1, R, big="2024年4月", lines="受け入れられる別の対応", cell=(1, 1))], src=S_FR + "・" + S_CAROL)
+# ── cb15 残った評価（A-10-067・A-10-069＝受け入れられない対応の印）
+C15 = [
+    _at(_c(0, R, head="勧告", lines="低い所の手順書を使う", cap=46), 560, 470),
+    _at(_c(1, R, head="勧告", lines="その手順の訓練", cap=46), 1360, 470),
+    _at(_c(2, R, lines="受け入れられない対応", sub="2026年11月の時点", cap=46), 960, 730),
+    _at(_c(1, R, head="報告書の求め", lines="偶然に頼らない備え", cap=46), 960, 290),
+]
+
+
+def _cb15_stamp():
+    g = ""
+    for c in C15[:2]:
+        x, y, w, h = _zbox(c)
+        g += F.rect(x - 14, y - 14, w + 28, h + 28, "none", J.ALERT, 7, rx=22)
+    return g
+
+
+VIEWS["cb15"] = _z(3, "残った評価", "手順書と訓練", C15, [_p(2, _cb15_stamp)], src=S_CAROL)
+# ── cb02 勧告の状態（1つの四角が1本）
+SQ02 = (300.0, 430.0, 56.0, 12.0)            # 左上・辺・すき間（17列×2行＝閉じた34）
+ST02 = ((10, J.LINE, 0.85), (7, J.LINE, 0.40), (16, J.AMBER, 0.92), (1, J.TICK, 0.85))
+
+
+def _cb02_sq(hi=False):
+    x0, y0, w, gp = SQ02
+    g, i = "", 0
+    for n, col, op in ST02:
+        for _k in range(n):
+            x, y = x0 + (i % 17) * (w + gp), y0 + (i // 17) * (w + gp)
+            if (col == J.AMBER) == hi:
+                g += _sq(x, y, w, fill=col, op=op)
+            i += 1
+    if not hi:
+        g += _sq(1560.0, 464.0, w, stroke=J.AMBER, dash="10 8")
+        g += _t(300.0, 610.0, "受け入れられる対応 10本", 34, J.LINE, "start", 500) + _t(820.0, 610.0, "別の対応 7本", 34, J.LINE, "start", 300)
+        g += _t(1120.0, 610.0, "考え直して閉じた 1本", 34, J.TICK, "start", 400)
+    return g
+
+
+C02 = [
+    _at(_c(0, R, head="閉じた", big="34本", bcap=64), 870, 320),
+    _at(_c(0, R, head="開いている", big="1本", bcap=64), 1588, 320),
+    _at(_c(1, R, head="受け入れられない対応", big="16本", bcap=64), 960, 750),
+]
+VIEWS["cb02"] = _z(2, "勧告の状態", "いまの内訳", C02, [_p(0, _cb02_sq), _p(1, lambda: _cb02_sq(True))],
+                   src=S_CAROL, note="1つの四角が1本の勧告")
+# ── cb14 ヨーロッパあての勧告（1つの四角が1本）
+SQ14 = (436.0, 420.0, 110.0, 24.0)
+ST14 = ((3, J.LINE, 0.85), (1, J.LINE, 0.40), (4, J.AMBER, 0.92))
+
+
+def _cb14_sq():
+    x0, y0, w, gp = SQ14
+    g, i = "", 0
+    for n, col, op in ST14:
+        for _k in range(n):
+            g += _sq(x0 + i * (w + gp), y0, w, fill=col, op=op)
+            i += 1
+    return g
+
+
+def _sq14_mid(i0, n):
+    x0, y0, w, gp = SQ14
+    return x0 + i0 * (w + gp) + (n * (w + gp) - gp) / 2, y0 + w
+
+
+C14 = [
+    _at(_c(0, R, head="ヨーロッパの当局あて", big="8本", bcap=64), 960, 300),
+    _at(_c(0, R, head="受け入れられる対応", big="3本", bcap=64), 470, 720),
+    _at(_c(1, R, head="受け入れられる別の対応", big="1本", bcap=64), 960, 720),
+    _at(_c(1, R, head="受け入れられない対応", big="4本", bcap=64), 1460, 720),
+]
+VIEWS["cb14"] = _z(2, "ヨーロッパあての勧告", "すべて閉じた", C14, [
+    _p(0, _cb14_sq), _p(0, lambda: _lead(C14[1], *_sq14_mid(0, 3))), _p(1, lambda: _lead(C14[2], *_sq14_mid(3, 1)) + _lead(C14[3], *_sq14_mid(4, 4)))],
+    src=S_CAROL, note="1つの四角が1本の勧告")
+
+# ── 第11章 cc05・cc07・cc09 答えと結び
+FU["cc05"] = _f(2, "1つ目の答え", "戻れたのか", [
+    # 🔧 check_box（空き矩形 35%）：同じ列に縦に並べると細い札 a が b の幅に引き伸ばされた＝横に並べる
+    _c(0, R, head="判断の35秒を足すと", lines="届かなかった", cell=(0, 0)),
+    _c(1, R, head="報告書の結論", lines=("川が、生き残れる見込みの", "いちばん高い道"), cell=(1, 0))], src=S_R + "・NTSB 公開ドケット DCA09MA026")
+FU["cc07"] = _f(2, "3つ目の答え", "報告書の言う偶然", [
+    _c(0, R, lines="よい見通しと静かな水面", cell=(0, 0)),
+    _c(1, R, lines="経験のある乗員", cell=(1, 0)),
+    _c(1, R, lines="積む決まりのない装備", cell=(0, 1)),
+    _c(1, R, lines="近くの船", cell=(1, 1))], src=S_R)
+FU["cc09"] = _f(2, "残された記録", "報告書が書いたこと", [
+    _c(0, R, head="報告書に残る", lines="助かった理由", cell=(0, 0)),
+    _c(0, R, lines="足りなかった所", cell=(1, 0)),
+    _c(1, R, lines="成功の中の偶然まで", cell=(0, 1), span=(2, 1))], src=S_R)
+# ── 第7章 c810 いた場所（人数の比例＝門番 ⑤ num）
+AX810 = ((0.0, 560.0), (100.0, 1560.0))
+YR810 = (440.0, 600.0)
+C810 = [_at(_c(2, R, head="翼の上", lines="立つ場所はほぼ残らず", cap=46), 1200, 775)]
+VIEWS["c810"] = _z(3, "いた場所", "助けられた人の数", C810, [
+    _p(0, lambda: _hline(AX810, 676.0, 10.0) + _t(540.0, YR810[0] + 14, "前の2つのすべり台", 38, INK, "end", 440)
+       + _t(540.0, YR810[1] + 14, "翼の上と翼のすべり台", 38, INK, "end", 460)),
+    _p(1, lambda: _hbar(AX810, 64.0, YR810[0], J.LINE) + _t(_lx(AX810, 64.0) + 20, YR810[0] + 16, "約64人", 48, J.LINE, "start", 300)
+       + _hbar(AX810, 87.0, YR810[1], J.AMBER) + _t(_lx(AX810, 87.0) + 20, YR810[1] + 16, "約87人", 48, J.AMBER, "start", 300))],
+    src=S_R, note="棒の長さは人数の比例・目盛りは10人ごと",
+    tl=dict(kind="num", ax=AX810, pts=(("約64人", _lx(AX810, 64.0)), ("約87人", _lx(AX810, 87.0)))))
+# ── c816 浮くための物（聞き取りの表）
+TY816 = (390.0, 480.0, 570.0)
+R816 = (("着水の前に着けた", "2人"), ("着水のあと座席の下から", "10人"), ("人から渡された", "21人"))
+
+
+def _c816_table():
+    g = _t(420.0, 320.0, "救命胴衣", 40, J.TICK, "start", 300)
+    g += "".join(F.line(400.0, y + 45, 1520.0, y + 45, J.TICK, 3, op=0.7) for y in TY816[:2])
+    for y, (a, n) in zip(TY816, R816):
+        g += _t(420.0, y + 16, a, 44, INK, "start", 760) + _t(1500.0, y + 20, n, 56, J.AMBER, "end", 240)
+    return g
+
+
+C816 = [_at(_c(1, R, head="浮く座席のクッション", big="77人", lines="持って出た", bcap=64, cap=46), 960, 740)]
+VIEWS["c816"] = _z(2, "浮くための物", "手に取った物", C816, [_p(0, _c816_table)], src=S_R, note="乗客の聞き取りの答え")
+# ── c819 説明としおり（聞き取りの札）
+FU["c819"] = _f(2, "説明としおり", "乗客の聞き取り", [
+    _c(0, R, head="答えた乗客", big="146人", sub="150人のうち", cell=(0, 0)),
+    _c(0, R, head="安全の説明の実演", big="25人", lines="ほとんど見た", sub="一部を見た 19人", cell=(1, 0)),
+    _c(1, R, head="安全のしおり", big="12人", lines="読んだ", cell=(2, 0))], src=S_R)
 
 
 # ══════════════════════════════════════════════════════════
