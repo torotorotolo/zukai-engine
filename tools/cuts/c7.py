@@ -161,7 +161,7 @@ SPEC.update({
                  t="押す力は約2倍", s="保管中のこの機体の底の壊れ"),
     # c718＝#49 写真42 床を突き破った65番の縦の梁
     "c718": dict(photo=_D49_42, panel=True, ptall=True, ground=dict(photo=_D49_42), color=1.0,
-                 t="65番の縦の梁", s="床を突き破った梁〈NTSB の調査の写真〉"),
+                 t="65番の縦の梁", s="梁が突き破った床〈NTSB の調査の写真〉"),   # 🔧 札「Location where vertical beam 65 penetrated the floor」＝梁は写っていない（試し焼きで見た）
     # c724＝#79 写真23 後ろの胴体の下の大きな破れ（右の端に作業の人の脚＝顔は外板の陰）
     "c724": dict(photo=_D79_23, panel=True, ptall=True, ground=dict(photo=_D79_23), color=1.0,
                  t="破れた胴体", s="破れた外板と骨組み〈NTSB の調査の写真〉"),   # 🔧 副題は額の左に収まる長さ（門番 fmove）・c701 の「裂け」と分ける

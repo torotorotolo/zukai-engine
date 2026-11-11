@@ -126,7 +126,8 @@ SPEC.update({
 _C52, _C41, _D101_1 = P("c52"), P("c41"), P("d101_1")
 SPEC.update({
     # c202＝[52] FAA の出発の図（379×612＝縦長・小さい＝額装）
-    "c202": dict(photo=_C52, panel=True, ptall=True, ground=dict(photo=_C52), color=1.0,
+    #   🔧 試し焼き（Actions 43026909564）：既定のぼかしでは図の大きな字（MASPETH CLIMB・LGA）が見出しの後ろで読めた＝紙面と同じ強さ（PAGE_BLUR）
+    "c202": dict(photo=_C52, panel=True, ptall=True, ground=dict(photo=_C52, blur=ss.PAGE_BLUR), color=1.0,
                  t="4日間の乗務", s="ラガーディア空港の出発の図〈FAA〉"),
     # c208＝[41] 夜・はしけの上の機体（EXIF 1月18日 17:48）＝機体へ寄る
     "c208": dict(photo=_C41, **ss.mv(_C41, "in", fx=0.4, fy=0.6), side="none", color=1.0,
