@@ -156,8 +156,10 @@ SPEC.update({
 # 🆕 ⑤b-6（2026-11-11）：型の図（時計・比べ・並べ・線・帯）＝mech32 の「⑤b-6」の節
 SPEC.update({
     "c301": _m32.zu_spec("c301", ss.gr("stock/gs1")),
-    "c306": _m32.zu_spec("c306", ss.gr("c61")),
-    "c307": _m32.zu_spec("c307", ss.gr("c61")),
+    # 🔧 ⑤c'（2026-11-12）：地 c61 → gc1（c61 の手書きの英字 BYPASS・FLOW PATH・1-29-09 が 0.24 でも読め、メスの札が字の上に乗った）。
+    #    同じ章の gs1（0.37）は c307 で門番 ground が 8.0:1 を割った（地の明るさは写真ごとに1つ＝gs1 を下げると8カットが変わる）＝雲の上の gc1（0.32）
+    "c306": _m32.zu_spec("c306", ss.gr("stock/gc1")),
+    "c307": _m32.zu_spec("c307", ss.gr("stock/gc1")),
     "c308": _m32.zu_spec("c308", ss.gr("stock/gs1")),
     "c323": _m32.zu_spec("c323", ss.gr("stock/gs1")),
 })
@@ -166,7 +168,9 @@ SPEC.update({
 _C61, _D76_4, _D76_2, _D101_2 = P("c61"), P("d76_4"), P("d76_2"), P("d101_2")
 SPEC.update({
     # c305＝[61] 袋の羽（エンジン1 の札・「1-29-09」・左下の手書きの人の名前は束の段で切り落とした）
-    "c305": dict(photo=_C61, panel=True, ptall=True, ground=dict(photo=_C61), color=1.0,
+    #   🔧 ⑤c'（2026-11-12）：額の地（既定のぼかし）で手書きの英字が大きく読めた＝c202 と同じ紙面の強さ（PAGE_BLUR）。
+    #      手書きの人の名前は c61.jpg に無い（束の段で行 852 まで＝名前は原本の行 855〜940）＝地のぼかしにも出ない
+    "c305": dict(photo=_C61, panel=True, ptall=True, ground=dict(photo=_C61, blur=ss.PAGE_BLUR), color=1.0,
                  t="羽の分析", s="エンジンから集めた羽〈NTSB〉"),
     # c309＝#76 写真4 ピンクの丸の中の凹み
     "c309": dict(photo=_D76_4, panel=True, ptall=True, ground=dict(photo=_D76_4), color=1.0,

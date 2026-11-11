@@ -103,7 +103,7 @@ SPEC.update({
     "cb03": _m32.fu_spec("cb03", ss.gr("c13")),
     "cb05": _m32.fu_spec("cb05", ss.gr("c14")),
     "cb07": _m32.zu_spec("cb07", ss.gr("c14")),
-    "cb10": _m32.fu_spec("cb10", ss.gr("c61")),
+    "cb10": _m32.fu_spec("cb10", ss.gr("c14")),   # 🔧 ⑤c'（2026-11-12）：地 c61 → c14（c61 の手書きの英字が読めた＝同じ章の cb05・cb07 の地）
     "cb14": _m32.zu_spec("cb14", ss.gr("c13")),
     "cb15": _m32.zu_spec("cb15", ss.gr("c49")),
 })

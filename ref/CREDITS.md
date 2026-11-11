@@ -3722,7 +3722,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 |---|---|---|---|---|---|
 | `c1` | c108（地 c909 c918） | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Boats around plane in the Hudson.jpg |
 | `c13` | c113（地 c419 cb01 cb02 cb03 cb14） | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:New York District Responds To U.S. Airways Flight 1549 Crash in the Hudson River -d.jpg |
-| `c14` | cb06（地 cb05 cb07） | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:New York District Responds To U.S. Airways Flight 1549 Crash in the Hudson River -e.jpg |
+| `c14` | cb06（地 cb05 cb07 cb10） | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:New York District Responds To U.S. Airways Flight 1549 Crash in the Hudson River -e.jpg |
 | `c15` | c105 | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Plane and ferry in the Hudson 1.jpg |
 | `c16` | c821（地 c813 c816 c819 c820 c822） | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Plane and ferry in the Hudson 2.jpg |
 | `c18` | c106（地 c913 ca14） | 2009 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:Plane and some ferries in the Hudson.jpg |
@@ -3751,7 +3751,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `c57` | ca11 | 2010 | CC BY-SA 3.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:N106USinNJ2010.jpg |
 | `c59` | cc01 | 2011 | CC0（この回の物と場所） | 表示は任意（CC0）＝撮影者の名乗りを焼くときに足す | commons:US Airways Flight 1549 in Maryland.jpg |
 | `c60` | cc02 | 2011 | CC0（この回の物と場所・字に升目） | 表示は任意（CC0）＝撮影者の名乗りを焼くときに足す | commons:US Airways Flight 1549 support vehicle in Maryland.jpg |
-| `c61` | c305（地 c306 c307 cb10） | 2009 | PD（PD-NTSB）（この回の物と場所） | 米国の機関（public domain） | commons:USAir 1549 bird feather.jpg |
+| `c61` | c305 | 2009 | PD（PD-NTSB）（この回の物と場所） | 米国の機関（public domain） | commons:USAir 1549 bird feather.jpg |
 | `c62` | c611 | 2011 | CC BY-SA 3.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:USAir 1549（機体番号N106US）」のコックピット.jpg |
 | `c63` | c806 | 2011 | CC BY-SA 3.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:USAir 1549（機体番号N106US）」の座席.jpg |
 | `c68` | c717 | 2011 | CC BY-SA 3.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep32/src/credits_private.tsv` の記号の行の3列目＝画面は焼くときに足す） | commons:USAir 1549（機体番号N106US）」調査後の機体底部.jpg |
@@ -3794,7 +3794,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `ga1` | （地 c319 c402 c407 c417 c422） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/air-traffic-control-room-3582597/ |
 | `gb1` | （地 c603） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/close-up-of-paper-cards-12585541/ |
 | `gb2` | （地 c610 c614 c615） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/corner-of-paper-stack-20062955/ |
-| `gc1` | （地 c605） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/aerial-view-of-soft-cloud-blanket-from-above-35706529/ |
+| `gc1` | （地 c306 c307 c605） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/aerial-view-of-soft-cloud-blanket-from-above-35706529/ |
 | `gf1` | （地 c703 c711） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/an-airplane-wing-seen-from-the-airplane-window-17754867/ |
 | `gk1` | （地 c213 c313 c315 c321 c510 c513 c601 c608 c617 c621 c707 c709） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/control-lever-in-a-cockpit-6916506/ |
 | `gk2` | （地 c705） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/vintage-aircraft-cockpit-with-analog-gauges-29053115/ |
@@ -3842,7 +3842,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `x803` | c803 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/solitary-inflatable-boat-on-tranquil-sea-33338814/ |
 | `x808` | c808 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/empty-seats-in-airplane-20584536/ |
 | `x817` | c817 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/safety-guidelines-on-gray-background-7508662/ |
-| `x818` | c818 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/close-up-of-aviation-policy-on-the-back-of-an-airplane-seat-3036757/ |
+| `x818` | c818 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/black-seats-in-airplane-4061487/ |
 | `x904` | c904 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/sea-seen-from-ferry-12020663/ |
 | `x914` | c914 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/empty-blue-airplane-seats-3129736/ |
 | `xa03` | ca03 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/body-of-water-285853/ |

@@ -19,7 +19,7 @@ tags: [project/jiko-kensho, ep32]
 | 図 | 90 カット（模式 67・ほか 23＝地はすべて写真） | 地は暗くするだけ・動かさない |
 | 見せ方（写真・映像・紙面・イメージ） | 額装（高さいっぱい） 66・全面 65・額装（衛星） 15 | 額装は静止 |
 | 動き | 静止 68・ゆっくり寄る 65・映像 13 | 全面は寄る／流す |
-| 🔧 台本の画の欄から替えたカット | 110 | 台本は直さない＝⑤b はこの一覧に従う |
+| 🔧 台本の画の欄から替えたカット | 113 | 台本は直さない＝⑤b はこの一覧に従う |
 | 種類 | 模式 67・イメージ 46・写真 38・公的 21・衛星 15・映像 13・調査 13・割合 3・帯 3・比べ 2・並べ 2・年表 2・表 2・棒 2・箱 2・時計 1・線 1・言葉 1・流れ 1・札 1 | — |
 | 合計 | 236 カット・35:54.8（audio/narration.json の実測・ed01 を除く） | — |
 
@@ -57,18 +57,17 @@ tags: [project/jiko-kensho, ep32]
 - C26（浮かぶ機体と翼の上に並ぶ人たち（遠景・顔は分からない））＝5 カット：c802 c804 c807 c809 c810
 - C16（浮かぶ機体に横付けしたフェリー（高い所から・遠景））＝5 カット：c813 c816 c819 c820 c822
 - C21（消防艇と小舟・沈みかけの翼と尾翼（AIRWAYS の字））＝4 カット：c209 c210 c719 c723
-- C61（袋に入った羽（エンジン1 の札・袋の手書きの字））＝3 カット：c306 c307 cb10
+- GC1（イメージ（地）：上から見た雲の海）＝3 カット：c306 c307 c605
 - C49（この機体の操縦室の天井のパネル（ENG 1・APU・ENG 2 の消火のボタン））＝3 カット：c311 c619 cb15
 - GB2（イメージ（地）：重ねた白い紙の角（白黒））＝3 カット：c610 c614 c615
 - C36（岸壁のそばの沈みかけの機体と沿岸警備隊の小舟 25640（晴れ・昼））＝3 カット：ca08 ca10 ca12
+- C14（錨を下ろす作業船の人（甲板・昼））＝3 カット：cb05 cb07 cb10
 - GF1（イメージ（地）：窓から見た翼と翼のうしろの板）＝2 カット：c703 c711
 - C1（川一面の船（手前に艦の一部と桟橋））＝2 カット：c909 c918
 - C18（機体のまわりのフェリーの群れとヘリコプター（夕日の川））＝2 カット：c913 ca14
-- C14（錨を下ろす作業船の人（甲板・昼））＝2 カット：cb05 cb07
 - GR1（イメージ（地）：雪の桟橋と冬の水面を上から）＝1 カット：c410
 - GT1（イメージ（地）：暗い赤い客席の列）＝1 カット：c518
 - GB1（イメージ（地）：見出しの札のついたカードの束）＝1 カット：c603
-- GC1（イメージ（地）：上から見た雲の海）＝1 カット：c605
 - GK2（イメージ（地）：古い小さな機の針の計器の並び）＝1 カット：c705
 - GR2（イメージ（地）：さざ波の立つ川面（白黒））＝1 カット：ca04
 - GL1（イメージ（地）：船に掛けた救命胴衣）＝1 カット：cb13
@@ -77,7 +76,7 @@ tags: [project/jiko-kensho, ep32]
 
 | カット | 秒 | 語りの頭 | 画 |
 |---|---|---|---|
-| c101 | 0:00.0〜0:09.2 | 2009年1月15日の午後、ニューヨーク | 映像 VC＝沿岸警備隊の監視カメラ〈2009年1月15日・ハドソン川〉（映像 7.00〜20.50秒） |
+| c101 | 0:00.0〜0:09.2 | 2009年1月15日の午後、ニューヨーク | 映像 VC＝沿岸警備隊の監視カメラ〈2009年1月15日・ハドソン川〉（映像 5.00〜20.50秒） |
 | c102 | 0:09.2〜0:18.9 | USエアウェイズ1549便、エアバスA3 | 映像 VC＝川に浮かぶ機体と翼の上の人〈沿岸警備隊の監視カメラ〉（映像 82.00〜95.50秒） |
 | c103 | 0:18.9〜0:25.5 | みんな、助かったの？155人は、全員が生 | 写真 C26＝翼の上に並んだ人たち〈2009年1月15日〉（静止） |
 | c104 | 0:25.5〜0:31.7 | 飛び立って1分半あまり。鳥の群れとぶつか | 写真 C31＝着水の直後の機体〈2009年1月15日〉（ゆっくり寄る） |
@@ -92,7 +91,7 @@ tags: [project/jiko-kensho, ep32]
 
 | カット | 秒 | 語りの頭 | 種類 | 素材 | 地 | 見せ方 | 副題・札 | 動き | 🔧 | 備考 |
 |---|---|---|---|---|---|---|---|---|---|---|
-| c101 | 0:00.0（9.2） | 2009年1月15日の午後、ニューヨーク | 映像 | VC | — | 額装（高さいっぱい） | 沿岸警備隊の監視カメラ〈2009年1月15日・ハドソン川〉 | 映像 7.00〜20.50秒 | 🔧 区間 0〜20秒 → 7.0秒から（しぶきは 9秒から＝語りの「白いしぶきは」より前に入る） | しぶきに丸の囲み（9秒〜）・拡大しない（⑤b の試し焼きで見えなければ ×2 の固定の切り出し）・高さいっぱいの額＋同じ映像のぼかしの地 ［冒頭］ |
+| c101 | 0:00.0（9.2） | 2009年1月15日の午後、ニューヨーク | 映像 | VC | — | 額装（高さいっぱい） | 沿岸警備隊の監視カメラ〈2009年1月15日・ハドソン川〉 | 映像 5.00〜20.50秒 | 🔧 区間 0〜20秒 → 7.0秒から → ⑤c'（11-12）5.0秒から（×2 の窓の中のしぶきは頭から順に読んだ 10.0〜14.0秒・最大 12.0＝語り「白いしぶきは」〈カットの約7.4秒〉を約12.4秒に重ねる） | しぶきに丸の囲み（9秒〜）・拡大しない（⑤b の試し焼きで見えなければ ×2 の固定の切り出し）・高さいっぱいの額＋同じ映像のぼかしの地 ［冒頭］ |
 | c102 | 0:09.2（9.7） | USエアウェイズ1549便、エアバスA3 | 映像 | VC | — | 額装（高さいっぱい） | 川に浮かぶ機体と翼の上の人〈沿岸警備隊の監視カメラ〉 | 映像 82.00〜95.50秒 | 🔧 区間 50秒〜1分30秒 → 82.0秒から（翼の上の人がいちばん見える・カメラが落ち着いた 81〜96秒） | 人は遠景で顔は分からない ［冒頭］ |
 | c103 | 0:18.9（6.6） | みんな、助かったの？155人は、全員が生 | 写真 | C26 | — | 額装（高さいっぱい） | 翼の上に並んだ人たち〈2009年1月15日〉 | 静止 | 🔧 全面 → 高さいっぱいの額（1289×1243＝ほぼ正方形） | 地は同じ写真のぼかし ［冒頭］ |
 | c104 | 0:25.5（6.2） | 飛び立って1分半あまり。鳥の群れとぶつか | 写真 | C31 | — | 全面 | 着水の直後の機体〈2009年1月15日〉 | ゆっくり寄る | 🔧 副題を写っているものに（頁の説明「shortly after landing」） | — ［冒頭］ |
@@ -137,8 +136,8 @@ tags: [project/jiko-kensho, ep32]
 | c303 | 4:32.2（6.9） | ぶつかったのは、地上から約860メートル | 衛星 | SAT:鳥とぶつかった所 | — | 額装（衛星） | 鳥とぶつかった所〈現在の衛星写真〉 | 静止 | — | — |
 | c304 | 4:39.1（5.7） | どんな鳥だったの？エンジンに残った羽や血 | イメージ | X304 | — | 全面 | イメージ：空を飛ぶカナダガンの群れ | ゆっくり寄る | — | — |
 | c305 | 4:44.8（11.0） | 羽の成分をくらべると、渡りをするガンの羽 | 写真 | C61 | — | 額装（高さいっぱい） | エンジンから集めた羽〈NTSB〉 | 静止 | 🔧 全面 → 額装（縦長） | 🔴 左下の手書きの人の名前を切る（PD＝切出可） |
-| c306 | 4:55.8（8.7） | 1羽の重さは、平均で3キロをこえる。報告 | 比べ | — | C61 | — | ガンの重さ＝オス 約3.8〜4.2キロ・メス 約3.3〜3.5キロ | — | — | — |
-| c307 | 5:04.4（7.6） | このエンジンが認められたときの、大きな鳥 | 並べ | — | C61 | — | 大きな鳥の試験＝約1.8キロ〈4ポンド〉1羽・当たったガン＝約3.6キロ〈8ポンド〉が2羽ずつ | — | — | — |
+| c306 | 4:55.8（8.7） | 1羽の重さは、平均で3キロをこえる。報告 | 比べ | — | GC1 | — | ガンの重さ＝オス 約3.8〜4.2キロ・メス 約3.3〜3.5キロ | — | 🔧 ⑤c'（11-12）地 C61 → GC1（C61 の手書きの英字が 0.24 でも読め、メスの札が字の上に乗った・GS1 は c307 で 8:1 を割った） | — |
+| c307 | 5:04.4（7.6） | このエンジンが認められたときの、大きな鳥 | 並べ | — | GC1 | — | 大きな鳥の試験＝約1.8キロ〈4ポンド〉1羽・当たったガン＝約3.6キロ〈8ポンド〉が2羽ずつ | — | 🔧 ⑤c'（11-12）地 C61 → GC1（c306 と同じ） | — |
 | c308 | 5:12.0（12.8） | ぶつかった直後、エンジンの回る速さは、左 | 線 | — | GS1 | — | エンジンの回る速さ＝左 82%→35%・右 82%→15% の2本の線 | — | — | — |
 | c309 | 5:24.8（7.9） | 午後3時27分14秒。副操縦士が「あっ」 | 調査 | D76-4 | — | 額装（高さいっぱい） | 鳥が当たった跡〈NTSB の調査の写真〉 | 静止 | 🔧 調査の写真の番号を凡例から（#76 写真4） | — |
 | c310 | 5:32.7（7.1） | 機長はエンジンの点火を入れ、その2秒ほど | イメージ | X310 | — | 全面 | イメージ：旅客機の操縦室のスイッチ〈機種は名乗らない〉 | ゆっくり寄る | — | — |
@@ -361,7 +360,7 @@ tags: [project/jiko-kensho, ep32]
 | cb07 | 32:48.5（5.6） | 閉じるまで、ずいぶんかかったんだね。そう | 模式 | — | C14 | — | 事故から17年近くの帯の札 | — | — | — |
 | cb08 | 32:54.1（7.9） | 65番の縦の梁を、客室に突き出しにくい形 | 調査 | D79-45 | — | 額装（高さいっぱい） | 65番の床の穴〈NTSB の調査の写真〉 | 静止 | 🔧 調査の写真の番号を凡例から（#79 写真45）・⑤b-7：副題を額の左に収まる長さに（fmove） | △ 絵は ⑤b で原寸 |
 | cb09 | 33:02.0（12.7） | 2023年、FAAは、群れで飛ぶ中くらい | 公的 | FR2023 | — | 額装（高さいっぱい） |  | 静止 | — | — |
-| cb10 | 33:14.7（11.3） | そう。規則の説明は、1549便の事故をき | 模式 | — | C61 | — | 規則の説明の札＝1549便の事故から研究が始まった | — | — | — |
+| cb10 | 33:14.7（11.3） | そう。規則の説明は、1549便の事故をき | 模式 | — | C14 | — | 規則の説明の札＝1549便の事故から研究が始まった | — | 🔧 ⑤c'（11-12）地 C61 → C14（C61 の手書きの英字が読めた＝同じ章の cb05・cb07 の地） | — |
 | cb11 | 33:26.0（11.9） | まだ開いているのは、どの勧告？農務省への | イメージ | Xb11 | — | 全面 | イメージ：空を飛ぶ鳥の群れと旅客機の遠景〈社名と機種は見せない〉 | ゆっくり寄る | — | — |
 | cb12 | 33:37.8（13.5） | 報告書の言う偶然に頼らない、救命胴衣の勧 | イメージ | Xb12 | — | 全面 | イメージ：救命胴衣の着け方の説明〈人の顔なし | ゆっくり寄る | — | — |
 | cb13 | 33:51.3（7.6） | 救命胴衣の決まりを、すばやく、正しく着け | 模式 | — | GL1 | — | 救命胴衣の勧告の札＝すばやく正しく着けられる決まりへ | — | 🔧 地 [11]（夜）→ イメージ〈救命胴衣〉 | — |
@@ -400,7 +399,7 @@ tags: [project/jiko-kensho, ep32]
 | C8 | commons-photo | accident | 岸壁のそばの機体と消防艇・警察の船（奥に高い建物） | 3840 の縮小版（原本 4319） | 4319×2865 | CC BY 2.0 | Commons の頁の許諾 | 写真：{作者}／Wikimedia Commons（CC BY 2.0） | 2009-01-17 09:51（EXIF） | 船の上の人（遠景） | src/commons/c32/ | c516 | 台本の「夕方・1月15日」は誤り＝1月17日の朝 |
 | C9 | commons-photo | night | 夜の作業＝工兵隊の作業員と警察の人（船の上） | 原本 | 1800×1205 | CC BY 2.0 | 陸軍工兵隊ニューヨーク地区の Flickr（頁の許諾） | 写真：{作者}／Wikimedia Commons（CC BY 2.0） | 2009-01（頁の説明＝機体を岸壁につなぐ作業）・夜 | 工兵隊・警察（公的な任務・中景） | src/commons/c32/ | cb04 | 夜＝地にしない |
 | C13 | commons-photo | accident | 氷の浮かぶ川・警察の船と作業船（奥にマンハッタン） | 3840 の縮小版（原本 3872） | 3872×2592 | CC BY 2.0 | 頁に PD の札もある＝CC BY 2.0 で表示（強いほうに寄せない） | 写真：{作者}／Wikimedia Commons（CC BY 2.0） | 2009-01（頁の説明） | なし（遠景） | src/commons/c32/ | c113 c419 cb01 cb02 cb03 cb14 | 機体は写っていない |
-| C14 | commons-photo | accident | 錨を下ろす作業船の人（甲板・昼） | 3840 の縮小版（原本 3872） | 3872×2592 | CC BY 2.0 | 頁に PD の札もある＝CC BY 2.0 で表示 | 写真：{作者}／Wikimedia Commons（CC BY 2.0） | 2009-01（頁の説明） | 工兵隊の作業員（横顔・公的な任務） | src/commons/c32/ | cb05 cb06 cb07 | 機体は写っていない |
+| C14 | commons-photo | accident | 錨を下ろす作業船の人（甲板・昼） | 3840 の縮小版（原本 3872） | 3872×2592 | CC BY 2.0 | 頁に PD の札もある＝CC BY 2.0 で表示 | 写真：{作者}／Wikimedia Commons（CC BY 2.0） | 2009-01（頁の説明） | 工兵隊の作業員（横顔・公的な任務） | src/commons/c32/ | cb05 cb06 cb07 cb10 | 機体は写っていない |
 | C15 | commons-photo | accident | 浮かぶ機体と寄せたフェリー（高い所から・遠景） | 3840 の縮小版（原本 4288） | 4288×2848 | CC BY 2.0 | Commons の頁の許諾 | 写真：{作者}／Wikimedia Commons（CC BY 2.0） | 2009-01-15（頁の説明） | なし（遠景） | src/commons/c32/ | c105 | — |
 | C16 | commons-photo | accident | 浮かぶ機体に横付けしたフェリー（高い所から・遠景） | 3840 の縮小版（原本 4288） | 4288×2848 | CC BY 2.0 | Commons の頁の許諾 | 写真：{作者}／Wikimedia Commons（CC BY 2.0） | 2009-01-15（頁の説明） | なし（遠景） | src/commons/c32/ | c813 c816 c819 c820 c821 c822 | [15] と同じ撮影者の別の時（似た写真＝c105 と c821 で離す） |
 | C18 | commons-photo | accident | 機体のまわりのフェリーの群れとヘリコプター（夕日の川） | 1920 の縮小版（原本 2144） | 2144×1424 | CC BY 2.0 | Commons の頁の許諾 | 写真：{作者}／Wikimedia Commons（CC BY 2.0） | 2009-01-15（頁の説明） | なし（遠景） | src/commons/c32/ | c106 c913 ca14 | [17] は切って色を直した版＝原本の [18] |
@@ -426,7 +425,7 @@ tags: [project/jiko-kensho, ep32]
 | C57 | commons-photo | accident | 天幕の中で保管中の機体（翼を外した胴体・技術者の後ろ姿） | 1920 の縮小版（原本 2848） | 2848×2136 | CC BY-SA 3.0 | Commons の頁の許諾 | 写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工 | 2010（題・頁の説明＝ニュージャージー州での保管） | 技術者（奥に小さく立つ・横向き＝⑤b-7 の試し焼きで見た・主役でない） | src/commons/c32/ | ca11 | BY-SA＝額装・無加工・1カット |
 | C59 | commons-photo | accident | トラックで運ばれる胴体（木々の向こう・州警察の建物のそば） | 原本 | 1852×1316 | CC0 | 作者の CC0（頁の許諾） | 写真：{作者}／Wikimedia Commons（CC0） | 2011（頁の説明＝メリーランド州・博物館への運搬） | 遠くの人（小さい） | src/commons/c32/ | cc01 | — |
 | C60 | commons-photo | accident | 運搬に付き添った博物館の車（「The Miracle on the Hudson」の字） | 原本 | 764×591 | CC0 | 作者の CC0（頁の許諾） | 写真：{作者}／Wikimedia Commons（CC0） | 2011（頁の説明＝メリーランド州） | 運転の人（窓の中・顔は分からない） | src/commons/c32/ | cc02 | 小さい＝額装 |
-| C61 | commons-photo | accident | 袋に入った羽（エンジン1 の札・袋の手書きの字） | 原本 | 900×1200 | PD（PD-NTSB） | 米国の連邦の業務 | 写真：NTSB（public domain）／Wikimedia Commons・改変：切出 | 2009-01-29（袋の字） | なし | src/commons/c32/ | c305 c306 c307 cb10 | 🔴 袋の左下の手書きの人の名前を切って使う（PD＝切出可）・縦長＝額装 |
+| C61 | commons-photo | accident | 袋に入った羽（エンジン1 の札・袋の手書きの字） | 原本 | 900×1200 | PD（PD-NTSB） | 米国の連邦の業務 | 写真：NTSB（public domain）／Wikimedia Commons・改変：切出 | 2009-01-29（袋の字） | なし | src/commons/c32/ | c305 | 🔴 袋の左下の手書きの人の名前を切って使う（PD＝切出可）・縦長＝額装 |
 | C62 | commons-photo | museum | 保管中のこの機体の操縦室（泥の跡・座席） | 原本 | 1600×1200 | CC BY-SA 3.0 | Commons の頁の許諾 | 写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工 | 2011-02-25（EXIF＝博物館へ移す前の保管中） | なし | src/commons/c32/ | c611 | BY-SA＝額装・無加工・1カット |
 | C63 | commons-photo | museum | 保管中のこの機体の座席（泥の跡） | 原本 | 1600×1200 | CC BY-SA 3.0 | Commons の頁の許諾 | 写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工 | 2011-02-25（EXIF＝博物館へ移す前の保管中） | なし | src/commons/c32/ | c806 | BY-SA＝額装・無加工・1カット |
 | C68 | commons-photo | museum | 調べたあとの機体の底の壊れ（NTSB の印） | 原本 | 1600×1200 | CC BY-SA 3.0 | Commons の頁の許諾 | 写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工 | 2011-02-25（EXIF＝博物館へ移す前の保管中） | なし | src/commons/c32/ | c717 | BY-SA＝額装・無加工・1カット（台本の「後ろの胴体の中」は誤り） |
@@ -518,7 +517,7 @@ tags: [project/jiko-kensho, ep32]
 | X803 | stock | stock | イメージ：曇り空の海にひとつ浮かぶ赤いゴムボート | stock:https://images.pexels.com/photos/33338814/pexels-photo-33338814.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x4320 | Pexels | https://www.pexels.com/photo/solitary-inflatable-boat-on-tranquil-sea-33338814/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/X803.jpg | c803 | c803・縦長＝窓で横の帯を切る |
 | X808 | stock | stock | イメージ：窓ぎわの空いた座席 | stock:https://images.pexels.com/photos/20584536/pexels-photo-20584536.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x4320 | Pexels | https://www.pexels.com/photo/empty-seats-in-airplane-20584536/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/X808.jpg | c808 | c808・🔧 一覧の「座席の下の袋」は Pexels に無い・1本目の候補 1188803 は頁の名が text overlay（字を載せた図案＝字だけの画面）＝外した |
 | X817 | stock | stock | イメージ：救命胴衣の取り出し方の絵の札（座席の下） | stock:https://images.pexels.com/photos/7508662/pexels-photo-7508662.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x1393 | Pexels | https://www.pexels.com/photo/safety-guidelines-on-gray-background-7508662/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/X817.jpg | c817 | c817・🔧 一覧の「袋を開ける手」は Pexels に無い＝取り出し方の絵の札（英字の札＝社名なし） |
-| X818 | stock | stock | イメージ：座席の背の札と物入れのしおり | stock:https://images.pexels.com/photos/3036757/pexels-photo-3036757.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x1617 | Pexels | https://www.pexels.com/photo/close-up-of-aviation-policy-on-the-back-of-an-airplane-seat-3036757/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/X818.jpg | c818 | c818・🔴 しおりの社名・印は原寸で |
+| X818 | stock | stock | イメージ：暗い客室に並ぶ空いた座席 | stock:https://images.pexels.com/photos/4061487/pexels-photo-4061487.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x1920 | Pexels | https://www.pexels.com/photo/black-seats-in-airplane-4061487/（同上） | イメージ（Pexels） | 現在 | 奥の通路に人影1つ（小さく・顔は分からない） | src/stock/X818.jpg | c818 | c818・🔧 ⑤c'（11-12）3036757（座席の背の札＝ポルトガル語と英語の字が主役＝「字は見せない」に反する）から替えた・Pexels を1回だけ検索（airplane seat cushion）・🔴 座席の札・社名は原寸で |
 | X904 | stock | stock | イメージ：船の手すりと冬の海（白黒） | stock:https://images.pexels.com/photos/12020663/pexels-photo-12020663.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x1920 | Pexels | https://www.pexels.com/photo/sea-seen-from-ferry-12020663/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/X904.jpg | c904 | c904・🔴 浮き輪の船の名は原寸で |
 | X914 | stock | stock | イメージ：人のいない客室の青い座席の列 | stock:https://images.pexels.com/photos/3129736/pexels-photo-3129736.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x2160 | Pexels | https://www.pexels.com/photo/empty-blue-airplane-seats-3129736/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/X914.jpg | c914 | c914 |
 | Xa03 | stock | stock | イメージ：雪の岸と静かな冬の川面 | stock:https://images.pexels.com/photos/285853/pexels-photo-285853.jpeg?auto=compress&cs=tinysrgb&w=2048 | 2048x1536 | Pexels | https://www.pexels.com/photo/body-of-water-285853/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/Xa03.jpg | ca03 | ca03・⚠️ 原本の幅 2048＝寄りは小さく |
@@ -528,7 +527,7 @@ tags: [project/jiko-kensho, ep32]
 | Xb12 | stock | stock | イメージ：救命胴衣を着けた客室乗務員の後ろ姿 | stock:https://images.pexels.com/photos/14630706/pexels-photo-14630706.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x3840 | Pexels | https://www.pexels.com/photo/stewardess-in-life-jacket-in-front-of-empty-seats-14630706/（同上） | イメージ（Pexels） | 現在 | 後ろ姿の1人（顔なし） | src/stock/Xb12.jpg | cb12 | cb12・🔴 制服と胴衣の印は原寸で |
 | GB1 | stock | ground | イメージ（地）：見出しの札のついたカードの束 | stock:https://images.pexels.com/photos/12585541/pexels-photo-12585541.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/close-up-of-paper-cards-12585541/（同上） | 地の写真：イメージ（Pexels） | 現在 | なし | src/stock/GB1.jpg | c603 | 地「冊子の目次」（1カット）・🔴 1本目 29378816 は 640px で本の目次の字が読めた（実在の本と分かる恐れ）＝替えた |
 | GB2 | stock | ground | イメージ（地）：重ねた白い紙の角（白黒） | stock:https://images.pexels.com/photos/20062955/pexels-photo-20062955.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/corner-of-paper-stack-20062955/（同上） | 地の写真：イメージ（Pexels） | 現在 | なし | src/stock/GB2.jpg | c610 c614 c615 | 地「冊子の束」（3カット） |
-| GC1 | stock | ground | イメージ（地）：上から見た雲の海 | stock:https://images.pexels.com/photos/35706529/pexels-photo-35706529.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/aerial-view-of-soft-cloud-blanket-from-above-35706529/（同上） | 地の写真：イメージ（Pexels） | 現在 | なし | src/stock/GC1.jpg | c605 | 地「雲の上」（1カット） |
+| GC1 | stock | ground | イメージ（地）：上から見た雲の海 | stock:https://images.pexels.com/photos/35706529/pexels-photo-35706529.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/aerial-view-of-soft-cloud-blanket-from-above-35706529/（同上） | 地の写真：イメージ（Pexels） | 現在 | なし | src/stock/GC1.jpg | c306 c307 c605 | 地「雲の上」（1カット） |
 | GF1 | stock | ground | イメージ（地）：窓から見た翼と翼のうしろの板 | stock:https://images.pexels.com/photos/17754867/pexels-photo-17754867.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x2885 | Pexels | https://www.pexels.com/photo/an-airplane-wing-seen-from-the-airplane-window-17754867/（同上） | 地の写真：イメージ（Pexels） | 現在 | なし | src/stock/GF1.jpg | c703 c711 | 地「翼のうしろの板」（2カット） |
 | GK2 | stock | ground | イメージ（地）：古い小さな機の針の計器の並び | stock:https://images.pexels.com/photos/29053115/pexels-photo-29053115.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/vintage-aircraft-cockpit-with-analog-gauges-29053115/（同上） | 地の写真：イメージ（Pexels） | 現在 | なし | src/stock/GK2.jpg | c705 | 地「速さの計器」（1カット） |
 | GL1 | stock | ground | イメージ（地）：船に掛けた救命胴衣 | stock:https://images.pexels.com/photos/5331936/pexels-photo-5331936.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x2880 | Pexels | https://www.pexels.com/photo/stack-of-life-vests-in-boat-5331936/（同上） | 地の写真：イメージ（Pexels） | 現在 | なし | src/stock/GL1.jpg | cb13 | 地「救命胴衣」（1カット） |
@@ -537,7 +536,7 @@ tags: [project/jiko-kensho, ep32]
 ## §4 門番
 
 - E 0 件
-- ⚠️ 41 件
+- ⚠️ 38 件
   - ⚠️ c101 VC 人＝翼の上の人（遠景・顔は分からない）
   - ⚠️ c102 VC 人＝翼の上の人（遠景・顔は分からない）
   - ⚠️ c103 C26 人＝翼の上の乗客（遠景・顔は分からない）
@@ -545,8 +544,6 @@ tags: [project/jiko-kensho, ep32]
   - ⚠️ c108 C1 人＝船の上の人（遠景）
   - ⚠️ c111 C36 人＝乗り組みの人（中景・公的な任務）
   - ⚠️ c217 D101-1 人＝調査官（中景・顔の見える人あり＝⑤b-7 の試し焼きで見た・公的な任務＝升目なし）
-  - ⚠️ c306 地 C61 が小さい（幅 900＝1920 へ引き伸ばすと柔らかい）
-  - ⚠️ c307 地 C61 が小さい（幅 900＝1920 へ引き伸ばすと柔らかい）
   - ⚠️ c514 C35 人＝NTSB の調査官（公的な任務・名前は書かない）
   - ⚠️ c516 C8 人＝船の上の人（遠景）
   - ⚠️ c622 C32 人＝警察のダイバーと工兵隊（顔が見える・公的な任務）
@@ -572,7 +569,6 @@ tags: [project/jiko-kensho, ep32]
   - ⚠️ ca11 C57 人＝技術者（奥に小さく立つ・横向き＝⑤b-7 の試し焼きで見た・主役でない）
   - ⚠️ cb04 C9 人＝工兵隊・警察（公的な任務・中景）
   - ⚠️ cb06 C14 人＝工兵隊の作業員（横顔・公的な任務）
-  - ⚠️ cb10 地 C61 が小さい（幅 900＝1920 へ引き伸ばすと柔らかい）
   - ⚠️ cb16 C45 人＝はしけの人（遠景・小さい）
   - ⚠️ cc01 C59 人＝遠くの人（小さい）
   - ⚠️ cc02 C60 人＝運転の人（窓の中・顔は分からない）

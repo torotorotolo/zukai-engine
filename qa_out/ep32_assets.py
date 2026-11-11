@@ -1361,7 +1361,9 @@ def cmd_fb(only=None):
         c = FO.CLIPS.get(u["clip"]) or {}
         if not str(c.get("scan", "")).startswith("ref/ep32/"):
             continue
-        raw = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{float(u['start']):.3f}", "-i", str(HERE / c["scan"]), "-frames:v", "1",
+        # 🔴 11-12（⑤c'）：Ogg は `-ss` を `-i` の後ろ（出力シーク）。前に置くと X より手前のキーフレーム（最大約20秒手前）のコマになり、
+        #    章の扉の地（c800card＝fb_c801・c900card＝fb_c901）が機体の写らない別の絵だった（footage._cut_stream の注と同じ）
+        raw = subprocess.run(["ffmpeg", "-v", "error", "-i", str(HERE / c["scan"]), "-ss", f"{float(u['start']):.3f}", "-frames:v", "1",
                               "-f", "image2pipe", "-vcodec", "png", "-"], capture_output=True).stdout
         if not raw:
             print(f"🔴 {cid}: コマが取れない")

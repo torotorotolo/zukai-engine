@@ -727,7 +727,7 @@ USE = {
     #   （narration.json の実測の秒・扉を除く）。欄は束のチャットで道具から書き出す（手で書かない）＝下の印のあいだ。
     #   🔴 等速・止めなし・頭から使う・同じ秒を2回使わない・音は使わない（-an）・焼き込みのカメラの時計は語りと副題に使わない
     # EP32_USE>>> ここから（手で書かない）
-    "c101": dict(clip="VC", start=7.00, until=20.50, rate=1.0, zoom=2.0, xbias=0.0, bias=0.44),   # 読む 9.17秒（〜16.17）／区間 13.50秒・ショット 0〜42.667
+    "c101": dict(clip="VC", start=5.00, until=20.50, rate=1.0, zoom=2.0, xbias=0.0, bias=0.44),   # 読む 9.17秒（〜14.17）／区間 15.50秒・ショット 0〜42.667
     "c102": dict(clip="VC", start=82.00, until=95.50, rate=1.0),   # 読む 9.75秒（〜91.75）／区間 13.50秒・ショット 42.667〜108
     "c801": dict(clip="VC", start=186.00, until=206.50, rate=1.0),   # 読む 9.07秒（〜195.07）／区間 20.50秒・ショット 183.667〜207
     "c811": dict(clip="VC", start=210.00, until=227.50, rate=1.0),   # 読む 9.24秒（〜219.24）／区間 17.50秒・ショット 207〜228
@@ -1124,7 +1124,7 @@ def selftest():
     def _dl_fail(_u, _d):
         raise IOError("（検算：網には出ない）")
 
-    def _vf_of(w, h, dispw, dl=_dl_fail, extra=None):
+    def _vf_of(w, h, dispw, dl=_dl_fail, extra=None, url="http://example.invalid/s.mp4", start=1.0):
         seen = {}
 
         class _R:
@@ -1142,10 +1142,10 @@ def selftest():
             time.sleep = lambda *_a, **_k: None            # type: ignore[assignment]
             globals()["download_media"] = dl
             _MEDIA.clear()
-            CLIPS["_st_sar"] = dict(url="http://example.invalid/s.mp4", sec=99.0,
+            CLIPS["_st_sar"] = dict(url=url, sec=99.0,
                                     w=w, h=h, dispw=dispw, credit="（検算用）",
                                     note="（検算用）", stream=True, **(extra or {}))
-            _cut_stream("_st_sar_cut", dict(clip="_st_sar", start=1.0), 1.0)
+            _cut_stream("_st_sar_cut", dict(clip="_st_sar", start=start), 1.0)
         finally:
             subprocess.run = keep_run                      # type: ignore[assignment]
             time.sleep = keep_sleep                        # type: ignore[assignment]
@@ -1181,6 +1181,15 @@ def selftest():
     # 🆕 18本目 ⑤b-7c：NARA の mp4（`"range": true`）は落とさずに URL のまま区間を読む（丸ごと保存しない＝(c) の了承）
     _v, cmd_rg = _vf_of(720, 480, 655, dl=lambda _u, _d: 215_134_981, extra=dict(range=True))
     chk("陽性対照：range の帯は丸ごと落とさず URL のまま ffmpeg に渡す", _src_of(cmd_rg).startswith("http"), True)
+    # 🆕 32本目 ⑤c'：Ogg は出力シーク（`-ss` が `-i` の後ろ）＝入力シークだとキーフレームへ戻ったまま（_cut_stream の注）
+    _v, cmd_og = _vf_of(384, 288, 384, dl=lambda _u, _d: 5_537_657, url="http://example.invalid/v.ogv", start=186.0)
+    chk("陽性対照：Ogg（.ogv）は -ss が -i の後ろ（出力シーク）",
+        "-ss" in cmd_og and cmd_og.index("-ss") > cmd_og.index("-i") and _src_of(cmd_og).endswith(".ogv"), True)
+    chk("陽性対照：そのときの秒は区間の頭のまま（186.000）", cmd_og[cmd_og.index("-ss") + 1] == "186.000", True)
+    chk("陰性対照：mp4 は今までどおり -ss が -i の前（入力シーク）",
+        "-ss" in cmd_dl and cmd_dl.index("-ss") < cmd_dl.index("-i"), True)
+    chk("陰性対照：網の Ogg を落とせず URL を渡すときも出力シーク（区間読みの二分探索を連打しない）",
+        _seek_after_input("https://upload.wikimedia.org/x/Flight1549CrashAndRescue.ogv"), True)
     import shutil as _sh
     _sh.rmtree(FOOT / "_st_sar_cut", ignore_errors=True)
 
@@ -1516,6 +1525,14 @@ def head_mismatch(use=None, spec=None):
     return sorted(a - b), sorted(b - a)
 
 
+OGG_EXT = (".ogv", ".ogg", ".ogx")
+
+
+def _seek_after_input(src):
+    """🆕 32本目 ⑤c'：Ogg は `-ss` を `-i` の後ろに置く（入力シークはキーフレームへ戻ったまま＝最大20秒手前・_cut_stream の注）"""
+    return str(src).lower().split("?")[0].endswith(OGG_EXT)
+
+
 def _cut_stream(cid, u, secs):
     """URL から、そのカットに要る区間だけをコマに切り出す（落とさない）。"""
     c = CLIPS[u["clip"]]
@@ -1563,8 +1580,18 @@ def _cut_stream(cid, u, secs):
             #    この回は音を鳴らさない決定なので、指定しないと混ざる。
             # ⚠️ `-user_agent` は http の口の設定。手元のファイルに付けると止まる版がある
             net = ["-user_agent", UA] if str(src).startswith(("http://", "https://")) else []
+            # 🔴🔴 2026-11-12（32本目 ⑤c'）**Ogg は入力シーク（`-ss` を `-i` の前）だと、X より手前のキーフレームから読む。**
+            #    VTS（Commons の .ogv・毎秒3コマ）で `-ss 186 -i` の1コマ目が、頭から順に読んだ **170.667秒目**と画素で一致（差 0.00）。
+            #    13カット中9カットが 15〜20秒手前から切られ、c801 は機体の入る前の建物、c901 はフェリーの着く前の寄りになった。
+            #    Modal（apt の ffmpeg）でも同じ＝焼いた検品画像の額の中が順の 214.0秒（SPEC は 230）。ffmpeg 8.1.1 の手元も同じ。
+            #    出力シーク（`-i` の後ろに `-ss`）は頭から読んで捨てる＝4本とも順の秒と差 0.00。速さを変える欄は出力側の時間が
+            #    PTS/rate なので秒も ss/rate。→ [[feedback-verify-your-own-instrument]]
+            if _seek_after_input(src):
+                seek_in, seek_out = [], ["-ss", f"{ss / rate:.3f}"]
+            else:
+                seek_in, seek_out = ["-ss", f"{ss:.2f}"], []
             cmd = ["ffmpeg", "-y", "-nostdin", "-hide_banner", "-loglevel", "error",
-                   *net, "-ss", f"{ss:.2f}", "-i", src,
+                   *net, *seek_in, "-i", src, *seek_out,
                    "-an", "-t", f"{secs + 0.6:.2f}", "-vf", ",".join(vf),
                    "-frames:v", str(n), "-q:v", "3", "-start_number", "0",
                    str(d / "%05d.jpg")]
