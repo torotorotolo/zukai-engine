@@ -59,19 +59,19 @@ tags: [project/jiko-kensho, ep32]
 - C21（消防艇と小舟・沈みかけの翼と尾翼（AIRWAYS の字））＝4 カット：c209 c210 c719 c723
 - C61（袋に入った羽（エンジン1 の札・袋の手書きの字））＝3 カット：c306 c307 cb10
 - C49（この機体の操縦室の天井のパネル（ENG 1・APU・ENG 2 の消火のボタン））＝3 カット：c311 c619 cb15
-- GB2（冊子の束）＝3 カット：c610 c614 c615
+- GB2（イメージ（地）：重ねた白い紙の角（白黒））＝3 カット：c610 c614 c615
 - C36（岸壁のそばの沈みかけの機体と沿岸警備隊の小舟 25640（晴れ・昼））＝3 カット：ca08 ca10 ca12
-- GF1（翼のうしろの板）＝2 カット：c703 c711
+- GF1（イメージ（地）：窓から見た翼と翼のうしろの板）＝2 カット：c703 c711
 - C1（川一面の船（手前に艦の一部と桟橋））＝2 カット：c909 c918
 - C18（機体のまわりのフェリーの群れとヘリコプター（夕日の川））＝2 カット：c913 ca14
 - C14（錨を下ろす作業船の人（甲板・昼））＝2 カット：cb05 cb07
 - GR1（イメージ（地）：雪の桟橋と冬の水面を上から）＝1 カット：c410
 - GT1（イメージ（地）：暗い赤い客席の列）＝1 カット：c518
-- GB1（冊子の目次）＝1 カット：c603
-- GC1（雲の上）＝1 カット：c605
-- GK2（速さの計器）＝1 カット：c705
-- GR2（冬の川面）＝1 カット：ca04
-- GL1（救命胴衣）＝1 カット：cb13
+- GB1（イメージ（地）：見出しの札のついたカードの束）＝1 カット：c603
+- GC1（イメージ（地）：上から見た雲の海）＝1 カット：c605
+- GK2（イメージ（地）：古い小さな機の針の計器の並び）＝1 カット：c705
+- GR2（イメージ（地）：さざ波の立つ川面（白黒））＝1 カット：ca04
+- GL1（イメージ（地）：船に掛けた救命胴衣）＝1 カット：cb13
 
 ## §1 冒頭（c101〜c107）＝実写だけ（最初に設計した）
 
@@ -504,34 +504,34 @@ tags: [project/jiko-kensho, ep32]
 | GR1 | stock | ground | イメージ（地）：雪の桟橋と冬の水面を上から | stock:https://images.pexels.com/photos/14800623/pexels-photo-14800623.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1316 | Pexels | https://www.pexels.com/photo/aerial-view-of-a-harbor-and-pier-covered-in-snow-14800623/（同上） | 地の写真：イメージ（Pexels） | 現在 | なし | src/stock/GR1.jpg | c410 | 地「冬の川を上から」（1カット） |
 | GM1 | stock | ground | イメージ（地）：操縦席で頭上の操作盤に手を伸ばす操縦士（後ろ姿） | stock:https://images.pexels.com/photos/7530685/pexels-photo-7530685.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1275 | Pexels | https://www.pexels.com/photo/a-pilot-flying-an-aircraft-7530685/（同上） | 地の写真：イメージ（Pexels） | 現在 | 後ろ姿の1人（顔なし） | src/stock/GM1.jpg | c503 c505 c506 c507 c721 | 地「シミュレーター」（5カット）・🔧 シミュレーターの写真は全面の2本（X423・X502）で使った＝地は操縦室の後ろ姿 |
 | GT1 | stock | ground | イメージ（地）：暗い赤い客席の列 | stock:https://images.pexels.com/photos/7991319/pexels-photo-7991319.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/red-seats-at-a-cinema-7991319/（同上） | 地の写真：イメージ（Pexels） | 現在 | なし | src/stock/GT1.jpg | c518 | 地「映画館の客席」（1カット） |
-| X602 | stock | stock | イメージ：冊子の裏表紙の目次〈機種と社名は見せない〉 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c602 | — |
-| GB1 | stock | ground | 冊子の目次 | ⑤b で Pexels を1本（地だけ・暗くする） | — | Pexels | Pexels のライセンス＝頁を credits に | 地の写真：イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c603 | — |
-| X604 | stock | stock | イメージ：雲の上を飛ぶ旅客機〈社名と機種は見せない〉 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c604 | — |
-| GC1 | stock | ground | 雲の上 | ⑤b で Pexels を1本（地だけ・暗くする） | — | Pexels | Pexels のライセンス＝頁を credits に | 地の写真：イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c605 | — |
-| X606 | stock | stock | イメージ：並んだ旅客機の尾翼〈社名は見せない〉 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c606 | — |
-| X609 | stock | stock | イメージ：分厚い冊子の束〈字は読ませない〉 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c609 | — |
-| GB2 | stock | ground | 冊子の束 | ⑤b で Pexels を1本（地だけ・暗くする） | — | Pexels | Pexels のライセンス＝頁を credits に | 地の写真：イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c610 c614 c615 | — |
-| X620 | stock | stock | イメージ：操縦室の天井のボタンの列〈機種は名乗らない〉 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c620 | — |
-| X625 | stock | stock | イメージ：操縦席から見た冬の川〈機種は名乗らない〉 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c625 | — |
-| GF1 | stock | ground | 翼のうしろの板 | ⑤b で Pexels を1本（地だけ・暗くする） | — | Pexels | Pexels のライセンス＝頁を credits に | 地の写真：イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c703 c711 | — |
-| X704 | stock | stock | イメージ：翼のうしろの板が出た旅客機の翼〈社名と機種は見せない〉 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c704 | — |
-| GK2 | stock | ground | 速さの計器 | ⑤b で Pexels を1本（地だけ・暗くする） | — | Pexels | Pexels のライセンス＝頁を credits に | 地の写真：イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c705 | — |
-| X706 | stock | stock | イメージ：操縦室の速さの計器〈機種は名乗らない〉 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c706 | — |
-| X710 | stock | stock | イメージ：操縦席の横の操縦の棒〈サイドスティック | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c710 | — |
-| X720 | stock | stock | イメージ：シミュレーターの装置の外観〈機種と社名は見せない〉 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c720 | — |
-| X803 | stock | stock | イメージ：ふくらんだ救命いかだ〈社名は見せない〉 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c803 | — |
-| X808 | stock | stock | イメージ：座席の下の救命胴衣の袋〈社名は見せない〉 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c808 | — |
-| X817 | stock | stock | イメージ：救命胴衣の袋を開ける手〈社名は見せない〉 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c817 | — |
-| X818 | stock | stock | イメージ：旅客機の座席の背の安全のしおり〈社名と字は見せない〉 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c818 | — |
-| X904 | stock | stock | イメージ：フェリーの甲板と手すり〈社名は見せない〉 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c904 | — |
-| X914 | stock | stock | イメージ：旅客機の座席の列を横から〈人なし〉 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | c914 | — |
-| Xa03 | stock | stock | イメージ：冬の晴れた日の静かな川面〈場所は名乗らない〉 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | ca03 | — |
-| GR2 | stock | ground | 冬の川面 | ⑤b で Pexels を1本（地だけ・暗くする） | — | Pexels | Pexels のライセンス＝頁を credits に | 地の写真：イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | ca04 | — |
-| Xa09 | stock | stock | イメージ：操縦席から見た晴れた空〈機種と社名は見せない〉 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | ca09 | — |
-| Xa13 | stock | stock | イメージ：救命胴衣〈社名は見せない〉 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | ca13 | — |
-| Xb11 | stock | stock | イメージ：空を飛ぶ鳥の群れと旅客機の遠景〈社名と機種は見せない〉 | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | cb11 | — |
-| Xb12 | stock | stock | イメージ：救命胴衣の着け方の説明〈人の顔なし | ⑤b で Pexels を1本ずつ（原寸で見る） | — | Pexels | Pexels のライセンス＝頁を credits に | イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | cb12 | — |
-| GL1 | stock | ground | 救命胴衣 | ⑤b で Pexels を1本（地だけ・暗くする） | — | Pexels | Pexels のライセンス＝頁を credits に | 地の写真：イメージ（Pexels） | 現在 | なし（顔・ナンバー・店の字なし） | — | cb13 | — |
+| X602 | stock | stock | イメージ：手帳の見出しの札（月の名）と頁の端 | stock:https://images.pexels.com/photos/7059610/pexels-photo-7059610.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x1920 | Pexels | https://www.pexels.com/photo/a-close-up-shot-of-the-tabs-of-a-planner-7059610/（2026-11-11 に頁の JSON の license＝Pexels・https://www.pexels.com/license/ を読んだ＝前と同じ） | イメージ（Pexels） | 現在 | なし | src/stock/X602.jpg | c602 | c602・🔧 一覧の「裏表紙の目次」は Pexels に無い＝見出しの札・🔴 1本目 32201000（リングでとじた冊子）は原寸で頁の字が読めた（ドイツ語の保険の支払いの書類＝個人の書類の恐れ）＝替えた・札の字は月の名と時刻だけ |
+| X604 | stock | stock | イメージ：厚い雲の上を遠く飛ぶ旅客機（白黒） | stock:https://images.pexels.com/photos/34404282/pexels-photo-34404282.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x1920 | Pexels | https://www.pexels.com/photo/airplane-silhouetted-against-dramatic-clouds-34404282/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/X604.jpg | c604 | c604・機体は遠い影 |
+| X606 | stock | stock | イメージ：夕日を背に飛び立つ旅客機の影絵 | stock:https://images.pexels.com/photos/99567/aircraft-holiday-sun-tourism-99567.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x1817 | Pexels | https://www.pexels.com/photo/silhouette-of-airplane-during-sunset-99567/（2026-11-11 に頁の JSON の license＝CC0＝2016年の古い写真・Pexels の license より自由・直リンクの名は頁の og:image） | イメージ（Pexels） | 現在 | なし | src/stock/X606.jpg | c606 | c606・🔧 一覧の「並んだ旅客機の尾翼」は会社の印を避けられない（候補 3226808＝胴に UNITED・11047521＝尾翼と胴に AeroLogic と鶴の印・6189832＝尾翼の模様と胴の字で会社が分かる・地上の人）＝影絵に替えた |
+| X609 | stock | stock | イメージ：紐でしばって積んだ紙の束 | stock:https://images.pexels.com/photos/34568328/pexels-photo-34568328.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x1620 | Pexels | https://www.pexels.com/photo/organized-stacks-of-paper-bound-with-string-34568328/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/X609.jpg | c609 | c609・字は読ませない（原寸） |
+| X620 | stock | stock | イメージ：操縦室の天井の操作盤（下から） | stock:https://images.pexels.com/photos/39255987/pexels-photo-39255987.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x3840 | Pexels | https://www.pexels.com/photo/aviation-cockpit-control-panel-from-above-39255987/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/X620.jpg | c620 | c620・縦長＝窓で横の帯を切る・🔴 操作盤の札は操作の名だけか原寸で |
+| X625 | stock | stock | イメージ：川と森の上を飛ぶ小さな機の操縦席（操縦士の後ろ姿） | stock:https://images.pexels.com/photos/9357672/pexels-photo-9357672.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x1920 | Pexels | https://www.pexels.com/photo/pilots-in-a-plane-flying-over-a-river-and-trees-9357672/（同上） | イメージ（Pexels） | 現在 | 後ろ姿の1人（顔は原寸で） | src/stock/X625.jpg | c625 | c625・🔴 横顔が分かるかは原寸で |
+| X704 | stock | stock | イメージ：青空の下の旅客機の翼と翼の先 | stock:https://images.pexels.com/photos/19990667/pexels-photo-19990667.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x1920 | Pexels | https://www.pexels.com/photo/wing-of-a-flying-airplane-19990667/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/X704.jpg | c704 | c704・🔴 翼の先の印は原寸で |
+| X706 | stock | stock | イメージ：操縦室の速さの計器（針の計器） | stock:https://images.pexels.com/photos/18749930/pexels-photo-18749930.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x1920 | Pexels | https://www.pexels.com/photo/meters-on-dashboard-in-airplane-cockpit-18749930/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/X706.jpg | c706 | c706・🔴 上の札の字（機の名か）は窓の外 |
+| X710 | stock | stock | イメージ：操縦席の横の操縦の棒（サイドスティック） | stock:https://images.pexels.com/photos/34865653/pexels-photo-34865653.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x4320 | Pexels | https://www.pexels.com/photo/close-up-of-airplane-cockpit-controls-34865653/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/X710.jpg | c710 | c710・縦長＝窓で横の帯を切る |
+| X720 | stock | stock | イメージ：シミュレーターの操縦席で推力のレバーに手を伸ばす人（肩から下） | stock:https://images.pexels.com/photos/31125538/pexels-photo-31125538.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x4315 | Pexels | https://www.pexels.com/photo/pilot-operating-airbus-cockpit-simulation-31125538/（同上） | イメージ（Pexels） | 現在 | 後ろ姿の1人（🔴 横顔は窓の外） | src/stock/X720.jpg | c720 | c720・🔧 一覧の「装置の外観」は Pexels に無い（⑤b-4a で探した）＝中の操縦席・🔴 1本目 3862624 は一人乗りの大きな画面＝戦闘機のシミュレーターに見える（語りは旅客機の試し）＝替えた・画面はピントの外（原寸で字は読めない） |
+| X803 | stock | stock | イメージ：曇り空の海にひとつ浮かぶ赤いゴムボート | stock:https://images.pexels.com/photos/33338814/pexels-photo-33338814.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x4320 | Pexels | https://www.pexels.com/photo/solitary-inflatable-boat-on-tranquil-sea-33338814/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/X803.jpg | c803 | c803・縦長＝窓で横の帯を切る |
+| X808 | stock | stock | イメージ：窓ぎわの空いた座席 | stock:https://images.pexels.com/photos/20584536/pexels-photo-20584536.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x4320 | Pexels | https://www.pexels.com/photo/empty-seats-in-airplane-20584536/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/X808.jpg | c808 | c808・🔧 一覧の「座席の下の袋」は Pexels に無い・1本目の候補 1188803 は頁の名が text overlay（字を載せた図案＝字だけの画面）＝外した |
+| X817 | stock | stock | イメージ：救命胴衣の取り出し方の絵の札（座席の下） | stock:https://images.pexels.com/photos/7508662/pexels-photo-7508662.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x1393 | Pexels | https://www.pexels.com/photo/safety-guidelines-on-gray-background-7508662/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/X817.jpg | c817 | c817・🔧 一覧の「袋を開ける手」は Pexels に無い＝取り出し方の絵の札（英字の札＝社名なし） |
+| X818 | stock | stock | イメージ：座席の背の札と物入れのしおり | stock:https://images.pexels.com/photos/3036757/pexels-photo-3036757.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x1617 | Pexels | https://www.pexels.com/photo/close-up-of-aviation-policy-on-the-back-of-an-airplane-seat-3036757/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/X818.jpg | c818 | c818・🔴 しおりの社名・印は原寸で |
+| X904 | stock | stock | イメージ：船の手すりと冬の海（白黒） | stock:https://images.pexels.com/photos/12020663/pexels-photo-12020663.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x1920 | Pexels | https://www.pexels.com/photo/sea-seen-from-ferry-12020663/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/X904.jpg | c904 | c904・🔴 浮き輪の船の名は原寸で |
+| X914 | stock | stock | イメージ：人のいない客室の青い座席の列 | stock:https://images.pexels.com/photos/3129736/pexels-photo-3129736.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x2160 | Pexels | https://www.pexels.com/photo/empty-blue-airplane-seats-3129736/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/X914.jpg | c914 | c914 |
+| Xa03 | stock | stock | イメージ：雪の岸と静かな冬の川面 | stock:https://images.pexels.com/photos/285853/pexels-photo-285853.jpeg?auto=compress&cs=tinysrgb&w=2048 | 2048x1536 | Pexels | https://www.pexels.com/photo/body-of-water-285853/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/Xa03.jpg | ca03 | ca03・⚠️ 原本の幅 2048＝寄りは小さく |
+| Xa09 | stock | stock | イメージ：操縦席から見た雲の上の朝日 | stock:https://images.pexels.com/photos/10815749/pexels-photo-10815749.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x1920 | Pexels | https://www.pexels.com/photo/view-on-water-and-sunlight-from-aircraft-cockpit-10815749/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/Xa09.jpg | ca09 | ca09・🔴 操作盤の札・画面の字は原寸で |
+| Xa13 | stock | stock | イメージ：山に積んだオレンジの救命胴衣 | stock:https://images.pexels.com/photos/5291320/pexels-photo-5291320.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x1920 | Pexels | https://www.pexels.com/photo/orange-life-jackets-5291320/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/Xa13.jpg | ca13 | ca13・🔴 胴衣の字（船の名）は原寸で |
+| Xb11 | stock | stock | イメージ：青空を渡る鳥の群れと遠くの旅客機 | stock:https://images.pexels.com/photos/29536693/pexels-photo-29536693.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x1921 | Pexels | https://www.pexels.com/photo/migrating-birds-and-plane-in-clear-blue-sky-29536693/（同上） | イメージ（Pexels） | 現在 | なし | src/stock/Xb11.jpg | cb11 | cb11・機体は遠い影 |
+| Xb12 | stock | stock | イメージ：救命胴衣を着けた客室乗務員の後ろ姿 | stock:https://images.pexels.com/photos/14630706/pexels-photo-14630706.jpeg?auto=compress&cs=tinysrgb&w=2880 | 2880x3840 | Pexels | https://www.pexels.com/photo/stewardess-in-life-jacket-in-front-of-empty-seats-14630706/（同上） | イメージ（Pexels） | 現在 | 後ろ姿の1人（顔なし） | src/stock/Xb12.jpg | cb12 | cb12・🔴 制服と胴衣の印は原寸で |
+| GB1 | stock | ground | イメージ（地）：見出しの札のついたカードの束 | stock:https://images.pexels.com/photos/12585541/pexels-photo-12585541.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/close-up-of-paper-cards-12585541/（同上） | 地の写真：イメージ（Pexels） | 現在 | なし | src/stock/GB1.jpg | c603 | 地「冊子の目次」（1カット）・🔴 1本目 29378816 は 640px で本の目次の字が読めた（実在の本と分かる恐れ）＝替えた |
+| GB2 | stock | ground | イメージ（地）：重ねた白い紙の角（白黒） | stock:https://images.pexels.com/photos/20062955/pexels-photo-20062955.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/corner-of-paper-stack-20062955/（同上） | 地の写真：イメージ（Pexels） | 現在 | なし | src/stock/GB2.jpg | c610 c614 c615 | 地「冊子の束」（3カット） |
+| GC1 | stock | ground | イメージ（地）：上から見た雲の海 | stock:https://images.pexels.com/photos/35706529/pexels-photo-35706529.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/aerial-view-of-soft-cloud-blanket-from-above-35706529/（同上） | 地の写真：イメージ（Pexels） | 現在 | なし | src/stock/GC1.jpg | c605 | 地「雲の上」（1カット） |
+| GF1 | stock | ground | イメージ（地）：窓から見た翼と翼のうしろの板 | stock:https://images.pexels.com/photos/17754867/pexels-photo-17754867.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x2885 | Pexels | https://www.pexels.com/photo/an-airplane-wing-seen-from-the-airplane-window-17754867/（同上） | 地の写真：イメージ（Pexels） | 現在 | なし | src/stock/GF1.jpg | c703 c711 | 地「翼のうしろの板」（2カット） |
+| GK2 | stock | ground | イメージ（地）：古い小さな機の針の計器の並び | stock:https://images.pexels.com/photos/29053115/pexels-photo-29053115.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/vintage-aircraft-cockpit-with-analog-gauges-29053115/（同上） | 地の写真：イメージ（Pexels） | 現在 | なし | src/stock/GK2.jpg | c705 | 地「速さの計器」（1カット） |
+| GL1 | stock | ground | イメージ（地）：船に掛けた救命胴衣 | stock:https://images.pexels.com/photos/5331936/pexels-photo-5331936.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x2880 | Pexels | https://www.pexels.com/photo/stack-of-life-vests-in-boat-5331936/（同上） | 地の写真：イメージ（Pexels） | 現在 | なし | src/stock/GL1.jpg | cb13 | 地「救命胴衣」（1カット） |
+| GR2 | stock | ground | イメージ（地）：さざ波の立つ川面（白黒） | stock:https://images.pexels.com/photos/22863163/pexels-photo-22863163.jpeg?auto=compress&cs=tinysrgb&w=1920 | 1920x1280 | Pexels | https://www.pexels.com/photo/ripples-in-river-22863163/（同上） | 地の写真：イメージ（Pexels） | 現在 | なし | src/stock/GR2.jpg | ca04 | 地「冬の川面」（1カット） |
 
 ## §4 門番
 

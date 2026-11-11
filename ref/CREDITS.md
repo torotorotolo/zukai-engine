@@ -3792,9 +3792,16 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `r40_c702` | c702 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
 | `r96_ca02` | ca02 | 2010 | PD（米国の連邦の業務）（公的な機関の紙面） | NTSB（報告書） | https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1003.pdf |
 | `ga1` | （地 c319 c402 c407 c417 c422） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/air-traffic-control-room-3582597/ |
+| `gb1` | （地 c603） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/close-up-of-paper-cards-12585541/ |
+| `gb2` | （地 c610 c614 c615） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/corner-of-paper-stack-20062955/ |
+| `gc1` | （地 c605） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/aerial-view-of-soft-cloud-blanket-from-above-35706529/ |
+| `gf1` | （地 c703 c711） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/an-airplane-wing-seen-from-the-airplane-window-17754867/ |
 | `gk1` | （地 c213 c313 c315 c321 c510 c513 c601 c608 c617 c621 c707 c709） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/control-lever-in-a-cockpit-6916506/ |
+| `gk2` | （地 c705） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/vintage-aircraft-cockpit-with-analog-gauges-29053115/ |
+| `gl1` | （地 cb13） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/stack-of-life-vests-in-boat-5331936/ |
 | `gm1` | （地 c503 c505 c506 c507 c721） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/a-pilot-flying-an-aircraft-7530685/ |
 | `gr1` | （地 c410） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/aerial-view-of-a-harbor-and-pier-covered-in-snow-14800623/ |
+| `gr2` | （地 ca04） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/ripples-in-river-22863163/ |
 | `gs1` | （地 c214 c301 c308 c323 c405 c607） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/evergreen-forest-in-winter-20208429/ |
 | `gt1` | （地 c518） | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/red-seats-at-a-cinema-7991319/ |
 | `x204` | c204 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/low-angle-shot-of-an-airplane-in-the-sky-11150245/ |
@@ -3822,6 +3829,27 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `x515` | c515 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/monitors-and-microphone-on-wooden-table-top-6949366/ |
 | `x517` | c517 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/large-conference-room-with-red-seats-25857614/ |
 | `x523` | c523 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/serene-winter-river-with-bare-trees-reflection-36539713/ |
+| `x602` | c602 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/a-close-up-shot-of-the-tabs-of-a-planner-7059610/ |
+| `x604` | c604 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/airplane-silhouetted-against-dramatic-clouds-34404282/ |
+| `x606` | c606 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/silhouette-of-airplane-during-sunset-99567/ |
+| `x609` | c609 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/organized-stacks-of-paper-bound-with-string-34568328/ |
+| `x620` | c620 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/aviation-cockpit-control-panel-from-above-39255987/ |
+| `x625` | c625 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/pilots-in-a-plane-flying-over-a-river-and-trees-9357672/ |
+| `x704` | c704 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/wing-of-a-flying-airplane-19990667/ |
+| `x706` | c706 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/meters-on-dashboard-in-airplane-cockpit-18749930/ |
+| `x710` | c710 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/close-up-of-airplane-cockpit-controls-34865653/ |
+| `x720` | c720 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/pilot-operating-airbus-cockpit-simulation-31125538/ |
+| `x803` | c803 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/solitary-inflatable-boat-on-tranquil-sea-33338814/ |
+| `x808` | c808 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/empty-seats-in-airplane-20584536/ |
+| `x817` | c817 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/safety-guidelines-on-gray-background-7508662/ |
+| `x818` | c818 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/close-up-of-aviation-policy-on-the-back-of-an-airplane-seat-3036757/ |
+| `x904` | c904 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/sea-seen-from-ferry-12020663/ |
+| `x914` | c914 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/empty-blue-airplane-seats-3129736/ |
+| `xa03` | ca03 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/body-of-water-285853/ |
+| `xa09` | ca09 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/view-on-water-and-sunlight-from-aircraft-cockpit-10815749/ |
+| `xa13` | ca13 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/orange-life-jackets-5291320/ |
+| `xb11` | cb11 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/migrating-birds-and-plane-in-clear-blue-sky-29536693/ |
+| `xb12` | cb12 | 不明 | Pexels（イメージ＝この回の物でない・束の外） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/stewardess-in-life-jacket-in-front-of-empty-seats-14630706/ |
 
 ### 2. 動く映像＝clips.json（沿岸警備隊の監視カメラ VTS）
 - 米国沿岸警備隊の VTS（船の交通の監視カメラ）の記録（Commons の3本＝public domain・PD-USCG）＝384×288・毎秒3〜4コマ・音なし。等速（速さを変えない）・止めなし・額装（高さいっぱい）・地は同じ映像のぼかし。焼き込みのカメラの時計（約20秒進む）は語りと副題に使わない。背景のはしけに別の旅客機が写る秒（CrashAndRescue 402.5〜438.5秒）は使わない（`footage.NOGO`）

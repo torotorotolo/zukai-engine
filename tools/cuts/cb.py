@@ -81,3 +81,12 @@ SPEC.update({
     "cb09": dict(photo=_Rb09, panel=True, ptall=True, ground=dict(photo=_Rb09, blur=ss.PAGE_BLUR), color=1.0,
                  t="鳥の試験の規則", s="連邦官報〈2023年4月4日〉"),
 })
+
+# 🆕 ⑤b-4b（2026-11-11）：イメージの写真（Pexels・全面・見出しと副題なし・原色＝c5.py の「⑤b-4a」の節の型）
+_Xb11, _Xb12 = (P(f"stock/{c}") for c in ("xb11", "xb12"))
+SPEC.update({
+    # cb11＝青空を渡る鳥の群れと遠くの旅客機（機体は飛行機雲の先の点＝印は見えない）
+    "cb11": dict(photo=_Xb11, **ss.mvz(_Xb11, (0.45, 0.5, 1.0), (0.4, 0.48, 1.12)), side="none", color=1.0, t="", s=""),
+    # cb12＝救命胴衣を着けた客室乗務員の後ろ姿（顔なし・胴衣の字は使い方〈TOP・DESSUS〉だけ・制服に印なし＝原寸）
+    "cb12": dict(photo=_Xb12, **ss.mvz(_Xb12, (0.5, 0.4, 1.0), (0.5, 0.38, 1.1)), side="none", color=1.0, t="", s=""),
+})
