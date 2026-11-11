@@ -1090,6 +1090,8 @@ def _c715_body():
     g = F.line(160.0, WY715, 1760.0, WY715, J.LINE, 5, dash="20 12") + _t(1760.0, WY715 + 50, "水面", 38, J.LINE, "end", 160)
     g += F.poly([_r715(x, y) for x, y in body], J.BG2, INK, 6, close=True) + F.poly([_r715(x, y) for x, y in fin], J.BG2, INK, 5, close=True)
     arc = [(T715[0] + 380 * math.cos(math.radians(t / 10)), WY715 - 380 * math.sin(math.radians(t / 10))) for t in range(0, 96, 5)]
+    # 🔧 試し焼き（11-11）：9.5度の弧だけでは短い縦の線にしか見えなかった＝機体の下の辺と水面のあいだのくさびを塗る（角度は比例）
+    g += F.poly([(T715[0], WY715)] + arc, J.AMBER, None, close=True, op=0.30)
     return g + F.poly(arc, "none", J.AMBER, 6)
 
 
@@ -1100,7 +1102,8 @@ def _c715_moves():
 
 
 C715 = [
-    _at(_c(0, R, head="着水", big="15:30:43", bcap=64), 300, 300),
+    # 🔧 試し焼き（11-11）：左上（300, 300）では左上の「模式」の札を隠した＝機体の上の空き（尾の板の上は近すぎる）へ
+    _at(_c(0, R, head="着水", big="15:30:43", bcap=64), 960, 300),
     _at(_c(0, R, head="機首の上げ", big="9.5度", bcap=64), 1150, 770),
     _at(_c(0, R, head="速さ", big="時速約230キロ", bcap=64), 1560, 770),
     _at(_c(1, R, head="沈む速さ", big="毎秒約3.8メートル", bcap=64), 420, 770),
@@ -1440,8 +1443,10 @@ def _cb02_sq(hi=False):
             i += 1
     if not hi:
         g += _sq(1560.0, 464.0, w, stroke=J.AMBER, dash="10 8")
-        g += _t(300.0, 610.0, "受け入れられる対応 10本", 34, J.LINE, "start", 500) + _t(820.0, 610.0, "別の対応 7本", 34, J.LINE, "start", 300)
-        g += _t(1120.0, 610.0, "考え直して閉じた 1本", 34, J.TICK, "start", 400)
+        # 🔧 試し焼き（11-11）：凡例の字がその色の四角の真下に無く、どの四角か取り違えうる＝字の頭に同じ色の見本の四角
+        for x, (_n, col, op), lab, wmax in ((300.0, ST02[0], "受け入れられる対応 10本", 500), (820.0, ST02[1], "別の対応 7本", 300),
+                                           (1120.0, ST02[3], "考え直して閉じた 1本", 400)):
+            g += _sq(x, 586.0, 30.0, fill=col, op=op) + _t(x + 42, 612.0, lab, 34, col if col != J.TICK else INK, "start", wmax)
     return g
 
 
