@@ -490,7 +490,12 @@ def _part(i, fill=False, dash=None, col=J.AMBER, op=0.16):
 def _pnum(i):
     (x1, y1), (x2, y2), (x3, y3) = PG
     x, y = {1: (x1 + PW / 2, y1 + PH / 2 + 26), 2: (x2 + PW / 2, (P1Y + y2 + PH) / 2 + 26), 3: (x3 + PW / 2, y3 + PH / 2 + 26)}[i]
-    return _t(x, y, str(i), 72, J.AMBER, "middle", 120)
+    g = _t(x, y, str(i), 72, J.AMBER, "middle", 120)
+    if i == 1:
+        # 🔧 試し焼き（11-11）：2ページ目の上の枠（1つ目の部分）に番号が無く「1」の続きと読みにくかった＝小さな「1」
+        x2, y2 = PG[1]
+        g += _t(x2 + PW / 2, (y2 + P1Y) / 2 + 16, "1", 44, J.AMBER, "middle", 80)
+    return g
 
 
 C603 = [
@@ -567,16 +572,25 @@ VIEWS["c619"] = _z(3, "押すと起きること", "機体の下の弁", C619, [
 #  🆕 ⑤b-5（2026-11-11）：第6〜10章の地を使う模式5カット（地 gf1・gk2・gl1・gr2 の明るさを `--suggest` で測るため ⑤b-6 から前倒し）
 # ══════════════════════════════════════════════════════════
 def _wing(cx, cy, chord, ang=0.0, flap=False):
-    """翼の断面（前＝左）。ang＝前を上げる角度（度）。flap＝うしろの板を下へ出す（形と角度は模式）。"""
+    """翼の断面（前＝左）。ang＝前を上げる角度（度）。flap＝うしろの板を下へ出す（形と角度は模式）。
+    🔧 試し焼き（11-11）：前の端がとがって見えた＝NACA の4桁の厚みの式（厚み15%・反り4%）で丸い前の端に"""
     a = math.radians(ang)
     ca, sa = math.cos(a), math.sin(a)
 
     def rot(x, y):
         return cx + x * ca - y * sa, cy + x * sa + y * ca
 
-    n = 24
-    up = [(-chord / 2 + chord * i / n, -0.13 * chord * math.sin(math.pi * i / n) ** 0.55 * (1 - 0.35 * i / n)) for i in range(n + 1)]
-    lo = [(-chord / 2 + chord * i / n, 0.035 * chord * math.sin(math.pi * i / n)) for i in range(n, -1, -1)]
+    def cam(u):
+        m, p = 0.04, 0.4
+        return m / p ** 2 * (2 * p * u - u * u) if u < p else m / (1 - p) ** 2 * ((1 - 2 * p) + 2 * p * u - u * u)
+
+    def th(u):
+        return 5 * 0.15 * (0.2969 * math.sqrt(u) - 0.1260 * u - 0.3516 * u ** 2 + 0.2843 * u ** 3 - 0.1036 * u ** 4)
+
+    n = 40
+    us = [(1 - math.cos(math.pi * i / n)) / 2 for i in range(n + 1)]
+    up = [(-chord / 2 + chord * u, -chord * (cam(u) + th(u))) for u in us]
+    lo = [(-chord / 2 + chord * u, -chord * (cam(u) - th(u))) for u in reversed(us)]
     g = F.poly([rot(x, y) for x, y in up + lo], J.BG2, INK, 6, close=True)
     if flap:
         fx = chord / 2
@@ -598,11 +612,12 @@ VIEWS["c703"] = _z(2, "着水の前の操作", "機長の指示", C703, [
 # ── c705 速さの線（いちばん遠くまで滑れる速さ・機体が示す下限の速さ・実際の速さ＝高さの差は模式）
 def _c705_lines():
     g = F.line(300.0, 430.0, 1560.0, 430.0, J.LINE, 5, dash="18 12") + _t(300.0, 405.0, "遠くまで滑る速さ", 38, J.LINE, "start", 700)
-    return g + F.line(300.0, 560.0, 1560.0, 560.0, J.TICK, 5, dash="18 12") + _t(300.0, 535.0, "機体が示す下限の速さ", 38, J.TICK, "start", 600)
+    return g + F.line(300.0, 560.0, 1560.0, 560.0, J.TICK, 5, dash="18 12") + _t(300.0, 530.0, "機体が示す下限の速さ", 38, J.TICK, "start", 600)
 
 
 def _c705_pts(i):
-    return 300.0 + 12.0 * i, 548.0 + 14.0 * math.sin(i / 6.0) + (max(0, i - 87) * 3.4)
+    # 🔧 試し焼き（11-11）：黄の線が「機体が示す下限の速さ」の字の下の端を横切った＝下限の線（y 560）の上か少し下（報告書 at VLS or slightly less）
+    return 300.0 + 12.0 * i, 566.0 + 8.0 * math.sin(i / 6.0) + (max(0, i - 87) * 3.4)
 
 
 def _c705_speed(last=False):
@@ -623,7 +638,8 @@ VIEWS["c705"] = _z(2, "足りなかった速さ", "降りていくあいだ", C7
     src=S_R, note="模式・線の高さと速さの差は描いた形でない", schem=True)
 
 # ── c711 迎え角（翼が空気に当たる角度）と迎え角の守り
-AOA = (760.0, 580.0, 700.0, 16.0)       # 翼の真ん中・弦の長さ・角度（模式）
+# 🔧 試し焼き（11-11）：「迎え角」の字と水平の破線が空気の流れの矢印に重なった・弧が小さかった＝翼を右へ・角度 20度・弧を大きく・矢印は下へ
+AOA = (900.0, 580.0, 700.0, 20.0)       # 翼の真ん中・弦の長さ・角度（模式）
 
 
 def _c711_le():
@@ -636,24 +652,24 @@ def _c711_wing():
     cx, cy, ch, ang = AOA
     g = _wing(cx, cy, ch, ang)
     lx, ly = _c711_le()
-    for y in (ly - 70.0, ly, ly + 70.0):
-        g += _arrow(110.0, y, 270.0, y, J.TICK, 5, 18)
-    return g + _t(190.0, ly + 130.0, "空気の流れ", 38, J.TICK, "middle", 260)
+    for y in (ly + 150.0, ly + 220.0):
+        g += _arrow(120.0, y, 330.0, y, J.TICK, 5, 18)
+    return g + _t(225.0, ly + 290.0, "空気の流れ", 38, J.TICK, "middle", 260)
 
 
 def _c711_angle():
     cx, cy, ch, ang = AOA
     a = math.radians(ang)
     lx, ly = _c711_le()
-    g = F.line(lx - 200.0 * math.cos(a), ly - 200.0 * math.sin(a), lx, ly, J.AMBER, 4, dash="10 10")
-    g += F.line(lx - 210.0, ly, lx, ly, J.TICK, 4, dash="10 10")
-    arc = [(lx - 150.0 * math.cos(math.radians(t)), ly - 150.0 * math.sin(math.radians(t))) for t in range(0, int(ang) + 1, 2)]
-    return g + F.poly(arc, "none", J.AMBER, 6) + _t(lx - 170.0, ly - 40.0, "迎え角", 40, J.AMBER, "end", 200)
+    g = F.line(lx - 300.0 * math.cos(a), ly - 300.0 * math.sin(a), lx, ly, J.AMBER, 4, dash="10 10")
+    g += F.line(lx - 300.0, ly, lx, ly, J.TICK, 4, dash="10 10")
+    arc = [(lx - 260.0 * math.cos(math.radians(t)), ly - 260.0 * math.sin(math.radians(t))) for t in range(0, int(ang) + 1, 2)]
+    return g + F.poly(arc, "none", J.AMBER, 6) + _t(lx - 285.0, ly - 30.0, "迎え角", 40, J.AMBER, "end", 200)
 
 
 C711 = [
-    _at(_c(1, R, head="迎え角", lines="翼が空気に当たる角度", cap=46), 1480, 330),
-    _at(_c(2, R, head="迎え角の守り", lines="大きくなりすぎないよう", sub="操縦をおさえる", cap=46), 1480, 680),
+    _at(_c(1, R, head="迎え角", lines="翼が空気に当たる角度", cap=46), 1480, 300),
+    _at(_c(2, R, head="迎え角の守り", lines="大きくなりすぎないよう", sub="操縦をおさえる", cap=46), 1480, 520),
 ]
 VIEWS["c711"] = _z(3, "操縦の制限", "翼と空気の角度", C711, [
     _p(0, _c711_wing), _p(1, _c711_angle)],
