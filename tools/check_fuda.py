@@ -98,7 +98,9 @@ def _inputs():
     secs = {r["cid"]: float(r["sec"]) for r in csv.DictReader(open(_ss.REF / "eizou_build" / f"list{_ss.REF.name[2:]}.tsv", encoding="utf-8"), delimiter="\t")}
     # 🆕 31本目 ⑤b-4（2026-11-08）：札の型 m31（`tools/mech31.py`＝30本目の型を写した）も同じ物差しで測る＝カットごとに型のモジュールを引く
     import mech31 as M31
-    mods = {"m30": M, "m31": M31}
+    # 🆕 32本目 ⑤b-5（2026-11-11）：m32（`tools/mech32.py`＝31本目の型の式を import）も同じ物差し
+    import mech32 as M32
+    mods = {"m30": M, "m31": M31, "m32": M32}
     targets = [c for c, s in sorted(cuts.SPEC.items()) if s.get("fig") and s["fig"][0] in mods]
     kinds = {c: mods[cuts.SPEC[c]["fig"][0]] for c in targets}
     return kinds, S, secs, targets

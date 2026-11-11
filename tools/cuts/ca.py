@@ -101,3 +101,9 @@ SPEC.update({
     # ca13＝山に積んだオレンジの救命胴衣（字は「FRAM」＝前の意の印だけ・船の名なし＝原寸）
     "ca13": dict(photo=_Xa13, **ss.mvz(_Xa13, (0.5, 0.5, 1.0), (0.5, 0.5, 1.1)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-5（2026-11-11）：模式（`tools/mech32.py`）＝地 gr2 の明るさを測るため ⑤b-6 から前倒し
+import mech32 as _m32  # noqa: E402
+SPEC.update({
+    "ca04": _m32.fu_spec("ca04", ss.gr("stock/gr2")),
+})

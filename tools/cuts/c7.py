@@ -127,3 +127,11 @@ SPEC.update({
     # c720＝シミュレーターの操縦席で推力のレバーに手を伸ばす人。🔴 横顔（耳・ひげ）は y 0.26 より上＝窓 y 0.292〜0.668 の外・画面はピントの外
     "c720": dict(photo=_X720, **ss.mvz(_X720, (0.5, 0.48, 1.0), (0.45, 0.5, 1.1)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-5（2026-11-11）：模式（`tools/mech32.py`）＝地 gf1・gk2 の明るさを測るため ⑤b-6 から前倒し。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`）
+import mech32 as _m32  # noqa: E402
+SPEC.update({
+    "c703": _m32.zu_spec("c703", ss.gr("stock/gf1")),
+    "c705": _m32.zu_spec("c705", ss.gr("stock/gk2")),
+    "c711": _m32.zu_spec("c711", ss.gr("stock/gf1")),
+})

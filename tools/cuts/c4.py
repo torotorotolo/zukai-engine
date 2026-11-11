@@ -174,3 +174,13 @@ SPEC.update({
     # c423＝シミュレーターの操縦席（操縦の棒を握る手と画面・画面の字は原寸でぼけて読めない）
     "c423": dict(photo=_X423, **ss.mvz(_X423, (0.5, 0.5, 1.0), (0.55, 0.55, 1.1)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-5（2026-11-11）：模式（`tools/mech32.py`）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`）
+import mech32 as _m32  # noqa: E402
+SPEC.update({
+    "c402": _m32.fu_spec("c402", ss.gr("stock/ga1")),
+    "c405": _m32.fu_spec("c405", ss.gr("stock/gs1")),
+    "c410": _m32.fu_spec("c410", ss.gr("stock/gr1")),
+    "c417": _m32.fu_spec("c417", ss.gr("stock/ga1")),
+    "c419": _m32.zu_spec("c419", ss.gr("c13")),
+})

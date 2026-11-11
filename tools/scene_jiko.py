@@ -1930,7 +1930,8 @@ def ground_credit(cid, spec):
     # 🆕 30本目 ⑤b-4：イメージ（Pexels の地）＝帰属も改変の断りも義務が無い＝「イメージ」の断りだけ残す（この事件の絵でないと分かる）
     if "（Pexels）" in body:
         return "地の写真：" + body
-    if "（CC0）" not in body and "（パブリックドメイン）" not in body:
+    # 🆕 32本目 ⑤b-5（2026-11-11）：32本目の束は PD を「（public domain）」と書く（`qa_out/ep32_assets.py`・c21・c32＝PD-USACE）＝同じ扱い
+    if "（CC0）" not in body and "（パブリックドメイン）" not in body and "（public domain）" not in body:
         if "／改変：" not in body:
             raise ValueError(f"{cid}: 地の写真 {spec.get('photo')} の出典に改変の欄が無い（CC BY は改変の旨が要る）＝{cr}")
         body += "・明るさ"
@@ -3292,7 +3293,7 @@ def build_layers(allow_missing=False):
     #    その字を読む行の字幕を消す（記憶 feedback-no-subtitle-when-onscreen「その言葉が出ているあいだ、字幕は消す」）
     for c in spans:
         fig = (SPEC.get(c) or {}).get("fig")
-        if fig and fig[0] in ("m27", "m28", "m29", "m30", "m31") and fig[1].get("mute"):
+        if fig and fig[0] in ("m27", "m28", "m29", "m30", "m31", "m32") and fig[1].get("mute"):
             n = len(SUBS.get(c) or [])
             bad = [i for i in fig[1]["mute"] if not 0 <= int(i) < n]
             if bad:

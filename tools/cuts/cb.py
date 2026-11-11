@@ -90,3 +90,9 @@ SPEC.update({
     # cb12＝救命胴衣を着けた客室乗務員の後ろ姿（顔なし・胴衣の字は使い方〈TOP・DESSUS〉だけ・制服に印なし＝原寸）
     "cb12": dict(photo=_Xb12, **ss.mvz(_Xb12, (0.5, 0.4, 1.0), (0.5, 0.38, 1.1)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-5（2026-11-11）：模式（`tools/mech32.py`）＝地 gl1 の明るさを測るため ⑤b-6 から前倒し（左上の船の札は地の見える帯 y 0.31〜0.69 の外＝640px で確かめた）
+import mech32 as _m32  # noqa: E402
+SPEC.update({
+    "cb13": _m32.fu_spec("cb13", ss.gr("stock/gl1")),
+})

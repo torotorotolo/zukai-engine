@@ -6780,8 +6780,171 @@ def _selftest_m31(ok):
     return ok
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 32本目 ⑤b-5（2026-11-11）：札の型と見え方の表 m32（`tools/mech32.py`＝31本目の型の式を import）の記録＝門番の側。測り方は m30・m31 と同じ（`_judge_fu`）。
+#    行＝(記号, 画面の字, 原文の片)。記号＝台本の出典の欄の略（報p〈N〉＝報告書 NTSB/AAR-10/03 の PDF の頁・ド#〈品目〉p〈N〉＝公開ドケット・通＝AP 通信の転載・
+#    画＝手順書の絵〈付録C〉・計＝記録の数からの計算）。原文の片は `ref/ep32/src/ntsb/AAR1003.txt` ほか（git の外）の字＝11-11 に grep で当てた。
+#    🔴 §0b（題材を替えるとき）：次の回の ⑤b-1 で REC_M32 を見本へ移して空に（m31 と同じ）。
+# ══════════════════════════════════════════════════════════
+REC_M32 = dict(
+    src=dict(hokoku=("NTSB の報告書", "ntsb"), docket=("NTSB の公開ドケット", "tsb"), ap=("AP 通信", "company")),
+    ng=("犠牲", "死亡", "死者", "亡くな", "208秒"),
+    vals=dict(
+        # ── 第1章
+        c203=(("報p23", "57歳", "The captain, age 57"), ("報p24", "1万9,663時間", "19,663 total flight hours"),
+              ("報p24", "うち A320", "4,765 hours of which were in A320 airplanes"), ("報p24", "4,765時間", "4,765 hours of which were in A320 airplanes")),
+        c205=(("報p25", "49歳", "The first officer, age 49"), ("報p25", "1万5,643時間", "15,643 total flight hours"),
+              ("報p25", "うち A320", "37 hours in A320 airplanes"), ("報p25", "37時間", "The first officer had 37 hours in A320 airplanes"),
+              ("報p25", "資格は2008年12月31日", "received his initial A320 type rating on December 31, 2008")),
+        c207=(("報p26", "51歳・57歳", "Flight attendant A, age 51 … Flight attendant C, age 57"), ("報p26", "58歳", "Flight attendant B, age 58"),
+              ("報p26", "2人", "forward jumpseat"), ("報p26", "1人", "(aft, center aisle)"), ("計", "26年以上", "初めの訓練の年から2009年1月まで＝26年・38年・28年")),
+        c209=(("報p53", "4つ", "four floor-level Type I exits … Each of these exits was equipped with a door-mounted, automatically inflating Type II slide/raft"),
+              ("報p55", "人数分", "a life vest for each airplane occupant")),
+        c213=(("報p18", "操縦する人", "the pilot flying (PF)"), ("報p18", "見守る人", "the pilot monitoring (PM)")),
+        # ── 第2章
+        c311=(("報p19", "APU", "The APU provides an additional source of electrical power for the airplane"),
+              ("報p19", "もう1つの電気の源", "an additional source of electrical power")),
+        c313=(("報p104", "約12秒", "about 12 seconds after the bird strike"),),
+        c315=(("報p19", "QRH", "get the QRH [quick reference handbook] loss of thrust on both engines"),),
+        c319=(("報p19", "1549便", "the flight number was 1549"), ("報p19", "1539", "the flight number was 1549 not 1539"),
+              ("報p19", "正しくは1549", "the flight number was 1549 not 1539")),
+        c321=(("報p19", "時速約560キロ", "the optimum minimum airspeed of 300 kts"), ("報p19", "300ノット", "airspeed optimum relight. three hundred knots"),
+              ("報p19", "時速約400キロ", "the maximum airspeed reached by the airplane after the bird ingestion was 214 knots"),
+              ("報p19", "214ノット", "214 knots (kts)")),
+        # ── 第3章
+        c402=(("報p18", "1549便", "the flight crew"), ("報p18", "出発の管制", "LGA departure controller")),
+        c405=(("報p20", "15:28:25", "At 1528:25"), ("報p20", "左のエンジンが少し戻ってきた", "The left one’s [engine] coming back up a little bit."),
+              ("報p97", "飛び続ける力は出せず", "neither engine was able to produce sufficient power to sustain flight")),
+        c410=(("報p20", "テターボロ", "off your right side is Teterboro Airport [TEB]"), ("報p20", "そうする", "the captain replied, “yes.”")),
+        c417=(("報p196", "すまない、もう一度", "DEP I'm sorry say again Cactus?"),),
+        c419=(("報p20", "15:29:53", "At 1529:53"), ("報p20", "レーダーで見失う", "he had lost radar contact with the airplane")),
+        # ── 第4章
+        c503=(("報p66", "風・気温", "including winds, temperature"), ("報p67", "鳥とぶつかる少し前", "shortly before the bird strike")),
+        c507=(("報p67", "8回", "In eight of the 15 runs (53 percent), the pilot successfully landed after making an immediate turn"),
+              ("計", "7回", "15回のうち8回が降りられた＝残る7回"), ("報p67", "15回の試し", "Of the 15 remaining runs")),
+        c510=(("計", "15:27:11", "鳥とぶつかる"), ("計", "15:27:33", "管制へ第一報"), ("計", "15:27:50", "手順書を読み始める"),
+              ("計", "22秒", "15:27:11 から 15:27:33 まで"), ("計", "39秒", "15:27:11 から 15:27:50 まで")),
+        c513=(("報p105", "現実的な選択ではなかった", "it would not have been a realistic choice"),
+              ("報p106", "ほかの道をすべて消す取り消せない選択", "it would have been an irrevocable choice, eliminating all other options")),
+        c518=(("通", "調査を率いた元の責任者", "who led the National Transportation Safety Board's investigation"),
+              ("通", "誰にも恥をかかせるつもりはまったくなかった", "We weren’t out to embarrass anybody at all.")),
+        c522=(("報p67", "35秒", "after a 35-second delay"), ("報p67", "それを足した1回", "runway 13 at LGA) after a 35-second delay"),
+              ("ド#35p18", "滑走路の手前", "Hard landing just short of threshold"),
+              ("報p106", "生き残れる見込みのいちばん高い道", "provided the highest probability that the accident would be survivable")),
+        # ── 第5章
+        c601=(("報p68", "操縦室の画面", "displayed on the ECAM displays in the cockpit"),
+              ("報p69", "紙の冊子を開く", "directed the PM to the Engine Dual Failure checklist procedures contained in the QRH")),
+        c603=(("報p69", "1つ目", "Part 1"), ("報p70", "2つ目", "Part 2"), ("報p70", "3つ目", "Part 3"), ("画", "1ページ目"), ("画", "3ページ目")),
+        c605=(("報p69", "飛ぶ時間の多くは高い空", "Airbus airplanes spend much more time at higher altitudes"),
+              ("報p69", "検討していなかった", "it had not considered developing a dual-engine failure checklist for use at a low altitude")),
+        c608=(("報p104", "2005年", "In 2005, Airbus amended the Engine Dual Failure checklist"), ("報p104", "2本立てに", "two parallel steps"),
+              ("報p104", "長い手順書に", "it resulted in a lengthy checklist")),
+        c610=(("報p70", "a 点火 … 入れる", "a. Start engine ignition"), ("報p70", "b 推力のレバー … 確かめる", "b. Confirm thrust levers at idle"),
+              ("報p70", "c 速さ 300ノットを保つ", "c. Maintain optimum relight airspeed of 300 kts"),
+              ("報p70", "d 降りる場所 … 決める", "d. Determine a landing strategy")),
+        c614=(("報p104", "1つ目の大半まで", "able to complete most of part 1 of the checklist"),
+              ("報p104", "2つ目と3つ目", "they were not able to start parts 2 and 3 of the checklist"), ("画", "1ページ目"), ("画", "3ページ目")),
+        c617=(("報p73", "約910メートル", "configured for a ditching before 3,000 feet"), ("画", "約610メートル", "At 2000’ AGL"),
+              ("報p73", "機首 約11度", "Touchdown with approximately 11 degrees of pitch")),
+        c619=(("報p77", "水面より下の弁を閉じる", "closes all of the valves below the water line"),
+              ("報p77", "長く浮くのを助ける", "to help the airplane float longer")),
+        c621=(("ド#7p6", "地上の座学だけ", "The only training for ditching was given in ground school"),
+              ("ド#7p6", "着水の訓練なし", "There was no training in the simulator"),
+              ("ド#7p6", "時間がある前提", "All guidance he received for ditching implied that they had time")),
+        c623=(("報p71", "APU を始動する", "k. Start APU"), ("報p70", "前に a〜j の10項目", "a. Start engine ignition … j. Verify that crew oxygen masks are ON"),
+              ("報p105", "順番どおりなら行われず", "This critical step would not have been completed if the flight crew had simply followed the order"),
+              ("画", "2ページ目の k"), ("画", "3ページ目")),
+        c626=(("報p105", "低い所の故障用の手順書", "a checklist that addressed a dual-engine failure occurring at a low altitude"),
+              ("報p105", "見込みはより高い", "they would have been more likely to have completed that checklist")),
+        c628=(("報p142", "手順書の作り方の指針", "the order of critical items in the checklist"),
+              ("報p142", "低い所の故障を訓練に", "include a dual-engine failure scenario occurring at a low altitude"),
+              ("報p142", "座学とシミュレーター", "in initial and recurrent ground and simulator training")),
+        c630=(("計", "第10章", "橋の1行"),),
+        # ── 🆕 ⑤b-6 から前倒しの5カット（地 gf1・gk2・gl1・gr2 の明るさを測るため）
+        c703=(("報p64", "約80メートル", "as the airplane was descending through 270 feet"),
+              ("報p64", "レバーを2に", "the flap lever was moved to the CONF 2 position")),
+        c705=(("報p106", "最後の約60メートル", "during the last 200 feet"),
+              ("報p106", "下限より時速約30キロ遅い", "about 15 to 19 knots below VLS")),
+        c711=(("報p65", "迎え角の守り", "was in alpha-protection mode from 150 feet to touchdown"),),
+        ca04=(("報p96", "1つ目", "the ditching occurred in good visibility conditions on calm water"),
+              ("報p96", "2つ目", "was executed by a very experienced flight crew"),
+              ("報p96", "とても経験のある乗員", "a very experienced flight crew")),
+        cb13=(("勧", "2018年", "A-10-085 受け入れられる対応 2018-01-19"), ("勧", "受け入れられる対応", "A-10-085 受け入れられる対応"),
+              ("報p143", "救命胴衣の決まり", "Revise the life vest performance standards")),
+    ),
+)
+
+
+def judge_m32(f):
+    """32本目 札の型と見え方の表：m31 と同じ ①名と色 ②原文どおりの札 ③数 ④記録の字が画面にある・出さない言葉 ⑤時間の線と棒（表は REC_M32）。"""
+    return _judge_fu(f, REC_M32, "REC_M32", "m32")
+
+
+def _selftest_m32(ok):
+    """🆕 32本目 ⑤b-5：本番の m32 が全部通り、描く側か記録を壊すと**狙った理由で**鳴るか（陽性対照＝m31 と同じ形＋時刻の線と速さの棒）。"""
+    import cuts
+    import mech32 as M
+
+    good = {c: s["fig"][1] for c, s in cuts.SPEC.items() if s.get("fig") and s["fig"][0] == "m32"}
+    if not good:
+        print("  ⚠️ 32本目 m32 のカットが SPEC に無い＝検算しない（図を書く前の回なら正しい）")
+        return ok
+    for cid, kw in good.items():
+        bad, _ = judge("m32", kw)
+        if bad:
+            ok = False
+            print(f"  🔴 NG 32本目 m32 の本番 {cid} が落ちた: {bad[0]}")
+    print(f"  {'OK' if ok else '🔴 NG'} 32本目 m32 の本番 {len(good)}カット")
+
+    def control(name, cid, brk, want):
+        nonlocal ok
+        if cid not in good:
+            ok = False
+            print(f"  🔴 NG 陽性対照「{name}」の {cid} が SPEC に無い")
+            return
+        save_fu, save_v, save_src, save_vals = dict(M.FU), dict(M.VIEWS), dict(M.SRC), dict(REC_M32["vals"])
+        try:
+            brk()
+            bad, _ = judge("m32", good[cid])
+        finally:
+            M.FU.clear()
+            M.FU.update(save_fu)
+            M.VIEWS.clear()
+            M.VIEWS.update(save_v)
+            M.SRC.clear()
+            M.SRC.update(save_src)
+            REC_M32["vals"] = save_vals
+        hit = any(want in b for b in bad)
+        ok = ok and hit
+        print(f"  {'OK' if hit else '🔴 NG'} 陽性対照「{name}」→ {'鳴った' if hit else '鳴らなかった'}")
+
+    def card(cid, i, **kw):
+        d = dict(M.FU[cid])
+        cs = list(d["cards"])
+        cs[i] = dict(cs[i], **kw)
+        d["cards"] = tuple(cs)
+        M.FU[cid] = d
+
+    def ztl(cid, i, dx):
+        tl = M.VIEWS[cid]["tl"]
+        pts = tuple((p[0], p[1] + (dx if j == i else 0.0)) for j, p in enumerate(tl["pts"]))
+        M.VIEWS[cid] = dict(M.VIEWS[cid], tl=dict(tl, pts=pts))
+
+    control("誰の記録かの色を替えた", "c203", lambda: M.SRC.update(hokoku=("NTSB の報告書", "tsb")), "①")
+    control("原文の札の字を替えた", "c405", lambda: card("c405", 0, lines=("左のエンジンが戻ってきた",)), "②")
+    control("数を替えた（飛んだ時間）", "c203", lambda: card("c203", 1, big="1万9,600時間"), "③")
+    control("記録の行を消した", "c205", lambda: REC_M32["vals"].update(c205=()), "③")
+    control("記録に古い行を残した", "c313", lambda: REC_M32["vals"].update(c313=REC_M32["vals"]["c313"] + (("報p104", "約15秒"),)), "④")
+    control("出さない言葉を札に", "c213", lambda: card("c213", 0, lines=("死亡",)), "④")
+    control("時刻の点を2秒ずらした（c510 の 15:27:33）", "c510", lambda: ztl("c510", 1, 48.0), "⑤ 時間の線")
+    control("速さの棒の端をずらした（c321 の 時速約400キロ）", "c321", lambda: ztl("c321", 1, 40.0), "⑤ 時間の線")
+    return ok
+
+
 def judge(kind, kw):
     f = getattr(F, kind)(**kw)
+    if kind == "m32":
+        return judge_m32(f)
     if kind == "m31":
         return judge_m31(f)
     if kind == "m30":
@@ -7311,13 +7474,18 @@ def main():
         print("selftest（m31）: 🔴 落ちた")
         return 2
     print("selftest（m31）: 通った")
+    # 🆕 32本目 ⑤b-5（2026-11-11）：m32 の検算（本番の表 REC_M32 と本番の章ファイルのまま＝この回の値）
+    if not _selftest_m32(True):
+        print("selftest（m32）: 🔴 落ちた")
+        return 2
+    print("selftest（m32）: 通った")
     if "--selftest" in sys.argv:
         return 0
     import cuts
     targets ={c: s["fig"] for c, s in sorted(cuts.SPEC.items())
                if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash", "tail", "mod", "bolt", "vsec", "lv", "m18",
                                                    "m19", "m20", "m21", "m22", "m23", "m17", "m24", "m25", "m26", "m27", "m28", "m29", "m30",
-                                                   "m31")}
+                                                   "m31", "m32")}
     if not targets:
         print("⚠️ latch・section・hull・lash・tail・mod・bolt のカットが0件（この回に仕組みの模式図が無いなら正しい。"
               "**0件を調べて合格**にしていないか確かめる）")

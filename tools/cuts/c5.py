@@ -158,3 +158,14 @@ SPEC.update({
     # c523＝冬の川の水面と葉の落ちた木
     "c523": dict(photo=_X523, **ss.mvz(_X523, (0.5, 0.5, 1.0), (0.45, 0.5, 1.1)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-5（2026-11-11）：模式（`tools/mech32.py`）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`）
+import mech32 as _m32  # noqa: E402
+SPEC.update({
+    "c503": _m32.fu_spec("c503", ss.gr("stock/gm1")),
+    "c507": _m32.zu_spec("c507", ss.gr("stock/gm1")),
+    "c510": _m32.zu_spec("c510", ss.gr("stock/gk1")),
+    "c513": _m32.fu_spec("c513", ss.gr("stock/gk1")),
+    "c518": _m32.fu_spec("c518", ss.gr("stock/gt1")),
+    "c522": _m32.zu_spec("c522", ss.gr("c31")),
+})

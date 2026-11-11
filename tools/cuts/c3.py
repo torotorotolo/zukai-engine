@@ -143,3 +143,13 @@ SPEC.update({
     # c316＝白い頁をめくる手（字なし）
     "c316": dict(photo=_X316, **ss.mvz(_X316, (0.5, 0.5, 1.0), (0.55, 0.5, 1.1)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-5（2026-11-11）：模式（`tools/mech32.py`）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`）
+import mech32 as _m32  # noqa: E402
+SPEC.update({
+    "c311": _m32.fu_spec("c311", ss.gr("c49")),
+    "c313": _m32.fu_spec("c313", ss.gr("stock/gk1")),
+    "c315": _m32.zu_spec("c315", ss.gr("stock/gk1")),
+    "c319": _m32.fu_spec("c319", ss.gr("stock/ga1")),
+    "c321": _m32.zu_spec("c321", ss.gr("stock/gk1")),
+})

@@ -152,3 +152,21 @@ SPEC.update({
     # c625＝川と森の上を飛ぶ小さな機の操縦席（2人とも頭の後ろとヘッドセット＝顔なし・原寸）
     "c625": dict(photo=_X625, **ss.mvz(_X625, (0.5, 0.5, 1.0), (0.45, 0.5, 1.1)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-5（2026-11-11）：模式（`tools/mech32.py`）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`）
+import mech32 as _m32  # noqa: E402
+SPEC.update({
+    "c601": _m32.fu_spec("c601", ss.gr("stock/gk1")),
+    "c603": _m32.zu_spec("c603", ss.gr("stock/gb1")),
+    "c605": _m32.fu_spec("c605", ss.gr("stock/gc1")),
+    "c608": _m32.fu_spec("c608", ss.gr("stock/gk1")),
+    "c610": _m32.fu_spec("c610", ss.gr("stock/gb2")),
+    "c614": _m32.zu_spec("c614", ss.gr("stock/gb2")),
+    "c617": _m32.fu_spec("c617", ss.gr("stock/gk1")),
+    "c619": _m32.zu_spec("c619", ss.gr("c49")),
+    "c621": _m32.fu_spec("c621", ss.gr("stock/gk1")),
+    "c623": _m32.zu_spec("c623", ss.gr("c32")),
+    "c626": _m32.fu_spec("c626", ss.gr("c32")),
+    "c628": _m32.fu_spec("c628", ss.gr("c32")),
+    "c630": _m32.fu_spec("c630", ss.gr("c32")),
+})

@@ -5226,3 +5226,11 @@ def m30(view, steps, **kw):
 def m31(view, steps, **kw):
     import mech31 as _m
     return _m.m31(view, steps, **kw)
+
+
+# ── ㉗ 32本目 ⑤b-5（2026-11-11）：札の型と見え方の表（31本目の型の式を import・表は `mech32.FU`・`mech32.VIEWS`）＝`tools/mech32.py`（門番 check_mech の judge_m32）。
+#      🔴 地は写真（cuts.ss.gr）・名前は機長と副操縦士だけ・人の形を描かない・図の中身は台本の画の欄と出典の欄の字の範囲だけ ──
+#   `fig=("m32", dict(view=…, steps=[…], note="…", src=…, mute=[…]))`＝章ファイルは `mech32.fu_spec`・`mech32.zu_spec`
+def m32(view, steps, **kw):
+    import mech32 as _m
+    return _m.m32(view, steps, **kw)

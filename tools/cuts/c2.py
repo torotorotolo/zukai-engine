@@ -105,3 +105,14 @@ SPEC.update({
     # c216＝紙に包んで紐でしばったサンドイッチ（店の名なし）
     "c216": dict(photo=_X216, **ss.mvz(_X216, (0.5, 0.5, 1.0), (0.55, 0.5, 1.1)), side="none", color=1.0, t="", s=""),
 })
+
+# 🆕 ⑤b-5（2026-11-11）：模式（`tools/mech32.py`＝札の型 FU と見え方の表 VIEWS）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`＝check_ground --suggest）。
+#   地の名は一覧の「地」の欄（PLAN の plan の頭）。図の中身は台本の画の欄と出典の欄の字の範囲だけ（mech32 の頭）
+import mech32 as _m32  # noqa: E402
+SPEC.update({
+    "c203": _m32.fu_spec("c203", ss.gr("c50")),
+    "c205": _m32.fu_spec("c205", ss.gr("c50")),
+    "c207": _m32.zu_spec("c207", ss.gr("c50")),
+    "c209": _m32.zu_spec("c209", ss.gr("c21")),
+    "c213": _m32.fu_spec("c213", ss.gr("stock/gk1")),
+})
