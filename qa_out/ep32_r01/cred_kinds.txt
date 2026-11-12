@@ -1,0 +1,41 @@
+59 イメージ（Pexels）
+8 写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出
+8 写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）／改変なし
+6 出典：NTSB「NTSB/AAR-10/03」（2010）付録B／改変：切出
+5 出典：NTSB「NTSB/AAR-10/03」（2010）付録C／改変：切出
+4 写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変なし
+3 写真：U.S. Army Corps of Engineers（public domain）／Wikimedia Commons
+3 写真：U.S. Coast Guard（public domain）／Wikimedia Commons
+2 写真：US Army Corps of Engineers／Wikimedia Commons（CC BY 2.0）／改変：切出
+2 写真：{作者}／Wikimedia Commons（CC0）
+2 写真：{作者} at English Wikipedia／Wikimedia Commons（CC BY-SA 3.0）／改変なし
+2 出典：NTSB「NTSB/AAR-10/03」（2010）推定原因／改変：切出
+2 出典：NTSB「NTSB/AAR-10/03」（2010）勧告／改変：切出
+2 出典：NTSB「NTSB/AAR-10/03」（2010）／改変：切出
+1 写真：U.S. Army Corps of Engineers（public domain）／Wikimedia Commons／改変：字にモザイク
+1 写真：{作者}／Wikimedia Commons（CC0）／改変：顔にモザイク
+1 図：FAA（public domain）／Wikimedia Commons
+1 写真：{作者}／Wikimedia Commons（CC0）／改変：字にモザイク
+1 写真：NTSB（public domain）／Wikimedia Commons／改変：切出
+1 写真：{作者}／Wikimedia Commons（CC BY 2.0）／改変：切出・字にモザイク
+1 写真：NTSB 公開ドケット DCA09MA026（野生動物の報告 写真1）
+1 写真：NTSB 公開ドケット DCA09MA026（野生動物の報告 写真2）
+1 写真：NTSB 公開ドケット DCA09MA026（生存の写真 写真21）
+1 写真：NTSB 公開ドケット DCA09MA026（生存の写真 写真42）
+1 写真：NTSB 公開ドケット DCA09MA026（生存の写真 写真54）
+1 写真：NTSB 公開ドケット DCA09MA026（生存の写真 写真56）
+1 写真：NTSB 公開ドケット DCA09MA026（救助の写真3）／改変：字にモザイク
+1 写真：NTSB 公開ドケット DCA09MA026（構造の写真 写真2）
+1 写真：NTSB 公開ドケット DCA09MA026（構造の写真 写真4）
+1 写真：NTSB 公開ドケット DCA09MA026（構造の写真 写真9）
+1 写真：NTSB 公開ドケット DCA09MA026（構造の追記の写真 写真23）／改変：切出
+1 写真：NTSB 公開ドケット DCA09MA026（構造の追記の写真 写真45）
+1 写真：NTSB 公開ドケット DCA09MA026（エンジンの報告 図8）／改変：切出
+1 出典：連邦官報 2023-06413（FAA・2023年）／改変：切出
+1 出典：NTSB「NTSB/AAR-10/03」（2010）表紙／改変：切出
+1 出典：NTSB「NTSB/AAR-10/03」（2010）表2／改変：切出
+--- clips
+VC | 映像：U.S. Coast Guard（public domain）／Wikimedia Commons | 
+V15 | 映像：U.S. Coast Guard（public domain）／Wikimedia Commons | 
+V20 | 映像：U.S. Coast Guard（public domain）／Wikimedia Commons | 
+--- SAT credits Counter({'地図：Google マップの衛星写真（帰属は地図の右下）': 8})

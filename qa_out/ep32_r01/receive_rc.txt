@@ -1,0 +1,10 @@
+check_final exit=0
+loud exit=0
+dumpwin exit=0
+vs_qa exit=0
+cutframes exit=0
+sub_center exit=0
+subscan exit=1
+ground exit=0
+voiceq exit=0
+done

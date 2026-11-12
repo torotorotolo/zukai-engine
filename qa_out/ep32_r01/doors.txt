@@ -1,0 +1,2 @@
+c801 頭 1378.990秒・尺 11.07・扉 2.0／c901 頭 1592.390秒・尺 9.64・扉 2.0
+C:\Users\konar\Desktop\zukai-engine\qa_out\ep32_r01\doors_640.jpg C:\Users\konar\Desktop\zukai-engine\qa_out\ep32_r01\doors_bottom.jpg

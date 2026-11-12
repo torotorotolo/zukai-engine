@@ -1,0 +1,7 @@
+台帳 src/commons/c32/C26.jpg 1289 1243 [0, 0, 1289, 1243] RGB 札 Nikon sRGB 4.0.0.3001 → sRGB・fetch32.tsv の md5 と同じ（2回とも）
+ref/ep32/c26.jpg (1289, 1243)
+ref/ep32/src/commons/c32/C26.jpg (1289, 1243)
+川の中央値 152.0 しきい 87.0
+外れた画素の行 491 690 列 387 1056
+行の連なり [(np.int64(511), np.int64(690)), (np.int64(491), np.int64(505))]
+列の連なり [(np.int64(387), np.int64(824)), (np.int64(852), np.int64(862)), (np.int64(875), np.int64(884))]

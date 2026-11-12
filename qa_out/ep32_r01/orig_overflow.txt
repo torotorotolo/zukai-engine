@@ -1,0 +1,4 @@
+c416 sec 9.24 durations 6.545 wav 157080 samples @ 24000 = 6.545 s
+orig {'wav': 'ep32/a1_c416.wav', 'len': 1.55, 'pre': 0.3} x 68355 @ 44100 = 1.55
+start 584.16 narr_end 25933971 i 25947201 i+len 26015556 room 26146891 overflow samples -131335 = -2978.12 ms
+理屈の余白: dur+LEAD+TAIL+1.85 = 9.245 丸め後 9.24

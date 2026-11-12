@@ -1,0 +1,10 @@
+videoId JLgcPlM380E  https://youtu.be/JLgcPlM380E
+✓ 題: 70字
+✓ 説明: 3378字
+✓ タグ: 16個
+✓ 子ども向けでない: self=False made=False
+✓ 公開設定: private／予約 2026-11-13T03:00:00Z
+✓ 処理: succeeded
+✓ 画質: hd
+✓ 尺: PT36M4S（手元 36分03.3秒）
+✓ サムネ: maxres 1280x720：平均の差 2.67（8 未満）・鮮明さの比 1.10（0.95 以上）

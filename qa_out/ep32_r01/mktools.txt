@@ -1,0 +1,13 @@
+qa_out\ep32_r01_cutframes.py 7
+qa_out\ep32_r01_ground.py 6
+qa_out\ep32_r01_seen.py 3
+qa_out\ep32_r01_sheet.py 8
+qa_out\ep32_r01_subscan.py 6
+qa_out\ep32_r01_voiceq.py 4
+qa_out\ep32_r01_vs_qa.py 7
+qa_out\ep32_r01_where.py 4
+qa_out\ep32_r02_vs_r01.py 8
+qa_out\ep32_r02_verify_upload.py 5
+qa_out\ep32_r01\receive.sh 14
+qa_out\ep32_r01\motion.py 2
+qa_out\ep32_r01\mute_vs_scan.py 2

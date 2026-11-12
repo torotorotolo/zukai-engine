@@ -1,0 +1,19 @@
+メタ: meta_ep32.json
+接続先: ゆっくり調査ノート（@chosanote／動画18本）
+動画: titan_audio-ep32-r01.mp4（354.7 MB）
+題　: 【映像あり】ハドソン川の奇跡の真相。判断の35秒を足して空港へ戻るシミュレーターの試しは、滑走路に届かなかった。【事故検証】【ゆっくり解説】
+非公開で上げる（予約はあとで `schedule`）
+  2%  4%  7%  9%  11%  14%  16%  18%  21%  23%  26%  28%  30%  33%  35%  37%  40%  42%  44%  47%  49%  52%  54%  56%  59%  61%  63%  66%  68%  70%  73%  75%  78%  80%  82%  85%  87%  89%  92%  94%  96%  99%
+上がった: https://youtu.be/JLgcPlM380E
+管理　　: https://studio.youtube.com/video/JLgcPlM380E/edit
+処理が終わるのを待つ（サムネは hd になってから貼る）
+  処理 processing・画質 sd（0秒）
+  処理 processing・画質 sd（20秒）
+  処理 processing・画質 sd（40秒）
+  処理 processing・画質 hd（60秒）
+  処理 succeeded・画質 hd（81秒）
+サムネを貼った: ep32_Hinv_Ac26_z200.png
+  ✓ maxres 1280x720：平均の差 2.67（8 未満）・鮮明さの比 1.10（0.95 以上）
+✓ サムネは高解像度で貼れている
+
+次: python tools/upload_jiko.py schedule JLgcPlM380E --at "…+09:00"（または public）
