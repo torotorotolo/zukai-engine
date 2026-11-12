@@ -730,12 +730,19 @@ def main(head=None, out_name="mix.wav", duck=True, bgm="auto"):
         g = narr_rms[cid] / max(active_rms(x), 1e-9) * 10 ** (ORIG_REL_DB / 20.0)
         i = narr_end[cid] + int(float(o["pre"]) * SR)
         room = int((starts[cid] + sec - S.TAIL) * SR) + 1
-        if i + len(x) > room:
-            raise SystemExit(f"🔴 原音 {q.name} がカット {cid} の余白に収まらない（{(i + len(x) - room) / SR:.2f}秒はみ出す＝orig_hold を確かめる）")
+        # 🔧 2026-11-12（32本目 ⑥ 本編 r01 が Modal でここで止まった）：カットの秒は 0.01秒に丸める（scene_jiko._narration の round(…, 2)）。
+        #    c416＝語り 6.545＋LEAD 0.35＋TAIL 0.50＋原音 1.85＝9.245 → 9.24 で余白が 5ミリ秒短くなり、原音が TAIL（0.50秒の無音）の頭へ
+        #    219サンプルかかった（表示は「0.00秒はみ出す」）＝丸めの差だけは許す（最大 0.005秒＋int の切り捨て＝6ミリ秒まで）。
+        #    それより大きいはみ出し（orig_hold の足し忘れ・len の書き違い）は今までどおり止める。カットの秒は変えない＝絵の時刻は検品の版のまま
+        slack = int(0.006 * SR)
+        over = i + len(x) - room
+        if over > slack:
+            raise SystemExit(f"🔴 原音 {q.name} がカット {cid} の余白に収まらない（{over / SR * 1000:.1f}ミリ秒はみ出す＝orig_hold を確かめる）")
         e = min(n, i + len(x))
         mix[i:e] += x[:e - i] * g
         print(f"原音：{cid} {o['wav']}（{len(x) / SR:.2f}秒）を {i / SR:.2f}秒から＝語りの終わり＋{float(o['pre']):.2f}秒・"
-              f"語りの実効値にそろえて {20 * np.log10(g):+.1f}dB", flush=True)
+              f"語りの実効値にそろえて {20 * np.log10(g):+.1f}dB"
+              + (f"・TAIL の頭へ {over / SR * 1000:.1f}ミリ秒（秒の丸めの差＝許す）" if over > 0 else ""), flush=True)
 
     # 🔴 サイドチェイン。**ナレーションだけ**を鍵にして寝床を下げる
     #    （心拍と衝撃音は鍵に入れない。鳴った瞬間に BGM が沈んで不自然になる）。
