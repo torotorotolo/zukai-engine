@@ -25,7 +25,7 @@ import yt_theme_probe as P  # noqa: E402
 
 sys.stdout.reconfigure(encoding='utf-8')
 OUT = sys.argv[1]
-os.makedirs(OUT, exist_ok=True)
+__import__('pathlib').Path(OUT).mkdir(parents=True, exist_ok=True)  # 名前の網の空鳴りを避ける書き方（33本目④'）
 
 AFTER = '2026-09-08'      # pool.json の最新の公開日の翌日＝ここから後を拾う
 PEER_FROM = '2026-07-25'  # 09-08 直後の回の「前後45日」に入る pool の回

@@ -172,4 +172,37 @@
 | 試験の機関の欠け | "from 1991 much of the work it carried out in relation to testing the fire safety of external walls was marred by …" ✓ | P2V1 ¶2.15 | c712 |
 | 警視庁の見込み | "at least until the end of 2025" は m3 の2024年5月の発表 ✓・9月の発表（m4）は "at least 12-18 months" ✓ | 警視庁 | cb04 |
 | ラカナル・ハウスの段落 | 片は ¶8.1（¶8.2 ではない）・検視官の手紙は "On 28 March 2013" ✓（P2V1 ¶9.41） | P1V1 ¶8.1・P2V1 ¶9.41 | c806 |
-| 61の内訳 | 写しで確かめられない（② の係の読み）＝語らない | — | ca14 |
+| 61の内訳 | 写しで確かめられない（② の係の読み）＝語らない（⚠️ ④' で誤りと分かった＝§9-3） | — | ca14 |
+
+### 9-3. ④'（チャット4・2026-11-12）の係8本の所見で、④' が原文に当て直したこと
+台本＝[daihon_v2.md](daihon_v2.md)（差し替え表 `v2_build/patches33.json`・台帳 `v2_build/ledger33.md`）。原文は `v2_build/src33.py` で段落と語の窓を引いた（窓は名前を伏せない＝写さない）。
+| 所見 | 原文（✓＝④' が自分の道具で引いた） | 出典 | 第2版 |
+|---|---|---|---|
+| 住戸の階 | "Floors 4 to 23 were designed to accommodate residential flats, with six flats on each floor" ✓（建てた時の設計）・改修で "nine new flats on these lower floors" ✓ | P1V1 ¶3.13・¶6.5 | c204（主に4〜23階・画の札に改修の9戸） |
+| 1:15 の外壁 | "By 01.15.36 the cladding can be seen to be burning with some intensity" ✓（外壁に移ったのは 1:09） | P1V4 ¶22.27 | c311 の副題 |
+| 72人の言い方 | "The fire claimed the lives of 71 people who were present in the tower that night" ✓・7か月後の死は "not directly caused by the fire" ✓ | P1V1 ¶1.3 | c106（この災害で） |
+| 1:25 の通報 | "At 01.24.57 the control room received the second call from a resident" ✓・"said that there was a fire in her kitchen" ✓（要約の表の 01.30「炎が部屋に入った初めての通報」と合わない） | P1V2 ¶10.90 | c314 |
+| 逃げた人 | "A total of 112 people had left the tower in the 35 minutes that followed" ✓（要約の表の「01.31 に110人」と食い違う＝本文に合わせた） | P1V4 ¶28.14j | c316・c427・§1-5 |
+| はしご車 | ロンドン消防のはしご車 "could reach a maximum height of 32 metres" ✓・隣の消防の1台 "from a height of 42 metres"・"not used until after the last casualty had been rescued" ✓ | P1V4 ¶28.133・P2V5 ¶82.3 | c414（ロンドン消防のはしご） |
+| 専門家の言葉 | 委員長が "bear in mind the following words of"〈専門家〉✓＝"had never been informed" は引用の中 | P1V4 ¶28.3 | c416 |
+| 2時までの避難 | "some lives might still have been lost" ✓・"I have little doubt that fewer people would have died" ✓ | P1V4 ¶28.63 | c514（まず間違いなく）・訳の札 |
+| 168人の段落 | ¶28.19 の f ✓（¶28.20 ではない） | P1V4 ¶28.19 | c505 の出典 |
+| 定期の学び直し | "In 2009, no structured or regular fire survival guidance refresher training was provided" ✓（2010年の学び直し・途切れ途切れの訓練はあった＝¶79.10・¶79.33） | P2V5 ¶83.6 | c524（「定期の」を戻した） |
+| お金の不足 | "had caused or contributed to the failings that occurred on the night" ✓ | P2V5 ¶83.12 | c524（あの夜の失敗） |
+| 差を残す狙い | 社員2人が "accepted (though not in so many words) that the purpose was to enable Rydon to retain the difference" ✓＝報告の地の結論ではない | P2V4 ¶55.59 | c614（元請けの社員は遠回しに認めた） |
+| 板が決まったあと | "The only remaining questions were about colour and whether the fixing system should be cassette or rivet" ✓ | P2V4 ¶55.71 | c617 |
+| 設計の側 | "We think that … no one in the design team gave any consideration" ✓（報告の推認） | P2V4 ¶55.89 | c623（とみられる） |
+| 防火の技術者 | 外壁の材料の話 "no one asked for advice or confirmation from a fire engineer" ✓ | P2V4 ¶67.14 | c626（材料のこと） |
+| 3月18日の夜 | "A meeting took place during the evening of Tuesday 18 March 2014" ✓ | P2V4 ¶55.50 | c611 の出典 |
+| アルコニック | "determined to exploit what it saw as weak regulatory regimes" ✓・"That was not an oversight. It reflected a deliberate strategy" ✓ | P2V1 ¶2.23・¶2.25 | c705・c707 |
+| キングスパン | "did not use the product currently on the market but used modified or trial versions. It dishonestly relied on the results" ✓ | P2V1 ¶2.37 | c717 |
+| 1999年の警告 | "warned the government in unambiguous terms … risks posed by some external cladding systems. Unfortunately, that warning was ignored" ✓ | P2V2 ¶29.5 | c803・cb14（並べ替えのあとの番号） |
+| 業界の懸念 | "some in the industry were worried" ✓ | P2V1 ¶2.9 | c810 |
+| 規則に合わない | "there is compelling evidence that requirement B4(1) was not met in this case" ✓ | P1V4 ¶26.4 | c902 の出典 |
+| 消防の組織 | "a chronic lack of effective management and leadership" ✓ | P2V1 ¶2.91 | c912 |
+| 区と政府の1週間 | "In the first week after the fire at Grenfell Tower the response of the government and RBKC was muddled, slow, indecisive and piecemeal" ✓（家を失った人への対応に限らない） | P2V1 ¶2.103 | ca01 |
+| 外壁の燃える材料の禁止 | "The use of combustible materials in and on external walls of buildings, including flats, hospitals and student accommodation over 18 metres in height, has been banned" ✓（イングランド） | 応 ¶23 | ca12（すでに禁じられた） |
+| 61の内訳 | "all 58 Phase 2 recommendations and the 3 remaining Phase 1 recommendations" ✓（§9-2 の「写しで確かめられない」は誤り） | 進（2026-09-10） | ca14 |
+| 何十年の失敗の主 | "culmination of decades of failure by central government and other bodies in positions of responsibility in the construction industry" ✓ | P2V1 ¶2.4 | cc11（国などの） |
+| スプリンクラー | "whether such a system would be likely to have suppressed the fire in Flat 16 … is not something that was investigated in Phase 1" ✓ | P1ES ¶33.26 | c909（直さない） |
+| 消防の第1段階の勧告 | 年次報告の写し3つと進捗報告に語を変えて25通り＝0件（消防の章の頁は文字の写しが無い） | 年・進 | 語らない（第2版 §5） |

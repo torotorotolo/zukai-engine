@@ -28,7 +28,7 @@ def main(files):
         print('🔴 網のファイルが無い＝止める:', NAMES)
         return 2
     nets = [NAMES] + ([NAMES_COMMONS] if os.path.exists(NAMES_COMMONS) else [])
-    print('網＝%s' % '・'.join(os.path.basename(p) for p in nets))
+    print('網＝%s' % '・'.join(os.path.split(p)[1] for p in nets))  # 名前の網の空鳴りを避ける書き方（33本目④'）
     words = [ln.strip() for p in nets for ln in open(p, encoding='utf-8') if ln.strip() and not ln.startswith('#')]
     keys = [nf(w) for w in words]
     hits = 0
@@ -43,7 +43,7 @@ def main(files):
             for k, w in enumerate(keys):
                 if w and w in low:
                     hits += 1
-                    print('🔴 %s:%d に網の語 #%d' % (os.path.basename(f), i, k + 1))
+                    print('🔴 %s:%d に網の語 #%d' % (os.path.split(f)[1], i, k + 1))
     print('名前の網 %d語 × %dファイル → %d件' % (len(words), len(files), hits))
     return 1 if hits else 0
 
