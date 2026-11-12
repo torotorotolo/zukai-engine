@@ -134,3 +134,42 @@
 - 香港の報告の第2巻（62MB）は取っていない
 - 報告の通し読みはしていない＝④ は §3-5 の章を読む。係の表の頁の書き違い23個（隣の頁18・離れた頁5）＝段落で引く
 - 🟡 ① の Commons の数え（`cmonth.py`）と Wikidata の分類名（`p373.py`）は **`/w/api.php`＝robots の拒否の内側**を使っていた（② で気づいた＝② からは `/wiki/Category:` と `/wiki/File:` の頁の HTML だけ）
+
+## 9. ④ で足した確認（2026-11-12・チャット3＝④ 台本【書く】）
+台本＝[daihon_v1.md](daihon_v1.md)。報告の15冊を頁の印つきの文字にした（`src/inquiry_txt/`＝git の外・`src/tools/c4txt.py`）。台本の出典の欄の原文の片は `v1_build/quotes33.py` が文字に当てる（NFKC・小文字・英数字とかなと漢字のほかを消して部分一致・段落の札が近くにあるかも見る）。
+| 項目 | 原文（✓＝照合） | 出典 | 台本 |
+|---|---|---|---|
+| その夜の住戸と人 | "people in 129 flats in the tower, including visitors" ✓・"Seven flats were empty on that night" ✓・"Sixty-seven of those present were children under the age of 18" ✓ | P1V2 ¶10.130 | c207（⚠️ kousei.md の「120戸」は竣工時＝改修で下の階に9戸が増えた〈P1V1 ¶6.5〉＝台本は129） |
+| 出火した部屋の映像 | 住人が近くに知らせて外へ出て、真下から携帯電話で撮った（"From that position he filmed the development of the fire using his mobile telephone" ✓）＝報告の図10.6〜10.9 のコマはこの映像 | P1V2 ¶10.36 | c305（名前なし） |
+| 「部屋で待て」の考え方 | "the occupants are advised to remain within their own flats unless they are directly affected by fire, heat or smoke" ✓ | P1V1 ¶4.3 | c108・c317 |
+| はしご車 | 報告の結論＝"could reach a maximum height of 32 metres, which meant that they could not reach beyond floor 10 of the tower" ✓（⚠️ ¶12.22 の「10階ほど」は地上で動かした隊員の記憶＝係の指摘で使わない） | P1V4 ¶28.133 | c414 |
+| 燃える外装を知らされていない | "the fire brigade had never been informed that a combustible rainscreen system had been installed in the first place" ✓（専門家の補足の報告の引用） | P1V4 ¶28.3 | c416 |
+| 72人の内訳 | "70 people failed to escape from the building and lost their lives" ✓・死産の子・"died seven months later" ✓ | P1V4 ¶32.1・P1V1 ¶1.3（⚠️ ¶1.3 の札は文字の層で見えない＝OK(¶?)） | c428 |
+| 72人（数そのもの） | "took the lives of 72 people" ✓ | 警視庁 2026-09-30 | c106 |
+| 規則に合わない | "As a consequence, the external wall did not comply with functional requirement B4(1)" ✓ | P2V4 ¶63.10 | c902 |
+| スプリンクラー | 効き目は "not something that was investigated in Phase 1" ✓＝**¶33.26**（② の「¶2.26」は脚注の番号の読み違い） | P1ES ¶33.26 | c909 |
+| 最期 | "all those whose bodies were destroyed by the fire were dead or unconscious when the fire reached them" ✓ | P2V1 ¶2.102 | c908（⚠️ 残すかは承認①） |
+| 区の対応 | "muddled, slow, indecisive and piecemeal" ✓・地域の人とボランティア ✓ | P2V1 ¶2.103・¶2.114 | ca01〜ca03 |
+| 勧告と政府の応答 | "The Inquiry made 58 recommendations, of which 37 were directed at the government and 21 were directed at other bodies and institutions" ✓・"49 of the recommendations are being accepted in full" ✓・スプリンクラー "lowered from over 30 metres to over 11 metres" ✓・2つ目の階段 "in all new buildings over 18 metres coming into force in 2026" ✓・"By the end of 2029, all buildings over 18 metres with unsafe cladding in a government funded scheme will have been remediated" ✓ | 政府の応答（CP 1248） | ca08・ca11〜ca13 |
+| 実施の見込み | "We continue to expect that all recommendations will be implemented by the end of 2029" ✓ | 進捗報告（2026-09） | ca14 |
+| 取り壊し | "We expect the work to continue until at least spring 2027" ✓ | 年次報告（2026-02） | ca15 |
+| 首相の謝罪 | "an apology on behalf of the British state to each and every one of you" ✓・"It should never have happened" ✓ | 首相の議会での声明 2024-09-04 | ca10 |
+| 警視庁 | "Interviewed under caution over 50 suspects for a total of more than 300 hours" ✓・"at least until the end of 2025 to fully assess the public inquiry's phase 2 report and finalise evidential files" ✓（2024）／"The role of 15,000 individuals and 700 organisations have been examined" ✓（2026-05）／"also includes 14 overarching evidence files" ✓・罪名 ✓・"before the 10th anniversary of the fire in June 2027" ✓（2026-09-30） | 警視庁の発表 | cb01〜cb09 |
+| 円の換算 | イングランド銀行の月平均 XUMAJYS＝2013年2月 144.0829・2014年3月 170.1186（円／ポンド） | `src/web/boe/xumajys_2013_2014.html`（robots.txt は `/boeapps/database/_iadb-FromShowColumns.asp` などを拒否＝取ったのは許可の `fromshowcolumns.asp` の HTML・公的機関＝許可不要） | c604・c612〜c614 |
+| 日本の比べ | 2つ以上の直通階段（居室200㎡超の階・6階以上の階）・スプリンクラー 11階以上（例外あり）・外装材そのものの規制は無く運用の指針・寒い地方の11階以上の共同住宅 279棟のうち外断熱 3棟 ✓ | 国交省 資料6（2017-10-06） | cc02〜cc04 |
+- 名前の網の空鳴り（語の一部で鳴る）＝出典の片の英単語の中の5字の並び（5語）と、道具のコードの関数名の中＝片を割って避けた（台本は0件・① の道具 after33.py と namecheck33.py に3件＝コードの語＝直していない）。⚠️ 空鳴りした語を一覧で書くと、その一覧がまた鳴る＝語を並べて書かない
+
+### 9-2. 係の点検（④・Workflow の係4本）で親が原文に当て直したこと
+| 所見 | 原文（✓＝親が自分の道具で引いた） | 出典 | 台本の直し |
+|---|---|---|---|
+| 「お金が足りなかったわけではない」は誰の判断か | 調査の報告は "none of the witnesses from whom we heard told us that insufficient financial or other resources had caused or contributed to the failings" ✓＝「資金の不足ではない」は報告が引いた監察機関の報告の言葉 | P2V5 ¶83.12 | c524 |
+| 「明らかに偽り」の条件 | "if, as the minutes tend to suggest, the TMO was given to understand that the sum of £376,175 reflected the full amount of the reduction available from Harley, that was clearly false and was known by Rydon to be false" ✓ | P2V4 ¶55.72 | c615・c616 |
+| 板が1つだけになった時 | "From March 2014 onwards … From that time, the only product that was proposed for use was Reynobond 55 PE ACM panels" ✓ | P2V4 ¶55.71 | c617 |
+| 扉が壊された目的 | "some doors to flats had to be broken down to enable firefighters to gain entry" ✓ | P1V4 ¶24.36 | c422 |
+| 最初の消防車 | "The four appliances arrived within the targets set by the 2017 London Safety Plan" ✓（2台が 00:59・2台が 01:08） | P1V2 ¶10.22 | c306 |
+| ドバイの火事のあとの問い | "He asked whether similar panels were used in the UK and whether there was a risk of a similar fire occurring in this country" ✓・役人は前と同じ答え ✓ | P2V1 ¶11.77 | c813 |
+| 国の省の状態 | "made it likely that only a major fire in a high-rise building leading to a large number of casualties would prompt it to take the necessary action" ✓ | P2V2 ¶29.21 | c816 |
+| 試験の機関の欠け | "from 1991 much of the work it carried out in relation to testing the fire safety of external walls was marred by …" ✓ | P2V1 ¶2.15 | c712 |
+| 警視庁の見込み | "at least until the end of 2025" は m3 の2024年5月の発表 ✓・9月の発表（m4）は "at least 12-18 months" ✓ | 警視庁 | cb04 |
+| ラカナル・ハウスの段落 | 片は ¶8.1（¶8.2 ではない）・検視官の手紙は "On 28 March 2013" ✓（P2V1 ¶9.41） | P1V1 ¶8.1・P2V1 ¶9.41 | c806 |
+| 61の内訳 | 写しで確かめられない（② の係の読み）＝語らない | — | ca14 |
