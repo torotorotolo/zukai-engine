@@ -2,9 +2,9 @@
 
 ### ✓ 1 第2版を組む（build33_v2.py）（exit 0）
 ```
-差し替え 190件を当てた・カット 241 → 241・🔧 112（c101 c105 c106 c111 c204 c215 c216 c304 c306 c311 c313 c314 c316 c317 c319 c401 c404 c405 c413 c414 c416 c417 c418 c419 c422 c423 c425 c426 c427 c501 c502 c512 c514 c519 c520 c522 c523 c524 c601 c603 c606 c608 c611 c612 c613 c614 c615 c617 c619 c621 c622 c623 c626 c630 c702 c704 c705 c707 c708 c710 c712 c717 c718 c720 c722 c803 c806 c807 c809 c810 c813 c814 c816 c901 c902 c903 c904 c909 c911 c912 ca01 ca03 ca05 ca06 ca09 ca11 ca12 ca13 ca14 ca16 cb01 cb03 cb05 cb06 cb07 cb10 cb11 cb12 cb13 cb14 cb15 cb16 cb17 cc01 cc02 cc04 cc05 cc06 cc10 cc11 cc12 cc13）
+差し替え 196件を当てた・カット 241 → 241・🔧 112（c101 c105 c106 c111 c204 c215 c216 c304 c306 c311 c313 c314 c316 c317 c319 c401 c404 c405 c413 c414 c416 c417 c418 c419 c422 c423 c425 c426 c427 c501 c502 c512 c514 c519 c520 c522 c523 c524 c601 c603 c606 c608 c611 c612 c613 c614 c615 c617 c619 c621 c622 c623 c626 c630 c702 c704 c705 c707 c708 c710 c712 c717 c718 c720 c722 c803 c806 c807 c809 c810 c813 c814 c816 c901 c902 c903 c904 c909 c911 c912 ca01 ca03 ca05 ca06 ca09 ca11 ca12 ca13 ca14 ca16 cb01 cb03 cb05 cb06 cb07 cb10 cb11 cb12 cb13 cb14 cb15 cb16 cb17 cc01 cc02 cc04 cc05 cc06 cc10 cc11 cc12 cc13）
 第1版 md5 7eaadfced6af6dcdab244c7fe7919295（前後で同じ）
-→ C:\Users\konar\Desktop\zukai-engine\ref\ep33\daihon_v2.md md5 60061cef5a322cc934da41f9e4560ee5
+→ C:\Users\konar\Desktop\zukai-engine\ref\ep33\daihon_v2.md md5 b29eaf01e3697a8dc46e2f2cf7d46f0e
 ```
 
 ### ✓ 2 聞き役の役割表（roles33.py → v2_build/roles.tsv）（exit 0）
@@ -134,7 +134,7 @@ selftest ok
 
 ### ✓ 12 対照表（make_diff33.py）（exit 0）
 ```
-対照 113 カット・消えた 0・§ 20 → C:\Users\konar\Desktop\zukai-engine\ref\ep33\v2_build\diff_v1_v2.md
+対照 113 カット・消えた 0・§ 26 → C:\Users\konar\Desktop\zukai-engine\ref\ep33\v2_build\diff_v1_v2.md
 ```
 
 ### ✓ 13 消えた語（lost33.py）（exit 0）
