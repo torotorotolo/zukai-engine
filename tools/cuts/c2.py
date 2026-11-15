@@ -81,3 +81,36 @@ SPEC = {}
 SPEC.update({
     "c201": ss.vid("c201", t="塔のある団地", s="ロンドンの空撮〈2017年7月公開の映像〉"),
 })
+
+# 🆕 ⑤b-3（2026-11-15）：報告の図（紙面）＝PDF の頁を描いて図の絵と題の行「Figure n.n」ごと切った（`qa_out/ep33_assets.py` の PAGE_CUT）。
+#   型は c1.py の c101〜c104 と同じ（額装・静止・地は同じ紙面のぼかし ss.PAGE_BLUR・額＝束の fit〈ptall か pw=1776〉）。
+#   見出し（t）は話題の札（12字未満・語りの丸写しにしない）・副題（s）は一覧 list33.tsv の sub（640px のシートで写っているものと照らした）。
+#   ✅ 人と名前の字＝640px のシート6枚で32の図を全数・疑い4か所を原寸（図7.2 の指令室は無人・図6.11 の設計図の字は寸法と注だけ）
+_F32, _F105, _F61, _F611 = P("p1v1_f3_2"), P("p1v2_f10_5"), P("p1v1_f6_1"), P("p1v1_f6_11")
+SPEC.update({
+    # c203＝図3.2（改修の前の塔＝コンクリートの外壁を見上げた写真）
+    "c203": dict(photo=_F32, panel=True, ptall=True, ground=dict(photo=_F32, blur=ss.PAGE_BLUR), color=1.0,
+                 t="1974年の完成", s="改修の前の外壁"),
+    # c206＝図10.5（入口のひさしと「GRENFELL TOWER」の字＝建物の名）
+    "c206": dict(photo=_F105, panel=True, ptall=True, ground=dict(photo=_F105, blur=ss.PAGE_BLUR), color=1.0,
+                 t="ただ1つの入口", s="塔の入口"),
+    # c210＝図6.1（改修のあとの外壁＝窓の枠・ガラス・断熱の板の札）
+    "c210": dict(photo=_F61, panel=True, ptall=True, ground=dict(photo=_F61, blur=ss.PAGE_BLUR), color=1.0,
+                 t="2012〜16年の改修", s="改修のあとの外壁"),
+    # c213＝図6.11（冠の東西の面の設計図＝ACM の縦の板の札）
+    "c213": dict(photo=_F611, panel=True, ptall=True, ground=dict(photo=_F611, blur=ss.PAGE_BLUR), color=1.0,
+                 t="冠の飾り", s="屋上の飾りの設計図"),
+})
+
+# 🆕 ⑤b-3（2026-11-15）：衛星写真（額装・静止・型は32本目 c902 と同じ）。c202＝G01（ズーム17・塔と南の団地と駅）＝段1 塔・段2 最寄りの地下鉄の駅
+#   （点は Google マップの地点＝一般の座標・ss.GEO）。Google の札「Grenfell Tower」「…Memorial Wall」「ラティマー ロード」は Google の絵の一部（消せない）＝
+#   ✅ 11-15 カズヤくん「ズーム17で撮る（推奨）」
+SPEC.update({
+    "c202": dict(
+        **ss.sat("G01", steps=[
+            [dict(k="pt", at="tower", c="INK_W", t="塔", lab=(0, 44, "middle"))],
+            # 札は短く「駅」（右下は Google の札「North Kensington Law Centre」・左は「ラティマー ロード」＝11-15 の重ね絵の原寸で重なった）
+            [dict(k="pt", at="latimer", c="INK_W", t="駅", lab=(24, 10, "start"))]],
+            note="点は一般の座標（Google マップの地点）"),
+        t="塔のまわり", s="塔のある団地〈現在の衛星写真〉"),
+})

@@ -126,3 +126,44 @@ SPEC = {}
 SPEC.update({
     "c431": ss.vid("c431", t="建物の規則", s="焼けた塔〈2017年7月公開の映像〉"),
 })
+
+# 🆕 ⑤b-3（2026-11-15）：報告の図（紙面）11カット＝型は c1.py の c101〜c104 と同じ（額装・静止・地は同じ紙面のぼかし・額＝束の fit）。
+#   副題の時刻＝本文の時刻（11-15 に字の層で照らした＝12.1 は 01.44・12.7 は「timed at 02.05」・17.3 は 03.28・17.4 は 03.27・13.1 は 02.00・18.1 は 03.34・19.1 は 04.02）
+_F1092, _F1093, _F67, _F117 = P("p2v7_f109_2"), P("p2v7_f109_3"), P("p1v1_f6_7"), P("p1v2_f11_7")
+_F131, _F127, _F181, _F173 = P("p1v2_f13_1"), P("p1v2_f12_7"), P("p1v3_f18_1"), P("p1v3_f17_3")
+_F191, _F121, _F174 = P("p1v3_f19_1"), P("p1v2_f12_1"), P("p1v3_f17_4")
+SPEC.update({
+    # c401＝図109.2（実験21・3つのカメラ・焼き込み 09:44＝題の「time 9.44 minutes」）
+    "c401": dict(photo=_F1092, panel=True, ptall=True, ground=dict(photo=_F1092, blur=ss.PAGE_BLUR), color=1.0,
+                 card_mix=0, t="同じ材料を燃やす", s="外壁の材料を燃やす実験〈9分44秒〉"),   # 章の頭＝扉の地に紙面を混ぜない
+    # c403＝図109.3（実験21・焼き込み 10:50＝熱の出方の頂の時刻）
+    "c403": dict(photo=_F1093, panel=True, ptall=True, ground=dict(photo=_F1093, blur=ss.PAGE_BLUR), color=1.0,
+                 t="熱を出した板", s="板がすっかり燃えた実験"),
+    # c405＝図6.7（窓のまわりの焼けた断熱材と柔らかくなった樹脂の枠・断熱材の板の写真＝会社の名は報告の結論の範囲）
+    "c405": dict(photo=_F67, panel=True, ptall=True, ground=dict(photo=_F67, blur=ss.PAGE_BLUR), color=1.0,
+                 t="前の報告でも", s="窓のまわりの断熱材〈報告の図〉"),   # 🔧「2019年の報告」＝字幕の頭と同文（echo）・「第1段階の報告」＝出典の行の写し（dup）
+    # c411＝図11.7（2本の柱にそって燃える塔）
+    "c411": dict(photo=_F117, panel=True, ptall=True, ground=dict(photo=_F117, blur=ss.PAGE_BLUR), color=1.0,
+                 t="張り出した柱", s="2本の柱にそって燃える塔〈1:40ごろ〉"),
+    # c413＝図13.1（札 Burning at architectural crown）
+    "c413": dict(photo=_F131, panel=True, ptall=True, ground=dict(photo=_F131, blur=ss.PAGE_BLUR), color=1.0,
+                 t="斜めに広がる火", s="冠で燃える炎〈2:00〉"),
+    # c414＝図12.7（はしご車・札 Level 10・Level 4・D5）
+    "c414": dict(photo=_F127, panel=True, ptall=True, ground=dict(photo=_F127, blur=ss.PAGE_BLUR), color=1.0,
+                 t="32メートルのはしご", s="東の面のはしご車〈2:05〉"),
+    # c415＝図18.1（札 Burning below architectural crown）
+    "c415": dict(photo=_F181, panel=True, ptall=True, ground=dict(photo=_F181, blur=ss.PAGE_BLUR), color=1.0,
+                 t="南と西の面", s="燃え広がる塔〈3:34〉"),
+    # c417＝図17.3（札 Dripping, burning material）
+    "c417": dict(photo=_F173, panel=True, ptall=True, ground=dict(photo=_F173, blur=ss.PAGE_BLUR), color=1.0,
+                 t="落ちるかけら", s="下の階に出た新しい火〈3:28〉"),
+    # c418＝図19.1（夜明けの空・札 Possible gap between flames from South and Flames from West・通りの車と人はぼけて読めない＝原寸で見た）
+    "c418": dict(photo=_F191, panel=True, ptall=True, ground=dict(photo=_F191, blur=ss.PAGE_BLUR), color=1.0,
+                 t="2つの面の炎", s="合わさりはじめる炎〈4:02〉"),
+    # c424＝図12.1（札 Burning at architectural crown ほか3つ）
+    "c424": dict(photo=_F121, panel=True, ptall=True, ground=dict(photo=_F121, blur=ss.PAGE_BLUR), color=1.0,
+                 t="168人の避難", s="燃え広がる塔〈1:44〉"),
+    # c425＝図17.4（札 Burning material falls on window detail）
+    "c425": dict(photo=_F174, panel=True, ptall=True, ground=dict(photo=_F174, blur=ss.PAGE_BLUR), color=1.0,
+                 t="階段の煙", s="燃え広がる塔〈3:27〉"),
+})

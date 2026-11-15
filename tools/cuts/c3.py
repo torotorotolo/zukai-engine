@@ -84,3 +84,51 @@ PLAN = {
 }
 
 SPEC = {}
+
+# 🆕 ⑤b-3（2026-11-15）：報告の図（紙面）13カット＝型は c1.py の c101〜c104 と同じ（額装・静止・地は同じ紙面のぼかし・額＝束の fit）。
+#   副題の時刻＝焼き込みの時刻か、本文がその図を引く所の時刻（11-15 に字の層で照らした＝10.15 は 01.21.15・10.17 は 01.27.58・22.8 は 01.09.36・22.15 は 01.15.36）。
+#   実験の図（第2段階 第7巻）の題の「time 9.44 minutes」＝本文の「10 minutes 50 seconds」と同じ書き方＝分と秒（9分44秒）
+_F211, _F214, _F216 = P("p1v4_f21_1"), P("p1v4_f21_4"), P("p1v4_f21_6")
+_F106, _F107, _F108, _F228, _F2215 = P("p1v2_f10_6"), P("p1v2_f10_7"), P("p1v2_f10_8"), P("p1v4_f22_8"), P("p1v4_f22_15")
+_F1015, _F1017, _F1024, _F116, _F1091 = P("p1v2_f10_15"), P("p1v2_f10_17"), P("p1v2_f10_24"), P("p1v2_f11_6"), P("p2v7_f109_1")
+SPEC.update({
+    # c301＝図21.1（火のあとの台所の角＝冷凍冷蔵庫の窓の側の面・A と B の札は図の札）
+    "c301": dict(photo=_F211, panel=True, ptall=True, ground=dict(photo=_F211, blur=ss.PAGE_BLUR), color=1.0,
+                 card_mix=0, t="999への通報", s="出火した台所〈火事のあと〉"),   # 章の頭＝扉の地に紙面を混ぜない（額装の約束）
+    # c302＝図21.4（冷凍冷蔵庫の下の床の焼け跡・赤い線と矢印は図の札）
+    "c302": dict(photo=_F214, panel=True, ptall=True, ground=dict(photo=_F214, blur=ss.PAGE_BLUR), color=1.0,
+                 t="電気の故障", s="冷凍冷蔵庫の下の床の焼け跡"),
+    # c303＝図21.6（部屋の配電盤 (a)(b)＝遮断器の札は図の札・製品の字は遮断器の銘）
+    "c303": dict(photo=_F216, panel=True, ptall=True, ground=dict(photo=_F216, blur=ss.PAGE_BLUR), color=1.0,
+                 t="分からない中身", s="部屋の配電盤"),
+    # c305＝図10.6（住人が真下から撮った映像の2コマ 01:05:43）
+    "c305": dict(photo=_F106, panel=True, ptall=True, ground=dict(photo=_F106, blur=ss.PAGE_BLUR), color=1.0,
+                 t="真下からの映像", s="台所の窓の中の火〈1:05〉"),
+    # c307＝図10.7（4コマ 01:06:01〜01:06:05）
+    "c307": dict(photo=_F107, panel=True, ptall=True, ground=dict(photo=_F107, blur=ss.PAGE_BLUR), color=1.0,
+                 t="消防の隊員", s="台所の窓の中の火〈1:06〉"),
+    # c309＝図10.8（5コマ 01:08:10〜01:08:18・矢印は図の札）
+    "c309": dict(photo=_F108, panel=True, ptall=True, ground=dict(photo=_F108, blur=ss.PAGE_BLUR), color=1.0,
+                 t="もう1つの道", s="台所の窓の中の火〈1:08〉"),
+    # c310＝図22.8（換気扇の板の上の炎・札 Flames at top of fan infill panel）
+    "c310": dict(photo=_F228, panel=True, ptall=True, ground=dict(photo=_F228, blur=ss.PAGE_BLUR), color=1.0,
+                 t="外壁へ移った火", s="換気扇の板の上の炎〈1:09〉"),
+    # c311＝図22.15（2コマ・札 Falling burning material／Flaming beyond flat of origin）
+    "c311": dict(photo=_F2215, panel=True, ptall=True, ground=dict(photo=_F2215, blur=ss.PAGE_BLUR), color=1.0,
+                 t="2階ぶん上へ", s="部屋の上へ伸びる炎〈1:15ごろ〉"),
+    # c312＝図10.15（東の面・札 L13 と L10・Time in video: 0s）
+    "c312": dict(photo=_F1015, panel=True, ptall=True, ground=dict(photo=_F1015, blur=ss.PAGE_BLUR), color=1.0,
+                 t="予想できた火", s="東の面の外の火〈1:21〉"),
+    # c314＝図10.17（札 L23 と Parapet/crown・Time in video: 34s）
+    "c314": dict(photo=_F1017, panel=True, ptall=True, ground=dict(photo=_F1017, blur=ss.PAGE_BLUR), color=1.0,
+                 t="22階からの通報", s="柱にそって上る炎〈1:27〉"),
+    # c315＝図10.24（2コマ・札 Spread at architectural crown ほか・左のコマの帯は SNS の絵文字だけ＝名前の字なし）
+    "c315": dict(photo=_F1024, panel=True, ptall=True, ground=dict(photo=_F1024, blur=ss.PAGE_BLUR), color=1.0,
+                 t="25台の消防車", s="横へ回る炎"),
+    # c319＝図11.6（署長級の消防士が着いてすぐ撮った5枚のうちの1枚＝別の向き・¶11.17）
+    "c319": dict(photo=_F116, panel=True, ptall=True, ground=dict(photo=_F116, blur=ss.PAGE_BLUR), color=1.0,
+                 t="問いの中心", s="消防の幹部が撮った塔〈1:40ごろ〉"),
+    # c320＝図109.1（実験の装置の写真・札は材料と計器の名＝題の行は2行）
+    "c320": dict(photo=_F1091, panel=True, ptall=True, ground=dict(photo=_F1091, blur=ss.PAGE_BLUR), color=1.0,
+                 t="実験でたどる", s="外壁の材料を燃やす実験の装置"),
+})

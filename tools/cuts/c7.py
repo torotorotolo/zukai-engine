@@ -93,3 +93,14 @@ PLAN = {
 }
 
 SPEC = {}
+
+# 🆕 ⑤b-3（2026-11-15）：報告の図（紙面）2カット＝型は c1.py の c101〜c104 と同じ。図5.8 は横長（1.83）＝幅いっぱいの額（pw=1776＝束の fit）
+_F58, _F52 = P("p2v1_f5_8"), P("p2v1_f5_2")
+SPEC.update({
+    # c710＝図5.8（BS 8414 の試験の装置の写真と熱電対の位置の断面図・札は装置の部分の名）
+    "c710": dict(photo=_F58, panel=True, pw=1776, ground=dict(photo=_F58, blur=ss.PAGE_BLUR), color=1.0,
+                 t="仕込まれた板", s="燃焼試験の装置〈報告の図〉"),
+    # c720＝図5.2（BS 476-7 の試験＝表面の炎の広がり・札 Class 1〜3 は図の札）
+    "c720": dict(photo=_F52, panel=True, ptall=True, ground=dict(photo=_F52, blur=ss.PAGE_BLUR), color=1.0,
+                 t="小さな試料の試験", s="表面の炎の広がりを見る試験〈報告の図〉"),
+})

@@ -388,7 +388,19 @@ def _commons_ok(code, s, fet):
 #    頁と箱＝11-15 に scratchpad の figfind33.py で「Figure n.n」の行と同じ頁の埋め込みの絵の箱を測った（題の行は「Figure n.n」の1行だけ＝名前が載らない）。
 #    名前＝切り口の中の字（字の層）を名前の網に当てる（焼き込みのコマの時刻の字は字の層に無い＝絵を原寸で見る）。
 PDF_SRC = {"P1V2": ("inquiry/P1V2.pdf", "5ceca426290821c1e2d452bea2d6faae",       # md5＝手元の2つの写し（src/web/p1/…volume_2.pdf と同じ）・240頁
-                    "https://assets.publishing.service.gov.uk/media/66d822b97a73423428aa2ee8/Grenfell_Tower_Inquiry_-_Phase_1_report_-_volume_2.pdf")}
+                    "https://assets.publishing.service.gov.uk/media/66d822b97a73423428aa2ee8/Grenfell_Tower_Inquiry_-_Phase_1_report_-_volume_2.pdf"),
+           # 🆕 ⑤b-3（11-15）：md5 は2回取って同じ。第1段階の第1・3・4巻は src/web/p1/ の写しと同じ・第2段階の第1巻は src/web/avoid/gti_p2_vol1.pdf と同じ・
+           #    第7巻は手元の1つだけ（URL は gov.uk の頁の写し src/web/avoid/p2pub.html の直リンク）
+           "P1V1": ("inquiry/P1V1.pdf", "f55f93ab9d6fbe8d62fb409f84347b2d",
+                    "https://assets.publishing.service.gov.uk/media/66d822a87a73423428aa2ee7/Grenfell_Tower_Inquiry_-_Phase_1_report_-_volume_1.pdf"),
+           "P1V3": ("inquiry/P1V3.pdf", "2aef4ecee5d50ab294db2f7351f12c3e",
+                    "https://assets.publishing.service.gov.uk/media/66d822c9a399e0dcf5200b31/Grenfell_Tower_Inquiry_-_Phase_1_report_-_volume_3.pdf"),
+           "P1V4": ("inquiry/P1V4.pdf", "d1135fa0c5f06d8a23c25c4aa028b538",
+                    "https://assets.publishing.service.gov.uk/media/66d822e07a73423428aa2ee9/Grenfell_Tower_Inquiry_-_Phase_1_report_-_volume_4.pdf"),
+           "P2V1": ("inquiry/P2V1.pdf", "b03083c17741dc6893ed80a213b40d79",
+                    "https://assets.publishing.service.gov.uk/media/66d817aa701781e1b341dbd3/CCS0923434692-004_GTI_Phase_2_Volume_1_BOOKMARKED.pdf"),
+           "P2V7": ("inquiry/P2V7.pdf", "17262768140a3da01bb30c23bb0b6d11",
+                    "https://assets.publishing.service.gov.uk/media/66d818059084b18b95709f86/CCS0923434692-004_GTI_Phase_2_Volume_7_BOOKMARKED.pdf")}
 OCR_DIR = SRC / "ocr"                   # 33本目は使わない（走査の絵の頁は無い見込み）
 PAGE_K = 3.0                            # 描く倍率（1pt＝3画素＝31本目の判決と同じ）
 PAGE_PAD = 24                           # 紙面の絵のまわりの白（束の画素）
@@ -407,6 +419,47 @@ PAGE_CUT = {
     "P1V2_F10_22": dict(code="F:P1V2-10.22", cuts=["c103"], parts=[(47, (96, 105.4, 542, 549.9))], must=["Figure 10.22"]),
     # c104＝図14.1（p180・絵 881×749・警視庁のヘリコプターの映像のコマ 02:06）
     "P1V2_F14_1": dict(code="F:P1V2-14.1", cuts=["c104"], parts=[(180, (96, 253.4, 542, 657.6))], must=["Figure 14.1"]),
+    # 🆕 ⑤b-3（11-15）：残りの32の図（34カット）。頁と箱＝scratchpad の figfind33b.py（「Figure n.n」の行と同じ頁の埋め込みの絵）・pgprobe33.py（走査の絵の頁の非白の帯）。
+    #    箱の決め＝絵の左 −3・上 −2.5・右 +3.4（題の行が広ければその右）・題の行の下 +4（上下の本文・隣の絵と重ならないかは render_page が照らす）。
+    #    題の行は第1段階＝「Figure n.n」だけ（7.2 は「The Stratford Control Room」＝指令室の場所の名）・第2段階＝試験の名と実験の番号（名前の網 0件）
+    # ── 第1段階 第1巻
+    "P1V1_F3_2": dict(code="F:P1V1-3.2", cuts=["c203"], parts=[(26, (95.6, 310.4, 340.2, 697.6))], must=["Figure 3.2"]),
+    "P1V1_F6_1": dict(code="F:P1V1-6.1", cuts=["c210", "c619"], parts=[(39, (96.2, 171.4, 542, 580.8))], must=["Figure 6.1"]),
+    "P1V1_F6_11": dict(code="F:P1V1-6.11", cuts=["c213"], parts=[(52, (96.2, 239.4, 542, 522.3))], must=["Figure 6.11"]),
+    "P1V1_F6_7": dict(code="F:P1V1-6.7", cuts=["c405", "c629"], parts=[(48, (96.2, 173.7, 535.4, 606.0))], must=["Figure 6.7"]),
+    "P1V1_F7_2": dict(code="F:P1V1-7.2", cuts=["c501"], parts=[(62, (96.2, 68.7, 542, 427.5))], must=["Figure 7.2 The Stratford Control Room"]),
+    # ── 第1段階 第2巻（10.7 と 10.8 は p21 の上下・11.6 は p100 の右上・11.7 は p100 の左下＝4枚の組のうち1枚ずつ）
+    "P1V2_F10_5": dict(code="F:P1V2-10.5", cuts=["c206"], parts=[(17, (96.2, 367.3, 541.2, 631.1))], must=["Figure 10.5"]),
+    "P1V2_F10_6": dict(code="F:P1V2-10.6", cuts=["c305"], parts=[(20, (96.2, 360.9, 542, 723.8))], must=["Figure 10.6"]),
+    "P1V2_F10_7": dict(code="F:P1V2-10.7", cuts=["c307"], parts=[(21, (96.2, 69.7, 542, 356.7))], must=["Figure 10.7"], out=["Figure 10.8"]),
+    "P1V2_F10_8": dict(code="F:P1V2-10.8", cuts=["c309"], parts=[(21, (95.1, 362.1, 542, 641.7))], must=["Figure 10.8"], out=["Figure 10.7"]),
+    "P1V2_F10_15": dict(code="F:P1V2-10.15", cuts=["c312"], parts=[(37, (94.6, 68.1, 308.0, 505.9))], must=["Figure 10.15"]),
+    "P1V2_F10_17": dict(code="F:P1V2-10.17", cuts=["c314"], parts=[(40, (94.8, 206.5, 305.4, 634.6))], must=["Figure 10.17"]),
+    "P1V2_F10_24": dict(code="F:P1V2-10.24", cuts=["c315"], parts=[(49, (95.0, 133.4, 544.0, 460.2))], must=["Figure 10.24"]),
+    "P1V2_F11_6": dict(code="F:P1V2-11.6", cuts=["c319"], parts=[(100, (330.8, 69.7, 541.3, 392.0))], must=["Figure 11.6"], out=["Figure 11.5", "Figure 11.7", "Figure 11.8"]),
+    "P1V2_F11_7": dict(code="F:P1V2-11.7", cuts=["c411"], parts=[(100, (96.2, 409.2, 306.7, 733.2))], must=["Figure 11.7"], out=["Figure 11.5", "Figure 11.6", "Figure 11.8"]),
+    "P1V2_F12_1": dict(code="F:P1V2-12.1", cuts=["c424"], parts=[(130, (96.2, 268.9, 514.3, 761.4))], must=["Figure 12.1"]),
+    "P1V2_F12_7": dict(code="F:P1V2-12.7", cuts=["c414"], parts=[(140, (96.2, 69.7, 315.2, 465.3))], must=["Figure 12.7"]),
+    "P1V2_F13_1": dict(code="F:P1V2-13.1", cuts=["c413"], parts=[(158, (96.2, 305.4, 409.5, 687.3))], must=["Figure 13.1"]),
+    # ── 第1段階 第3巻（17.3 と 17.4 は p78 の上下）
+    "P1V3_F17_3": dict(code="F:P1V3-17.3", cuts=["c417"], parts=[(78, (96.2, 134.9, 467.6, 441.4))], must=["Figure 17.3"], out=["Figure 17.4"]),
+    "P1V3_F17_4": dict(code="F:P1V3-17.4", cuts=["c425"], parts=[(78, (96.2, 445.5, 476.1, 754.4))], must=["Figure 17.4"], out=["Figure 17.3"]),
+    "P1V3_F18_1": dict(code="F:P1V3-18.1", cuts=["c415"], parts=[(108, (96.2, 268.9, 356.4, 726.8))], must=["Figure 18.1"]),
+    "P1V3_F19_1": dict(code="F:P1V3-19.1", cuts=["c418"], parts=[(130, (96.2, 239.5, 542, 720.3))], must=["Figure 19.1"]),
+    # ── 第1段階 第4巻（21.1 は p8 の下の絵＝上の絵は題の行が無い＝⑤b-3 のシートで見て決める・21.4 は p10 の上・22.8 は p27 の下・22.15 は p33 の下）
+    "P1V4_F21_1": dict(code="F:P1V4-21.1", cuts=["c301"], parts=[(8, (96.2, 382.9, 542.4, 714.5))], must=["Figure 21.1"]),
+    "P1V4_F21_4": dict(code="F:P1V4-21.4", cuts=["c302"], parts=[(10, (96.2, 92.9, 542.1, 368.5))], must=["Figure 21.4"], out=["Figure 21.5"]),
+    "P1V4_F21_6": dict(code="F:P1V4-21.6", cuts=["c303"], parts=[(12, (94.8, 68.3, 533.1, 689.1))], must=["Figure 21.6"]),
+    "P1V4_F22_8": dict(code="F:P1V4-22.8", cuts=["c310"], parts=[(27, (94.8, 432.1, 509.4, 762.1))], must=["Figure 22.8"], out=["Figure 22.7"]),
+    "P1V4_F22_15": dict(code="F:P1V4-22.15", cuts=["c311"], parts=[(33, (95.1, 449.2, 539.9, 743.0))], must=["Figure 22.15"]),
+    # ── 第2段階 第1巻（5.8 の頁は 642×889pt＝ほかの頁と大きさが違う）
+    "P2V1_F5_2": dict(code="F:P2V1-5.2", cuts=["c720"], parts=[(60, (96.2, 400.4, 541, 707.6))], must=["Figure 5.2: Image of BS 476-7 test in operation", "Class 1"]),
+    "P2V1_F5_8": dict(code="F:P2V1-5.8", cuts=["c710"], parts=[(73, (119.7, 95.8, 564.6, 331.9))], must=["Figure 5.8: Diagram and picture", "Thermocouple"]),
+    "P2V1_F5_9": dict(code="F:P2V1-5.9", cuts=["c630"], parts=[(74, (94.5, 72.7, 544.4, 303.1))], must=["Figure 5.9: photographs of a BS 8414 test in operation"]),
+    # ── 第2段階 第7巻（頁いっぱいの走査の絵の上に字の層＝箱は描いた絵の非白の帯で測った・109.1 の題は2行）
+    "P2V7_F109_1": dict(code="F:P2V7-109.1", cuts=["c320"], parts=[(185, (96, 106.5, 542, 552.5))], must=["Figure 109.1", "experiment"], out=["Aims and objectives"]),
+    "P2V7_F109_2": dict(code="F:P2V7-109.2", cuts=["c401"], parts=[(189, (96, 316.5, 542, 595.1))], must=["Figure 109.2 – Experiment 21 (time 9.44 minutes)"]),
+    "P2V7_F109_3": dict(code="F:P2V7-109.3", cuts=["c403"], parts=[(190, (96, 105.5, 542, 384.5))], must=["Figure 109.3 – Experiment 21 (time 10.50 minutes)"]),
 }
 
 

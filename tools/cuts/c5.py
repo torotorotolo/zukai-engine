@@ -102,3 +102,21 @@ PLAN = {
 }
 
 SPEC = {}
+
+# 🆕 ⑤b-3（2026-11-15）：報告の図（紙面）＝型は c1.py の c101〜c104 と同じ。c501＝図7.2（その夜に使われたストラトフォードの指令室＝題の行は場所の名・
+#   原寸で見た＝無人の机と画面・札 Control Room Operators／Operations Manager は役目の名）
+_F72 = P("p1v1_f7_2")
+SPEC.update({
+    "c501": dict(photo=_F72, panel=True, ptall=True, ground=dict(photo=_F72, blur=ss.PAGE_BLUR), color=1.0,
+                 card_mix=0, t="消防の指令室", s="指令室の中〈報告の図〉"),   # 章の頭＝扉の地に紙面を混ぜない
+})
+
+# 🆕 ⑤b-3（2026-11-15）：衛星写真（額装・静止）。c522＝G02（ズーム17・南ロンドンのカンバーウェル）＝段1 ラカナル・ハウス（Google マップの地点＝一般の座標）。
+#   札は「燃えた棟」（副題のラカナル・ハウスと同じ語を札に書かない＝門番 dup）
+SPEC.update({
+    "c522": dict(
+        **ss.sat("G02", steps=[
+            [dict(k="pt", at="lakanal", c="INK_W", t="火事のあった棟", lab=(-24, 56, "end"))]],   # 右下は Google の札「ザ・アーツ…」（11-15 の重ね絵の原寸で重なった）
+            note="点は一般の座標（Google マップの地点）"),
+        t="2009年の火事", s="ラカナル・ハウス〈現在の衛星写真〉"),
+})

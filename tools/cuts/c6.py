@@ -114,3 +114,18 @@ PLAN = {
 }
 
 SPEC = {}
+
+# 🆕 ⑤b-3（2026-11-15）：報告の図（紙面）3カット＝型は c1.py の c101〜c104 と同じ。図6.1 と図6.7 は第1章・第3章と同じ束（2回目）。
+#   図5.9 は横長（1.89）＝幅いっぱいの額（pw=1776＝束の fit）
+_F61, _F67, _F59 = P("p1v1_f6_1"), P("p1v1_f6_7"), P("p2v1_f5_9")
+SPEC.update({
+    # c619＝図6.1（改修のあとの外壁＝c210 と同じ束）
+    "c619": dict(photo=_F61, panel=True, ptall=True, ground=dict(photo=_F61, blur=ss.PAGE_BLUR), color=1.0,
+                 t="区の許可", s="改修のあとの外壁"),
+    # c629＝図6.7（窓のまわりの断熱材＝c405 と同じ束）
+    "c629": dict(photo=_F67, panel=True, ptall=True, ground=dict(photo=_F67, blur=ss.PAGE_BLUR), color=1.0,
+                 t="作った会社へ", s="窓のまわりの断熱材〈報告の図〉"),
+    # c630＝図5.9（BS 8414 の試験の2枚・FIRE EXIT の札と時計は試験場の物）
+    "c630": dict(photo=_F59, panel=True, pw=1776, ground=dict(photo=_F59, blur=ss.PAGE_BLUR), color=1.0,
+                 t="会社の不正", s="外壁の燃焼試験〈報告の図〉"),
+})
