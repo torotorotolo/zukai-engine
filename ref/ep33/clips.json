@@ -1,0 +1,48 @@
+{
+ "GV15": {
+  "url": "https://commons.wikimedia.org/wiki/File:GRENFELL.webm",
+  "media": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/14/GRENFELL.webm/GRENFELL.webm.1080p.vp9.webm",
+  "credit": "映像：{作者}／Wikimedia Commons（CC BY 3.0）／改変：切出",
+  "src": "commons",
+  "at": 0.0,
+  "date": "2017-07-10",
+  "stock": false,
+  "what": "ロンドンの空撮と焼けた塔（Vimeo の公開 2017-07-10＝撮影の日は分からない）",
+  "got": "2026-11-15",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25.0,
+  "sar": "1:1",
+  "sec": 250.382,
+  "size": 74187211,
+  "dispw": 1920,
+  "decoded": [
+   1920,
+   1080
+  ],
+  "license": "CC BY 3.0",
+  "rights": "CC BY 3.0（Commons の頁の許諾の箱＋Vimeo のライセンスの照合＝映像方針）",
+  "scan": "ref/ep33/src/commons/c33/V15_240p.webm",
+  "local_off": 0.0,
+  "content_x": [
+   0,
+   1920
+  ],
+  "person": "V15",
+  "sections": {
+   "V15_1080p_0019_0037.webm": {
+    "head": 18.327,
+    "sec": 18.694
+   },
+   "V15_1080p_0123_0140.webm": {
+    "head": 118.207,
+    "sec": 21.814
+   },
+   "V15_1080p_0174_0236.webm": {
+    "head": 172.327,
+    "sec": 63.694
+   }
+  },
+  "note": "音は使わない。手元の写し（git の外）＝1080p の区間3つ（`-c copy`・0秒は元の 18.327・118.207・172.327秒）と 240p の全体（md5 は fetch33.tsv）。黒い帯なし（6区間を測った）＝全面・PILLAR なし・寄り 1.0。等速・止めなし・場面の切れ目をまたがない（make_list33.SCENE_CUTS）"
+ }
+}

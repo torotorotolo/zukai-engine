@@ -964,7 +964,10 @@ EP33_CREDIT = (json.loads(_EP33_CREDITS.read_text(encoding="utf-8"))
 _EP33_PRIVATE = {"{作者}": (HERE / "ref" / "ep33" / "src" / "credits_private.tsv", 1)}
 
 
-def _ep33_person(name, mark):
+def _ep33_person(name, mark, code=None):
+    """`{作者}` に差す名乗り（git の外の表の2列目）。`code` を渡せば束の台帳を引かずにその記号の行（#15＝clips.json の person＝V15）。
+    🆕 ⑤b-2（2026-11-15）：Commons の作者の欄は Flickr の取り込みの形「名前 from 地名, 国」・X の投稿の形「手の名 on Twitter」を含む（18点が25〜48字）
+    ＝地名と「on Twitter」は名乗りでない（利用者の住む所・投稿の場）＝外して名前の部分だけ差す（git の外の表は書き換えない）"""
     import csv
     import os
     path, col = _EP33_PRIVATE[mark]
@@ -973,15 +976,28 @@ def _ep33_person(name, mark):
             return EP23_AUTHOR_STANDIN                  # 検品の試し焼きだけ（本編は Modal＝表を保管庫から取る）
         raise RuntimeError(f"{name}: 出典の行に名前が要るのに git の外の表 ref/ep33/src/{path.name} が無い"
                            "（Modal は保管庫 jiko-assets の ref/ep33/src/ に置く）＝印のまま焼かない")
-    code = json.loads((HERE / "ref" / "ep33" / "assets.json").read_text(encoding="utf-8"))[name[len("ep33/"):-len(".jpg")]]["code"]
+    if code is None:
+        code = json.loads((HERE / "ref" / "ep33" / "assets.json").read_text(encoding="utf-8"))[name[len("ep33/"):-len(".jpg")]]["code"]
     rows = [r for r in csv.reader(path.open(encoding="utf-8"), delimiter="\t") if r and not r[0].startswith("#")]
     row = {r[0]: r for r in rows if len(r) > col}.get(code) or []
     who = " ".join((row[col] if len(row) > col else "").split())
+    who = re.sub(r"\s+on Twitter$", "", re.sub(r"\s+from\s+\S.*$", "", who)).strip()
     if not who:
         raise RuntimeError(f"{name}（{code}）: git の外の表 {path.name} に {code} の{mark}の欄が無い")
     if re.search(r"[<>&]", who) or len(who) > 24:
         raise RuntimeError(f"{name}（{code}）: {mark}の欄が SVG にそのまま書けないか長すぎる（{len(who)}字）＝焼かない")
     return who
+
+
+def ep33_clip_credit(clip, cr):
+    """#15（clips.json の person＝git の外の表の記号）の出典の行の `{作者}` を差す。33本目の台帳でなければそのまま返す"""
+    import footage as _FO
+    c = _FO.CLIPS.get(clip) or {}
+    if not cr or "{作者}" not in cr or not str(c.get("scan", "")).startswith("ref/ep33/"):
+        return cr
+    if not c.get("person"):
+        raise RuntimeError(f"{clip}: 出典の行に {{作者}} があるのに clips.json に person（git の外の表の記号）が無い＝印のまま焼かない")
+    return cr.replace("{作者}", _ep33_person(f"clip:{clip}", "{作者}", code=c["person"]))
 
 
 def ep33_credit(name):
@@ -997,7 +1013,7 @@ def ep33_credit(name):
     if m:
         import footage as _FO
         u = _FO.USE.get(m.group(1))
-        return _FO.CLIPS[u["clip"]]["credit"] if u else None
+        return ep33_clip_credit(u["clip"], _FO.CLIPS[u["clip"]]["credit"]) if u else None
     v = EP33_CREDIT.get(name)
     for mark in _EP33_PRIVATE:
         if v and mark in v:
@@ -2035,6 +2051,8 @@ def credit_of(cid, spec):
         import footage as FO
         c = FO.credit_of(cid)
         if c and FO.have(cid):
+            # 🆕 33本目 ⑤b-2（2026-11-15）：#15（CC BY 3.0）の出典の行の `{作者}` を git の外の表から差す（clips.json の person）
+            c = ep33_clip_credit(FO.USE[cid]["clip"], c)
             # 🆕 29本目 ⑤b-3（2026-11-04）：冒頭の映像の題の字の出どころ（c103＝SPEC の credit_add「／語り：イザ（2026-11-02）」）
             return c + spec.get("credit_add", "")
     except Exception:                                    # noqa: BLE001

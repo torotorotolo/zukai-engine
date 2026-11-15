@@ -27,7 +27,7 @@ PLAN = {
     'c202': dict(kind='図解',
                plan='SAT:ランカスター・ウェスト団地｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：塔のある団地〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：撮影の時点は ⑤b で｜人：なし｜出典の行：Google の表示（絵のそば）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・撮影の時点は副題に書かない・帰属は地図の右下・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
                src="P1V1¶3.2（`The walkways extend 150 metres south from the tower and enclose two green spaces`）・P1V1¶3.4（`approximately 200 metres' walking distance from the entrance to the tower`）"),
-    'c203': dict(kind='写真',
+    'c203': dict(kind='図・写真の頁',
                plan='F:P1V1-3.2｜一覧の種類：紙面｜見せ方：額装（高さいっぱい）｜副題：改修の前の外壁｜動き：静止｜権利：OGL v3.0（第三者のコマ・図を含む）｜時期：報告の図｜人：なし（⑤b で原寸）｜出典の行：グレンフェル・タワー調査 第1段階の報告 第1巻 図3.2（2019）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公開調査の報告の図＝額装・無加工・図の番号と題の行ごと切る・出典の行・第三者のコマや図を含む（OGL v3.0 の外の部分）＝報告の図として引用の形・🔴 名前の字を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
                src='P1V1¶3.1（`building work commenced in 1972 and was completed by 1974`）・P1V1¶3.9（`just over 67 metres tall and has 25 storeys, including a basement and ground floor to floor 23`…`central reinforced concrete core, reinforced concrete floors and perimeter reinforced concrete columns`）'),
     'c204': dict(kind='図解',
@@ -36,7 +36,7 @@ PLAN = {
     'c205': dict(kind='図解',
                plan='地：C32（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：1つの階の間取り＝真ん中に階段1つとエレベーター2基・まわりに6つの住戸｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
                src='P1V1¶3.18（`Within the central core of the building was a single staircase and two lifts serving each floor of the tower`）'),
-    'c206': dict(kind='写真',
+    'c206': dict(kind='図・写真の頁',
                plan='F:P1V2-10.5｜一覧の種類：紙面｜見せ方：額装（高さいっぱい）｜副題：塔の入口｜動き：静止｜権利：OGL v3.0（第三者のコマ・図を含む）｜時期：報告の図｜人：なし（⑤b で原寸）｜出典の行：グレンフェル・タワー調査 第1段階の報告 第2巻 図10.5（2019）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公開調査の報告の図＝額装・無加工・図の番号と題の行ごと切る・出典の行・第三者のコマや図を含む（OGL v3.0 の外の部分）＝報告の図として引用の形・🔴 名前の字を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
                src='P1V1¶3.2（`the only access to the tower for residents was through the entrance at ground level on the south side`）'),
     'c207': dict(kind='写真',
@@ -48,7 +48,7 @@ PLAN = {
     'c209': dict(kind='写真',
                plan='C29｜一覧の種類：写真｜見せ方：全面｜副題：焼けた塔〈2017年6月17日〉｜動き：ゆっくり寄る｜権利：CC BY 2.0｜時期：2017-06-17 08:06・朝｜人：なし（⑤b で原寸）｜出典の行：写真：{作者}／Wikimedia Commons（CC BY 2.0）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・追悼の場と支援の掲示は使わない・副題の日付と夜明け・夕方は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
                src='P1V1¶3.7（`Some had grown up in North Kensington`…`Others had come to this country as refugees`…`Together they formed a vibrant community with a strong sense of identity and considerable social cohesion`）'),
-    'c210': dict(kind='写真',
+    'c210': dict(kind='図・写真の頁',
                plan='F:P1V1-6.1｜一覧の種類：紙面｜見せ方：額装（高さいっぱい）｜副題：改修のあとの外壁｜動き：静止｜権利：OGL v3.0（第三者のコマ・図を含む）｜時期：報告の図｜人：なし（⑤b で原寸）｜出典の行：グレンフェル・タワー調査 第1段階の報告 第1巻 図6.1（2019）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公開調査の報告の図＝額装・無加工・図の番号と題の行ごと切る・出典の行・第三者のコマや図を含む（OGL v3.0 の外の部分）＝報告の図として引用の形・🔴 名前の字を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
                src='P1V1¶6.1（`the refurbishment carried out between 2012 and 2016`…`the over-cladding of every storey of the existing building with a new insulation and rainscreen cladding system`）'),
     'c211': dict(kind='図解',
@@ -57,7 +57,7 @@ PLAN = {
     'c212': dict(kind='図解',
                plan='地：C29（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：アルミ複合板の断面＝2枚の薄いアルミの板と、あいだのポリエチレン｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
                src='P2V1¶2.21（`They were an ACM product made of two thin sheets of aluminium with a polyethylene core`…`Polyethylene burns fiercely`）'),
-    'c213': dict(kind='写真',
+    'c213': dict(kind='図・写真の頁',
                plan='F:P1V1-6.11｜一覧の種類：紙面｜見せ方：額装（高さいっぱい）｜副題：屋上の飾りの設計図｜動き：静止｜権利：OGL v3.0（第三者のコマ・図を含む）｜時期：報告の図｜人：なし（⑤b で原寸）｜出典の行：グレンフェル・タワー調査 第1段階の報告 第1巻 図6.11（2019）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公開調査の報告の図＝額装・無加工・図の番号と題の行ごと切る・出典の行・第三者のコマや図を含む（OGL v3.0 の外の部分）＝報告の図として引用の形・🔴 名前の字を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
                src='P1V1¶6.35（`The fins and the associated structure at the crown had no functional purpose and were purely aesthetic`）'),
     'c214': dict(kind='写真',
@@ -75,3 +75,9 @@ PLAN = {
 }
 
 SPEC = {}
+
+# 🆕 ⑤b-2（2026-11-15）：#15 の欄だけ先に書いた（USE と章ファイルを両側から照らす門番 check_footage_slots のため）。ほかのカットは ⑤b-3 以降
+#   c201＝住宅地の空撮（場面 20.967〜28.327＝硬いカットの内・頭 21.03秒・等速・読む 7.22秒〈〜28.25〉・ゆとり 0.03秒＝焼いたら頭と尻のコマを見る）
+SPEC.update({
+    "c201": ss.vid("c201", t="塔のある団地", s="ロンドンの空撮〈2017年7月公開の映像〉"),
+})

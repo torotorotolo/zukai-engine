@@ -43,9 +43,11 @@ sys.path.insert(0, str(HERE / "ref" / "ep33" / "eizou_build"))
 import make_list33 as ML  # noqa: E402
 
 N_CUTS = 241
-WANT = dict(photo=82, video=6, shashin=38, kami=38, textpage=34, public=34, stock=32, fig=93, sat=4, drawn=67, other_fig=22,
+# 🔧 2026-11-15（⑤b-2）：紙面（報告の図）は「図・写真の頁」（32本目までの付図と同じ＝束の `page` を門番 check_text_screens が絵から数える＝
+#    PLAN が「写真」だと E）。写真 82 → 写真 44（映像6・写真38）＋図・写真の頁 38（合わせて 82 のまま・20% の数〈event〉にも入る・文字だけには入らない）
+WANT = dict(photo=44, figpage=38, video=6, shashin=38, kami=38, textpage=34, public=34, stock=32, fig=93, sat=4, drawn=67, other_fig=22,
             panel=0, illu=0, text=34)
-PIC = {"映像": "写真", "写真": "写真", "紙面": "写真", "公的": "文字の頁", "イメージ": "フリー素材", "文字だけ": "パネル"}
+PIC = {"映像": "写真", "写真": "写真", "紙面": "図・写真の頁", "公的": "文字の頁", "イメージ": "フリー素材", "文字だけ": "パネル"}
 TEXT = ("パネル", "決め所", "文字の頁")
 CHAP = re.compile(r"^(冒頭|第\d+章)　?(.*?)（.*）$")
 HEAD = re.compile(r"^\*\*(c[0-9a-c]\d{2})\*\*(.*)$")
@@ -155,7 +157,7 @@ def check(plan, title, cuts, A):
     for k in kinds:
         run = run + 1 if k in TEXT else 0
         best = max(best, run)
-    got = dict(photo=cnt["写真"], video=lk["映像"], shashin=lk["写真"], kami=lk["紙面"], textpage=cnt["文字の頁"], public=lk["公的"],
+    got = dict(photo=cnt["写真"], figpage=cnt["図・写真の頁"], video=lk["映像"], shashin=lk["写真"], kami=lk["紙面"], textpage=cnt["文字の頁"], public=lk["公的"],
                stock=cnt["フリー素材"], fig=cnt["図解"], sat=lk["衛星"], drawn=lk["模式"], other_fig=sum(lk[k] for k in OTHER_FIGS),
                panel=cnt["パネル"], illu=cnt["再現イラスト"], text=text)
     if got != WANT:
@@ -224,7 +226,7 @@ if __name__ == "__main__":
     print(f"カット {len(plan)}・章 {dict(ch)}")
     print("章の見出し " + "／".join(f"{k}={v}" for k, v in title.items()))
     print(f"種類 {dict(cnt)}")
-    print(f"写真 {got['photo']}（映像 {got['video']}・写真 {got['shashin']}・紙面 {got['kami']}）・文字の頁 {got['textpage']}（公的 {got['public']}）・フリー素材 {got['stock']}・"
+    print(f"写真 {got['photo']}（映像 {got['video']}・写真 {got['shashin']}）・図・写真の頁 {got['figpage']}（紙面 {got['kami']}）・文字の頁 {got['textpage']}（公的 {got['public']}）・フリー素材 {got['stock']}・"
           f"図解 {got['fig']}（衛星 {got['sat']}・模式 {got['drawn']}・ほか {got['other_fig']}）・パネル {got['panel']}・"
           f"文字だけ {got['text']}（続く最長 {best}）・再現イラスト {got['illu']}・🔧替えた {sum(1 for c in plan if plan[c]['plan'].startswith('🔧'))}")
     if errs:

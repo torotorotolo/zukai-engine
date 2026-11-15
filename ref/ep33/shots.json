@@ -1,0 +1,369 @@
+{
+ "GV15": {
+  "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/14/GRENFELL.webm/GRENFELL.webm.1080p.vp9.webm",
+  "scan": "ref/ep33/src/commons/c33/V15_240p.webm",
+  "dur": 250.382,
+  "how": "⑤b-1（11-15）：240p の全体を ffmpeg の場面の変わり目（scene＞0.20）で測った32か所（make_list33.SCENE_CUTS）＝編集の切れ目（20.967・28.327・35.567・216.647 は隣のコマの差が1コマだけ跳ねる硬いカット・1080p の区間3つでも同じ秒）。⑤b-2 は写しただけ",
+  "moves": [
+   {
+    "head": 8.727,
+    "tail": 8.727,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 20.967,
+    "tail": 20.967,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 28.327,
+    "tail": 28.327,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 35.567,
+    "tail": 35.567,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 42.967,
+    "tail": 42.967,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 51.407,
+    "tail": 51.407,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 59.567,
+    "tail": 59.567,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 67.687,
+    "tail": 67.687,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 74.887,
+    "tail": 74.887,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 82.287,
+    "tail": 82.287,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 89.527,
+    "tail": 89.527,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 96.767,
+    "tail": 96.767,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 104.047,
+    "tail": 104.047,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 111.207,
+    "tail": 111.207,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 118.207,
+    "tail": 118.207,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 125.087,
+    "tail": 125.087,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 132.127,
+    "tail": 132.127,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 139.127,
+    "tail": 139.127,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 146.127,
+    "tail": 146.127,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 153.127,
+    "tail": 153.127,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 159.967,
+    "tail": 159.967,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 174.887,
+    "tail": 174.887,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 175.007,
+    "tail": 175.007,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 175.647,
+    "tail": 175.647,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 175.767,
+    "tail": 175.767,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 182.407,
+    "tail": 182.407,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 187.767,
+    "tail": 187.767,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 194.927,
+    "tail": 194.927,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 202.087,
+    "tail": 202.087,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 209.287,
+    "tail": 209.287,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 216.647,
+    "tail": 216.647,
+    "frames": 1,
+    "peak": 0.0
+   },
+   {
+    "head": 235.167,
+    "tail": 235.167,
+    "frames": 1,
+    "peak": 0.0
+   }
+  ],
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 8.727,
+    "motion": 0.0
+   },
+   {
+    "start": 8.727,
+    "until": 20.967,
+    "motion": 0.0
+   },
+   {
+    "start": 20.967,
+    "until": 28.327,
+    "motion": 0.0
+   },
+   {
+    "start": 28.327,
+    "until": 35.567,
+    "motion": 0.0
+   },
+   {
+    "start": 35.567,
+    "until": 42.967,
+    "motion": 0.0
+   },
+   {
+    "start": 42.967,
+    "until": 51.407,
+    "motion": 0.0
+   },
+   {
+    "start": 51.407,
+    "until": 59.567,
+    "motion": 0.0
+   },
+   {
+    "start": 59.567,
+    "until": 67.687,
+    "motion": 0.0
+   },
+   {
+    "start": 67.687,
+    "until": 74.887,
+    "motion": 0.0
+   },
+   {
+    "start": 74.887,
+    "until": 82.287,
+    "motion": 0.0
+   },
+   {
+    "start": 82.287,
+    "until": 89.527,
+    "motion": 0.0
+   },
+   {
+    "start": 89.527,
+    "until": 96.767,
+    "motion": 0.0
+   },
+   {
+    "start": 96.767,
+    "until": 104.047,
+    "motion": 0.0
+   },
+   {
+    "start": 104.047,
+    "until": 111.207,
+    "motion": 0.0
+   },
+   {
+    "start": 111.207,
+    "until": 118.207,
+    "motion": 0.0
+   },
+   {
+    "start": 118.207,
+    "until": 125.087,
+    "motion": 0.0
+   },
+   {
+    "start": 125.087,
+    "until": 132.127,
+    "motion": 0.0
+   },
+   {
+    "start": 132.127,
+    "until": 139.127,
+    "motion": 0.0
+   },
+   {
+    "start": 139.127,
+    "until": 146.127,
+    "motion": 0.0
+   },
+   {
+    "start": 146.127,
+    "until": 153.127,
+    "motion": 0.0
+   },
+   {
+    "start": 153.127,
+    "until": 159.967,
+    "motion": 0.0
+   },
+   {
+    "start": 159.967,
+    "until": 174.887,
+    "motion": 0.0
+   },
+   {
+    "start": 174.887,
+    "until": 175.007,
+    "motion": 0.0
+   },
+   {
+    "start": 175.007,
+    "until": 175.647,
+    "motion": 0.0
+   },
+   {
+    "start": 175.647,
+    "until": 175.767,
+    "motion": 0.0
+   },
+   {
+    "start": 175.767,
+    "until": 182.407,
+    "motion": 0.0
+   },
+   {
+    "start": 182.407,
+    "until": 187.767,
+    "motion": 0.0
+   },
+   {
+    "start": 187.767,
+    "until": 194.927,
+    "motion": 0.0
+   },
+   {
+    "start": 194.927,
+    "until": 202.087,
+    "motion": 0.0
+   },
+   {
+    "start": 202.087,
+    "until": 209.287,
+    "motion": 0.0
+   },
+   {
+    "start": 209.287,
+    "until": 216.647,
+    "motion": 0.0
+   },
+   {
+    "start": 216.647,
+    "until": 235.167,
+    "motion": 0.0
+   },
+   {
+    "start": 235.167,
+    "until": 250.382,
+    "motion": 0.0
+   }
+  ]
+ }
+}

@@ -21,7 +21,7 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'c501': dict(kind='写真',
+    'c501': dict(kind='図・写真の頁',
                plan='F:P1V1-7.2｜一覧の種類：紙面｜見せ方：額装（高さいっぱい）｜副題：指令室の中〈報告の図〉｜動き：静止｜権利：OGL v3.0（第三者のコマ・図を含む）｜時期：報告の図｜人：なし（⑤b で原寸）｜出典の行：グレンフェル・タワー調査 第1段階の報告 第1巻 図7.2（2019）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公開調査の報告の図＝額装・無加工・図の番号と題の行ごと切る・出典の行・第三者のコマや図を含む（OGL v3.0 の外の部分）＝報告の図として引用の形・🔴 名前の字を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
                src='P1ES¶2.9（`those calls requiring potentially life-saving fire survival guidance (FSG calls)`）・P1ES¶2.11（`Control room decides to revoke the "stay put" advice and tell all occupants calling 999 to leave the tower`）'),
     'c502': dict(kind='図解',

@@ -3860,3 +3860,68 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `VC` | c101 c102 c801 c811 c901 c903 c906 c908 c911 ca07 | 映像：U.S. Coast Guard（public domain）／Wikimedia Commons | Public domain（PD-USCG） | https://commons.wikimedia.org/wiki/File:Flight1549CrashAndRescue.ogv | 2026-11-09 |
 | `V15` | c910 | 映像：U.S. Coast Guard（public domain）／Wikimedia Commons | Public domain（PD-USCG） | https://commons.wikimedia.org/wiki/File:Flight1549After15Minutes.ogv | 2026-11-09 |
 | `V20` | c919 c920 | 映像：U.S. Coast Guard（public domain）／Wikimedia Commons | Public domain（PD-USCG） | https://commons.wikimedia.org/wiki/File:Flight1549After20Minutes.ogv | 2026-11-09 |
+
+## グレンフェルタワー火災（2017-06-14・33本目）
+
+※2026-11-15（⑤b-2）。`qa_out/ep33_assets.py credits --write` が書く（手で直さない）。写真と映像は映像方針の一覧 `ref/ep33/eizou_list33.md`（了承② 2026-11-15）。
+🔴 この回の線（台本 §1-4）＝住民（亡くなった人・生き残った人・出火した部屋の住人）は名前なし・消防士と指揮者は立場・調査の委員長と大臣と区の幹部は役職・社員と専門家は役職。撮影者の名前もこのリポに書かない。写真の中の名札と車の番号の字は読ませない。追悼の場と支援の掲示は使わない。
+
+### 0. 素材の読み（⚠️ 法律の助言ではない＝こちらの読み）
+- Commons の写真＝頁の許諾の箱で読んだ（11-14〜15）。CC BY 2.0・4.0＝帰属と改変の旨（全面は「改変：切出」）。BY-SA 2.0・4.0＝額装・無加工・1点1カット・升目もかけない。CC0＝表示は任意（撮影者の名乗りは書かない）
+- 公開調査の報告の図（グレンフェル・タワー調査 第1段階の報告〈2019〉ほか）＝紙面の引用。報告そのものは英国の公的な機関の刊行物（OGL v3.0）だが、図の中のコマは住人の携帯電話の映像・警視庁のヘリコプターの映像など第三者のもの＝図の番号と題の行ごと・額装・無加工・サムネに使わない（ルール §2-6c・§2-42）
+
+### 1. 写真と報告の図（Commons の CC BY 2.0・4.0・BY-SA 2.0・4.0・CC0／公開調査の報告の図）
+- CC BY・BY-SA＝「写真：{作者}／Wikimedia Commons（ライセンス）」。🔴 撮影者の名前はこのリポに書かない＝`ref/ep33/credits.json` は印 `{作者}` だけ・焼くときに git の外の表 `ref/ep33/src/credits_private.tsv` の2列目から足す（`tools/scene_jiko.ep33_credit`）
+- 私人の顔は CC BY・CC0 で升目（「／改変：…にモザイク」）。BY-SA に読める私人の顔があれば使わない。色は原本のまま（[21]・[23]・[24]・[25] は白黒の原本）
+- 説明カットの地（「地 c…」）＝CC BY・CC0 の昼の写真を暗くするだけ（字と地の比 8:1 が下限・出典の行は「地の写真：…／改変：切出・明るさ」）。🔴 夜明けと夜の写真・BY-SA・Google の衛星写真・[24]（枝が細かい）・[58] は地にしない
+- 撮影年＝Commons の頁の撮影日（`sources33.psv` の時期の欄）。報告の図＝コマの時刻は図の前の本文の1文（`make_list33.FIG_ERA`）
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `c12` | c106 | 2017 | CC BY 4.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_fire.jpg |
+| `c18` | ca10 | 2018 | CC BY-SA 4.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Close-up_of_Grenfell_Tower_with_banners_in_June_2018.jpg |
+| `c19` | c217（地 c304 c308 c313 c317） | 2017 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Crane_and_the_devastated_top_of_Grenfell_Tower_(35391615761).jpg |
+| `c20` | c428（地 c430 c908） | 2018 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_one_year_on.jpg |
+| `c21` | c432（地 c502 c504 c505 c506 c507） | 2018 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_(25690966338).jpg |
+| `c23` | c520（地 c521 c524 c601 c602 c604 c605） | 2018 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_(25690989108).jpg |
+| `c24` | c526 | 2018 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_(25690995998).jpg |
+| `c25` | c910（地 c911） | 2018 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_(27784835439).jpg |
+| `c26` | c516 | 2018 | CC BY-SA 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_(29241424228).jpg |
+| `c28` | c111 | 2017 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_(34506599404).jpg |
+| `c29` | c209（地 c211 c212） | 2017 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_(34552739503).jpg |
+| `c3` | c107 | 2017 | CC BY-SA 4.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Fire_140617_451am2.jpg |
+| `c30` | c316 | 2017 | CC BY-SA 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_(35005664360).jpg |
+| `c31` | c420 | 2017 | CC BY-SA 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_(35392389725).jpg |
+| `c32` | c113（地 c204 c205） | 2017 | CC BY 2.0（この回の物と場所・顔と字に升目） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_(35651730645).jpg |
+| `c33` | c429 | 2017 | CC BY-SA 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_-_geograph.org.uk_-_5475737.jpg |
+| `c35` | c617 c818（地 c618 c819 c901 c903 cc10） | 2023 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_24_May_2023.jpg |
+| `c39` | c609 | 2024 | CC BY-SA 4.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_from_Latimer_Road_station,_June_2024.jpg |
+| `c40` | c110 c912（地 cc09） | 2017 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_HD_(35222789302).jpg |
+| `c41` | c603 | 2018 | CC BY-SA 4.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_in_May_2018_01.jpg |
+| `c45` | c723 | 2018 | CC BY-SA 4.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_in_May_2018_05.jpg |
+| `c53` | cc11 | 2018 | CC BY-SA 4.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_in_May_2018_14.jpg |
+| `c55` | c215 | 2017 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_remains.jpg |
+| `c58` | ca15 | 2024 | CC0（この回の物と場所） | 表示は任意（CC0）＝撮影者の名乗りは書かない | https://commons.wikimedia.org/wiki/File:Grenfell_Tower,_London,_UK.20240817_140911_(1).jpg |
+| `c61` | c207（地 c208） | 2017 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Horrifying_sight,_Grenfell_Tower_(34745717163).jpg |
+| `c62` | c216 | 2017 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Horrifying_sight,_Grenfell_Tower_(35167763150).jpg |
+| `c64` | c620（地 c621 c623） | 2017 | CC BY 2.0（この回の物と場所・顔に升目） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Horrifying_sight,_Grenfell_Tower_(35424276381).jpg |
+| `c67` | c816 | 2017 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Horrifying_sight,_Grenfell_Tower_(35554498705).jpg |
+| `c68` | c525 | 2021 | CC BY-SA 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:On_Westway_(A40)_looking_to_Grenfell_Tower_-_geograph.org.uk_-_6988759.jpg |
+| `c69` | c318（地 c402 c404 c406 c407） | 2017 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:The_blackened_remains_of_Grenfell_Tower,_Latimer_Road_(34681100724).jpg |
+| `c7` | c105 | 2017 | CC BY 4.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_fire_(wider_view).jpg |
+| `c70` | c112 | 2017 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:The_burned_remains_of_Grenfell_Tower_in_west_London,_and_underneath_showing_where_the_fire_did_not_strike_as_hard_(34681119034).jpg |
+| `c71` | c214 c409（地 c410 c412 c419 c421） | 2017 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:The_top_of_Grenfell_Tower_(35355148152).jpg |
+| `c72` | c408（地 cc08） | 2017 | CC BY 2.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Upper_Grenfell_Tower.jpg |
+| `c8` | c108 | 2017 | CC BY 4.0（この回の物と場所） | Commons の撮影者（名前は git の外 `ref/ep33/src/credits_private.tsv` の記号の行の2列目＝画面は焼くときに足す） | https://commons.wikimedia.org/wiki/File:Grenfell_Tower_fire_morning.jpg |
+| `p1v2_f10_14` | c102 | 2017 | 紙面の引用（報告は OGL v3.0・図の中に第三者のコマ）（公開調査の報告の図（紙面の引用）） | グレンフェル・タワー調査（公開調査の報告）＝図の中のコマの撮り手は報告の本文の範囲（名前は書かない） | https://assets.publishing.service.gov.uk/media/66d822b97a73423428aa2ee8/Grenfell_Tower_Inquiry_-_Phase_1_report_-_volume_2.pdf |
+| `p1v2_f10_22` | c103 | 2017 | 紙面の引用（報告は OGL v3.0・図の中に第三者のコマ）（公開調査の報告の図（紙面の引用）） | グレンフェル・タワー調査（公開調査の報告）＝図の中のコマの撮り手は報告の本文の範囲（名前は書かない） | https://assets.publishing.service.gov.uk/media/66d822b97a73423428aa2ee8/Grenfell_Tower_Inquiry_-_Phase_1_report_-_volume_2.pdf |
+| `p1v2_f10_9` | c101 | 2017 | 紙面の引用（報告は OGL v3.0・図の中に第三者のコマ）（公開調査の報告の図（紙面の引用）） | グレンフェル・タワー調査（公開調査の報告）＝図の中のコマの撮り手は報告の本文の範囲（名前は書かない） | https://assets.publishing.service.gov.uk/media/66d822b97a73423428aa2ee8/Grenfell_Tower_Inquiry_-_Phase_1_report_-_volume_2.pdf |
+| `p1v2_f14_1` | c104 | 2017 | 紙面の引用（報告は OGL v3.0・図の中に第三者のコマ）（公開調査の報告の図（紙面の引用）） | グレンフェル・タワー調査（公開調査の報告）＝図の中のコマの撮り手は報告の本文の範囲（名前は書かない） | https://assets.publishing.service.gov.uk/media/66d822b97a73423428aa2ee8/Grenfell_Tower_Inquiry_-_Phase_1_report_-_volume_2.pdf |
+
+### 2. 動く映像＝clips.json（#15 GRENFELL.webm）
+- Commons の映像 1本（CC BY 3.0・1920×1080・毎秒25コマ・Vimeo の公開 2017-07-10）＝ロンドンの空撮と焼けた塔。等速（速さを変えない）・止めなし・頭から使う・同じ秒を2回使わない・場面の切れ目をまたがない（`make_list33.SCENE_CUTS`）。人の写る秒・ビルの広告と建物の名の看板・頭と尻の黒は使わない（`footage.NOGO`）。音は使わない
+- 出典の行＝「映像：{作者}／Wikimedia Commons（CC BY 3.0）／改変：切出」（撮影者は git の外の表から焼くときに足す）。🔴 映像そのものは git に入れない（焼くときに Commons の 1080p の版を取る）・ひかえの静止画は公開リポに置く（CC BY 3.0）
+
+| 記号 | 使うカット | 画面の出典 | ライセンス | 頁 | 取った日 |
+|---|---|---|---|---|---|
+| `GV15` | c109 c201 c431 c820 cb17 cc12 | 映像：{作者}／Wikimedia Commons（CC BY 3.0）／改変：切出 | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:GRENFELL.webm | 2026-11-15 |
