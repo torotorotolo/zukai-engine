@@ -62,6 +62,15 @@ FOOT = {'V15': dict(name='GRENFELL.webm', len=250.38)}
 EXCLUDE = (('V15', 0.0, 8.5, '頭の黒'), ('V15', 35.5, 43.0, 'ビルの広告の幕の字'), ('V15', 75.0, 82.5, '歩く人の顔'),
            ('V15', 118.0, 125.0, '建物の名の看板'), ('V15', 187.75, 194.75, '塔の窓に作業の人'), ('V15', 235.0, 250.38, '尻の黒'))
 MARGIN = 0.25                                      # 切れ目は 1080p の区間で 0.25秒の細かさに合わせた（11-15）＝区間は切れ目から 0.3秒あける
+# 🆕 2026-11-15（33本目 ⑤b-1）：#15 の場面の切れ目（元の映像の秒）＝240p の全体を ffmpeg の場面の変わり目（scene＞0.20）で測った32か所。
+#    1080p の区間3つでも同じ秒（区間ファイルの頭＝元の 18.327・118.207・172.327 秒＝頼んだ秒の手前のキーフレーム）。20.967・28.327・35.567・216.647 は
+#    隣のコマの灰色の差が1コマだけ跳ねる＝硬いカット（中央値 0.53 に対し 24〜69）。174.887〜175.767 は動く空撮から T1 へのつなぎ（4つ）。
+#    使う秒（区間の頭から、カットの画面の長さ cont のぶん）が切れ目をまたぐと、次の場面が一瞬入る＝止める（場面の替わりを決めて使うカットは ALLOW_CROSS）
+SCENE_CUTS = {'V15': (8.727, 20.967, 28.327, 35.567, 42.967, 51.407, 59.567, 67.687, 74.887, 82.287, 89.527, 96.767, 104.047, 111.207, 118.207,
+                      125.087, 132.127, 139.127, 146.127, 153.127, 159.967, 174.887, 175.007, 175.647, 175.767,
+                      182.407, 187.767, 194.927, 202.087, 209.287, 216.647, 235.167)}
+ALLOW_CROSS = {'c109': (182.407,), 'c431': (202.087,)}   # decisions33e §5-9＝T1→T2・T4→T5 は区間の中で1回替わる（決めて使う）
+SCENE_EDGE = 0.04                                  # 1コマ（毎秒25コマ）＝これより内側に切れ目があれば「またぐ」
 EVENT =('映像', '写真', '紙面')                     # この火事の写真・映像（報告の夜の図を含む）
 COUNT20 = EVENT + ('衛星', '公的')                  # §2-1 の写真・映像（紙面 ss.page・衛星写真も実写）＝20% に数える
 PICTURE = COUNT20 + ('イメージ',)
@@ -315,12 +324,36 @@ def windows(motion):
     return [(float(x), float(y)) for x, y in re.findall(r'([\d.]+)〜([\d.]+)秒', motion or '')]
 
 
+def measured(cuts, narr=NARR):
+    """🆕 2026-11-15（33本目 ⑤b-1）：秒を audio/narration.json の実測に（32本目 make_list32.measured の型を写した）。
+    カットの秒＝声＋LEAD＋TAIL（cont）＋章の扉（card＝章が替わるカットの頭だけ）。倍率の分母（写真の割合）は扉を除く＝build の sec20 は sec のまま
+    （32本目と同じ）。narration.json がこの回の台本と合わなければ ÷365 の見込みのまま（音が本線に無い作業ツリーでも落ちない）"""
+    if not os.path.exists(narr):
+        return '÷365 の見込み（narration.json が無い）'
+    dur = json.load(open(narr, encoding='utf-8')).get('durations', {})
+    if [c['cid'] for c in cuts] != [k for k in dur if k != 'ed01']:
+        return '÷365 の見込み（narration.json は33本目の台本と合わない＝音は ⑤a のあと）'
+    sys.path.insert(0, os.path.join(REPO, 'tools'))
+    import check_script as CSC
+    t, prev = 0.0, None
+    for c in cuts:
+        key = CSC.door_key(c['cid'], slug='ep33')
+        c['card'] = CSC.CARD_SEC if (prev is not None and key != prev) else 0.0
+        prev = key
+        c['start'] = t
+        c['cont'] = dur[c['cid']] + CSC.LEAD + CSC.TAIL
+        c['sec'] = c['cont'] + c['card']
+        t += c['sec']
+    return 'audio/narration.json の実測'
+
+
 def gate_video(cuts, A, E, W):
     for c in cuts:
         a = A.get(c['cid'])
         if not a or a['kind'] != '映像':
             continue
-        cid, need, code = c['cid'], c['sec'], base(a['main'])
+        # 🆕 33本目 ⑤b-1：要る秒＝カットの画面の長さ（cont＝声＋LEAD＋TAIL・章の扉を除く）＝⑤a-2 で当てた値（c526 7.57 ほか）
+        cid, need, code = c['cid'], c.get('cont', c['sec']), base(a['main'])
         win = windows(a['motion'])
         if not win:
             W.append('%s 映像の区間が未定（%s・要る秒 %.1f）' % (cid, a.get('label') or code, need))
@@ -330,6 +363,18 @@ def gate_video(cuts, A, E, W):
             E.append('%s 映像の区間 %.2f秒がカットの %.2f秒に足りない' % (cid, span, need))
         elif span - need < 0.5:
             W.append('%s 映像の区間のゆとりが %.2f秒（⑤a の実測で足りなくなるかも）' % (cid, span - need))
+        # 🆕 33本目 ⑤b-1：使う秒（区間の頭から need 秒）が場面の切れ目をまたがないか（等速・止めなし＝要る秒だけ頭から使う）
+        left, used = need, []
+        for x, y in win:
+            if left <= 1e-9:
+                break
+            d = min(y - x, left)
+            used.append((x, x + d))
+            left -= d
+        for x, y in used:
+            for t in SCENE_CUTS.get(code, ()):
+                if x + SCENE_EDGE < t < y - SCENE_EDGE and t not in ALLOW_CROSS.get(cid, ()):
+                    E.append('%s 使う秒 %.2f〜%.2f が場面の切れ目 %.3f秒をまたぐ（切れ目の前 %.2f秒・後 %.2f秒＝別の場面が一瞬入る）' % (cid, x, y, t, t - x, y - t))
         F = FOOT.get(code)
         for s, e in win:
             if F and (s < -1e-6 or e > F['len'] + 0.05):
@@ -694,15 +739,26 @@ def selftest():
     print(('OK  ' if hit else 'NG  ') + '陽性 同じ写真を3回' + ('' if hit else ' → %s' % E[:3]))
     bad += 0 if hit else 1
     # 映像の区間
-    for label, motion, sec, want in (('陰性 映像の区間 足りる', '映像 176.30〜187.45秒', 10.0, None), ('陽性 映像の区間 足りない', '映像 176.30〜181.00秒', 10.0, '足りない'),
+    # 🔧 33本目 ⑤b-1：陰性「足りる」は1場面の中の区間に替えた（176.30〜187.45 を10秒使うと T1→T2 の切れ目 182.407 をまたぐ＝新しい門番が鳴る）
+    for label, motion, sec, want in (('陰性 映像の区間 足りる', '映像 202.20〜209.20秒', 6.5, None), ('陽性 映像の区間 足りない', '映像 176.30〜181.00秒', 10.0, '足りない'),
                                      ('陽性 頭の黒に触れる', '映像 5.00〜20.00秒', 10.0, '外す秒'), ('陽性 窓の作業の人に触れる', '映像 180.00〜192.00秒', 10.0, '作業の人'),
-                                     ('陽性 長さをこえる', '映像 245.00〜255.00秒', 9.0, '素材の長さ')):
+                                     ('陽性 長さをこえる', '映像 245.00〜255.00秒', 9.0, '素材の長さ'),
+                                     ('陽性 場面の切れ目をまたぐ（T6→T7）', '映像 209.55〜219.50秒', 7.57, '場面の切れ目 216.647'),
+                                     ('陽性 区間の頭が前の場面（28.327 の手前）', '映像 28.00〜35.00秒', 6.5, '場面の切れ目 28.327'),
+                                     ('陰性 切れ目の1コマ内側は通す', '映像 21.03〜28.28秒', 7.22, None)):
         c1 = cut('c701', sec)
         A1 = {'c701': dict(pho, cid='c701', kind='映像', main='V15', motion=motion, sub='焼けた塔〈2017年7月公開の映像〉')}
         E1, W1 = [], []
         gate_video([c1], A1, E1, W1)
         hit = any(want in x for x in E1) if want else not E1
         print(('OK  ' if hit else 'NG  ') + label + ('' if hit else ' → %s' % E1[:3]))
+        bad += 0 if hit else 1
+    # 🆕 33本目 ⑤b-1：決めて使う場面の替わり（ALLOW_CROSS）は通す／同じ区間でも名簿に無いカットは止める
+    for cid, want in (('c109', None), ('c702', '場面の切れ目 182.407')):
+        E1, W1 = [], []
+        gate_video([cut(cid, 9.30)], {cid: dict(pho, cid=cid, kind='映像', main='V15', motion='映像 176.30〜187.45秒', sub='焼けた塔〈2017年7月公開の映像〉')}, E1, W1)
+        hit = any(want in x for x in E1) if want else not E1
+        print(('OK  ' if hit else 'NG  ') + ('陰性 決めた替わり（%s の T1→T2）' % cid if not want else '陽性 名簿に無いカットの T1→T2（%s）' % cid) + ('' if hit else ' → %s' % E1[:3]))
         bad += 0 if hit else 1
     cuts, A = setup(['c701', 'c702'])
     A['c701'] = dict(pho, cid='c701', kind='映像', main='V15', motion='映像 180.00〜192.00秒', sub='焼けた塔〈2017年7月公開の映像〉')
@@ -771,14 +827,15 @@ def main():
             rr = [order[i - 1] + '→' + order[i] for i in range(1, len(order)) if X[order[i - 1]]['kind'] in FIG_RUN and X[order[i - 1]]['kind'] == X[order[i]]['kind']]
             print('%s %d: %s' % (lab, len(rr), ' '.join(rr)))
         return 0
+    tnote = measured(cuts)
     E, W = gates(cuts, A, S, words(NAME_FILES))
     if len(order) != N_CUTS:
         E.append('カットの数 %d（%d のはず）' % (len(order), N_CUTS))
     gate_video(cuts, A, E, W)
     gate_hook(cuts, E)
     E = bad1 + bad2 + bad3 + E
-    n, m = build(cuts, A, S, E, W, base_A)
-    print('秒＝÷365 の見込み／合計 %s' % fmt(sum(c['sec'] for c in cuts)))
+    n, m = build(cuts, A, S, E, W, base_A, tnote)
+    print('秒＝%s／合計 %s' % (tnote, fmt(sum(c['sec'] for c in cuts))))
     print('カット %d／写真・映像・紙面 %d（%.1f%%）／E %d ／⚠️ %d → %s' % (m, n, 100.0 * n / m, len(E), len(W), OUT_MD))
     for x in E[:80]:
         print('E ', x)

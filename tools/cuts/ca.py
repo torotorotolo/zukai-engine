@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
-"""第9章　報告書が書いた「偶然」 ca01–ca15（15カット）。32本目（USエアウェイズ1549便のハドソン川への着水・2009-01-15・ニューヨーク・報告書 NTSB/AAR-10/03 は2010-05-04 採択）。
+"""第9章　あの夜のあとに、変わったこと ca01–ca17（17カット）。33本目（グレンフェルタワー火災・2017-06-14・ロンドン・公開調査の報告は 2019-10-30〈第1段階〉と 2024-09-04〈第2段階〉）。
 
-■ 🔴 2026-11-10（⑤b-1）：31本目（全日空機雫石衝突事故）の中身を空にした＝git の `f4bd0a9a`（`git show f4bd0a9a:tools/cuts/ca.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep32/make_plan32.py` で
-  映像方針の一覧（`ref/ep32/eizou_build/make_list32.py`＝了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
-  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep32/eizou_list32.md`＝⑤b は一覧に従う）。
+■ 🔴 2026-11-15（⑤b-1）：32本目（USエアウェイズ1549便のハドソン川への着水）の中身を空にした＝git の `139227a3`（`git show 139227a3:tools/cuts/ca.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep33/make_plan33.py` で
+  映像方針の一覧（`ref/ep33/eizou_build/make_list33.py`＝了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
+  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep33/eizou_list33.md`＝⑤b は一覧に従う）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
-     （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
-  🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep32）＝`fmove`（額ごと動かす）・額の中の `cam` を書かない（門番 check_fmove が絵で測る）。
-  🔴 写真は画面いっぱい・色は原本（`build_jiko.PHOTO_KEEP_EP` に ep32）・BY-SA は額装・紙面と調査の写真も額装。説明カットの地は写真を暗くするだけ（8:1・衛星と夜の写真は地にしない）。
-  🔴 VTS（沿岸警備隊の監視カメラ）は等速・止めなし・頭から使う・同じ秒を2回使わない（区間は一覧の動きの欄＝make_list32 の門番）。
-  ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット。
-  🔴 この回の線＝語りと画面に名前を出すのは機長と副操縦士だけ（初出 c203・c205）・客室乗務員・管制官・救助の人は立場だけ・乗客は名前なし・
-     NTSB・FAA・議員・知事・監督・俳優は役職で・「犠牲」「死亡」は言わない・「208秒」は使わず「約3分半」・映画は c517〜c518・c520 だけ
-     ＝図でも同じ（紙面・写真に名前の字が写る＝親が絵を見て切る・船の名も読ませない）
+     （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。公的な機関の頁（訳の札つき）は最初から「文字の頁」。
+  🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep33）＝`fmove`（額ごと動かす）・額の中の `cam` を書かない（門番 check_fmove が絵で測る）。
+  🔴 写真は画面いっぱい・色は原本（`build_jiko.PHOTO_KEEP_EP` に ep33）・BY-SA は額装・報告の図と頁も額装。説明カットの地は昼の写真を暗くするだけ（8:1・衛星・夜・BY-SA は地にしない）。
+  🔴 #15（Commons の映像）は等速・止めなし・頭から使う・同じ秒を2回使わない・場面の切れ目をまたがない（区間は一覧の動きの欄＝make_list33 の門番）。
+  ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針（と ⑤b-1 の c526）で台本の画の欄から替えたカット。
+  🔴 この回の線＝住民（亡くなった人・生き残った人・出火した部屋の住人）は名前なし（人数だけ）・消防士と指揮者は立場・調査の委員長と大臣と区の幹部は役職・
+     会社と団体は報告が名指しした結論の範囲で名前・社員と専門家は役職・刑事は警視庁の発表の数と日付だけ・「見捨てた」「英国史上最悪」「60時間」は使わない・
+     追悼の場と支援の掲示は使わない＝図でも同じ（報告の図・頁・写真に名前の字が写る＝親が絵を見て切る）
 """
 import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
@@ -21,111 +21,57 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'ca01': dict(kind='写真',
-               plan='🔧 C40｜一覧の種類：写真｜見せ方：全面｜副題：夜の岸壁のそばの機体〈2009年1月17日〉｜動き：ゆっくり寄る｜見た目の型：11-10 640px＝夜の照明の中の機体・奥の建物の明かり｜権利：CC BY 2.0｜時期：2009-01-17 00:07（EXIF）・夜｜人：なし｜出典の行：写真：{作者}／Wikimedia Commons（CC BY 2.0）｜注：—｜新しい画（映像方針）：🔧 副題「夕方の機体〈2009年1月15日〉」→ EXIF 1月17日 0:07＝夜｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・副題の日付と夕方・夜は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='聞（州知事の会見＝報道の帰属・CNN の書き起こしは robots で拒否＝未読）'),
-    'ca02': dict(kind='文字の頁',
-               plan='R96｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p96（`Consequently, this accident has been portrayed as a “successful” ditching. However, the investigation revealed that the success of this ditching mostly resulted from a series of fortuitous circumstances`）・計（報告書の文字の層で「miracle」0件）'),
+    'ca01': dict(kind='文字の頁',
+               plan='P:ca01｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜副題：訳の札「混乱し、遅く、決められず、場当たりだった」｜動き：静止｜見た目の型：P2V1 ¶2.103 の頁｜権利：OGL v3.0｜時期：頁の日付｜人：なし（名前の行は入れない）｜出典の行：グレンフェル・タワー調査 第2段階の報告 第1巻 ¶2.103（2024）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公的な機関の頁（公開調査・政府・区・警視庁ほか）＝額装・無加工・訳の札・出典の行・🔴 名前の行を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.103（`In the first week after the fire at Grenfell Tower the response of the government and RBKC was muddled, slow, indecisive and piecemeal`）'),
+    'ca02': dict(kind='フリー素材',
+               plan='Xa02｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：ロンドンの住宅街の遠景｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・社名・字・機種なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V7¶98.1（`hundreds of people were displaced from their homes in the tower and surrounding`）・P2V1¶2.104（`Certain aspects of the response demonstrated a marked lack of respect for human decency and dignity`）'),
     'ca03': dict(kind='フリー素材',
-               plan='Xa03｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：冬の晴れた日の静かな川面〈場所は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p96（`including that the ditching occurred in good visibility conditions on calm water`）'),
-    'ca04': dict(kind='図解',
-               plan='地：GR2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：偶然の札の1つ目と2つ目＝よい見通しと穏やかな水面・とても経験のある乗員｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p96（`and was executed by a very experienced flight crew`）'),
-    'ca05': dict(kind='文字の頁',
-               plan='🔧 R140｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）推定原因｜注：枠＝「(1) the decision-making of the flight crewmembers and their crew resource management」から（c722 と別の枠）｜新しい画（映像方針）：🔧 模式（生き残れた理由の札・地＝夜の [40]）→ 報告書 p140 の「生き残れた理由」の段（実物）＝模式の連続を切る｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p140（`Contributing to the survivability of the accident was (1) the decision-making of the flight crewmembers and their crew resource management during the accident sequence`）'),
-    'ca06': dict(kind='写真',
-               plan='🔧 D49-56｜一覧の種類：調査｜見せ方：額装（高さいっぱい）｜副題：すべり台を兼ねた救命いかだ〈NTSB の調査の写真〉｜動き：静止｜印：△｜権利：同上｜時期：2009（凡例）｜人：なし｜出典の行：写真：NTSB 公開ドケット DCA09MA026（生存の写真 写真56）｜注：△ いかだの全体が写るかは ⑤b で原寸｜新しい画（映像方針）：🔧 [38]（c915 へ）→ #49 写真56（すべり台いかだ）＝語り「海の上の装備」｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 調査の写真（NTSB のドケット）＝額装・無加工・出典の行・人の写り（顔・名前の字・船の名）は原寸で（⑤b-2）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p96（`that the airplane was EOW equipped even though it was not required to be so equipped for this particular flight`）'),
-    'ca07': dict(kind='写真',
-               plan='🔧 VC｜一覧の種類：映像｜見せ方：額装（高さいっぱい）｜副題：近づくフェリー〈沿岸警備隊の監視カメラ〉｜動き：映像 383.00〜395.00秒｜見た目の型：11-10 原寸 383・395秒＝×25.8・手前からもう1隻のフェリー・翼の上の人｜権利：PD（PD-USCG）｜時期：2009-01-15 15:30ごろ〜（🔴 焼き込みのカメラの時計は約20秒進む＝語りと副題に使わない）｜人：翼の上の人（遠景・顔は分からない）｜出典の行：映像：U.S. Coast Guard（public domain）／Wikimedia Commons｜注：—｜新しい画（映像方針）：🔧 模式（偶然の札の4つ目）→ VTS（語り「船の近くに降りた」）＝模式の連続を切る｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 VTS（沿岸警備隊の監視カメラ・PD-USCG）＝等速・止めなし・頭から使う・同じ秒を2回使わない・音は使わない（-an）・外す秒（背景のコンコルド 410〜428秒）に触れない・焼き込みのカメラの時計は語りと副題に使わない（約20秒進む）＝make_list32 の門番｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p96（`and that the airplane was ditched near vessels immediately available to rescue the passengers and crewmembers`）'),
+               plan='Xa03｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：支援の物資を仕分ける手もと｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・社名・字・機種なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.114（`With the support of local voluntary organisations, they provided support in the hours immediately following the fire when the authorities were conspicuous by their absence`）'),
+    'ca04': dict(kind='文字の頁',
+               plan='P:ca04｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜副題：訳の札「規制の仕組みは、目的に合っていない」｜動き：静止｜見た目の型：中｜権利：OGL v3.0｜時期：頁の日付｜人：なし（名前の行は入れない）｜出典の行：建築規制と防火の独立の見直し 中間報告（2017年12月・英国政府）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公的な機関の頁（公開調査・政府・区・警視庁ほか）＝額装・無加工・訳の札・出典の行・🔴 名前の行を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='中（`the current regulatory system for ensuring fire safety in high-rise and complex buildings is not fit for purpose`）'),
+    'ca05': dict(kind='図解',
+               plan='地：Xa03（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：「底辺への競争」の札＝安く早くを競う・知らないか、無関心か、仕組みが良いやり方を助けないか｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src="終（`can be described as a 'race to the bottom' caused either through ignorance, indifference, or because the system does not facilitate good practice`）"),
+    'ca06': dict(kind='文字の頁',
+               plan='P:ca06｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜副題：（訳なし・頁だけ）｜動き：静止｜見た目の型：報告の頁｜権利：OGL v3.0｜時期：頁の日付｜人：なし（名前の行は入れない）｜出典の行：グレンフェル・タワー調査 第1段階の報告（2019）・第2段階の報告（2024）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公的な機関の頁（公開調査・政府・区・警視庁ほか）＝額装・無加工・訳の札・出典の行・🔴 名前の行を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='計（第1段階の報告＝2019-10-30・第2段階の報告＝2024-09-04）'),
+    'ca07': dict(kind='文字の頁',
+               plan='P:ca07｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜副題：訳の札「高さ18メートル以上か7階建て以上・住戸2つ以上」｜動き：静止｜見た目の型：法｜権利：OGL v3.0｜時期：頁の日付｜人：なし（名前の行は入れない）｜出典の行：Building Safety Act 2022 第65条（英国）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公的な機関の頁（公開調査・政府・区・警視庁ほか）＝額装・無加工・訳の札・出典の行・🔴 名前の行を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='法（`28th April 2022`…`at least 18 metres in height or has at least 7 storeys`…`contains at least 2 residential units`）'),
     'ca08': dict(kind='図解',
-               plan='🔧 地：C36（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：生き残れた理由の4つの札＝乗員の判断と連携・海の上の装備があった偶然・客室乗務員の速い誘導・救助の人たちの近さと早さ｜注：—｜新しい画（映像方針）：🔧 地 [40]（夜）→ [36]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p140（`(2) the fortuitous use of an airplane that was equipped for an extended overwater flight`…`(3) the performance of the cabin crewmembers while expediting the evacuation of the airplane; and (4) the proximity of the emergency responders to the accident site and their immediate and appropriate response to the accident`）'),
-    'ca09': dict(kind='フリー素材',
-               plan='Xa09｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：操縦席から見た晴れた空〈機種と社名は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p137（`The professionalism of the flight crewmembers and their excellent crew resource management during the accident sequence contributed to their ability to maintain control of the airplane`）'),
-    'ca10': dict(kind='図解',
-               plan='🔧 地：C36（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：所見の札＝川を選んだ判断〈所見15〉・APU を先に回した〈所見14〉・フラップ2 は妥当〈所見18〉｜注：—｜新しい画（映像方針）：🔧 地 [40]（夜）→ [36]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p137（`The captain’s decision to ditch on the Hudson River rather than attempting to land at an airport provided the highest probability`）・報p137（`the captain started the auxiliary power unit, which improved the outcome of the ditching`）・報p105（`Starting the APU early in the accident sequence proved to be critical`）・報p137（`The captain’s decision to use flaps 2 for the ditching, based on his experience and perception of the situation, was reasonable`）'),
-    'ca11': dict(kind='写真',
-               plan='🔧 C57｜一覧の種類：写真｜見せ方：額装（高さいっぱい）｜副題：保管中の機体を調べる人〈2010年・ニュージャージー州〉｜動き：静止｜見た目の型：11-10 640px＝天幕の中の胴体と外した翼・技術者の後ろ姿｜権利：CC BY-SA 3.0｜時期：2010（題・頁の説明＝ニュージャージー州での保管）｜人：技術者（後ろ姿・中景）｜出典の行：写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工｜注：BY-SA＝額装・無加工｜新しい画（映像方針）：🔧 [12]（夜の岸壁で話す3人＝作業でない・顔が主役）→ [57]（語り「改めるべき所」）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・副題の日付と夕方・夜は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p96（`The investigation revealed several areas where safety improvements are needed`）・報p96（`engine bird-ingestion certification testing, emergency and abnormal checklist design, dual-engine failure and ditching training`）・報p96（`validation of operational procedures and requirements for airplane ditching certification`）・報p96（`life vest stowage, retrieval, and donning`）'),
+               plan='地：Xa03（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：第2段階の報告の勧告の札＝58・国へ37・ほかの組織へ21｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='応（`The Inquiry made 58 recommendations, of which 37 were directed at the government and 21 were directed at other bodies and institutions`）'),
+    'ca09': dict(kind='文字の頁',
+               plan='P:ca09｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜副題：訳の札「起きた死は、すべて避けられた」｜動き：静止｜見た目の型：首｜権利：OGL v3.0｜時期：頁の日付｜人：なし（名前の行は入れない）｜出典の行：首相の議会での声明（2024年9月4日・英国政府）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公的な機関の頁（公開調査・政府・区・警視庁ほか）＝額装・無加工・訳の札・出典の行・🔴 名前の行を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='首（`concluded this morning`…`the simple truth is that the deaths that occurred were all avoidable`）'),
+    'ca10': dict(kind='写真',
+               plan='C18｜一覧の種類：写真｜見せ方：額装（高さいっぱい）｜副題：火事から1年の塔〈2018年6月〉｜動き：静止｜権利：CC BY-SA 4.0｜時期：2018-06-18 17:59｜人：なし（幕は標語だけ＝11-15 に見た）｜出典の行：写真：{作者}／Wikimedia Commons（CC BY-SA 4.0・無加工）｜注：幕の字は標語だけ（GRENFELL FOREVER IN OUR HEARTS＝11-15 に見た）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・追悼の場と支援の掲示は使わない・副題の日付と夜明け・夕方は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='首（`I want to start with an apology on behalf of the British state to each and every one of you`…`It should never have happened`）'),
+    'ca11': dict(kind='文字の頁',
+               plan='P:ca11｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜副題：訳の札「49は全面で、残る9は考え方として受け入れる」｜動き：静止｜見た目の型：応｜権利：OGL v3.0｜時期：頁の日付｜人：なし（名前の行は入れない）｜出典の行：グレンフェル・タワー調査 第2段階の報告への政府の応答（2025年2月）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公的な機関の頁（公開調査・政府・区・警視庁ほか）＝額装・無加工・訳の札・出典の行・🔴 名前の行を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='応（`49 of the recommendations are being accepted in full by the government and other responsible organisations`…`As regards the remaining 9, which are all directed at government, the government accepts them in principle`）'),
     'ca12': dict(kind='図解',
-               plan='🔧 地：C36（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：委員の意見の札＝時間がほとんど無かった｜注：—｜新しい画（映像方針）：🔧 地 [12]（夜）→ [36]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p146（`In the case of US Airways 1549, there was insufficient time for much of anything`）・報p146（`defy the NTSB’s own criteria for use of the term. Those criteria state that a ditching allows “some time” for preparation`）'),
+               plan='地：Xa03（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：変わった決まりの札＝18メートルをこえる住宅などの外壁に燃える材料を禁止〈イングランド〉・新しい共同住宅のスプリンクラー｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='応（`The use of combustible materials in and on external walls of buildings, including flats, hospitals and student accommodation over 18 metres in height, has been banned`…`The threshold for the provision of sprinklers in new blocks of flats has been lowered from over 30 metres to over 11 metres`）'),
     'ca13': dict(kind='フリー素材',
-               plan='Xa13｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：救命胴衣〈社名は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p146（`had more time existed, and had the occupants been made aware of the impending water landing, many more – if not all - would have located and donned the life preservers`）'),
-    'ca14': dict(kind='図解',
-               plan='🔧 地：C18（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：偶然の4つの札を並べ、その下に「次も重なるとは限らない」の札｜注：—｜新しい画（映像方針）：🔧 地 [40]（夜）→ [18]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='計（3つ目の問いの答えの前半）'),
-    'ca15': dict(kind='文字の頁',
-               plan='🔧 R141｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）勧告｜注：枠＝見出し「Recommendations」と最初の段（c627 と別の枠）｜新しい画（映像方針）：🔧 [11]（夜の作業＝cb04 の [9] と似た写真）→ 報告書の勧告の頁の頭（語り「残りの半分は、勧告にある」）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='計（橋の1行）'),
+               plan='🔧 Xa13｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：共同住宅の階段｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・社名・字・機種なし）｜出典の行：イメージ（Pexels）｜注：字・標識・人は見せない｜新しい画（映像方針）：🔧 模式 → イメージ（2つ目の階段の指針）＝模式の続きを切る｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='応（`There will be statutory guidance on the need for a second staircase in all new buildings over 18 metres coming into force in 2026`…`By the end of 2029, all buildings over 18 metres with unsafe cladding in a government funded scheme will have been remediated`）'),
+    'ca14': dict(kind='文字の頁',
+               plan='P:ca14｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜副題：訳の札「61件のうち30件が済み」｜動き：静止｜見た目の型：進｜権利：OGL v3.0｜時期：頁の日付｜人：なし（名前の行は入れない）｜出典の行：グレンフェル・タワー調査への政府の進捗報告（2026年9月）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公的な機関の頁（公開調査・政府・区・警視庁ほか）＝額装・無加工・訳の札・出典の行・🔴 名前の行を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='進（`Total 61 31 30`…`We continue to expect that all recommendations will be implemented by the end of 2029`）'),
+    'ca15': dict(kind='写真',
+               plan='🔧 C58｜一覧の種類：写真｜見せ方：額装（高さいっぱい）｜副題：覆われた塔〈2024年8月〉｜動き：静止｜見た目の型：原寸を11-15に見た｜権利：CC0｜時期：2024-08-17 14:09｜人：なし（下の追悼の壁は切って入れない）｜出典の行：写真：Wikimedia Commons（CC0・改変：切出）｜注：上の 1920×1700 だけ（壁に人の顔の絵の掲示＝11-15 に原寸で見た）・地のぼかしも切った絵から｜新しい画（映像方針）：🔧 [45]（2018年5月）→ [58]（2024年8月＝取り壊しの前のいちばん新しい姿・CC0）＝下の追悼の壁は切って入れない（改変：切出）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・追悼の場と支援の掲示は使わない・副題の日付と夜明け・夕方は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='塔（`will be carefully taken down to the ground`…`commenced in September 2025`）・年（`We expect the work to continue until at least spring 2027`）'),
+    'ca16': dict(kind='図解',
+               plan='地：Xa13（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：変わったことの札＝見直し・建築安全法・2つの報告・勧告の半分近く・取り壊し｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='計（第9章のまとめ）'),
+    'ca17': dict(kind='図解',
+               plan='地：Xa13（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：問いの札＝誰かが、罪に問われるのか｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='計（第10章へのつなぎ）'),
 }
 
 SPEC = {}
-
-# 🆕 ⑤b-3（2026-11-10）：紙面（型は c1.py の同じ節）
-_Ra02, _Ra05, _Ra15 = P("r96_ca02"), P("r140_ca05"), P("r141_ca15")
-SPEC.update({
-    # ca02＝報告書 p96 の段（「a series of fortuitous circumstances」を含む）。1497×510＝幅いっぱい
-    "ca02": dict(photo=_Ra02, panel=True, pw=1776, ground=dict(photo=_Ra02, blur=ss.PAGE_BLUR), color=1.0,
-                 t="一連の偶然", s="報告書の分析の段"),
-    # ca05＝報告書 p140 の「Contributing to the survivability…」の段（c722 と別の枠）。1497×384＝幅いっぱい
-    "ca05": dict(photo=_Ra05, panel=True, pw=1776, ground=dict(photo=_Ra05, blur=ss.PAGE_BLUR), color=1.0,
-                 t="生き残れた理由", s="報告書の結論の段"),
-    # ca15＝報告書 p141 の見出し「4. Safety Recommendations」と最初の段（c627 と別の枠）。1497×432＝幅いっぱい
-    "ca15": dict(photo=_Ra15, panel=True, pw=1776, ground=dict(photo=_Ra15, blur=ss.PAGE_BLUR), color=1.0,
-                 t="勧告", s="報告書の勧告の頁の頭"),
-})
-
-# 🆕 ⑤b-3b（2026-11-10）：VTS（沿岸警備隊の監視カメラ・PD-USCG）＝型は c8.py の同じ節
-SPEC.update({
-    "ca07": ss.vid("ca07", ptall=True, t="いつものフェリー", s="近づくフェリー〈沿岸警備隊の監視カメラ〉"),   # 副題は7字まで（check_fmove）
-})
-
-# 🆕 ⑤b-4b（2026-11-11）：イメージの写真（Pexels・全面・見出しと副題なし・原色＝c5.py の「⑤b-4a」の節の型）
-_Xa03, _Xa09, _Xa13 = (P(f"stock/{c}") for c in ("xa03", "xa09", "xa13"))
-SPEC.update({
-    # ca03＝雪の岸と静かな冬の川面。⚠️ 原本の幅 2048＝寄りは 1.06 まで（拡大 0.94〜0.99倍＝1倍を超えない）
-    "ca03": dict(photo=_Xa03, **ss.mvz(_Xa03, (0.5, 0.5, 1.0), (0.5, 0.5, 1.06)), side="none", color=1.0, t="", s=""),
-    # ca09＝操縦席から見た雲の上の朝日。🔴 下の画面の字（HDG 230・SPL 1528.7…・AUTOBRAKES 2）は y 約1,550 から
-    #   ＝窓の下の端の外（寄りは 1.15 から＝1.0 だと下の端 0.84 で画面が入る）。字幕の帯の上の端（画面 y 900）は
-    #   FCU の数字の行（y 1,217〜1,244）より上＝始め 帯 1,180・下 1,415／終わり 帯 1,104・下 1,320（門番 edges）
-    "ca09": dict(photo=_Xa09, **ss.mvz(_Xa09, (0.5, 0.37, 1.15), (0.5, 0.35, 1.25)), side="none", color=1.0, t="", s=""),
-    # ca13＝山に積んだオレンジの救命胴衣（字は「FRAM」＝前の意の印だけ・船の名なし＝原寸）
-    "ca13": dict(photo=_Xa13, **ss.mvz(_Xa13, (0.5, 0.5, 1.0), (0.5, 0.5, 1.1)), side="none", color=1.0, t="", s=""),
-})
-
-# 🆕 ⑤b-5（2026-11-11）：模式（`tools/mech32.py`）＝地 gr2 の明るさを測るため ⑤b-6 から前倒し
-import mech32 as _m32  # noqa: E402
-SPEC.update({
-    "ca04": _m32.fu_spec("ca04", ss.gr("stock/gr2")),
-})
-# 🆕 ⑤b-6（2026-11-11）：模式（`tools/mech32.py`）
-SPEC.update({
-    "ca08": _m32.fu_spec("ca08", ss.gr("c36")),
-    "ca10": _m32.fu_spec("ca10", ss.gr("c36")),
-    "ca12": _m32.fu_spec("ca12", ss.gr("c36")),
-    "ca14": _m32.zu_spec("ca14", ss.gr("c18")),
-})
-
-# 🆕 ⑤b-7（2026-11-11）：写真の束の残り（型は c1.py の同じ節）
-_C40, _D49_56, _C57 = P("c40"), P("d49_56"), P("c57")
-SPEC.update({
-    # ca01＝[40] 夜の照明の中の機体（EXIF 1月17日 0:07・第9章の頭）。🔴 機体は左下（原寸で見た＝はしけの照明のそば・胴体の字と尾翼）＝そこへ 1.35 まで寄る。
-    #   見出しに「奇跡」を書かない（語りの言わない語＝make_list32.SAY_NOT）
-    "ca01": dict(photo=_C40, **ss.mv(_C40, "in", fx=0.25, fy=0.68, z=1.35), side="none", color=1.0,
-                 t="呼び名の始まり", s="夜の岸壁のそばの機体〈2009年1月17日〉"),
-    # ca06＝#49 写真56（札「Location of the knife storage pouch on the slide/raft」）＝いかだの全体は写らない＝副題は写っているもの
-    "ca06": dict(photo=_D49_56, panel=True, ptall=True, ground=dict(photo=_D49_56), color=1.0,
-                 t="積む決まりのない装備", s="救命いかだのナイフの袋〈NTSB〉"),   # 🔧 副題は額の左に収まる長さ（門番 fmove）
-    # ca11＝[57] 天幕の中の胴体と外した翼・技術者（横顔の中景＝主役でない・BY-SA＝額装・無加工）
-    "ca11": dict(photo=_C57, panel=True, ptall=True, ground=dict(photo=_C57), color=1.0,
-                 t="改めるべき所", s="保管中の機体を調べる人〈2010年〉"),   # 🔧 副題は額の左に収まる長さ（門番 fmove）
-})

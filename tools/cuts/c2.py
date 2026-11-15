@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
-"""第1章　ラガーディア空港、滑走路4 c201–c217（17カット）。32本目（USエアウェイズ1549便のハドソン川への着水・2009-01-15・ニューヨーク・報告書 NTSB/AAR-10/03 は2010-05-04 採択）。
+"""第1章　ロンドンの24階建ての塔 c201–c217（17カット）。33本目（グレンフェルタワー火災・2017-06-14・ロンドン・公開調査の報告は 2019-10-30〈第1段階〉と 2024-09-04〈第2段階〉）。
 
-■ 🔴 2026-11-10（⑤b-1）：31本目（全日空機雫石衝突事故）の中身を空にした＝git の `f4bd0a9a`（`git show f4bd0a9a:tools/cuts/c2.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep32/make_plan32.py` で
-  映像方針の一覧（`ref/ep32/eizou_build/make_list32.py`＝了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
-  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep32/eizou_list32.md`＝⑤b は一覧に従う）。
+■ 🔴 2026-11-15（⑤b-1）：32本目（USエアウェイズ1549便のハドソン川への着水）の中身を空にした＝git の `139227a3`（`git show 139227a3:tools/cuts/c2.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep33/make_plan33.py` で
+  映像方針の一覧（`ref/ep33/eizou_build/make_list33.py`＝了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
+  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep33/eizou_list33.md`＝⑤b は一覧に従う）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
-     （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
-  🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep32）＝`fmove`（額ごと動かす）・額の中の `cam` を書かない（門番 check_fmove が絵で測る）。
-  🔴 写真は画面いっぱい・色は原本（`build_jiko.PHOTO_KEEP_EP` に ep32）・BY-SA は額装・紙面と調査の写真も額装。説明カットの地は写真を暗くするだけ（8:1・衛星と夜の写真は地にしない）。
-  🔴 VTS（沿岸警備隊の監視カメラ）は等速・止めなし・頭から使う・同じ秒を2回使わない（区間は一覧の動きの欄＝make_list32 の門番）。
-  ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット。
-  🔴 この回の線＝語りと画面に名前を出すのは機長と副操縦士だけ（初出 c203・c205）・客室乗務員・管制官・救助の人は立場だけ・乗客は名前なし・
-     NTSB・FAA・議員・知事・監督・俳優は役職で・「犠牲」「死亡」は言わない・「208秒」は使わず「約3分半」・映画は c517〜c518・c520 だけ
-     ＝図でも同じ（紙面・写真に名前の字が写る＝親が絵を見て切る・船の名も読ませない）
+     （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。公的な機関の頁（訳の札つき）は最初から「文字の頁」。
+  🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep33）＝`fmove`（額ごと動かす）・額の中の `cam` を書かない（門番 check_fmove が絵で測る）。
+  🔴 写真は画面いっぱい・色は原本（`build_jiko.PHOTO_KEEP_EP` に ep33）・BY-SA は額装・報告の図と頁も額装。説明カットの地は昼の写真を暗くするだけ（8:1・衛星・夜・BY-SA は地にしない）。
+  🔴 #15（Commons の映像）は等速・止めなし・頭から使う・同じ秒を2回使わない・場面の切れ目をまたがない（区間は一覧の動きの欄＝make_list33 の門番）。
+  ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針（と ⑤b-1 の c526）で台本の画の欄から替えたカット。
+  🔴 この回の線＝住民（亡くなった人・生き残った人・出火した部屋の住人）は名前なし（人数だけ）・消防士と指揮者は立場・調査の委員長と大臣と区の幹部は役職・
+     会社と団体は報告が名指しした結論の範囲で名前・社員と専門家は役職・刑事は警視庁の発表の数と日付だけ・「見捨てた」「英国史上最悪」「60時間」は使わない・
+     追悼の場と支援の掲示は使わない＝図でも同じ（報告の図・頁・写真に名前の字が写る＝親が絵を見て切る）
 """
 import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
@@ -21,118 +21,57 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'c201': dict(kind='図解',
-               plan='SAT:ラガーディア空港｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：ラガーディア空港〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：同上｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・帰属は地図の右下（Google の表示を絵の近くに）・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p18（`The flight was en route to Charlotte Douglas International Airport (CLT), Charlotte, North Carolina`）'),
-    'c202': dict(kind='写真',
-               plan='C52｜一覧の種類：写真｜見せ方：額装（高さいっぱい）｜副題：ラガーディア空港の出発の図〈FAA〉｜動き：静止｜見た目の型：11-10 640px＝出発の図と滑走路の図｜権利：PD（FAA）｜時期：2009-01-15（題）｜人：なし｜出典の行：図：FAA（public domain）／Wikimedia Commons｜注：379×612＝額装｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・副題の日付と夕方・夜は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p18（`The accident flight was the last flight of a 4-day trip sequence for the flight and cabin crewmembers`）・報p18（`This was the first trip sequence that the captain and first officer had been paired to fly together`）'),
-    'c203': dict(kind='図解',
-               plan='地：C50（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：機長の札＝名前・57歳・飛んだ時間 1万9,663時間・うち A320 4,765時間・顔は描かない｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p23（`The captain, age 57`）・報p24（`the captain had accumulated 19,663 total flight hours`…`4,765 hours of which were in A320 airplanes`）・ド#6p8（`Total A320 flying time 4,765 hours`）'),
-    'c204': dict(kind='フリー素材',
-               plan='X204｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：晴れた空を飛ぶ旅客機の遠景〈社名と機種は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p23（`was hired by Pacific Southwest Airlines on February 25, 1980`…`Before this, he flew McDonnell Douglas F-4 airplanes for the U.S. Air Force`）・報p23（`Pacific Southwest Airlines merged with USAir Group in 1988`）'),
+    'c201': dict(kind='写真',
+               plan='🔧 V15｜一覧の種類：映像｜見せ方：全面｜副題：ロンドンの空撮〈2017年7月公開の映像〉｜動き：映像 21.03〜28.28秒｜見た目の型：240p を11-15に見た｜権利：CC BY 3.0｜時期：2017-07（Vimeo の公開 2017-07-10＝撮影の日は分からない）｜人：なし（人の写る秒は外す＝75〜82.5 歩く人・187.75〜194.75 窓の作業の人）｜出典の行：映像：{作者}／Wikimedia Commons（CC BY 3.0）｜注：住宅地の上の空撮（地平に高いビル）＝場所は言わない・人なし｜新しい画（映像方針）：🔧 副題の時点（Vimeo の公開）・区間＝11-15（台本の「川と高いビル」は都心＝語りの「ロンドンの西」と合わない＝住宅地の空撮に）・⑤b-1（11-15）＝28.327秒が硬いカット（次は公園の場面）＝実測 7.22秒が収まるよう頭を 21.30→21.03 へ（場面 20.967〜28.327）｜🔴 #15（Commons の映像・CC BY 3.0）＝等速・止めなし・頭から使う・同じ秒を2回使わない・音は使わない（-an）・外す秒（頭と尻の黒・ビルの広告の幕・歩く人の顔・建物の名の看板・窓の作業の人）に触れない・場面の切れ目をまたがない＝make_list33 の門番｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P1V1¶3.1（`It is located in the Lancaster West Estate in North Kensington, London W11`）'),
+    'c202': dict(kind='図解',
+               plan='SAT:ランカスター・ウェスト団地｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：塔のある団地〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：撮影の時点は ⑤b で｜人：なし｜出典の行：Google の表示（絵のそば）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・撮影の時点は副題に書かない・帰属は地図の右下・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src="P1V1¶3.2（`The walkways extend 150 metres south from the tower and enclose two green spaces`）・P1V1¶3.4（`approximately 200 metres' walking distance from the entrance to the tower`）"),
+    'c203': dict(kind='写真',
+               plan='F:P1V1-3.2｜一覧の種類：紙面｜見せ方：額装（高さいっぱい）｜副題：改修の前の外壁｜動き：静止｜権利：OGL v3.0（第三者のコマ・図を含む）｜時期：報告の図｜人：なし（⑤b で原寸）｜出典の行：グレンフェル・タワー調査 第1段階の報告 第1巻 図3.2（2019）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公開調査の報告の図＝額装・無加工・図の番号と題の行ごと切る・出典の行・第三者のコマや図を含む（OGL v3.0 の外の部分）＝報告の図として引用の形・🔴 名前の字を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P1V1¶3.1（`building work commenced in 1972 and was completed by 1974`）・P1V1¶3.9（`just over 67 metres tall and has 25 storeys, including a basement and ground floor to floor 23`…`central reinforced concrete core, reinforced concrete floors and perimeter reinforced concrete columns`）'),
+    'c204': dict(kind='図解',
+               plan='地：C32（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：立面｜副題：塔の階の札＝地上の階を0階・住戸は主に4階から23階・下の階には保育園などと、改修で足した9戸｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P1V1¶3.13（`Floors 4 to 23 were designed to accommodate residential flats, with six flats on each floor`）'),
     'c205': dict(kind='図解',
-               plan='地：C50（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：副操縦士の札＝名前・49歳・飛んだ時間 1万5,643時間・A320 は37時間・A320 の資格 2008年12月31｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p25（`The first officer, age 49`…`the first officer had accumulated 15,643 total flight hours`…`The first officer had 37 hours in A320 airplanes`）'),
-    'c206': dict(kind='フリー素材',
-               plan='X206｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：旅客機の操縦室の計器〈機種は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p25（`The first officer received his initial A320 type rating on December 31, 2008`）・報p69（`because he had just completed training, he immediately recognized that the event was an ECAM exception`）'),
-    'c207': dict(kind='図解',
-               plan='地：C50（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：客室乗務員3人の札＝51・58・57歳・座る位置〈前に2人・後ろに1人〉・名前と顔は描かない｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p26（`Flight attendant A, age 51, was located at the aft-facing, forward jumpseat`…`Flight attendant B, age 58, was located at the forward-facing, “direct-view” jumpseat (aft, center aisle)`…`Flight attendant C, age 57, was located at the aft-facing, forward jumpseat`）・計（初めの訓練の年から2009年1月まで＝26年・38年・28年）'),
-    'c208': dict(kind='写真',
-               plan='🔧 C41｜一覧の種類：写真｜見せ方：全面｜副題：引き上げたあとの機体〈2009年1月〉｜動き：ゆっくり寄る｜見た目の型：11-10 640px＝夜・はしけの上の機体・柵と街灯｜権利：CC BY 2.0｜時期：2009-01-18 17:48（EXIF・頁の説明＝引き上げたあと）・夜｜人：なし｜出典の行：写真：{作者}／Wikimedia Commons（CC BY 2.0）｜注：夜の写真＝全面は可・地にしない｜新しい画（映像方針）：🔧 副題を写っているものに｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・副題の日付と夕方・夜は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p27（`The airplane was configured with 12 first-class passenger seats; 138 economy-class passenger seats`）・報p18（`The 150 passengers, including a lap-held child`）'),
-    'c209': dict(kind='図解',
-               plan='🔧 地：C21（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：この機体の装備＝前と後ろの扉に、救命いかだを兼ねたすべり台が4つ・座席の下に救命胴衣｜注：—｜新しい画（映像方針）：🔧 地 [41]（夜）→ [21]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p53（`Each of these exits was equipped with a door-mounted, automatically inflating Type II slide/raft`）・報p55（`an EOW-equipped airplane must be equipped with a life vest for each airplane occupant`）'),
-    'c210': dict(kind='図解',
-               plan='🔧 地：C21（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：割合｜副題：75機のうち20機＝この装備の機｜注：—｜新しい画（映像方針）：🔧 地 [41]（夜）→ [21]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p54（`The accident airplane was 1 of 20 A320s equipped as an EOW airplane in the US Airways fleet of 75 A320s`）・報p55（`The accident flight was a non-EOW flight`）・報p54（`Non-EOW airplanes are not required to carry passenger life vests, slide/rafts, or survival kits`）'),
-    'c211': dict(kind='フリー素材',
-               plan='X211｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：雪の残る冬の街と晴れた空〈場所は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='ド#7p6（`It had been snowing earlier in the day`…`The weather cleared up and it was sunny`）・報p41（`The 1451 Central Park surface weather observation indicated the following: winds 290° at 8 kts, visibility 10 miles`…`temperature -6° C`）'),
+               plan='地：C32（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：1つの階の間取り＝真ん中に階段1つとエレベーター2基・まわりに6つの住戸｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P1V1¶3.18（`Within the central core of the building was a single staircase and two lifts serving each floor of the tower`）'),
+    'c206': dict(kind='写真',
+               plan='F:P1V2-10.5｜一覧の種類：紙面｜見せ方：額装（高さいっぱい）｜副題：塔の入口｜動き：静止｜権利：OGL v3.0（第三者のコマ・図を含む）｜時期：報告の図｜人：なし（⑤b で原寸）｜出典の行：グレンフェル・タワー調査 第1段階の報告 第2巻 図10.5（2019）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公開調査の報告の図＝額装・無加工・図の番号と題の行ごと切る・出典の行・第三者のコマや図を含む（OGL v3.0 の外の部分）＝報告の図として引用の形・🔴 名前の字を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P1V1¶3.2（`the only access to the tower for residents was through the entrance at ground level on the south side`）'),
+    'c207': dict(kind='写真',
+               plan='C61｜一覧の種類：写真｜見せ方：全面｜副題：塔と隣の建物〈2017年6月26日〉｜動き：ゆっくり寄る｜権利：CC BY 2.0｜時期：2017-06-26 18:20｜人：なし（⑤b で原寸）｜出典の行：写真：{作者}／Wikimedia Commons（CC BY 2.0）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・追悼の場と支援の掲示は使わない・副題の日付と夜明け・夕方は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P1V2¶10.130（`people in 129 flats in the tower, including visitors`…`Seven flats were empty on that night`…`Sixty-seven of those present were children under the age of 18`）'),
+    'c208': dict(kind='図解',
+               plan='地：C61（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：持ち主と管理の札＝ケンジントン・アンド・チェルシー区 → 管理の組織 TMO → 住人｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src="P1V1¶3.1（`Grenfell Tower is owned by RBKC`）・P1V1¶3.6（`The vast majority of the residential flats in the tower were part of RBKC's provision of social housing within the borough`）・P1V1¶3.8（`RBKC entered into a Management Agreement with the TMO`）"),
+    'c209': dict(kind='写真',
+               plan='C29｜一覧の種類：写真｜見せ方：全面｜副題：焼けた塔〈2017年6月17日〉｜動き：ゆっくり寄る｜権利：CC BY 2.0｜時期：2017-06-17 08:06・朝｜人：なし（⑤b で原寸）｜出典の行：写真：{作者}／Wikimedia Commons（CC BY 2.0）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・追悼の場と支援の掲示は使わない・副題の日付と夜明け・夕方は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P1V1¶3.7（`Some had grown up in North Kensington`…`Others had come to this country as refugees`…`Together they formed a vibrant community with a strong sense of identity and considerable social cohesion`）'),
+    'c210': dict(kind='写真',
+               plan='F:P1V1-6.1｜一覧の種類：紙面｜見せ方：額装（高さいっぱい）｜副題：改修のあとの外壁｜動き：静止｜権利：OGL v3.0（第三者のコマ・図を含む）｜時期：報告の図｜人：なし（⑤b で原寸）｜出典の行：グレンフェル・タワー調査 第1段階の報告 第1巻 図6.1（2019）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公開調査の報告の図＝額装・無加工・図の番号と題の行ごと切る・出典の行・第三者のコマや図を含む（OGL v3.0 の外の部分）＝報告の図として引用の形・🔴 名前の字を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P1V1¶6.1（`the refurbishment carried out between 2012 and 2016`…`the over-cladding of every storey of the existing building with a new insulation and rainscreen cladding system`）'),
+    'c211': dict(kind='図解',
+               plan='地：C29（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：断面｜副題：外壁の断面＝外から外装の板〈アルミ複合板〉・すき間・断熱材・元のコンクリートの壁の順｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P1V1¶6.7（`At floors 4 to 23 they comprised insulation materials, new windows, new window infill panels and outer aluminium composite material (ACM) rainscreen panels`）'),
     'c212': dict(kind='図解',
-               plan='SAT:滑走路4｜一覧の種類：衛星｜見せ方：額装（衛星）｜副題：滑走路4〈現在の衛星写真〉｜動き：静止｜権利：Google｜時期：現在｜人：なし｜出典の行：同上｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 Google の衛星写真＝描き足しは公の場所だけ・帰属は地図の右下（Google の表示を絵の近くに）・🔴 説明カットの地にしない（暗くしない）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p18（`at 1524:54, the LGA air traffic control tower (ATCT) local controller cleared the flight for takeoff from runway 4`）'),
-    'c213': dict(kind='図解',
-               plan='地：GK1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：操縦の役＝操縦する人〈副操縦士〉と見守る人〈機長〉の2つの札｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p18（`At this time, the first officer was the pilot flying (PF), and the captain was the pilot monitoring (PM)`）'),
-    'c214': dict(kind='図解',
-               plan='🔧 地：GS1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：帯｜副題：上昇の帯＝約210メートルで出発の管制へ・約4,600メートルまで上がる指示｜注：—｜新しい画（映像方針）：🔧 地 衛星（Google を暗く）→ イメージ〈冬の空〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p18（`The captain contacted the departure controller at 1525:51, advising him that the airplane was at 700 feet`…`The controller then instructed the flight to climb to and maintain 15,000 feet`）'),
-    'c215': dict(kind='フリー素材',
-               plan='X215｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：雲の上へ上がる旅客機の遠景〈社名と機種は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p18（`the takeoff and initial portion of the climb were uneventful`）'),
-    'c216': dict(kind='フリー素材',
-               plan='X216｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：紙に包んだサンドイッチ〈店名なし〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p25（`because they had a quick turnaround at LGA, he purchased a sandwich to eat on the airplane after departure`）'),
+               plan='地：C29（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：アルミ複合板の断面＝2枚の薄いアルミの板と、あいだのポリエチレン｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.21（`They were an ACM product made of two thin sheets of aluminium with a polyethylene core`…`Polyethylene burns fiercely`）'),
+    'c213': dict(kind='写真',
+               plan='F:P1V1-6.11｜一覧の種類：紙面｜見せ方：額装（高さいっぱい）｜副題：屋上の飾りの設計図｜動き：静止｜権利：OGL v3.0（第三者のコマ・図を含む）｜時期：報告の図｜人：なし（⑤b で原寸）｜出典の行：グレンフェル・タワー調査 第1段階の報告 第1巻 図6.11（2019）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公開調査の報告の図＝額装・無加工・図の番号と題の行ごと切る・出典の行・第三者のコマや図を含む（OGL v3.0 の外の部分）＝報告の図として引用の形・🔴 名前の字を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P1V1¶6.35（`The fins and the associated structure at the crown had no functional purpose and were purely aesthetic`）'),
+    'c214': dict(kind='写真',
+               plan='C71｜一覧の種類：写真｜見せ方：全面｜副題：焼けた塔の上部〈2017年6月20日〉｜動き：ゆっくり寄る｜権利：CC BY 2.0｜時期：2017-06-20 16:38｜人：なし｜出典の行：写真：{作者}／Wikimedia Commons（CC BY 2.0）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・追悼の場と支援の掲示は使わない・副題の日付と夜明け・夕方は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P1V1¶6.4（`The Department of Building Control at RBKC acted as building control authority`…`The Building Certificate for completion of the works was signed by RBKC on 7 July 2016`）・計（2016-07-07 から 2017-06-14 まで＝11か月）'),
+    'c215': dict(kind='写真',
+               plan='C55｜一覧の種類：写真｜見せ方：額装（高さいっぱい）｜副題：焼けた塔〈2017年6月16日〉｜動き：静止｜権利：CC BY 2.0｜時期：2017-06-16 15:16｜人：なし（⑤b で原寸）｜出典の行：写真：{作者}／Wikimedia Commons（CC BY 2.0）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・追悼の場と支援の掲示は使わない・副題の日付と夜明け・夕方は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P1ES¶2.16（`they did not adequately resist the spread of fire having regard to the height, use and position of the building`…`On the contrary, they actively promoted it`）'),
+    'c216': dict(kind='写真',
+               plan='C62｜一覧の種類：写真｜見せ方：全面｜副題：焼けた塔〈2017年6月26日〉｜動き：ゆっくり寄る｜権利：CC BY 2.0｜時期：2017-06-26 18:17｜人：なし（⑤b で原寸）｜出典の行：写真：{作者}／Wikimedia Commons（CC BY 2.0）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・追悼の場と支援の掲示は使わない・副題の日付と夜明け・夕方は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='計（第5章へのつなぎ）'),
     'c217': dict(kind='写真',
-               plan='🔧 D101-1｜一覧の種類：調査｜見せ方：額装（高さいっぱい）｜副題：エンジンのファンから試料を取る調査官〈NTSB の調査の写真〉｜動き：静止｜権利：同上｜時期：2009-01（凡例）｜人：調査官（後ろ姿・公的な任務）｜出典の行：写真：NTSB 公開ドケット DCA09MA026（野生動物の報告 写真1）｜注：② で見た（dk_068_101）｜新しい画（映像方針）：🔧 調査の写真の番号を凡例から（#101 写真1）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 調査の写真（NTSB のドケット）＝額装・無加工・出典の行・人の写り（顔・名前の字・船の名）は原寸で（⑤b-2）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p19（`at 1527:10.4, the captain stated, “birds.”`）・計（15:25:51 から 15:27:10 まで＝79秒）'),
+               plan='C19｜一覧の種類：写真｜見せ方：全面｜副題：焼けた塔とクレーン〈2017年6月20日〉｜動き：ゆっくり寄る｜権利：CC BY 2.0｜時期：2017-06-20 16:27｜人：なし（⑤b で原寸）｜出典の行：写真：{作者}／Wikimedia Commons（CC BY 2.0）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・追悼の場と支援の掲示は使わない・副題の日付と夜明け・夕方は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P1ES¶2.10（`organised into 11 separate periods between 00.54`…`when the last survivor left the tower`）'),
 }
 
 SPEC = {}
-
-# 🆕 ⑤b-3b（2026-11-10）：衛星写真（額装・静止・型は c1.py の同じ節）。c201＝G02 空港とマンハッタンの東（ズーム13・章の頭＝card_mix=0）・
-#   c212＝G03 滑走路の寄り（ズーム14）＝離陸の向きの矢印（滑走路4 の端から滑走路22 の端へ＝FAA の端の座標）
-SPEC.update({
-    "c201": dict(
-        **ss.sat("G02", steps=[
-            [dict(k="pt", at="lga", c="INK_W", t="出発した空港", lab=(24, 10, "start"))]]),
-        card_mix=0, t="市の中の空港", s="ニューヨーク市のクイーンズ〈現在の衛星写真〉"),   # 空港の名は章の札（ラガーディア空港、滑走路4）にある＝門番 dup
-    "c212": dict(
-        **ss.sat("G03", steps=[
-            [dict(k="arrow", fr="lga04", to="lga22", c="INK_W", t="離陸の向き", u=0.8, lab=(-30, 0, "end"))]],   # 右は Google の「ラガーディア空港」の字（試し焼きの原寸）
-            note="矢印は FAA の滑走路の端の座標から描いた向き"),
-        t="飛び立った滑走路", s="滑走路4〈現在の衛星写真〉"),
-})
-
-# 🆕 ⑤b-4a（2026-11-10）：イメージの写真（Pexels＝`stock/`・git に入れない・焼くときに `footage.stock_photos` が取り直して md5 を照らす）＝
-#   全面・ゆっくり寄る・見出しと副題なし・原色（31本目 ⑤b-3a の型）。窓＝(fx, fy, zoom) の2つ（`ss.mvz`）。中身は `sources32.psv` の title（640px と原寸で見た）
-_X204, _X206, _X211, _X215, _X216 = (P(f"stock/{c}") for c in ("x204", "x206", "x211", "x215", "x216"))
-SPEC.update({
-    # c204＝真下から見た旅客機の影絵と2本の飛行機雲（印は写らない）
-    "c204": dict(photo=_X204, **ss.mvz(_X204, (0.5, 0.48, 1.0), (0.5, 0.46, 1.12)), side="none", color=1.0, t="", s=""),
-    # c206＝操縦室の計器（ピントの浅い寄り・画面の字は原寸でぼけて読めない）
-    "c206": dict(photo=_X206, **ss.mvz(_X206, (0.55, 0.55, 1.0), (0.6, 0.58, 1.12)), side="none", color=1.0, t="", s=""),
-    # c211＝雪をかぶった木と晴れた冬の空（語りは天気）
-    "c211": dict(photo=_X211, **ss.mvz(_X211, (0.5, 0.5, 1.0), (0.5, 0.55, 1.1)), side="none", color=1.0, t="", s=""),
-    # c215＝高い空を飛ぶ旅客機（真下から・遠い）＝機体の方へ寄る
-    "c215": dict(photo=_X215, **ss.mvz(_X215, (0.48, 0.45, 1.0), (0.48, 0.44, 1.15)), side="none", color=1.0, t="", s=""),
-    # c216＝紙に包んで紐でしばったサンドイッチ（店の名なし）
-    "c216": dict(photo=_X216, **ss.mvz(_X216, (0.5, 0.5, 1.0), (0.55, 0.5, 1.1)), side="none", color=1.0, t="", s=""),
-})
-
-# 🆕 ⑤b-5（2026-11-11）：模式（`tools/mech32.py`＝札の型 FU と見え方の表 VIEWS）。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`＝check_ground --suggest）。
-#   地の名は一覧の「地」の欄（PLAN の plan の頭）。図の中身は台本の画の欄と出典の欄の字の範囲だけ（mech32 の頭）
-import mech32 as _m32  # noqa: E402
-SPEC.update({
-    "c203": _m32.fu_spec("c203", ss.gr("c50")),
-    "c205": _m32.fu_spec("c205", ss.gr("c50")),
-    "c207": _m32.zu_spec("c207", ss.gr("c50")),
-    "c209": _m32.zu_spec("c209", ss.gr("c21")),
-    "c213": _m32.fu_spec("c213", ss.gr("stock/gk1")),
-})
-# 🆕 ⑤b-6（2026-11-11）：型の図（割合・帯）＝mech32 の「⑤b-6」の節。地は一覧の「地」の欄
-SPEC.update({
-    "c210": _m32.zu_spec("c210", ss.gr("c21")),
-    "c214": _m32.zu_spec("c214", ss.gr("stock/gs1")),
-})
-
-# 🆕 ⑤b-7（2026-11-11）：写真の束の残り（型は c1.py の同じ節）
-_C52, _C41, _D101_1 = P("c52"), P("c41"), P("d101_1")
-SPEC.update({
-    # c202＝[52] FAA の出発の図（379×612＝縦長・小さい＝額装）
-    #   🔧 試し焼き（Actions 43026909564）：既定のぼかしでは図の大きな字（MASPETH CLIMB・LGA）が見出しの後ろで読めた＝紙面と同じ強さ（PAGE_BLUR）
-    "c202": dict(photo=_C52, panel=True, ptall=True, ground=dict(photo=_C52, blur=ss.PAGE_BLUR), color=1.0,
-                 t="4日間の乗務", s="ラガーディア空港の出発の図〈FAA〉"),
-    # c208＝[41] 夜・はしけの上の機体（EXIF 1月18日 17:48）＝機体へ寄る
-    "c208": dict(photo=_C41, **ss.mv(_C41, "in", fx=0.4, fy=0.6), side="none", color=1.0,
-                 t="機体と乗客", s="引き上げたあとの機体〈2009年1月〉"),
-    # c217＝#101 写真1 エンジンのファンから試料を取る調査官（横顔の中景・公的な任務＝そのまま）
-    "c217": dict(photo=_D101_1, panel=True, ptall=True, ground=dict(photo=_D101_1), color=1.0,
-                 t="約80秒後", s="試料を取る調査官〈NTSB の調査の写真〉"),   # 🔧 一覧の副題は額（左の端 x736）にかかる＝縮めた（門番 fmove）
-})

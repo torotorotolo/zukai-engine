@@ -6785,261 +6785,12 @@ def _selftest_m31(ok):
 #    行＝(記号, 画面の字, 原文の片)。記号＝台本の出典の欄の略（報p〈N〉＝報告書 NTSB/AAR-10/03 の PDF の頁・ド#〈品目〉p〈N〉＝公開ドケット・通＝AP 通信の転載・
 #    画＝手順書の絵〈付録C〉・計＝記録の数からの計算）。原文の片は `ref/ep32/src/ntsb/AAR1003.txt` ほか（git の外）の字＝11-11 に grep で当てた。
 #    🔴 §0b（題材を替えるとき）：次の回の ⑤b-1 で REC_M32 を見本へ移して空に（m31 と同じ）。
+#    🔴 2026-11-15（33本目 ⑤b-1・§0b）：32本目の値（REC_M32＝誰の記録かの名と色・出さない言葉・札と見え方の表の記録の字と原文の片〈第1〜11章＋前倒しの5〉）は見本
+#       `tools/fixture_ep32.py` の REC_M32 へ移した（値は1つも変えていない＝git の `139227a3`・補助の名は読まない）。selftest `_selftest_m32` は見本と32本目の章ファイルを差して回す。
+#       描く側の表（`tools/mech32.py` の FU・VIEWS・SRC ほか）は型のモジュールの中＝本番に残した（cuts.ss を読まない・33本目の章ファイルは m32 を引かない＝⑤b で図の型を決める）。
+#       🔴 32本目の鍵のカットID（c203〜cc09）は33本目にも同じIDが多い＝残すと33本目の同じIDの m32 のカットに32本目の記録が当たる
 # ══════════════════════════════════════════════════════════
-REC_M32 = dict(
-    src=dict(hokoku=("NTSB の報告書", "ntsb"), docket=("NTSB の公開ドケット", "tsb"), ap=("AP 通信", "company")),
-    ng=("犠牲", "死亡", "死者", "亡くな", "208秒"),
-    vals=dict(
-        # ── 第1章
-        c203=(("報p23", "57歳", "The captain, age 57"), ("報p24", "1万9,663時間", "19,663 total flight hours"),
-              ("報p24", "うち A320", "4,765 hours of which were in A320 airplanes"), ("報p24", "4,765時間", "4,765 hours of which were in A320 airplanes")),
-        c205=(("報p25", "49歳", "The first officer, age 49"), ("報p25", "1万5,643時間", "15,643 total flight hours"),
-              ("報p25", "うち A320", "37 hours in A320 airplanes"), ("報p25", "37時間", "The first officer had 37 hours in A320 airplanes"),
-              ("報p25", "資格は2008年12月31日", "received his initial A320 type rating on December 31, 2008")),
-        c207=(("報p26", "51歳・57歳", "Flight attendant A, age 51 … Flight attendant C, age 57"), ("報p26", "58歳", "Flight attendant B, age 58"),
-              ("報p26", "2人", "forward jumpseat"), ("報p26", "1人", "(aft, center aisle)"), ("計", "26年以上", "初めの訓練の年から2009年1月まで＝26年・38年・28年")),
-        c209=(("報p53", "4つ", "four floor-level Type I exits … Each of these exits was equipped with a door-mounted, automatically inflating Type II slide/raft"),
-              ("報p55", "人数分", "a life vest for each airplane occupant")),
-        c213=(("報p18", "操縦する人", "the pilot flying (PF)"), ("報p18", "見守る人", "the pilot monitoring (PM)")),
-        # ── 第2章
-        c311=(("報p19", "APU", "The APU provides an additional source of electrical power for the airplane"),
-              ("報p19", "もう1つの電気の源", "an additional source of electrical power")),
-        c313=(("報p104", "約12秒", "about 12 seconds after the bird strike"),),
-        c315=(("報p19", "QRH", "get the QRH [quick reference handbook] loss of thrust on both engines"),),
-        c319=(("報p19", "1549便", "the flight number was 1549"), ("報p19", "1539", "the flight number was 1549 not 1539"),
-              ("報p19", "正しくは1549", "the flight number was 1549 not 1539")),
-        c321=(("報p19", "時速約560キロ", "the optimum minimum airspeed of 300 kts"), ("報p19", "300ノット", "airspeed optimum relight. three hundred knots"),
-              ("報p19", "時速約400キロ", "the maximum airspeed reached by the airplane after the bird ingestion was 214 knots"),
-              ("報p19", "214ノット", "214 knots (kts)")),
-        # ── 第3章
-        c402=(("報p18", "1549便", "the flight crew"), ("報p18", "出発の管制", "LGA departure controller")),
-        c405=(("報p20", "15:28:25", "At 1528:25"), ("報p20", "左のエンジンが少し戻ってきた", "The left one’s [engine] coming back up a little bit."),
-              ("報p97", "飛び続ける力は出せず", "neither engine was able to produce sufficient power to sustain flight")),
-        c410=(("報p20", "テターボロ", "off your right side is Teterboro Airport [TEB]"), ("報p20", "そうする", "the captain replied, “yes.”")),
-        c417=(("報p196", "すまない、もう一度", "DEP I'm sorry say again Cactus?"),),
-        c419=(("報p20", "15:29:53", "At 1529:53"), ("報p20", "レーダーで見失う", "he had lost radar contact with the airplane")),
-        # ── 第4章
-        c503=(("報p66", "風・気温", "including winds, temperature"), ("報p67", "鳥とぶつかる少し前", "shortly before the bird strike")),
-        c507=(("報p67", "8回", "In eight of the 15 runs (53 percent), the pilot successfully landed after making an immediate turn"),
-              ("計", "7回", "15回のうち8回が降りられた＝残る7回"), ("報p67", "15回の試し", "Of the 15 remaining runs")),
-        c510=(("計", "15:27:11", "鳥とぶつかる"), ("計", "15:27:33", "管制へ第一報"), ("計", "15:27:50", "手順書を読み始める"),
-              ("計", "22秒", "15:27:11 から 15:27:33 まで"), ("計", "39秒", "15:27:11 から 15:27:50 まで")),
-        c513=(("報p105", "現実的な選択ではなかった", "it would not have been a realistic choice"),
-              ("報p106", "ほかの道をすべて消す取り消せない選択", "it would have been an irrevocable choice, eliminating all other options")),
-        c518=(("通", "調査を率いた元の責任者", "who led the National Transportation Safety Board's investigation"),
-              ("通", "誰にも恥をかかせるつもりはまったくなかった", "We weren’t out to embarrass anybody at all.")),
-        c522=(("報p67", "35秒", "after a 35-second delay"), ("報p67", "それを足した1回", "runway 13 at LGA) after a 35-second delay"),
-              ("ド#35p18", "滑走路の手前", "Hard landing just short of threshold"),
-              ("報p106", "生き残れる見込みのいちばん高い道", "provided the highest probability that the accident would be survivable")),
-        # ── 第5章
-        c601=(("報p68", "操縦室の画面", "displayed on the ECAM displays in the cockpit"),
-              ("報p69", "紙の冊子を開く", "directed the PM to the Engine Dual Failure checklist procedures contained in the QRH")),
-        c603=(("報p69", "1つ目", "Part 1"), ("報p70", "2つ目", "Part 2"), ("報p70", "3つ目", "Part 3"), ("画", "1ページ目"), ("画", "3ページ目")),
-        c605=(("報p69", "飛ぶ時間の多くは高い空", "Airbus airplanes spend much more time at higher altitudes"),
-              ("報p69", "検討していなかった", "it had not considered developing a dual-engine failure checklist for use at a low altitude")),
-        c608=(("報p104", "2005年", "In 2005, Airbus amended the Engine Dual Failure checklist"), ("報p104", "2本立てに", "two parallel steps"),
-              ("報p104", "長い手順書に", "it resulted in a lengthy checklist")),
-        c610=(("報p70", "a 点火 … 入れる", "a. Start engine ignition"), ("報p70", "b 推力のレバー … 確かめる", "b. Confirm thrust levers at idle"),
-              ("報p70", "c 速さ 300ノットを保つ", "c. Maintain optimum relight airspeed of 300 kts"),
-              ("報p70", "d 降りる場所 … 決める", "d. Determine a landing strategy")),
-        c614=(("報p104", "1つ目の大半まで", "able to complete most of part 1 of the checklist"),
-              ("報p104", "2つ目と3つ目", "they were not able to start parts 2 and 3 of the checklist"), ("画", "1ページ目"), ("画", "3ページ目")),
-        c617=(("報p73", "約910メートル", "configured for a ditching before 3,000 feet"), ("画", "約610メートル", "At 2000’ AGL"),
-              ("報p73", "機首 約11度", "Touchdown with approximately 11 degrees of pitch")),
-        c619=(("報p77", "水面より下の弁を閉じる", "closes all of the valves below the water line"),
-              ("報p77", "長く浮くのを助ける", "to help the airplane float longer")),
-        c621=(("ド#7p6", "地上の座学だけ", "The only training for ditching was given in ground school"),
-              ("ド#7p6", "着水の訓練なし", "There was no training in the simulator"),
-              ("ド#7p6", "時間がある前提", "All guidance he received for ditching implied that they had time")),
-        c623=(("報p71", "APU を始動する", "k. Start APU"), ("報p70", "前に a〜j の10項目", "a. Start engine ignition … j. Verify that crew oxygen masks are ON"),
-              ("報p105", "順番どおりなら行われず", "This critical step would not have been completed if the flight crew had simply followed the order"),
-              ("画", "2ページ目の k"), ("画", "3ページ目")),
-        c626=(("報p105", "低い所の故障用の手順書", "a checklist that addressed a dual-engine failure occurring at a low altitude"),
-              ("報p105", "見込みはより高い", "they would have been more likely to have completed that checklist")),
-        c628=(("報p142", "手順書の作り方の指針", "the order of critical items in the checklist"),
-              ("報p142", "低い所の故障を訓練に", "include a dual-engine failure scenario occurring at a low altitude"),
-              ("報p142", "座学とシミュレーター", "in initial and recurrent ground and simulator training")),
-        c630=(("計", "第10章", "橋の1行"),),
-        # ── 🆕 ⑤b-6 から前倒しの5カット（地 gf1・gk2・gl1・gr2 の明るさを測るため）
-        c703=(("報p64", "約80メートル", "as the airplane was descending through 270 feet"),
-              ("報p64", "レバーを2に", "the flap lever was moved to the CONF 2 position")),
-        c705=(("報p106", "最後の約60メートル", "during the last 200 feet"),
-              ("報p106", "下限より時速約30キロ遅い", "about 15 to 19 knots below VLS")),
-        c711=(("報p65", "迎え角の守り", "was in alpha-protection mode from 150 feet to touchdown"),),
-        ca04=(("報p96", "1つ目", "the ditching occurred in good visibility conditions on calm water"),
-              ("報p96", "2つ目", "was executed by a very experienced flight crew"),
-              ("報p96", "とても経験のある乗員", "a very experienced flight crew")),
-        cb13=(("勧", "2018年", "A-10-085 受け入れられる対応 2018-01-19"), ("勧", "受け入れられる対応", "A-10-085 受け入れられる対応"),
-              ("報p143", "救命胴衣の決まり", "Revise the life vest performance standards")),
-        # ── 🆕 ⑤b-6（2026-11-11）：模式 後半28＋型の図23。記号は ⑤b-5 と同じ＋勧＝勧告の控え（`src/carol/carol_dca09ma026.json`・2026-11-09）・
-        #    官＝連邦官報 2023-06413（`src/web/fr2023_06413.txt`）。書き起こしの時刻は付録の頁（p189〜p196）。換算は mech32 の ⑤b-6 の頭
-        # 第1章
-        c210=(("報p54", "20機", "The accident airplane was 1 of 20 A320s equipped as an EOW airplane"),
-              ("報p54", "A320 75機のうち", "in the US Airways fleet of 75 A320s"),
-              ("報p54", "積む決まりなし", "Non-EOW airplanes are not required to carry passenger life vests, slide/rafts, or survival kits"),
-              ("報p55", "この便", "The accident flight was a non-EOW flight")),
-        c214=(("報p18", "15:25:51", "The captain contacted the departure controller at 1525:51"),
-              ("報p18", "約210メートル", "advising him that the airplane was at 700 feet"),
-              ("報p18", "約4,600メートル", "The controller then instructed the flight to climb to and maintain 15,000 feet")),
-        # 第2章
-        c301=(("報p19", "15:27:10", "at 1527:10.4, the captain stated"), ("報p19", "鳥だ", "“birds.”"),
-              ("画", "12"), ("画", "3"), ("画", "6"), ("画", "9")),
-        c306=(("報p97", "約3.8〜4.2キロ", "The average weight of a male Canada goose is from 8.4 to 9.2 pounds"),
-              ("報p97", "約3.3〜3.5キロ", "the average weight of a female goose is from 7.3 to 7.8 pounds"),
-              ("報p97", "約3.6キロのガン", "Canada geese weighing about 8 pounds each"),
-              ("報p97", "少なくとも2羽ずつ", "each engine ingested at least two Canada geese")),
-        c307=(("報p34", "約1.8キロ", "The large-bird ingestion criterion for CFM56-5B4/P-sized engines was a single, 4-pound bird"),
-              ("報p34", "1羽", "a single, 4-pound bird"), ("報p97", "約3.6キロ", "weighing about 8 pounds each"),
-              ("計", "約2倍の重さ", "8ポンド÷4ポンド")),
-        c308=(("報p64", "82%", "the left engine decelerated from 82 to 35 percent N1"), ("報p64", "35%", "from 82 to 35 percent N1"),
-              ("報p64", "15%", "the right engine decelerated from 82 to 15 percent N1"),
-              ("報p17", "押す力はほぼ残らない", "an almost complete loss of thrust in both engines")),
-        c323=(("報p19", "15:27:33", "At 1527:33, the captain reported the emergency"), ("報p196", "15:29:28", "15:29:28 RDO-1"),
-              ("報p196", "ハドソン川に降りる", "we're gonna be in the Hudson."), ("計", "約2分", "15:27:33 から 15:29:28 まで＝1分55秒")),
-        # 第3章
-        c407=(("報p19", "unable", "the captain responded, “unable.”"), ("報p196", "we can't do it", "15:29:25 RDO-1 we can't do it."),
-              ("報p19", "滑走路13のとき", "asked the captain if he wanted to try to land on runway 13 at LGA if it was available"),
-              ("報p19", "降りるかの問い", "if he wanted to try to land on runway 13")),
-        c422=(("報p19", "15:27:33", "At 1527:33, the captain reported the emergency"),
-              ("報p105", "15:28:11", "at 1528:11, the captain reported to ATC that he did not think they would be able to land at LGA"),
-              ("報p192", "15:28:35", "15:28:35 RDO-1 unable."), ("報p193", "15:28:50", "15:28:49.9 RDO-1 I'm not sure we can make any runway"),
-              ("報p196", "15:29:25", "15:29:25 RDO-1 we can't do it."), ("報p196", "15:29:28", "15:29:28 RDO-1 we're gonna be in the Hudson."),
-              ("報p191", "滑走路13は", "15:28:10.6 RDO-1 we're unable. we may end up in the Hudson."),
-              ("報p192", "滑走路31も", "its gonna be left traffic for runway three one"), ("報p193", "滑走路4も", "runway four's available"),
-              ("計", "2分17秒", "15:27:11 から 15:29:28 まで")),
-        # 第4章
-        c505=(("報p67", "20回", "20 runs were performed in the engineering simulator"),
-              ("報p67", "5回を外す", "Five of the 20 runs were discarded because of poor data or simulator malfunctions"),
-              ("報p67", "15回", "Of the 15 remaining runs"), ("報p67", "滑走路22", "runway 22 at LGA"), ("報p67", "6回", "in 6, the pilot attempted to land on runway 22"),
-              ("報p67", "滑走路13", "runway 13 at LGA"), ("報p67", "7回", "in 7, the pilot attempted to land on runway 13"),
-              ("報p67", "滑走路19", "runway 19 at TEB"), ("報p67", "2回", "in 2, the pilot attempted to land on runway 19 at TEB")),
-        c506=(("報p67", "8回・53%", "In eight of the 15 runs (53 percent)"), ("報p67", "15回のうち降りられた", "the pilot successfully landed"),
-              ("報p67", "6回中2回", "two of the six runs to land on runway 22 at LGA"), ("報p67", "7回中5回", "five of the seven runs to land on runway 13 at LGA"),
-              ("報p67", "2回中1回", "one of the two runs to land on runway 19 at TEB"),
-              ("報p67", "滑走路22", "runway 22 at LGA"), ("報p67", "滑走路13", "runway 13 at LGA")),
-        # 第5章
-        c607=(("報p104", "約6,100メートル", "assuming that a dual-engine failure occurred at a high altitude (above 20,000 feet)"),
-              ("報p19", "約860メートル", "2,818 feet"), ("報p18", "1549便", "US Airways flight 1549"), ("計", "約7分の1", "2,818 ÷ 20,000")),
-        c615=(("報p105", "約3分の1", "only able to complete about one-third of the Engine Dual Failure checklist"),
-              ("画", "1ページ目"), ("画", "2ページ目"), ("画", "3ページ目")),
-        c624=(("報p105", "電気をつくる", "ensuring that a primary source of electrical power was available to the airplane"),
-              ("報p105", "ノーマル・ロー", "the airplane remained in normal law"),
-              ("報p105", "失速を防ぐ守り", "maintained the flight envelope protections, one of which protects against a stall")),
-        # 第6章
-        c707=(("報p107", "鳴らなかった", "the low-speed warning was inhibited by the GPWS warnings"),
-              ("報p20", "15回", "the two systems transmitted a total of 15 alerts"), ("計", "約85秒で", "15:29:14.9 から 15:30:40.1 まで＝85.2秒")),
-        c709=(("報p21", "15:30:24", "At 1530:24, the GPWS issued"),
-              ("報p21", "地面、地面、機首を上げろ", "a “terrain, terrain” warning followed by “pull up,”"),
-              ("報p201", "録音が終わるまで", "[\"pull up\" repeats until the end of the recording]")),
-        c712=(("報p65", "約45メートルから下", "in alpha-protection mode from 150 feet to touchdown"),
-              ("報p65", "約30メートルから下", "attenuated the effect of the pilot’s airplane nose-up (ANU) sidestick inputs below 100 feet radio altitude"),
-              ("報p65", "エアバスの再現", "The Airbus simulation indicated")),
-        c713=(("報p115", "いちばんの性能", "the airplane did provide maximum performance for the weight and configuration at that time"),
-              ("報p115", "失速の心配なく引けた", "pull full aft on the sidestick without the risk of stalling the airplane"),
-              ("報p65", "機首上げの効きを弱めた", "attenuated the effect of the pilot’s airplane nose-up (ANU) sidestick inputs")),
-        c715=(("報p65", "15:30:43", "remaining there until touchdown at 1530:43"), ("報p65", "9.5度", "with a pitch angle of 9.5°"),
-              ("報p65", "時速約230キロ", "touched down on the Hudson River at an airspeed of 125 KCAS"),
-              ("報p65", "毎秒約3.8メートル", "the airplane ditched with a descent rate of 12.5 fps")),
-        c716=(("報p95", "毎秒約1.1メートル", "the descent rate of 3.5 fps assumed during ditching certification"),
-              ("報p95", "毎秒約3.8メートル", "the airplane’s descent rate at the time it impacted the water was 12.5 fps"),
-              ("報p95", "3倍をこえる", "more than three times the descent rate"), ("報p18", "1549便", "US Airways flight 1549"),
-              ("報p95", "後ろの胴体に", "resulting in external pressures on the aft fuselage")),
-        c719=(("報p52", "左のすね", "laceration to her lower left leg"), ("報p52", "12センチ", "12-centimeter-long"),
-              ("報p52", "5センチ", "5-centimeter-deep"), ("報p52", "手術で閉じた", "that required surgery to close")),
-        c721=(("報p138", "着水の前提をすべて", "attain all of the Airbus ditching parameters"), ("報p138", "見込みは低い", "it is possible but unlikely"),
-              ("報p138", "胴体の損傷の一因", "this difficulty contributed to the fuselage damage")),
-        c723=(("報p140", "推力なしで届くか確かめず", "without determining whether pilots could attain the ditching parameters without engine thrust"),
-              ("報p140", "着水の降り方", "guidance on ditching techniques"),
-              ("報p140", "思う速さを保ちにくい", "difficulty maintaining his intended airspeed on final approach"),
-              ("報p140", "緊急で手いっぱい", "the task saturation resulting from the emergency situation")),
-        # 第7章
-        c802=(("報p58", "15:30:43", "By using the time of initial impact as 1530:43"), ("報p58", "15:30:58", "1530:58 – left overwing exits opened"),
-              ("報p58", "15:31:06", "1531:06 – door 1L opened"), ("報p58", "15:31:11", "1531:11 – door 1R opened"),
-              ("報p58", "15:31:16", "1531:16 – the 1R slide/raft fully deployed"), ("報p59", "15:31:26", "1531:26 – 1L slide/raft began to inflate")),
-        c804=(("報p57", "途中で閉まりかけた", "door 1R started to close during the evacuation"),
-              ("報p57", "約30センチ入り込む", "intruding about 12 inches into the doorway"),
-              ("報p57", "力のありそうな男性", "she assigned an “able-bodied” man to hold the door")),
-        c807=(("報p58", "混み合った", "some of the passengers were bottle-necked at the overwing exits"),
-              ("報p58", "呼び寄せた", "the flight attendants called them forward"),
-              ("報p58", "前の右の扉から出た", "Flight attendant B also exited from door 1R")),
-        c809=(("報p58", "残る人がいないか", "inspected the cabin to ensure that no more passengers or crewmembers were on board"),
-              ("報p58", "前の左のすべり台へ", "exited the airplane onto the 1L slide/raft")),
-        c810=(("報p124", "約64人", "about 64 occupants were rescued from the forward slide/rafts"),
-              ("報p124", "約87人", "about 87 occupants were rescued from the wings and off-wing ramp/slides"),
-              ("報p124", "前の2つのすべり台", "the forward slide/rafts"),
-              ("報p124", "立つ場所はほぼ残らず", "the wings were very near to, if not at, standing capacity")),
-        c813=(("報p41", "マイナス7度", "temperature -7° C"), ("報p41", "セントラルパーク 15:51", "Central Park … The 1551 observation"),
-              ("報p41", "5.2度", "5.2° C (41.36° F)"), ("報p120", "約マイナス17度", "a 2° F wind chill factor")),
-        c816=(("報p61", "2人", "Two additional passengers retrieved and donned their life vests before impact"),
-              ("報p61", "10人", "5 passengers (3 percent) reported retrieving life vests from under their seats after impact … An additional 5 passengers"),
-              ("報p61", "21人", "21 passengers (14 percent) reported being given a life vest"),
-              ("報p61", "77人", "77 passengers (53 percent) retrieved seat cushions during the evacuation")),
-        c819=(("報p59", "146人", "The NTSB contacted 146 of the 150 passengers"), ("報p59", "150人のうち", "146 of the 150 passengers"),
-              ("報p61", "25人", "25 passengers (17 percent) reported watching most of the preflight safety demonstration"),
-              ("報p61", "一部を見た 19人", "an additional 19 passengers (13 percent) reported watching some of the demonstration"),
-              ("報p61", "12人", "12 passengers (8 percent) reported reading the safety information card")),
-        c820=(("報p54", "いかだ1つ", "Each slide/raft"), ("報p54", "44人用", "Each slide/raft was rated to carry 44 passengers"),
-              ("報p124", "この装備が無ければ", "If the airplane had not been EOW equipped"),
-              ("報p124", "約64人のいかだは無かった", "the rafts that held those occupants would not have been available … about 64 occupants")),
-        c822=(("計", "最初の船", "橋の1行"),),
-        # 第8章
-        c909=(("報p59", "約4分", "1534:40 – first vessel arrived on scene"), ("報p62", "最初のフェリー", "the first NY WW vessel arrived on scene about 1534"),
-              ("報p120", "約20分", "all of the occupants were rescued within about 20 minutes of the ditching"),
-              ("報p59", "24分", "1554:43 – last vessel departed"), ("報p59", "15:54:43", "1554:43 – last vessel departed with last rescued passengers")),
-        c913=(("報p52", "足の傷", "laceration to her lower left leg"), ("報p52", "胸の骨の端の骨折", "One of the passengers sustained a fractured xiphoid process"),
-              ("報p52", "低体温症", "The other passenger suffered hypothermia"),
-              ("報p52", "2日後の夕方まで入院", "was not released from the hospital until about 1645 … January 17, 2009"),
-              ("報p53", "2人", "one of these passengers sustained a fractured left shoulder and that the other passenger sustained a fractured right shoulder"),
-              ("報p53", "肩の骨折", "a fractured left shoulder … a fractured right shoulder")),
-        c918=(("報p63", "救助の指揮所", "established an incident command post in New Jersey at the Port Imperial Ferry Terminal"),
-              ("報p63", "ニュージャージー側", "in New Jersey"), ("報p63", "沿岸警備隊", "the USCG assumed incident command"),
-              ("報p62", "フェリー", "the first NY WW vessel arrived on scene"), ("報p63", "消防", "Marine 1 Alpha, FDNY")),
-        # 第9章
-        ca08=(("報p140", "判断と連携", "the decision-making of the flight crewmembers and their crew resource management"),
-              ("報p140", "偶然あった", "the fortuitous use of an airplane that was equipped for an extended overwater flight"),
-              ("報p140", "速い誘導", "the performance of the cabin crewmembers while expediting the evacuation of the airplane"),
-              ("報p140", "近さと早さ", "the proximity of the emergency responders to the accident site and their immediate and appropriate response")),
-        ca10=(("報p137", "所見15", "15. The captain’s decision to ditch on the Hudson River"),
-              ("報p137", "川を選んだ判断", "The captain’s decision to ditch on the Hudson River rather than attempting to land at an airport"),
-              ("報p137", "所見14", "14. Despite being unable to complete the Engine Dual Failure checklist, the captain started the auxiliary power unit"),
-              ("報p137", "所見18", "18. The captain’s decision to use flaps 2 for the ditching"),
-              ("報p137", "フラップ2は妥当", "use flaps 2 for the ditching, based on his experience and perception of the situation, was reasonable")),
-        ca12=(("報p146", "着水には準備の時間", "Those criteria state that a ditching allows “some time” for preparation"),
-              ("報p146", "1549便には、ほとんど何をする時間もなかった", "In the case of US Airways 1549, there was insufficient time for much of anything")),
-        ca14=(("報p96", "よい見通しと静かな水面", "the ditching occurred in good visibility conditions on calm water"),
-              ("報p96", "経験のある乗員", "was executed by a very experienced flight crew"),
-              ("報p140", "積む決まりのない装備", "even though it was not required to be so equipped"),
-              ("報p140", "近くの船", "the proximity of the emergency responders to the accident site")),
-        # 第10章
-        cb01=(("勧", "35本", "A-09-112 と A-10-062〜A-10-095"), ("勧", "報告書の34本＋先の1本", "A-10-062〜A-10-095 が34本・A-09-112 が1本"),
-              ("勧", "26本", "あて先 FAA＝26本"), ("勧", "8本", "あて先 EASA＝8本"), ("勧", "1本", "あて先 USDA＝1本")),
-        cb02=(("勧", "34本", "閉じた34"), ("勧", "1本", "開いている1＝A-10-087"), ("勧", "16本", "受け入れられない対応 16"),
-              ("勧", "受け入れられる対応 10本", "受け入れられる対応 10"), ("勧", "別の対応 7本", "受け入れられる別の対応 7"),
-              ("勧", "考え直して閉じた 1本", "NTSB が考え直して閉じた 1＝A-10-070")),
-        cb03=(("勧", "受け入れられない対応", "CAROL の状態の欄＝受け入れられない対応で閉じた"), ("勧", "記録を閉じる", "CAROL の状態の欄＝閉じた")),
-        cb05=(("勧", "2012年", "A-10-068 受け入れられない対応 2012-07-18"), ("勧", "受け入れられない対応", "A-10-068 受け入れられない対応"),
-              ("報p142", "手順書の作り方の指針", "Develop and validate comprehensive guidelines for emergency and abnormal checklist design and development")),
-        cb07=(("計", "2009年1月", "2009-01-15"), ("勧", "2025年12月", "A-10-072 受け入れられる対応 2025-12-02"),
-              ("計", "17年近く", "2009-01-15 から 2025-12-02 まで＝16年10か月17日")),
-        cb10=(("官", "1549便がきっかけ", "As a result of the Flight 1549 accident, the FAA began studying"),
-              ("官", "鳥の吸い込みの研究", "how to improve engine durability related to core engine bird ingestion"),
-              ("勧", "低い回転での鳥の試験", "A-10-064 … be conducted using the lowest expected fan speed"),
-              ("勧", "2024年4月", "A-10-064 それに代わる対応 2024-04-03"), ("勧", "受け入れられる別の対応", "A-10-064 それに代わる対応")),
-        cb14=(("勧", "8本", "A-10-088〜A-10-095＝あて先 EASA"), ("勧", "3本", "受け入れられる対応＝A-10-089・091・092"),
-              ("勧", "1本", "受け入れられる別の対応＝A-10-088"), ("勧", "4本", "受け入れられない対応＝A-10-090・093・094・095")),
-        cb15=(("勧", "低い所の手順書を使う", "A-10-067 … require … operators of turbine-powered aircraft to implement the checklist and procedure"),
-              ("勧", "その手順の訓練", "A-10-069 … include a dual-engine failure scenario occurring at a low altitude in initial and recurrent ground and simulator training"),
-              ("勧", "受け入れられない対応", "A-10-067・A-10-069 受け入れられない対応 2014-07-23"), ("勧", "2026年11月の時点", "CAROL の控え 2026-11-09")),
-        # 第11章
-        cc05=(("報p67", "判断の35秒を足すと", "after a 35-second delay"), ("ド#35p18", "届かなかった", "Hard landing just short of threshold"),
-              ("報p137", "生き残れる見込みのいちばん高い道", "provided the highest probability that the accident would be survivable")),
-        cc07=(("報p96", "よい見通しと静かな水面", "the ditching occurred in good visibility conditions on calm water"),
-              ("報p96", "経験のある乗員", "was executed by a very experienced flight crew"),
-              ("報p140", "積む決まりのない装備", "even though it was not required to be so equipped"),
-              ("報p140", "近くの船", "the proximity of the emergency responders to the accident site")),
-        cc09=(("計", "助かった理由", "結び"), ("計", "足りなかった所", "結び")),
-    ),
-)
+REC_M32 = {}
 
 
 def judge_m32(f):
@@ -7054,8 +6805,9 @@ def _selftest_m32(ok):
 
     good = {c: s["fig"][1] for c, s in cuts.SPEC.items() if s.get("fig") and s["fig"][0] == "m32"}
     if not good:
-        print("  ⚠️ 32本目 m32 のカットが SPEC に無い＝検算しない（図を書く前の回なら正しい）")
-        return ok
+        # 🔴 2026-11-15（33本目 ⑤b-1・§0b）：見本 fixture_ep32 と32本目の章ファイルを差して回す形にした＝カットが無いのは差し損ね＝黙って通さない（m31 と同じ）
+        print("  🔴 NG 32本目 m32 のカットが SPEC に無い＝検算できない")
+        return False
     for cid, kw in good.items():
         bad, _ = judge("m32", kw)
         if bad:
@@ -7642,7 +7394,15 @@ def main():
         return 2
     print("selftest（m31）: 通った")
     # 🆕 32本目 ⑤b-5（2026-11-11）：m32 の検算（本番の表 REC_M32 と本番の章ファイルのまま＝この回の値）
-    if not _selftest_m32(True):
+    # 🔴 2026-11-15（33本目 ⑤b-1・§0b）：表 REC_M32 は見本 fixture_ep32・カットは32本目の章ファイル（`apply_cuts()`＝git の `139227a3`）を差して回し、戻す（m31 と同じ形）
+    import fixture_ep32
+    fixture_ep32.apply(sys.modules[__name__])
+    try:
+        fixture_ep32.apply_cuts()
+        ok32 = _selftest_m32(True)
+    finally:
+        fixture_ep32.restore()
+    if not ok32:
         print("selftest（m32）: 🔴 落ちた")
         return 2
     print("selftest（m32）: 通った")

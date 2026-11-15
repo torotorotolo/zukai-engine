@@ -245,6 +245,20 @@
   🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep32）。写真の色は原本（`PHOTO_KEEP_EP` に ep32）。VTS は等速・止めなし・頭から使う。
   31本目の型の値（ss.py の後半＝GROUND・SAT・GEO・線の表・SLIDE_NOT_MOUNT・門番の記録の表 REC_M31・check_sat の REC_SAT_NUM）は selftest の見本 `tools/fixture_ep31.py` へ移した。
   検算：⑤b-1 の終わりは `len(PLAN)` が **236**・`len(SPEC)` は ed01（と字幕の試しのカット）だけ。書き終えたら **237**。
+
+■ 🔴🔴 2026-11-15（33本目 グレンフェルタワー火災 ⑤b-1）：**33本目へ差し替え。**
+  32本目の章ファイル（c1〜c9・ca〜cc）は git の `139227a3` にある。33本目も **12の区切り**（冒頭 c101〜c113＝c1＋台本の第1〜11章＝
+  c2〜c9・ca〜cc＝c201〜cc13 の241カット・欠番なし）＋共通の末尾 `ed01`＝`CHAPTER_FILES` はそのまま。
+  冒頭 c1 は章の印なし・扉は c201〜cc01 の頭の11枚（`check_script.door_key`＝33本目は INNER_CARDS なし）。
+  PLAN＝`ref/ep33/make_plan33.py` が映像方針の一覧（`ref/ep33/eizou_build/make_list33.py`＝了承②ずみ・E 0・秒は narration.json の実測・扉11枚）と
+  台本 第2版 §4 の**出典の欄だけ**から機械で組んだ（🔴 台本の画の欄は写さない＝⑤b は一覧に従う）＝
+  写真82（映像 6〈#15〉・写真 38・報告の図 38）・文字の頁34（公的な機関の頁＋訳の札＝🆕 最初から「文字の頁」）・フリー素材32（Pexels＝未取得）・
+  図解93（衛星 4・模式 67・ほか 22）・🔧48。文字だけの画面＝文字の頁34（14.1%・続く最長2）・決め所0・再現イラスト0。
+  🔴 この回の線＝住民は名前なし（人数だけ）・消防士と指揮者は立場・委員長と大臣と区の幹部は役職・会社と団体は報告が名指しした結論の範囲で名前・
+     社員と専門家は役職・刑事は警視庁の発表の数と日付だけ・「見捨てた」「英国史上最悪」「60時間」は使わない・追悼の場と支援の掲示は使わない。
+  🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep33）。写真の色は原本（`PHOTO_KEEP_EP` に ep33）。#15 は等速・止めなし・頭から使う・場面の切れ目をまたがない。
+  32本目の型の値（ss.py の後半＝GROUND・SAT・GEO・線の表・NEEDS_MASK・SLIDE_NOT_MOUNT・門番の記録の表 REC_M32・check_sat の REC_SAT_NUM）は selftest の見本 `tools/fixture_ep32.py` へ移した。
+  検算：⑤b-1 の終わりは `len(PLAN)` が **241**・`len(SPEC)` は ed01（と字幕の試しのカット）だけ。書き終えたら **242**。
 """
 import importlib
 import sys

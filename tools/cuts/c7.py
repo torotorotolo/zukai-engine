@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
-"""第6章　最後の30メートル c701–c724（24カット）。32本目（USエアウェイズ1549便のハドソン川への着水・2009-01-15・ニューヨーク・報告書 NTSB/AAR-10/03 は2010-05-04 採択）。
+"""第6章　試験をごまかした会社 c701–c723（23カット）。33本目（グレンフェルタワー火災・2017-06-14・ロンドン・公開調査の報告は 2019-10-30〈第1段階〉と 2024-09-04〈第2段階〉）。
 
-■ 🔴 2026-11-10（⑤b-1）：31本目（全日空機雫石衝突事故）の中身を空にした＝git の `f4bd0a9a`（`git show f4bd0a9a:tools/cuts/c7.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep32/make_plan32.py` で
-  映像方針の一覧（`ref/ep32/eizou_build/make_list32.py`＝了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
-  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep32/eizou_list32.md`＝⑤b は一覧に従う）。
+■ 🔴 2026-11-15（⑤b-1）：32本目（USエアウェイズ1549便のハドソン川への着水）の中身を空にした＝git の `139227a3`（`git show 139227a3:tools/cuts/c7.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep33/make_plan33.py` で
+  映像方針の一覧（`ref/ep33/eizou_build/make_list33.py`＝了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
+  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep33/eizou_list33.md`＝⑤b は一覧に従う）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
-     （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
-  🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep32）＝`fmove`（額ごと動かす）・額の中の `cam` を書かない（門番 check_fmove が絵で測る）。
-  🔴 写真は画面いっぱい・色は原本（`build_jiko.PHOTO_KEEP_EP` に ep32）・BY-SA は額装・紙面と調査の写真も額装。説明カットの地は写真を暗くするだけ（8:1・衛星と夜の写真は地にしない）。
-  🔴 VTS（沿岸警備隊の監視カメラ）は等速・止めなし・頭から使う・同じ秒を2回使わない（区間は一覧の動きの欄＝make_list32 の門番）。
-  ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット。
-  🔴 この回の線＝語りと画面に名前を出すのは機長と副操縦士だけ（初出 c203・c205）・客室乗務員・管制官・救助の人は立場だけ・乗客は名前なし・
-     NTSB・FAA・議員・知事・監督・俳優は役職で・「犠牲」「死亡」は言わない・「208秒」は使わず「約3分半」・映画は c517〜c518・c520 だけ
-     ＝図でも同じ（紙面・写真に名前の字が写る＝親が絵を見て切る・船の名も読ませない）
+     （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。公的な機関の頁（訳の札つき）は最初から「文字の頁」。
+  🔴 額装・帯の写真は静止（`build_jiko.FRAME_STILL_EP` に ep33）＝`fmove`（額ごと動かす）・額の中の `cam` を書かない（門番 check_fmove が絵で測る）。
+  🔴 写真は画面いっぱい・色は原本（`build_jiko.PHOTO_KEEP_EP` に ep33）・BY-SA は額装・報告の図と頁も額装。説明カットの地は昼の写真を暗くするだけ（8:1・衛星・夜・BY-SA は地にしない）。
+  🔴 #15（Commons の映像）は等速・止めなし・頭から使う・同じ秒を2回使わない・場面の切れ目をまたがない（区間は一覧の動きの欄＝make_list33 の門番）。
+  ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針（と ⑤b-1 の c526）で台本の画の欄から替えたカット。
+  🔴 この回の線＝住民（亡くなった人・生き残った人・出火した部屋の住人）は名前なし（人数だけ）・消防士と指揮者は立場・調査の委員長と大臣と区の幹部は役職・
+     会社と団体は報告が名指しした結論の範囲で名前・社員と専門家は役職・刑事は警視庁の発表の数と日付だけ・「見捨てた」「英国史上最悪」「60時間」は使わない・
+     追悼の場と支援の掲示は使わない＝図でも同じ（報告の図・頁・写真に名前の字が写る＝親が絵を見て切る）
 """
 import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
@@ -21,148 +21,75 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'c701': dict(kind='写真',
-               plan='🔧 D76-9｜一覧の種類：調査｜見せ方：額装（高さいっぱい）｜副題：後ろの胴体の下の裂け〈NTSB の調査の写真〉｜動き：静止｜権利：同上｜時期：2009-01（凡例）｜人：なし｜出典の行：写真：NTSB 公開ドケット DCA09MA026（構造の写真 写真9）｜注：△ 絵は ⑤b で原寸｜新しい画（映像方針）：🔧 調査の写真の番号を凡例から（#76 写真9）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 調査の写真（NTSB のドケット）＝額装・無加工・出典の行・人の写り（顔・名前の字・船の名）は原寸で（⑤b-2）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p39（`According to Airbus, the ditching certification criteria also assumed that engine power was available, that the descent rate was 3.5 feet per second (fps), and that the airplane landed longitudinal to any water swells`）'),
-    'c702': dict(kind='文字の頁',
-               plan='R40｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）表2｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p40（`Pitch attitude (in °) 11 9.5 Airspeed (in knots) 118 125`…`Descent rate (in fps) 3.5 12.5`）'),
+    'c701': dict(kind='文字の頁',
+               plan='P:c701｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜副題：訳の札「試験のやり方を操り、試験の結果を偽って伝え、市場を欺く」｜動き：静止｜見た目の型：P2V1 ¶2.19 の頁｜権利：OGL v3.0｜時期：頁の日付｜人：なし（名前の行は入れない）｜出典の行：グレンフェル・タワー調査 第2段階の報告 第1巻 ¶2.19（2024）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公的な機関の頁（公開調査・政府・区・警視庁ほか）＝額装・無加工・訳の札・出典の行・🔴 名前の行を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.19（`They engaged in deliberate and sustained strategies to manipulate the testing processes, misrepresent test data and mislead the market`）'),
+    'c702': dict(kind='図解',
+               plan='地：X624（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：報告が名を挙げた3社の札＝外装の板 アルコニック・断熱材 セロテックス・断熱材 キングスパン｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.21（`Arconic Architectural Products manufactured and sold the Reynobond 55 PE rainscreen panels`）・P2V1¶2.28（`Celotex manufactured RS5000, a combustible polyisocyanurate foam insulation`）・P2V1¶2.41（`one of the insulation products used on Grenfell Tower, Kingspan K15`）'),
     'c703': dict(kind='図解',
-               plan='🔧 地：GF1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：フラップ＝翼のうしろから出す板・ゆっくり飛べるようになる絵｜注：—｜新しい画（映像方針）：🔧 地 衛星 → イメージ〈翼のうしろの板〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p20（`At 1529:44, the first officer stated, “no relight,” and the captain replied, “ok let’s go put the flaps out, put the flaps out.”`）・報p198（`15:29:45.4 HOT-1 ok lets go put the flaps out`）・報p64（`At 1529:49, as the airplane was descending through 270 feet, the flap lever was moved to the CONF 2 position`）'),
+               plan='🔧 地：X624（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：比べ｜副題：同じ板の2つの形＝リベット留めの平らな板とカセット・カセットは火にとても危ない反応〈2005年の初めの試験〉｜新しい画（映像方針）：🔧 種類 模式 → 比べ（リベット留めとカセットの2つの形＝c407 と同じ型）｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.22（`from early 2005 Arconic had been in possession of test data showing that in its cassette form the product reacted to fire in a very dangerous way`）'),
     'c704': dict(kind='フリー素材',
-               plan='X704｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：翼のうしろの板が出た旅客機の翼〈社名と機種は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p21（`at 1530:17, stated, “got flaps two, you want more?” The captain replied, “no, let’s stay at two,”`）・報p108（`The NTSB concludes that the captain’s decision to use flaps 2 for the ditching, based on his experience and perception of the situation, was reasonable`）'),
+               plan='X704｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：積み重ねたアルミの板｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・社名・字・機種なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.22（`Arconic persisted in telling the market that the panels had been classed B-s2, d0 without drawing any distinction between the cassette and riveted forms`）・P2V1¶2.21（`From 2005 until after the Grenfell Tower fire Arconic deliberately concealed from the market the true extent of the danger of using Reynobond 55 PE in cassette form`）'),
     'c705': dict(kind='図解',
-               plan='🔧 地：GK2（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：速さの札＝いちばん遠くまで滑れる速さ・機体が示す下限の速さ・実際の速さの線｜注：—｜新しい画（映像方針）：🔧 地 衛星 → イメージ〈速さの計器〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p106（`FDR data indicated that the airplane was below green dot speed and at VLS or slightly less for most of the descent, and about 15 to 19 knots below VLS during the last 200 feet`）'),
+               plan='地：X704（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：規制が弱いと見た国〈イギリスを含む〉へ、カセットの形のまま売る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.23（`it was determined to exploit what it saw as weak regulatory regimes in certain countries (including the UK) to sell Reynobond 55 PE in cassette form`）'),
     'c706': dict(kind='フリー素材',
-               plan='X706｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：操縦室の速さの計器〈機種は名乗らない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p106（`the captain stated during postaccident interviews that he thought that he had obtained green dot speed immediately after the bird strike`）・報p106（`maintained that speed until the airplane was configured for landing, and, after deploying the flaps, maintained a speed “safely above VLS,”`）・報p107（`The NTSB concludes the captain’s difficulty maintaining his intended airspeed during the final approach resulted, in part, from high workload, stress, and task saturation`）'),
+               plan='X706｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：夜の都市の高層ビル群｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・社名・字・機種なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.24（`Despite the knowledge gained from cladding fires in Dubai in 2012 and 2013, Arconic did not consider withdrawing Reynobond 55 PE in favour of the fire-resistant version then available`）'),
     'c707': dict(kind='図解',
-               plan='地：GK1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：警報の札＝遅すぎる警報より地面の警報が優先される・地面の警報は約85秒で15回｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p107（`the low-speed warning was inhibited by the GPWS warnings, so that the flight crew was not made aware of the low-speed state`）・報p20（`From 1529:14.9 to 1530:40.1, the two systems transmitted a total of 15 alerts`）'),
-    'c708': dict(kind='文字の頁',
-               plan='R201｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録B｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p21（`and then asked the first officer, “got any ideas?” The first officer responded, “actually not.”`）'),
-    'c709': dict(kind='図解',
-               plan='🔧 地：GK1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：警報の札「地面、地面、機首を上げろ」｜注：—｜新しい画（映像方針）：🔧 地 衛星 → イメージ〈操縦室〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p21（`At 1530:24, the GPWS issued a “terrain, terrain” warning followed by “pull up,” which repeated to the end of the CVR recording`）・報p201（`["pull up" repeats until the end of the recording]`）'),
-    'c710': dict(kind='フリー素材',
-               plan='X710｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：操縦席の横の操縦の棒〈サイドスティック｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p65（`Starting at 1530:36, when the airplane was at a radio altitude of about 100 feet, the FDR recorded a progressive pull aft on the left sidestick`）・報p65（`At 1530:39, as the airplane descended through 50 feet, the sidestick moved aft more abruptly, reaching its aft limit (16°) at 1530:41`）'),
-    'c711': dict(kind='図解',
-               plan='🔧 地：GF1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：迎え角＝翼が空気に当たる角度の絵・角度が大きくなりすぎないよう機体が操縦をおさえる「迎え角の守り」｜注：—｜新しい画（映像方針）：🔧 地 衛星 → イメージ〈翼のうしろの板〉｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p65（`Airbus performed a simulation of the last 300 feet of the accident flight, which indicated that the airplane was performing as designed and was in alpha-protection mode from 150 feet to touchdown`）'),
+               plan='地：X704（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：等級の札＝2013年の試験のあと、自ら等級を燃えやすい方のEにすると決める・イギリスの客と認証の機関に、わざと伝えない｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.25（`Following further testing in 2013, Arconic decided that Reynobond 55 PE would be certified as Class E only, whether used in riveted or cassette form`…`it did not pass that information to its customers in the UK or to the BBA`…`That was not an oversight`）'),
+    'c708': dict(kind='フリー素材',
+               plan='🔧 X708｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：製品の証明書の書類｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・社名・字・機種なし）｜出典の行：イメージ（Pexels）｜注：字は読めない｜新しい画（映像方針）：🔧 模式 → イメージ（模式の続きを切る）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.27（`Arconic persuaded the BBA to issue a certificate that drew no distinction between the different forms of fixing`…`It concealed important information from the BBA, in particular the test data relating to the product in cassette form`）'),
+    'c709': dict(kind='フリー素材',
+               plan='X709｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：断熱材の板の束｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・社名・字・機種なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.28（`In an attempt to break into the market for insulation suitable for use on high-rise buildings`…`Celotex embarked on a dishonest scheme to mislead its customers and the wider market`）'),
+    'c710': dict(kind='写真',
+               plan='F:P2V1-5.8｜一覧の種類：紙面｜見せ方：額装（高さいっぱい）｜副題：燃焼試験の装置〈報告の図〉｜動き：静止｜権利：OGL v3.0（第三者のコマ・図を含む）｜時期：報告の図｜人：なし（⑤b で原寸）｜出典の行：グレンフェル・タワー調査 第2段階の報告 第1巻 図5.8（2024）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公開調査の報告の図＝額装・無加工・図の番号と題の行ごと切る・出典の行・第三者のコマや図を含む（OGL v3.0 の外の部分）＝報告の図として引用の形・🔴 名前の字を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.29（`in May 2014 Celotex tested in accordance with BS 8414 a system incorporating RS5000 that contained two sets of fire-resistant magnesium oxide boards placed in critical positions to ensure that it passed`）'),
+    'c711': dict(kind='文字の頁',
+               plan='P:c711｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜副題：訳の札「その板について何も書かない、試験の報告」｜動き：静止｜見た目の型：P2V1 ¶2.29 の頁｜権利：OGL v3.0｜時期：頁の日付｜人：なし（名前の行は入れない）｜出典の行：グレンフェル・タワー調査 第2段階の報告 第1巻 ¶2.29（2024）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公的な機関の頁（公開調査・政府・区・警視庁ほか）＝額装・無加工・訳の札・出典の行・🔴 名前の行を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.29（`It then obtained from BRE a test report that omitted any reference to the magnesium oxide boards`）・P2V1¶2.19（`the Building Research Establishment (BRE) was complicit in that strategy`）'),
     'c712': dict(kind='図解',
-               plan='🔧 地：C31（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：帯｜副題：高さと守りの帯＝約45メートルから下で守りが働く・約30メートルから下で機首を上げる操縦の効きが弱まる｜注：—｜新しい画（映像方針）：🔧 模式 → 帯（高さの帯＝約45メートルと約30メートル）・地 衛星 → [31]＝模式の連続を切る｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p114（`airspeed in the last 150 feet of the descent was low enough to activate the alpha-protection mode`）・報p65（`was in alpha-protection mode from 150 feet to touchdown`）・報p65（`the flight control system attenuated the effect of the pilot’s airplane nose-up (ANU) sidestick inputs below 100 feet radio altitude`）'),
-    'c713': dict(kind='図解',
-               plan='🔧 地：C31（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：守りの両面の札＝いちばんの性能を出した・失速の心配なく引けた・その一方で機首を上げる効きを弱めた｜注：—｜新しい画（映像方針）：🔧 地 衛星 → [31]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p115（`the airplane did provide maximum performance for the weight and configuration at that time`）・報p115（`The flight envelope protections allowed the captain to pull full aft on the sidestick without the risk of stalling the airplane`）'),
-    'c714': dict(kind='文字の頁',
-               plan='R202｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）付録B｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src="報p202（`HOT-1 we're gonna brace.`）・報p21（`The first officer was referring to the cabin emergency notification switch, which provides a signal to the cabin crewmembers indicating that an emergency has occurred`）"),
+               plan='地：X709（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：試験の機関の札＝1921年 国の機関として始まる・1991年から 外壁の防火の試験の仕事の多くが、ずさんで科学として甘い｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.11（`had been established in 1921 as a government body`）・P2V1¶2.15（`However, from 1991 much of the work it carried out in relation to testing the fire safety of external walls was marred by unprofessional conduct, inadequate practices, a lack of effective oversight, poor reporting and a lack of scientific rigour`）'),
+    'c713': dict(kind='フリー素材',
+               plan='X713｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：建材の売り込みの冊子とカタログ｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・社名・字・機種なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.30（`"the first PIR board to successfully test to BS 8414"`…`"acceptable for use in buildings above 18 metres in height"`）'),
+    'c714': dict(kind='図解',
+               plan='地：X713（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：勧めの札＝外装の下請けに「この塔にふさわしく安全」と勧める・そうでないと知りながら｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.31（`Celotex presented RS5000 to Harley as suitable and safe for use on Grenfell Tower, although it knew that was not the case`）'),
     'c715': dict(kind='図解',
-               plan='🔧 地：C31（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：着水の姿＝機首9.5度・時速約230キロ・沈む速さ 毎秒約3.8メートル｜注：—｜新しい画（映像方針）：🔧 地 衛星 → [31]（着水の直後の機体）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p65（`the airplane touched down on the Hudson River at an airspeed of 125 KCAS with a pitch angle of 9.5°`）・報p65（`the airplane ditched with a descent rate of 12.5 fps`）'),
+               plan='地：X713（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：キングスパンの札＝2005年から調査が始まったあとまで、18メートルをこえる建物の断熱材に偽りの市場｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.32（`From 2005 until after this Inquiry had begun, Kingspan knowingly created a false market in insulation for use on buildings over 18 metres in height`）'),
     'c716': dict(kind='図解',
-               plan='🔧 地：C31（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：棒｜副題：沈む速さ＝前提 毎秒約1.1メートル・1549便 毎秒約3.8メートル｜注：—｜新しい画（映像方針）：🔧 地 衛星 → [31]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p95（`the airplane’s descent rate at the time it impacted the water was 12.5 fps, more than three times the descent rate of 3.5 fps assumed during ditching certification, resulting in external pressures on the aft fuselage`）'),
-    'c717': dict(kind='写真',
-               plan='🔧 C68｜一覧の種類：写真｜見せ方：額装（高さいっぱい）｜副題：保管中のこの機体の底の壊れ｜動き：静止｜見た目の型：11-10 640px＝はがれた底の外板・骨組み｜権利：CC BY-SA 3.0｜時期：2011-02-25（EXIF＝博物館へ移す前の保管中）｜人：なし｜出典の行：写真：{作者}／Wikimedia Commons（CC BY-SA 3.0）・無加工｜注：BY-SA＝額装・無加工｜新しい画（映像方針）：🔧 副題「後ろの胴体の中〈2010年〉」→ 写っているもの（頁の説明＝着水で壊れた機体の底）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・副題の日付と夕方・夜は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p40（`Average external pressure (in psi) 7.3 15.1 Maximum external pressure (in psi) 10.9 22.6`）・計（15.1÷7.3＝2.07・22.6÷10.9＝2.07）'),
-    'c718': dict(kind='写真',
-               plan='🔧 D49-42｜一覧の種類：調査｜見せ方：額装（高さいっぱい）｜副題：床を突き破った梁〈NTSB の調査の写真〉｜動き：静止｜権利：同上｜時期：2009（凡例）｜人：なし｜出典の行：写真：NTSB 公開ドケット DCA09MA026（生存の写真 写真42）｜注：② で見た（dk_049）｜新しい画（映像方針）：🔧 調査の写真の番号を凡例から（#49 写真42）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 調査の写真（NTSB のドケット）＝額装・無加工・出典の行・人の写り（顔・名前の字・船の名）は原寸で（⑤b-2）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p49（`The FR65 vertical beam had punctured through the cabin floor in front of the direct-view jumpseat`）・報p139（`Flight attendant B was injured by the frame 65 vertical beam after it punctured the cabin floor during impact`）'),
-    'c719': dict(kind='図解',
-               plan='🔧 地：C21（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：傷の札＝左のすね・長さ12センチ・深さ5センチ・手術で閉じた｜注：—｜新しい画（映像方針）：🔧 地 衛星 → [21]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p52（`Flight attendant B sustained a V-shaped, 12-centimeter-long 5-centimeter-deep laceration to her lower left leg that required surgery to close`）'),
-    'c720': dict(kind='フリー素材',
-               plan='X720｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：シミュレーターの装置の外観〈機種と社名は見せない〉｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・ナンバー・店の字なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない（-an）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p67（`a total of 14 runs were performed in the engineering simulator in which pilots attempted to touch down on the water within a target flightpath angle of -0.5°`…`In 11 of the 12 runs, the touchdown flightpath angle ranged between -1.5° and -3.6°`…`a -0.2° touchdown flightpath angle was achieved by an Airbus test pilot`）'),
+               plan='🔧 地：X713（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：年表｜副題：頼った試験の札＝2005年の1回の試験・2006年に中身を変えたことは言わない・2007年と2008年の試験はひどい結果｜新しい画（映像方針）：🔧 種類 模式 → 年表（2005・2006・2007・2008 の並び）｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.33（`relied on the results of a single BS 8414-1 test performed in 2005`…`without disclosing that it had changed the composition of the product in 2006`…`Tests performed in 2007 and 2008 on systems incorporating the then current form of K15 were disastrous`）'),
+    'c717': dict(kind='フリー素材',
+               plan='X717｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：工場に積まれた断熱材の板｜動き：ゆっくり寄る｜権利：Pexels｜時期：現在｜人：なし（顔・社名・字・機種なし）｜出典の行：イメージ（Pexels）｜🔴 イメージ＝Pexels を1本ずつ原寸で見る（人の顔・ナンバー・店の名前・読める画面の字・AI で作った絵が無いこと）・副題は「イメージ」から・等速が基本・音は使わない｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.37（`Kingspan did not use the product currently on the market but used modified or trial versions`…`continued to do so until October 2020`）'),
+    'c718': dict(kind='図解',
+               plan='地：X717（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：認証の機関の札＝製品の証明書を出す2つの機関は、証明書の中身を確かめない・それを見守る機関は、監督が不十分｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.20（`failed to ensure that the statements in their product certificates were accurate and based on test evidence`…`standards of monitoring and supervision`）'),
+    'c719': dict(kind='文字の頁',
+               plan='P:c719｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜副題：訳の札「客に合わせ、証明書を信じる人を損なう」｜動き：静止｜見た目の型：P2V2 ¶29.48 の頁｜権利：OGL v3.0｜時期：頁の日付｜人：なし（名前の行は入れない）｜出典の行：グレンフェル・タワー調査 第2段階の報告 第2巻 ¶29.48（2024）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公的な機関の頁（公開調査・政府・区・警視庁ほか）＝額装・無加工・訳の札・出典の行・🔴 名前の行を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V2¶29.48（`it was willing to accommodate the customer at the expense of those who relied on the certificates`）'),
+    'c720': dict(kind='写真',
+               plan='F:P2V1-5.2｜一覧の種類：紙面｜見せ方：額装（高さいっぱい）｜副題：表面の炎の広がりを見る試験〈報告の図〉｜動き：静止｜権利：OGL v3.0（第三者のコマ・図を含む）｜時期：報告の図｜人：なし（⑤b で原寸）｜出典の行：グレンフェル・タワー調査 第2段階の報告 第1巻 図5.2（2024）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 公開調査の報告の図＝額装・無加工・図の番号と題の行ごと切る・出典の行・第三者のコマや図を含む（OGL v3.0 の外の部分）＝報告の図として引用の形・🔴 名前の字を入れない＝親が絵を見て切る｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.121（`The use of Class 0 as a standard of fire performance for products to be used on the external wall of tall buildings was wholly inappropriate`）'),
     'c721': dict(kind='図解',
-               plan='地：GM1（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：所見の札＝前提をすべて満たすのは、ありえなくはないが見込みは低い｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p138（`During an actual ditching, it is possible but unlikely that pilots will be able to attain all of the Airbus ditching parameters because it is exceptionally difficult for pilots to meet such precise criteria when no engine power is available, and this difficulty contributed to the fuselage damage`）'),
-    'c722': dict(kind='文字の頁',
-               plan='R140｜一覧の種類：公的｜見せ方：額装（高さいっぱい）｜動き：静止｜権利：PD｜時期：2010｜人：なし｜出典の行：出典：NTSB「NTSB/AAR-10/03」（2010）推定原因｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 公的な機関の紙面（報告書・ドケット・連邦官報ほか）＝額装・無加工・出典の行・🔴 名前の行を入れない＝親が絵を見て切る（名前を出すのは機長と副操縦士だけ）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p140（`the probable cause of this accident was the ingestion of large birds into each engine`）・報p140（`Contributing to the fuselage damage and resulting unavailability of the aft slide/rafts were (1) the Federal Aviation Administration’s approval of ditching certification without determining whether pilots could attain the ditching parameters without engine thrust`）'),
-    'c723': dict(kind='図解',
-               plan='🔧 地：C21（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：並べ｜副題：損傷に関わった3つの札＝認証・訓練と指針・速さ｜注：—｜新しい画（映像方針）：🔧 地 衛星 → [21]｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p140（`(2) the lack of industry flight crew training and guidance on ditching techniques, and (3) the captain’s resulting difficulty maintaining his intended airspeed on final approach due to the task saturation resulting from the emergency situation`）・報p140（`approval of ditching certification without determining whether pilots could attain the ditching parameters without engine thrust`）・報p112（`contain very little guidance to pilots on flying techniques to use during a ditching`）'),
-    'c724': dict(kind='写真',
-               plan='🔧 D79-23｜一覧の種類：調査｜見せ方：額装（高さいっぱい）｜副題：後ろの胴体の下の大きな破れ〈NTSB の調査の写真〉｜動き：静止｜権利：同上｜時期：2009（凡例）｜人：作業の人（右の端・脚と反射ベストだけ＝顔は外板の陰）｜出典の行：写真：NTSB 公開ドケット DCA09MA026（構造の追記の写真 写真23）｜注：白い余白と絵の中の札「Picture 1:」は束の段で切る（PRE_CROP）｜新しい画（映像方針）：🔧 ⑤b-7（11-11・手で直した＝make_plan32 --write は回さない）：#79 写真1 は c701 の #76 写真9 と同じ写真（画素の相関 0.996）＝#79 写真23（PDF p25）に替えた｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（VTS も同じ映像のぼかし）｜🔴 調査の写真（NTSB のドケット）＝額装・無加工・出典の行・人の写り（顔・名前の字・船の名）は原寸で（⑤b-2）｜台本の画＝台本 §4・一覧 eizou_list32.md（写さない）',
-               src='報p124（`two slide/rafts on the accident airplane were unavailable because of water entry in the aft cabin`）・報p139（`significant aft fuselage breaching and subsequent water entry into the aft area of the airplane, which prevents the aft slide/rafts from being available for use during an evacuation`）'),
+               plan='地：X717（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：模式｜副題：小さな試料の試験と、建物の外で広がる火＝試験では分からない｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.121（`Neither of the main British Standard tests relevant to that classification reflected the development of a fire on the outside of a building or provided the information needed to assess how an external wall incorporating the product would perform in a fire`）'),
+    'c722': dict(kind='図解',
+               plan='🔧 地：X717（暗くするだけ・字と地の比 8:1 が下限＝了承②・色は原本・動かさない）｜一覧の種類：流れ｜副題：仕組みの札＝作る・売る・試す・認める・見守る＝ばらばら・まとめられるのは国だけ｜新しい画（映像方針）：🔧 種類 模式 → 流れ（作る→売る→試す→認める→見守る）｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V2¶29.58（`that system lacked the degree of integration required`）・P2V2¶29.59（`That is a task that only the government can undertake.`）'),
+    'c723': dict(kind='写真',
+               plan='🔧 C45｜一覧の種類：写真｜見せ方：額装（高さいっぱい）｜副題：隣の学校と塔〈2018年5月〉｜動き：静止｜権利：CC BY-SA 4.0｜時期：2018-05-09 18:58｜人：学校の名の看板（場所の名＝可）・人なし（⑤b で原寸）｜出典の行：写真：{作者}／Wikimedia Commons（CC BY-SA 4.0・無加工）｜注：学校の名の看板（場所の名）｜新しい画（映像方針）：🔧 [59]（2024年8月）→ [45]（[59] は ca15 の取り壊しの話へ）｜🔴 額装は静止（fmove・cam を書かない＝門番 check_fmove が絵で測る・10-26 カズヤくん）・額の地は同じ写真のぼかし（#15 も同じ映像のぼかし）｜🔴 写真＝色は原本のまま・画面いっぱい（BY-SA は額装・無加工）・作者の名前は git の外の表（src/credits_private.tsv）から焼くときに差し込む・私人の顔は顔だけモザイク可（CC BY・PD だけ）・追悼の場と支援の掲示は使わない・副題の日付と夜明け・夕方は頁の説明と EXIF のまま（gate_era）｜台本の画＝台本 §4・一覧 eizou_list33.md（写さない）',
+               src='P2V1¶2.5（`by 2016 the department was well aware of those risks, but failed to act on what it knew`）'),
 }
 
 SPEC = {}
-
-# 🆕 ⑤b-3（2026-11-10）：紙面（型は c1.py の同じ節）
-_R702, _R708, _R714, _R722 = P("r40_c702"), P("r201_c708"), P("r202_c714"), P("r140_c722")
-SPEC.update({
-    # c702＝報告書 p40 の表2（認証の値と事故の値）。1530×606＝幅いっぱい
-    "c702": dict(photo=_R702, panel=True, pw=1776, ground=dict(photo=_R702, blur=ss.PAGE_BLUR), color=1.0,
-                 t="前提と実際の値", s="報告書の表2〈認証の値と事故の値〉"),
-    # c708＝付録B p201 の左右の頭＋15:30:21〜15:30:24 の行（操縦室の中と管制の両方）。2040×1092＝幅いっぱい
-    "c708": dict(photo=_R708, panel=True, pw=1776, ground=dict(photo=_R708, blur=ss.PAGE_BLUR), color=1.0,
-                 t="何か案は", s="操縦室と管制の書き起こし〈付録B〉"),
-    # c714＝付録B p202 の左の半分の頭＋15:30:38〜15:30:43.7（記録の終わり）の行。1050×1179＝高さいっぱい
-    "c714": dict(photo=_R714, panel=True, ptall=True, ground=dict(photo=_R714, blur=ss.PAGE_BLUR), color=1.0,
-                 t="衝撃に備える", s="操縦室の中の書き起こし〈付録B〉"),
-    # c722＝報告書 p140 の「3.2 Probable Cause」の段（ca05 と別の枠）。1497×552＝幅いっぱい
-    "c722": dict(photo=_R722, panel=True, pw=1776, ground=dict(photo=_R722, blur=ss.PAGE_BLUR), color=1.0,
-                 t="原因の結論", s="報告書の推定原因の段"),     # 🔧 「推定原因」は出典の行と同じ語（門番 dup）
-})
-
-# 🆕 ⑤b-4b（2026-11-11）：イメージの写真（Pexels・全面・見出しと副題なし・原色＝c5.py の「⑤b-4a」の節の型）
-_X704, _X706, _X710, _X720 = (P(f"stock/{c}") for c in ("x704", "x706", "x710", "x720"))
-SPEC.update({
-    # c704＝青空の下の旅客機の翼と翼の先（翼の先に印なし・原寸）
-    "c704": dict(photo=_X704, **ss.mvz(_X704, (0.5, 0.5, 1.0), (0.55, 0.5, 1.1)), side="none", color=1.0, t="", s=""),
-    # c706＝操縦室の速さの計器。🔴 左上の札（機の名か）は y 0〜0.06＝窓の上の端 0.128・0.173 の外
-    "c706": dict(photo=_X706, **ss.mvz(_X706, (0.5, 0.55, 1.0), (0.4, 0.55, 1.12)), side="none", color=1.0, t="", s=""),
-    # c710＝操縦席の横の操縦の棒（縦長）。🔴 右上の登録の字と機種の札は y 0.05 より上・下の画面の字（121.750 ほか）は
-    #   y 0.612 から＝窓 y 0.232〜0.608（終わり 0.250〜0.591）の外。⚠️ 窓の右上に「ETOPS」の札（認定の語＝社名でない）
-    "c710": dict(photo=_X710, **ss.mvz(_X710, (0.5, 0.42, 1.0), (0.45, 0.42, 1.1)), side="none", color=1.0, t="", s=""),
-    # c720＝シミュレーターの操縦席で推力のレバーに手を伸ばす人。🔴 横顔（耳・ひげ）は y 0.26 より上＝窓 y 0.292〜0.668 の外・画面はピントの外
-    "c720": dict(photo=_X720, **ss.mvz(_X720, (0.5, 0.48, 1.0), (0.45, 0.5, 1.1)), side="none", color=1.0, t="", s=""),
-})
-
-# 🆕 ⑤b-5（2026-11-11）：模式（`tools/mech32.py`）＝地 gf1・gk2 の明るさを測るため ⑤b-6 から前倒し。地は写真を暗くするだけ（`ss.gr`・値は `ss.GROUND`）
-import mech32 as _m32  # noqa: E402
-SPEC.update({
-    "c703": _m32.zu_spec("c703", ss.gr("stock/gf1")),
-    "c705": _m32.zu_spec("c705", ss.gr("stock/gk2")),
-    "c711": _m32.zu_spec("c711", ss.gr("stock/gf1")),
-})
-# 🆕 ⑤b-6（2026-11-11）：模式 後半（c707〜c721）と型の図（c712 帯・c716 棒・c723 並べ）＝mech32 の「⑤b-6」の節
-SPEC.update({
-    "c707": _m32.fu_spec("c707", ss.gr("stock/gk1")),
-    "c709": _m32.fu_spec("c709", ss.gr("stock/gk1")),
-    "c712": _m32.zu_spec("c712", ss.gr("c31")),
-    "c713": _m32.fu_spec("c713", ss.gr("c31")),
-    "c715": _m32.zu_spec("c715", ss.gr("c31")),
-    "c716": _m32.zu_spec("c716", ss.gr("c31")),
-    "c719": _m32.fu_spec("c719", ss.gr("c21")),
-    "c721": _m32.fu_spec("c721", ss.gr("stock/gm1")),
-    "c723": _m32.fu_spec("c723", ss.gr("c21")),
-})
-
-# 🆕 ⑤b-7（2026-11-11）：写真の束の残り（型は c1.py の同じ節）
-#   🔴 c724 は D79-1 → D79-23：#79 写真1 は c701 の #76 写真9 と同じ写真だった（902×674 に縮めた画素の相関 0.996・ずらし0＝⑤b-2 の「別の写真・0.80」は誤り）。
-#      #79 写真23（PDF p25・左の後ろの下の胴体の破れ・骨組み 64〜70）＝語り「後ろの胴体は破れ、水が入った」・白い余白と絵の中の札は束の段で切った（PRE_CROP）
-_D76_9, _C68, _D49_42, _D79_23 = P("d76_9"), P("c68"), P("d49_42"), P("d79_23")
-SPEC.update({
-    # c701＝#76 写真9 後ろの胴体の下の裂け（第6章の頭＝扉の地に混ぜない＝card_mix=0）
-    "c701": dict(photo=_D76_9, panel=True, ptall=True, ground=dict(photo=_D76_9), color=1.0, card_mix=0,
-                 t="着水の前提", s="胴体の下の裂け〈NTSB の調査の写真〉"),   # 🔧 副題は額の左に収まる長さ（門番 fmove）
-    # c717＝[68] 保管中のこの機体の底の壊れ（BY-SA＝額装・無加工）
-    "c717": dict(photo=_C68, panel=True, ptall=True, ground=dict(photo=_C68), color=1.0,
-                 t="押す力は約2倍", s="保管中のこの機体の底の壊れ"),
-    # c718＝#49 写真42 床を突き破った65番の縦の梁
-    "c718": dict(photo=_D49_42, panel=True, ptall=True, ground=dict(photo=_D49_42), color=1.0,
-                 t="65番の縦の梁", s="梁が突き破った床〈NTSB の調査の写真〉"),   # 🔧 札「Location where vertical beam 65 penetrated the floor」＝梁は写っていない（試し焼きで見た）
-    # c724＝#79 写真23 後ろの胴体の下の大きな破れ（右の端に作業の人の脚＝顔は外板の陰）
-    "c724": dict(photo=_D79_23, panel=True, ptall=True, ground=dict(photo=_D79_23), color=1.0,
-                 t="破れた胴体", s="破れた外板と骨組み〈NTSB の調査の写真〉"),   # 🔧 副題は額の左に収まる長さ（門番 fmove）・c701 の「裂け」と分ける
-})
